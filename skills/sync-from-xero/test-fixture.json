@@ -1,0 +1,11 @@
+{
+  "catalog": {"_use_live": true},
+  "responses": {
+    "integrations": {
+      "data": [{"id": "int-1", "platform_type": "xero", "status": "connected", "label": "Test Xero", "connected_at": "2026-04-01T00:00:00Z"}]
+    },
+    "opportunities": {
+      "data": [{"id": "opp-1", "name": "Test won opp", "value": 5000, "status": "won", "payment_status": "unpaid", "contact_id": "c-1", "actual_close_date": "2026-05-15"}]
+    }
+  }
+}

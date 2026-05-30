@@ -27,12 +27,15 @@ If the user didn't say who they spoke to:
 
 > "Who did you just speak to? (name, phone, or opportunity name)"
 
-Then find the right opportunity:
-- If they gave a name → `mcp__trustpager__search_contacts` → if multiple, present a numbered list
-- If they gave a phone → `mcp__trustpager__list_contacts` filtered by phone
-- If they gave an opportunity name → `mcp__trustpager__search_opportunities`
+Once you have a name, phone, or email, run:
 
-If the contact has multiple open opportunities, ask which one. Default to the most-recently-touched.
+```
+python skills/log-this-call/fetch.py --query "<what they said>"
+```
+
+The returned JSON gives you the matched contact(s), their open opportunities (with stage), recent activities, and open tasks — all in one call. No need to chain `search_contacts` + `list_contact_deals` + `get_opportunity_activities` separately.
+
+If multiple contacts matched: present a numbered list and ask which one. If the chosen contact has multiple open opportunities, ask which one. Default to the most-recently-touched.
 
 ## Step 2 — Capture the recap
 

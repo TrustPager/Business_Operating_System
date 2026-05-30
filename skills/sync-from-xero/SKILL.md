@@ -16,21 +16,19 @@ triggers:
 
 Accounting and CRM drift apart. The customer paid last month but the opp is still in "Quote Sent" because nobody moved it. This skill closes that gap by pulling Xero data and reconciling it against TrustPager opportunities.
 
-## Prerequisites
+## Step 1 — Pre-fetch
 
-The TrustPager → Xero connection must be active. Check with `mcp__trustpager__list_integrations` — if no Xero integration is listed, tell the user:
-> "Xero isn't connected to your TrustPager workspace yet. Connect it at /settings/integrations, then re-run this skill."
+Run:
 
-If connected, get its status with `mcp__trustpager__get_integration` to confirm it's authorized (not expired).
+```
+python skills/sync-from-xero/fetch.py
+```
 
-## Step 1 — Pull recent Xero state
+This first checks `integrations` for an active Xero connection. If `connected: false`, tell the user:
 
-Use `mcp__trustpager__query_integration` (or the Xero-specific endpoints) to pull:
-- Customers (contacts in Xero)
-- Invoices issued in the last 90 days
-- Payments received in the last 90 days
+> "Xero isn't connected to your TrustPager workspace yet. Connect it at https://app.trustpager.com/settings/integrations, then re-run this skill."
 
-Store the snapshot in memory — we're going to cross-reference against TrustPager next.
+If connected, the response includes the recent TrustPager opportunities for cross-referencing. For the Xero side detail (invoices + payments), use `mcp__trustpager__query_integration` with the returned `xero.id` — Xero's data is too detailed to pre-bundle.
 
 ## Step 2 — Cross-reference
 

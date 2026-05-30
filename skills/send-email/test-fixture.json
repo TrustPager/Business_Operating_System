@@ -1,0 +1,9 @@
+{
+  "catalog": {"_use_live": true},
+  "responses": {
+    "contacts/contact-1": {"id": "contact-1", "first_name": "Test", "last_name": "User", "email": "test@example.com"},
+    "email/threads": {"data": [], "pagination": {"has_more": false}},
+    "email/capabilities": {"can_send": true},
+    "email/configs": {"data": [{"id": "cfg-1", "is_default": true, "from_email": "you@yourdomain.com"}]}
+  }
+}

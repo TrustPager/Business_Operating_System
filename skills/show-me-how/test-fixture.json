@@ -1,0 +1,7 @@
+{
+  "catalog": {"_use_live": true},
+  "responses": {
+    "ai-instructions": {"instructions": "Test workspace AI instructions."},
+    "training-canvases": {"data": []}
+  }
+}

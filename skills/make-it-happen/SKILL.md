@@ -16,6 +16,16 @@ triggers:
 
 This is the catch-all skill. The user describes the outcome they want — not which tool to call, not which page to visit. Your job is to figure out the right TrustPager operations and execute them, with approval at each destructive step.
 
+## Step 0 — Warm the discovery cache
+
+Before the conversation starts, run:
+
+```
+python skills/make-it-happen/fetch.py
+```
+
+This pulls in one shot: the workspace's AI instructions, every trigger schema, every action type, and the list of existing automations. Keep the JSON in memory through the conversation — referring to it costs no additional API calls.
+
 ## The pattern
 
 1. **Restate the request** in your own words. ("So you want me to: find every contact from the Sept newsletter, tag them, and add them to the 'October re-engagement' auto-queue. Got it?")

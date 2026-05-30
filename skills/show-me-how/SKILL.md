@@ -17,9 +17,17 @@ triggers:
 
 Customers want to learn by doing, not by reading documentation. This skill turns "how do I X?" into a hands-on walkthrough — searches the TrustPager help center, summarizes the answer, links to the specific page in their workspace, and offers to drive the steps if they want.
 
-## Step 1 — Search the help center
+## Step 1 — Pre-fetch + search the help center
 
-`mcp__trustpager__search_help_center` with the user's question. This returns matching published tutorial articles. Always do this FIRST — the platform team writes the canonical answer there, and our job is to surface it, not invent a competing one.
+First, run:
+
+```
+python skills/show-me-how/fetch.py --query "<the user's question>"
+```
+
+This pre-fetches the workspace's AI instructions (which sometimes contain workflow guidance that supersedes the generic answer) and any matching custom training canvases the customer's team has built (Learning Hub).
+
+Then, in the same turn, call `mcp__trustpager__search_help_center` for the canonical published articles. This returns matching published tutorial articles. Always do BOTH — the platform team writes the canonical answer, the workspace may have its own overlay, and our job is to surface both.
 
 If 0 results:
 > "No published article on that exact topic. Let me figure it out from first principles — give me 30 seconds…"

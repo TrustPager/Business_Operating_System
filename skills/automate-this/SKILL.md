@@ -30,11 +30,18 @@ If the user said only "DO Y" without "WHEN", ask:
 
 ## Step 2 — Map to the TrustPager primitives
 
-Once you have WHEN + CONDITIONS + DO:
-- `mcp__trustpager__list_trigger_schemas` to see all available triggers — pick the one that matches WHEN.
-- `mcp__trustpager__get_trigger_schema(trigger_type)` for the chosen trigger — confirm the payload variables you can use in actions.
-- `mcp__trustpager__list_action_types` to see all available action types.
-- For each action the user wants, `mcp__trustpager__describe_action_type(action_type)` to see its config schema.
+Before this step, run once:
+
+```
+python skills/automate-this/fetch.py
+```
+
+This returns `available_triggers`, `available_action_types`, and `existing_automations` in a single call — replaces 3+ separate MCP discovery calls.
+
+From the returned JSON:
+- Find the trigger matching WHEN. (For the chosen trigger's full payload + variables, you may still need `mcp__trustpager__get_trigger_schema(trigger_type)` if the bundle didn't include the variable tokens.)
+- Find the action types matching the DO steps. For each, use `mcp__trustpager__describe_action_type(action_type)` to see its config schema before writing it.
+- Check `existing_automations` for overlap — if the workspace already has an automation for the same trigger doing similar work, flag this to the user before proceeding.
 
 If the user wants something TrustPager can't do (action doesn't exist):
 > "TrustPager doesn't have an action for [X] yet. Closest options are [a] or [b]. Or I can file a feature request with the team — `/make-it-happen file a feature request`."

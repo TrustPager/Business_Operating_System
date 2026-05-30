@@ -26,11 +26,13 @@ If the user said "follow up on the quote" but you don't see a quote in the oppor
 
 ## Step 2 — Pull context
 
-Before drafting:
-- Get the opportunity (`mcp__trustpager__get_opportunity`) — name, stage, value, products
-- Get the contact (`mcp__trustpager__get_contact`) — name, recent activity
-- Get the email thread, if continuing one (`mcp__trustpager__get_email_thread` or `list_email_threads` filtered by contact)
-- Check the user's recent sent emails (`mcp__trustpager__list_email_threads` by user) to calibrate tone
+Once you have the contact (and optionally opportunity), run:
+
+```
+python skills/send-email/fetch.py --contact-id <id> [--opportunity-id <id>]
+```
+
+The returned JSON gives you everything you need to draft well: the contact, the opportunity (if linked), every recent email thread WITH this contact, the last few sent emails by the workspace (for tone calibration), and the active email config.
 
 If there's an existing thread with this contact, REPLY to that thread (use `mcp__trustpager__reply_to_email`). Don't start a new thread unless asked.
 

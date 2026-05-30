@@ -30,6 +30,16 @@ After the user pastes, identify the shape:
 If ambiguous, ASK:
 > "I can see roughly 40 rows. Are these meant to land as contacts, opportunities, or companies?"
 
+## Step 1.5 — Build the dedup baseline (in parallel with parsing)
+
+While the user is reviewing the paste, run:
+
+```
+python skills/import-from-anywhere/fetch.py
+```
+
+This returns an index of every existing contact (by email + phone + name+company), every existing company (by name + domain), and every open opportunity (by name). Hold this in memory and check each parsed row against it during preview.
+
 ## Step 2 — Show what you parsed BEFORE writing anything
 
 Build a preview table of the first 5 rows with the fields you've extracted. Show:

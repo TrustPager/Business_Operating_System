@@ -18,15 +18,17 @@ Replies are higher-stakes than fresh emails — the context already exists, and 
 
 ## Step 1 — Find the message being replied to
 
-Ask the user (if not obvious from their request):
-> "Which message do you want to reply to? Paste the latest, or give me the sender / opportunity name."
+First, run:
 
-Then locate:
-- If paste → use the pasted body as the source-of-truth.
-- If sender name → `mcp__trustpager__list_email_threads` filtered by contact, take the most recent thread with an unanswered inbound.
-- If opportunity → `mcp__trustpager__list_email_threads` filtered by opportunity, find the latest inbound.
+```
+python skills/draft-reply/fetch.py --hours 48
+```
 
-For SMS: `mcp__trustpager__get_sms_conversation` to pull the thread.
+This returns every inbound email + SMS in the window with no reply, ranked (open-opportunity senders first, then by recency). If the user already named someone, filter the list and pick that one. If not, offer the top 3-5 as a numbered list:
+
+> "These are the unanswered messages from the last 48h, top first. Reply to #1? Or pick another?"
+
+If the user pastes a message directly (not from the JSON), use that paste as the source-of-truth and skip the fetch.
 
 ## Step 2 — Read the inbound carefully
 
