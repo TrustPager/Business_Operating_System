@@ -24,6 +24,13 @@ Every file in this folder is a single-purpose Python script. Stdlib only — no 
 | Audit contact data quality — duplicates, missing emails, dormant | `python tools/audit-contacts.py` |
 | Find data gaps — opps without contacts, overdue tasks, etc. | `python tools/find-gaps.py` |
 
+### Marketing strategy bulk dumps (read-only — feed the strategy skills)
+
+| When you want to… | Run |
+|---|---|
+| Dump workspace as JSON (pipelines, automations, queues, opps, companies, contacts) into a frozen snapshot for AI to read offline | `python tools/dump-crm-bundle.py` |
+| Dump ≥5min call + meeting transcripts as Markdown — verbatim customer voice for synthesis | `python tools/dump-transcripts.py` |
+
 ## How they work together
 
 ```

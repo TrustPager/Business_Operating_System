@@ -52,6 +52,14 @@ Claude: /sweep-my-day
 - `/make-it-happen` — describe what you want done in plain English. Claude figures out which TrustPager tools to call.
 - `/automate-this` — describe a repetitive task. Claude builds the automation.
 
+**📣 Marketing strategy (build your voice → ship a nurture sequence)**
+- `/build-customer-voice` — pull ≥5min call + meeting transcripts, extract verbatim customer pain into a 10-section synthesis. Foundation for everything else.
+- `/build-brand-strategy` — author positioning, ICP, voice, value-props, content-pillars from the synthesis. Every claim anchored in a real customer quote — no invented sales copy.
+- `/design-nurture-sequence` — draft a multi-step email sequence in your voice. Picks the help-center video for each stage. Drafts in chat, no live writes.
+- `/wire-nurture-sequence` — push approved drafts into a live TrustPager auto queue via MCP. Handles the step_order shuffle safely.
+
+The method behind these four is in [knowledge/marketing-strategy-method.md](knowledge/marketing-strategy-method.md).
+
 ---
 
 ## Who this is for
