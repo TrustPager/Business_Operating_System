@@ -1,0 +1,34 @@
+{
+  "_comment": "Recommended Claude Code settings for Business Operating System users. Drop into ~/.claude/settings.json (Mac/Linux) or %USERPROFILE%\\.claude\\settings.json (Windows). Read-only TrustPager tools are pre-allowed so you don't get prompted for every list/get/search. Write tools (send, create, update, delete) still prompt — that's intentional.",
+
+  "permissions": {
+    "allow": [
+      "mcp__trustpager__get_*",
+      "mcp__trustpager__list_*",
+      "mcp__trustpager__search_*",
+      "mcp__trustpager__describe_*",
+      "mcp__trustpager__preview_*",
+      "mcp__trustpager__get_ai_instructions",
+      "mcp__trustpager__get_help_center",
+      "mcp__trustpager__search_help_center",
+      "mcp__trustpager__search_knowledge",
+      "mcp__trustpager__get_knowledge",
+      "mcp__trustpager__list_knowledge",
+
+      "Read",
+      "Glob",
+      "Grep"
+    ],
+
+    "deny": [
+      "mcp__trustpager__delete_*",
+      "mcp__trustpager__bulk_delete_*"
+    ]
+  },
+
+  "_send_and_write_note": "Anything not in 'allow' or 'deny' prompts each time. That means send_email, send_sms, create_*, update_*, bulk_*, trigger_*, dispatch_*, and execute_* all surface a confirmation step. Recommended — don't remove that. If you want a specific write tool pre-allowed (e.g. you trust /log-this-call to add notes without asking), add it explicitly here.",
+
+  "env": {
+    "_": "Add any environment variables your skills need. Most won't need anything beyond the MCP connection."
+  }
+}

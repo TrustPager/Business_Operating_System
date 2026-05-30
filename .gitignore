@@ -1,0 +1,43 @@
+# Local working directory for in-progress ports. Sweep runs here BEFORE
+# anything gets promoted to the repo root.
+_staging/
+
+# Secrets and credentials — must never be committed.
+*.env
+.env
+.env.*
+*.key
+*.pem
+*-keys.json
+*api-keys.json
+*credentials.json
+
+# Local sweep reports (may contain sensitive matches mid-investigation).
+_scripts/sweep-report-*.txt
+_scripts/*.log
+
+# OS / editor / tooling
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*~
+
+# Python build artefacts (for the sweep script and any helpers)
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+venv/
+.venv/
+
+# Node — in case any installer wraps in npm
+node_modules/
+package-lock.json
+yarn.lock
+
+# Local install state
+.tp/
+~/
