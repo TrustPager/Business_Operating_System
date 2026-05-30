@@ -4,6 +4,8 @@ Every file in this folder is a single-purpose Python script. Stdlib only — no 
 
 ## Quick reference (intent → tool)
 
+### Foundations
+
 | When you want to… | Run |
 |---|---|
 | Set up TrustPager API access for the first time | `python tools/setup.py` |
@@ -13,6 +15,14 @@ Every file in this folder is a single-purpose Python script. Stdlib only — no 
 | See the full schema of one endpoint (params, scopes, doc URL) | `python tools/inspect-endpoint.py <resource>` |
 | Validate a Claude Code skill folder before committing | `python tools/lint-skill.py skills/<name>` |
 | Run a skill against a mock fixture (offline, no credits) | `python tools/test-skill.py <name>` |
+
+### Business audits (read-only — useful by themselves, also called by skills)
+
+| When you want to… | Run |
+|---|---|
+| Audit pipeline health — stuck deals, drop-offs, value by stage | `python tools/audit-pipeline.py` |
+| Audit contact data quality — duplicates, missing emails, dormant | `python tools/audit-contacts.py` |
+| Find data gaps — opps without contacts, overdue tasks, etc. | `python tools/find-gaps.py` |
 
 ## How they work together
 

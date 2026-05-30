@@ -915,6 +915,23 @@ def log(prefix: str, msg: str, *, quiet: bool = False) -> None:
 # =============================================================================
 
 
+def force_utf8_stdout() -> None:
+    """Reconfigure stdout (and stderr) to UTF-8 with replace-on-error.
+
+    Windows terminals default to cp1252 which can't encode emojis or many
+    non-ASCII characters. Any tool that prints emojis to stdout should call
+    this once at the top of main() so it works cross-platform.
+
+    Safe to call multiple times. No-op on terminals that already speak UTF-8.
+    """
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            try:
+                stream.reconfigure(encoding="utf-8", errors="replace")
+            except (AttributeError, ValueError):
+                pass
+
+
 def emit_json(payload: Any) -> None:
     """Print JSON to stdout with consistent formatting.
 
