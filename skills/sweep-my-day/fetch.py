@@ -28,8 +28,9 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
-# Resolve the shared lib regardless of where this script is invoked from.
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "_shared"))
+# Resolve the shared lib (lives in scripts/ at the repo root) regardless of
+# where this script is invoked from.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / "scripts"))
 from bos_lib import (  # noqa: E402
     BOSError, api_get, days_since, emit_error_and_exit, emit_json, log,
     now_utc, parallel_get, parse_iso, resolve_path,

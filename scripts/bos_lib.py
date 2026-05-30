@@ -8,7 +8,7 @@ Usage in a skill script:
 
     import sys
     from pathlib import Path
-    sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "_shared"))
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / "scripts"))
     from bos_lib import api_get, parallel_get, BOSError
 
     # Single call

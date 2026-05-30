@@ -26,7 +26,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "_shared"))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / "scripts"))
 from bos_lib import (  # noqa: E402
     BOSError, api_get, emit_error_and_exit, emit_json, group_count, log,
     now_utc, parallel_get, parse_iso, resolve_path,

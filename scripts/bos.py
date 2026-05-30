@@ -27,9 +27,10 @@ import sys
 from pathlib import Path
 from typing import Any
 
-# Resolve the shared lib regardless of where this script is invoked from.
+# Resolve the shared lib (sibling file in scripts/) regardless of where this
+# script is invoked from.
 REPO_ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(REPO_ROOT / "skills" / "_shared"))
+sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 # These imports are deferred where possible so `bos setup` can run BEFORE
 # the user has an API key configured.
