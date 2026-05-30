@@ -15,7 +15,7 @@ Usage:
 Output (stdout): JSON document with the enriched silent opportunities.
 Output (stderr): progress logs.
 
-Auth: TRUSTPAGER_API_KEY env var or ~/.claude/bos.json. See bos_lib.py.
+Auth: TRUSTPAGER_API_KEY env var or ~/.claude/bos.json. See tools/trustpager_api.py.
 """
 
 from __future__ import annotations
@@ -26,8 +26,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / "scripts"))
-from bos_lib import (  # noqa: E402
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / "tools"))
+from trustpager_api import (  # noqa: E402
     BOSError, api_get, emit_error_and_exit, emit_json, group_count, log,
     now_utc, parallel_get, parse_iso, resolve_path,
 )

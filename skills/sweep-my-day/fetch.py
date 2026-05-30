@@ -12,7 +12,7 @@ Usage:
 Output to stdout: JSON shape documented at the bottom of this file.
 Output to stderr: progress logs (so Claude can show them or suppress them).
 
-Auth: reads TRUSTPAGER_API_KEY env var or ~/.claude/bos.json (see bos_lib.py).
+Auth: reads TRUSTPAGER_API_KEY env var or ~/.claude/bos.json (see tools/trustpager_api.py).
 
 This script is intentionally token-cheap: it digests the raw API responses
 down to just the rows Claude needs, with consistent field names. The whole
@@ -28,10 +28,10 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
-# Resolve the shared lib (lives in scripts/ at the repo root) regardless of
+# Resolve the shared lib (lives in tools/ at the repo root) regardless of
 # where this script is invoked from.
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / "scripts"))
-from bos_lib import (  # noqa: E402
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / "tools"))
+from trustpager_api import (  # noqa: E402
     BOSError, api_get, days_since, emit_error_and_exit, emit_json, log,
     now_utc, parallel_get, parse_iso, resolve_path,
 )

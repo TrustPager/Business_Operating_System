@@ -1,15 +1,16 @@
-"""Business Operating System — shared library for skill scripts.
+"""TrustPager API — shared library for skill scripts and tools.
 
-Stdlib-only. No `pip install` required. Every BOS skill script imports from
-here so we get one consistent place for: API auth, base URL, GET/POST helpers,
-parallel fetches, and friendly error messages for non-developer users.
+Stdlib-only. No `pip install` required. Every script in this repo imports
+from here so we get one consistent place for: API auth, base URL, GET/POST
+helpers, parallel fetches, paginated reads, bulk writes, catalog-driven
+path resolution, and friendly error messages for non-developer users.
 
 Usage in a skill script:
 
     import sys
     from pathlib import Path
-    sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / "scripts"))
-    from bos_lib import api_get, parallel_get, BOSError
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / "tools"))
+    from trustpager_api import api_get, parallel_get, BOSError
 
     # Single call
     opportunities = api_get("opportunities", limit=100)
@@ -897,7 +898,7 @@ def log(prefix: str, msg: str, *, quiet: bool = False) -> None:
 
     Skills should use this instead of redefining their own _log function:
 
-        from bos_lib import log
+        from trustpager_api import log
         def _log(msg, *, quiet): log("sweep-my-day", msg, quiet=quiet)
 
     Or even simpler:

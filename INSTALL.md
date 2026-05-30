@@ -26,21 +26,17 @@ cd ~
 git clone https://github.com/TrustPager/Business_Operating_System.git
 ```
 
-Then run the installer for your operating system:
+Then run setup (works the same on Mac, Linux, and Windows):
 
-**Mac / Linux:**
 ```
 cd Business_Operating_System
-./scripts/install.sh
+python tools/setup.py
+python tools/check-install.py
 ```
 
-**Windows (PowerShell):**
-```
-cd Business_Operating_System
-./scripts/install.ps1
-```
+`setup.py` writes your TrustPager API key to `~/.claude/bos.json`. If you've already connected TrustPager to Claude in the browser, it'll detect that key and offer to reuse it (no copy-paste needed).
 
-The installer copies the skills, slash commands, and templates into Claude Code's settings directory.
+`check-install.py` runs 7 quick health checks and prints a green / red list. If you see "All checks passed", you're ready.
 
 ### Step 2 — Pick your industry template (optional but recommended)
 
@@ -79,7 +75,7 @@ The TrustPager connector isn't connected to Claude. Connect it at [app.trustpage
 The API key didn't paste correctly. Generate a new one in your TrustPager workspace settings → API → Create new key.
 
 **"command /sweep-my-day not found"**
-Step 1 didn't complete. Re-run the installer and restart Claude Code.
+Step 1 didn't complete. Make sure you ran `python tools/setup.py` from inside the `Business_Operating_System` folder and restart Claude Code.
 
 **"Claude doesn't know about my products / pipeline / brand"**
 You skipped Step 2. Drop one of the industry templates into your project folder as `CLAUDE.md` and Claude will pick it up next session.
@@ -93,19 +89,28 @@ When new skills ship, pull the latest:
 ```
 cd ~/Business_Operating_System
 git pull
-./scripts/install.sh   # (or install.ps1 on Windows)
+python tools/check-install.py
 ```
+
+No re-install step needed — Claude Code reads the skills directly from this folder.
 
 ---
 
 ## Uninstall
 
+To remove BOS, just delete the folder:
+
 ```
-cd ~/Business_Operating_System
-./scripts/uninstall.sh
+rm -rf ~/Business_Operating_System
 ```
 
-(Removes the skills + commands from Claude Code. Doesn't touch your TrustPager workspace.)
+Optionally clear the stored API key + cache:
+
+```
+python tools/config.py --clear-all
+```
+
+(Neither step touches your TrustPager workspace — your data is unaffected.)
 
 ---
 
