@@ -9,26 +9,15 @@ Total time: about 10 minutes. No coding required.
 You need:
 
 1. **A TrustPager workspace.** Sign up at [trustpager.com](https://trustpager.com) — you'll get one free.
-2. **Claude Code installed.** Get it from [claude.com/claude-code](https://claude.com/claude-code) (works on Mac, Windows, and Linux).
-3. **Your TrustPager API key.** Find it under your workspace settings → API. It starts with `tp_live_`.
+2. **TrustPager already connected to Claude.** If you're on Claude in the browser, connect TrustPager from the [TrustPager AI access page](https://app.trustpager.com/auto/ai-access). Once it's connected there, Claude Code picks it up automatically.
+3. **Claude Code installed.** Get it from [claude.com/claude-code](https://claude.com/claude-code) (works on Mac, Windows, and Linux).
+4. **Your TrustPager API key.** Find it under your workspace settings → API. It starts with `tp_live_`.
 
 ---
 
-## Install in 3 steps
+## Install in 2 steps
 
-### Step 1 — Connect TrustPager to Claude Code
-
-Open a terminal and run:
-
-```
-claude mcp add trustpager --transport sse https://docs.trustpager.com/mcp
-```
-
-When prompted, paste your API key.
-
-This gives Claude access to your TrustPager workspace. (And only yours — your data stays your data.)
-
-### Step 2 — Install the Business Operating System pack
+### Step 1 — Install the Business Operating System pack
 
 Clone this repo to your home folder:
 
@@ -53,7 +42,7 @@ cd Business_Operating_System
 
 The installer copies the skills, slash commands, and templates into Claude Code's settings directory.
 
-### Step 3 — Pick your industry template (optional but recommended)
+### Step 2 — Pick your industry template (optional but recommended)
 
 Open the `templates/industries/` folder and copy the one that fits your business into your project folder as `CLAUDE.md`. Options:
 
@@ -84,16 +73,16 @@ You should see Claude pull up everything that needs your attention today — quo
 ## Troubleshooting
 
 **"trustpager mcp not found"**
-The MCP didn't connect. Run `claude mcp list` to see what's registered. If trustpager isn't there, re-run Step 1.
+The TrustPager connector isn't connected to Claude. Connect it at [app.trustpager.com/auto/ai-access](https://app.trustpager.com/auto/ai-access), then restart Claude Code.
 
 **"Authorization: Bearer invalid"**
 The API key didn't paste correctly. Generate a new one in your TrustPager workspace settings → API → Create new key.
 
 **"command /sweep-my-day not found"**
-Step 2 didn't complete. Re-run the installer and restart Claude Code.
+Step 1 didn't complete. Re-run the installer and restart Claude Code.
 
 **"Claude doesn't know about my products / pipeline / brand"**
-You skipped Step 3. Drop one of the industry templates into your project folder as `CLAUDE.md` and Claude will pick it up next session.
+You skipped Step 2. Drop one of the industry templates into your project folder as `CLAUDE.md` and Claude will pick it up next session.
 
 ---
 

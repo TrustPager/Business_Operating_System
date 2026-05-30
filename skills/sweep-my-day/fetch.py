@@ -334,7 +334,7 @@ def fetch_and_digest(quiet: bool = False) -> dict[str, Any]:
         paths = {
             "opportunities":    resolve_path("opportunities"),
             "tasks":            resolve_path("tasks"),
-            "bookings":         resolve_path("scheduling-bookings"),
+            "bookings":         resolve_path("scheduling", path_contains="bookings"),
             "email_threads":    resolve_path("email", path_contains="threads"),
             "sms_convos":       resolve_path("sms"),
             "phone_calls":      resolve_path("phone", path_contains="call-logs"),

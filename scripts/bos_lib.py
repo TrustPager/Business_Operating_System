@@ -567,19 +567,19 @@ def resolve_path(resource_id: str, method: str = "GET",
     """Resolve a canonical API path from the public catalog.
 
     Args:
-        resource_id: catalog resource id, e.g. "opportunities", "scheduling-bookings"
+        resource_id: catalog resource id, e.g. "opportunities", "scheduling"
         method: HTTP method (default GET)
         action: one of "list" (simplest path, no params), "get" (path with one
                 :id segment), "create" (POST root path), or "search" (POST
                 with /search suffix). Default "list".
         path_contains: required when a resource has multiple sub-resources
-                of the same action shape. e.g. "email" has GET /email/threads
-                AND GET /email/logs AND GET /email/configs — call with
-                path_contains="threads" to disambiguate.
+                of the same action shape. e.g. "scheduling" has GET
+                /scheduling/bookings AND GET /scheduling/availability — call
+                with path_contains="bookings" to disambiguate.
 
     Returns:
         The API path WITHOUT the base URL or leading slash. Example:
-            resolve_path("scheduling-bookings", "GET", "list")
+            resolve_path("scheduling", "GET", "list", path_contains="bookings")
             -> "scheduling/bookings"
             resolve_path("email", "GET", "list", path_contains="threads")
             -> "email/threads"
@@ -591,6 +591,24 @@ def resolve_path(resource_id: str, method: str = "GET",
     catalog = get_catalog()
     resource = next((r for r in catalog.get("resources", [])
                      if r.get("id") == resource_id), None)
+
+    # ---- Cross-catalog bridge (delete ~48h post-cutover) ---------------------
+    # The upstream docs fix consolidates 3 dashed scheduling resources
+    # (scheduling-bookings, scheduling-availability, scheduling-event-types)
+    # under a single "scheduling" parent. Callers should already be using the
+    # new shape:  resolve_path("scheduling", path_contains="bookings").
+    # During the cutover window (DNS + 24h cache TTL) some clients still see
+    # the legacy catalog where "scheduling" doesn't exist as a resource_id.
+    # Fall back to the dashed legacy id so the same call works in both worlds.
+    # TODO(post-cutover): drop this block + PATH_OVERRIDES dict.
+    if not resource and path_contains:
+        legacy_id = f"{resource_id}-{path_contains}"
+        resource = next((r for r in catalog.get("resources", [])
+                         if r.get("id") == legacy_id), None)
+        if resource:
+            resource_id = legacy_id  # keep downstream messages honest
+    # --------------------------------------------------------------------------
+
     if not resource:
         raise BOSError(
             f"Unknown resource '{resource_id}'. Check the catalog at {CATALOG_URL}."
