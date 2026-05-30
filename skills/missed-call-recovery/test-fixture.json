@@ -1,0 +1,53 @@
+{
+  "_doc": "Fixture for `python tools/test-skill.py missed-call-recovery`. Mocks a small call-log feed with a mix of missed inbound, recovered, and outbound calls.",
+
+  "catalog": { "_use_live": true },
+
+  "responses": {
+    "phone/call-logs": {
+      "data": [
+        {
+          "id": "call-missed-1",
+          "direction": "inbound",
+          "status": "no-answer",
+          "from_phone": "+61400000001",
+          "to_phone": "+61299999999",
+          "started_at": "2026-05-31T08:30:00Z",
+          "duration": 0
+        },
+        {
+          "id": "call-missed-2",
+          "direction": "inbound",
+          "status": "voicemail",
+          "from_phone": "+61400000002",
+          "to_phone": "+61299999999",
+          "started_at": "2026-05-31T09:15:00Z",
+          "duration": 12
+        },
+        {
+          "id": "call-recovered-out",
+          "direction": "outbound",
+          "status": "completed",
+          "from_phone": "+61299999999",
+          "to_phone": "+61400000002",
+          "started_at": "2026-05-31T09:45:00Z",
+          "duration": 180
+        }
+      ],
+      "pagination": {"has_more": false}
+    },
+    "contacts": {
+      "data": [
+        {
+          "id": "contact-1",
+          "first_name": "Test",
+          "last_name": "Caller One",
+          "email": "test1@example.com",
+          "phone": "+61400000001",
+          "preferred_channel": "sms"
+        }
+      ],
+      "pagination": {"has_more": false}
+    }
+  }
+}

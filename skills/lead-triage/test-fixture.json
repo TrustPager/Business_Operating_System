@@ -1,0 +1,43 @@
+{
+  "_doc": "Fixture for lead-triage. One of each source kind + a spammy one to verify disqualify.",
+
+  "catalog": { "_use_live": true },
+
+  "responses": {
+    "forms/submissions": {
+      "data": [
+        {
+          "id": "fs-1",
+          "created_at": "2026-05-31T08:00:00Z",
+          "form_name": "Quote request",
+          "form_data": {
+            "first_name": "Test",
+            "last_name": "Lead-A",
+            "email": "lead-a@example.com",
+            "phone": "+61400000010",
+            "company": "Acme Pty Ltd",
+            "message": "We're looking at refinancing 4 commercial properties totaling $12m. Can we get a quote with two-week turnaround? Need someone who's done construction loans before."
+          },
+          "contact_id": null,
+          "deal_id": null
+        }
+      ],
+      "pagination": {"has_more": false}
+    },
+    "email/threads": {
+      "data": [
+        {
+          "id": "et-1",
+          "created_at": "2026-05-31T07:00:00Z",
+          "subject": "SEO services proposal",
+          "we_replied": false,
+          "contact": {"first_name": "Spam", "last_name": "Bot", "email": "spammer@gmail.com"},
+          "latest_message": {"plain_text": "Hi, I offer SEO services to increase your traffic with backlinks..."}
+        }
+      ],
+      "pagination": {"has_more": false}
+    },
+    "sms/conversations": {"data": [], "pagination": {"has_more": false}},
+    "opportunities": {"data": [], "pagination": {"has_more": false}}
+  }
+}
