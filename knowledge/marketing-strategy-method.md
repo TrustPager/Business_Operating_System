@@ -222,7 +222,7 @@ Every email follows the same canonical structure:
 5. **Sign-off block** — exact two-line:
    ```
    Warmest regards,
-   Simon            (replace with the operator's first name)
+   {{operator_first_name}}
    ```
 
 ### Picking the help video for each stage
