@@ -87,7 +87,11 @@ async function renderDesign(browser, key, sample) {
   }
 
   const outputPath = resolve(OUTPUT_DIR, outputFilenameFor(key, sample));
-  await canvas.screenshot({ path: outputPath, type: 'png' });
+  // omitBackground: true emits a transparent PNG (alpha channel) wherever
+  // the canvas element is transparent. Without this, puppeteer fills the
+  // alpha with Chrome's default page bg colour (white), defeating the
+  // border-radius corners on the canvas.
+  await canvas.screenshot({ path: outputPath, type: 'png', omitBackground: true });
   console.log(`  Rendered: ${outputPath}`);
   await page.close();
 }

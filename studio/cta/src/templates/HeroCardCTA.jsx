@@ -43,8 +43,15 @@ export const HeroCardCTA = ({ data }) => {
         height: CANVAS_H,
         position: 'relative',
         overflow: 'hidden',
+        // Branded canvas (soft off-white + brand-tinted radial washes)
+        // clipped at 24px radius. Only the INSIDE of the radius gets the
+        // branded fill; the corner space OUTSIDE the radius stays alpha
+        // because render.js calls puppeteer with omitBackground:true.
+        // Result: a branded card that floats cleanly on the email body
+        // (white email bg shows through the rounded corners).
         background: PAGE_BG,
         backgroundImage: `radial-gradient(circle at 0% 0%, ${PRIMARY}1a, transparent 45%), radial-gradient(circle at 100% 100%, ${ACCENT}14, transparent 40%)`,
+        borderRadius: 24,
         fontFamily: FONT_BODY,
         color: TEXT,
       }}
