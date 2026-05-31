@@ -51,7 +51,7 @@ When the user says "make a thumbnail for X", gather these BEFORE editing `sample
 1. **What's the tutorial's core promise?** One sentence — the outcome the viewer gets.
 2. **Which headline angle?** Show 3–5 options across angles. 4–7 words, one accent word. "AI" not "Claude". Cut leading verbs (`Build`, `Create`, `Ensure`, `Make Sure`) when the noun already implies the action. Steal punchy idioms (`Level Up`, `One Place`, `Inside Out`). Banned openings: `Let`, `How to`, `Just`, `Stop X-ing`, `Tips for`.
 3. **Which word gets the gradient accent?** Usually the verb or the noun being transformed. Can be a two-word phrase (e.g. `One Place`, `Level Up`) — the regex handles spaces inside `\b...\b`.
-4. **Which hero matches this topic?** Find the iconic product surface the video walks through (open the corresponding `Tutorial<X>Page.tsx` in `D:/Dev/EVE_SERVER/Remotion/src/scenes/tutorials/`). Then either:
+4. **Which hero matches this topic?** Find the iconic product surface the video walks through (open the corresponding `Tutorial<X>Page.tsx` in your tutorials folder). Then either:
    - **Reuse an existing hero** from [`src/templates/heroes/`](src/templates/heroes/) if one already fits, or
    - **Build a new one** following [`heroes/index.js`](src/templates/heroes/index.js) — single outer container, thin/tall/vertical stack, bleeds off the bottom, brand colours only.
 
@@ -129,10 +129,10 @@ import { Avatar } from '../../profiles.jsx';
 
 ### Agent avatars — `public/agents/<Name>.png`
 
-Eight real AI-agent portraits copied from the FinalPiece website (`D:/Dev/FinalPiece-NewDesign/public/product/ai_agents`): Evie, Marty, Mira, Lyra, Orion, Sable, Echo, Custom. Reference them directly:
+Eight AI-agent portraits ship under `public/agents/`: Aria, Marty, Mira, Lyra, Orion, Sable, Echo, Custom. Reference them directly:
 
 ```jsx
-<img src="/agents/Evie.png" alt="Evie" style={{ width: 46, height: 46, borderRadius: '50%' }} />
+<img src="/agents/Aria.png" alt="Aria" style={{ width: 46, height: 46, borderRadius: '50%' }} />
 ```
 
 Brand-rule note: keep the surrounding chrome (status pills, role tags, capability badges) on the TrustPager palette (teal / green / blue / light teal / slate) even though the FinalPiece site brands each agent with purple / orange / red.
@@ -189,7 +189,7 @@ thumbnails/
 │   └── coverage.js                      ← npm run coverage
 ├── public/
 │   ├── trustpager-logo.png              ← brand wordmark
-│   └── agents/                          ← AI agent portraits (Evie, Marty, …)
+│   └── agents/                          ← AI agent portraits (Aria, Marty, …)
 └── output/                              ← rendered PNGs, named by YouTube title (gitignored)
 ```
 

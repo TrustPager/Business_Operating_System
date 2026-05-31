@@ -121,7 +121,7 @@
 //
 //   • ../YouTubeThumbnail.jsx       JSDoc — full design system + SYS constants
 //   • ../../profiles.jsx            Avatar component for people
-//   • /agents/<Name>.png            AI agent portraits (Evie / Marty / …)
+//   • /agents/<Name>.png            AI agent portraits (Aria / Marty / …)
 //   • ../../../README.md            human-readable guide with examples
 //   • ../../../CLAUDE.md            AI-assistant entry point
 //

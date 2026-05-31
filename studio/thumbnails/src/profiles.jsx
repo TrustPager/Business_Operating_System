@@ -1,20 +1,23 @@
 // Avatar pool for thumbnail heroes.
 //
-// The Remotion compositions in ../src/profiles.tsx maintain 5 real avatar
-// portraits on the TrustPager CDN. Each fictional name used across heroes
-// maps to one of these 5 so the same person always wears the same face.
+// The thumbnails reference 5 portrait images. Each fictional name used
+// across heroes maps to one of these 5 so the same person always wears
+// the same face.
 //
 // To add a new avatar: drop another URL in AVATARS and add the name to
 // NAME_MAP. To swap an avatar globally: change its URL here once.
+//
+// IMG_BASE — replace with a CDN URL hosting your 5 avatar files. The
+// filenames below are illustrative; swap them for your actual files.
 
-const IMG_BASE = 'https://trustpager.net/00000000-0000-0000-0000-000000000000/ai-team-portraits';
+const IMG_BASE = 'https://your-cdn.example.com/avatars';
 
 export const AVATARS = {
-  asianWoman:        `${IMG_BASE}/1775243599296-cb5f2eed-b1f9-416d-88de-f36f0a9e9606.webp`,
-  olderManTie:       `${IMG_BASE}/1775243964529-b7bfb07a-1e35-4470-b478-687ce370c45f.webp`,
-  youngManBlazer:    `${IMG_BASE}/1775243580316-6aa4a7a4-eb49-41b2-b67b-48e1cbf86ca8.webp`,
-  manWithGlasses:    `${IMG_BASE}/1775243563434-35ae269d-fe3f-45d8-a8e4-e69585109d2d.webp`,
-  blondeWoman:       `${IMG_BASE}/1775243505463-fffa21c8-9e7e-4d2d-95ed-a68c9fb395a0.webp`,
+  asianWoman:        `${IMG_BASE}/avatar-asian-woman.webp`,
+  olderManTie:       `${IMG_BASE}/avatar-older-man-tie.webp`,
+  youngManBlazer:    `${IMG_BASE}/avatar-young-man-blazer.webp`,
+  manWithGlasses:    `${IMG_BASE}/avatar-man-with-glasses.webp`,
+  blondeWoman:       `${IMG_BASE}/avatar-blonde-woman.webp`,
 };
 
 const POOL = [

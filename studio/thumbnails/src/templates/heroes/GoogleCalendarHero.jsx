@@ -10,14 +10,14 @@ import { colors } from '../../theme.js';
 import { Avatar } from '../../profiles.jsx';
 
 const EVENTS = [
-  { day: 'Today',     time: '9:00',  duration: '30m', title: 'Discovery — Coastal Health',     attendees: ['Sarah Hartley','Simon [name]'],                       source: 'gcal',    sourceColor: '#29c6c6' },
-  { day: 'Today',     time: '11:00', duration: '45m', title: 'Workflow Audit — Otis Chen',     attendees: ['Otis Chen','Simon [name]'],                           source: 'tp',      sourceColor: '#2db87d' },
-  { day: 'Today',     time: '14:00', duration: '60m', title: 'Internal — Sprint Review',       attendees: ['Simon [name]','Jordan Park','Mira Suarez'],           source: 'outlook', sourceColor: '#47a3d9' },
-  { day: 'Tomorrow',  time: '8:30',  duration: '30m', title: 'Renewal call — Hugo Daniels',    attendees: ['Hugo Daniels','Simon [name]'],                        source: 'gcal',    sourceColor: '#29c6c6' },
-  { day: 'Tomorrow',  time: '10:00', duration: '15m', title: 'Quick chat — Asher Patterson',   attendees: ['Asher Patterson','Simon [name]'],                     source: 'tp',      sourceColor: '#2db87d' },
-  { day: 'Tomorrow',  time: '13:00', duration: '60m', title: 'Strategy — Camille Anders',      attendees: ['Camille Anders','Simon [name]'],                      source: 'gcal',    sourceColor: '#29c6c6' },
-  { day: 'Fri 11',    time: '9:00',  duration: '45m', title: 'Anya Faulkner — Audit',          attendees: ['Anya Faulkner','Simon [name]','Jordan Park'],         source: 'tp',      sourceColor: '#2db87d' },
-  { day: 'Fri 11',    time: '11:30', duration: '30m', title: 'Doctor appt',                    attendees: ['Simon [name]'],                                       source: 'gcal',    sourceColor: '#29c6c6', personal: true },
+  { day: 'Today',     time: '9:00',  duration: '30m', title: 'Discovery — Coastal Health',     attendees: ['Sarah Hartley','Alex Rivers'],                       source: 'gcal',    sourceColor: '#29c6c6' },
+  { day: 'Today',     time: '11:00', duration: '45m', title: 'Workflow Audit — Otis Chen',     attendees: ['Otis Chen','Alex Rivers'],                           source: 'tp',      sourceColor: '#2db87d' },
+  { day: 'Today',     time: '14:00', duration: '60m', title: 'Internal — Sprint Review',       attendees: ['Alex Rivers','Jordan Park','Mira Suarez'],           source: 'outlook', sourceColor: '#47a3d9' },
+  { day: 'Tomorrow',  time: '8:30',  duration: '30m', title: 'Renewal call — Hugo Daniels',    attendees: ['Hugo Daniels','Alex Rivers'],                        source: 'gcal',    sourceColor: '#29c6c6' },
+  { day: 'Tomorrow',  time: '10:00', duration: '15m', title: 'Quick chat — Asher Patterson',   attendees: ['Asher Patterson','Alex Rivers'],                     source: 'tp',      sourceColor: '#2db87d' },
+  { day: 'Tomorrow',  time: '13:00', duration: '60m', title: 'Strategy — Camille Anders',      attendees: ['Camille Anders','Alex Rivers'],                      source: 'gcal',    sourceColor: '#29c6c6' },
+  { day: 'Fri 11',    time: '9:00',  duration: '45m', title: 'Anya Faulkner — Audit',          attendees: ['Anya Faulkner','Alex Rivers','Jordan Park'],         source: 'tp',      sourceColor: '#2db87d' },
+  { day: 'Fri 11',    time: '11:30', duration: '30m', title: 'Doctor appt',                    attendees: ['Alex Rivers'],                                       source: 'gcal',    sourceColor: '#29c6c6', personal: true },
 ];
 
 const SOURCE_LABELS = {

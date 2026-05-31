@@ -144,7 +144,7 @@ const TrendChart = ({ points }) => {
 };
 
 const TOP_PERFORMERS = [
-  { name: 'Simon K.',  avatar: 'SK', color: '#29c6c6', value: '$98k', bar: 100 },
+  { name: 'Alex R.',   avatar: 'AR', color: '#29c6c6', value: '$98k', bar: 100 },
   { name: 'Jordan P.', avatar: 'JP', color: '#47a3d9', value: '$72k', bar: 73  },
   { name: 'Mira S.',   avatar: 'MS', color: '#2db87d', value: '$58k', bar: 59  },
   { name: 'Hugo D.',   avatar: 'HD', color: '#7dd3d3', value: '$41k', bar: 42  },

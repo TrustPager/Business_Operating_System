@@ -271,7 +271,7 @@ async function uploadOne(key) {
   //             `.eq('category', 'images')` server-side).
   //   folder:   folder NAME within the storage backend (not UUID)
   //   name:     filename with extension (matches the YouTube video title
-  //             so Simon can drag-drop straight to the upload page)
+  //             so you can drag-drop straight to the upload page)
   //   base64:   file contents
   const body = {
     base64,

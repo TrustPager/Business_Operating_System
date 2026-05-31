@@ -1,8 +1,9 @@
-// Agent Hub hero — vertical roster of the real FinalPiece AI agents.
+// Agent Hub hero — vertical roster of demo AI agents.
 //
-// Agent portraits live at /agents/<Name>.png (copied from
-// D:/Dev/FinalPiece-NewDesign/public/product/ai_agents). Each card shows
-// the real agent with a status pulse, latest action, and capability tags.
+// Agent portraits live at /agents/<Name>.png. Each card shows an agent
+// with a status pulse, latest action, and capability tags. Swap the
+// portraits and names for your own team if you want to brand the
+// thumbnail to your own AI agents.
 //
 // Brand-colour rule: the portraits are full-colour images (intentional —
 // they're the agent identity). Surrounding chrome (status dots, pills,
@@ -14,10 +15,10 @@ import { colors } from '../../theme.js';
 
 const AGENTS = [
   {
-    name: 'Evie',
+    name: 'Aria',
     role: 'VOICE',
     title: 'AI receptionist',
-    avatar: '/agents/Evie.png',
+    avatar: '/agents/Aria.png',
     status: 'active',
     lastRun: 'Just now',
     lastAction: 'Booked Hugo Daniels for a Workflow Audit at 4pm',

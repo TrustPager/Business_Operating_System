@@ -9,15 +9,15 @@ import { colors } from '../../theme.js';
 import { Avatar } from '../../profiles.jsx';
 
 const TASKS = [
-  { state: 'done',        priority: 'high',   title: 'Send proposal to Dr Mitchell',          due: 'Today',     who: 'Simon [name]' },
+  { state: 'done',        priority: 'high',   title: 'Send proposal to Dr Mitchell',          due: 'Today',     who: 'Alex Rivers' },
   { state: 'done',        priority: 'medium', title: 'Book demo for Hugo Daniels',            due: 'Today',     who: 'Jordan Park' },
-  { state: 'done',        priority: 'high',   title: 'Initial discovery call — Anya F.',      due: 'Yesterday', who: 'Simon [name]' },
-  { state: 'in_progress', priority: 'high',   title: 'Refine quote for Pinnacle Eng.',        due: 'Today',     who: 'Simon [name]' },
-  { state: 'in_progress', priority: 'medium', title: 'Follow up on compliance docs',          due: 'Tomorrow',  who: 'Simon [name]' },
+  { state: 'done',        priority: 'high',   title: 'Initial discovery call — Anya F.',      due: 'Yesterday', who: 'Alex Rivers' },
+  { state: 'in_progress', priority: 'high',   title: 'Refine quote for Pinnacle Eng.',        due: 'Today',     who: 'Alex Rivers' },
+  { state: 'in_progress', priority: 'medium', title: 'Follow up on compliance docs',          due: 'Tomorrow',  who: 'Alex Rivers' },
   { state: 'pending',     priority: 'high',   title: 'Send NDA to Mateo Suarez',              due: 'Tomorrow',  who: 'Jordan Park' },
-  { state: 'pending',     priority: 'medium', title: 'Prepare onboarding pack — Coastal',     due: 'Thu',       who: 'Simon [name]' },
+  { state: 'pending',     priority: 'medium', title: 'Prepare onboarding pack — Coastal',     due: 'Thu',       who: 'Alex Rivers' },
   { state: 'pending',     priority: 'medium', title: 'Quarterly review with Wattle Creek',    due: 'Fri',       who: 'Mira Suarez' },
-  { state: 'pending',     priority: 'low',    title: 'Update sales playbook — Q3 examples',   due: 'Next week', who: 'Simon [name]' },
+  { state: 'pending',     priority: 'low',    title: 'Update sales playbook — Q3 examples',   due: 'Next week', who: 'Alex Rivers' },
 ];
 
 const PRIORITY = {

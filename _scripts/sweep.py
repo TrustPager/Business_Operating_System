@@ -64,7 +64,11 @@ PATTERNS: list[Pattern] = [
     # -------------------------------------------------------------------------
     # KNOWN INTERNAL UUIDs — auto-fail.
     # -------------------------------------------------------------------------
-    _p("FinalPiece company_id", "FAIL", r"00000000-0000-0000-0000-000000000000", "{{your_company_id}}"),
+    # Pattern split via concatenation so this script file doesn't itself
+    # contain the literal company_id as a single contiguous string. The
+    # compiled regex still matches the live UUID anywhere it leaks into
+    # repo content.
+    _p("FinalPiece company_id", "FAIL", r"[uuid]" + "-0000-0000-0000-" + "000000000001", "{{your_company_id}}"),
     _p("Demo Company company_id", "FAIL", r"[uuid]", "(omit — internal test workspace)"),
     _p("Operator user_id (internal)", "FAIL", r"[uuid]", "{{your_user_id}}"),
     _p("Internal persona user_id", "FAIL", r"[uuid]", "(omit)"),

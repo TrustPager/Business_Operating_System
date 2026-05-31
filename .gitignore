@@ -41,3 +41,6 @@ yarn.lock
 # Local install state
 .tp/
 ~/
+
+# Graphify knowledge-graph build artefacts
+graphify-out/

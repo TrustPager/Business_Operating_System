@@ -2,7 +2,7 @@
 //
 // Filename shape: `${order} - ${title}.png`
 // - `order`     comes from the top-level "order" field in samples.json. It's
-//                a stable per-thumbnail integer (1, 2, 3, …) that lets Simon
+//                a stable per-thumbnail integer (1, 2, 3, …) that lets you
 //                find newly-added thumbnails in the output folder by looking
 //                at the end of the numbered list. When missing, the order
 //                prefix is omitted so legacy entries still render.

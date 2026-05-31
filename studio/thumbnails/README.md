@@ -333,10 +333,10 @@ import { Avatar } from '../../profiles.jsx';
 
 ### AI agent avatars — `public/agents/<Name>.png`
 
-Eight real AI-agent portraits (Evie / Marty / Mira / Lyra / Orion / Sable / Echo / Custom), copied from `D:/Dev/FinalPiece-NewDesign/public/product/ai_agents`. Reference them directly:
+Eight AI-agent portraits (Aria / Marty / Mira / Lyra / Orion / Sable / Echo / Custom) ship under `public/agents/`. Reference them directly:
 
 ```jsx
-<img src="/agents/Evie.png" alt="Evie" style={{ width: 46, height: 46, borderRadius: '50%' }} />
+<img src="/agents/Aria.png" alt="Aria" style={{ width: 46, height: 46, borderRadius: '50%' }} />
 ```
 
 If the FinalPiece site adds new agents, just `Copy-Item` the new PNG into [`public/agents/`](public/agents/).
@@ -417,7 +417,7 @@ thumbnails/
 ├── public/
 │   ├── trustpager-logo.png              brand wordmark
 │   └── agents/                          AI agent portraits
-│       ├── Evie.png · Marty.png · Mira.png · Lyra.png
+│       ├── Aria.png · Marty.png · Mira.png · Lyra.png
 │       └── Orion.png · Sable.png · Echo.png · Custom.png
 └── output/                              rendered PNGs (gitignored) — named by YouTube title
 ```
@@ -432,7 +432,7 @@ Apply the title rules above. Cut leading verbs. Steal punchy idioms. Pick a sing
 
 ### 2. Pick or build the hero
 
-- Open the matching `Tutorial<X>Page.tsx` at `D:/Dev/EVE_SERVER/Remotion/src/scenes/tutorials/` to see the iconic product surface the video uses.
+- Open the matching `Tutorial<X>Page.tsx` in your tutorials folder to see the iconic product surface the video uses.
 - Pick a [family pattern](#the-six-family-patterns) that fits.
 - If an existing hero is close enough, reuse its key. Otherwise build a new component in [`src/templates/heroes/`](src/templates/heroes/), register it in [`heroes/index.js`](src/templates/heroes/index.js).
 
@@ -484,9 +484,9 @@ npm run publish -- --all --replace     # wipe + re-upload everything
 **`--replace`** is for genuine updates — when you've re-rendered a thumbnail and need the live version replaced. It deletes the existing file before uploading the new one.
 
 Targets:
-- **Workspace:** FinalPiece (`finalpiece-ai`)
+- **Workspace:** your TrustPager workspace
 - **Folder:** Tutorial Thumbnails (in the Images category)
-- **API key:** read from `D:/Dev/.trustpager-keys.json` (`clients.finalpiece-ai.key`)
+- **API key:** set `TRUSTPAGER_API_KEY` in your environment (or use the standard `~/.claude/bos.json` config that `tools/setup.py` writes)
 
 Files land at `https://app.trustpager.com/content/images` inside the Tutorial Thumbnails folder, named by their YouTube title (e.g. `How to Set Up Online Booking & Scheduling in TrustPager.png`).
 
