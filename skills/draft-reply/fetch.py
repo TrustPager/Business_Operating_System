@@ -45,10 +45,12 @@ def fetch(hours: int, channel: str, quiet: bool) -> dict[str, Any]:
     if channel in ("email", "all"):
         calls.append((resolve_path("email", path_contains="threads"),
                      {"limit": 50, "direction": "inbound", "we_replied": "false",
-                      "after": cutoff}))
+                      "after": cutoff,
+                      "sort": "last_message_at", "order": "desc"}))
     if channel in ("sms", "all"):
         calls.append((resolve_path("sms", path_contains="conversations"),
-                     {"limit": 50, "after": cutoff}))
+                     {"limit": 50, "after": cutoff,
+                      "sort": "last_message_at", "order": "desc"}))
 
     results = parallel_get(calls) if calls else {}
 

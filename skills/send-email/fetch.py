@@ -63,7 +63,8 @@ def fetch(contact_id: str, opportunity_id: str | None, quiet: bool) -> dict[str,
     opportunity = results.get(f"opportunities/{opportunity_id}", {}) if opportunity_id else None
 
     # Second call for "recent sent across workspace" — different params, same path
-    recent_sent_resp = api_get(threads_path, limit=5, direction="outbound")
+    recent_sent_resp = api_get(threads_path, limit=5, direction="outbound",
+                               sort="last_message_at", order="desc")
     recent_sent = recent_sent_resp.get("data") or []
 
     active_config = next((c for c in configs if c.get("is_default")), None) or (configs[0] if configs else None)
