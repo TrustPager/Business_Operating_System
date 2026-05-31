@@ -60,6 +60,11 @@ Claude: /sweep-my-day
 
 The method behind these four is in [knowledge/marketing-strategy-method.md](knowledge/marketing-strategy-method.md).
 
+**🎬 Content production**
+- `/make-thumbnail` — design and render a 1280×720 YouTube thumbnail for one of your tutorial videos using the bundled studio. Browser preview at `localhost:3210`, puppeteer-rendered PNG, optional one-command publish to your TrustPager Files folder.
+
+The full studio lives at [studio/thumbnails/](studio/thumbnails/) — a Vite + React + Puppeteer pipeline with the design rules distilled from 22+ iterations. The 6 example PNGs in `studio/thumbnails/examples/` are real thumbnails from FinalPiece's TrustPager tutorial series — keep them as inspiration or wipe `src/data/samples.json` and start fresh. Method summary: [knowledge/youtube-thumbnail-method.md](knowledge/youtube-thumbnail-method.md).
+
 ---
 
 ## Who this is for
