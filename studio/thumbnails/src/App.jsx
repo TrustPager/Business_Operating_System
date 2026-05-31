@@ -19,26 +19,17 @@
 import React, { useState, useCallback } from 'react';
 import { resolveTemplate } from './templates/index.js';
 import sampleData from './data/samples.json';
+import {
+  PRIMARY, PRIMARY_DEEP, ACCENT, SUCCESS,
+  PANEL, BORDER, TEXT, TEXT_MUTED, PAGE_BG, CANVAS_BG,
+  FONT_BODY, FONT_MONO, LOGO_URL, NAME,
+} from './brand.js';
 
 const ZOOM_LEVELS = [0.25, 0.33, 0.5, 0.67, 0.75, 1];
 
-// TrustPager brand tokens — light theme, sourced from
-// MARKETING/BRAND_ASSETS/TrustPager/brand.json. Keep in sync if brand shifts.
-const PRIMARY      = '#29c6c6';                 // brand teal
-const PRIMARY_DEEP = '#1ea5a5';
-const ACCENT       = '#47a3d9';                 // brand blue
-const SUCCESS      = '#2db87d';                 // brand green
-const HERO_GRAD    = 'linear-gradient(135deg, #29c6c6 0%, #47a3d9 100%)';
-
-const BG_CANVAS    = '#f1f5f9';                 // canvas wash behind the live preview
-const BG_PAGE      = '#f8fafc';                 // page background
-const PANEL        = '#ffffff';                 // cards / sidebar / top bar
-const BORDER       = '#e2e8f0';                 // light border
-const TEXT         = '#020817';                 // foreground
-const TEXT_MUTED   = '#647086';                 // muted foreground
-
-const FONT_BODY = '"Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, system-ui, sans-serif';
-const FONT_MONO = '"JetBrains Mono", "Fira Code", monospace';
+// Aliases for existing call sites in this file
+const BG_PAGE   = PAGE_BG;
+const BG_CANVAS = CANVAS_BG;
 
 // Click-to-copy command chip. Renders `$ <command>  COPY` and flashes
 // `COPIED` for ~1.8s when clicked. `accent` controls the eyebrow tone.
@@ -78,6 +69,7 @@ export const App = () => {
   const [selectedKey, setSelectedKey] = useState(samples[0]?.[0] || '');
   const [zoom, setZoom] = useState(0.5);
   const [copiedAt, setCopiedAt] = useState(0);
+  const [collapsedFolders, setCollapsedFolders] = useState({});
 
   const currentSample = sampleData[selectedKey];
   const resolved = currentSample ? resolveTemplate(currentSample.template) : null;
@@ -86,6 +78,30 @@ export const App = () => {
   const selectDesign = useCallback((key) => {
     setSelectedKey(key);
   }, []);
+
+  const toggleFolder = useCallback((templateId) => {
+    setCollapsedFolders((c) => ({ ...c, [templateId]: !c[templateId] }));
+  }, []);
+
+  // Group samples by template. Each group is its own folder in the sidebar
+  // so designers can see at a glance which template (= visual layout) each
+  // thumbnail was built on. Single-template repos collapse cleanly to one
+  // folder; the CTA studio will populate several.
+  const groupedSamples = (() => {
+    const groups = new Map();
+    samples.forEach(([key, sample]) => {
+      const tplId = sample.template;
+      if (!groups.has(tplId)) {
+        groups.set(tplId, {
+          templateId: tplId,
+          meta: resolveTemplate(tplId)?.meta,
+          items: [],
+        });
+      }
+      groups.get(tplId).items.push([key, sample]);
+    });
+    return Array.from(groups.values());
+  })();
 
   const [copiedKind, setCopiedKind] = useState(null);
   const shootCommand = `npm run shoot ${selectedKey}`;
@@ -122,17 +138,12 @@ export const App = () => {
           gap: 12,
         }}>
           <img
-            src="/trustpager-logo.png"
-            alt="TrustPager"
+            src={LOGO_URL}
+            alt={NAME}
             style={{ height: 28, width: 'auto', display: 'block' }}
           />
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <div style={{ fontSize: 14, fontWeight: 700, color: TEXT, letterSpacing: '-0.01em' }}>
-              Thumbnail Studio
-            </div>
-            <div style={{ fontSize: 11, color: TEXT_MUTED, fontWeight: 500 }}>
-              YouTube · 1280 × 720
-            </div>
+          <div style={{ fontSize: 14, fontWeight: 700, color: TEXT, letterSpacing: '-0.01em' }}>
+            Thumbnail Studio
           </div>
         </div>
 
@@ -140,33 +151,78 @@ export const App = () => {
           <div style={{ fontSize: 11, fontWeight: 700, color: TEXT_MUTED, textTransform: 'uppercase', marginBottom: 10, letterSpacing: '0.08em', flexShrink: 0 }}>
             Designs · {samples.length}
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 4, overflowY: 'auto', minHeight: 0, paddingRight: 4 }}>
-            {samples.map(([key, sample]) => {
-              const meta = resolveTemplate(sample.template)?.meta;
-              const composition = sample.composition || sample.data?.composition || null;
-              const selected = key === selectedKey;
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, overflowY: 'auto', minHeight: 0, paddingRight: 4 }}>
+            {groupedSamples.map(({ templateId, meta, items }) => {
+              const isCollapsed = !!collapsedFolders[templateId];
+              const sizeLabel = meta ? `${meta.size.width}×${meta.size.height}` : '';
               return (
-                <button
-                  key={key}
-                  onClick={() => selectDesign(key)}
-                  style={{
-                    background: selected ? 'rgba(41,198,198,0.10)' : 'transparent',
-                    border: selected ? `1px solid ${PRIMARY}` : `1px solid transparent`,
-                    borderRadius: 10,
-                    padding: '10px 14px',
-                    textAlign: 'left',
-                    cursor: 'pointer',
-                    transition: 'all 0.15s',
-                  }}
-                >
-                  <div style={{ fontSize: 13, fontWeight: 600, color: selected ? PRIMARY_DEEP : TEXT, letterSpacing: '-0.005em' }}>{key}</div>
-                  <div style={{ fontSize: 11, color: TEXT_MUTED, marginTop: 2 }}>
-                    {meta?.name} · {meta?.size.width}×{meta?.size.height}
-                  </div>
-                  <div style={{ fontSize: 10, marginTop: 4, fontFamily: FONT_MONO, color: composition ? SUCCESS : '#d97757' }}>
-                    {composition ? `→ ${composition}` : '⚠ no composition linked'}
-                  </div>
-                </button>
+                <div key={templateId} style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  <button
+                    onClick={() => toggleFolder(templateId)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      background: 'transparent',
+                      border: 'none',
+                      padding: '6px 6px',
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                      color: TEXT,
+                      fontFamily: FONT_BODY,
+                    }}
+                  >
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        width: 10,
+                        fontSize: 9,
+                        color: TEXT_MUTED,
+                        transition: 'transform 0.15s',
+                        transform: isCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)',
+                      }}
+                    >▾</span>
+                    <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '-0.005em' }}>
+                      {meta?.name || templateId}
+                    </span>
+                    <span style={{ fontSize: 11, color: TEXT_MUTED, fontWeight: 500 }}>
+                      · {items.length}
+                    </span>
+                    {sizeLabel && (
+                      <span style={{ marginLeft: 'auto', fontSize: 10, color: TEXT_MUTED, fontFamily: FONT_MONO }}>
+                        {sizeLabel}
+                      </span>
+                    )}
+                  </button>
+                  {!isCollapsed && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 4, paddingLeft: 6 }}>
+                      {items.map(([key, sample]) => {
+                        const composition = sample.composition || sample.data?.composition || null;
+                        const selected = key === selectedKey;
+                        return (
+                          <button
+                            key={key}
+                            onClick={() => selectDesign(key)}
+                            style={{
+                              background: selected ? 'rgba(41,198,198,0.10)' : 'transparent',
+                              border: selected ? `1px solid ${PRIMARY}` : `1px solid transparent`,
+                              borderRadius: 10,
+                              padding: '10px 14px',
+                              textAlign: 'left',
+                              cursor: 'pointer',
+                              transition: 'all 0.15s',
+                            }}
+                          >
+                            <div style={{ fontSize: 13, fontWeight: 600, color: selected ? PRIMARY_DEEP : TEXT, letterSpacing: '-0.005em' }}>{key}</div>
+                            <div style={{ fontSize: 10, marginTop: 4, fontFamily: FONT_MONO, color: composition ? SUCCESS : '#d97757' }}>
+                              {composition ? `→ ${composition}` : '⚠ no composition linked'}
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
               );
             })}
           </div>

@@ -8,6 +8,7 @@
 
 import React from 'react';
 import { colors } from '../../theme.js';
+import { PRIMARY_DEEP, SUCCESS } from '../../brand.js';
 
 const FIELDS = [
   { label: 'Company Name',     value: 'Coastal Health Group',           type: 'text',   autoFilled: true },
@@ -60,7 +61,7 @@ const FieldRow = ({ f }) => {
           <span style={{
             display: 'inline-flex', alignItems: 'center', gap: 4,
             fontSize: 9, fontWeight: 800, letterSpacing: '0.08em',
-            color: '#1ea5a5',
+            color: PRIMARY_DEEP,
             background: 'rgba(41,198,198,0.14)',
             padding: '2px 7px', borderRadius: 999,
           }}>✦ AUTO-FILLED</span>
@@ -69,7 +70,7 @@ const FieldRow = ({ f }) => {
           <span style={{
             display: 'inline-flex', alignItems: 'center', gap: 4,
             fontSize: 9, fontWeight: 800, letterSpacing: '0.08em',
-            color: '#1ea5a5',
+            color: PRIMARY_DEEP,
             background: 'rgba(41,198,198,0.22)',
             padding: '2px 7px', borderRadius: 999,
           }}>● FILLING NOW</span>
@@ -121,7 +122,7 @@ export const FormsHero = () => {
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <span style={{
             width: 12, height: 12, borderRadius: '50%',
-            background: '#2db87d',
+            background: SUCCESS,
             boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
           }} />
           <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>

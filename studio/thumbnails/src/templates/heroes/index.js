@@ -153,6 +153,7 @@ import { FillWithAIHero }     from './FillWithAIHero.jsx';
 import { ClaudePipelineHero } from './ClaudePipelineHero.jsx';
 import { EmailCampaignsHero } from './EmailCampaignsHero.jsx';
 import { PlatformOverviewHero } from './PlatformOverviewHero.jsx';
+import { MigrationHero }      from './MigrationHero.jsx';
 
 export const HEROES = {
   'ai-activity':     AIActivityHero,    // legacy fallback — being retired
@@ -181,6 +182,7 @@ export const HEROES = {
   'claude-pipeline': ClaudePipelineHero,
   'email-campaigns': EmailCampaignsHero,
   'platform-overview': PlatformOverviewHero,
+  'migration':       MigrationHero,
 };
 
 export const resolveHero = (key) => HEROES[key] || HEROES['ai-activity'];

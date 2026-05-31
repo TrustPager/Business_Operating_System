@@ -6,6 +6,7 @@
 import React from 'react';
 import { colors } from '../../theme.js';
 import { Avatar } from '../../profiles.jsx';
+import { PRIMARY, PRIMARY_DEEP, SUCCESS } from '../../brand.js';
 
 const CONTRACTS = [
   {
@@ -62,7 +63,7 @@ const SignatureCurve = () => (
   <svg viewBox="0 0 80 22" width="80" height="22" style={{ display: 'block' }}>
     <path
       d="M2,16 C 8,4 14,18 22,10 C 30,2 36,18 44,8 C 50,2 58,16 70,6 L 78,10"
-      fill="none" stroke="#1ea5a5" strokeWidth="2"
+      fill="none" stroke={PRIMARY_DEEP} strokeWidth="2"
       strokeLinecap="round" strokeLinejoin="round"
     />
   </svg>
@@ -87,7 +88,7 @@ const ContractCard = ({ c }) => {
           top: 10, right: -22,
           transform: 'rotate(12deg)',
           fontSize: 9, fontWeight: 800,
-          color: '#2db87d',
+          color: SUCCESS,
           background: 'rgba(45,184,125,0.16)',
           border: '1.5px solid rgba(45,184,125,0.45)',
           padding: '3px 22px', borderRadius: 4,
@@ -104,9 +105,9 @@ const ContractCard = ({ c }) => {
           flexShrink: 0,
           gap: 2,
         }}>
-          <div style={{ width: 16, height: 1.5, background: signed ? '#2db87d' : '#29c6c6', borderRadius: 1 }} />
-          <div style={{ width: 14, height: 1.5, background: signed ? '#2db87d' : '#29c6c6', borderRadius: 1, opacity: 0.6 }} />
-          <div style={{ width: 16, height: 1.5, background: signed ? '#2db87d' : '#29c6c6', borderRadius: 1, opacity: 0.6 }} />
+          <div style={{ width: 16, height: 1.5, background: signed ? SUCCESS : PRIMARY, borderRadius: 1 }} />
+          <div style={{ width: 14, height: 1.5, background: signed ? SUCCESS : PRIMARY, borderRadius: 1, opacity: 0.6 }} />
+          <div style={{ width: 16, height: 1.5, background: signed ? SUCCESS : PRIMARY, borderRadius: 1, opacity: 0.6 }} />
         </div>
         <div style={{ flex: 1, minWidth: 0, paddingRight: signed ? 60 : 0 }}>
           <div style={{
@@ -139,7 +140,7 @@ const ContractCard = ({ c }) => {
         <div style={{
           display: 'inline-flex', alignItems: 'center', gap: 6,
           fontSize: 10, fontWeight: 800, letterSpacing: '0.10em',
-          color: '#1ea5a5',
+          color: PRIMARY_DEEP,
           background: 'rgba(41,198,198,0.16)',
           padding: '4px 9px', borderRadius: 999,
           alignSelf: 'flex-start',
@@ -162,7 +163,7 @@ export const ESigningHero = () => (
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
-          background: '#2db87d',
+          background: SUCCESS,
           boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
         }} />
         <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>

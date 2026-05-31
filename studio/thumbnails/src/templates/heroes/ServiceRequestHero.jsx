@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { colors } from '../../theme.js';
+import { PRIMARY_DEEP, SUCCESS } from '../../brand.js';
 
 const REQUESTS = [
   {
@@ -52,7 +53,7 @@ const StateBadge = ({ state, when, eta }) => {
       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
         <span style={{
           fontSize: 10, fontWeight: 800, letterSpacing: '0.10em',
-          color: '#2db87d',
+          color: SUCCESS,
           background: 'rgba(45,184,125,0.16)',
           padding: '3px 9px', borderRadius: 999,
           display: 'flex', alignItems: 'center', gap: 4,
@@ -65,7 +66,7 @@ const StateBadge = ({ state, when, eta }) => {
     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
       <span style={{
         fontSize: 10, fontWeight: 800, letterSpacing: '0.10em',
-        color: '#1ea5a5',
+        color: PRIMARY_DEEP,
         background: 'rgba(41,198,198,0.16)',
         padding: '3px 9px', borderRadius: 999,
       }}>● BUILDING</span>
@@ -108,7 +109,7 @@ export const ServiceRequestHero = () => (
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
-          background: '#2db87d',
+          background: SUCCESS,
           boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
         }} />
         <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>

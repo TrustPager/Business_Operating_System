@@ -10,13 +10,14 @@
 
 import React from 'react';
 import { colors } from '../../theme.js';
+import { ACCENT, PRIMARY, PRIMARY_DEEP, SUCCESS } from '../../brand.js';
 
 const ACTIONS = ['Read', 'Write', 'Send', 'Delete'];
 
 const SECTIONS = [
   {
     label: 'CRM DATA',
-    color: '#29c6c6',
+    color: PRIMARY,
     resources: [
       { name: 'Contacts',      allowed: ['Read', 'Write'],          available: ['Read', 'Write', 'Delete'] },
       { name: 'Opportunities', allowed: ['Read', 'Write'],          available: ['Read', 'Write', 'Delete'] },
@@ -27,7 +28,7 @@ const SECTIONS = [
   },
   {
     label: 'COMMUNICATION',
-    color: '#47a3d9',
+    color: ACCENT,
     resources: [
       { name: 'Email',         allowed: ['Read', 'Send'],           available: ['Read', 'Send'] },
       { name: 'SMS',           allowed: ['Read', 'Send'],           available: ['Read', 'Send'] },
@@ -36,7 +37,7 @@ const SECTIONS = [
   },
   {
     label: 'AUTOMATIONS',
-    color: '#2db87d',
+    color: SUCCESS,
     resources: [
       { name: 'Automations',   allowed: ['Read'],                   available: ['Read', 'Write', 'Delete'] },
       { name: 'Event Queues',  allowed: ['Read'],                   available: ['Read', 'Write', 'Delete'] },
@@ -160,7 +161,7 @@ const ShieldIcon = () => (
   }}>
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
       <path d="M12 2L4 5v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V5l-8-3z" fill="#fff" />
-      <path d="M9.5 12.5l2 2 4-4" stroke="#1ea5a5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M9.5 12.5l2 2 4-4" stroke={PRIMARY_DEEP} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   </div>
 );
@@ -185,7 +186,7 @@ export const PermissionsHero = () => (
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{
           fontSize: 10.5, fontWeight: 800, letterSpacing: '0.10em',
-          color: '#1ea5a5',
+          color: PRIMARY_DEEP,
         }}>ROLE · 6 USERS</div>
         <div style={{
           fontSize: 17, fontWeight: 800, color: colors.foreground,

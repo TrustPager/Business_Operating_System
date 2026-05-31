@@ -5,12 +5,13 @@
 
 import React from 'react';
 import { colors } from '../../theme.js';
+import { PRIMARY, SLATE, SUCCESS } from '../../brand.js';
 
 const APPROVALS = [
   {
     state: 'pending',
     icon: '✉',
-    iconColor: '#29c6c6',
+    iconColor: PRIMARY,
     title: 'Send quote to Selene W.',
     detail: '$48k · Southern Cross Legal',
     requested: 'Just now',
@@ -18,7 +19,7 @@ const APPROVALS = [
   {
     state: 'approved',
     icon: '✉',
-    iconColor: '#2db87d',
+    iconColor: SUCCESS,
     title: 'Sent quote to Mira S.',
     detail: '$96k · Coastal Health Group',
     requested: '2m ago',
@@ -26,7 +27,7 @@ const APPROVALS = [
   {
     state: 'approved',
     icon: '📅',
-    iconColor: '#2db87d',
+    iconColor: SUCCESS,
     title: 'Booked Kai O. for Thursday',
     detail: 'Workflow Audit · 45m',
     requested: '15m ago',
@@ -34,7 +35,7 @@ const APPROVALS = [
   {
     state: 'approved',
     icon: '💬',
-    iconColor: '#2db87d',
+    iconColor: SUCCESS,
     title: 'Sent SMS reminder to 24 leads',
     detail: 'Stage: Discovery Call',
     requested: '1h ago',
@@ -42,7 +43,7 @@ const APPROVALS = [
   {
     state: 'approved',
     icon: '↦',
-    iconColor: '#2db87d',
+    iconColor: SUCCESS,
     title: 'Moved Ezra B. to Negotiation',
     detail: 'Auto-staged from Proposal Sent',
     requested: '3h ago',
@@ -50,7 +51,7 @@ const APPROVALS = [
   {
     state: 'rejected',
     icon: '✉',
-    iconColor: '#94a3b8',
+    iconColor: SLATE,
     title: 'Bulk email to all dormant leads',
     detail: '418 recipients · cold list',
     requested: 'Yesterday',
@@ -87,7 +88,7 @@ const ActionRow = ({ state }) => {
       <div style={{
         display: 'inline-flex', alignItems: 'center', gap: 6,
         fontSize: 10, fontWeight: 800, letterSpacing: '0.10em',
-        color: '#2db87d',
+        color: SUCCESS,
         background: 'rgba(45,184,125,0.14)',
         padding: '4px 9px', borderRadius: 999,
         alignSelf: 'flex-start',
@@ -159,7 +160,7 @@ export const ApprovalsHero = () => (
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
-          background: '#2db87d',
+          background: SUCCESS,
           boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
         }} />
         <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>

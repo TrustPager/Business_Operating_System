@@ -7,6 +7,7 @@
 
 import React from 'react';
 import { colors } from '../../theme.js';
+import { PRIMARY, PRIMARY_DEEP, SUCCESS } from '../../brand.js';
 
 const SECTIONS = [
   {
@@ -68,7 +69,7 @@ const NoteRow = ({ row }) => (
     <div style={{ flex: 1 }}>
       <div style={{
         fontSize: 11, fontWeight: 800, letterSpacing: '0.08em',
-        color: '#1ea5a5', marginBottom: 5,
+        color: PRIMARY_DEEP, marginBottom: 5,
       }}>✦ TRANSCRIBED FROM DICTATION</div>
       <div style={{
         fontSize: 12.5, fontWeight: 500, color: colors.foreground,
@@ -97,7 +98,7 @@ const QARow = ({ row }) => (
       {row.filling && (
         <span style={{
           fontSize: 9, fontWeight: 800, letterSpacing: '0.10em',
-          color: '#1ea5a5',
+          color: PRIMARY_DEEP,
           background: 'rgba(41,198,198,0.22)',
           padding: '2px 7px', borderRadius: 999,
         }}>● WRITING</span>
@@ -114,7 +115,7 @@ const QARow = ({ row }) => (
         {row.filling && (
           <span style={{
             display: 'inline-block', width: 1.5, height: 14,
-            background: '#29c6c6',
+            background: PRIMARY,
             verticalAlign: 'text-bottom',
             marginLeft: 2,
           }} />
@@ -137,7 +138,7 @@ export const FillWithAIHero = () => (
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
-          background: '#2db87d',
+          background: SUCCESS,
           boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
         }} />
         <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>

@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { colors } from '../../theme.js';
+import { ACCENT, LIGHT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS } from '../../brand.js';
 
 const STEPS = [
   { day: 'Day 0',  state: 'fired',   action: 'email',   title: 'Welcome — Thanks for signing up',     fired: '12 contacts',   when: '3 weeks ago' },
@@ -19,15 +20,15 @@ const STEPS = [
 ];
 
 const ACTION_ICON = {
-  email: { icon: '✉', color: '#29c6c6', bg: 'rgba(41,198,198,0.16)' },
-  sms:   { icon: '💬', color: '#47a3d9', bg: 'rgba(71,163,217,0.16)' },
-  task:  { icon: '◐', color: '#7dd3d3', bg: 'rgba(125,211,211,0.20)' },
-  exit:  { icon: '↗', color: '#94a3b8', bg: 'rgba(148,163,184,0.20)' },
+  email: { icon: '✉', color: PRIMARY, bg: 'rgba(41,198,198,0.16)' },
+  sms:   { icon: '💬', color: ACCENT, bg: 'rgba(71,163,217,0.16)' },
+  task:  { icon: '◐', color: LIGHT, bg: 'rgba(125,211,211,0.20)' },
+  exit:  { icon: '↗', color: SLATE, bg: 'rgba(148,163,184,0.20)' },
 };
 
 const STATE_PILL = {
-  fired:   { fg: '#2db87d', bg: 'rgba(45,184,125,0.16)',  label: '✓ FIRED' },
-  running: { fg: '#1ea5a5', bg: 'rgba(41,198,198,0.20)',  label: '● RUNNING NOW' },
+  fired:   { fg: SUCCESS, bg: 'rgba(45,184,125,0.16)',  label: '✓ FIRED' },
+  running: { fg: PRIMARY_DEEP, bg: 'rgba(41,198,198,0.20)',  label: '● RUNNING NOW' },
   queued:  { fg: colors.mutedForeground, bg: 'rgba(148,163,184,0.16)', label: '◷ QUEUED' },
 };
 
@@ -43,7 +44,7 @@ const StepRow = ({ step, isFirst, isLast }) => {
         {!isFirst && (
           <div style={{
             width: 2, height: 8,
-            background: isFired || isRunning ? '#2db87d' : 'rgba(148,163,184,0.30)',
+            background: isFired || isRunning ? SUCCESS : 'rgba(148,163,184,0.30)',
           }} />
         )}
         <div style={{
@@ -51,7 +52,7 @@ const StepRow = ({ step, isFirst, isLast }) => {
           borderRadius: 999,
           background: isRunning
             ? 'linear-gradient(135deg, #29c6c6, #47a3d9)'
-            : (isFired ? '#2db87d' : '#fff'),
+            : (isFired ? SUCCESS : '#fff'),
           color: (isRunning || isFired) ? '#fff' : colors.foreground,
           fontSize: 11, fontWeight: 800,
           letterSpacing: '-0.005em',
@@ -65,7 +66,7 @@ const StepRow = ({ step, isFirst, isLast }) => {
             flex: 1,
             width: 2, minHeight: 16,
             background: isFired
-              ? '#2db87d'
+              ? SUCCESS
               : (isRunning ? 'linear-gradient(180deg, #29c6c6, rgba(148,163,184,0.30))' : 'rgba(148,163,184,0.30)'),
             marginTop: 6,
           }} />
@@ -129,7 +130,7 @@ export const EventQueuesHero = () => (
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
-          background: '#2db87d',
+          background: SUCCESS,
           boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
         }} />
         <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>

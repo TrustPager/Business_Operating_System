@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { colors } from '../../theme.js';
+import { ACCENT, PRIMARY_DEEP, SUCCESS } from '../../brand.js';
 
 const DocLine = ({ w = '100%', dim = false }) => (
   <div style={{
@@ -16,7 +17,7 @@ const DocLine = ({ w = '100%', dim = false }) => (
   }} />
 );
 
-const Heading = ({ children, color = '#1ea5a5' }) => (
+const Heading = ({ children, color = PRIMARY_DEEP }) => (
   <div style={{
     fontSize: 12, fontWeight: 800,
     color, letterSpacing: '-0.005em',
@@ -62,7 +63,7 @@ const SignatureSquiggle = () => (
   <svg width="110" height="22" viewBox="0 0 110 22" style={{ display: 'block' }}>
     <path
       d="M2,16 C 10,4 18,18 28,10 C 38,2 46,18 56,8 C 66,2 74,16 84,12 C 92,8 100,14 108,10"
-      fill="none" stroke="#1ea5a5" strokeWidth="2"
+      fill="none" stroke={PRIMARY_DEEP} strokeWidth="2"
       strokeLinecap="round" strokeLinejoin="round"
     />
   </svg>
@@ -81,7 +82,7 @@ export const ProposalsHero = () => (
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
-          background: '#2db87d',
+          background: SUCCESS,
           boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
         }} />
         <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
@@ -104,7 +105,7 @@ export const ProposalsHero = () => (
         padding: '14px 14px',
         marginBottom: 10,
       }}>
-        <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.12em', color: '#1ea5a5', marginBottom: 4 }}>
+        <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.12em', color: PRIMARY_DEEP, marginBottom: 4 }}>
           PROPOSAL · Q3 2026
         </div>
         <div style={{ fontSize: 18, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.02em', lineHeight: 1.1 }}>
@@ -123,7 +124,7 @@ export const ProposalsHero = () => (
 
     {/* Pricing page */}
     <PaperPage label="PAGE 2">
-      <Heading color="#2db87d">Investment Summary</Heading>
+      <Heading color={SUCCESS}>Investment Summary</Heading>
       <PriceRow name="AI Automation Audit Report"    qty="One-time"        total="$2,440" />
       <PriceRow name="CRM Suite — per user license"   qty="22 users × Q3"  total="$2,838" />
       <PriceRow name="Development & Training"         qty="Phase 1"         total="$4,200" />
@@ -132,7 +133,7 @@ export const ProposalsHero = () => (
 
     {/* Terms page */}
     <PaperPage label="PAGE 3">
-      <Heading color="#47a3d9">Terms & Conditions</Heading>
+      <Heading color={ACCENT}>Terms & Conditions</Heading>
       <DocLine w="100%" />
       <DocLine w="92%" />
       <DocLine w="88%" />

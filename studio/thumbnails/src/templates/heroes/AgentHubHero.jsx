@@ -1,9 +1,8 @@
-// Agent Hub hero — vertical roster of demo AI agents.
+// Agent Hub hero — vertical roster of the real FinalPiece AI agents.
 //
-// Agent portraits live at /agents/<Name>.png. Each card shows an agent
-// with a status pulse, latest action, and capability tags. Swap the
-// portraits and names for your own team if you want to brand the
-// thumbnail to your own AI agents.
+// Agent portraits live at /agents/<Name>.png (copied from
+// D:/Dev/FinalPiece-NewDesign/public/product/ai_agents). Each card shows
+// the real agent with a status pulse, latest action, and capability tags.
 //
 // Brand-colour rule: the portraits are full-colour images (intentional —
 // they're the agent identity). Surrounding chrome (status dots, pills,
@@ -12,19 +11,20 @@
 
 import React from 'react';
 import { colors } from '../../theme.js';
+import { ACCENT, LIGHT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS } from '../../brand.js';
 
 const AGENTS = [
   {
-    name: 'Aria',
+    name: 'Evie',
     role: 'VOICE',
     title: 'AI receptionist',
-    avatar: '/agents/Aria.png',
+    avatar: '/agents/Evie.png',
     status: 'active',
     lastRun: 'Just now',
     lastAction: 'Booked Hugo Daniels for a Workflow Audit at 4pm',
     caps: ['Voice', 'Bookings', 'CRM'],
     runsToday: 18,
-    statusColor: '#2db87d',
+    statusColor: SUCCESS,
   },
   {
     name: 'Marty',
@@ -36,7 +36,7 @@ const AGENTS = [
     lastAction: 'Pushed Coastal Health into Onboarding stage',
     caps: ['Pipeline', 'Tasks', 'Workflows'],
     runsToday: 42,
-    statusColor: '#29c6c6',
+    statusColor: PRIMARY,
   },
   {
     name: 'Mira',
@@ -48,7 +48,7 @@ const AGENTS = [
     lastAction: 'Drafted Q3 case-study blog post (1,200 words)',
     caps: ['Writing', 'Video', 'Social'],
     runsToday: 8,
-    statusColor: '#47a3d9',
+    statusColor: ACCENT,
   },
   {
     name: 'Lyra',
@@ -60,7 +60,7 @@ const AGENTS = [
     lastAction: 'Posted morning digest — 3 deals slipping SLA',
     caps: ['Reports', 'Slack', 'Alerts'],
     runsToday: 6,
-    statusColor: '#1ea5a5',
+    statusColor: PRIMARY_DEEP,
   },
   {
     name: 'Orion',
@@ -72,7 +72,7 @@ const AGENTS = [
     lastAction: 'Sent 24 personalised outbounds, 6 replies in',
     caps: ['Email', 'SMS', 'Sequences'],
     runsToday: 24,
-    statusColor: '#7dd3d3',
+    statusColor: LIGHT,
   },
   {
     name: 'Sable',
@@ -84,7 +84,7 @@ const AGENTS = [
     lastAction: 'Sourced 47 prospects in healthcare AU',
     caps: ['Sourcing', 'De-dupe', 'Enrichment'],
     runsToday: 12,
-    statusColor: '#2db87d',
+    statusColor: SUCCESS,
   },
   {
     name: 'Echo',
@@ -96,13 +96,13 @@ const AGENTS = [
     lastAction: 'Investigated payment webhook spike, root cause filed',
     caps: ['Errors', 'Vector Search', 'Email'],
     runsToday: 3,
-    statusColor: '#29c6c6',
+    statusColor: PRIMARY,
   },
 ];
 
 const STATUS = {
-  active: { color: '#2db87d', label: 'ACTIVE' },
-  paused: { color: '#94a3b8', label: 'PAUSED' },
+  active: { color: SUCCESS, label: 'ACTIVE' },
+  paused: { color: SLATE, label: 'PAUSED' },
 };
 
 const Pulse = ({ color }) => (
@@ -182,7 +182,7 @@ const AgentCard = ({ a }) => {
         lineHeight: 1.35,
         display: 'flex', alignItems: 'center', gap: 7,
       }}>
-        <span style={{ color: '#2db87d', fontSize: 13, fontWeight: 800 }}>✓</span>
+        <span style={{ color: SUCCESS, fontSize: 13, fontWeight: 800 }}>✓</span>
         <span style={{
           flex: 1,
           overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
@@ -218,7 +218,7 @@ export const AgentHubHero = () => (
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
-          background: '#2db87d',
+          background: SUCCESS,
           boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
         }} />
         <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>

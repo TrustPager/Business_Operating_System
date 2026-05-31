@@ -11,24 +11,25 @@
 import React from 'react';
 import { colors } from '../../theme.js';
 import { Avatar } from '../../profiles.jsx';
+import { ACCENT, LIGHT, PRIMARY, SUCCESS } from '../../brand.js';
 
 const STAGE = {
   name: 'Proposal Sent',
-  color: '#29c6c6',
+  color: PRIMARY,
   count: 8,
   total: 'A$487,300',
 };
 
 const DEALS = [
-  { account: 'Coastal Health Group',   value: '$96k',  tag: 'Inbound',   avatar: 'CH', avatarColor: '#29c6c6', dragging: false },
-  { account: 'Wattle Creek Winery',    value: '$54k',  tag: 'Email',     avatar: 'WC', avatarColor: '#47a3d9', dragging: true  },
-  { account: 'Pinnacle Engineering',   value: '$78k',  tag: 'Referral',  avatar: 'PE', avatarColor: '#2db87d', dragging: false },
-  { account: 'Eucalyptus Wealth',      value: '$33k',  tag: 'Website',   avatar: 'EW', avatarColor: '#7dd3d3', dragging: false },
-  { account: 'Southern Cross Legal',   value: '$120k', tag: 'Direct',    avatar: 'SC', avatarColor: '#29c6c6', dragging: false },
-  { account: 'Ironbark Construction',  value: '$67k',  tag: 'Inbound',   avatar: 'IC', avatarColor: '#2db87d', dragging: false },
-  { account: 'Outback Solar Solutions',value: '$28k',  tag: 'LinkedIn',  avatar: 'OS', avatarColor: '#47a3d9', dragging: false },
-  { account: 'Reef & Co Logistics',    value: '$42k',  tag: 'Referral',  avatar: 'RC', avatarColor: '#29c6c6', dragging: false },
-  { account: 'Banksia Financial',      value: '$15k',  tag: 'Website',   avatar: 'BF', avatarColor: '#7dd3d3', dragging: false },
+  { account: 'Coastal Health Group',   value: '$96k',  tag: 'Inbound',   avatar: 'CH', avatarColor: PRIMARY, dragging: false },
+  { account: 'Wattle Creek Winery',    value: '$54k',  tag: 'Email',     avatar: 'WC', avatarColor: ACCENT, dragging: true  },
+  { account: 'Pinnacle Engineering',   value: '$78k',  tag: 'Referral',  avatar: 'PE', avatarColor: SUCCESS, dragging: false },
+  { account: 'Eucalyptus Wealth',      value: '$33k',  tag: 'Website',   avatar: 'EW', avatarColor: LIGHT, dragging: false },
+  { account: 'Southern Cross Legal',   value: '$120k', tag: 'Direct',    avatar: 'SC', avatarColor: PRIMARY, dragging: false },
+  { account: 'Ironbark Construction',  value: '$67k',  tag: 'Inbound',   avatar: 'IC', avatarColor: SUCCESS, dragging: false },
+  { account: 'Outback Solar Solutions',value: '$28k',  tag: 'LinkedIn',  avatar: 'OS', avatarColor: ACCENT, dragging: false },
+  { account: 'Reef & Co Logistics',    value: '$42k',  tag: 'Referral',  avatar: 'RC', avatarColor: PRIMARY, dragging: false },
+  { account: 'Banksia Financial',      value: '$15k',  tag: 'Website',   avatar: 'BF', avatarColor: LIGHT, dragging: false },
 ];
 
 const CARD_SHADOW = '0 1px 2px rgba(15,17,23,0.05), 0 0 0 1px rgba(15,17,23,0.07)';

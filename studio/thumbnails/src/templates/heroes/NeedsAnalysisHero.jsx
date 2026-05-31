@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { colors } from '../../theme.js';
+import { ACCENT, PRIMARY, PRIMARY_DEEP, SUCCESS } from '../../brand.js';
 
 const SHIMMER_LINES = [
   { w: '100%' }, { w: '94%' }, { w: '88%' }, { w: '76%' },
@@ -33,7 +34,7 @@ const Section = ({ icon, iconColor, label, children }) => (
       <span style={{
         display: 'inline-flex', alignItems: 'center', gap: 4,
         fontSize: 9, fontWeight: 800, letterSpacing: '0.08em',
-        color: '#1ea5a5',
+        color: PRIMARY_DEEP,
         background: 'rgba(41,198,198,0.14)',
         padding: '2px 7px', borderRadius: 999,
       }}>✦ AI</span>
@@ -58,7 +59,7 @@ const NeedItem = ({ n, sol }) => (
     border: '1px solid rgba(226,232,240,0.5)',
   }}>
     <div style={{ fontSize: 11.5, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.005em', lineHeight: 1.3 }}>{n}</div>
-    <div style={{ fontSize: 10.5, color: '#1ea5a5', fontWeight: 700, marginTop: 3, letterSpacing: '-0.005em', lineHeight: 1.3 }}>→ {sol}</div>
+    <div style={{ fontSize: 10.5, color: PRIMARY_DEEP, fontWeight: 700, marginTop: 3, letterSpacing: '-0.005em', lineHeight: 1.3 }}>→ {sol}</div>
   </div>
 );
 
@@ -92,7 +93,7 @@ export const NeedsAnalysisHero = () => (
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
-          background: '#2db87d',
+          background: SUCCESS,
           boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
         }} />
         <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
@@ -110,26 +111,26 @@ export const NeedsAnalysisHero = () => (
     </div>
 
     {/* Sections */}
-    <Section icon="◉" iconColor="#1ea5a5" label="EXECUTIVE SUMMARY">
+    <Section icon="◉" iconColor={PRIMARY_DEEP} label="EXECUTIVE SUMMARY">
       <ParaBody>
         Your patient management workflow runs on disconnected tools and manual follow-ups. Referrals from GPs get lost, appointment reminders are inconsistent, and there\'s no visibility into where patients sit in their journey. We\'ll replace that with a single CRM that automates every touchpoint from enquiry to ongoing care.
       </ParaBody>
     </Section>
 
-    <Section icon="◐" iconColor="#29c6c6" label="IDENTIFIED NEEDS (3)">
+    <Section icon="◐" iconColor={PRIMARY} label="IDENTIFIED NEEDS (3)">
       <NeedItem n="Map automation opportunities across 3 clinic locations." sol="AI Automation Audit Report — delivered before any build." />
       <NeedItem n="Single platform for patient enquiries, referrals, and follow-ups." sol="CRM Suite — one place for every contact, every pipeline." />
       <NeedItem n="System built, configured, and explained by a healthcare specialist." sol="Development & Training — full build + hands-on team walkthrough." />
     </Section>
 
-    <Section icon="$" iconColor="#2db87d" label="RECOMMENDED PRODUCTS">
+    <Section icon="$" iconColor={SUCCESS} label="RECOMMENDED PRODUCTS">
       <PriceLine name="CRM Suite (per user · 22 users)"  price="$2,838" />
       <PriceLine name="AI Automation Audit"               price="$2,440" />
       <PriceLine name="Development & Training"            price="$4,200" />
       <PriceLine name="Total · Phase 1"                   price="$9,478" last />
     </Section>
 
-    <Section icon="◆" iconColor="#47a3d9" label="STRATEGY NOTES">
+    <Section icon="◆" iconColor={ACCENT} label="STRATEGY NOTES">
       <div style={{ fontSize: 11, color: colors.foreground, lineHeight: 1.5, fontWeight: 500 }}>
         • Dr Mitchell needs board sign-off above $50k — frame as phased.<br />
         • Open the demo by asking what happens to a GP referral today.<br />

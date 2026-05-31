@@ -12,9 +12,10 @@
 
 import React from 'react';
 import { colors } from '../../theme.js';
+import { ACCENT, LIGHT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS } from '../../brand.js';
 
 // 6-colour brand cycle — order tuned so adjacent rows never share a hue
-const BRAND_CYCLE = ['#29c6c6', '#2db87d', '#47a3d9', '#1ea5a5', '#7dd3d3', '#94a3b8'];
+const BRAND_CYCLE = [PRIMARY, SUCCESS, ACCENT, PRIMARY_DEEP, LIGHT, SLATE];
 
 const FEATURES = [
   { name: 'Pipeline',         outcome: 'Every opportunity at a glance',          glyph: '📊' },
@@ -99,7 +100,7 @@ export const PlatformOverviewHero = () => (
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
-          background: '#2db87d',
+          background: SUCCESS,
           boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
         }} />
         <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>

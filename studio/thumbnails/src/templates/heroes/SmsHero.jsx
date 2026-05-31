@@ -12,6 +12,7 @@
 import React from 'react';
 import { colors } from '../../theme.js';
 import { Avatar } from '../../profiles.jsx';
+import { CANVAS_BG, PRIMARY } from '../../brand.js';
 
 const BUBBLES = [
   { from: 'them', text: 'Hey — can you bump our discovery to 4pm Friday?' },
@@ -37,14 +38,14 @@ const Bubble = ({ b, last }) => {
     }}>
       {fromAi && (
         <span style={{
-          fontSize: 10, fontWeight: 800, color: '#29c6c6',
+          fontSize: 10, fontWeight: 800, color: PRIMARY,
           background: 'rgba(41,198,198,0.14)',
           padding: '2px 8px', borderRadius: 999,
           letterSpacing: '0.10em',
         }}>AI · SENT FOR YOU</span>
       )}
       <div style={{
-        background: fromThem ? '#f1f5f9' : '#29c6c6',
+        background: fromThem ? CANVAS_BG : PRIMARY,
         color: fromThem ? colors.foreground : '#fff',
         borderRadius: 18,
         borderBottomLeftRadius: fromThem ? 6 : 18,

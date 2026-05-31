@@ -6,66 +6,67 @@
 import React from 'react';
 import { colors } from '../../theme.js';
 import { Avatar } from '../../profiles.jsx';
+import { ACCENT, LIGHT, PRIMARY, PRIMARY_DEEP, SUCCESS } from '../../brand.js';
 
 const CONTACTS = [
   {
     name: 'Sarah Hartley',
     role: 'CFO',
     company: 'Coastal Consulting',
-    companyColor: '#29c6c6',
-    avatar: 'SH', avatarColor: '#29c6c6',
+    companyColor: PRIMARY,
+    avatar: 'SH', avatarColor: PRIMARY,
     activity: 'Replied to your email · 2h ago',
-    activityColor: '#2db87d',
+    activityColor: SUCCESS,
     tags: ['Decision Maker', 'Hot Lead'],
   },
   {
     name: 'James Mitchell',
     role: 'Director',
     company: 'Coastal Health Group',
-    companyColor: '#47a3d9',
-    avatar: 'JM', avatarColor: '#47a3d9',
+    companyColor: ACCENT,
+    avatar: 'JM', avatarColor: ACCENT,
     activity: 'Booked discovery · 4h ago',
-    activityColor: '#2db87d',
+    activityColor: SUCCESS,
     tags: ['Board Approval Needed'],
   },
   {
     name: 'Hugo Daniels',
     role: 'Ops Manager',
     company: 'Wattle Creek Winery',
-    companyColor: '#7dd3d3',
-    avatar: 'HD', avatarColor: '#7dd3d3',
+    companyColor: LIGHT,
+    avatar: 'HD', avatarColor: LIGHT,
     activity: 'Sent SMS · yesterday',
-    activityColor: '#29c6c6',
+    activityColor: PRIMARY,
     tags: ['Renewal'],
   },
   {
     name: 'Camille Anders',
     role: 'Founder',
     company: 'Eucalyptus Wealth',
-    companyColor: '#2db87d',
-    avatar: 'CA', avatarColor: '#2db87d',
+    companyColor: SUCCESS,
+    avatar: 'CA', avatarColor: SUCCESS,
     activity: 'Form submitted · 2 days ago',
-    activityColor: '#1ea5a5',
+    activityColor: PRIMARY_DEEP,
     tags: ['Inbound', 'High Value'],
   },
   {
     name: 'Theo Reilly',
     role: 'Procurement',
     company: 'Pinnacle Engineering',
-    companyColor: '#1ea5a5',
-    avatar: 'TR', avatarColor: '#1ea5a5',
+    companyColor: PRIMARY_DEEP,
+    avatar: 'TR', avatarColor: PRIMARY_DEEP,
     activity: 'Quote sent · 3 days ago',
-    activityColor: '#29c6c6',
+    activityColor: PRIMARY,
     tags: ['Comparing Vendors'],
   },
   {
     name: 'Anya Faulkner',
     role: 'GM',
     company: 'Southern Cross Legal',
-    companyColor: '#47a3d9',
-    avatar: 'AF', avatarColor: '#47a3d9',
+    companyColor: ACCENT,
+    avatar: 'AF', avatarColor: ACCENT,
     activity: 'Logged a call · 5 days ago',
-    activityColor: '#1ea5a5',
+    activityColor: PRIMARY_DEEP,
     tags: ['Long-Term Client'],
   },
 ];
@@ -143,7 +144,7 @@ export const ContactsHero = () => (
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
-          background: '#2db87d',
+          background: SUCCESS,
           boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
         }} />
         <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>

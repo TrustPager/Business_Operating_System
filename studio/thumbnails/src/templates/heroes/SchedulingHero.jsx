@@ -12,40 +12,41 @@
 import React from 'react';
 import { colors } from '../../theme.js';
 import { Avatar } from '../../profiles.jsx';
+import { ACCENT, LIGHT, PRIMARY, PRIMARY_DEEP, SUCCESS } from '../../brand.js';
 
 const DAYS = [
   {
     label: 'Today',
     sub: 'Wed 9 Apr',
     bookings: [
-      { time: '9:00',  duration: '30m', name: 'Saskia Williams',  type: 'Free Consultation',         color: '#29c6c6', avatar: 'SW', status: 'confirmed' },
-      { time: '11:00', duration: '45m', name: 'Otis Chen',        type: 'Workflow Audit',            color: '#47a3d9', avatar: 'OC', status: 'confirmed' },
-      { time: '14:30', duration: '15m', name: 'Asher Patterson',  type: '15 Min Booking',            color: '#7dd3d3', avatar: 'AP', status: 'new' },
+      { time: '9:00',  duration: '30m', name: 'Saskia Williams',  type: 'Free Consultation',         color: PRIMARY, avatar: 'SW', status: 'confirmed' },
+      { time: '11:00', duration: '45m', name: 'Otis Chen',        type: 'Workflow Audit',            color: ACCENT, avatar: 'OC', status: 'confirmed' },
+      { time: '14:30', duration: '15m', name: 'Asher Patterson',  type: '15 Min Booking',            color: LIGHT, avatar: 'AP', status: 'new' },
     ],
   },
   {
     label: 'Tomorrow',
     sub: 'Thu 10 Apr',
     bookings: [
-      { time: '8:30',  duration: '30m', name: 'Romy Greene',      type: 'Free Consultation',         color: '#29c6c6', avatar: 'RG', status: 'confirmed' },
-      { time: '10:00', duration: '45m', name: 'Hugo Daniels',     type: 'Workflow Audit',            color: '#47a3d9', avatar: 'HD', status: 'confirmed' },
-      { time: '13:00', duration: '60m', name: 'Camille Anders',   type: 'Strategy Session',          color: '#2db87d', avatar: 'CA', status: 'new' },
-      { time: '15:30', duration: '15m', name: 'Theo Reilly',      type: '15 Min Booking',            color: '#7dd3d3', avatar: 'TR', status: 'confirmed' },
+      { time: '8:30',  duration: '30m', name: 'Romy Greene',      type: 'Free Consultation',         color: PRIMARY, avatar: 'RG', status: 'confirmed' },
+      { time: '10:00', duration: '45m', name: 'Hugo Daniels',     type: 'Workflow Audit',            color: ACCENT, avatar: 'HD', status: 'confirmed' },
+      { time: '13:00', duration: '60m', name: 'Camille Anders',   type: 'Strategy Session',          color: SUCCESS, avatar: 'CA', status: 'new' },
+      { time: '15:30', duration: '15m', name: 'Theo Reilly',      type: '15 Min Booking',            color: LIGHT, avatar: 'TR', status: 'confirmed' },
     ],
   },
   {
     label: 'Fri 11 Apr',
     sub: null,
     bookings: [
-      { time: '9:00',  duration: '45m', name: 'Anya Faulkner',    type: 'Workflow Audit',            color: '#47a3d9', avatar: 'AF', status: 'confirmed' },
-      { time: '11:30', duration: '30m', name: 'Bao Nguyen',       type: 'Free Consultation',         color: '#29c6c6', avatar: 'BN', status: 'new' },
+      { time: '9:00',  duration: '45m', name: 'Anya Faulkner',    type: 'Workflow Audit',            color: ACCENT, avatar: 'AF', status: 'confirmed' },
+      { time: '11:30', duration: '30m', name: 'Bao Nguyen',       type: 'Free Consultation',         color: PRIMARY, avatar: 'BN', status: 'new' },
     ],
   },
 ];
 
 const STATUS_PILL = {
-  confirmed: { bg: 'rgba(45,184,125,0.15)',  text: '#2db87d', label: 'CONFIRMED' },
-  new:       { bg: 'rgba(41,198,198,0.18)',  text: '#1ea5a5', label: 'NEW' },
+  confirmed: { bg: 'rgba(45,184,125,0.15)',  text: SUCCESS, label: 'CONFIRMED' },
+  new:       { bg: 'rgba(41,198,198,0.18)',  text: PRIMARY_DEEP, label: 'NEW' },
 };
 
 const Booking = ({ b }) => {
@@ -137,7 +138,7 @@ export const SchedulingHero = () => (
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
-          background: '#2db87d',
+          background: SUCCESS,
           boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
         }} />
         <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>

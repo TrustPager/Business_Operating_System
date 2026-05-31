@@ -6,81 +6,82 @@
 import React from 'react';
 import { colors } from '../../theme.js';
 import { Avatar } from '../../profiles.jsx';
+import { ACCENT, LIGHT, PANEL, PRIMARY, PRIMARY_DEEP, SUCCESS } from '../../brand.js';
 
 const EMAILS = [
   {
     sender: 'You · just now',
     name: 'You → Anya Faulkner',
-    avatar: 'YA', avatarColor: '#29c6c6',
+    avatar: 'YA', avatarColor: PRIMARY,
     subject: 'Re: SOW for Southern Cross Legal',
     preview: 'Thanks Anya — attaching the final scope + Q3 timeline. Happy to jump on a call…',
     direction: 'out',
     tracked: ['Opened', '12m'],
     linkedDeal: 'Southern Cross Legal',
-    dealColor: '#47a3d9',
+    dealColor: ACCENT,
   },
   {
     sender: 'Sarah Hartley',
     name: 'Sarah Hartley',
-    avatar: 'SH', avatarColor: '#29c6c6',
+    avatar: 'SH', avatarColor: PRIMARY,
     subject: 'Re: Compliance review proposal',
     preview: 'Looks great. CFO is on board pending board sign-off. Can we run through Q4 timeline?',
     direction: 'in',
     tracked: ['NEW', '20m'],
     linkedDeal: 'Coastal Consulting',
-    dealColor: '#29c6c6',
+    dealColor: PRIMARY,
   },
   {
     sender: 'You',
     name: 'You → Hugo Daniels',
-    avatar: 'YH', avatarColor: '#7dd3d3',
+    avatar: 'YH', avatarColor: LIGHT,
     subject: 'Wattle Creek — Q3 renewal',
     preview: 'Hugo, here\'s the renewal pack. Pricing locked at last year\'s rate, plus the vineyard ops bundle…',
     direction: 'out',
     tracked: ['Replied', '2h'],
     linkedDeal: 'Wattle Creek Winery',
-    dealColor: '#7dd3d3',
+    dealColor: LIGHT,
   },
   {
     sender: 'Mira Suarez',
     name: 'Mira Suarez',
-    avatar: 'MS', avatarColor: '#2db87d',
+    avatar: 'MS', avatarColor: SUCCESS,
     subject: 'Re: Workflow audit — kick-off?',
     preview: 'Yes, Thursday 10am works. I\'ll loop in our ops manager. Looking forward to it.',
     direction: 'in',
     tracked: ['NEW', '4h'],
     linkedDeal: 'Coastal Health Group',
-    dealColor: '#2db87d',
+    dealColor: SUCCESS,
   },
   {
     sender: 'You',
     name: 'You → Theo Reilly',
-    avatar: 'YT', avatarColor: '#1ea5a5',
+    avatar: 'YT', avatarColor: PRIMARY_DEEP,
     subject: 'Pinnacle Eng. — Quote v2',
     preview: 'Revised quote attached. Reduced scope to match your phased approach. Let me know any qs.',
     direction: 'out',
     tracked: ['Opened 3×', '1d'],
     linkedDeal: 'Pinnacle Engineering',
-    dealColor: '#1ea5a5',
+    dealColor: PRIMARY_DEEP,
   },
   {
     sender: 'Camille Anders',
     name: 'Camille Anders',
-    avatar: 'CA', avatarColor: '#2db87d',
+    avatar: 'CA', avatarColor: SUCCESS,
     subject: 'Eucalyptus Wealth — discovery follow-up',
     preview: 'Hi! Sharing the comparison sheet we discussed. Quick call this Friday to lock direction?',
     direction: 'in',
     tracked: [null, '2d'],
     linkedDeal: 'Eucalyptus Wealth',
-    dealColor: '#2db87d',
+    dealColor: SUCCESS,
   },
 ];
 
 const TRACK_COLORS = {
-  Opened:    { bg: 'rgba(41,198,198,0.16)',  fg: '#1ea5a5' },
-  'Opened 3×': { bg: 'rgba(41,198,198,0.22)', fg: '#1ea5a5' },
-  Replied:   { bg: 'rgba(45,184,125,0.16)',  fg: '#2db87d' },
-  NEW:       { bg: '#29c6c6',                fg: '#ffffff' },
+  Opened:    { bg: 'rgba(41,198,198,0.16)',  fg: PRIMARY_DEEP },
+  'Opened 3×': { bg: 'rgba(41,198,198,0.22)', fg: PRIMARY_DEEP },
+  Replied:   { bg: 'rgba(45,184,125,0.16)',  fg: SUCCESS },
+  NEW:       { bg: PRIMARY,                fg: PANEL },
 };
 
 const EmailRow = ({ e }) => {
@@ -166,7 +167,7 @@ export const SendEmailsHero = () => (
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
-          background: '#2db87d',
+          background: SUCCESS,
           boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
         }} />
         <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>

@@ -7,23 +7,24 @@
 import React from 'react';
 import { colors } from '../../theme.js';
 import { Avatar } from '../../profiles.jsx';
+import { ACCENT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS } from '../../brand.js';
 
 const TASKS = [
-  { state: 'done',        priority: 'high',   title: 'Send proposal to Dr Mitchell',          due: 'Today',     who: 'Alex Rivers' },
+  { state: 'done',        priority: 'high',   title: 'Send proposal to Dr Mitchell',          due: 'Today',     who: 'Simon [name]' },
   { state: 'done',        priority: 'medium', title: 'Book demo for Hugo Daniels',            due: 'Today',     who: 'Jordan Park' },
-  { state: 'done',        priority: 'high',   title: 'Initial discovery call — Anya F.',      due: 'Yesterday', who: 'Alex Rivers' },
-  { state: 'in_progress', priority: 'high',   title: 'Refine quote for Pinnacle Eng.',        due: 'Today',     who: 'Alex Rivers' },
-  { state: 'in_progress', priority: 'medium', title: 'Follow up on compliance docs',          due: 'Tomorrow',  who: 'Alex Rivers' },
+  { state: 'done',        priority: 'high',   title: 'Initial discovery call — Anya F.',      due: 'Yesterday', who: 'Simon [name]' },
+  { state: 'in_progress', priority: 'high',   title: 'Refine quote for Pinnacle Eng.',        due: 'Today',     who: 'Simon [name]' },
+  { state: 'in_progress', priority: 'medium', title: 'Follow up on compliance docs',          due: 'Tomorrow',  who: 'Simon [name]' },
   { state: 'pending',     priority: 'high',   title: 'Send NDA to Mateo Suarez',              due: 'Tomorrow',  who: 'Jordan Park' },
-  { state: 'pending',     priority: 'medium', title: 'Prepare onboarding pack — Coastal',     due: 'Thu',       who: 'Alex Rivers' },
+  { state: 'pending',     priority: 'medium', title: 'Prepare onboarding pack — Coastal',     due: 'Thu',       who: 'Simon [name]' },
   { state: 'pending',     priority: 'medium', title: 'Quarterly review with Wattle Creek',    due: 'Fri',       who: 'Mira Suarez' },
-  { state: 'pending',     priority: 'low',    title: 'Update sales playbook — Q3 examples',   due: 'Next week', who: 'Alex Rivers' },
+  { state: 'pending',     priority: 'low',    title: 'Update sales playbook — Q3 examples',   due: 'Next week', who: 'Simon [name]' },
 ];
 
 const PRIORITY = {
-  high:   { color: '#29c6c6', label: 'HIGH' },
-  medium: { color: '#47a3d9', label: 'MED'  },
-  low:    { color: '#94a3b8', label: 'LOW'  },
+  high:   { color: PRIMARY, label: 'HIGH' },
+  medium: { color: ACCENT, label: 'MED'  },
+  low:    { color: SLATE, label: 'LOW'  },
 };
 
 const Checkbox = ({ state }) => {
@@ -31,7 +32,7 @@ const Checkbox = ({ state }) => {
     return (
       <div style={{
         width: 22, height: 22, borderRadius: 7,
-        background: '#2db87d',
+        background: SUCCESS,
         color: '#fff', fontSize: 13, fontWeight: 800,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         flexShrink: 0,
@@ -51,7 +52,7 @@ const Checkbox = ({ state }) => {
       }}>
         <div style={{
           width: 8, height: 8, borderRadius: 2,
-          background: '#29c6c6',
+          background: PRIMARY,
         }} />
       </div>
     );
@@ -104,7 +105,7 @@ const TaskRow = ({ t }) => {
           {inProg && (
             <span style={{
               fontSize: 9, fontWeight: 800, letterSpacing: '0.10em',
-              color: '#1ea5a5',
+              color: PRIMARY_DEEP,
               background: 'rgba(41,198,198,0.16)',
               padding: '2px 7px', borderRadius: 999,
             }}>● IN PROGRESS</span>
@@ -131,7 +132,7 @@ export const TasksHero = () => {
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <span style={{
             width: 12, height: 12, borderRadius: '50%',
-            background: '#2db87d',
+            background: SUCCESS,
             boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
           }} />
           <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>

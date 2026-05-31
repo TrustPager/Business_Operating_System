@@ -5,13 +5,14 @@
 
 import React from 'react';
 import { colors } from '../../theme.js';
+import { ACCENT, PRIMARY, PRIMARY_DEEP, SUCCESS } from '../../brand.js';
 
 const EVENTS = [
   {
     deal: 'Coastal Health Group',
     from: 'Discovery Call',
     to: 'Proposal Sent',
-    toColor: '#47a3d9',
+    toColor: ACCENT,
     template: 'Quote Ready — Next Steps',
     recipient: 'Sarah Hartley',
     when: '2 min ago',
@@ -21,7 +22,7 @@ const EVENTS = [
     deal: 'Wattle Creek Winery',
     from: 'Proposal Sent',
     to: 'Negotiation',
-    toColor: '#2db87d',
+    toColor: SUCCESS,
     template: 'Welcome to Negotiation',
     recipient: 'Hugo Daniels',
     when: '14 min ago',
@@ -31,7 +32,7 @@ const EVENTS = [
     deal: 'Pinnacle Engineering',
     from: 'Discovery Call',
     to: 'Proposal Sent',
-    toColor: '#47a3d9',
+    toColor: ACCENT,
     template: 'Quote Ready — Next Steps',
     recipient: 'Theo Reilly',
     when: '1 hour ago',
@@ -41,7 +42,7 @@ const EVENTS = [
     deal: 'Outback Solar',
     from: 'New Enquiry',
     to: 'Discovery Call',
-    toColor: '#29c6c6',
+    toColor: PRIMARY,
     template: 'Discovery Booking Link',
     recipient: 'Otis Chen',
     when: '3 hours ago',
@@ -51,7 +52,7 @@ const EVENTS = [
     deal: 'Southern Cross Legal',
     from: 'Negotiation',
     to: 'Won',
-    toColor: '#2db87d',
+    toColor: SUCCESS,
     template: 'Welcome Aboard 🎉',
     recipient: 'Anya Faulkner',
     when: 'Yesterday',
@@ -61,7 +62,7 @@ const EVENTS = [
     deal: 'Eucalyptus Wealth',
     from: 'New Enquiry',
     to: 'Discovery Call',
-    toColor: '#29c6c6',
+    toColor: PRIMARY,
     template: 'Discovery Booking Link',
     recipient: 'Camille Anders',
     when: 'Yesterday',
@@ -71,7 +72,7 @@ const EVENTS = [
     deal: 'Reef & Co Logistics',
     from: 'Quote Sent',
     to: 'Negotiation',
-    toColor: '#2db87d',
+    toColor: SUCCESS,
     template: 'Refining the Scope',
     recipient: 'Mateo Suarez',
     when: '2 days ago',
@@ -80,9 +81,9 @@ const EVENTS = [
 ];
 
 const STATUS = {
-  delivered: { fg: '#1ea5a5', bg: 'rgba(41,198,198,0.16)', label: '✓ DELIVERED' },
-  opened:    { fg: '#2db87d', bg: 'rgba(45,184,125,0.16)', label: '✓ OPENED' },
-  replied:   { fg: '#2db87d', bg: 'rgba(45,184,125,0.22)', label: '✓ REPLIED' },
+  delivered: { fg: PRIMARY_DEEP, bg: 'rgba(41,198,198,0.16)', label: '✓ DELIVERED' },
+  opened:    { fg: SUCCESS, bg: 'rgba(45,184,125,0.16)', label: '✓ OPENED' },
+  replied:   { fg: SUCCESS, bg: 'rgba(45,184,125,0.22)', label: '✓ REPLIED' },
 };
 
 const EventCard = ({ e }) => {
@@ -133,7 +134,7 @@ const EventCard = ({ e }) => {
           width: 24, height: 24, borderRadius: 6,
           background: 'rgba(41,198,198,0.16)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: '#1ea5a5', fontSize: 12, fontWeight: 800,
+          color: PRIMARY_DEEP, fontSize: 12, fontWeight: 800,
           flexShrink: 0,
         }}>✉</div>
         <div style={{ flex: 1, minWidth: 0 }}>
@@ -171,7 +172,7 @@ export const StageEmailsHero = () => (
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
-          background: '#2db87d',
+          background: SUCCESS,
           boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
         }} />
         <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>

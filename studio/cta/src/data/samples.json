@@ -1,0 +1,46 @@
+{
+  "your-content-here": {
+    "template": "hero-card-cta",
+    "data": {
+      "eyebrow": "Your eyebrow text",
+      "headline": "Your Headline\nGoes Here",
+      "subhead": "One line about what they get when they click. Keep it concrete.",
+      "button": {
+        "label": "Your CTA label",
+        "url": "https://your-link.com"
+      },
+      "card": {
+        "title": "What They'll Get",
+        "status": "Tag",
+        "features": [
+          { "label": "Benefit One",   "description": "Quick value statement" },
+          { "label": "Benefit Two",   "description": "Another short phrase" },
+          { "label": "Benefit Three", "description": "One more value bite" },
+          { "label": "Benefit Four",  "description": "Final benefit line" }
+        ]
+      }
+    }
+  },
+  "welcome": {
+    "template": "hero-card-cta",
+    "data": {
+      "eyebrow": "2 min walkthrough",
+      "headline": "Everything In\nOne Place",
+      "subhead": "Your contacts, jobs and follow-ups stop slipping through the cracks.",
+      "button": {
+        "label": "See how it works",
+        "url": "https://example.com/welcome"
+      },
+      "card": {
+        "title": "In 2 Minutes",
+        "status": "2 min",
+        "features": [
+          { "label": "Setup in 90 Seconds",  "description": "One paste, done" },
+          { "label": "Records Stay Updated", "description": "No more manual data entry" },
+          { "label": "Ask, Don't Dig",       "description": "Answers in seconds" },
+          { "label": "Hours Back Weekly",    "description": "Skip the click-heavy admin" }
+        ]
+      }
+    }
+  }
+}

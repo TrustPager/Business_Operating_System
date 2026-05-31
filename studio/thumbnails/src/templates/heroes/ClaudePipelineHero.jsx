@@ -18,11 +18,12 @@
 
 import React from 'react';
 import { colors } from '../../theme.js';
+import { ACCENT, LIGHT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS, TEXT_MUTED } from '../../brand.js';
 
 const STAGES = [
   {
     name: 'New Enquiry',
-    color: '#47a3d9',
+    color: ACCENT,
     automationTitle: 'Auto-reply',
     trigger: 'A new lead enters this stage',
     action: 'Send "Thanks, we got your message" email',
@@ -30,7 +31,7 @@ const STAGES = [
   },
   {
     name: 'Discovery Call',
-    color: '#29c6c6',
+    color: PRIMARY,
     automationTitle: '3-day follow-up',
     trigger: 'Opportunity sits in this stage for 3 days',
     action: 'Send "Just checking in" email',
@@ -38,7 +39,7 @@ const STAGES = [
   },
   {
     name: 'Proposal Sent',
-    color: '#2db87d',
+    color: SUCCESS,
     automationTitle: '5-day chase',
     trigger: 'Proposal unsigned after 5 days',
     action: 'Send chase email + create owner task',
@@ -46,7 +47,7 @@ const STAGES = [
   },
   {
     name: 'Negotiation',
-    color: '#1ea5a5',
+    color: PRIMARY_DEEP,
     automationTitle: 'Day-before reminder',
     trigger: 'Discovery call scheduled tomorrow',
     action: 'Send "See you tomorrow" SMS + email',
@@ -54,7 +55,7 @@ const STAGES = [
   },
   {
     name: 'Won',
-    color: '#7dd3d3',
+    color: LIGHT,
     automationTitle: 'Welcome to onboarding',
     trigger: 'Deal moved to Won',
     action: 'Create onboarding task + send welcome',
@@ -62,7 +63,7 @@ const STAGES = [
   },
   {
     name: 'Lost',
-    color: '#94a3b8',
+    color: SLATE,
     automationTitle: 'Nurture sequence',
     trigger: 'Deal moved to Lost',
     action: 'Enrol in 90-day stay-warm queue',
@@ -71,9 +72,9 @@ const STAGES = [
 ];
 
 const STATE = {
-  built:    { fg: '#2db87d', bg: 'rgba(45,184,125,0.18)', label: '✓ BUILT' },
-  building: { fg: '#1ea5a5', bg: 'rgba(41,198,198,0.22)', label: '● BUILDING' },
-  queued:   { fg: '#647086', bg: 'rgba(148,163,184,0.16)', label: '◷ QUEUED' },
+  built:    { fg: SUCCESS, bg: 'rgba(45,184,125,0.18)', label: '✓ BUILT' },
+  building: { fg: PRIMARY_DEEP, bg: 'rgba(41,198,198,0.22)', label: '● BUILDING' },
+  queued:   { fg: TEXT_MUTED, bg: 'rgba(148,163,184,0.16)', label: '◷ QUEUED' },
 };
 
 const BoltIcon = ({ color }) => (
@@ -107,7 +108,7 @@ const StageAutomationCard = ({ s }) => {
             boxShadow: isBuilt ? `0 4px 10px ${s.color}40` : 'none',
             flexShrink: 0,
           }}>
-            <BoltIcon color={isBuilt ? '#fff' : '#94a3b8'} />
+            <BoltIcon color={isBuilt ? '#fff' : SLATE} />
           </div>
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{
@@ -145,7 +146,7 @@ const StageAutomationCard = ({ s }) => {
           letterSpacing: '-0.005em',
           overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
         }}>
-          <span style={{ fontSize: 9, fontWeight: 800, letterSpacing: '0.10em', color: '#94a3b8', marginRight: 4 }}>WHEN</span>
+          <span style={{ fontSize: 9, fontWeight: 800, letterSpacing: '0.10em', color: SLATE, marginRight: 4 }}>WHEN</span>
           {s.trigger}
         </div>
         <div style={{
@@ -153,7 +154,7 @@ const StageAutomationCard = ({ s }) => {
           letterSpacing: '-0.005em',
           overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
         }}>
-          <span style={{ fontSize: 9, fontWeight: 800, letterSpacing: '0.10em', color: '#94a3b8', marginRight: 4 }}>DO</span>
+          <span style={{ fontSize: 9, fontWeight: 800, letterSpacing: '0.10em', color: SLATE, marginRight: 4 }}>DO</span>
           {s.action}
         </div>
       </div>
@@ -174,7 +175,7 @@ export const ClaudePipelineHero = () => (
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
-          background: '#2db87d',
+          background: SUCCESS,
           boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
         }} />
         <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
@@ -183,7 +184,7 @@ export const ClaudePipelineHero = () => (
       </div>
       <span style={{
         fontSize: 11, fontWeight: 800, letterSpacing: '0.10em',
-        color: '#1ea5a5',
+        color: PRIMARY_DEEP,
         background: 'rgba(41,198,198,0.14)',
         padding: '5px 10px', borderRadius: 999,
       }}>BUILT BY AI · 90s</span>

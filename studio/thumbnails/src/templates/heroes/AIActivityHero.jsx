@@ -10,6 +10,7 @@
 
 import React from 'react';
 import { colors } from '../../theme.js';
+import { PRIMARY, SUCCESS } from '../../brand.js';
 
 const DEFAULT_ITEMS = [
   { state: 'done',     text: 'Sent quote to Amir K.' },
@@ -39,7 +40,7 @@ export const AIActivityHero = ({ data = {} }) => {
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <span style={{
             width: 12, height: 12, borderRadius: '50%',
-            background: '#2db87d',
+            background: SUCCESS,
             boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
           }} />
           <span style={{ fontSize: 22, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
@@ -70,7 +71,7 @@ export const AIActivityHero = ({ data = {} }) => {
               {done && (
                 <div style={{
                   width: 32, height: 32, borderRadius: '50%',
-                  background: '#2db87d',
+                  background: SUCCESS,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   color: '#fff', fontSize: 18, fontWeight: 800,
                   flexShrink: 0,
@@ -110,7 +111,7 @@ export const AIActivityHero = ({ data = {} }) => {
               }}>{item.text}</div>
               {progress && (
                 <span style={{
-                  fontSize: 12, fontWeight: 800, color: '#29c6c6', letterSpacing: '0.10em',
+                  fontSize: 12, fontWeight: 800, color: PRIMARY, letterSpacing: '0.10em',
                   background: 'rgba(41,198,198,0.14)',
                   padding: '4px 9px', borderRadius: 6,
                 }}>

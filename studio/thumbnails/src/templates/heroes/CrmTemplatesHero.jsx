@@ -7,6 +7,7 @@
 
 import React from 'react';
 import { colors } from '../../theme.js';
+import { ACCENT, LIGHT, PRIMARY, PRIMARY_DEEP, SUCCESS } from '../../brand.js';
 
 const TEMPLATES = [
   {
@@ -16,7 +17,7 @@ const TEMPLATES = [
     tokens: ['{{contact.first_name}}', '{{deal.title}}', '{{deal.start_date}}'],
     uses: 47,
     lastUsed: '2 hours ago',
-    color: '#29c6c6',
+    color: PRIMARY,
   },
   {
     name: 'Quote Follow-Up',
@@ -25,7 +26,7 @@ const TEMPLATES = [
     tokens: ['{{contact.first_name}}', '{{deal.title}}', '{{deal.amount}}', '{{deal.expires}}'],
     uses: 124,
     lastUsed: '14 min ago',
-    color: '#2db87d',
+    color: SUCCESS,
   },
   {
     name: 'Discovery Booking Link',
@@ -34,7 +35,7 @@ const TEMPLATES = [
     tokens: ['{{contact.first_name}}', '{{company.name}}', '{{user.scheduler_link}}'],
     uses: 89,
     lastUsed: 'Yesterday',
-    color: '#47a3d9',
+    color: ACCENT,
   },
   {
     name: 'Renewal Reminder',
@@ -43,7 +44,7 @@ const TEMPLATES = [
     tokens: ['{{contact.first_name}}', '{{deal.title}}', '{{deal.renewal_date}}', '{{user.signature}}'],
     uses: 32,
     lastUsed: '2 days ago',
-    color: '#7dd3d3',
+    color: LIGHT,
   },
   {
     name: 'Welcome Aboard 🎉',
@@ -52,7 +53,7 @@ const TEMPLATES = [
     tokens: ['{{contact.first_name}}', '{{deal.title}}', '{{deal.start_date}}', '{{user.signature}}'],
     uses: 18,
     lastUsed: '3 days ago',
-    color: '#1ea5a5',
+    color: PRIMARY_DEEP,
   },
 ];
 
@@ -69,7 +70,7 @@ const renderBody = (text, tokens) => {
         <span key={i} style={{
           display: 'inline-block',
           fontSize: 10, fontWeight: 800,
-          color: '#1ea5a5',
+          color: PRIMARY_DEEP,
           background: 'rgba(41,198,198,0.18)',
           padding: '1px 6px', borderRadius: 4,
           letterSpacing: '-0.005em',
@@ -134,7 +135,7 @@ const TemplateCard = ({ t }) => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginTop: 2 }}>
       <span style={{
         fontSize: 9, fontWeight: 800, letterSpacing: '0.06em',
-        color: '#1ea5a5',
+        color: PRIMARY_DEEP,
         background: 'rgba(41,198,198,0.14)',
         padding: '2px 7px', borderRadius: 4,
       }}>{t.tokens.length} MERGE FIELDS</span>
@@ -159,7 +160,7 @@ export const CrmTemplatesHero = () => (
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
-          background: '#2db87d',
+          background: SUCCESS,
           boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
         }} />
         <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>

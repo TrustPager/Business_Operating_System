@@ -14,6 +14,7 @@
 import React from 'react';
 import { colors } from '../../theme.js';
 import { Avatar } from '../../profiles.jsx';
+import { ACCENT, PRIMARY_DEEP, SLATE, SUCCESS } from '../../brand.js';
 
 const CAMPAIGN = {
   name: 'Q3 Product Launch',
@@ -57,11 +58,11 @@ const Stat = ({ label, value, sub, color }) => (
 
 const StatusPill = ({ state }) => {
   const map = {
-    opened:  { fg: '#1ea5a5', bg: 'rgba(41,198,198,0.18)', label: 'OPENED' },
-    clicked: { fg: '#2db87d', bg: 'rgba(45,184,125,0.18)', label: 'CLICKED' },
-    delivered: { fg: '#47a3d9', bg: 'rgba(71,163,217,0.18)', label: 'DELIVERED' },
-    bounced: { fg: '#94a3b8', bg: 'rgba(148,163,184,0.18)', label: 'BOUNCED' },
-    unsub:   { fg: '#94a3b8', bg: 'rgba(148,163,184,0.18)', label: 'UNSUB' },
+    opened:  { fg: PRIMARY_DEEP, bg: 'rgba(41,198,198,0.18)', label: 'OPENED' },
+    clicked: { fg: SUCCESS, bg: 'rgba(45,184,125,0.18)', label: 'CLICKED' },
+    delivered: { fg: ACCENT, bg: 'rgba(71,163,217,0.18)', label: 'DELIVERED' },
+    bounced: { fg: SLATE, bg: 'rgba(148,163,184,0.18)', label: 'BOUNCED' },
+    unsub:   { fg: SLATE, bg: 'rgba(148,163,184,0.18)', label: 'UNSUB' },
   };
   const s = map[state];
   return (
@@ -125,7 +126,7 @@ export const EmailCampaignsHero = () => {
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0, flex: 1 }}>
           <span style={{
             width: 12, height: 12, borderRadius: '50%',
-            background: '#2db87d',
+            background: SUCCESS,
             boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
             flexShrink: 0,
           }} />
@@ -137,7 +138,7 @@ export const EmailCampaignsHero = () => {
         </div>
         <span style={{
           fontSize: 11, fontWeight: 800, letterSpacing: '0.12em',
-          color: '#2db87d',
+          color: SUCCESS,
           background: 'rgba(45,184,125,0.16)',
           padding: '5px 10px', borderRadius: 999,
           flexShrink: 0,
@@ -153,7 +154,7 @@ export const EmailCampaignsHero = () => {
       }}>
         <div style={{
           fontSize: 9, fontWeight: 800, letterSpacing: '0.10em',
-          color: '#1ea5a5',
+          color: PRIMARY_DEEP,
         }}>SUBJECT</div>
         <div style={{
           fontSize: 13, fontWeight: 800, color: colors.foreground,
@@ -170,10 +171,10 @@ export const EmailCampaignsHero = () => {
           per master rule. This is a header band, not a horizontal split of
           the main content.) */}
       <div style={{ display: 'flex', gap: 8 }}>
-        <Stat label="DELIVERED" value={CAMPAIGN.delivered} sub={`of ${CAMPAIGN.sent} sent`} color="#47a3d9" />
-        <Stat label="OPENS"     value={`${openPct}%`}     sub={`${CAMPAIGN.opens}`}         color="#1ea5a5" />
-        <Stat label="CLICKS"    value={`${clickPct}%`}    sub={`${CAMPAIGN.clicks}`}        color="#2db87d" />
-        <Stat label="BOUNCED"   value={CAMPAIGN.bounced}  sub={`${CAMPAIGN.unsubscribed} unsub`} color="#94a3b8" />
+        <Stat label="DELIVERED" value={CAMPAIGN.delivered} sub={`of ${CAMPAIGN.sent} sent`} color={ACCENT} />
+        <Stat label="OPENS"     value={`${openPct}%`}     sub={`${CAMPAIGN.opens}`}         color={PRIMARY_DEEP} />
+        <Stat label="CLICKS"    value={`${clickPct}%`}    sub={`${CAMPAIGN.clicks}`}        color={SUCCESS} />
+        <Stat label="BOUNCED"   value={CAMPAIGN.bounced}  sub={`${CAMPAIGN.unsubscribed} unsub`} color={SLATE} />
       </div>
 
       {/* Recipients label */}
@@ -187,7 +188,7 @@ export const EmailCampaignsHero = () => {
         }}>RECIPIENTS · LIVE TRACKING</span>
         <span style={{
           fontSize: 10, fontWeight: 800, letterSpacing: '0.08em',
-          color: '#1ea5a5',
+          color: PRIMARY_DEEP,
           background: 'rgba(41,198,198,0.14)',
           padding: '2px 8px', borderRadius: 999,
         }}>● LIVE</span>

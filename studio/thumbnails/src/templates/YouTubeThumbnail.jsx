@@ -303,6 +303,7 @@
 import React from 'react';
 import { colors, fonts, THUMBNAIL_SIZE } from '../theme.js';
 import { resolveHero } from './heroes/index.js';
+import { ACCENT, GRADIENT, LIGHT, PANEL, PRIMARY, SLATE, SUCCESS } from '../brand.js';
 
 const TP_LOGO = '/trustpager-logo.png';
 
@@ -371,7 +372,7 @@ const defaultData = {
 //
 // Smooth teal->mint->blue gradient with a lighter mid-tone (no pure white)
 // so letters stay readable. No outer glow - clean gradient fill only.
-const ACCENT_GRADIENT = 'linear-gradient(110deg, #1ea5a5 0%, #29c6c6 35%, #5ed4d4 50%, #47a3d9 70%, #2e7fb0 100%)';
+const ACCENT_GRADIENT = GRADIENT;
 
 const Headline = ({ text, accentWord, color, size = 108 }) => {
   const headlineStyle = { color, fontSize: size, fontWeight: 800, lineHeight: 0.95, letterSpacing: '-0.035em' };
@@ -426,7 +427,7 @@ const StatTile = ({ label, value, trend, color = colors.primary }) => (
         {value}
       </div>
       {trend && (
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#2db87d', background: 'rgba(45,184,125,0.12)', padding: '3px 8px', borderRadius: 999 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: SUCCESS, background: 'rgba(45,184,125,0.12)', padding: '3px 8px', borderRadius: 999 }}>
           {trend}
         </div>
       )}
@@ -437,9 +438,9 @@ const StatTile = ({ label, value, trend, color = colors.primary }) => (
 const StatRow = () => (
   <div style={{ display: 'flex', gap: 12 }}>
     <StatTile label="TOTAL LEADS" value="284" trend="+12%" />
-    <StatTile label="WON OPPS" value="47" trend="+8%" color="#2db87d" />
+    <StatTile label="WON OPPS" value="47" trend="+8%" color={SUCCESS} />
     <StatTile label="CONV. RATE" value="16.5%" trend="+2.1pp" color={colors.accent} />
-    <StatTile label="REVENUE" value="$312k" trend="+18%" color="#7dd3d3" />
+    <StatTile label="REVENUE" value="$312k" trend="+18%" color={LIGHT} />
   </div>
 );
 
@@ -495,18 +496,18 @@ const DealStatusCard = () => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 14, flex: 1 }}>
       <Donut
         slices={[
-          { color: '#29c6c6', value: 42 },
-          { color: '#2db87d', value: 47 },
-          { color: '#94a3b8', value: 18 },
+          { color: PRIMARY, value: 42 },
+          { color: SUCCESS, value: 47 },
+          { color: SLATE, value: 18 },
         ]}
         total={107}
         size={80}
         label="107"
       />
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6, flex: 1 }}>
-        <LegendRow color="#29c6c6" label="Open" value="42" />
-        <LegendRow color="#2db87d" label="Won" value="47" />
-        <LegendRow color="#94a3b8" label="Lost" value="18" />
+        <LegendRow color={PRIMARY} label="Open" value="42" />
+        <LegendRow color={SUCCESS} label="Won" value="47" />
+        <LegendRow color={SLATE} label="Lost" value="18" />
       </div>
     </div>
   </ChartCard>
@@ -517,18 +518,18 @@ const PipelineCard = () => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 14, flex: 1 }}>
       <Donut
         slices={[
-          { color: '#29c6c6', value: 58 },
-          { color: '#47a3d9', value: 24 },
-          { color: '#7dd3d3', value: 25 },
+          { color: PRIMARY, value: 58 },
+          { color: ACCENT, value: 24 },
+          { color: LIGHT, value: 25 },
         ]}
         total={107}
         size={80}
         label="107"
       />
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6, flex: 1 }}>
-        <LegendRow color="#29c6c6" label="Sales" value="58" />
-        <LegendRow color="#47a3d9" label="Onboarding" value="24" />
-        <LegendRow color="#7dd3d3" label="Renewals" value="25" />
+        <LegendRow color={PRIMARY} label="Sales" value="58" />
+        <LegendRow color={ACCENT} label="Onboarding" value="24" />
+        <LegendRow color={LIGHT} label="Renewals" value="25" />
       </div>
     </div>
   </ChartCard>
@@ -543,27 +544,27 @@ const TrendChart = () => (
     <svg viewBox="0 0 500 110" width="100%" height="110" style={{ display: 'block' }}>
       <defs>
         <linearGradient id="teal-area" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stopColor="#29c6c6" stopOpacity="0.25" />
-          <stop offset="100%" stopColor="#29c6c6" stopOpacity="0" />
+          <stop offset="0%" stopColor={PRIMARY} stopOpacity="0.25" />
+          <stop offset="100%" stopColor={PRIMARY} stopOpacity="0" />
         </linearGradient>
       </defs>
       {/* Area under leads */}
       <path d="M10,80 L90,72 L170,60 L250,52 L330,38 L410,28 L490,22 L490,110 L10,110 Z" fill="url(#teal-area)" />
-      <polyline fill="none" stroke="#29c6c6" strokeWidth="2.5" points="10,80 90,72 170,60 250,52 330,38 410,28 490,22" />
-      <polyline fill="none" stroke="#2db87d" strokeWidth="2.5" points="10,90 90,86 170,82 250,76 330,68 410,62 490,58" />
-      <polyline fill="none" stroke="#94a3b8" strokeWidth="2.5" points="10,98 90,96 170,98 250,94 330,96 410,92 490,94" />
+      <polyline fill="none" stroke={PRIMARY} strokeWidth="2.5" points="10,80 90,72 170,60 250,52 330,38 410,28 490,22" />
+      <polyline fill="none" stroke={SUCCESS} strokeWidth="2.5" points="10,90 90,86 170,82 250,76 330,68 410,62 490,58" />
+      <polyline fill="none" stroke={SLATE} strokeWidth="2.5" points="10,98 90,96 170,98 250,94 330,96 410,92 490,94" />
       {/* Data points on leads */}
       {[[10,80],[90,72],[170,60],[250,52],[330,38],[410,28],[490,22]].map(([x,y]) => (
-        <circle key={`${x},${y}`} cx={x} cy={y} r="3" fill="#29c6c6" />
+        <circle key={`${x},${y}`} cx={x} cy={y} r="3" fill={PRIMARY} />
       ))}
     </svg>
     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: colors.mutedForeground, marginTop: 2 }}>
       <span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span>
     </div>
     <div style={{ display: 'flex', gap: 12, marginTop: 8, fontSize: 11, fontWeight: 600 }}>
-      <span style={{ color: '#29c6c6' }}>— Leads</span>
-      <span style={{ color: '#2db87d' }}>— Won</span>
-      <span style={{ color: '#94a3b8' }}>— Lost</span>
+      <span style={{ color: PRIMARY }}>— Leads</span>
+      <span style={{ color: SUCCESS }}>— Won</span>
+      <span style={{ color: SLATE }}>— Lost</span>
     </div>
   </ChartCard>
 );
@@ -588,9 +589,9 @@ const SourcesChart = () => {
           return (
             <div key={s.name} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
               <div style={{ width: '100%', display: 'flex', flexDirection: 'column-reverse', height: 100 }}>
-                <div style={{ height: wonH, background: '#2db87d', borderRadius: '0 0 3px 3px' }} />
-                <div style={{ height: openH, background: '#29c6c6' }} />
-                <div style={{ height: lostH, background: '#94a3b8', borderRadius: '3px 3px 0 0' }} />
+                <div style={{ height: wonH, background: SUCCESS, borderRadius: '0 0 3px 3px' }} />
+                <div style={{ height: openH, background: PRIMARY }} />
+                <div style={{ height: lostH, background: SLATE, borderRadius: '3px 3px 0 0' }} />
               </div>
               <span style={{ fontSize: 10, color: colors.mutedForeground, fontWeight: 600 }}>{s.name}</span>
             </div>
@@ -756,7 +757,7 @@ const GlassCard = ({ d }) => (
     filter: 'drop-shadow(0 0 8px #ffffff) drop-shadow(0 0 16px #ffffff) drop-shadow(0 0 24px rgba(255,255,255,0.85))',
   }}>
     <h1 style={{ margin: 0, fontSize: 0, textAlign: 'left' }}>
-      <Headline text={d.headline} accentWord={d.accentWord} color={colors.foreground} size={SYS.headlineSize} />
+      <Headline text={d.headline} accentWord={d.accentWord} color={colors.foreground} size={d.headlineSize || SYS.headlineSize} />
     </h1>
   </div>
 );
@@ -771,7 +772,7 @@ const GlassCardThumbnail = ({ d }) => (
     fontFamily: fonts.primary,
     // Flat white surface. Logo + headline sit directly on this background.
     // Brand-colour halos live behind the AI Activity hero on the right.
-    background: '#ffffff',
+    background: PANEL,
   }}>
     <ColorHalo />
     <AccentStrip />

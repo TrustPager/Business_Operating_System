@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { colors } from '../../theme.js';
+import { ACCENT, PRIMARY, PRIMARY_DEEP, SUCCESS } from '../../brand.js';
 
 // ── Inline primitives for rich-text rendering ─────────────────────────────
 const H = ({ children }) => (
@@ -16,7 +17,7 @@ const H = ({ children }) => (
   }}>{children}</div>
 );
 
-const H2 = ({ children, color = '#1ea5a5' }) => (
+const H2 = ({ children, color = PRIMARY_DEEP }) => (
   <div style={{
     fontSize: 11, fontWeight: 800, letterSpacing: '0.12em',
     color, marginTop: 12, marginBottom: 6,
@@ -42,14 +43,14 @@ const I = ({ children }) => (
 const Mark = ({ children }) => (
   <span style={{
     background: 'rgba(41,198,198,0.18)',
-    color: '#1ea5a5',
+    color: PRIMARY_DEEP,
     fontWeight: 800,
     padding: '1px 4px',
     borderRadius: 3,
   }}>{children}</span>
 );
 
-const Callout = ({ children, icon, color = '#29c6c6' }) => (
+const Callout = ({ children, icon, color = PRIMARY }) => (
   <div style={{
     background: `${color}10`,
     border: `1px solid ${color}40`,
@@ -73,7 +74,7 @@ const Callout = ({ children, icon, color = '#29c6c6' }) => (
   </div>
 );
 
-const Bullet = ({ children, color = '#29c6c6' }) => (
+const Bullet = ({ children, color = PRIMARY }) => (
   <div style={{
     display: 'flex', alignItems: 'flex-start', gap: 9,
     fontSize: 12.5, fontWeight: 500, color: colors.foreground,
@@ -102,7 +103,7 @@ const CheckItem = ({ done, children }) => (
     {done ? (
       <div style={{
         width: 18, height: 18, borderRadius: 5,
-        background: '#2db87d',
+        background: SUCCESS,
         color: '#fff', fontSize: 10, fontWeight: 800,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         flexShrink: 0, marginTop: 1,
@@ -173,7 +174,7 @@ export const NotepadsHero = () => (
       <span style={{
         display: 'inline-flex', alignItems: 'center', gap: 4,
         fontSize: 10, fontWeight: 800, letterSpacing: '0.10em',
-        color: '#1ea5a5',
+        color: PRIMARY_DEEP,
         background: 'rgba(41,198,198,0.14)',
         padding: '4px 9px', borderRadius: 999,
         flexShrink: 0,
@@ -193,11 +194,11 @@ export const NotepadsHero = () => (
         <span style={{
           display: 'inline-flex', alignItems: 'center', gap: 5,
           fontSize: 10, fontWeight: 800, letterSpacing: '0.08em',
-          color: '#29c6c6',
+          color: PRIMARY,
           background: 'rgba(41,198,198,0.14)',
           padding: '3px 8px', borderRadius: 4,
         }}>
-          <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#29c6c6' }} />
+          <span style={{ width: 5, height: 5, borderRadius: '50%', background: PRIMARY }} />
           SALES · Q3 ROLLOUT
         </span>
         <span style={{ fontSize: 10.5, fontWeight: 600, color: colors.mutedForeground }}>
@@ -206,7 +207,7 @@ export const NotepadsHero = () => (
       </div>
 
       {/* AI Summary callout */}
-      <Callout icon="✦" color="#29c6c6">
+      <Callout icon="✦" color={PRIMARY}>
         <B>The ask:</B> Replace their legacy practice management system with an
         integrated CRM that automates referrals and reminders across <B>3 clinics</B>.
         Decision maker is Dr Mitchell — needs board sign-off above <Mark>$50k</Mark>.
@@ -214,17 +215,17 @@ export const NotepadsHero = () => (
 
       <H2>KEY PAIN POINTS</H2>
       <Bullet>GP referrals getting lost between locations</Bullet>
-      <Bullet color="#2db87d">Appointment reminders inconsistent → high no-show rate</Bullet>
-      <Bullet color="#47a3d9">No visibility into where each patient sits in the journey</Bullet>
+      <Bullet color={SUCCESS}>Appointment reminders inconsistent → high no-show rate</Bullet>
+      <Bullet color={ACCENT}>No visibility into where each patient sits in the journey</Bullet>
 
-      <H2 color="#2db87d">PROPOSED SOLUTION</H2>
+      <H2 color={SUCCESS}>PROPOSED SOLUTION</H2>
       <P>
         Phased rollout to keep initial commitment <B>under board threshold</B>:
         <I> AI Automation Audit</I> first, then CRM Suite build for all
         3 locations, then training + go-live.
       </P>
 
-      <H2 color="#47a3d9">NEXT ACTIONS</H2>
+      <H2 color={ACCENT}>NEXT ACTIONS</H2>
       <CheckItem done>Send proposal v2 with phased pricing</CheckItem>
       <CheckItem done>Book demo for the operations team</CheckItem>
       <CheckItem>Loop in Dr Patel (warm referrer) for endorsement</CheckItem>

@@ -9,19 +9,20 @@
 
 import React from 'react';
 import { colors } from '../../theme.js';
+import { ACCENT, LIGHT, PRIMARY, SUCCESS } from '../../brand.js';
 
 const TREND_POINTS = [22, 28, 26, 34, 32, 40, 44, 42, 52, 58, 56, 64, 70, 76];
 const BAR_DATA = [
-  { label: 'New Enq.',   value: 92, color: '#7dd3d3' },
-  { label: 'Discovery',  value: 74, color: '#29c6c6' },
-  { label: 'Proposal',   value: 58, color: '#47a3d9' },
-  { label: 'Won',        value: 47, color: '#2db87d' },
+  { label: 'New Enq.',   value: 92, color: LIGHT },
+  { label: 'Discovery',  value: 74, color: PRIMARY },
+  { label: 'Proposal',   value: 58, color: ACCENT },
+  { label: 'Won',        value: 47, color: SUCCESS },
 ];
 const DONUT_SLICES = [
-  { label: 'Website',  value: 38, color: '#29c6c6' },
-  { label: 'Referral', value: 28, color: '#47a3d9' },
-  { label: 'LinkedIn', value: 18, color: '#7dd3d3' },
-  { label: 'Inbound',  value: 16, color: '#2db87d' },
+  { label: 'Website',  value: 38, color: PRIMARY },
+  { label: 'Referral', value: 28, color: ACCENT },
+  { label: 'LinkedIn', value: 18, color: LIGHT },
+  { label: 'Inbound',  value: 16, color: SUCCESS },
 ];
 
 const Card = ({ children, style = {} }) => (
@@ -48,7 +49,7 @@ const StatHero = () => (
     </div>
     <div style={{
       fontSize: 14, fontWeight: 800,
-      color: '#2db87d',
+      color: SUCCESS,
       background: 'rgba(45,184,125,0.15)',
       padding: '8px 14px', borderRadius: 999,
       display: 'flex', alignItems: 'center', gap: 4,
@@ -130,24 +131,24 @@ const TrendChart = ({ points }) => {
     <svg viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" style={{ width: '100%', height: 140, display: 'block' }}>
       <defs>
         <linearGradient id="trend-area-tall" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stopColor="#29c6c6" stopOpacity="0.40" />
-          <stop offset="100%" stopColor="#29c6c6" stopOpacity="0" />
+          <stop offset="0%" stopColor={PRIMARY} stopOpacity="0.40" />
+          <stop offset="100%" stopColor={PRIMARY} stopOpacity="0" />
         </linearGradient>
       </defs>
       <polygon points={area} fill="url(#trend-area-tall)" />
-      <polyline points={pts} fill="none" stroke="#29c6c6" strokeWidth="1.3" strokeLinejoin="round" strokeLinecap="round" />
+      <polyline points={pts} fill="none" stroke={PRIMARY} strokeWidth="1.3" strokeLinejoin="round" strokeLinecap="round" />
       {points.map((p, i) => (
-        <circle key={i} cx={i * step} cy={h - (p / max) * (h - 4) - 2} r="0.9" fill="#29c6c6" />
+        <circle key={i} cx={i * step} cy={h - (p / max) * (h - 4) - 2} r="0.9" fill={PRIMARY} />
       ))}
     </svg>
   );
 };
 
 const TOP_PERFORMERS = [
-  { name: 'Alex R.',   avatar: 'AR', color: '#29c6c6', value: '$98k', bar: 100 },
-  { name: 'Jordan P.', avatar: 'JP', color: '#47a3d9', value: '$72k', bar: 73  },
-  { name: 'Mira S.',   avatar: 'MS', color: '#2db87d', value: '$58k', bar: 59  },
-  { name: 'Hugo D.',   avatar: 'HD', color: '#7dd3d3', value: '$41k', bar: 42  },
+  { name: 'Simon K.',  avatar: 'SK', color: PRIMARY, value: '$98k', bar: 100 },
+  { name: 'Jordan P.', avatar: 'JP', color: ACCENT, value: '$72k', bar: 73  },
+  { name: 'Mira S.',   avatar: 'MS', color: SUCCESS, value: '$58k', bar: 59  },
+  { name: 'Hugo D.',   avatar: 'HD', color: LIGHT, value: '$41k', bar: 42  },
 ];
 
 const TopPerformersCard = () => (
@@ -195,7 +196,7 @@ const TrendCard = () => (
       <span style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.10em', color: colors.mutedForeground }}>
         WEEKLY WON DEALS
       </span>
-      <span style={{ fontSize: 14, fontWeight: 800, color: '#2db87d' }}>+187% YoY</span>
+      <span style={{ fontSize: 14, fontWeight: 800, color: SUCCESS }}>+187% YoY</span>
     </div>
     <TrendChart points={TREND_POINTS} />
   </Card>
@@ -249,7 +250,7 @@ export const ReportsHero = () => (
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
-          background: '#2db87d',
+          background: SUCCESS,
           boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
         }} />
         <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
