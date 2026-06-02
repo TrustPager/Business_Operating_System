@@ -1,0 +1,26 @@
+{
+  "name": "bos-og-studio",
+  "version": "1.0.0",
+  "description": "Code-driven Open Graph (social-share) image studio. Brand identity flows from BOS/brand/brand.json. Browser editor at localhost:3217, headless PNG export at 1200x630 — the image that unfurls when your links are shared on Slack, LinkedIn, X, and Facebook.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "preview": "vite preview",
+    "shoot": "node scripts/shoot.js",
+    "shoot:all": "node scripts/shoot.js",
+    "publish": "node scripts/publish.js",
+    "publish:all": "node scripts/publish.js --all",
+    "render": "node scripts/render.js",
+    "render:all": "node scripts/render.js --all",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.4.1",
+    "puppeteer": "^24.8.0",
+    "vite": "^6.3.5"
+  }
+}

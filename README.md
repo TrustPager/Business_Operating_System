@@ -98,6 +98,8 @@ The thumbnail studio lives at [studio/thumbnails/](studio/thumbnails/) — a Vit
 
 The social studio lives at [studio/social/](studio/social/) — the same pipeline, one headline-first design language across all four formats, with an optional product card, stat strip, or testimonial. Method summary: [knowledge/social-post-method.md](knowledge/social-post-method.md).
 
+The OG image studio lives at [studio/og/](studio/og/) — the same pipeline at 1200×630, producing the link-preview images that unfurl when your pages are shared on Slack, LinkedIn, X, and Facebook. One sample per page/route; headline + accent word + a product hero, all brand.json-driven. Browser preview at `localhost:3217`, puppeteer-rendered PNG, copy into your site's `public/og/` (with the `og:image` meta tags) or one-command publish to your TrustPager Files folder. See [studio/og/README.md](studio/og/README.md).
+
 ---
 
 ## Who this is for

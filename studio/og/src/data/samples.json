@@ -1,0 +1,56 @@
+{
+  "docs-home": {
+    "template": "og-image",
+    "filename": "docs-home.png",
+    "data": {
+      "headline": "Docs Built for AI Agents",
+      "accentWord": "AI Agents",
+      "hero": "claude-pipeline"
+    }
+  },
+  "docs-quickstart": {
+    "template": "og-image",
+    "filename": "docs-quickstart.png",
+    "data": {
+      "headline": "Your First Call in 5 Minutes",
+      "accentWord": "5 Minutes",
+      "hero": "contacts"
+    }
+  },
+  "docs-authentication": {
+    "template": "og-image",
+    "filename": "docs-authentication.png",
+    "data": {
+      "headline": "One Key. Scoped Access.",
+      "accentWord": "Scoped",
+      "hero": "permissions"
+    }
+  },
+  "docs-reference": {
+    "template": "og-image",
+    "filename": "docs-reference.png",
+    "data": {
+      "headline": "Every Endpoint, One Reference",
+      "accentWord": "Every",
+      "hero": "platform-overview"
+    }
+  },
+  "docs-using-ai": {
+    "template": "og-image",
+    "filename": "docs-using-ai.png",
+    "data": {
+      "headline": "670+ Tools, One MCP",
+      "accentWord": "670+",
+      "hero": "agent-hub"
+    }
+  },
+  "docs-template-variables": {
+    "template": "og-image",
+    "filename": "docs-template-variables.png",
+    "data": {
+      "headline": "Personalize Every Message",
+      "accentWord": "Every",
+      "hero": "automations"
+    }
+  }
+}

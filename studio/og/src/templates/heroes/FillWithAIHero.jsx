@@ -1,0 +1,166 @@
+// Fill with AI hero — vertical stack of discovery questions + deal fields
+// that an AI is filling in from call notes / dictation. One row is mid-fill
+// with a caret blinking, the rest are completed.
+//
+// Outcome framing: AI is writing the CRM for you. Looks like a deal-detail
+// page populating itself.
+
+import React from 'react';
+import { colors } from '../../theme.js';
+
+const SECTIONS = [
+  {
+    label: 'NOTES',
+    rows: [
+      {
+        kind: 'paragraph',
+        body: "Looking to replace their legacy practice management system with a fully integrated CRM. Decision maker is Dr Mitchell — board sign-off required above $50k. Strong interest in automated reminders. Warm referral from Dr Patel at Westmead.",
+        sparkle: true,
+      },
+    ],
+  },
+  {
+    label: 'DISCOVERY QUESTIONS',
+    rows: [
+      { kind: 'qa', q: 'What problem are they trying to solve?', a: 'Patient referrals getting lost between three clinic locations.', sparkle: true },
+      { kind: 'qa', q: 'Who is the decision maker?',              a: 'Dr Sarah Mitchell (CFO) — board sign-off above $50k.',          sparkle: true },
+      { kind: 'qa', q: 'What\'s their timeline?',                  a: 'Q3 rollout to coincide with new compliance reporting.',          sparkle: true },
+      { kind: 'qa', q: 'What does success look like?',             a: '', sparkle: true, filling: true },
+    ],
+  },
+];
+
+const Sparkle = ({ filling = false }) => (
+  <span style={{
+    width: 18, height: 18, borderRadius: 6,
+    background: filling
+      ? 'linear-gradient(135deg, var(--brand-primary), var(--brand-accent))'
+      : 'linear-gradient(135deg, var(--brand-secondary), var(--brand-primary))',
+    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+    color: '#fff', fontSize: 10, fontWeight: 800,
+    flexShrink: 0,
+    boxShadow: filling
+      ? '0 2px 8px color-mix(in srgb, var(--brand-primary) 40%, transparent)'
+      : '0 2px 6px color-mix(in srgb, var(--brand-secondary) 30%, transparent)',
+  }}>✦</span>
+);
+
+const SectionLabel = ({ label }) => (
+  <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '2px 4px' }}>
+    <span style={{
+      fontSize: 10, fontWeight: 800, letterSpacing: '0.12em',
+      color: colors.mutedForeground,
+    }}>{label}</span>
+    <span style={{ flex: 1, height: 1, background: 'rgba(226,232,240,0.6)' }} />
+  </div>
+);
+
+const NoteRow = ({ row }) => (
+  <div style={{
+    borderRadius: 11,
+    padding: '12px 14px',
+    border: '1px solid color-mix(in srgb, var(--brand-primary) 25%, transparent)',
+    background: 'color-mix(in srgb, var(--brand-primary) 4%, transparent)',
+    display: 'flex', gap: 11,
+  }}>
+    <Sparkle />
+    <div style={{ flex: 1 }}>
+      <div style={{
+        fontSize: 11, fontWeight: 800, letterSpacing: '0.08em',
+        color: 'var(--brand-primary-deep)', marginBottom: 5,
+      }}>✦ TRANSCRIBED FROM DICTATION</div>
+      <div style={{
+        fontSize: 12.5, fontWeight: 500, color: colors.foreground,
+        lineHeight: 1.45, letterSpacing: '-0.005em',
+      }}>{row.body}</div>
+    </div>
+  </div>
+);
+
+const QARow = ({ row }) => (
+  <div style={{
+    background: row.filling ? 'color-mix(in srgb, var(--brand-primary) 5%, transparent)' : '#fff',
+    borderRadius: 11,
+    padding: '11px 14px',
+    border: row.filling
+      ? '1.5px solid color-mix(in srgb, var(--brand-primary) 50%, transparent)'
+      : '1px solid rgba(226,232,240,0.7)',
+    boxShadow: row.filling ? '0 4px 14px color-mix(in srgb, var(--brand-primary) 18%, transparent)' : 'none',
+    display: 'flex', flexDirection: 'column', gap: 6,
+  }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+      <span style={{
+        fontSize: 11, fontWeight: 700, color: colors.mutedForeground,
+        letterSpacing: '-0.005em', flex: 1, lineHeight: 1.3,
+      }}>{row.q}</span>
+      {row.filling && (
+        <span style={{
+          fontSize: 9, fontWeight: 800, letterSpacing: '0.10em',
+          color: 'var(--brand-primary-deep)',
+          background: 'color-mix(in srgb, var(--brand-primary) 22%, transparent)',
+          padding: '2px 7px', borderRadius: 999,
+        }}>● WRITING</span>
+      )}
+    </div>
+    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+      <Sparkle filling={row.filling} />
+      <div style={{
+        fontSize: 12.5, fontWeight: 700, color: colors.foreground,
+        lineHeight: 1.35, letterSpacing: '-0.005em',
+        flex: 1, minHeight: 16,
+      }}>
+        {row.a}
+        {row.filling && (
+          <span style={{
+            display: 'inline-block', width: 1.5, height: 14,
+            background: 'var(--brand-primary)',
+            verticalAlign: 'text-bottom',
+            marginLeft: 2,
+          }} />
+        )}
+      </div>
+    </div>
+  </div>
+);
+
+export const FillWithAIHero = () => (
+  <div style={{
+    background: '#fff',
+    borderRadius: 18,
+    padding: 18,
+    boxShadow: '0 1px 2px rgba(15,17,23,0.06), 0 6px 14px rgba(15,17,23,0.06), 0 26px 52px rgba(15,17,23,0.12), 0 0 0 1px rgba(15,17,23,0.05)',
+    display: 'flex', flexDirection: 'column', gap: 14,
+  }}>
+    {/* Header */}
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <span style={{
+          width: 12, height: 12, borderRadius: '50%',
+          background: 'var(--brand-secondary)',
+          boxShadow: '0 0 0 5px color-mix(in srgb, var(--brand-secondary) 22%, transparent)',
+        }} />
+        <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
+          Coastal Health · Deal
+        </span>
+      </div>
+      <span style={{
+        display: 'inline-flex', alignItems: 'center', gap: 4,
+        fontSize: 11, fontWeight: 800, letterSpacing: '0.10em',
+        color: '#fff',
+        background: 'linear-gradient(135deg, var(--brand-primary), var(--brand-accent))',
+        padding: '5px 10px', borderRadius: 999,
+        boxShadow: '0 2px 8px color-mix(in srgb, var(--brand-primary) 40%, transparent)',
+      }}>✦ FILLING WITH AI</span>
+    </div>
+
+    {/* Sections */}
+    {SECTIONS.map((section, si) => (
+      <div key={si} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <SectionLabel label={section.label} />
+        {section.rows.map((row, i) => (
+          row.kind === 'paragraph' ? <NoteRow key={i} row={row} /> : <QARow key={i} row={row} />
+        ))}
+      </div>
+    ))}
+  </div>
+);
