@@ -38,6 +38,7 @@ Claude: /sweep-my-day
 - `/send-email` — TrustPager Mail with all the quality rails built in
 
 **🧹 Setup & maintenance**
+- `/learn-my-business` — reads your live workspace and writes your `CLAUDE.md` for you (pipeline, products, brand) — no template to hand-fill
 - `/brand-my-workspace` — point it at your website, your TrustPager workspace inherits the brand
 - `/import-from-anywhere` — paste a CSV, a PDF, a screenshot, an email export — Claude normalises it into your workspace
 - `/sync-from-xero` — connects accounting to opportunities
@@ -50,20 +51,35 @@ Claude: /sweep-my-day
 
 **🤖 Power moves**
 - `/make-it-happen` — describe what you want done in plain English. Claude figures out which TrustPager tools to call.
-- `/automate-this` — describe a repetitive task. Claude builds the automation.
+- `/automate-this` — describe a repetitive task. Claude builds the automation — one trigger or several (fire from a form *and* a webhook), conditions, ordered actions, tested before it goes live.
+- `/audit-my-automations` — health-check every automation: which are firing, stale, erroring, missing dedup/daily-caps, or overlapping. Problems first, each with a one-line fix.
+- `/why-didnt-it-fire` — an automation didn't do what you expected? Get the one real reason — disabled, never matched, a condition skipped it, or an action failed — plus the fix.
+
+The method behind automations is in [knowledge/automation-method.md](knowledge/automation-method.md); a catalogue of ready-to-adapt automations (missed-call recovery, lead intake, review requests, renewal reminders, and more — tagged by industry) is in [knowledge/automation-recipes.md](knowledge/automation-recipes.md).
+
+**📈 Reporting & cash flow (know your numbers, on a schedule)**
+- `/outstanding-invoices` — who owes you money. Pulls accounts receivable from your connected accounting integration into an aged summary (Current / 1-30 / 31-60 / 61-90 / 90+), surfaces the worst offenders, and — if you want — builds a dashboard and emails it to you (and your bookkeeper) every morning.
+- `/email-me-a-report` — deliver *any* report as a recurring email digest. Pick or build a dashboard, choose recipients and a cadence (e.g. 7am weekdays), and it lands in your inbox server-side with nothing open. The same mechanism behind the built-in Team Task Digest.
+
+The method behind the reporting engine — sources, measures, dimensions, the aged-receivables pattern, and the "email any dashboard on a schedule" unlock — is in [knowledge/reporting-method.md](knowledge/reporting-method.md). The receivables source seeds once from your accounting integration then stays live on its own (the synced-ledger model is in [knowledge/safeguards.md](knowledge/safeguards.md)).
 
 **📣 Marketing strategy (build your voice → ship a nurture sequence)**
 - `/build-customer-voice` — pull ≥5min call + meeting transcripts, extract verbatim customer pain into a 10-section synthesis. Foundation for everything else.
 - `/build-brand-strategy` — author positioning, ICP, voice, value-props, content-pillars from the synthesis. Every claim anchored in a real customer quote — no invented sales copy.
 - `/design-nurture-sequence` — draft a multi-step email sequence in your voice. Picks the help-center video for each stage. Drafts in chat, no live writes.
 - `/wire-nurture-sequence` — push approved drafts into a live TrustPager auto queue via MCP. Handles the step_order shuffle safely.
+- `/lint-nurture-sequence` — check a sequence against the house style before it ships (clickable CTA above every image, consistent sign-off, positive subjects) and catch drift across the set. Works on live queues or drafts.
+- `/nurture-health` — once it's live, see whether it's working: the enrolment funnel, which step is leaking the most people, per-step open/click rates, and whether the un-enrol side is firing. Closes the loop the design + wire steps leave open.
 
-The method behind these four is in [knowledge/marketing-strategy-method.md](knowledge/marketing-strategy-method.md).
+The method behind the strategy skills is in [knowledge/marketing-strategy-method.md](knowledge/marketing-strategy-method.md); the multi-channel reawakening / win-back machines are in [knowledge/automation-recipes.md](knowledge/automation-recipes.md) (R19/R20).
 
 **🎬 Content production**
 - `/make-thumbnail` — design and render a 1280×720 YouTube thumbnail for one of your tutorial videos using the bundled studio. Browser preview at `localhost:3210`, puppeteer-rendered PNG, optional one-command publish to your TrustPager Files folder.
+- `/make-social-post` — design and render branded social posts in four formats (Instagram square 1080×1080 + portrait 1080×1350, LinkedIn 1200×627, X 1600×900) using the bundled Social Studio. Browser preview at `localhost:3216`, puppeteer-rendered PNG, optional one-command publish to your TrustPager Files folder.
 
-The full studio lives at [studio/thumbnails/](studio/thumbnails/) — a Vite + React + Puppeteer pipeline with the design rules distilled from 22+ iterations. The 6 example PNGs in `studio/thumbnails/examples/` are real thumbnails from FinalPiece's TrustPager tutorial series — keep them as inspiration or wipe `src/data/samples.json` and start fresh. Method summary: [knowledge/youtube-thumbnail-method.md](knowledge/youtube-thumbnail-method.md).
+The thumbnail studio lives at [studio/thumbnails/](studio/thumbnails/) — a Vite + React + Puppeteer pipeline with the design rules distilled from 22+ iterations. The 6 example PNGs in `studio/thumbnails/examples/` are real thumbnails from FinalPiece's TrustPager tutorial series — keep them as inspiration or wipe `src/data/samples.json` and start fresh. Method summary: [knowledge/youtube-thumbnail-method.md](knowledge/youtube-thumbnail-method.md).
+
+The social studio lives at [studio/social/](studio/social/) — the same pipeline, one headline-first design language across all four formats, with an optional product card, stat strip, or testimonial. Method summary: [knowledge/social-post-method.md](knowledge/social-post-method.md).
 
 ---
 
@@ -110,7 +126,21 @@ Every skill in here:
 - Is open source and inspectable — read the source, modify it, fork it
 - Only ever talks to your TrustPager workspace (never anyone else's)
 - Asks before doing anything destructive
-- Logs what it did, so you can see the trail
+- Logs what it did, so you can see the trail — every write lands in `~/.claude/bos-journal/`; read it any time with `python tools/journal.py`
+
+## Subagents
+
+Some work is heavy enough that it should run in its own context rather than
+flooding your conversation. BOS ships two subagents Claude delegates to
+automatically when the task fits — they live in [agents/](./agents/):
+
+- **`workspace-analyst`** — read-only deep dives. Full pipeline sweeps,
+  automation/nurture health audits, data-quality scans. It does the fanning-out
+  and hands back the conclusion, not the raw data. Never writes.
+- **`nurture-architect`** — the marketing pack's long reads: building the
+  customer-voice synthesis from every transcript, authoring the brand docs,
+  drafting a sequence. It produces drafts for you to review; deploying them
+  stays in the main thread after your approval.
 
 ---
 
