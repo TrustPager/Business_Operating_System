@@ -18,11 +18,16 @@ What it does:
 Fixture shape:
     {
       "catalog": {"_use_live": true},
+      "args": ["--contact-id", "contact-1"],
       "responses": {
         "opportunities": {"data": [{"id": "...", "name": "..."}]},
         "tasks":         {"data": []}
       }
     }
+
+The optional "args" list is appended to sys.argv after "--json-only", so a
+skill whose fetch.py takes required arguments (e.g. --query, --contact-id) can
+still be exercised against its fixture. Omit it for zero-argument skills.
 
 Usage:
     python tools/test-skill.py sweep-my-day
@@ -112,7 +117,11 @@ def main() -> int:
         if hasattr(mod, "get_catalog"):
             mod.get_catalog = mock_get_catalog
 
-        sys.argv = ["fetch.py", "--json-only"]
+        fixture_args = fixture.get("args", [])
+        if not isinstance(fixture_args, list) or not all(isinstance(a, str) for a in fixture_args):
+            print("ERROR: fixture 'args' must be a list of strings", file=sys.stderr)
+            return 2
+        sys.argv = ["fetch.py", "--json-only", *fixture_args]
         if hasattr(mod, "main"):
             mod.main()
             print()

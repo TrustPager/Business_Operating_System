@@ -1,5 +1,6 @@
 {
   "catalog": {"_use_live": true},
+  "args": ["--query", "how do I send an email"],
   "responses": {
     "ai-instructions": {"instructions": "Test workspace AI instructions."},
     "training-canvases": {"data": []}

@@ -1,5 +1,6 @@
 {
   "catalog": {"_use_live": true},
+  "args": ["--contact-id", "contact-1"],
   "responses": {
     "contacts/contact-1": {"id": "contact-1", "first_name": "Test", "last_name": "User", "email": "test@example.com"},
     "email/threads": {"data": [], "pagination": {"has_more": false}},
