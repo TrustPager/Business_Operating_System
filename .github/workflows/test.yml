@@ -1,0 +1,51 @@
+name: tests
+
+# Offline by design. BOS_OFFLINE=1 makes the shared library refuse every
+# network call, so this workflow can never reach the live API or read a real
+# API key. No secrets are referenced anywhere in this file — on purpose.
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      BOS_OFFLINE: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Secret scan (no key may enter the repo)
+        run: python tools/check-no-secrets.py
+
+      - name: Lint every skill
+        run: |
+          set -e
+          for d in skills/*/; do
+            python tools/lint-skill.py "$d"
+          done
+
+      - name: Offline fixture tests (no key, no network)
+        run: |
+          set -e
+          for d in skills/*/; do
+            name="$(basename "$d")"
+            if [ -f "$d/test-fixture.json" ]; then
+              echo "== $name =="
+              python tools/test-skill.py "$name"
+            fi
+          done
+
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Sequence linter self-check
+        run: python tools/lint-sequence.py --drafts tests/fixtures/sequence-mixed.json || test $? -eq 2

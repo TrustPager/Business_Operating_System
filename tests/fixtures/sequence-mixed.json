@@ -1,0 +1,12 @@
+[
+  {
+    "label": "Day 0",
+    "subject": "Streamline your week",
+    "body": "<p>Hi {{contact.first_name}},</p><p>Here is the idea.</p><p><a href=\"https://x\"><strong>Watch it here:</strong></a></p><p><a href=\"https://x\"><img src=\"y.png\"></a></p><p>Warmest regards,<br>Simon</p>"
+  },
+  {
+    "label": "Day 7",
+    "subject": "Don't miss out",
+    "body": "<p>Hi {{contact.first_name}},</p><p>See it:</p><p><a href=\"https://x\"><img src=\"y.png\"></a></p><p>Cheers</p>"
+  }
+]

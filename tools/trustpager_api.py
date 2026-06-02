@@ -33,6 +33,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import sys
 import time
 import urllib.error
@@ -49,6 +50,7 @@ API_BASE = "https://api.trustpager.com/functions/v1/api/v1"
 CATALOG_URL = "https://docs.trustpager.com/api-index.json"
 CONFIG_PATH = Path.home() / ".claude" / "bos.json"
 CATALOG_CACHE_PATH = Path.home() / ".claude" / "bos-cache" / "api-index.json"
+JOURNAL_DIR = Path.home() / ".claude" / "bos-journal"  # write audit trail (see tools/journal.py)
 CATALOG_TTL_SECONDS = 24 * 60 * 60  # 24h
 DEFAULT_TIMEOUT_SECONDS = 30
 DEFAULT_PARALLEL_WORKERS = 8
@@ -73,6 +75,28 @@ PATH_OVERRIDES: dict[str, str] = {
 
 class BOSError(Exception):
     """Friendly, user-facing error. The message is intended for end users."""
+
+
+# Matches a REAL TrustPager key (long token after the prefix), not the bare
+# "tp_live_" prefix that appears in docs/error messages. Used to redact keys
+# from anything that gets written or logged, and by tools/check-no-secrets.py.
+_SECRET_RE = re.compile(r"tp_(?:live|test)_[A-Za-z0-9_\-]{16,}")
+
+
+def _redact(text: str | None) -> str | None:
+    """Replace any TrustPager key token with a placeholder. Best-effort, never raises."""
+    if not text:
+        return text
+    try:
+        return _SECRET_RE.sub("tp_***REDACTED***", text)
+    except Exception:  # noqa: BLE001
+        return text
+
+
+def _is_offline() -> bool:
+    """True when BOS_OFFLINE is set — tests/CI run with this on so no network
+    call can ever fire and no real API key is ever read."""
+    return os.environ.get("BOS_OFFLINE", "").strip().lower() in {"1", "true", "yes", "on"}
 
 
 @dataclass
@@ -184,6 +208,13 @@ def _request(method: str, path: str, params: dict[str, Any] | None = None,
         - 5xx: retries up to DEFAULT_RETRIES_ON_5XX times with exponential backoff
         - Network errors: no retry — bubbles up immediately
     """
+    if _is_offline():
+        raise BOSError(
+            f"BOS is in offline mode (BOS_OFFLINE is set) — refusing the {method} {path} "
+            f"network call.\nThis guard means tests and CI can never reach the live API or "
+            f"read a real API key. Mock api_get/api_post with fixtures instead "
+            f"(see tools/test-skill.py)."
+        )
     api_key = get_api_key()
     url = _build_url(path, params)
     headers = {
@@ -306,6 +337,67 @@ def _request(method: str, path: str, params: dict[str, Any] | None = None,
         raise BOSError(f"Unexpected response from {path}: {e}") from None
 
 
+# =============================================================================
+# Write journal — every write BOS issues is appended to ~/.claude/bos-journal.
+# Reads are never journaled. Best-effort: journaling failures never break the
+# write. Disable with BOS_JOURNAL=0. The reader CLI is tools/journal.py.
+# =============================================================================
+
+
+def _record_write(method: str, path: str, body: dict[str, Any] | None, *,
+                  status: str, result_id: str | None = None,
+                  approval_id: str | None = None, error: str | None = None) -> None:
+    """Append one write-attempt line to today's journal file. Never raises."""
+    if os.environ.get("BOS_JOURNAL", "1").strip().lower() in {"0", "false", "no", "off"}:
+        return
+    try:
+        JOURNAL_DIR.mkdir(parents=True, exist_ok=True)
+        body_summary: str | None = None
+        if body is not None:
+            try:
+                body_summary = json.dumps(body, default=str)[:1000]
+            except (TypeError, ValueError):
+                body_summary = str(body)[:1000]
+        # Redact any API key token before it touches disk — a write body should
+        # never carry a key, but if one ever did, it must not land in the journal.
+        entry = {
+            "ts": now_utc().isoformat(),
+            "method": method,
+            "path": path,
+            "status": status,
+            "result_id": result_id,
+            "approval_id": approval_id,
+            "error": _redact(error[:300]) if error else None,
+            "body_summary": _redact(body_summary),
+        }
+        day = now_utc().strftime("%Y-%m-%d")
+        with (JOURNAL_DIR / f"{day}.jsonl").open("a", encoding="utf-8") as fh:
+            fh.write(json.dumps(entry, default=str) + "\n")
+    except Exception:  # noqa: BLE001 — journaling must never break a real write
+        pass
+
+
+def _journaled(method: str, path: str, body: dict[str, Any] | None,
+               fn: Callable[[], Any]) -> dict[str, Any] | ApprovalPending:
+    """Run a write callable, journal the outcome (ok / approval_pending / error)."""
+    try:
+        result = fn()
+    except BOSError as e:
+        _record_write(method, path, body, status="error", error=str(e))
+        raise
+    if isinstance(result, ApprovalPending):
+        _record_write(method, path, body, status="approval_pending",
+                      approval_id=result.approval_id)
+    else:
+        result_id = None
+        if isinstance(result, dict):
+            data = result.get("data", result)
+            if isinstance(data, dict):
+                result_id = data.get("id")
+        _record_write(method, path, body, status="ok", result_id=result_id)
+    return result
+
+
 def api_get(path: str, **params: Any) -> dict[str, Any]:
     """GET a path. Query parameters passed as kwargs.
 
@@ -320,13 +412,18 @@ def api_post(path: str, body: dict[str, Any] | None = None, **params: Any) -> di
 
     Returns ApprovalPending on 202 (action queued for human approval) — check
     `isinstance(result, ApprovalPending)` if your skill needs to handle that path.
+
+    Every call is recorded to the write journal (~/.claude/bos-journal).
     """
-    return _request("POST", path, params=params, body=body)
+    return _journaled("POST", path, body, lambda: _request("POST", path, params=params, body=body))
 
 
 def api_patch(path: str, body: dict[str, Any] | None = None, **params: Any) -> dict[str, Any] | ApprovalPending:
-    """PATCH a path. For updates. Returns ApprovalPending on 202."""
-    return _request("PATCH", path, params=params, body=body)
+    """PATCH a path. For updates. Returns ApprovalPending on 202.
+
+    Every call is recorded to the write journal (~/.claude/bos-journal).
+    """
+    return _journaled("PATCH", path, body, lambda: _request("PATCH", path, params=params, body=body))
 
 
 def idempotent_post(path: str, body: dict[str, Any] | None = None,
@@ -346,8 +443,9 @@ def idempotent_post(path: str, body: dict[str, Any] | None = None,
         # Deterministic key from body so a retry of the same payload dedupes
         body_bytes = json.dumps(body or {}, sort_keys=True).encode("utf-8")
         idempotency_key = "bos-" + hashlib.sha256(body_bytes).hexdigest()[:24]
-    return _request("POST", path, params=params, body=body,
-                    extra_headers={"Idempotency-Key": idempotency_key})
+    return _journaled("POST", path, body, lambda: _request(
+        "POST", path, params=params, body=body,
+        extra_headers={"Idempotency-Key": idempotency_key}))
 
 
 def parallel_get(calls: list[tuple[str, dict[str, Any]]],
@@ -504,7 +602,12 @@ def _catalog_is_fresh(path: Path, ttl_seconds: int) -> bool:
 
 
 def _fetch_catalog_live() -> dict[str, Any]:
-    """Download api-index.json from docs.trustpager.com. No auth needed."""
+    """Download api-index.json from docs.trustpager.com. No auth needed.
+
+    NOT gated by BOS_OFFLINE: the catalog is public and unauthenticated, so
+    fetching it can't leak a key. BOS_OFFLINE only blocks `_request` — the
+    authenticated path that reads the API key.
+    """
     req = urllib.request.Request(
         CATALOG_URL,
         headers={"Accept": "application/json", "User-Agent": "BusinessOperatingSystem/1.0"},

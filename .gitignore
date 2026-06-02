@@ -11,6 +11,8 @@ _staging/
 *-keys.json
 *api-keys.json
 *credentials.json
+bos.json
+bos-journal/
 
 # Local sweep reports (may contain sensitive matches mid-investigation).
 _scripts/sweep-report-*.txt

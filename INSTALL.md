@@ -19,14 +19,33 @@ You need:
 
 ### Step 1 — Install the Business Operating System pack
 
-Clone this repo to your home folder:
+You have two ways to get the skills + commands. **Either way you still run the
+Python setup** in 1b, because that's what stores your API key for the tools.
+
+**Option A — as a Claude Code plugin (recommended).** This registers every
+command, skill, and subagent with Claude Code automatically. In Claude Code:
+
+```
+/plugin marketplace add TrustPager/Business_Operating_System
+/plugin install business-operating-system@trustpager
+```
+
+Then clone the repo too (the Python tools and the installer live in it):
 
 ```
 cd ~
 git clone https://github.com/TrustPager/Business_Operating_System.git
 ```
 
-Then run setup (works the same on Mac, Linux, and Windows):
+**Option B — clone only.** Clone to your home folder and point Claude Code at
+the directory (or run from inside it):
+
+```
+cd ~
+git clone https://github.com/TrustPager/Business_Operating_System.git
+```
+
+#### 1b — Run setup (both options, same on Mac, Linux, and Windows)
 
 ```
 cd Business_Operating_System

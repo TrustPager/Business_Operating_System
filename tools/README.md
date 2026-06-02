@@ -15,6 +15,8 @@ Every file in this folder is a single-purpose Python script. Stdlib only — no 
 | See the full schema of one endpoint (params, scopes, doc URL) | `python tools/inspect-endpoint.py <resource>` |
 | Validate a Claude Code skill folder before committing | `python tools/lint-skill.py skills/<name>` |
 | Run a skill against a mock fixture (offline, no credits) | `python tools/test-skill.py <name>` |
+| Lint a nurture sequence against the house style (live queue or drafts) | `python tools/lint-sequence.py --queue <id>` |
+| See the audit trail of every write BOS made | `python tools/journal.py` |
 
 ### Business audits (read-only — useful by themselves, also called by skills)
 
@@ -59,6 +61,7 @@ Maintenance:
 - **Reads at scale** — `paginate(path)` (auto-follows `next_cursor`), `parallel_get([...])` (concurrent fan-out).
 - **Writes at scale** — `bulk_apply(write_fn, items)` with per-item error collection and a queued-approval bucket.
 - **202 / approval queue** — POSTs that need your approval return `ApprovalPending(approval_id, body)`, not an error. Skills can `.poll()` for execution.
+- **Write journal** — every `api_post` / `api_patch` / `idempotent_post` is appended to `~/.claude/bos-journal/YYYY-MM-DD.jsonl` (status: done / awaiting-approval / error). Reads are never journaled. This is what makes "BOS logs what it did" real and inspectable. Read it with `tools/journal.py`; disable with `BOS_JOURNAL=0`.
 - **Catalog** — `get_catalog()` (24h cached), `resolve_path(resource_id, method, action, path_contains)`, `inspect_endpoint(...)`. So skill code never hardcodes a path that might drift.
 - **Helpers** — `now_utc`, `parse_iso`, `days_since`, `group_count`, `top_n_by`, `log`, `emit_json`, `emit_error_and_exit`.
 
