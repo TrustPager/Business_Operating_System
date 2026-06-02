@@ -1,0 +1,20 @@
+{
+  "catalog": {"_use_live": true},
+  "responses": {
+    "report-dashboards": {
+      "data": [
+        {"id": "dash-1", "name": "Sales Overview", "description": "Pipeline by stage"}
+      ]
+    },
+    "reports/sources": {
+      "data": [
+        {"name": "opportunities", "label": "Opportunities", "description": "Pipeline, win/loss, lead sources"},
+        {"name": "tasks", "label": "Tasks", "description": "Open vs completed, overdue"},
+        {"name": "invoices", "label": "Invoices / Receivables", "description": "Outstanding invoices, aged buckets"}
+      ]
+    },
+    "auto-schedules": {
+      "data": []
+    }
+  }
+}

@@ -16,6 +16,16 @@ triggers:
 
 Accounting and CRM drift apart. The customer paid last month but the opp is still in "Quote Sent" because nobody moved it. This skill closes that gap by pulling Xero data and reconciling it against TrustPager opportunities.
 
+## Two distinct jobs — pick the right one
+
+Xero data feeds TrustPager in **two separate ways**. They are not the same thing, and this skill is only the first:
+
+1. **Reconcile invoices ↔ opportunities (this skill).** Match Xero invoices to pipeline opportunities and bring their **payment status** into line — "this Won deal is actually paid now". One-off, opportunity-by-opportunity. Use this when the operator's pipeline is out of step with what's been paid.
+
+2. **Seed the receivables ledger for AR reporting** — a *different* job. This populates the **Invoices / Receivables report source** so the operator can run an aged-receivables report ("who owes me money") and email it on a schedule. That's **`/outstanding-invoices`**, not this skill. It uses `sync_receivables` (a one-time seed; the integration's webhook keeps it live after that — see [knowledge/reporting-method.md](../../knowledge/reporting-method.md) §6).
+
+> If the operator says "who owes me money", "aged receivables", "email me my outstanding invoices daily", or anything about *reporting* on invoices → hand off to **`/outstanding-invoices`**. Stay here only for reconciling payment status against the pipeline.
+
 ## Step 1 — Pre-fetch
 
 Run:
@@ -26,7 +36,7 @@ python skills/sync-from-xero/fetch.py
 
 This first checks `integrations` for an active Xero connection. If `connected: false`, tell the user:
 
-> "Xero isn't connected to your TrustPager workspace yet. Connect it at https://app.trustpager.com/settings/integrations, then re-run this skill."
+> "Xero isn't connected to your TrustPager workspace yet. Connect it at https://app.trustpager.com/auto/integrations, then re-run this skill."
 
 If connected, the response includes the recent TrustPager opportunities for cross-referencing. For the Xero side detail (invoices + payments), use `mcp__trustpager__query_integration` with the returned `xero.id` — Xero's data is too detailed to pre-bundle.
 
