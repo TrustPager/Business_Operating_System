@@ -163,6 +163,37 @@ mcp__trustpager__add_auto_queue_step(
 )
 ```
 
+### CRITICAL — `delay_days` is CUMULATIVE from enrolment (Day N), not "+N from the previous step"
+
+The platform schedules every step as `enrolment_time + delay_days` — so the
+value you store IS the absolute day number, not the gap since the last step.
+
+| Intended cadence | CORRECT `delay_days` per step | WRONG (collapses) |
+|---|---|---|
+| Day 0, 2, 4, 6, 8, 10, 12 | `0, 2, 4, 6, 8, 10, 12` | `0, 2, 2, 2, 2, 2, 2` |
+| Day 0, 7, 14, 21 | `0, 7, 14, 21` | `0, 7, 7, 7` |
+
+If you store the per-step gap (the WRONG column above), every step after the
+first resolves to the same fire time, and the contact gets the whole sequence
+in one burst. **Two steps with the same total delay now hard-block enrolment** —
+so a flat-delay queue silently stops enrolling anyone. Always store the running
+total. Worked non-zero example (the Day-4 step of a 2-day-cadence drip):
+
+```
+mcp__trustpager__add_auto_queue_step(
+  queue_id,
+  automation_id=<step_3_automation>,
+  step_order=3,
+  delay_days=4,   delay_hours=0,   delay_minutes=0,   # Day 4 = cumulative, NOT 2
+  description="Day 4 — Pipeline mastery",
+  is_active=true
+)
+```
+
+**Editing a delay does NOT reschedule already-enrolled contacts** — they keep
+the schedule snapshotted at their enrolment. To fix in-flight enrollees you must
+reschedule their `automation_timer_tasks` rows directly (or unenrol + re-enrol).
+
 ## Step 3 — Verify
 
 After all writes:
@@ -186,11 +217,16 @@ needs to trust the wiring.
 
 Present a clean summary table:
 
-| # | Day | Step delay | Automation | Email subject |
+| # | Day | `delay_days` (cumulative) | Automation | Email subject |
 |---|---|---|---|---|
-| 1 | 0 | immediate | ... | ... |
-| 2 | 2 | +2 days | ... | ... |
+| 1 | 0 | 0 (immediate) | ... | ... |
+| 2 | 2 | 2 | ... | ... |
+| 3 | 4 | 4 | ... | ... |
 | ... | | | | |
+
+The `delay_days` column must match the Day column exactly (cumulative), and must
+strictly increase down the table. If two rows share a `delay_days` value, STOP —
+the queue will burst / block on enrolment.
 
 Plus a single line linking to the queue:
 `https://app.trustpager.com/auto/queues/<queue_id>`
