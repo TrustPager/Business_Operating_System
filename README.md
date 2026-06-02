@@ -63,6 +63,23 @@ The method behind automations is in [knowledge/automation-method.md](knowledge/a
 
 The method behind the reporting engine — sources, measures, dimensions, the aged-receivables pattern, and the "email any dashboard on a schedule" unlock — is in [knowledge/reporting-method.md](knowledge/reporting-method.md). The receivables source seeds once from your accounting integration then stays live on its own (the synced-ledger model is in [knowledge/safeguards.md](knowledge/safeguards.md)).
 
+**🏗️ Build & run your processes** *(documents & signing, forms, work orders)*
+
+The core things owners actually operate on TrustPager — each as a full lifecycle: **build → wire/send → lint → radar**.
+
+- `/build-document` — design a reusable signing template (sections, merge fields, signer inputs), created in your workspace
+- `/send-for-signing` — send a copy to signers with the rails (confirm signers, preview the merged document); creates a tracked envelope
+- `/lint-document` — pre-flight a template: every signer has a signature, no broken merge fields, no leftover placeholders
+- `/signing-radar` — who opened but hasn't signed (call them now), who never opened and is going stale, who declined
+- `/build-form` — design a form template (fields, types, order) from a description or an existing paper form
+- `/wire-form` — map each field to its CRM variable so answers land on the record, then connect the form to how it's used
+- `/lint-form` — catch orphan fields, label↔wiring mismatches, and missing required fields before it ships
+- `/form-radar` — who started but didn't finish (nudge), who never opened it (chase), what completed this week
+- `/build-work-order-process` — define the statuses jobs move through and the fields captured on each
+- `/work-order-radar` — which jobs have stalled in one status, which completed (did the customer get told?)
+
+The methods are in [knowledge/document-method.md](knowledge/document-method.md), [knowledge/form-method.md](knowledge/form-method.md), and [knowledge/work-order-method.md](knowledge/work-order-method.md). Because every send lands on a TrustPager-hosted page, the open/sign/submit signals (`signature_opened`, `form_opened`, `work_order_opened`) drive your follow-ups automatically — that's what the radars run on.
+
 **📣 Marketing strategy (build your voice → ship a nurture sequence)**
 - `/build-customer-voice` — pull ≥5min call + meeting transcripts, extract verbatim customer pain into a 10-section synthesis. Foundation for everything else.
 - `/build-brand-strategy` — author positioning, ICP, voice, value-props, content-pillars from the synthesis. Every claim anchored in a real customer quote — no invented sales copy.
