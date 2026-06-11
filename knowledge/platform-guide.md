@@ -93,6 +93,19 @@ Every common action you'll want to take on the platform, with step-by-step instr
 
 **How to set up company-wide tag quick-picks (Tag Palette):**
 - The tag palette is built automatically: whenever you create a new tag on any opportunity, it is added to the company-wide palette.
+
+**How to use Product Buckets on an opportunity (group products by area/room):**
+
+Product Buckets let you group line items under named sections on the opportunity Products card (e.g. "Main Bathroom", "Ensuite", "Laundry"). Invoices and estimates render each bucket as a grouped section with its own subtotal.
+
+1. Open any opportunity at [Opportunities](https://app.trustpager.com/crm/opportunities).
+2. Scroll to the **Products** card.
+3. Click **"Add Product Bucket"** (top-right corner of the Products card).
+4. Enter a name (e.g. "Main Bathroom") and save.
+5. When adding a product to the deal, use the **bucket dropdown pill** on the line item to assign it to a bucket.
+6. To rename a bucket, click its name inline. To delete a bucket, click the trash icon -- line items in that bucket remain on the deal as ungrouped.
+
+**Product Bucket Label presets:** Go to [Settings > CRM](https://app.trustpager.com/settings/crm) and scroll to **Product Bucket Labels** to add workspace-level bucket name presets (quick-pick suggestions when creating a bucket).
 - To manage the palette directly via API or MCP, use `GET /company/settings/tag-palette` and `PATCH /company/settings/tag-palette`.
 
 **How to search and filter any list:**
