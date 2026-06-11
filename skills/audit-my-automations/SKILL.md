@@ -21,7 +21,7 @@ Operators set automations up and never look at them again — so they don't noti
 ## Step 1 — Fetch the health digest
 
 ```bash
-python skills/audit-my-automations/fetch.py
+python ~/.claude/bos-run.py audit-my-automations
 ```
 
 One call: lists every automation (with triggers + actions inline), samples each one's recent runs, and computes per-automation flags plus cross-automation trigger overlaps. The shape is documented at the bottom of `fetch.py`.

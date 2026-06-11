@@ -21,7 +21,7 @@ Replies are higher-stakes than fresh emails — the context already exists, and 
 First, run:
 
 ```
-python skills/draft-reply/fetch.py --hours 48
+python ~/.claude/bos-run.py draft-reply --hours 48
 ```
 
 This returns every inbound email + SMS in the window with no reply, ranked (open-opportunity senders first, then by recency). If the user already named someone, filter the list and pick that one. If not, offer the top 3-5 as a numbered list:

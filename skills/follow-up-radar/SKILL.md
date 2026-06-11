@@ -19,7 +19,7 @@ You are surfacing the active opportunities that have gone quiet and drafting per
 ## Step 1 — Fetch silent opportunities
 
 ```bash
-python skills/follow-up-radar/fetch.py
+python ~/.claude/bos-run.py follow-up-radar
 ```
 
 The script returns a JSON document with:

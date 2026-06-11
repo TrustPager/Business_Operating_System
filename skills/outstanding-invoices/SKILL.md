@@ -26,10 +26,10 @@ This skill builds on the reporting engine. Read [knowledge/reporting-method.md](
 **Run the fetcher first.** It confirms the accounting integration is connected and queries the open-AR ledger (AUTHORISED, amount due > 0) into an aged summary plus the individual overdue invoices.
 
 ```bash
-python skills/outstanding-invoices/fetch.py
+python ~/.claude/bos-run.py outstanding-invoices
 ```
 
-(Adjust the path if BOS is installed elsewhere.) The output shape is documented at the bottom of `fetch.py`. Branch on what it returns:
+(The `~/.claude/bos-run.py` launcher resolves the install location for you, so this runs from any folder.) The output shape is documented at the bottom of `fetch.py`. Branch on what it returns:
 
 ## Step 2 — Branch on the integration state
 

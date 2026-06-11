@@ -37,7 +37,7 @@ If they gave only "DO Y" with no "WHEN", ask: *"What should kick this off — a 
 Run the discovery bundle once:
 
 ```
-python skills/automate-this/fetch.py
+python ~/.claude/bos-run.py automate-this
 ```
 
 This returns `available_triggers`, `available_action_types`, and `existing_automations` in one call — replaces 3+ separate MCP discovery calls.

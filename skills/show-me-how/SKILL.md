@@ -22,7 +22,7 @@ Customers want to learn by doing, not by reading documentation. This skill turns
 First, run:
 
 ```
-python skills/show-me-how/fetch.py --query "<the user's question>"
+python ~/.claude/bos-run.py show-me-how --query "<the user's question>"
 ```
 
 This pre-fetches the workspace's AI instructions (which sometimes contain workflow guidance that supersedes the generic answer) and any matching custom training canvases the customer's team has built (Learning Hub).

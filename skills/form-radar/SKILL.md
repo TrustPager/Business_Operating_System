@@ -28,7 +28,7 @@ Source of truth: [`knowledge/form-method.md`](../../knowledge/form-method.md)
 ## Step 1 — Fetch the digest
 
 ```bash
-python skills/form-radar/fetch.py
+python ~/.claude/bos-run.py form-radar
 ```
 
 One call: lists every submission, computes the funnel, buckets the follow-ups

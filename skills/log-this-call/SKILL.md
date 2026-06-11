@@ -30,7 +30,7 @@ If the user didn't say who they spoke to:
 Once you have a name, phone, or email, run:
 
 ```
-python skills/log-this-call/fetch.py --query "<what they said>"
+python ~/.claude/bos-run.py log-this-call --query "<what they said>"
 ```
 
 The returned JSON gives you the matched contact(s), their open opportunities (with stage), recent activities, and open tasks — all in one call. No need to chain `search_contacts` + `list_contact_deals` + `get_opportunity_activities` separately.

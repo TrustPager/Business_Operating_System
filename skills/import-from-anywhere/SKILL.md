@@ -35,7 +35,7 @@ If ambiguous, ASK:
 While the user is reviewing the paste, run:
 
 ```
-python skills/import-from-anywhere/fetch.py
+python ~/.claude/bos-run.py import-from-anywhere
 ```
 
 This returns an index of every existing contact (by email + phone + name+company), every existing company (by name + domain), and every open opportunity (by name). Hold this in memory and check each parsed row against it during preview.

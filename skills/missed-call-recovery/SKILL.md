@@ -26,7 +26,7 @@ Run the fetch script. It returns every missed inbound call from the last 24h (co
 - Time since the missed call
 
 ```
-python skills/missed-call-recovery/fetch.py
+python ~/.claude/bos-run.py missed-call-recovery
 ```
 
 Pass `--hours 48` for a longer window, or `--include-callbacks` to also surface calls that were already recovered (useful for reviewing the day's recovery work).

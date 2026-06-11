@@ -28,7 +28,7 @@ It pairs with the re-engagement machine in
 ## Step 1 — Fetch the health digest
 
 ```bash
-python skills/nurture-health/fetch.py
+python ~/.claude/bos-run.py nurture-health
 ```
 
 One run: lists every auto queue, pulls each one's steps + enrolment funnel +
