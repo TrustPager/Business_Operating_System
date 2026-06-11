@@ -106,10 +106,11 @@ When new skills ship, pull the latest:
 ```
 cd ~/Business_Operating_System
 git pull
+python tools/setup.py        # refreshes the skill launcher (safe to re-run; won't touch your key)
 python tools/check-install.py
 ```
 
-No re-install step needed — Claude Code reads the skills directly from this folder.
+Claude Code reads the skills directly from this folder, so there's no plugin re-install. The `setup.py` step just makes sure the `~/.claude/bos-run.py` launcher is present and points at this folder — it's idempotent and leaves your API key alone.
 
 ---
 
