@@ -49,6 +49,8 @@ Claude: /sweep-my-day
 - `/quote-from-photo` — site photo + voice memo → drafted proposal in 60 seconds
 - `/transcript-summary` — record a call, get a usable document
 
+The complete feature-by-feature, page-by-page reference for the whole platform — every screen, button, and setting — is in [knowledge/platform-guide.md](knowledge/platform-guide.md). When `/show-me-how` needs the exact location of something, that's where it looks.
+
 **🤖 Power moves**
 - `/make-it-happen` — describe what you want done in plain English. Claude figures out which TrustPager tools to call.
 - `/automate-this` — describe a repetitive task. Claude builds the automation — one trigger or several (fire from a form *and* a webhook), conditions, ordered actions, tested before it goes live.
