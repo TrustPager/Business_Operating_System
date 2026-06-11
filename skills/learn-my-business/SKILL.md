@@ -1,6 +1,6 @@
 ---
 name: Learn My Business
-description: Read the operator's live TrustPager workspace and WRITE their CLAUDE.md profile for them — company + brand, the real pipeline stages, products and prices, lead sources, opportunity types. Replaces hand-copying an industry template and filling in the blanks. Run once at setup, or re-run when the workspace shape changes.
+description: Read the operator's live TrustPager workspace and WRITE their CLAUDE.md profile for them — company + brand, the real pipeline stages, products and prices, lead sources, opportunity types — folding in any industry gotchas from knowledge/industry-notes.md. The single front door to setup; replaces hand-filling a template. Run once at setup, or re-run when the workspace shape changes.
 triggers:
   - learn my business
   - set up my CLAUDE.md
@@ -13,15 +13,16 @@ triggers:
 
 # Learn My Business
 
-The industry templates ask the operator to pick the right one and hand-fill a
-dozen `<<< ... >>>` blanks. Most never do — so Claude starts every session not
-knowing their pipeline, products, or stages. This skill removes that step: it
-reads the live workspace and writes a filled, accurate `CLAUDE.md` for them.
+Hand-filling a template means picking the right one and completing a dozen
+`<<< ... >>>` blanks. Most operators never do — so Claude starts every session
+not knowing their pipeline, products, or stages. This skill is the front door
+that removes that step: it reads the live workspace and writes a filled,
+accurate `CLAUDE.md` for them, with any industry-specific gotchas folded in.
 
 ## Step 1 — Read the workspace shape
 
 ```bash
-python skills/learn-my-business/fetch.py
+python ~/.claude/bos-run.py learn-my-business
 ```
 
 Returns the real shapes: company profile + brand, every pipeline with its
@@ -34,21 +35,25 @@ may need to ask "what's your business name and what do you do?").
 **Fallback if the script can't run:** `list_pipelines` + `list_pipeline_stages`,
 `list_products`, `get_company_profile`, `get_crm_settings`.
 
-## Step 2 — Choose the base template
+## Step 2 — Load the structure + the industry gotchas
 
-Look at `company.industry` and the pipeline shape, then pick the closest base:
+There is one base template: **`templates/CLAUDE.md`** — read it so the file you
+write keeps its structure (including the fixed "About TrustPager" block) and you
+fill it from real data rather than inventing a new format.
 
-- mortgage / finance → `templates/industries/mortgage-broker/CLAUDE.md`
-- trades / on-the-tools → `templates/industries/trades/CLAUDE.md`
-- insurance → `templates/industries/insurance/CLAUDE.md`
-- consultant / professional services → `templates/industries/consultant/CLAUDE.md`
-- allied health → `templates/industries/allied-health/CLAUDE.md`
-- manufacturing → `templates/industries/manufacturing/CLAUDE.md`
-- anything else → `templates/CLAUDE.md` (generic)
+Then match the operator's industry to a section in **`knowledge/industry-notes.md`**
+using `company.industry` and the pipeline shape:
 
-Read the chosen template so the file you write keeps its structure and its
-industry-specific gotchas — you're filling it in from real data, not inventing
-a new format.
+- mortgage / finance, trades, insurance, consultant / professional services,
+  allied health, manufacturing → read that section.
+- nothing fits → use the generic template as-is and ask one or two short
+  questions about their pipeline quirks and comms style.
+
+If the industry is ambiguous or `unavailable`, **ask one short question**
+("what would you call your line of work?") rather than guessing the section.
+Pull that section's **gotchas** and **comms style** into the file you write —
+but treat them as industry patterns to confirm, never as facts read from the
+workspace (see hard rules).
 
 ## Step 3 — Write the CLAUDE.md
 
@@ -96,7 +101,8 @@ End by telling them: "Claude will use this from your next session. Re-run
   workspace. If a section is `unavailable`, ask one question; don't fabricate.
 - ❌ Don't fill the "ideal customer" / "tone" sections as if they were read from
   data — they're your guess; label them for confirmation.
-- ✅ Keep the chosen template's structure and industry gotchas intact.
+- ✅ Keep `templates/CLAUDE.md`'s structure (incl. the "About TrustPager" block) intact, and fold in the matched industry section's gotchas + comms style.
+- ✅ Industry gotchas are *patterns to confirm*, not workspace facts — present them as defaults the operator can correct, and let real workspace data win where they conflict.
 - ✅ Use the operator's exact stage and product names, spelled as the workspace
   spells them.
 

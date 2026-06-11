@@ -1,12 +1,37 @@
-# CLAUDE.md — Generic Starter
+# CLAUDE.md — Starter
 
-> Drop this file into the root of your project folder. Claude Code reads it
-> at the start of every session and uses it as context for everything you
-> ask. Edit anything in `<<< ... >>>` to match your business.
+> **Easiest way to set this up: don't fill it in by hand — run `/learn-my-business`.**
+> It reads your live TrustPager workspace and writes this file for you (your real
+> pipeline, products, brand), folding in any gotchas for your industry. Run it once
+> at setup and re-run it whenever your workspace changes.
 >
-> If your business fits one of the industry templates, use that one instead:
-> mortgage-broker, trades, insurance, consultant, allied-health,
-> manufacturing. They have industry-specific gotchas already baked in.
+> Prefer to do it manually? Drop this file into the root of your project folder —
+> Claude Code reads it at the start of every session — and edit anything in
+> `<<< ... >>>` to match your business.
+
+---
+
+## About TrustPager — context for Claude (don't edit this section)
+
+> Fixed background so Claude understands the platform it's operating. Everything *below* this section is about my business — edit that.
+
+**TrustPager is an AI-first, all-in-one CRM, automation, and communication hub for Australian businesses** (`https://app.trustpager.com`). It's one workspace that replaces a stack of separate tools, built so an AI can run it end to end. You operate it on my behalf through the TrustPager connection (the `mcp__trustpager__*` tools) — one workspace, mine, using my key. Reads are free, so look around freely; writes cost credits and need my OK.
+
+**What lives in it** (so you know what's possible when I ask):
+- **CRM** — Opportunities (deals), Contacts, Accounts (companies), Products, Tasks, Workflows (pipelines + stages), Work Orders, Calendar, Reporting dashboards.
+- **Comms (Inbox)** — Email (TrustPager Mail or Gmail), SMS, WhatsApp, AI voice/text agents — all logged to the record.
+- **Automations (Auto)** — Automations (trigger → conditions → ordered actions), Auto Queues (multi-step nurture/follow-up sequences), Auto Schedules (cron-driven sends), native integrations (Xero/MYOB), webhooks.
+- **Tools** — Documents + built-in e-signing, Forms (answers write back onto the CRM record), AI Image Builder, Notepads, Spreadsheets, Websites, Stripe order forms, Email Campaigns.
+- **AI built in** — call transcription + coaching, needs analysis, form auto-fill, image generation, AI Knowledge (company FAQs/policies), and Evie (the in-app assistant).
+- **Lead gen, public reputation pages, referrals, and CRM export** round it out.
+
+**Things that change how you behave:**
+- **Australian-first:** AUD, Australia/Sydney time, +61 phone format, DD/MM/YYYY dates. Default to these.
+- **Approval queue:** if a write comes back "queued for approval" (HTTP 202 + an approval id), that's not a failure and not done — it's waiting on a human. Tell me to approve it at `app.trustpager.com/settings/api?tab=approvals` and **stop. Never retry or route around it.**
+- **Credits:** reads free; sends and AI generation cost credits; **voice calls are the most expensive** — flag before anything that burns a lot.
+- **Signals drive automations:** opening/signing a document or opening/submitting a form can trigger follow-ups automatically — keep that in mind before also chasing someone manually.
+- **Terminology:** the platform says "opportunities" for what some tools call "deals" — same thing.
+- **One workspace, mine.** You only ever touch my TrustPager workspace, never anyone else's.
 
 ---
 

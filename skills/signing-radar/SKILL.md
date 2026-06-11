@@ -30,7 +30,7 @@ Source of truth: [`knowledge/document-method.md`](../../knowledge/document-metho
 ## Step 1 — Fetch the digest
 
 ```bash
-python skills/signing-radar/fetch.py
+python ~/.claude/bos-run.py signing-radar
 ```
 
 One call: lists every envelope, computes the funnel, and buckets the follow-ups

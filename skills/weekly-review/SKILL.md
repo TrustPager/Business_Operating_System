@@ -20,7 +20,7 @@ what-stalled. Reads in under a minute and ends with next week's single focus.
 ## Step 1 — Fetch the rollup
 
 ```bash
-python skills/weekly-review/fetch.py
+python ~/.claude/bos-run.py weekly-review
 ```
 
 (`--days N` to change the window; default 7.) One call: this week's won/lost

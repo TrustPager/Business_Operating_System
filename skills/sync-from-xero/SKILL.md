@@ -31,7 +31,7 @@ Xero data feeds TrustPager in **two separate ways**. They are not the same thing
 Run:
 
 ```
-python skills/sync-from-xero/fetch.py
+python ~/.claude/bos-run.py sync-from-xero
 ```
 
 This first checks `integrations` for an active Xero connection. If `connected: false`, tell the user:

@@ -29,7 +29,7 @@ Source of truth: [`knowledge/work-order-method.md`](../../knowledge/work-order-m
 ## Step 1 — Fetch the digest
 
 ```bash
-python skills/work-order-radar/fetch.py
+python ~/.claude/bos-run.py work-order-radar
 ```
 
 One call: lists every work order, counts by status, flags stalls (sat ≥N days in

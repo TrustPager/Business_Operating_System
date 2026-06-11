@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """learn-my-business — read the shape of the operator's workspace into one digest.
 
-Instead of asking a non-technical operator to pick an industry template and
-hand-fill the <<< ... >>> blanks, this reads the live workspace and returns the
+Instead of asking a non-technical operator to hand-fill the <<< ... >>> blanks
+in a template, this reads the live workspace and returns the
 real shapes Claude needs to WRITE their CLAUDE.md for them: company profile +
 brand, pipelines and their stages, products, lead sources, opportunity types,
 lost/won reasons, and rough record counts.

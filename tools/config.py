@@ -76,11 +76,19 @@ def _env_key_set() -> bool:
 
 
 def _clear_key() -> int:
-    if not CONFIG_PATH.exists():
+    cleared = False
+    if CONFIG_PATH.exists():
+        CONFIG_PATH.unlink()
+        print(f"Removed {CONFIG_PATH}")
+        cleared = True
+    # Also remove the launcher shim that setup.py co-writes next to the config.
+    shim = CONFIG_PATH.parent / "bos-run.py"
+    if shim.exists():
+        shim.unlink()
+        print(f"Removed {shim}")
+        cleared = True
+    if not cleared:
         print(f"No config file at {CONFIG_PATH} — nothing to clear.")
-        return 0
-    CONFIG_PATH.unlink()
-    print(f"Removed {CONFIG_PATH}")
     return 0
 
 

@@ -123,17 +123,13 @@ Full step-by-step: **[INSTALL.md](./INSTALL.md)**
 
 ---
 
-## Industry templates
+## Setting up your business context
 
-Drop one of these into your project folder and Claude starts every session knowing the shape of your business:
+Claude works best when it knows the shape of your business. The easiest way:
 
-- [Mortgage / finance broker](./templates/industries/mortgage-broker/CLAUDE.md)
-- [Trades & on-the-tools](./templates/industries/trades/CLAUDE.md)
-- [Insurance broker](./templates/industries/insurance/CLAUDE.md)
-- [Consultant / professional services](./templates/industries/consultant/CLAUDE.md)
-- [Allied health](./templates/industries/allied-health/CLAUDE.md)
-- [Small manufacturing](./templates/industries/manufacturing/CLAUDE.md)
-- [Generic starter](./templates/CLAUDE.md) — start here if none of the above fit
+**Run `/learn-my-business`.** It reads your live TrustPager workspace and writes your `CLAUDE.md` for you — your real pipeline, products, and brand — folding in the gotchas for your line of work. Re-run it whenever your workspace changes.
+
+Prefer to do it by hand? Start from the [generic template](./templates/CLAUDE.md) and fill in the blanks. Industry-specific gotchas (mortgage/finance, trades, insurance, consulting, allied health, manufacturing) live in [knowledge/industry-notes.md](./knowledge/industry-notes.md) — one section per vertical, which `/learn-my-business` pulls from automatically.
 
 ---
 

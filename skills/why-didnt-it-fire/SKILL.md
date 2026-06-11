@@ -25,7 +25,7 @@ Get the automation id or a distinctive bit of its name. If the operator is vague
 ## Step 2 — Fetch the diagnostic bundle
 
 ```bash
-python skills/why-didnt-it-fire/fetch.py "<automation id or name fragment>"
+python ~/.claude/bos-run.py why-didnt-it-fire "<automation id or name fragment>"
 ```
 
 Returns the automation's structure (enabled, triggers, conditions, actions, dedup/cap), its recent runs with full status + error detail, and a computed `likely_reason`. If the name matches several automations it'll ask you to use the id.

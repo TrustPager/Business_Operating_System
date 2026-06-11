@@ -23,7 +23,7 @@ Read [knowledge/reporting-method.md](../../knowledge/reporting-method.md) — es
 ## Step 1 — Fetch what exists
 
 ```bash
-python skills/email-me-a-report/fetch.py
+python ~/.claude/bos-run.py email-me-a-report
 ```
 
 Returns existing `dashboards` (candidates to schedule), available `sources` (raw material for a new one), and `existing_schedules` (so you don't duplicate). Shape documented at the bottom of `fetch.py`.

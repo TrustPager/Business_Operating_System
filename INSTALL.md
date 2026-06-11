@@ -57,25 +57,23 @@ python tools/check-install.py
 
 `check-install.py` runs 7 quick health checks and prints a green / red list. If you see "All checks passed", you're ready.
 
-### Step 2 — Pick your industry template (optional but recommended)
+### Step 2 — Teach Claude your business (run `/learn-my-business`)
 
-Open the `templates/industries/` folder and copy the one that fits your business into your project folder as `CLAUDE.md`. Options:
+**Restart Claude Code** so the new commands load, then type:
 
-- **Mortgage / finance broker** — `templates/industries/mortgage-broker/CLAUDE.md`
-- **Trades** — `templates/industries/trades/CLAUDE.md`
-- **Insurance broker** — `templates/industries/insurance/CLAUDE.md`
-- **Consultant / professional services** — `templates/industries/consultant/CLAUDE.md`
-- **Allied health** — `templates/industries/allied-health/CLAUDE.md`
-- **Manufacturing** — `templates/industries/manufacturing/CLAUDE.md`
-- **None of the above** — use `templates/CLAUDE.md`
+```
+/learn-my-business
+```
 
-This file tells Claude the shape of your business so it doesn't have to ask every time.
+It reads your live TrustPager workspace and writes a `CLAUDE.md` into your project folder for you — your real pipeline, products, and brand — and folds in the gotchas for your line of work. That file tells Claude the shape of your business so it doesn't have to ask every time. Re-run it whenever your pipeline, products, or brand change.
+
+**Prefer to do it by hand?** Copy `templates/CLAUDE.md` into your project folder as `CLAUDE.md` and fill in the `<<< ... >>>` blanks. Industry-specific gotchas live in `knowledge/industry-notes.md` (one section per vertical: mortgage/finance, trades, insurance, consulting, allied health, manufacturing).
 
 ---
 
 ## Try it
 
-Restart Claude Code. Then type:
+With your `CLAUDE.md` written (Step 2), type:
 
 ```
 /sweep-my-day
@@ -97,7 +95,7 @@ The API key didn't paste correctly. Generate a new one in your TrustPager worksp
 Step 1 didn't complete. Make sure you ran `python tools/setup.py` from inside the `Business_Operating_System` folder and restart Claude Code.
 
 **"Claude doesn't know about my products / pipeline / brand"**
-You skipped Step 2. Drop one of the industry templates into your project folder as `CLAUDE.md` and Claude will pick it up next session.
+You skipped Step 2. Run `/learn-my-business` and it'll write your `CLAUDE.md` from your live workspace (or copy `templates/CLAUDE.md` in by hand). Claude picks it up next session.
 
 ---
 
@@ -108,10 +106,11 @@ When new skills ship, pull the latest:
 ```
 cd ~/Business_Operating_System
 git pull
+python tools/setup.py        # refreshes the skill launcher (safe to re-run; won't touch your key)
 python tools/check-install.py
 ```
 
-No re-install step needed — Claude Code reads the skills directly from this folder.
+Claude Code reads the skills directly from this folder, so there's no plugin re-install. The `setup.py` step just makes sure the `~/.claude/bos-run.py` launcher is present and points at this folder — it's idempotent and leaves your API key alone.
 
 ---
 

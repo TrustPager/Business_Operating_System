@@ -29,7 +29,7 @@ If the user said "follow up on the quote" but you don't see a quote in the oppor
 Once you have the contact (and optionally opportunity), run:
 
 ```
-python skills/send-email/fetch.py --contact-id <id> [--opportunity-id <id>]
+python ~/.claude/bos-run.py send-email --contact-id <id> [--opportunity-id <id>]
 ```
 
 The returned JSON gives you everything you need to draft well: the contact, the opportunity (if linked), every recent email thread WITH this contact, the last few sent emails by the workspace (for tone calibration), and the active email config.

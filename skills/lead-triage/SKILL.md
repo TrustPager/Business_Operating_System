@@ -27,8 +27,8 @@ Run the fetch script. It returns every new lead in the last N hours (default 48)
 - Recency
 
 ```
-python skills/lead-triage/fetch.py
-python skills/lead-triage/fetch.py --hours 24    # tighter window
+python ~/.claude/bos-run.py lead-triage
+python ~/.claude/bos-run.py lead-triage --hours 24    # tighter window
 ```
 
 ## Step 2 — Classify each lead

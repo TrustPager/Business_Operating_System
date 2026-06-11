@@ -21,7 +21,7 @@ This is the catch-all skill. The user describes the outcome they want — not wh
 Before the conversation starts, run:
 
 ```
-python skills/make-it-happen/fetch.py
+python ~/.claude/bos-run.py make-it-happen
 ```
 
 This pulls in one shot: the workspace's AI instructions, every trigger schema, every action type, and the list of existing automations. Keep the JSON in memory through the conversation — referring to it costs no additional API calls.
