@@ -108,6 +108,19 @@ Product Buckets let you group line items under named sections on the opportunity
 **Product Bucket Label presets:** Go to [Settings > CRM](https://app.trustpager.com/settings/crm) and scroll to **Product Bucket Labels** to add workspace-level bucket name presets (quick-pick suggestions when creating a bucket).
 - To manage the palette directly via API or MCP, use `GET /company/settings/tag-palette` and `PATCH /company/settings/tag-palette`.
 
+**How to add payer companies (billing parties) to an opportunity:**
+
+A billing party is a separate company that pays the fees for a matter, while the client on the opportunity stays the same. For example: an employer pays an employee's health assessment, or a trust fund pays conveyancing fees. Adding a billing party makes that company's invoices (from your connected accounting integration) appear on the opportunity's Invoices card alongside the client's.
+
+1. Open the opportunity at [Opportunities](https://app.trustpager.com/crm/opportunities).
+2. Scroll to the **Invoices** card.
+3. In the **Payer companies** section at the bottom of the Invoices card, click **"Add payer"**.
+4. Search for the company by name and click to add it. You can also enter an optional note (e.g. "Employer pays LMI").
+5. The payer company's unpinned invoices from your accounting integration now surface on this opportunity.
+6. To remove a payer, click the **X** next to the company name.
+
+Note: only invoices that are not already pinned to a different opportunity are pulled in. A payer company and its invoices are not deleted when you remove the link.
+
 **How to search and filter any list:**
 - Every list page (Accounts, Contacts, Deals, Products, Tasks) has a **search bar at the top** of the table.
 - Type to search by name, email, phone, or other relevant fields — results filter in real time.
