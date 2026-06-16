@@ -1730,6 +1730,19 @@ When your voice agent (e.g. Evie, your AI receptionist) is connected to your Tru
 
 These capabilities are wired by your FinalPiece onboarding team as custom tools on your voice agent. No action is required on your end to enable them -- they are included in the voice agent setup.
 
+**Business-hours call forwarding:**
+
+If you want inbound calls automatically forwarded to a different number outside business hours (or during specific windows), you can set this up from the voice agent's detail page.
+
+1. Go to [Voice Agents](https://app.trustpager.com/auto/voice-agents) and click your agent.
+2. Scroll to the **"Call Forwarding"** card and switch it on.
+3. Enter the **Forwarding Number** (e.g. your mobile or an answering service) in international format (e.g. +61400000001).
+4. Choose **"Forward When"**: outside business hours (most common) or during business hours.
+5. Set your timezone and tick each weekday with open/close times.
+6. Click **Save**. Changes take effect on the next inbound call.
+
+When active, calls that arrive during the forwarding window are silently transferred to the destination number by your AI voice agent. Calls outside the forwarding window are answered by the AI as usual.
+
 #### Referrals — [Open](https://app.trustpager.com/growth/referrals)
 Track word-of-mouth referrals and see who is driving the most business.
 
