@@ -18,6 +18,21 @@ triggers:
 
 Customers paste data in 20 different shapes — CSV, screenshot OCR, copy-pasted email lists, PDF tables, "here's everyone I met at the conference, sorted by who looked at me weird." This skill turns any of those into clean TrustPager records.
 
+## Step 0 — If the source is a FILE, convert it first (the standard path)
+
+If the data is in a file (PDF, Word, Excel, a screenshot/scan, HTML) rather than
+pasted text, run it through the standard converter first — don't ask the operator
+to re-paste it and don't hand-parse it:
+
+```bash
+python tools/markitdown_convert.py "<path-to-file>"
+```
+
+Then treat the resulting Markdown as the "paste" for Step 1 onward. This is the
+standard ingest path (`knowledge/document-tools-method.md`) and it removes the
+old "paste again into a code block" / OCR-fix friction. Only skip Step 0 when the
+operator literally pastes text.
+
 ## Step 1 — Detect what they pasted
 
 After the user pastes, identify the shape:
@@ -94,6 +109,6 @@ Imported 38 contacts into TrustPager.
 
 ## Edge cases
 
-- **PDF excerpt with broken whitespace** — ask the user to paste again into a code block (triple backticks) so multi-line entries are preserved.
-- **Screenshot OCR with mis-recognized characters** — flag any name/email with non-ASCII chars from OCR mistakes ("O" vs "0", "l" vs "1") and ask for confirmation row-by-row.
+- **PDF / Word / Excel file** — convert with `tools/markitdown_convert.py` (Step 0), don't ask for a re-paste.
+- **Screenshot / scan** — convert the image with MarkItDown (OCR) via Step 0; then flag any name/email with characters that look like OCR mistakes ("O" vs "0", "l" vs "1") and confirm those rows.
 - **List of just emails, no names** — import as contacts with first_name=email_local_part, ask the user to confirm or supply names.

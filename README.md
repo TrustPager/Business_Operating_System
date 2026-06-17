@@ -43,6 +43,7 @@ Claude: /sweep-my-day
 - `/import-from-anywhere` — paste a CSV, a PDF, a screenshot, an email export — Claude normalises it into your workspace
 - `/sync-from-xero` — connects accounting to opportunities
 - `/audit-my-data` — finds missing fields, duplicates, stale records
+- `/add-a-field` — add a custom field (text or dropdown, e.g. broker name, settlement date) and surface it on the opportunity card and in your spreadsheets
 
 **🎓 Help & learning**
 - `/show-me-how` — describe what you want to do, Claude walks you through it
@@ -62,6 +63,7 @@ The method behind automations is in [knowledge/automation-method.md](knowledge/a
 **📈 Reporting & cash flow (know your numbers, on a schedule)**
 - `/outstanding-invoices` — who owes you money. Pulls accounts receivable from your connected accounting integration into an aged summary (Current / 1-30 / 31-60 / 61-90 / 90+), surfaces the worst offenders, and — if you want — builds a dashboard and emails it to you (and your bookkeeper) every morning.
 - `/email-me-a-report` — deliver *any* report as a recurring email digest. Pick or build a dashboard, choose recipients and a cadence (e.g. 7am weekdays), and it lands in your inbox server-side with nothing open. The same mechanism behind the built-in Team Task Digest.
+- `/build-spreadsheet` — build a spreadsheet: a **workspace** sheet that pulls live from your CRM (e.g. settled-this-month by broker, with monthly views + totals and a rolling auto-create), or a **standalone** sheet for its own data (a calculator, a tracker, or an existing Excel imported in).
 
 The method behind the reporting engine — sources, measures, dimensions, the aged-receivables pattern, and the "email any dashboard on a schedule" unlock — is in [knowledge/reporting-method.md](knowledge/reporting-method.md). The receivables source seeds once from your accounting integration then stays live on its own (the synced-ledger model is in [knowledge/safeguards.md](knowledge/safeguards.md)).
 
@@ -77,6 +79,7 @@ The core things owners actually operate on TrustPager — each as a full lifecyc
 - `/wire-form` — map each field to its CRM variable so answers land on the record, then connect the form to how it's used
 - `/lint-form` — catch orphan fields, label↔wiring mismatches, and missing required fields before it ships
 - `/form-radar` — who started but didn't finish (nudge), who never opened it (chase), what completed this week
+- `/test-form` — safely test a form or client portal (send it to yourself / a test contact, confirm answers map onto the record) before any real customer sees it
 - `/build-work-order-process` — define the statuses jobs move through and the fields captured on each
 - `/work-order-radar` — which jobs have stalled in one status, which completed (did the customer get told?)
 
@@ -101,6 +104,16 @@ The thumbnail studio lives at [studio/thumbnails/](studio/thumbnails/) — a Vit
 The social studio lives at [studio/social/](studio/social/) — the same pipeline, one headline-first design language across all four formats, with an optional product card, stat strip, or testimonial. Method summary: [knowledge/social-post-method.md](knowledge/social-post-method.md).
 
 The OG image studio lives at [studio/og/](studio/og/) — the same pipeline at 1200×630, producing the link-preview images that unfurl when your pages are shared on Slack, LinkedIn, X, and Facebook. One sample per page/route; headline + accent word + a product hero, all brand.json-driven. Browser preview at `localhost:3217`, puppeteer-rendered PNG, copy into your site's `public/og/` (with the `og:image` meta tags) or one-command publish to your TrustPager Files folder. See [studio/og/README.md](studio/og/README.md).
+
+**📄 Document tools** *(Microsoft MarkItDown is the standard for reading any file)*
+
+Every "read a document" skill converts the file to Markdown first (via [tools/markitdown_convert.py](tools/markitdown_convert.py)) so Claude works on clean text, not raw bytes. The method is in [knowledge/document-tools-method.md](knowledge/document-tools-method.md).
+
+- `/extract-document` — pull the data out of any file (PDF, Word, Excel, image/scan, HTML): answer a question, summarise it, or map the fields onto a CRM record.
+- `/update-pdf` — fill a PDF (a lender/application/agreement form) with a CRM record's data; reads the blank form first, maps the fields, writes a filled copy to review.
+- `/build-knowledge-base-from-docs` — turn your policy / FAQ / product docs into TrustPager AI Knowledge, so the in-app assistant and your voice agents answer from your real documents.
+- `/template-from-document` — turn an existing paper/PDF form into a TrustPager form template, or a contract into a signing template.
+- `/compare-documents` — compare two files (contract v1 vs v2, a revised quote) and show exactly what changed, in plain language.
 
 **👥 Run your team** *(for owners + managers running staff on Claude Code)*
 
