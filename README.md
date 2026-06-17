@@ -111,6 +111,8 @@ Every "read a document" skill converts the file to Markdown first (via [tools/ma
 
 - `/extract-document` — pull the data out of any file (PDF, Word, Excel, image/scan, HTML): answer a question, summarise it, or map the fields onto a CRM record.
 - `/update-pdf` — fill a PDF (a lender/application/agreement form) with a CRM record's data; reads the blank form first, maps the fields, writes a filled copy to review.
+- `/outstanding-documents` — per client, what supporting documents you asked for versus what's arrived, so you chase exactly what's missing (not "your form's incomplete"). Most-overdue first, reminder ready.
+- `/assemble-pack` — combine a record's filled forms and uploaded files into one ordered PDF pack, ready to send to a lender, insurer, underwriter, or council.
 - `/build-knowledge-base-from-docs` — turn your policy / FAQ / product docs into TrustPager AI Knowledge, so the in-app assistant and your voice agents answer from your real documents.
 - `/template-from-document` — turn an existing paper/PDF form into a TrustPager form template, or a contract into a signing template.
 - `/compare-documents` — compare two files (contract v1 vs v2, a revised quote) and show exactly what changed, in plain language.

@@ -1,6 +1,6 @@
 {
   "name": "business-operating-system",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Run your business from Claude. Skills, slash commands, and subagents that turn Claude Code into a hands-on operator for your TrustPager workspace — daily sweep, lead triage, missed-call recovery, nurture sequences, automations, and branded content. Run /learn-my-business once and it writes your context file for you.",
   "author": {
     "name": "TrustPager",

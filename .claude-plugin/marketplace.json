@@ -12,7 +12,7 @@
       "name": "business-operating-system",
       "source": "./",
       "description": "Run your TrustPager workspace from Claude — daily sweep, lead triage, missed-call recovery, nurture sequences, automations, and content studios.",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "category": "productivity",
       "keywords": ["trustpager", "crm", "sales", "automation", "nurture"]
     }
