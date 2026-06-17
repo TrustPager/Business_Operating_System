@@ -96,6 +96,13 @@ Tick all that apply:
 
 ## How to draft customer comms
 
+The one voice for every customer message is in `knowledge/communication-voice.md`:
+plain, warm, reassuring, short. Lead with the outcome, one human sentence on what
+we did, one clean instruction on how to USE it (a raw URL + one action), then stop.
+Customers use the product, they never "test" it; send one clear message, never a
+pile of them. And nothing goes out claiming something works until it's been
+confirmed working (`knowledge/safeguards.md`).
+
 When drafting any client-facing email, SMS, or message:
 
 - ✅ Sign off as me (use my name from my TrustPager workspace profile)

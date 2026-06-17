@@ -47,3 +47,21 @@ Every skill already inherits these — they're listed here so the reasons are in
 - **Every write is journaled.** `~/.claude/bos-journal/` gets one line per write (method, path, status, result/approval id) — read it with `python tools/journal.py`. Reads are never journaled.
 - **One workspace only.** Skills talk to the operator's own TrustPager workspace via their key — never anyone else's.
 - **Idempotency for risky writes.** Use `idempotent_post` for anything where a duplicate would hurt (sends, creates, charges) so a network retry can't double-fire.
+
+---
+
+## 4. Verify before a customer hears it — never claim what you haven't seen work
+
+Before any message tells a customer something is fixed, done, or working, the exact thing it claims must have been **confirmed working first**. Never send "it's fixed" or hand someone a "try this" step on a hunch.
+
+The order, every time:
+
+1. **Claude smoke-tests first.** Exercise the exact thing in the workspace and confirm it actually works. If a step would notify a real person (email, SMS, booking confirmation), use a **test contact** so no real customer is hit. Scope the test to what this message is about, never the whole platform.
+2. **A human confirms** the result by hand (the manager, or the person who owns the customer).
+3. **Only then** does the customer get the message — short, plain, and in one voice (`communication-voice.md`), with one clean instruction on how to USE it.
+
+> If it isn't confirmed working, it doesn't go to the customer. A customer discovering broken basics themselves, or decoding a technical email, costs more trust than the original problem.
+
+**On a team:** a draft from someone in an approval-only role goes to a manager to confirm before it ships (see your `team-standards.md` approval rules). The teammate's Claude smoke-tests first either way — that pass both confirms it works and gives Claude the real context to write an accurate, simple message.
+
+**Customers use, they don't test.** The verification is the team's job. What the customer receives is never a test request; it's a clean instruction on how to use the thing.

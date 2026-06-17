@@ -102,6 +102,20 @@ The social studio lives at [studio/social/](studio/social/) — the same pipelin
 
 The OG image studio lives at [studio/og/](studio/og/) — the same pipeline at 1200×630, producing the link-preview images that unfurl when your pages are shared on Slack, LinkedIn, X, and Facebook. One sample per page/route; headline + accent word + a product hero, all brand.json-driven. Browser preview at `localhost:3217`, puppeteer-rendered PNG, copy into your site's `public/og/` (with the `og:image` meta tags) or one-command publish to your TrustPager Files folder. See [studio/og/README.md](studio/og/README.md).
 
+**👥 Run your team** *(for owners + managers running staff on Claude Code)*
+
+The standard way to run a team on TrustPager: everyone operates on Claude Code with the same standards baked into their own setup, so the business sounds like one company and nothing reaches a customer unverified.
+
+- `/onboard-team-member` — set a new hire up with your team's standards baked in. Generates their `CLAUDE.md` + a memory pack + a role-scoped command list from your team-standards file, so they sound like the team and follow the same process from day one.
+- `/sync-team-standards` — changed a standard? Push it to everyone's pack with a per-person diff, so the team updates instead of drifting.
+- `/delegate-this-work` — hand work to a team member: creates the task assigned to them, notifies them, and sets you a follow-up to verify it's done.
+- `/review-team-draft` — review a teammate's customer-facing draft before it ships: in the team voice, and confirmed working, then approve it or send it back with a note.
+- `/team-review` — the team version of `/weekly-review`: who shipped what, which deals moved through whose hands, and where work is stuck.
+- `/write-prompt` — turn a rough ask into a complete, explicit prompt to hand a person or Claude — goal, context, exact inputs, steps, output format, no vague placeholders.
+- `/report-an-issue` — hit a bug or want a feature? File a clean, well-structured request to the TrustPager team without leaving Claude; they fix it, verify it, then tell you how to use it.
+
+Your team's standards live in one place you edit — [templates/team-standards.md](templates/team-standards.md) (voice, the verify-before-a-customer-hears-it gate, roles, approval rules). The one customer voice everyone uses is [knowledge/communication-voice.md](knowledge/communication-voice.md); the prompt-writing standard is [knowledge/prompt-writing-method.md](knowledge/prompt-writing-method.md).
+
 ---
 
 ## Who this is for
