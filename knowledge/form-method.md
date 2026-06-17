@@ -49,6 +49,15 @@ are the #1 source of "the data went in but I can't find it".
    — outbound link emailed to a contact for them to fill. Requires `template_id`,
    `recipient_email`, `recipient_name`. Fires `form_sent` → `form_opened` →
    `form_completed`.
+   - **Shared submissions (Scope 3 / co-applicants):** pass `additional_recipients`
+     (array of `{ email, name, contact_id? }`) to send joint applicants their own
+     link + PIN -- all share ONE submission, all write to the same answer fields,
+     any can finalize. Use for joint mortgage applicants, guarantors, co-account
+     holders. `get_form_submission` returns the `form_submission_participants`
+     array showing viewed/completed state per co-applicant.
+   - **Automation `recipient_source: "all_contacts"`:** resolves every contact
+     linked to the opportunity and fans out as above (primary owns the submission,
+     the rest become participants). Use for deal-triggered multi-party sends.
 2. **Internal fill** (`create_internal_form_submission`, needs `template_id` +
    `deal_id`) — staff enters the data themselves; no email, PIN pre-cleared.
 3. **Intake / website** — the form is wired to an automation trigger so inbound
