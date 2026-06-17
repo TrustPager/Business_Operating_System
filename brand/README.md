@@ -1,6 +1,6 @@
 # Brand kit
 
-This folder is the **single source of truth for your brand** across every BOS studio. Edit `brand.json`, drop your logo in, run one sync command — every studio you build picks it up automatically.
+This folder is the **single source of truth for your brand** across every BOS studio. Edit `brand.json`, drop your logo in, and `/brand-my-workspace` propagates it — every studio you build picks it up automatically.
 
 ## Files
 
@@ -29,11 +29,7 @@ Claude scrapes your site, picks up your colours, finds your logo, writes `brand.
 
 1. Open `brand.json`. Swap colours under `colors:`. Plain hex codes.
 2. Replace `logo.png` with yours (ideally a wide wordmark; 400-1200px wide; transparent PNG).
-3. Run the sync:
-   ```bash
-   python tools/sync-brand.py
-   ```
-   This copies `logo.png` + the favicon set into each studio's `public/` folder so dev servers serve them at `/logo.png`, `/favicon.ico`, etc.
+3. Copy `logo.png` + the favicon set into each studio's `public/` folder so dev servers serve them at `/logo.png`, `/favicon.ico`, etc. The easiest way is to re-run `/brand-my-workspace` — it does the copy for you. To do it by hand, copy each asset into every `studio/*/public/` directory.
 4. Restart any running studio dev servers.
 
 That's it. Every studio in `studio/` is now on your brand.

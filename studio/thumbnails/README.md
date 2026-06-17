@@ -486,7 +486,7 @@ npm run publish -- --all --replace     # wipe + re-upload everything
 Targets:
 - **Workspace:** your TrustPager workspace
 - **Folder:** Tutorial Thumbnails (in the Images category)
-- **API key:** set `TRUSTPAGER_API_KEY` in your environment (or use the standard `~/.claude/bos.json` config that `tools/setup.py` writes)
+- **API key:** set `TRUSTPAGER_API_KEY` in your environment before running publish
 
 Files land at `https://app.trustpager.com/content/images` inside the Tutorial Thumbnails folder, named by their YouTube title (e.g. `How to Set Up Online Booking & Scheduling in TrustPager.png`).
 

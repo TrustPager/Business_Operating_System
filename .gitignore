@@ -11,12 +11,11 @@ _staging/
 *-keys.json
 *api-keys.json
 *credentials.json
-bos.json
-bos-journal/
 
-# Local sweep reports (may contain sensitive matches mid-investigation).
-_scripts/sweep-report-*.txt
-_scripts/*.log
+# Operator working files (created in the operator's project folder, not here —
+# listed for safety in case anyone runs a skill from inside this repo).
+.bos-memory/
+.bos-journal.md
 
 # OS / editor / tooling
 .DS_Store
@@ -27,15 +26,7 @@ desktop.ini
 *.swp
 *~
 
-# Python build artefacts (for the sweep script and any helpers)
-__pycache__/
-*.pyc
-*.pyo
-.pytest_cache/
-venv/
-.venv/
-
-# Node — in case any installer wraps in npm
+# Node (the studios)
 node_modules/
 package-lock.json
 yarn.lock

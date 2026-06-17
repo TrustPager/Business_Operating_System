@@ -1,6 +1,6 @@
 ---
 name: Brand My Workspace
-description: Point this at the user's website. Detect their brand colours, fonts, name, and logo. Write `brand/brand.json` + drop `brand/logo.png`. Run `tools/sync-brand.py` so every studio is rebranded in one shot. This is the single touchpoint for theming every BOS studio (thumbnails, CTAs, future studios).
+description: Point this at the user's website. Detect their brand colours, fonts, name, and logo. Write `brand/brand.json` + drop `brand/logo.png`, then copy the logo/favicons into every studio's public/ folder so the whole pack is rebranded in one shot. This is the single touchpoint for theming every BOS studio (thumbnails, CTAs, future studios).
 triggers:
   - brand my workspace
   - rebrand my pack
@@ -12,7 +12,7 @@ triggers:
 
 # Brand My Workspace
 
-You're rebranding every BOS studio in one shot. The user points at their website (or hands you their colours directly). You write `brand/brand.json` + drop `brand/logo.png`, then run `tools/sync-brand.py` so every studio's `public/` folder picks up the new assets.
+You're rebranding every BOS studio in one shot. The user points at their website (or hands you their colours directly). You write `brand/brand.json` + drop `brand/logo.png`, then copy the new assets into every studio's `public/` folder yourself (Step 10) so each studio picks them up.
 
 After this skill finishes, every thumbnail and every CTA the user renders will be on their brand. They don't have to touch any other file.
 
@@ -148,28 +148,52 @@ Pretty-print with 2-space indent.
 
 ## Step 9 — Generate favicons from logo (best-effort)
 
-If the user has Python + Pillow available, you can resize `logo.png` (or `icon.png` if they provided one) to all favicon sizes. If not, leave the existing favicons in place and flag to the user.
+If the user has [ImageMagick](https://imagemagick.org) available (`magick` on the PATH — check with `magick -version`), resize the square `brand/icon.png` to all favicon sizes. If `magick` isn't installed, leave the existing favicons in place and flag to the user (point them at ImageMagick, or tell them to drop a pre-made favicon set into `brand/`).
 
-Quick path with Pillow:
-
-```python
-from PIL import Image
-src = Image.open("brand/icon.png")
-for size in [16, 32, 192, 512]:
-    src.resize((size, size), Image.LANCZOS).save(f"brand/favicon-{size}x{size}.png")
-src.resize((180, 180), Image.LANCZOS).save("brand/apple-touch-icon-source.png")  # for reference
-src.resize((32, 32), Image.LANCZOS).save("brand/favicon.ico", format="ICO", sizes=[(16,16),(32,32)])
-```
-
-Skip this step if you only have a wide wordmark (not a square icon). Tell the user to drop a square `icon.png` into `brand/` if they want regenerated favicons.
-
-## Step 10 — Run sync-brand.py
+Quick path with ImageMagick:
 
 ```bash
-python tools/sync-brand.py
+for s in 16 32 192 512; do
+  magick brand/icon.png -resize ${s}x${s} brand/favicon-${s}x${s}.png
+done
+magick brand/icon.png -resize 32x32 -define icon:auto-resize=16,32 brand/favicon.ico
 ```
 
-This copies the new `brand/logo.png` + favicon set into every studio's `public/`.
+Skip this step if you only have a wide wordmark (not a square icon). Tell the user to drop a square `icon.png` into `brand/` if they want regenerated favicons. (No Python — this is a one-off CLI step; the pack itself stays Python-free.)
+
+## Step 10 — Propagate the assets into every studio
+
+Copy the new `brand/` assets into each studio's `public/` folder yourself with file tools — no script. First list the studios (every direct child of `studio/` that has a `public/` folder):
+
+```bash
+ls -d studio/*/public/
+```
+
+Then, for **each** studio `public/` dir, copy these source→destination pairs with `cp` (the destination names follow the standard favicon convention the studios' `index.html` references, so the names differ from `brand/`):
+
+| From `brand/` | To `studio/<name>/public/` |
+|---|---|
+| `logo.png` | `logo.png` |
+| `favicon.ico` | `favicon.ico` |
+| `favicon-16x16.png` | `favicon-16x16.png` |
+| `favicon-32x32.png` | `favicon-32x32.png` |
+| `icon.png` | `apple-touch-icon.png` |
+| `favicon-192x192.png` | `android-chrome-192x192.png` |
+| `favicon-512x512.png` | `android-chrome-512x512.png` |
+
+Example for one studio:
+
+```bash
+cp brand/logo.png studio/thumbnails/public/logo.png
+cp brand/favicon.ico studio/thumbnails/public/favicon.ico
+cp brand/favicon-16x16.png studio/thumbnails/public/favicon-16x16.png
+cp brand/favicon-32x32.png studio/thumbnails/public/favicon-32x32.png
+cp brand/icon.png studio/thumbnails/public/apple-touch-icon.png
+cp brand/favicon-192x192.png studio/thumbnails/public/android-chrome-192x192.png
+cp brand/favicon-512x512.png studio/thumbnails/public/android-chrome-512x512.png
+```
+
+Repeat for every studio the `ls` returned. Skip any source file you didn't generate (e.g. if you only have a wordmark and no square `icon.png`/favicons, copy `logo.png` and leave the rest) and tell the operator which were skipped. Studios pick up the new assets on the next dev-server serve or a hard-refresh.
 
 ## Step 11 — Tell the user what changed
 

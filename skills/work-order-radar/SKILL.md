@@ -26,20 +26,29 @@ check-up on the board.
 Source of truth: [`knowledge/work-order-method.md`](../../knowledge/work-order-method.md)
 — §3 (the lifecycle you track) and §4 (automating it).
 
-## Step 1 — Fetch the digest
+## Step 1 — Pull the data (parallel MCP calls)
 
-```bash
-python ~/.claude/bos-run.py work-order-radar
-```
+Fire these two reads in parallel in a single batch. Both reads — free, nothing journaled, no approval. Use the `trustpager` MCP server.
 
-One call: lists every work order, counts by status, flags stalls (sat ≥N days in
-a non-terminal status) and recent completions. `--stall-days N` tunes the stall
-threshold (default 14).
+| Need | Tool | Args |
+|---|---|---|
+| Every work order | `list_work_orders` | `limit: 100` (page through until exhausted — up to ~20 pages) |
+| The status labels for this workspace | `list_work_order_statuses` | — (so you know which statuses are terminal) |
 
-Fallback if it can't run: `mcp__trustpager__list_work_orders` — raw list, no
-stall flags; prefer the script.
+> Tool names use `deal` for legacy reasons — **always say "opportunity" to the operator**, never "deal". (Work orders carry a `deal_id` linking them to an opportunity.)
 
-## Step 2 — Present, stalls first
+## Step 2 — Build the board + stall digest
+
+For each work order, read its status label (it may arrive as `status`, `status_name`, `work_order_status`, or a nested object with `name`/`label` — normalise to a string) and compute **days in status** from `status_changed_at` (fall back to `updated_at`, then `created_at`).
+
+A status is **terminal** if its label (lowercased, trimmed) is one of: `complete`, `completed`, `done`, `closed`, `cancelled`, `canceled`.
+
+Then:
+- **Count by status** — tally every work order under its status label.
+- **Stalled** — a **non-terminal** work order whose days-in-status is **≥ the stall threshold (default 14 days**, adjustable if the operator asks). Capture id, name (`name` → `title` → `deal_name` → "(work order)"), linked opportunity (`deal_id`), status, days in status. **Sort stalled descending by days in status** (worst first).
+- **Recently completed** — a **terminal** work order whose days-in-status is ≤ 7. These are the "did the customer get told?" candidates.
+
+## Step 3 — Present, stalls first
 
 ```
 🔧 31 work orders — 18 complete, 9 in progress, 3 scheduled, 1 on hold
@@ -54,14 +63,15 @@ stall flags; prefer the script.
 📊 By status: In progress 9 · Scheduled 3 · On hold 1 · Complete 18
 ```
 
-## Step 3 — Offer the next actions (with approval)
+## Step 4 — Offer the next actions (with approval)
 
-One at a time, with a yes:
+Anything that **writes** follows the rails in `knowledge/safeguards.md` — confirm before it lands, journal the write to `.bos-journal.md`, search-first so you don't duplicate. One at a time, with a yes:
+
 - **Send a status update** to the customer on a stalled or just-completed job →
-  `mcp__trustpager__send_work_status(deal_id, recipient_email, recipient_name)`.
-  Real recipients only; confirm first.
+  `send_work_status` with `deal_id`, `recipient_email`, `recipient_name`.
+  Real recipients only; confirm first. (A `202` / `approval_id` response means it's queued for human approval — surface the approval id + approvals URL, journal it as `approval_pending`, and stop; don't retry — safeguards §1.)
 - **Move a stalled work order's status** (if the operator says it's actually
-  progressed) → `update_work_order(work_order_id, ...)`.
+  progressed) → `update_work_order` with the `work_order_id` and new status.
 - **Draft a customer check-in** for a stalled job → hand to `/draft-reply`.
 
 For "ask for a review automatically when a job completes" or "ping me when the

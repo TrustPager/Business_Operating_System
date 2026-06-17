@@ -3,12 +3,7 @@
 // Render a thumbnail PNG and upload it to YOUR TrustPager workspace's
 // "Tutorial Thumbnails" folder.
 //
-// Auth resolves from the BOS install:
-//   1. $TRUSTPAGER_API_KEY environment variable
-//   2. ~/.claude/bos.json -> { "api_key": "tp_live_..." }
-//
-// (Same resolution order as the Python tools in BOS — single auth
-// pattern across the whole pack.)
+// Auth resolves from the $TRUSTPAGER_API_KEY environment variable.
 //
 // Usage:
 //   npm run publish <design-key>             render + upload one design (skip if exists)
@@ -40,8 +35,8 @@
 //   3. List existing files in the Tutorial Thumbnails folder.
 //   4. For each design: rename / skip / replace / upload per the logic above.
 //   5. POST to TrustPager /v1/files/upload with category=images, folder=
-//      "Tutorial Thumbnails". API key resolves from $TRUSTPAGER_API_KEY
-//      env var first, then ~/.claude/bos.json (the BOS install).
+//      "Tutorial Thumbnails". API key resolves from the $TRUSTPAGER_API_KEY
+//      env var.
 //
 // This is the "finalize" step. `npm run shoot` stays local-only for iteration.
 
@@ -50,7 +45,6 @@ import { existsSync, readFileSync } from 'fs';
 import { outputFilenameFor as buildFilename } from './_filename.js';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { homedir } from 'os';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = resolve(__dirname, '..');
@@ -60,7 +54,6 @@ const RENDER_SCRIPT = resolve(__dirname, 'render.js');
 
 const DEV_SERVER = 'http://localhost:3210';
 const API_BASE = 'https://api.trustpager.com/functions/v1/api/v1';
-const BOS_CONFIG_PATH = resolve(homedir(), '.claude', 'bos.json');
 const TARGET_FOLDER = 'Tutorial Thumbnails';
 // "image" puts the file in CDN-backed image storage so it surfaces in the
 // Content > Files > Images tab (and any image-picker UI). Folders are
@@ -98,29 +91,17 @@ for (const k of keysToPublish) {
 }
 
 // --- API key ---
-// Same resolution order as the Python tools in BOS: env var first, then
-// the BOS config file written by `python tools/setup.py`. If neither is
-// set, point the operator at the installer.
+// Resolves from the $TRUSTPAGER_API_KEY environment variable. If it's not
+// set, tell the operator to set it.
 function loadApiKey() {
   const fromEnv = (process.env.TRUSTPAGER_API_KEY || '').trim();
   if (fromEnv) return fromEnv;
 
-  if (existsSync(BOS_CONFIG_PATH)) {
-    try {
-      const cfg = JSON.parse(readFileSync(BOS_CONFIG_PATH, 'utf8'));
-      if (cfg?.api_key) return cfg.api_key;
-    } catch (err) {
-      console.error(`Failed to parse ${BOS_CONFIG_PATH}: ${err.message}`);
-      process.exit(1);
-    }
-  }
-
   console.error('');
   console.error('No TrustPager API key found.');
   console.error('');
-  console.error('Set one of:');
-  console.error(`  - $TRUSTPAGER_API_KEY environment variable`);
-  console.error(`  - ${BOS_CONFIG_PATH} (run \`python tools/setup.py\` from the BOS root)`);
+  console.error('Set the TRUSTPAGER_API_KEY environment variable:');
+  console.error('  export TRUSTPAGER_API_KEY=tp_live_...');
   console.error('');
   process.exit(1);
 }

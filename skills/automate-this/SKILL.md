@@ -17,7 +17,7 @@ triggers:
 
 You shouldn't be doing the same thing twice. This skill turns "every time a lead comes in I tag them and email them within 5 minutes" into an actual TrustPager automation that does it forever.
 
-**Read first:** [`knowledge/automation-method.md`](../../knowledge/automation-method.md) — the mental model (trigger → conditions → actions), multiple-triggers OR-match, the automation-vs-queue distinction, and the test-before-enable rails. This skill assumes it. If the operator asks "what *should* I automate?", pull from [`knowledge/automation-recipes.md`](../../knowledge/automation-recipes.md).
+**Read first:** [`knowledge/automation-method.md`](../../knowledge/automation-method.md) — the mental model (trigger → conditions → actions), multiple-triggers OR-match, the automation-vs-queue distinction, and the test-before-enable rails. This skill assumes it. If the operator asks "what *should* I automate?", pull from [`knowledge/automation-recipes.md`](../../knowledge/automation-recipes.md). Writes follow [`knowledge/safeguards.md`](../../knowledge/safeguards.md).
 
 ## Step 1 — Understand the rule
 
@@ -32,20 +32,22 @@ If they gave only "DO Y" with no "WHEN", ask: *"What should kick this off — a 
 
 **Fork early — is this actually a sequence?** If the answer is "send a series of emails over several days" (Day 0 welcome, Day 3 value, Day 7 ask), that's an **auto queue**, not an automation. Hand off: *"That's a nurture sequence — `/design-nurture-sequence` is the right tool, want me to switch to that?"* (Method §4.) One-shot reaction = stay here.
 
-## Step 2 — Map to the TrustPager primitives
+## Step 2 — Map to the TrustPager primitives (parallel MCP reads)
 
-Run the discovery bundle once:
+Use the `trustpager` MCP server. Fire these reads to learn the automation surface so you don't guess:
 
-```
-python ~/.claude/bos-run.py automate-this
-```
+| Need | Tool | Args |
+|---|---|---|
+| Every trigger type the engine supports + its `{{variable}}` tokens | `list_trigger_schemas` | (none) |
+| The exact payload + tokens for the trigger you'll use | `get_trigger_schema` | `trigger_type: <type>` |
+| Existing automations (to flag overlap before duplicating) | `list_automations` | `limit: 100` |
 
-This returns `available_triggers`, `available_action_types`, and `existing_automations` in one call — replaces 3+ separate MCP discovery calls.
+> Tool names use `deal` for legacy reasons — **always say "opportunity" to the operator**, never "deal".
 
-From the returned JSON:
-- **Find the trigger(s)** matching each WHEN. For the chosen trigger's full payload + `{{variable}}` tokens, call `mcp__trustpager__get_trigger_schema(trigger_type)` — you need this to confirm any variable you'll use in an email/SMS body actually exists for that trigger.
-- **Find the action types** matching the DO steps. For **each one**, call `mcp__trustpager__describe_action_type(action_type)` right before you write it — get the exact config schema, example, and warnings. Don't guess config shapes.
-- **Check `existing_automations` for overlap.** If there's already an automation on the same trigger doing similar work, flag it before proceeding — and if it's the *same actions from a new entry point*, the right move may be **adding a trigger to the existing automation**, not building a new one.
+From these:
+- **Find the trigger(s)** matching each WHEN in `list_trigger_schemas`. For the chosen trigger's full payload + `{{variable}}` tokens, call `get_trigger_schema(trigger_type)` — you need this to confirm any variable you'll put in an email/SMS body actually exists for that trigger, or it renders blank.
+- **Map the DO steps to action types.** The complete list of action types and their config schemas lives in [`knowledge/automation-method.md`](../../knowledge/automation-method.md) §3 and [`knowledge/automation-recipes.md`](../../knowledge/automation-recipes.md) — use those as the authoritative reference for the `action_type` keys and the config each one needs. (See FLAGS in the conversion note: client workspaces don't expose a live action-type catalogue, so the method/recipes docs are the source of truth for action config shapes.)
+- **Check `list_automations` for overlap.** If there's already an automation on the same trigger doing similar work, flag it before proceeding — and if it's the *same actions from a new entry point*, the right move may be **adding a trigger to the existing automation** (`add_automation_trigger`), not building a new one. Use `get_automation(automation_id)` to inspect a candidate's existing triggers/actions.
 
 If the operator wants something TrustPager can't do (no matching action):
 > "TrustPager doesn't have an action for [X] yet. Closest options are [a] or [b]. Or I can file a feature request — `/make-it-happen file a feature request`."
@@ -81,13 +83,15 @@ WAIT for explicit go.
 
 ## Step 4 — Create the automation
 
-Step-by-step, with progress. **Build it disabled, test, then enable.**
+These are writes — they follow [`knowledge/safeguards.md`](../../knowledge/safeguards.md): build disabled, test, then enable; journal each write as one line to `.bos-journal.md`; if any call returns a `202`/`approval_id`, surface the approvals link and stop (don't retry). Before creating, you already checked `list_automations` for an existing duplicate (search-first rail).
 
-1. **`mcp__trustpager__create_automation`** — name, description, primary `trigger_type`, and (preferred) an inline `triggers: [...]` array for all triggers at once. Each trigger entry can carry its **own** `trigger_type` + `source_type`/`source_id` (that's what makes OR-match across different event classes work). Set `dedup_enabled` / `dedup_window_minutes` and, for anything with a `call_webhook` or a feedback path, `max_executions_per_day`. Leave `enabled` false.
-2. **`mcp__trustpager__add_automation_action`** for each action — **in the order they should run**. (Or inline an `actions: [...]` array on create.)
-3. **`mcp__trustpager__add_automation_trigger`** for any extra triggers not added inline — each with its own `trigger_type`/source.
-4. **TEST IT.** `mcp__trustpager__execute_automation_action` against sample data for the key actions — confirm emails render with variables resolved, tags apply, webhooks post the right body. Never point a test send at a real customer; use the operator's own monitored inbox/number.
-5. **If the test looks right:** `mcp__trustpager__enable_automation`. If not: report what was off and ask how to adjust — don't enable hopefully.
+Step-by-step, with progress:
+
+1. **`create_automation`** — name, description, primary `trigger_type`, and (preferred) an inline `triggers: [...]` array for all triggers at once. Each trigger entry can carry its **own** `trigger_type` + `source_type`/`source_id` (that's what makes OR-match across different event classes work). Set `dedup_enabled` / `dedup_window_minutes` and, for anything with a `call_webhook` or a feedback path, `max_executions_per_day`. Leave `enabled` false.
+2. **`add_automation_action`** for each action — **in the order they should run**. (Or inline an `actions: [...]` array on create.)
+3. **`add_automation_trigger`** for any extra triggers not added inline — each with its own `trigger_type`/source.
+4. **TEST IT.** `execute_automation_action` against sample data for the key actions — confirm emails render with variables resolved, tags apply, webhooks post the right body. Never point a test send at a real customer; use the operator's own monitored inbox/number.
+5. **If the test looks right:** `enable_automation`. If not: report what was off and ask how to adjust — don't enable hopefully.
 
 ALWAYS test before enabling. Disabled automations are safe; enabled ones run for real, send real messages, and spend credits.
 

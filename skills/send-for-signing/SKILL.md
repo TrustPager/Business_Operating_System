@@ -25,10 +25,10 @@ Source of truth: [`knowledge/document-method.md`](../../knowledge/document-metho
 Before any `send_for_signing` call, you need all three:
 
 1. **The template** — its `template_id`. List with
-   `mcp__trustpager__list_document_templates` if the operator named it by title.
+   `list_document_templates` if the operator named it by title.
    If the template doesn't exist yet, redirect to `/build-document`.
 2. **The opportunity** — the `deal_id` the document attaches to. Search with
-   `mcp__trustpager__search_opportunities` if you only have a name. The envelope
+   `search_deals` if you only have a name. The envelope
    and all tracking thread onto this opportunity.
 3. **The signers** — an array of `{name, email}`. Confirm spelling and order
    out loud with the operator. For multi-signer documents, confirm who's signer
@@ -54,7 +54,7 @@ recommend it — method §5.
 ## Step 2 — Send
 
 ```
-mcp__trustpager__send_for_signing(
+send_for_signing(
   template_id=...,
   deal_id=...,
   signers=[{name, email}, ...],

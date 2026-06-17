@@ -1,8 +1,0 @@
-{
-  "catalog": {"_use_live": true},
-  "responses": {
-    "schemas/triggers": {"data": [{"trigger_type": "form_submission"}, {"trigger_type": "stage_changed"}]},
-    "automations/action-types": {"data": [{"action_type": "send_email"}, {"action_type": "add_tag"}, {"action_type": "create_task"}]},
-    "automations": {"data": [{"id": "a1", "name": "Existing automation", "enabled": true, "triggers": [{}], "actions": [{}, {}]}]}
-  }
-}

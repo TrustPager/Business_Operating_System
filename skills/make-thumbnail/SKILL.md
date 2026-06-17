@@ -126,8 +126,7 @@ To upload the PNG to the operator's own TrustPager workspace's
 npm run publish <design-key>
 ```
 
-Auth resolves the same way as the BOS Python tools: `$TRUSTPAGER_API_KEY`
-env var first, then `~/.claude/bos.json`. The script handles
+Auth comes from the `TRUSTPAGER_API_KEY` environment variable. The script handles
 idempotency — re-running publish with the same design key skips if the
 file's unchanged, renames if the title shifted, replaces only on
 `--replace`.

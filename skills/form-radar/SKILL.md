@@ -25,20 +25,41 @@ check-up on every submission.
 Source of truth: [`knowledge/form-method.md`](../../knowledge/form-method.md)
 — §4 (the submission lifecycle) and §5 (automating it).
 
-## Step 1 — Fetch the digest
+## Step 1 — Pull the data (MCP read)
 
-```bash
-python ~/.claude/bos-run.py form-radar
-```
+Use the `trustpager` MCP server. One read — free, nothing journaled:
 
-One call: lists every submission, computes the funnel, buckets the follow-ups
-(started-not-completed, sent-never-opened-stale, recently completed),
-oldest-first. `--stale-days N` tunes the stale threshold (default 5).
+| Need | Tool | Args |
+|---|---|---|
+| Every form submission | `list_form_submissions` | `limit: 100` (page with `after` until exhausted) |
 
-Fallback if it can't run: `mcp__trustpager__list_form_submissions` — raw list,
-no funnel; prefer the script.
+> Tool names use `deal` for legacy reasons — **always say "opportunity" to the operator**, never "deal".
 
-## Step 2 — Present, follow-ups first
+## Step 2 — Build the funnel and the follow-up buckets (digest logic)
+
+Compute against **now**. For each submission, read its `status` (lowercased) and its **age in days** — from `sent_at`, falling back to `created_at`, then `updated_at`.
+
+Tally the funnel by status:
+- `viewed` / `opened` → **opened**
+- `in_progress` → **in_progress**
+- `completed` → **completed**
+- `expired` → **expired**
+- `voided` → **voided**
+- `draft` → **draft**
+- `pending` / `sent` → **sent**
+- anything else → **other**
+
+Then bucket the follow-ups:
+
+- **Started — not finished** (nudge): status is `viewed`, `opened`, or `in_progress`. These began and stalled.
+- **Sent — never opened, going stale** (chase/resend): status is `pending` or `sent` **AND** age ≥ **5 days** (the stale threshold; the operator can ask for a different one).
+- **Recently completed**: status `completed` AND age ≤ **7 days**.
+
+For each row carry: `submission_id`, `template_id`, `template_name` (fall back to "(form)"), `deal_id`, `contact_id`, `status`, and `age_days` (rounded to 1 dp).
+
+**Sort** both follow-up buckets **oldest-first** (highest age first) — the most overdue follow-ups lead.
+
+## Step 3 — Present, follow-ups first
 
 ```
 📋 22 forms out — 12 completed, 4 started (not finished), 5 sent (unopened), 1 expired
@@ -53,10 +74,12 @@ no funnel; prefer the script.
 ✅ Completed this week: 12  (PDFs auto-archived to their opportunities)
 ```
 
-## Step 3 — Offer the follow-up actions (with approval)
+## Step 4 — Offer the follow-up actions (with approval)
+
+These are writes — they follow [`knowledge/safeguards.md`](../../knowledge/safeguards.md): offer, get a yes, do it **one at a time**, journal each to `.bos-journal.md`; if a call returns a `202`/`approval_id`, surface the approvals link and stop.
 
 One at a time, with a yes:
-- **Resend** an unopened-stale submission → `mcp__trustpager__resend_form_submission(submission_id)`.
+- **Resend** an unopened-stale submission → `resend_form_submission(submission_id)`.
 - **Draft a nudge** to a started-not-finished recipient → hand to `/draft-reply`
   ("saw you got started on the form — anything I can help with to finish it?").
 - **Void** a dead/duplicate submission → `void_form_submission(submission_id)` —
@@ -68,7 +91,7 @@ For "nudge automatically whenever someone opens but doesn't finish", hand to
 ## What to never do
 
 - ❌ Don't dump all submissions flat — bucket by follow-up urgency.
-- ❌ Don't auto-resend or auto-void — offer, get a yes, one at a time.
+- ❌ Don't auto-resend or auto-void — offer, get a yes, one at a time, journal each.
 - ❌ Don't chase `completed` ones — count them, move on.
 - ❌ Don't chase a submission the operator voided on purpose.
 

@@ -4,4 +4,4 @@ description: Diagnose why a specific automation didn't do what you expected — 
 
 Run the **why-didnt-it-fire** skill.
 
-Invoke the skill at `skills/why-didnt-it-fire/SKILL.md`. Follow its instructions exactly — run `fetch.py` with the automation id/name, walk the run-log ladder, and give the operator the single real reason plus the fix.
+Invoke the skill at `skills/why-didnt-it-fire/SKILL.md`. Follow its instructions exactly — it pulls the automation and its run log via `trustpager` MCP read tools (`get_automation`, `list_automation_runs`, `get_automation_run`) for the given automation id/name, walks the run-log ladder, and gives the operator the single real reason plus the fix.

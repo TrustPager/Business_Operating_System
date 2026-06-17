@@ -150,7 +150,7 @@ The automation surface changes as the platform ships. Every automation skill fol
 2. **`list_action_types`** → every action. `describe_action_type(type)` → one action's config schema + example, **right before writing it**.
 3. **`list_automations`** → what already exists, so you don't build a duplicate.
 
-The `/automate-this` skill bundles 1–3 into a single `fetch.py` call. All three are free (no credits).
+The `/automate-this` skill gathers these via `trustpager` MCP read tools (`list_trigger_schemas`, `get_trigger_schema`, `list_automations`; `list_action_types` / `describe_action_type` where available). All are free (no credits).
 
 ---
 

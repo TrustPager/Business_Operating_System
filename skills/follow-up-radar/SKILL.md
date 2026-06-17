@@ -16,50 +16,63 @@ triggers:
 
 You are surfacing the active opportunities that have gone quiet and drafting personalised re-engagement messages for each one. Your goal: turn a backlog of forgotten deals into a queue of approved-and-ready outbound messages in under 5 minutes.
 
-## Step 1 — Fetch silent opportunities
+## Step 1 — Pull the data (MCP reads)
 
-```bash
-python ~/.claude/bos-run.py follow-up-radar
-```
+Use the `trustpager` MCP server. All reads — free, nothing journaled.
 
-The script returns a JSON document with:
+| Need | Tool | Args |
+|---|---|---|
+| Opportunities (to find the silent ones) | `list_deals` | `limit: 100` |
+| Contact details for each top silent opp (enrichment) | `get_contact` | `contact_id: <id>` — one per top-N opp, fired in parallel |
 
-- `total_silent` — full count across the workspace
-- `returned_top_n` — number of items enriched and returned (default 10)
-- `summary_by_source` — count grouped by lead source (Facebook, Referral, etc.)
-- `summary_by_stage` — count grouped by pipeline stage
-- `items[]` — the top N silent opportunities, each with full contact details
+> Tool names use `deal` for legacy reasons — **always say "opportunity" to the operator**, never "deal".
 
-A "silent" opportunity is one where:
-- The opportunity is in an active stage (not won, not lost, not on hold)
-- `updated_at` is more than 7 days ago (configurable via `--silence-days N`)
-- There's no future `next_action_date` scheduled
+## Step 2 — Find the silent opportunities (digest logic)
 
-The ranking blends value and days-silent so unpriced-but-long-silent leads don't disappear. See `_score` in the fetch script.
+Compute everything against **now**. From the opportunities list, keep an opportunity as **silent** only if **all** of these hold:
 
-## Step 2 — Open with a summary, not a wall of detail
+1. **It's active** — its `status` is NOT one of `won` / `lost` / `cancelled` / `abandoned` / `archived`, AND its current stage is not flagged `is_won_stage` or `is_lost_stage`. (Current stage = the first placement's pipeline stage; if there are no placements, treat as active/"Unstaged".)
+2. **No scheduled future action** — there's no `next_action_date`, or it's in the past. A future `next_action_date` means it's in progress, not quiet — drop it.
+3. **Gone quiet** — `updated_at` is more than **7 days** ago (the default silence threshold; the operator can ask for a different window, e.g. 14 days).
 
-Start with one paragraph the operator can read in 10 seconds:
+For each silent opp, compute `days_silent` = whole days since `updated_at`.
+
+**Rank by a blended score** (so fully-priced deals don't dominate and unpriced-but-long-silent leads don't vanish — most opps have `value=null`):
 
 ```
-You've got X silent opportunities in your active pipeline. Most are coming from [lead source], 
-mostly sitting in [stage]. Here are the top N to chase, with drafts ready.
+base  = max(100, value_in_dollars / 1000)      # floor at 100 so unpriced deals still have pull
+score = base * (1 + days_silent / 30)
 ```
 
-Use `summary_by_source` and `summary_by_stage` to populate the headline. This sets context BEFORE the operator dives into individual messages.
+Sort silent opps by `score`, highest first.
 
-## Step 3 — Draft a personalised message for each
+**Summaries for the headline:** count the silent opps grouped by `lead_source`, and grouped by stage name.
 
-For each item in `items[]`, draft ONE re-engagement message. Pick the channel based on what the contact has:
+**Top N:** take the top **10** by score (the operator can ask for more — "show me the next 10" → take the top 20 and continue past where you stopped). Enrich only these top N — call `get_contact` for each one's `contact_id` in parallel, pulling `first_name`, `last_name`, `email`, `phone`, `job_title`, and the unsubscribe flags (`email_unsubscribed` / `sms_unsubscribed`).
 
-- ✅ Has phone, not sms_unsubscribed → **SMS** (short, casual)
-- ✅ Has email, not email_unsubscribed → **Email** (slightly longer, can reference the deal)
+## Step 3 — Open with a summary, not a wall of detail
+
+Start with one paragraph the operator can read in 10 seconds, populated from the group-by summaries:
+
+```
+You've got X silent opportunities in your active pipeline. Most are coming from [top lead source],
+mostly sitting in [top stage]. Here are the top N to chase, with drafts ready.
+```
+
+This sets context BEFORE the operator dives into individual messages.
+
+## Step 4 — Draft a personalised message for each
+
+For each top-N item, draft ONE re-engagement message. Pick the channel based on what the contact has:
+
+- ✅ Has phone, not `sms_unsubscribed` → **SMS** (short, casual)
+- ✅ Has email, not `email_unsubscribed` → **Email** (slightly longer, can reference the deal)
 - ❌ Both unsubscribed → flag the opportunity for manual review, don't draft
 
 **Each draft must include:**
 
-- **The contact's first name** (from `contact.first_name`) — never "Hi there" or "Hello"
-- **A specific reference** — what they were looking at, when, where the conversation left off. Use `stage`, `lead_source`, and `days_silent` to construct the reference. Examples:
+- **The contact's first name** — never "Hi there" or "Hello"
+- **A specific reference** — what they were looking at, when, where the conversation left off. Use `stage`, `lead_source`, and `days_silent` to construct it. Examples:
   - Stage "Demo Booked", silent 14 days → "wanted to circle back on the demo we never got to"
   - Stage "Not Ready Yet", silent 30 days → "checking in — last we spoke you weren't ready to move forward yet, but timing changes"
   - Stage "Quote Sent", silent 7 days → "just making sure the proposal landed and you've had a chance to look"
@@ -75,7 +88,9 @@ For each item in `items[]`, draft ONE re-engagement message. Pick the channel ba
 - ❌ Marketing language ("excited to share", "leverage", "synergy")
 - ❌ A scheduler link unless the operator's CLAUDE.md explicitly approves it (per their banned-phrase rules)
 
-## Step 4 — Present each draft for approval, one at a time
+## Step 5 — Present each draft for approval, one at a time
+
+Every send here is a write — it follows [`knowledge/safeguards.md`](../../knowledge/safeguards.md): show the draft, get a per-item yes, then send; journal each send as one line to `.bos-journal.md`; if a send returns a `202`/`approval_id`, surface the approvals link and stop (don't retry).
 
 Format each as:
 
@@ -96,25 +111,23 @@ Format each as:
 The operator answers per-item. Don't batch. Don't bulk-send. Confirmation is per-message.
 
 When the operator says yes:
-- SMS → call the `send_sms` tool on the TrustPager MCP
-- Email → call `send_email` (mode: "personal" — see the operator's email-sending preferences)
+- SMS → `send_sms` on the `trustpager` MCP server
+- Email → `send_email` (mode: "personal" — see the operator's email-sending preferences)
 - Then log the activity on the opportunity via `add_note` so the next sweep doesn't surface it again
+- Journal both the send and the note to `.bos-journal.md`
 
-When the operator says no or skip:
-- Don't log anything — the opportunity stays silent for next time
-- Move to the next item
+When the operator says no or skip: don't log anything — the opportunity stays silent for next time. Move to the next item.
 
-When the operator says edit:
-- Take their edits inline, present the revised draft, ask again
+When the operator says edit: take their edits inline, present the revised draft, ask again.
 
-## Step 5 — End with the operator's choice
+## Step 6 — End with the operator's choice
 
 After all N items:
 
 ```
 ✓ Sent: X | Skipped: Y | Edited and sent: Z
 
-Want to drill into the remaining N silent opportunities? Run with --top 20.
+Want to drill into the remaining N silent opportunities? (I'll take the next 10 by score.)
 ```
 
 ## What to never do
@@ -127,15 +140,12 @@ Want to drill into the remaining N silent opportunities? Run with --top 20.
 
 ## Common follow-ups the operator will ask
 
-Be ready to chain naturally into:
-
-- "Show me the next 10" → re-run with `--top 20` and pick up where you stopped
+- "Show me the next 10" → take the next 10 silent opps by score and pick up where you stopped
 - "Skip Facebook leads, just show me referrals" → filter the items by `lead_source`
-- "Move this one to Lost" → call `update_opportunity` with `status: "lost"`
+- "Move this one to Lost" → `update_deal` with `status: "lost"` (a write — journal it)
 - "Schedule a call with this one instead" → use the scheduling MCP tools
 
 ## When this skill should NOT fire
 
 - The operator is mid-call and asking a focused question about one contact — answer that, don't pivot
-- It's the first time today the operator has run this — but they ran it yesterday — show only changes since yesterday's run (use `~/.claude/bos-cache/follow-up-radar-state.json` if you maintain state)
 - The operator already has 50+ scheduled outbound today — flag that instead of adding more

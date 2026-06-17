@@ -23,33 +23,23 @@ The source of truth for the method is
 — read its "Layer 2 — Customer voice synthesis" section before starting
 if you haven't.
 
-## Step 1 — Dump the transcripts
+## Step 1 — Pull the transcripts (MCP)
 
-Run the tool. Defaults to ≥5min duration, target 30 calls + 30 meetings,
-output into a date-stamped folder:
+Use the `trustpager` MCP server. All reads — nothing here is journaled or needs approval.
 
-```bash
-python tools/dump-transcripts.py
-```
+> Tool names use `deal` for legacy reasons — **always say "opportunity" to the operator**.
 
-Adjust `--min-duration`, `--target`, `--out` if the operator asks for
-something different.
+1. **List the candidates.** Call `list_transcripts(transcription_status: "complete", limit: 100)` and paginate via the `after` cursor (each list row has `duration_seconds`, `type`, `occurred_at`, `title`, linked entities — but **no** transcript body). Keep paging while `pagination.has_more` is true, up to a sane cap (~2000 rows / ~20 pages).
+2. **Filter by duration.** Keep only rows whose `duration_seconds` is **≥ 300** (5 minutes) — that's the default; if the operator asks for a different floor (e.g. 10 min = 600), use theirs. Split the survivors into **calls** (`type: "call"`) and **meetings** (`type: "meeting"`). Target roughly the **30 most recent of each** (newest first) unless the operator wants more or fewer.
+3. **Fetch each transcript's full text.** For every kept row, call `get_transcript(id: <transcript_id>)` — that's the call that returns `transcript_text`. The text is usually a JSON-encoded blob containing a `transcript_vtt` (WebVTT) field and sometimes a `summary`; read the VTT speaker lines and ignore the cue numbers / `00:00 -->` timestamps. Some sources store plain text instead — handle either.
 
-The tool writes:
-- `transcripts/<UTC-date>/calls/*.md`
-- `transcripts/<UTC-date>/meetings/*.md`
-- `transcripts/<UTC-date>/_index.json`
-
-Most Twilio phone calls between humans aren't transcribed. The tool
-silently skips those — only Recall AI Notetaker meetings and Retell
-voice-agent calls have rich text. Don't be alarmed by the "skipped
-empty" count.
+Most Twilio phone calls between humans aren't transcribed — only TrustPager Notetaker (Recall) meetings and Retell voice-agent calls have rich text. Transcripts with an empty `transcript_text` just get skipped; don't be alarmed by how many that is.
 
 ## Step 2 — Read every transcript end-to-end
 
-**Read every single file in `calls/` and `meetings/`.** Don't skim. If
-a file is large (over a few thousand lines), paginate with `Read(offset=,
-limit=)` until you've covered the entire thing.
+**Read the full text of every transcript you fetched** — both calls and
+meetings. Don't skim. If a transcript is very large, work through it in
+chunks until you've covered the entire thing.
 
 **Filter out the host's voice.** The salesperson / operator's lines are
 not customer voice. You want what the OTHER speaker says. Internal team
@@ -58,9 +48,9 @@ filter out — but DO keep external participants when they speak.
 
 ## Step 3 — Write `customer-voice-synthesis.md`
 
-Output path: alongside the transcripts folder, e.g.
-`transcripts/<UTC-date>/customer-voice-synthesis.md`. Tell the operator
-explicitly where you wrote it so they can find it.
+Write it with the `Write` tool to a date-stamped path, e.g.
+`transcripts/<UTC-date>/customer-voice-synthesis.md` (create the folder if
+needed). Tell the operator explicitly where you wrote it so they can find it.
 
 The file MUST have these 10 sections, in this order:
 
@@ -163,7 +153,7 @@ your report is the headline.
 
 ## Hard rules
 
-- **Read every file end-to-end.** No skimming.
+- **Read every transcript end-to-end.** No skimming.
 - **Quote VERBATIM.** Don't paraphrase.
 - **Filter the host's voice.** Synthesis = customer voice only.
 - **Real names stay in this internal file.** Don't pass these names

@@ -4,4 +4,4 @@ description: Health-check every automation — which are firing, stale, erroring
 
 Run the **audit-my-automations** skill.
 
-Invoke the skill at `skills/audit-my-automations/SKILL.md`. Follow its instructions exactly — including running `fetch.py` first and presenting findings worst-first, never auto-applying fixes.
+Invoke the skill at `skills/audit-my-automations/SKILL.md`. Follow its instructions exactly — it gathers automation state via `trustpager` MCP read tools, then presents findings worst-first, never auto-applying fixes.

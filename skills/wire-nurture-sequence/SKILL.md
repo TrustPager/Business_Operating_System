@@ -21,16 +21,21 @@ The source of truth for the method is
 — read its "Wiring the sequence into a TrustPager auto queue" section
 before starting.
 
+This skill WRITES to a live auto queue. The standing write rails apply on
+every tool call: show drafts and confirm before any write, journal every
+write to `./.bos-journal.md`, search/read the live state first (never blind-
+retry), and stop on a `202` approval gate. Read
+[`knowledge/safeguards.md`](../../knowledge/safeguards.md) for the exact rails.
+
 ## Hard prerequisites
 
 Before running ANY MCP write, you need:
 
 1. **The auto queue ID** + its current state (steps, step_orders,
-   delays, linked automation IDs). Run:
-   ```bash
-   python tools/dump-crm-bundle.py --resources auto_queues
-   ```
-   Then read `auto_queues.json` for the target queue.
+   delays, linked automation IDs). Read it live from the `trustpager` MCP:
+   `list_auto_queues` to find the target queue, then `get_auto_queue(id)`
+   for its full step list. Use `list_auto_queue_enrollments(queue_id)` if
+   you need per-step enrolment detail.
 
 2. **For each step in the sequence**: the matching automation ID +
    action ID, OR the confirmation that no action exists yet (then
@@ -196,13 +201,8 @@ reschedule their `automation_timer_tasks` rows directly (or unenrol + re-enrol).
 
 ## Step 3 — Verify
 
-After all writes:
-
-```bash
-python tools/dump-crm-bundle.py --resources auto_queues
-```
-
-Read the new `auto_queues.json` and confirm:
+After all writes, re-read the live queue state from the `trustpager` MCP —
+`get_auto_queue(id)` (the same read you ran in the prerequisites) — and confirm:
 
 1. **All steps are in step_order sequence** (1, 2, 3, ..., N with no
    gaps or duplicates).

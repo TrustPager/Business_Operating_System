@@ -5,9 +5,7 @@
 // drop straight into a page's <meta property="og:image"> tag, or download
 // to commit into your site's /public/og/ folder.
 //
-// Auth resolves from your BOS install (same order as the Python tools):
-//   1. $TRUSTPAGER_API_KEY environment variable
-//   2. ~/.claude/bos.json   →  { "api_key": "tp_live_..." }
+// Auth resolves from the $TRUSTPAGER_API_KEY environment variable.
 //
 // Usage:
 //   npm run publish docs-home                render + upload (skip if exists)
@@ -19,7 +17,6 @@ import { existsSync, readFileSync } from 'fs';
 import { outputFilenameFor as buildFilename } from './_filename.js';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { homedir } from 'os';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = resolve(__dirname, '..');
@@ -29,7 +26,6 @@ const RENDER_SCRIPT = resolve(__dirname, 'render.js');
 
 const DEV_SERVER = 'http://localhost:3217';
 const API_BASE = 'https://api.trustpager.com/functions/v1/api/v1';
-const BOS_CONFIG_PATH = resolve(homedir(), '.claude', 'bos.json');
 const TARGET_FOLDER = 'OG Images';
 const TARGET_CATEGORY = 'image';
 
@@ -59,23 +55,15 @@ for (const k of keysToPublish) {
   }
 }
 
-// Same auth resolution as BOS Python tools: env var first, then the
-// BOS config file. If neither is set, point at the setup tool.
+// Resolves from the $TRUSTPAGER_API_KEY environment variable. If it's not
+// set, tell the operator to set it.
 function loadApiKey() {
   const fromEnv = (process.env.TRUSTPAGER_API_KEY || '').trim();
   if (fromEnv) return fromEnv;
 
-  if (existsSync(BOS_CONFIG_PATH)) {
-    try {
-      const cfg = JSON.parse(readFileSync(BOS_CONFIG_PATH, 'utf8'));
-      if (cfg?.api_key) return cfg.api_key;
-    } catch (err) {
-      console.error(`Could not parse ${BOS_CONFIG_PATH}: ${err.message}`);
-    }
-  }
   console.error('');
   console.error('No TrustPager API key found.');
-  console.error('Run `python tools/setup.py` from the BOS root to install one, or set');
+  console.error('Set the TRUSTPAGER_API_KEY environment variable:');
   console.error('  export TRUSTPAGER_API_KEY=tp_live_...');
   console.error('');
   process.exit(1);

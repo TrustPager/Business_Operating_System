@@ -17,30 +17,32 @@ triggers:
 
 Customers want to learn by doing, not by reading documentation. This skill turns "how do I X?" into a hands-on walkthrough — searches the TrustPager help center, summarizes the answer, links to the specific page in their workspace, and offers to drive the steps if they want.
 
-## Step 1 — Pre-fetch + search the help center
+## Step 1 — Pull the data (parallel MCP calls)
 
-First, run:
+Fire these reads in parallel in a single batch. They're all reads — free and fast. Use the `trustpager` MCP server.
 
-```
-python ~/.claude/bos-run.py show-me-how --query "<the user's question>"
-```
+| Need | Tool | Args |
+|---|---|---|
+| Canonical published tutorial articles | `search_help_center` | `query: "<the user's question>"` |
+| Workspace AI instructions (may carry workflow guidance that supersedes the generic answer) | `get_ai_instructions` | — |
+| The team's own training canvases (Learning Hub) matching the topic | `list_training_canvases` | `limit: 20`, `search: "<the user's question>"` |
 
-This pre-fetches the workspace's AI instructions (which sometimes contain workflow guidance that supersedes the generic answer) and any matching custom training canvases the customer's team has built (Learning Hub).
+> Tool names use `deal` for legacy reasons — **always say "opportunity" to the operator**, never "deal".
 
-Then, in the same turn, call `mcp__trustpager__search_help_center` for the canonical published articles. This returns matching published tutorial articles. Always do BOTH — the platform team writes the canonical answer, the workspace may have its own overlay, and our job is to surface both.
+Always do all three — the platform team writes the canonical answer, the workspace may have its own overlay (AI instructions + custom training canvases), and our job is to surface both. Training-canvas links are `https://app.trustpager.com/training/learning-hub/{id}`.
 
-If 0 results:
+If `search_help_center` returns 0 results:
 > "No published article on that exact topic. Let me figure it out from first principles — give me 30 seconds…"
-> Then use `mcp__trustpager__describe_resource` and `mcp__trustpager__describe_action_type` to construct an answer.
+> Then construct an answer from the AI instructions, the matched training canvases, and what you know of the platform. (Note: `describe_resource` / `describe_action_type` are only available on the claude.ai-connected workspaces, not the client `trustpager` server — don't rely on them here.)
 
-If multiple results, pick the most relevant (best title match) and offer the rest as "related":
+If multiple help-center results, pick the most relevant (best title match) and offer the rest as "related":
 > "Closest article: '[title]'. Also possibly relevant: '[a]', '[b]'. Want me to walk through the closest, or one of the others?"
 
 ## Step 2 — Summarize, don't dump
 
 Don't paste the whole article. Distill it to:
 - **The steps** (numbered, ≤ 8 of them)
-- **The URL to the actual workspace page** they need (e.g. `https://app.trustpager.com/settings/pipelines`)
+- **The URL to the actual workspace page** they need (e.g. `https://app.trustpager.com/settings/crm`)
 - **One gotcha** they'll hit (the one footnote in the article that everyone misses)
 
 Format example:
@@ -60,7 +62,7 @@ Want me to add it for you now? (Just say the source name.)
 ## Step 3 — Offer to drive
 
 End with a single offer:
-- For configuration tasks → "Want me to do this for you?" → if yes, execute via the appropriate `mcp__trustpager__*` tool.
+- For configuration tasks → "Want me to do this for you?" → if yes, execute via the appropriate `trustpager` MCP write tool. Any write follows the rails in `knowledge/safeguards.md` (confirm before it lands, journal it to `.bos-journal.md`, search-first so you don't duplicate).
 - For navigation ("show me where my opps are") → just give the URL and explain what they'll see.
 - For analysis tasks → "Want me to run `/audit-pipeline` (or relevant tool) to show you what's there now?"
 
@@ -78,7 +80,7 @@ NEVER drive without explicit yes. The offer is the offer — the user opts in.
 
 - **"How do I delete my account?"** → Don't answer with a how-to. Say "I can help you understand what's in your workspace first — want me to summarize that? If you still want to delete, reach the team directly." Deletion is a deliberate decision, not a CLI fact.
 - **"Where do I find X?"** with an obvious answer → just give the URL + one line. No 8-step walkthrough for "where's my contacts list".
-- **"How do I [feature that doesn't exist]?"** → "TrustPager doesn't have [feature X] yet — the closest thing is [Y]. Want me to file a feature request with the team?" Offer `mcp__trustpager__create_service_request`.
+- **"How do I [feature that doesn't exist]?"** → "TrustPager doesn't have [feature X] yet — the closest thing is [Y]. Want me to log it for the team?" On a yes, run `/suggest-improvement` (it tags and de-dupes the request properly — see `knowledge/memory-and-feedback.md`), rather than calling `create_service_request` raw.
 
 ## Output shape
 

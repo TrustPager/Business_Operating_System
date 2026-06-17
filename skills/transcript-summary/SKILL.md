@@ -33,8 +33,8 @@ and voice-agent calls carry rich text. If there's no transcript body, say so
 plainly (nothing to summarise) rather than inventing content.
 
 For mining *many* transcripts at once (brand voice, positioning), that's
-`tools/dump-transcripts.py` / `/build-customer-voice` — this skill is for turning
-*one* conversation into a document.
+`/build-customer-voice` — this skill is for turning *one* conversation into a
+document.
 
 ## Step 2 — Read + summarise
 

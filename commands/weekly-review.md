@@ -4,9 +4,10 @@ description: The Friday rollup — what shipped this week (deals won, tasks done
 
 Run the **Weekly Review** skill.
 
-Invoke the skill at `skills/weekly-review/SKILL.md`. Run
-`python skills/weekly-review/fetch.py` (`--days N` to change the window), then
-present the review: SHIPPED first (won deals + value, tasks done, new opps), then
+Invoke the skill at `skills/weekly-review/SKILL.md`. It gathers the week's
+opportunities, tasks and pipeline state via `trustpager` MCP read tools (the
+skill lets you tune the window in plain language, e.g. "review the last 14
+days"), then presents the review: SHIPPED first (won deals + value, tasks done, new opps), then
 STALLED (the point — quiet high-value deals + overdue carried over), then the
 current open-pipeline total, ending with one concrete focus for next week. Use
 the operator's own stage/product names; totals + headline rows, not every record.

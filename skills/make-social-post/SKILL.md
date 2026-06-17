@@ -115,7 +115,7 @@ npm run publish <key> --replace  # overwrite
 ```
 
 Uploads to the operator's `Files > Images > Social Posts` folder. Auth
-resolves from `$TRUSTPAGER_API_KEY` then `~/.claude/bos.json`. Idempotent:
+comes from the `TRUSTPAGER_API_KEY` environment variable. Idempotent:
 skip-if-exists by default, `--replace` to overwrite.
 
 ## Hard rules

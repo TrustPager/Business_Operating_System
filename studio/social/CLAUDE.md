@@ -129,8 +129,9 @@ so every format of a campaign sorts together.
 
 - **All colour flows from `BOS/brand/brand.json`** via `src/brand.js`. NO hex
   literals in `SocialPost.jsx`. Editing brand.json (or running
-  `/brand-my-workspace`) reskins every post. After editing brand.json, run
-  `python tools/sync-brand.py` from the BOS root to refresh the logo.
+  `/brand-my-workspace`) reskins every post. After editing brand.json by hand,
+  re-run `/brand-my-workspace` to copy the refreshed logo into each studio's
+  `public/`.
 - **Stay on the brand palette** in any visual card chrome — teal / green /
   blue / light teal / slate. No red / orange / purple.
 - **Exactly one gradient accent word, at most one serif emphasis word.** More
@@ -167,7 +168,7 @@ social/
 │   ├── publish.js                  ← npm run publish (→ Files > Social Posts)
 │   ├── render.js                   ← puppeteer renderer (shared by shoot + publish)
 │   └── _filename.js                ← <platform>-<key>.png naming
-├── public/                         ← brand logo + favicons (synced by tools/sync-brand.py)
+├── public/                         ← brand logo + favicons (synced by /brand-my-workspace)
 └── output/                         ← rendered PNGs (gitignored)
 ```
 

@@ -151,8 +151,7 @@ npm run publish docs-home --replace  # overwrite an existing one
 ```
 
 The API returns a hosted URL you can paste straight into an `og:image` tag.
-Auth resolves from `$TRUSTPAGER_API_KEY` or `~/.claude/bos.json` (run
-`python tools/setup.py` from the BOS root if you haven't installed a key).
+Auth resolves from `$TRUSTPAGER_API_KEY` — set it in your environment before publishing.
 
 ---
 

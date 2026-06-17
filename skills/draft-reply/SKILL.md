@@ -16,19 +16,31 @@ triggers:
 
 Replies are higher-stakes than fresh emails — the context already exists, and getting the tone wrong is more obvious. This skill drafts the reply against the actual message that was received, not against a guess.
 
-## Step 1 — Find the message being replied to
+## Step 1 — Find the message being replied to (parallel MCP reads)
 
-First, run:
+If the user pastes a message directly, use that paste as the source-of-truth and skip the fetch entirely.
 
-```
-python ~/.claude/bos-run.py draft-reply --hours 48
-```
+Otherwise, pull the candidate inbound from the `trustpager` MCP server. These are reads — free, nothing journaled:
 
-This returns every inbound email + SMS in the window with no reply, ranked (open-opportunity senders first, then by recency). If the user already named someone, filter the list and pick that one. If not, offer the top 3-5 as a numbered list:
+| Need | Tool | Args |
+|---|---|---|
+| Inbound email threads | `list_email_threads` | `direction: "inbound"`, `is_read: false`, `limit: 50` |
+| SMS conversations | `list_sms_conversations` | (none — returns all) |
+
+> Tool names use `deal` for legacy reasons — **always say "opportunity" to the operator**, never "deal".
+
+Then filter and rank client-side (the list tools don't take a date or "we-replied" filter, so do it yourself):
+
+- **Window:** keep only items whose last-message time is within the last **48 hours** (default).
+- **Email — needs a reply:** the thread's last message direction is **inbound** and we haven't already replied (the latest message is theirs, not ours). Skip `is_automated` threads.
+- **SMS — needs a reply:** there's an inbound message **newer than** the latest outbound message. If the last outbound is at or after the last inbound, we've already replied — skip it.
+- **Rank:** opportunity-linked senders first (a thread/conversation carrying a `deal_id`), then newest-first by last-message time.
+
+For each kept item capture: channel, the thread/conversation id, sender name + email/phone, received-at, whether it's linked to an open opportunity (`deal_id`), the contact id, and a ~200-char snippet of the latest inbound message.
+
+If the user already named someone, filter the list to them and pick that one. If not, offer the top 3–5 as a numbered list:
 
 > "These are the unanswered messages from the last 48h, top first. Reply to #1? Or pick another?"
-
-If the user pastes a message directly (not from the JSON), use that paste as the source-of-truth and skip the fetch.
 
 ## Step 2 — Read the inbound carefully
 
@@ -37,7 +49,7 @@ Before drafting, identify in the inbound:
 - **The emotional register** — formal? casual? frustrated? excited?
 - **Specific details** — names, dates, dollar amounts, products mentioned — these must appear in the reply.
 
-If unclear ("I'm not sure what they're actually asking"), say so to the user and ask for clarification BEFORE drafting:
+If the snippet isn't enough context, pull the full thread (`get_email_thread` / `get_sms_messages`) before drafting. If still unclear ("I'm not sure what they're actually asking"), say so and ask BEFORE drafting:
 > "I'm reading this as a request for [X] — is that right, or are they actually asking [Y]?"
 
 ## Step 3 — Draft the reply
@@ -52,11 +64,14 @@ If the inbound has multiple questions, address them in bullet order. Keep the sa
 
 ## Step 4 — Show + send
 
-Same approval flow as /send-email:
+This is a write — it follows [`knowledge/safeguards.md`](../../knowledge/safeguards.md): show the draft, wait for an explicit yes, then send; journal the send as one line to `.bos-journal.md`. If the send returns a `202`/`approval_id`, surface the approvals link and stop — don't retry.
+
 - Show the proposed reply (subject = same as inbound prepended with "Re:", or just the SMS body)
 - Wait for yes/no
-- On yes: `mcp__trustpager__reply_to_email` (for email) or `mcp__trustpager__send_sms` (for SMS)
+- On yes: `reply_to_email` (for email — preserves the thread) or `send_sms` (for SMS)
 - On no: ask what to change. Common edits: "more direct", "less formal", "shorter", "include the dollar number".
+
+**Search-first / never blind-retry:** if a send errors ambiguously or times out, don't just re-issue it — re-pull the thread/conversation to confirm whether the reply actually landed, then act on what you find. A duplicate reply is worse than a slow one.
 
 ## Important behaviours
 

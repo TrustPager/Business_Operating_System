@@ -1,8 +1,9 @@
-name: tests
+name: checks
 
-# Offline by design. BOS_OFFLINE=1 makes the shared library refuse every
-# network call, so this workflow can never reach the live API or read a real
-# API key. No secrets are referenced anywhere in this file — on purpose.
+# BOS is a no-code, no-Python pack: skills/commands are Markdown, the studios are
+# Node. CI therefore does two things only — make sure no real credential ever
+# lands in the repo, and make sure the deleted Python runtime never creeps back.
+# No secrets are referenced anywhere in this file, on purpose.
 
 on:
   push:
@@ -12,40 +13,44 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  checks:
     runs-on: ubuntu-latest
-    env:
-      BOS_OFFLINE: "1"
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
       - name: Secret scan (no key may enter the repo)
-        run: python tools/check-no-secrets.py
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITLEAKS_ENABLE_UPLOAD_ARTIFACT: "false"
 
-      - name: Lint every skill
+      - name: No-Python guard (the pack must stay pure-MCP)
         run: |
           set -e
-          for d in skills/*/; do
-            python tools/lint-skill.py "$d"
-          done
+          # The Python data-fetch runtime was removed deliberately. Fail if any of
+          # it returns, or if a skill/command starts shelling out to python again.
+          if git ls-files '*.py' | grep -q .; then
+            echo "::error::A .py file is tracked. BOS is Python-free — remove it."
+            git ls-files '*.py'
+            exit 1
+          fi
+          if grep -RInE 'python (tools/|~/\.claude|skills/)|bos-run\.py|fetch\.py|trustpager_api' \
+               --include='*.md' skills commands agents knowledge templates README.md INSTALL.md; then
+            echo "::error::Found a reference to the removed Python runtime above."
+            exit 1
+          fi
+          echo "OK — no Python runtime references."
 
-      - name: Offline fixture tests (no key, no network)
+      - name: Skill frontmatter sanity
         run: |
           set -e
+          # Every skill needs a SKILL.md with name + description frontmatter.
+          fail=0
           for d in skills/*/; do
-            name="$(basename "$d")"
-            if [ -f "$d/test-fixture.json" ]; then
-              echo "== $name =="
-              python tools/test-skill.py "$name"
-            fi
+            f="$d/SKILL.md"
+            if [ ! -f "$f" ]; then echo "::error::$d has no SKILL.md"; fail=1; continue; fi
+            head -n 1 "$f" | grep -q '^---$' || { echo "::error::$f missing frontmatter"; fail=1; }
+            grep -q '^name:' "$f"        || { echo "::error::$f missing name:"; fail=1; }
+            grep -q '^description:' "$f" || { echo "::error::$f missing description:"; fail=1; }
           done
-
-      - name: Unit tests
-        run: python -m unittest discover -s tests -v
-
-      - name: Sequence linter self-check
-        run: python tools/lint-sequence.py --drafts tests/fixtures/sequence-mixed.json || test $? -eq 2
+          [ "$fail" -eq 0 ] && echo "OK — every skill has valid frontmatter."
+          exit $fail

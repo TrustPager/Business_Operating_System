@@ -2,7 +2,7 @@
   "name": "TrustPager",
   "tagline": "The unified CRM for service businesses",
 
-  "_comment": "Edit this file (or run /brand-my-workspace) to retheme every BOS studio in one shot. After editing, run `python tools/sync-brand.py` to refresh logo + favicons in each studio's public/ folder. Studios import this JSON via src/brand.js — no other files need touching.",
+  "_comment": "Edit this file (or run /brand-my-workspace) to retheme every BOS studio in one shot. After editing, re-run /brand-my-workspace to copy the logo + favicons into each studio's public/ folder. Studios import this JSON via src/brand.js — no other files need touching.",
 
   "colors": {
     "primary":     "#29c6c6",

@@ -50,7 +50,7 @@ const WORKSPACE_BRAND = {
   foreground:       C.text,       // headline colour
   mutedForeground:  C.textMuted,
 
-  logoUrl:    '/logo.png',        // synced into public/ by tools/sync-brand.py
+  logoUrl:    '/logo.png',        // synced into public/ by /brand-my-workspace
   logoHeight: 48,
 
   colors: {

@@ -27,22 +27,37 @@ unopened for a week. This is the regular check-up on every envelope.
 Source of truth: [`knowledge/document-method.md`](../../knowledge/document-method.md)
 — §3 (the envelope lifecycle) and §4 (the open/sign signals).
 
-## Step 1 — Fetch the digest
+## Step 1 — Pull the data (MCP call)
 
-```bash
-python ~/.claude/bos-run.py signing-radar
-```
+Use the `trustpager` MCP server. One read, paginated:
 
-One call: lists every envelope, computes the funnel, and buckets the follow-ups
-(opened-not-signed, sent-never-opened-stale, declined, recently completed),
-oldest-first. Pass `--stale-days N` to change when "sent but unopened" counts as
-stale (default 5).
+| Need | Tool | Args |
+|---|---|---|
+| Every signing envelope | `list_signing_envelopes` | `limit: 100` (page through until exhausted — up to ~20 pages) |
 
-If the script can't run (auth/network), fall back to
-`mcp__trustpager__list_signing_envelopes` — but that's the raw list with no
-funnel; prefer the script.
+This is a read — free, nothing journaled, no approval. Everything below is computed against **now**.
 
-## Step 2 — Present, hottest follow-up first
+> Tool names use `deal` for legacy reasons — **always say "opportunity" to the operator**, never "deal". (Envelopes carry a `deal_id` linking them to an opportunity.)
+
+## Step 2 — Build the funnel + buckets
+
+For each envelope, read its `status` (lowercased) and compute **age in days** from `sent_at` (fall back to `created_at`, then `updated_at`).
+
+Tally the funnel by status, and sort each envelope into a bucket:
+
+- **Opened, not signed** (status is `viewed` or `opened`) → the follow-up GOLD bucket.
+- **Sent, never opened, going stale** (status is `sent` AND age ≥ the stale threshold — **default 5 days**, adjustable if the operator asks) → chase-or-it-dies bucket.
+- **Signed** (status `signed`) → count in the funnel.
+- **Completed** (status `completed`) → count in the funnel; if age ≤ 7 days, also list under "recently completed".
+- **Declined** (status `declined`) → declined bucket; capture `decline_reason` if present.
+- **Voided** (status `voided`) / **Expired** (status `expired`) → count in the funnel only.
+- Anything else → an "other" funnel tally.
+
+For each bucketed row capture: envelope id, document title (`document_title`, else `template_name`, else "(untitled)"), linked opportunity (`deal_id`), status, age in days, and signer (`signer_name` / `signer_email`).
+
+**Sort both follow-up buckets oldest-first** (largest age first) — most urgent at the top.
+
+## Step 3 — Present, hottest follow-up first
 
 Lead with the people to act on, then the funnel, then the dead ones.
 
@@ -63,13 +78,14 @@ Lead with the people to act on, then the funnel, then the dead ones.
 ✅ Completed this week: 6
 ```
 
-## Step 3 — Offer the follow-up actions (with approval)
+## Step 4 — Offer the follow-up actions (with approval)
 
-For each hot envelope, offer the next step — one at a time, with a yes:
-- **Nudge / resend** an unopened-stale envelope → `mcp__trustpager__resend_signing_envelope(envelope_id)`.
+Anything that **writes** follows the rails in `knowledge/safeguards.md` — confirm before it lands, journal the write to `.bos-journal.md`, and search-first so you don't double up. For each hot envelope, offer the next step — one at a time, with a yes:
+
+- **Resend / nudge** an unopened-stale envelope → `update_signing_envelope` with `action: "resend"` (and the `envelope_id`).
 - **Draft a follow-up** to an opened-not-signed signer → hand to `/draft-reply`
   (reference the open: "saw you had a look at the agreement…").
-- **Void** a dead/superseded envelope → `void_signing_envelope(envelope_id)` —
+- **Void** a dead/superseded envelope → `update_signing_envelope` with `action: "void"` —
   name it and get a yes; voids can't be undone (method §6).
 
 For "I want this to happen automatically every time someone opens a document",

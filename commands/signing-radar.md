@@ -4,9 +4,10 @@ description: Show where every document you sent for signing stands — the sent 
 
 Run the **Signing Radar** skill.
 
-Invoke the skill at `skills/signing-radar/SKILL.md`. Run
-`python skills/signing-radar/fetch.py` (pass `--stale-days N` to tune the
-unopened threshold), then present the report bucketed by follow-up urgency:
+Invoke the skill at `skills/signing-radar/SKILL.md`. It gathers signing envelopes
+via `trustpager` MCP read tools (`list_signing_envelopes` + `get_signing_envelope`)
+(the skill lets you tune the unopened-stale window in plain language, e.g. "use a
+5-day stale window"), then presents the report bucketed by follow-up urgency:
 OPENED-NOT-SIGNED first (engaged, call them now), then SENT-UNOPENED-STALE
 (chase or resend), then DECLINED, then the completed count. Offer the next
 action per envelope — nudge/resend, draft a follow-up via `/draft-reply`, or

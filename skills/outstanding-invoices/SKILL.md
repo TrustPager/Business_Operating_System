@@ -21,37 +21,38 @@ You are giving the operator a clear picture of the money they're owed, and — i
 
 This skill builds on the reporting engine. Read [knowledge/reporting-method.md](../../knowledge/reporting-method.md) for the source/measure/dimension model and the "email any dashboard on a schedule" mechanism, and [knowledge/safeguards.md](../../knowledge/safeguards.md) for the approval-queue and synced-ledger rails.
 
-## Step 1 — Fetch the AR picture
+## Step 1 — Confirm the accounting integration (MCP call)
 
-**Run the fetcher first.** It confirms the accounting integration is connected and queries the open-AR ledger (AUTHORISED, amount due > 0) into an aged summary plus the individual overdue invoices.
+On the `trustpager` MCP server:
 
-```bash
-python ~/.claude/bos-run.py outstanding-invoices
-```
+| Need | Tool | Args |
+|---|---|---|
+| Connected integrations | `list_integrations` | `limit: 50` |
 
-(The `~/.claude/bos-run.py` launcher resolves the install location for you, so this runs from any folder.) The output shape is documented at the bottom of `fetch.py`. Branch on what it returns:
+Find the accounting integration (provider/platform type = `xero`). It's **connected** if its status is one of `active` / `connected` / `authorized`. Keep its integration id. This is a free read.
+
+> Tool names use `deal` for legacy reasons — **always say "opportunity" to the operator**, never "deal".
 
 ## Step 2 — Branch on the integration state
 
-### A. Not connected (`connected: false`)
+### A. Not connected
 
 Tell the operator plainly and stop:
 
 > "Your accounting integration isn't connected yet, so there's nothing to report on. Connect it at https://app.trustpager.com/auto/integrations and re-run this."
 
-### B. Connected but never seeded (`ledger_empty: true`)
+### B. Connected — read the receivables ledger
 
-The integration is live but the receivables ledger hasn't been seeded — almost always a first run. Offer the **one-time catch-up sync** (it loads the existing invoices; after that the integration keeps the ledger live on its own — see the synced-ledger model in safeguards).
+> ⚠️ **Capability gap on this MCP surface.** The receivables ledger is a synced report source (`invoices`) that the original fetcher read via the report query engine and seeded with a `sync_receivables` call. On the client `trustpager` MCP surface those are **not exposed**: `query_report` only supports `source: "deals"` (sales pipeline — no `amount_due` / `aged_bucket` measures), and there is **no `sync_receivables` / `list_invoices` read tool**. So you cannot pull the aged AR ledger directly from MCP today. Options, in order:
+> 1. Tell the operator the aged-summary read isn't available over the assistant connection yet, and point them to the in-app receivables view at https://app.trustpager.com/auto/integrations (and the Reporting section).
+> 2. If they want it automated, you CAN still build the **daily emailed receivables dashboard** (Step 3) — the dashboard/report-card/schedule tools that drive it DO exist on this surface; the Invoices source is selected inside the report card, server-side.
+> 3. Capture the gap with `/suggest-improvement` (a receivables read tool / `invoices` report source over MCP) so the team can ship it.
 
-Run it via the `sync_receivables` MCP tool (or `POST /integrations/<integration_id>/sync-receivables`) on the `integration_id` the fetcher returned.
+When the in-app ledger (or a future read tool) gives you the numbers, present them as below. **Synced-ledger rails (safeguards §2):** seed once at onboarding, then it stays live on its own — never tell the operator to "keep re-syncing". "Days overdue" / aged buckets compute at query time, so a once-captured record keeps ageing correctly.
 
-> ⚠️ **If the sync comes back queued for approval** (a `202` / `ApprovalPending` — some keys are approval-gated), hand it to the operator: "That's queued for approval — approve it at https://app.trustpager.com/settings/api?tab=approvals, then I'll pull your receivables." Do **not** retry or route around it.
+### C. Present the picture
 
-Once seeded, re-run Step 1 and continue to C.
-
-### C. Connected with data — present the picture
-
-Lead with the aged summary, then the most-overdue invoices. Keep it scannable:
+Lead with the aged summary, then the most-overdue invoices. Order buckets `current` → `1-30` → `31-60` → `61-90` → `90+`. Keep it scannable:
 
 ```
 💰 Outstanding invoices — you're owed $[total_due] across [N] invoices
@@ -68,21 +69,19 @@ Most overdue:
   → ... (and N more)
 ```
 
-Then offer the next move — usually one of: draft a chase message for the worst offenders, or **set up the daily emailed report** (Step 3).
+Then offer the next move — usually: draft a chase message for the worst offenders, or set up the daily emailed report (Step 3).
 
 ## Step 3 — Offer the daily AR digest (the real prize)
 
-If the operator wants this delivered automatically — "email it to me and my bookkeeper every morning" — wire it. This rides the same mechanism as the Team Task Digest (see reporting-method §5). Three pieces:
+If the operator wants this delivered automatically — "email it to me and my bookkeeper every morning" — wire it on the `trustpager` server. This rides the same mechanism as the Team Task Digest (reporting-method §5). These are **writes** — follow the rails: confirm recipients + time first, journal each write to `.bos-journal.md`, and a `202`/`approval_id` means queued (surface the link, stop, don't retry).
 
 1. **A dashboard** — `create_report_dashboard` named e.g. "Outstanding Invoices", then `add_report_card` twice using the Invoices / Receivables source:
    - a **bar** card: `amount_due` (sum) grouped by `aged_bucket`, filtered `status = AUTHORISED` and `amount_due > 0`.
    - a **table** card: the open invoices (invoice number, customer, due date, amount due, days overdue), same filter.
-2. **A `send_report_email` action** pointing at that dashboard, with the operator's chosen recipients. Discover its exact config with `describe_action_type('send_report_email')` — don't guess the field names.
-3. **An auto schedule** firing it on the operator's cadence. For "7am every weekday" that's cron `0 7 * * 1-5` in the operator's timezone. Discover the shape with `describe_resource('auto_schedule')`.
+2. **A `send_report_email` action** pointing at that dashboard, with the operator's chosen recipients. Build it as an automation action via `add_automation_action` (`action_type: "send_report_email"`); confirm its exact config fields from the `add_automation_action` `config` description rather than guessing.
+3. **An auto schedule** firing it on the operator's cadence — `create_auto_schedule`. For "7am every weekday" that's cron `0 7 * * 1-5` in the operator's timezone.
 
-Confirm recipients and the time before wiring, then build it. After it's live, tell the operator the first send lands at the next scheduled time and runs server-side — nothing needs to be open.
-
-> Build each card's query with `query_report` first and confirm the numbers, *then* save the proven spec into the card. A typo'd filter field is silently ignored at render (see reporting-method §2/§4).
+Confirm recipients and the time before wiring, then build it. After it's live, tell the operator the first send lands at the next scheduled time and runs server-side — nothing needs to be open. Journal each created dashboard / card / action / schedule.
 
 ## Output format
 
@@ -96,7 +95,7 @@ Aged summary first (it's the headline), then the worst invoices, then one concre
 
 ## What to never do
 
-- ❌ Don't fabricate or estimate balances — only report what the ledger returns. If it's empty, seed it (B), don't guess.
+- ❌ Don't fabricate or estimate balances — only report what the ledger returns. If you can't read it over MCP, say so (Step 2B) — don't guess.
 - ❌ Don't send a chase message without drafting it and getting approval first.
 - ❌ Don't bypass an approval `202` — surface the approval link and wait (safeguards §1).
 - ❌ Don't tell the operator to "keep re-syncing" — the ledger stays live on its own after the one-time seed (safeguards §2).
@@ -104,12 +103,12 @@ Aged summary first (it's the headline), then the worst invoices, then one concre
 
 ## Common follow-ups
 
-- "Draft a reminder for the 90+ ones" → draft per-customer chase messages, show them, then `send_email` / `send_sms` on approval.
+- "Draft a reminder for the 90+ ones" → draft per-customer chase messages, show them, then `send_email` / `send_sms` on approval (journal each).
 - "Email this to me and Anna every morning" → Step 3.
-- "Just the ones over $1,000" → re-query with an added `amount_due gt 1000` filter.
-- "How much is genuinely overdue vs just current?" → it's already split; the non-`current` buckets are the overdue total.
+- "Just the ones over $1,000" → add an `amount_due gt 1000` filter to the dashboard cards.
+- "How much is genuinely overdue vs just current?" → the non-`current` buckets are the overdue total.
 
 ## When this skill should NOT fire
 
-- The operator asks about a single invoice or a single customer's balance — answer that directly (a filtered `query_report`), don't run the whole AR sweep.
+- The operator asks about a single invoice or a single customer's balance — answer that directly, don't run the whole AR sweep.
 - They're asking about *payments they owe* (accounts payable / bills) — this source is receivables (money in), not payables.

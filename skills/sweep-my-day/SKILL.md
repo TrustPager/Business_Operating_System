@@ -16,59 +16,82 @@ triggers:
 
 You are running the operator's morning briefing across their TrustPager workspace. Your goal: in under 60 seconds of reading, the operator knows exactly what needs attention, in priority order, with one-tap actions ready to fire.
 
-## Step 1 — Fetch the data with the helper script
+## Step 1 — Pull the data (parallel MCP calls)
 
-**Always run the data fetcher FIRST.** It executes 7+ parallel API calls and returns a digested JSON document — much faster and cheaper than chaining individual MCP tool calls.
+Fire these **seven read calls in parallel** in a single batch — they're all reads, so they're free and fast. Use the `trustpager` MCP server. Ask for the most recent records; you'll filter them yourself in Step 2.
 
-```bash
-python ~/.claude/bos-run.py sweep-my-day
-```
+| Need | Tool | Args |
+|---|---|---|
+| Opportunities (for overdue actions, silent deals, pipeline) | `list_deals` | `limit: 100` |
+| Tasks | `list_tasks` | `limit: 100` |
+| Today's bookings | `list_bookings` | `limit: 50` |
+| Unread email | `list_email_threads` | `limit: 50` |
+| Unread SMS | `list_sms_conversations` | `limit: 50` |
+| Missed calls | `list_phone_call_logs` | `limit: 50` |
+| New form submissions | `list_form_submissions` | `limit: 50` |
 
-(The `~/.claude/bos-run.py` launcher resolves the install location for you — it works from any folder, plugin or clone install. If the launcher is missing, run `python tools/setup.py` once to create it.)
+> Tool names use `deal` for legacy reasons — **always say "opportunity" to the operator**, never "deal".
 
-The script returns a single JSON document with five top-level sections, one per category below: `hot_inbound`, `overdue`, `going_quiet`, `todays_calendar`, `pipeline_pulse`. Each has a `count` (total found) and `items` (top results). The shape is documented at the bottom of `fetch.py`.
+If one call errors, mention it briefly in the briefing ("note: couldn't reach the bookings API right now") and proceed with what you have. Don't bail on the whole sweep because one endpoint is down.
 
-**If the script reports errors on stderr** for individual endpoints, mention them briefly in the briefing ("note: couldn't reach the bookings API right now") but proceed with what you have. Don't bail.
+Everything below is computed against **now** in the operator's timezone. All these are reads — nothing here is journaled or needs approval.
 
-**If the script can't run at all** (auth error, network error), fall back to chained MCP tool calls — use the per-category guides below to drive what to fetch.
-
-## Step 2 — Read the JSON and format the briefing
+## Step 2 — Digest and format the briefing
 
 Five categories, ranked by how time-sensitive they are. Always present in this order — most urgent first, never alphabetical or by feature area.
 
-### 🔥 1. Hot inbound — `digest.hot_inbound`
+### 🔥 1. Hot inbound — last 24h, not yet replied to
 
-Items that arrived in the last 24 hours and haven't been replied to: unread email threads, unread SMS conversations, missed phone calls, and new form submissions.
+From the four comms lists, keep only items whose timestamp is **within the last 24 hours** and that still need a response:
 
-For each item, surface: who, when, one-line context, and the recommended next move. If a recovery SMS hasn't been sent for a missed call, offer to draft one.
+- **Unread email threads:** `is_read` is false AND the last message direction is **inbound** AND last-message time is within 24h. Surface subject, a ~120-char preview, when, and message count.
+- **Unread SMS conversations:** unread count > 0 AND last-message time within 24h. Surface the sender number, a ~120-char preview, when, and unread count.
+- **Missed inbound calls:** direction is inbound AND status is one of `missed` / `no-answer` / `voicemail` / `failed` AND within 24h. Surface the caller number, duration, when, and recording URL if present. **If no recovery SMS has gone out for a missed call, offer to draft one** (don't send — see rails).
+- **New form submissions:** completed/created within 24h. Surface submitter name + email, a ~200-char AI summary, and when.
 
-**Fallback MCP tools if the script failed:** `list_email_threads`, `list_sms_conversations`, `list_phone_call_logs`, `list_form_submissions`, `list_whatsapp_conversations`.
+Sort all of it newest-first; show the **top 10** and a count of the rest. For each, give: who, when, one-line context, recommended next move.
 
-### 📅 2. Overdue items — `digest.overdue`
+### 📅 2. Overdue items
 
-Tasks past their due date that haven't been completed. The script surfaces the top 5 ranked by days overdue. Don't dump the full list — `count` tells the operator how many more exist.
+- **Tasks:** not completed (no completion time, status not `completed`/`cancelled`) AND due date is **in the past**. Capture title, priority, linked opportunity, due date, and days overdue.
+- **Overdue next actions on opportunities:** an *active* opportunity (see the active-opportunity test below) whose `next_action_date` is in the past — the operator forgot to do something they scheduled. Capture the action name + opportunity, due date, days overdue, and value.
 
-**Fallback MCP tools:** `list_tasks` (filter completed=false + due_date < today), `list_work_orders` (filter overdue + not closed), `list_scheduled_communications` (filter failed).
+Rank by **days overdue, descending**; show the **top 5** and a count of the rest. Don't dump the full list.
 
-### 💤 3. Going quiet — `digest.going_quiet`
+### 💤 3. Going quiet
 
-Active opportunities with no meaningful activity in 7+ days. The script ranks the top 5 by deal value × days-silent. For each, draft the suggested re-engagement message (don't send — queue it for operator approval).
+Active opportunities drifting with no momentum. Keep an opportunity here only if **all** of these hold:
 
-**What counts as "meaningful":** activities, transcripts from calls, email replies, SMS replies. NOT automated platform emails. The script uses `last_activity_at` on the opportunity record.
+1. It passes the **active-opportunity test** (below).
+2. It has **no future** `next_action_date` (a scheduled future action means it's in progress, not quiet).
+3. Its last-touch time (`updated_at`) is **7+ days ago**.
 
-**Fallback MCP tools:** `list_opportunities` (filter by active stage), then `get_opportunity_activities` and `list_transcripts` per opportunity. Expensive — only do this if the script genuinely failed.
+Rank by **deal value first, then longest silence**; show the **top 5**. For each, surface name, value + currency, stage, lead source, days silent, and the primary contact — and **draft a suggested re-engagement message** (queue it for approval, don't send).
 
-### ⏰ 4. Today's calendar — `digest.todays_calendar`
+> "Meaningful activity" = real activity, call transcripts, email replies, SMS replies — **not** automated platform emails. `updated_at` is the proxy.
 
-Bookings scheduled for today plus tasks due today. Each booking includes the meeting URL and the linked opportunity (if any). For any booking today that doesn't already have a prep note, offer to run `/prep-for-call` for it.
+### ⏰ 4. Today's calendar
 
-**Fallback MCP tools:** `list_bookings` (today only), `list_tasks` (due today).
+- **Bookings** starting today (status not cancelled): time, attendee name/email, end time, meeting URL, linked opportunity/contact. For any booking today without a prep note, offer to run `/prep-for-call`.
+- **Tasks** due today (not completed): title, priority, time, linked opportunity.
 
-### 📊 5. Pipeline pulse — `digest.pipeline_pulse`
+Sort by start time, ascending.
 
-One-paragraph state-of-the-business: total open value, count by stage. Keep this to one paragraph maximum — it's a gut-check, not a report. If the script couldn't reach the summary endpoint, it derives totals from the opportunities list (the `_derived_from` field signals this).
+### 📊 5. Pipeline pulse
 
-**Fallback MCP tool:** `get_pipeline_summary` on the primary sales pipeline.
+Derive from the opportunities list — **one paragraph, no more**. It's a gut-check, not a report.
+
+- **Total open value + count:** sum value across opportunities that pass the active test.
+- **Won / lost this month:** opportunities whose close date (`actual_close_date`, or `lost_at` for losses) falls on/after the 1st of the current month, split into won vs lost (count + value).
+- **By stage:** count and summed value grouped by current stage name.
+
+### The active-opportunity test (used by sections 2, 3, 5)
+
+An opportunity is **active** when **both**:
+- its status is not one of `won` / `lost` / `cancelled` / `abandoned` / `archived`, **and**
+- its current stage is not flagged as a won-stage or lost-stage.
+
+Its current stage name lives on the opportunity's first placement → pipeline stage. If there's no placement, treat the stage as "Unstaged".
 
 ## Output format
 
@@ -112,7 +135,7 @@ End with one concrete next move — not a menu of options. The operator's mornin
 
 ## What to never do
 
-- ❌ Don't send any messages, even drafts, without offering the draft first and waiting for approval.
+- ❌ Don't send any messages, even drafts, without offering the draft first and waiting for approval. (See `knowledge/safeguards.md` — ask before anything outward-facing.)
 - ❌ Don't show every overdue item in a list — top 5 then a count.
 - ❌ Don't pad with motivational language. The operator wants signal, not encouragement.
 - ❌ Don't include items already actioned (replied to, marked done, dismissed).
@@ -120,12 +143,12 @@ End with one concrete next move — not a menu of options. The operator's mornin
 
 ## Common follow-ups the operator will ask
 
-Be ready to chain naturally into:
+Be ready to chain naturally into these. Anything that **writes** follows the rails in `knowledge/safeguards.md` — show the draft, wait for approval, then journal the write to `.bos-journal.md`:
 
-- "Draft a recovery message for that missed call" → use `send_sms` after drafting
+- "Draft a recovery message for that missed call" → draft, confirm, then `send_sms`
 - "Show me all overdue tasks" → full `list_tasks` filtered to overdue
-- "What's the latest on [opportunity name]" → `get_opportunity` + `get_opportunity_activities`
-- "Move [opportunity] to [stage]" → `update_opportunity`
+- "What's the latest on [opportunity name]" → `get_deal` + `get_deal_activities` (and `list_transcripts` if there were calls)
+- "Move [opportunity] to [stage]" → `move_opportunity_card`
 - "Prep me for the 2pm call" → invoke the prep-for-call skill
 
 ## When this skill should NOT fire

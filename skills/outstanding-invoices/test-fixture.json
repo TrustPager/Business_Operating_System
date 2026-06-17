@@ -1,8 +1,0 @@
-{
-  "catalog": {"_use_live": true},
-  "responses": {
-    "integrations": {
-      "data": [{"id": "int-1", "platform_type": "stripe", "status": "active"}]
-    }
-  }
-}

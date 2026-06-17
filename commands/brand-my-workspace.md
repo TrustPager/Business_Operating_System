@@ -1,5 +1,5 @@
 ---
-description: Point at the user's website, infer brand colours + logo + name, write `brand/brand.json` + drop assets, run `tools/sync-brand.py`. Every BOS studio is rebranded in one shot.
+description: Point at the user's website, infer brand colours + logo + name, write `brand/brand.json` + drop assets, then sync them into every studio's `public/`. Every BOS studio is rebranded in one shot.
 ---
 
 Run the **Brand My Workspace** skill.

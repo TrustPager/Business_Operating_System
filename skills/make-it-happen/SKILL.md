@@ -14,17 +14,21 @@ triggers:
 
 # /make-it-happen
 
-This is the catch-all skill. The user describes the outcome they want — not which tool to call, not which page to visit. Your job is to figure out the right TrustPager operations and execute them, with approval at each destructive step.
+This is the catch-all skill. The operator describes the outcome they want — not which tool to call, not which page to visit. Your job is to figure out the right TrustPager operations and execute them, with approval at each destructive step.
 
-## Step 0 — Warm the discovery cache
+## Step 1 — Warm the discovery surface (parallel MCP reads)
 
-Before the conversation starts, run:
+Before planning, pull the workspace's AI-facing reference data in one parallel batch off the `trustpager` MCP server, and keep it in memory for the rest of the conversation (re-referencing it costs nothing):
 
-```
-python ~/.claude/bos-run.py make-it-happen
-```
+| Need | Tool | Args |
+|---|---|---|
+| Workspace workflow guidance + common mistakes | `get_ai_instructions` | — |
+| Every automation trigger type + its `{{variable}}` tokens | `list_trigger_schemas` | — |
+| Existing automations (to spot "you already have one of these") | `list_automations` | `limit: 100` |
 
-This pulls in one shot: the workspace's AI instructions, every trigger schema, every action type, and the list of existing automations. Keep the JSON in memory through the conversation — referring to it costs no additional API calls.
+These are all free reads. `list_trigger_schemas` returns the trigger types and the trigger-data shape each publishes; for one trigger's full payload use `get_trigger_schema(trigger_type: "<type>")`. There is **no client-side action-type catalog tool** — to learn an action's config, read the `config` field description on `add_automation_action` (it documents every `action_type`'s required fields), or check `using-trustpager-mcp.md` / `knowledge/automation-recipes.md`.
+
+> Tool names use `deal` for legacy reasons — **always say "opportunity" to the operator**, never "deal".
 
 ## The pattern
 
@@ -37,16 +41,17 @@ This pulls in one shot: the workspace's AI instructions, every trigger schema, e
 
 ## Use the right discovery tools
 
-Before guessing, use TrustPager's discovery surface:
-- `mcp__trustpager__get_ai_instructions` — workspace-specific guidance
-- `mcp__trustpager__describe_resource(resource)` — what tools exist for an entity
-- `mcp__trustpager__describe_action_type(action_type)` — config schema for one automation action
-- `mcp__trustpager__get_trigger_schema(trigger)` — payload shape for a trigger
-- `mcp__trustpager__list_action_types` — full action catalog
+Before guessing, use TrustPager's discovery surface on the `trustpager` MCP server:
+- `get_ai_instructions` — workspace-specific guidance.
+- `list_trigger_schemas` — every trigger type the automation engine supports.
+- `get_trigger_schema(trigger_type)` — the payload shape + `{{variable}}` tokens for one trigger.
+- For an action's config schema, read the `config` description on `add_automation_action` (it enumerates each `action_type`).
 
-If you're not sure which resource is involved, ask the user with a multiple-choice question — don't guess.
+If you're not sure which resource is involved, ask the operator with a multiple-choice question — don't guess. If a tool you need doesn't appear to exist, verify before assuming — don't invent a tool name.
 
 ## Hard-block destructive operations
+
+These all WRITE — follow the rails in `knowledge/safeguards.md`: confirm before anything destructive/outward-facing, **search first** so a retry never duplicates, and **journal every write** to `.bos-journal.md` (one line: timestamp, tool, outcome, id, `skill: make-it-happen`).
 
 ALWAYS require explicit approval for:
 - `delete_*` (any tool)
@@ -55,7 +60,7 @@ ALWAYS require explicit approval for:
 - `release_phone_number`
 - `disable_automation` on a published automation
 - Sending email/SMS to more than 1 recipient (use `/send-email` instead, or batch through a campaign)
-- Moving more than 10 opportunities at once
+- Moving more than 10 opportunities at once (`bulk_move_deals`)
 
 For each, present:
 - Exactly what will happen ("delete 14 contacts: <list of names>")
@@ -64,21 +69,25 @@ For each, present:
 
 ## Use existing skills when they fit
 
-If the user's request matches an existing skill, RUN THAT SKILL instead of doing it from scratch:
+If the operator's request matches an existing skill, RUN THAT SKILL instead of doing it from scratch:
 - "Triage my new leads" → `/lead-triage`
 - "What did I miss?" → `/sweep-my-day`
 - "Re-engage cold leads" → `/follow-up-radar`
 - "Send Sarah an email" → `/send-email`
 - "Reply to this" → `/draft-reply`
 
-This skill is for the gaps between named skills — bespoke multi-step operations the user only does occasionally.
+This skill is for the gaps between named skills — bespoke multi-step operations the operator only does occasionally.
+
+## When it genuinely can't be done
+
+If the request dead-ends because the capability isn't there — no TrustPager tool does it, and no BOS skill covers it — don't fail silently or fake it. Do what you *can*, then offer to capture the gap: "TrustPager can't do that part yet — want me to log it for the team with `/suggest-improvement`?" Only file on a yes. (See `knowledge/memory-and-feedback.md`.) That's different from a 202 approval — this is a missing capability, not a queued write.
 
 ## Approval queue (HTTP 202)
 
-If a tool call returns HTTP 202 with an `approval_id`, the operation is queued for human approval. DO NOT try to bypass it. Tell the user:
+If a write tool returns a `202` with an `approval_id`, the operation is **queued** for human approval (safeguards §1). DO NOT try to bypass it. Tell the operator:
 > "Queued for approval — approve at https://app.trustpager.com/settings/api?tab=approvals (id: `<approval_id>`). The operation will run automatically once you approve."
 
-Then stop. Don't poll. The user controls when to approve.
+Then stop. Don't poll. The operator controls when to approve. Journal it as `approval_pending`.
 
 ## Output shape
 
@@ -86,6 +95,6 @@ After the operation completes, summarize in one paragraph:
 - What was requested
 - What was done (with counts)
 - Anything that was NOT done and why
-- The next step the user might want
+- The next step the operator might want
 
 If there's anything that didn't work, say so plainly. Don't claim success on partial completion.

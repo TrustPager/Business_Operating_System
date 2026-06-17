@@ -42,9 +42,9 @@ npm run shoot <key>           # render a PNG locally + open it
 npm run publish <key>         # render + upload to your TrustPager Files > Social Posts
 ```
 
-`publish` resolves your API key from `$TRUSTPAGER_API_KEY` or
-`~/.claude/bos.json` (the BOS install), uploads to a **Social Posts** folder,
-and is idempotent (skip-if-exists; `--replace` to overwrite).
+`publish` resolves your API key from `$TRUSTPAGER_API_KEY`, uploads to a
+**Social Posts** folder, and is idempotent (skip-if-exists; `--replace` to
+overwrite).
 
 ---
 
@@ -80,9 +80,8 @@ announcements.
 
 Everything visual flows from [`BOS/brand/brand.json`](../../brand/brand.json)
 via `src/brand.js`. There are no hex literals in the template. Edit
-brand.json (or run `/brand-my-workspace`), then
-`python tools/sync-brand.py` from the BOS root to refresh the logo + favicons,
-and every post reskins to your brand.
+brand.json (or run `/brand-my-workspace`), then re-run `/brand-my-workspace`
+to refresh the logo + favicons, and every post reskins to your brand.
 
 ---
 

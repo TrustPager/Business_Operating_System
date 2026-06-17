@@ -43,8 +43,7 @@ Ask the operator:
 
 1. **Which auto queue?** (Name or ID — they should already have it set up
    with stages, even if the email actions are empty.) Confirm the queue
-   exists by running `python tools/dump-crm-bundle.py --resources auto_queues`
-   and reading the result.
+   exists by checking whether the queue already exists with `list_auto_queues`.
 2. **Audience + trigger.** Who's enrolled and when (e.g. trial signups
    moving into a "Welcome" stage, Facebook leads via form submission).
 3. **Goal of the sequence.** Drive conversion, drive activation, drive
@@ -55,12 +54,7 @@ Ask the operator:
 
 ## Step 2 — Map a help video to each stage
 
-The TrustPager help center is the canonical library. List articles via:
-
-```bash
-curl -s "https://api.trustpager.com/functions/v1/help-center-public?action=list" \
-  | python -c "import sys, json; [print(f\"{a['slug']} | {a['title']}\") for a in json.load(sys.stdin)['articles']]"
-```
+The TrustPager help center is the canonical library. Use the `search_help_center` tool on the `trustpager` MCP server to find the relevant article/video per stage — query it with the concern you're addressing at that stage (e.g. `search_help_center("online booking setup")`) and it returns matching articles with their titles and slugs.
 
 For each stage:
 

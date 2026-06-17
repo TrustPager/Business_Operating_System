@@ -57,6 +57,12 @@ Claude: /sweep-my-day
 
 The method behind automations is in [knowledge/automation-method.md](knowledge/automation-method.md); a catalogue of ready-to-adapt automations (missed-call recovery, lead intake, review requests, renewal reminders, and more — tagged by industry) is in [knowledge/automation-recipes.md](knowledge/automation-recipes.md).
 
+**🧠 Memory & feedback** *(gets sharper the more you use it)*
+- `/remember` — tell Claude something to carry into future sessions: how you like things done, soft context the CRM doesn't hold, a recurring quirk. Kept in a local store (`./.bos-memory/`), one fact per file, that loads automatically each session. Claude also saves things proactively as it learns them — and always tells you when it does.
+- `/suggest-improvement` — wanted something that doesn't exist yet? Log it. Whether it's a missing BOS skill or a TrustPager capability that isn't there, it files a request to the TrustPager team so they can build it. That's how the thing you wanted becomes a feature.
+
+The model behind both — what loads automatically, what's worth remembering, the rails, and how the feedback loop works — is in [knowledge/memory-and-feedback.md](knowledge/memory-and-feedback.md).
+
 **📈 Reporting & cash flow (know your numbers, on a schedule)**
 - `/outstanding-invoices` — who owes you money. Pulls accounts receivable from your connected accounting integration into an aged summary (Current / 1-30 / 31-60 / 61-90 / 90+), surfaces the worst offenders, and — if you want — builds a dashboard and emails it to you (and your bookkeeper) every morning.
 - `/email-me-a-report` — deliver *any* report as a recurring email digest. Pick or build a dashboard, choose recipients and a cadence (e.g. 7am weekdays), and it lands in your inbox server-side with nothing open. The same mechanism behind the built-in Team Task Digest.
@@ -114,8 +120,10 @@ If that's you — this is built for you.
 
 ## How to install
 
+No coding, no Python — it's a Claude Code plugin plus a TrustPager MCP connection.
+
 1. Sign up for TrustPager and grab your API key from your workspace settings
-2. Run the installer (see [INSTALL.md](./INSTALL.md))
+2. Connect the `trustpager` MCP server to Claude Code, then install the pack (see [INSTALL.md](./INSTALL.md))
 3. Restart Claude Code
 4. Type `/sweep-my-day` and say good morning
 
@@ -141,7 +149,7 @@ Every skill in here:
 - Is open source and inspectable — read the source, modify it, fork it
 - Only ever talks to your TrustPager workspace (never anyone else's)
 - Asks before doing anything destructive
-- Logs what it did, so you can see the trail — every write lands in `~/.claude/bos-journal/`; read it any time with `python tools/journal.py`
+- Logs what it did, so you can see the trail — every write is appended to `.bos-journal.md` in your project folder; open it any time
 
 ## Subagents
 

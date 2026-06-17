@@ -16,9 +16,9 @@ skills: `build-customer-voice`, `build-brand-strategy`, `design-nurture-sequence
 ## The three-layer pipeline
 
 ```
-Layer 1 — Raw input (machine-generated, never hand-edited)
-  ↓  CRM bundle (tools/dump-crm-bundle.py)
-  ↓  Transcripts ≥ 5 minutes (tools/dump-transcripts.py)
+Layer 1 — Raw input (pulled fresh from the workspace, never hand-edited)
+  ↓  CRM bundle via trustpager MCP read tools (list_deals, get_deal, list_contacts, list_customers, get_crm_settings, ...)
+  ↓  Transcripts ≥ 5 minutes via list_transcripts + get_transcript
 Layer 2 — Synthesis (the customer's own voice, frozen evidence)
   ↓  customer-voice-synthesis.md
 Layer 3 — Strategy docs (the brand's positioning + funnel)
@@ -35,7 +35,8 @@ to reach for; they're not required in every email.
 
 ## Layer 2 — Customer voice synthesis
 
-Pull ≥5min call + meeting transcripts (`tools/dump-transcripts.py`), then
+Pull ≥5min call + meeting transcripts via the `trustpager` MCP
+(`list_transcripts` to enumerate, `get_transcript` for each), then
 read every single one end-to-end and write **`customer-voice-synthesis.md`**
 with these 10 sections, in this order:
 

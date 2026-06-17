@@ -23,7 +23,7 @@ Resolve which call, in this order:
 - **"My 2pm" / "next call" / "today's call"** → `mcp__trustpager__list_bookings`
   for today, pick the one they mean (confirm if several). `get_booking(id)` for
   the attendee + linked opportunity.
-- **A named person / company** → `search_contacts` / `search_opportunities` to
+- **A named person / company** → `search_contacts` / `search_deals` to
   find the opportunity.
 
 The **opportunity is the hub** — once you have its id, everything else hangs off
@@ -33,14 +33,14 @@ it. If there's genuinely no opportunity (cold first call), prep off the contact
 ## Step 2 — Pull the picture (parallel reads)
 
 For the opportunity + its contact, gather:
-- `get_opportunity(id)` — stage, value, type, owner, custom fields.
-- `get_opportunity_activities(id)` — the recent history (calls, emails, notes).
+- `get_deal(id)` — stage, value, type, owner, custom fields.
+- `get_deal_activities(id)` — the recent history (calls, emails, notes).
 - `list_transcripts` for this deal/contact — **the last call's transcript is the
   single most valuable input**; skim it for what was promised and where it left
   off.
-- `get_opportunity_tasks(id)` — what's open / owed to them.
+- `get_deal_tasks(id)` — what's open / owed to them.
 - `get_contact(id)` — name, role, contact details, relationship age.
-- `get_opportunity_products(id)` — what's been quoted, if anything.
+- `get_deal_products(id)` — what's been quoted, if anything.
 
 Skip cleanly what isn't there; don't stall on a missing piece.
 

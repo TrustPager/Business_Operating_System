@@ -25,27 +25,36 @@ It pairs with the re-engagement machine in
 [`knowledge/automation-recipes.md`](../../knowledge/automation-recipes.md) (R19/R20)
 — that section explains what a healthy multi-channel queue looks like.
 
-## Step 1 — Fetch the health digest
+## Step 1 — Pull the data (MCP calls)
 
-```bash
-python ~/.claude/bos-run.py nurture-health
-```
+All reads, on the `trustpager` MCP server. Start with the queue list and an email-log sample in parallel, then drill into each queue:
 
-One run: lists every auto queue, pulls each one's steps + enrolment funnel +
-per-step drop-off, and (where the email-log endpoint exposes `automation_id`)
-open/click rates per step. Scope to one queue with `--queue <id>`.
+| Need | Tool | Args |
+|---|---|---|
+| Every auto queue | `list_auto_queues` | `limit: 100` |
+| Recent email logs (for engagement) | `list_email_logs` | `limit: 100` (sample a few hundred recent) |
+| Each queue's steps + linked automation ids | `get_auto_queue` | `id: <queue_id>` |
+| Each queue's enrolment funnel | `list_auto_queue_enrollments` | `queue_id: <queue_id>`, `limit: 100` (page, cap ~5 pages so a huge queue can't run away) |
 
-This fetcher is **best-effort by design** — queue / enrolment / email-log
-endpoints vary by workspace and API version. Anything it can't reach lands in
-`warnings` and `_sources`, and it still returns everything else. Read those two
-fields and tell the operator plainly what's measured vs estimated.
+Scope to a single queue if the operator names one. Everything here is read-only — nothing is journaled or needs approval.
 
-**Fallback if the script can't run at all** (auth/network): drive it by hand —
-`list_auto_queues` → `get_auto_queue` (steps) → `get_auto_queue_board` (per-step
-buckets) → `list_auto_queue_enrollments` (status mix) → `list_email_logs`
-(engagement). That's many calls; prefer the script.
+> Tool names use `deal` for legacy reasons — **always say "opportunity" to the operator**, never "deal".
 
-## Step 2 — Present, worst leak first
+**Best-effort by design:** enrolment and email-log endpoints vary in shape by workspace and API version. If a queue's enrolments aren't reachable, treat that queue as **step-only** (you still have the funnel structure) and tell the operator plainly what's measured vs unavailable. Don't bail on the whole health-check because one queue degrades.
+
+## Step 2 — Compute the funnel and per-step drop-off
+
+For each queue:
+
+- **Steps** — read the ordered step list off the queue detail (sort by step order). Each step carries a `delay` (days/hours/minutes) and an `automation_id`. Build a day-label per step: use the step description if present, else `+Nd Nh Nm` from the delays (`0` delays = "immediate").
+- **Enrolment funnel** — from the enrolment statuses, count: `enrolled` (total), `active`, `completed`, `cancelled` (count `cancelled` + `removed`). `completion_rate = completed / enrolled`.
+- **Per-step reached counts** — for each enrolment, read how far it progressed (last completed / current step order). A step is "reached" by an enrolment if that enrolment's progress ≥ the step's order. Count reached enrolments per step.
+- **Leak step** — walking steps in order, the drop after a step = `reached(prev) − reached(this)` when that's positive. The step with the **biggest single drop** is the queue's leak step.
+- **Engagement per step** — bucket the sampled email logs by `automation_id` into `{sends, opens, clicks}` (an open = any `opened_at`/open count > 0; a click = any `clicked_at`/click count > 0). For each step, match its `automation_id` to a bucket → `open_rate = opens/sends`, `click_rate = clicks/sends`. If the email logs don't carry an `automation_id` in this workspace, engagement is **unavailable** — say so, don't fake rates.
+
+**Headline across all queues:** total active, total completed, total cancelled, and the single biggest leak (queue + step + how many lost).
+
+## Step 3 — Present, worst leak first
 
 Lead with the single biggest leak across all queues, then go queue by queue.
 Never dump raw step arrays — translate them into a funnel the operator reads in
@@ -76,14 +85,14 @@ ten seconds.
 
 | Signal | What it means | What to offer |
 |---|---|---|
-| Big `dropped_after` at one step | that email is where people fall off | review that step's copy — hand to `/design-nurture-sequence`; lint it with `/lint-nurture-sequence` |
+| Big drop at one step | that email is where people fall off | review that step's copy — hand to `/design-nurture-sequence`; lint it with `/lint-nurture-sequence` |
 | `open_rate` low at a step | subject isn't landing (or deliverability) | rework the subject; check the sender/test-send |
 | `click_rate` low but open ok | the body/CTA isn't pulling | the CTA-above-the-image / single-CTA rules — run the linter |
 | `completion_rate` very low | sequence too long, or leak early | shorten, or fix the early leak first |
 | `cancelled` is 0 on a campaign with a "Remove" stage | the **un-enrol automation isn't firing** — booked/dead leads still get drip | check stage automation B (R19); hand to `/why-didnt-it-fire` |
 | `active` piling up, few completing | people stalled mid-sequence | check step delays + that later steps have email actions wired |
 
-## Step 3 — Point at the fix, don't auto-fix
+## Step 4 — Point at the fix, don't auto-fix
 
 This is a read/diagnose skill. For the fixes it surfaces, hand off:
 - Leaky/weak copy → `/design-nurture-sequence` (rewrite), then `/wire-nurture-sequence`.
@@ -95,13 +104,12 @@ Don't edit queue steps or automations from this skill.
 ## What to never do
 
 - ❌ Don't present queues as a flat list — lead with the biggest leak, then per queue.
-- ❌ Don't report open/click rates as exact when `_sources.engagement` isn't `ok` — say "estimated" or "unavailable".
+- ❌ Don't report open/click rates as exact when the email logs don't link to automations — say "estimated" or "unavailable".
 - ❌ Don't call a queue "broken" because completion is low — low completion can be a long sequence working as designed. Flag the *leak step*, not the headline rate.
 - ❌ Don't write to any queue or automation here.
 
 ## Output shape
 
 Open with the single biggest leak (queue + step + how many lost). Then one
-compact funnel block per queue. Then any "couldn't measure" line from
-`warnings`/`_sources`. Close with the one step most worth fixing first and the
-skill to hand it to.
+compact funnel block per queue. Then any "couldn't measure" line. Close with the
+one step most worth fixing first and the skill to hand it to.
