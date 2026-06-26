@@ -81,9 +81,16 @@ def main() -> int:
     print()
 
     import trustpager_api
+    # The vendor-specific catalog + api_get live in the driver now (P0 Task 3).
+    # resolve_path() reads the driver's get_catalog directly, so the mock has to
+    # reach there too — patching trustpager_api alone is no longer enough.
+    from drivers import trustpager as tp_driver
+    from drivers.trustpager import catalog as tp_catalog
 
     real_api_get = trustpager_api.api_get
-    real_get_catalog = trustpager_api.get_catalog
+    real_get_catalog = tp_catalog.get_catalog
+    real_driver_api_get = tp_driver.api_get
+    saved_catalog_memo = tp_catalog._catalog_cache
 
     def mock_api_get(path: str, **params: Any) -> dict[str, Any]:
         responses = fixture.get("responses", {})
@@ -100,8 +107,18 @@ def main() -> int:
             return real_get_catalog(force_refresh=force_refresh)
         return cat
 
+    # Bind the mocks everywhere the names resolve:
+    #  - trustpager_api.api_get  -> parallel_get/paginate/bulk_apply look this up
+    #  - driver api_get          -> any driver-internal read/write path
+    #  - driver get_catalog       -> resolve_path/inspect_endpoint read this
+    #  - prime the catalog memo so resolve_path uses the fixture, not a disk/live
+    #    catalog (get_catalog short-circuits on the in-process memo).
     trustpager_api.api_get = mock_api_get  # type: ignore[assignment]
     trustpager_api.get_catalog = mock_get_catalog  # type: ignore[assignment]
+    tp_driver.api_get = mock_api_get  # type: ignore[assignment]
+    tp_catalog.get_catalog = mock_get_catalog  # type: ignore[assignment]
+    _primed_catalog = mock_get_catalog()
+    tp_catalog._catalog_cache = _primed_catalog if isinstance(_primed_catalog, dict) else None
 
     try:
         import importlib.util
@@ -147,6 +164,9 @@ def main() -> int:
     finally:
         trustpager_api.api_get = real_api_get
         trustpager_api.get_catalog = real_get_catalog
+        tp_driver.api_get = real_driver_api_get
+        tp_catalog.get_catalog = real_get_catalog
+        tp_catalog._catalog_cache = saved_catalog_memo
 
 
 if __name__ == "__main__":
