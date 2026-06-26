@@ -26,6 +26,9 @@ jobs:
       - name: Secret scan (no key may enter the repo)
         run: python tools/check-no-secrets.py
 
+      - name: Kernel-clean (kernel must name no vendor)
+        run: python tools/check-kernel-clean.py
+
       - name: Lint every skill
         run: |
           set -e
