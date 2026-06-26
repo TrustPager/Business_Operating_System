@@ -13,6 +13,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "tools"))
 import trustpager_api as t  # noqa: E402
+from kernel.runtime import journal as journal_mod  # noqa: E402
 
 # Built from fragments on purpose: a real key never appears as a contiguous
 # literal in this file, so tools/check-no-secrets.py won't (correctly) flag it.
@@ -63,20 +64,24 @@ class TestRedaction(unittest.TestCase):
         self.assertEqual(t._redact(text), text)
 
     def test_journal_writes_redacted(self):
+        # The journal's one true home is kernel.runtime.journal. Patch its
+        # module-level JOURNAL_DIR (the default the real write path uses) and
+        # call record_write() with no journal_dir override — exactly the path
+        # the driver exercises in production.
         with tempfile.TemporaryDirectory() as d:
-            prev_dir = t.JOURNAL_DIR
+            prev_dir = journal_mod.JOURNAL_DIR
             prev_flag = os.environ.pop("BOS_JOURNAL", None)
-            t.JOURNAL_DIR = Path(d)
+            journal_mod.JOURNAL_DIR = Path(d)
             try:
-                t._record_write("POST", "email/send",
-                                {"api_key": REAL_LOOKING_KEY, "to": "x@example.com"},
-                                status="ok", result_id="r1")
+                journal_mod.record_write("POST", "email/send",
+                                         {"api_key": REAL_LOOKING_KEY, "to": "x@example.com"},
+                                         status="ok", result_id="r1")
                 written = "".join(p.read_text(encoding="utf-8") for p in Path(d).glob("*.jsonl"))
                 self.assertTrue(written, "journal line should have been written")
                 self.assertNotIn(REAL_LOOKING_KEY, written)
                 self.assertIn("REDACTED", written)
             finally:
-                t.JOURNAL_DIR = prev_dir
+                journal_mod.JOURNAL_DIR = prev_dir
                 if prev_flag is not None:
                     os.environ["BOS_JOURNAL"] = prev_flag
 

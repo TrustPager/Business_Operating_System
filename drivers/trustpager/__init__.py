@@ -62,10 +62,11 @@ from drivers.trustpager.catalog import (  # noqa: E402
 DEFAULT_TIMEOUT_SECONDS = 30
 DEFAULT_PARALLEL_WORKERS = 8
 
-# Where this driver's writes are journaled. The mechanism lives in
-# kernel/runtime/journal.py; passing the dir explicitly keeps the journal
-# decoupled from any vendor.
-JOURNAL_DIR = Path.home() / ".claude" / "bos-journal"
+# The write journal's directory has exactly ONE home: kernel.runtime.journal
+# .JOURNAL_DIR (a vendor-neutral path under the user's home). This driver does
+# NOT keep its own copy — _journaled() below calls into the kernel without a
+# journal_dir override, so the kernel's single constant governs the real write
+# path. (Removed a duplicate constant here per the Task 3 code-quality finding.)
 
 
 # =============================================================================
@@ -151,10 +152,13 @@ def _request(method: str, path: str, params: dict[str, Any] | None = None,
 
 def _journaled(method: str, path: str, body: dict[str, Any] | None,
                fn: Callable[[], Any]) -> dict[str, Any] | ApprovalPending:
-    """Run a write callable, journal the outcome (ok / approval_pending / error)."""
+    """Run a write callable, journal the outcome (ok / approval_pending / error).
+
+    No journal_dir override — the kernel journals to its single
+    kernel.runtime.journal.JOURNAL_DIR home.
+    """
     return _journal.journaled(method, path, body, fn,
-                              approval_cls=_KernelApprovalPending,
-                              journal_dir=JOURNAL_DIR)
+                              approval_cls=_KernelApprovalPending)
 
 
 def api_get(path: str, **params: Any) -> dict[str, Any]:
@@ -261,5 +265,4 @@ __all__ = [
     "CATALOG_CACHE_PATH",
     "CONFIG_PATH",
     "APPROVAL_URL",
-    "JOURNAL_DIR",
 ]

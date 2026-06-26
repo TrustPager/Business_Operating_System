@@ -1,56 +1,59 @@
-"""TrustPager API — shared library for skill scripts and tools.
+"""Compatibility shim — the real homes are `kernel/runtime/` (vendor-neutral)
+and `drivers/trustpager/` (TrustPager). Kept so existing `skills/*/fetch.py`
+imports keep working.
 
-Stdlib-only. No `pip install` required. Every script in this repo imports
-from here so we get one consistent place for: API auth, base URL, GET/POST
-helpers, parallel fetches, paginated reads, bulk writes, catalog-driven
-path resolution, and friendly error messages for non-developer users.
+Every name below is re-exported (NOT redefined) from its one true home:
 
-Usage in a skill script:
+    kernel.runtime.errors      -> BOSError
+    kernel.runtime.helpers     -> now_utc, parse_iso, days_since, group_count,
+                                   top_n_by, log, emit_json,
+                                   emit_error_and_exit, force_utf8_stdout
+    kernel.runtime.offline     -> is_offline      (semi-private alias _is_offline)
+    kernel.runtime.redaction   -> redact          (semi-private alias _redact)
+    kernel.runtime.journal     -> JOURNAL_DIR
+    drivers.trustpager         -> api_get, api_post, api_patch, idempotent_post,
+                                   bulk_apply, resolve_path, get_catalog,
+                                   inspect_endpoint, api_call_by_resource,
+                                   get_api_key, ApprovalPending, TP_CFG, API_BASE,
+                                   CATALOG_URL, CATALOG_CACHE_PATH, CONFIG_PATH,
+                                   APPROVAL_URL
+
+The only two names DEFINED here (not re-exported) are `parallel_get` /
+`paginate` — thin wrappers over kernel.runtime.reads that preserve a test seam
+(see below).
+
+A skill script reaches these unchanged:
 
     import sys
     from pathlib import Path
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / "tools"))
     from trustpager_api import api_get, parallel_get, BOSError
 
-    # Single call
-    opportunities = api_get("opportunities", limit=100)
-
-    # Parallel fan-out
-    results = parallel_get([
-        ("opportunities", {"limit": 100}),
-        ("tasks", {"completed": "false"}),
-        ("bookings", {"date_from": "today"}),
-    ])
-
-API key resolution order (first hit wins):
-    1. $TRUSTPAGER_API_KEY environment variable (good for CI / scripts)
-    2. ~/.claude/bos.json -> {"api_key": "tp_live_..."} (written by installer)
-    3. Friendly error explaining how to set it
+Test seams preserved:
+  - tools/test-skill.py reassigns `trustpager_api.api_get` to a fixture mock.
+    `parallel_get` / `paginate` are thin wrappers defined HERE that look
+    `api_get` up via *this* module's globals at call time, so the rebinding is
+    observed. (`bulk_apply` takes its write fn explicitly, so it has no api_get
+    global dependence and is re-exported straight from the driver.)
+  - The write journal's directory lives only in kernel.runtime.journal; tests
+    that need to redirect it patch `kernel.runtime.journal.JOURNAL_DIR`.
 """
 
 from __future__ import annotations
 
 import sys
 from pathlib import Path
-from typing import Any, Callable, Iterator
+from typing import Any, Iterator
 
-# --- Kernel re-exports -------------------------------------------------------
-# The vendor-neutral primitives now live in kernel/runtime/. They were lifted
-# out of this module (P0 Task 1). We re-import them here so every existing
-# caller and all the skill fetch.py scripts keep importing them unchanged
-# `from trustpager_api import BOSError, now_utc, ...`.
-#
-# Callers only add tools/ to sys.path, so put the repo root (tools/'s parent)
-# on the path first to make `import kernel.runtime.*` and `import drivers.*`
-# resolve.
+# Callers only put tools/ on sys.path. Add the repo root (tools/'s parent) so
+# `import kernel.runtime.*` and `import drivers.*` resolve.
 _REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(_REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(_REPO_ROOT))
 
-from kernel.runtime.errors import BOSError  # noqa: E402,F401  (re-exported)
-from kernel.runtime.offline import is_offline  # noqa: E402
-from kernel.runtime.redaction import redact  # noqa: E402
-from kernel.runtime.helpers import (  # noqa: E402,F401  (re-exported)
+# --- Kernel re-exports (vendor-neutral) --------------------------------------
+from kernel.runtime.errors import BOSError  # noqa: E402,F401
+from kernel.runtime.helpers import (  # noqa: E402,F401
     days_since,
     emit_error_and_exit,
     emit_json,
@@ -61,94 +64,45 @@ from kernel.runtime.helpers import (  # noqa: E402,F401  (re-exported)
     parse_iso,
     top_n_by,
 )
-from kernel.runtime import journal as _journal  # noqa: E402
-from kernel.runtime import reads as _reads  # noqa: E402
-from kernel.runtime.transport import (  # noqa: E402,F401
-    DriverConfig,
-    ApprovalPending as _KernelApprovalPending,
-)
+from kernel.runtime.journal import JOURNAL_DIR  # noqa: E402,F401
+from kernel.runtime.offline import is_offline as _is_offline  # noqa: E402,F401
+from kernel.runtime.redaction import redact as _redact  # noqa: E402,F401
 
 # --- TrustPager driver re-exports --------------------------------------------
-# The vendor-specific config, auth, catalog and bound api_* now live in
-# drivers/trustpager (P0 Task 3). We re-import them here so every existing
-# caller and all the skill fetch.py scripts keep importing them unchanged
-# `from trustpager_api import api_get, resolve_path, ApprovalPending, ...`.
-#
 # Importing drivers.trustpager constructs TP_CFG, whose DriverConfig.__post_init__
-# registers the tp_ secret pattern — this is now the SOLE registration point
-# (the interim duplicate that used to live here is gone).
-from drivers.trustpager import (  # noqa: E402,F401  (re-exported)
-    TP_CFG,
+# registers the tp_ secret pattern with the redaction registry — the SOLE
+# registration point.
+from drivers.trustpager import (  # noqa: E402,F401
+    API_BASE,
+    APPROVAL_URL,
     ApprovalPending,
+    CATALOG_CACHE_PATH,
+    CATALOG_URL,
+    CONFIG_PATH,
+    TP_CFG,
+    api_call_by_resource,
     api_get,
     api_patch,
     api_post,
-    idempotent_post,
+    bulk_apply,
     get_api_key,
     get_catalog,
+    idempotent_post,
     inspect_endpoint,
     resolve_path,
-    api_call_by_resource,
-    API_BASE,
-    CATALOG_URL,
-    CATALOG_CACHE_PATH,
-    CONFIG_PATH,
-    APPROVAL_URL,
 )
-from drivers.trustpager.auth import TP_SECRET_PATTERN  # noqa: E402,F401  (re-exported)
-
-# Backwards-compatible aliases for the semi-private names callers/tests still
-# use (e.g. tests/test_safety.py references _redact and _is_offline). Keep
-# these working so the existing suite passes unchanged.
-_is_offline = is_offline
-_redact = redact
-
-DEFAULT_PARALLEL_WORKERS = 8
-
-# Write audit trail (see tools/journal.py). The journal wrappers below pass this
-# explicitly so tests that reassign trustpager_api.JOURNAL_DIR keep redirecting
-# the journal. Kept module-level here (not in the driver) for that test seam.
-JOURNAL_DIR = Path.home() / ".claude" / "bos-journal"
+from kernel.runtime import reads as _reads  # noqa: E402
 
 
-# =============================================================================
-# Write journal — every write BOS issues is appended to ~/.claude/bos-journal.
-# Reads are never journaled. Best-effort: journaling failures never break the
-# write. Disable with BOS_JOURNAL=0. The mechanism lives in
-# kernel/runtime/journal.py; these thin wrappers bind it to JOURNAL_DIR (which
-# tests reassign) and the kernel ApprovalPending type.
-# =============================================================================
-
-
-def _record_write(method: str, path: str, body: dict[str, Any] | None, *,
-                  status: str, result_id: str | None = None,
-                  approval_id: str | None = None, error: str | None = None) -> None:
-    """Append one write-attempt line to today's journal file. Never raises.
-
-    Passes the module-level JOURNAL_DIR explicitly so tests that reassign
-    trustpager_api.JOURNAL_DIR keep redirecting the journal.
-    """
-    _journal.record_write(method, path, body, status=status, result_id=result_id,
-                          approval_id=approval_id, error=error, journal_dir=JOURNAL_DIR)
-
-
-# =============================================================================
-# Scaled reads/writes — bound wrappers over kernel.runtime.reads.
-#
-# The mechanism (fan-out, pagination, bulk) is vendor-neutral in the kernel and
-# takes the bound get/write callable as its first argument. These wrappers keep
-# the SAME signatures the 22 skill fetch.py scripts already call:
-#     parallel_get([(path, params), ...])
-#     paginate(path, limit=100, max_pages=N)
-#     bulk_apply(write_fn, items, ...)
-# They look api_get up at call time (via THIS module's globals — the re-exported
-# driver api_get) so tools/test-skill.py, which monkeypatches
-# trustpager_api.api_get, is still observed.
-# =============================================================================
-
-
+# --- Rebinding-aware read wrappers -------------------------------------------
+# parallel_get / paginate are defined here (not re-exported from the driver) so
+# they resolve `api_get` through THIS module's globals at call time. That keeps
+# the tools/test-skill.py seam working: it reassigns `trustpager_api.api_get` to
+# a fixture mock, and these wrappers pick it up. Signatures are identical to the
+# driver's so the 22 skills/*/fetch.py call them unchanged.
 def parallel_get(calls: list[tuple[str, dict[str, Any]]],
-                  max_workers: int = DEFAULT_PARALLEL_WORKERS) -> dict[str, dict[str, Any]]:
+                 max_workers: int = _reads.DEFAULT_PARALLEL_WORKERS
+                 ) -> dict[str, dict[str, Any]]:
     """Fan out multiple GET requests in parallel. See kernel.runtime.reads."""
     return _reads.parallel_get(api_get, calls, max_workers=max_workers)
 
@@ -157,14 +111,3 @@ def paginate(path: str, max_pages: int | None = None,
              **params: Any) -> Iterator[dict[str, Any]]:
     """Yield every row across every page of a list endpoint. See kernel.runtime.reads."""
     return _reads.paginate(api_get, path, max_pages=max_pages, **params)
-
-
-def bulk_apply(write_fn: Callable[[Any], Any], items: list[Any],
-               parallelism: int = 4,
-               on_error: str = "collect",
-               progress: Callable[[int, int, str], None] | None = None
-               ) -> dict[str, Any]:
-    """Apply a write function across many items. See kernel.runtime.reads."""
-    return _reads.bulk_apply(write_fn, items, parallelism=parallelism,
-                             on_error=on_error, progress=progress,
-                             approval_cls=_KernelApprovalPending)
