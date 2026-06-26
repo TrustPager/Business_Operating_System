@@ -1,0 +1,83 @@
+# BOS Re-Architecture — Founder Decisions (locked)
+
+These are the calls the founder (Vic) has made on the open questions surfaced by the
+architecture stress-test ([bos-rearchitecture-review.md](bos-rearchitecture-review.md), §7).
+They are the inputs to the implementation plan. One home for these decisions — link here, don't restate.
+
+## North star
+The lowest common denominator is a business owner who **just wants to feel powerful** and has
+**never touched code**. Every experience decision optimises for that person — even technically
+capable users get the same brain-dead-simple path. BOS must self-actualise into their business
+partner with the least possible friction.
+
+## D1 — Install: one plugin, conversational
+- **Single plugin install. No separate clone, no terminal ceremony.**
+- The owner tells Claude something like *"go get the business operating system"* → Claude fetches
+  the public repo, installs it, initialises it, and walks them through it in conversation.
+- Adopt `CLAUDE_PLUGIN_ROOT`; retire the dual-install seam (the separate clone + `bos.json` +
+  `bos-run.py` launcher) as the canonical path.
+- Rationale: the dual-install seam was the #1 first-run / churn risk for a paid community.
+
+## D2 — TrustPager key: no read-only available → lock it down
+- TrustPager does not mint read-only keys today, so the two-key model (read-only for read
+  fan-out, MCP for writes) is **off the table for now**.
+- Instead, **harden the stored key tightly**: restricted file permissions (e.g. `chmod 0600` on
+  `bos.json`), minimised scope where possible, and rotation guidance documented in `SECURITY.md`.
+- Revisit the two-key model if/when TrustPager ships scoped read-only keys.
+
+## D3 — TrustPager lives in its own opt-in section
+- Everything TrustPager-related sits behind a *"connect this and here's everything it unlocks"*
+  section — discoverable, not foregrounded.
+- The partner is **knowledgeable** about TrustPager and answers when asked, but is **never pushy
+  or salesy**. Context-triggered, relevant-only — never "pushy pushy pushy."
+
+## D4 — Spend protection: gentle, dismissible, nice-to-have
+- **Nice-to-have, not a blocker.** Build it only if it's cheap to add.
+- On a **large** credit spend (TrustPager or any credit-based tool), a light heads-up:
+  *"by the way, this'll use a bit of credits, just so you know"* — so nothing happens by accident.
+- The owner can **switch it off** (*"I know what I'm doing"*).
+- Posture: **warn-and-proceed**, dismissible — not a hard block.
+
+## D5 — Existing clients: recommend they redownload
+- Recommend existing TrustPager clients **redownload the new repository / reinstall the new
+  version** to pick up the re-architecture and rebrand.
+
+## D6 — Floor & catalog strategy
+**The model: curated floor ON, everything else pinnable.**
+- A small, opinionated set of floor apps is **active by default** — instant minute-one value, zero
+  setup, no pinning required.
+- Everything else lives in a **browsable catalog** (*"here's everything I can do"*); the owner
+  **pins/activates** what they want. Pinning IS the registry-activation mechanism (= the OS
+  review's P2 fix: keep un-pinned apps out of the always-loaded trigger surface, discoverable via
+  `/whats-possible`). This avoids both the setup-wall of "all off" and the token-tax + overwhelm +
+  trigger-collisions of "all on."
+- The partner offers to switch things on **contextually** (relevant-only, never pushy).
+
+**Floor drivers (no account/key needed):**
+- **Firecrawl** — the keyless hosted MCP (scrape/search/interact need no key). Ships in the floor.
+  Unlocks research apps: `research-a-competitor`, `scan-the-market`, `enrich-this-lead`,
+  `research-before-call`.
+- **Remotion (brand video)** — local rendering, no account, but lives in the separate
+  `Remotion-VideoStudio` repo (hard rule: video work only happens there). The BOS video capability
+  is a **bridge** to that studio, not a drop-in. **Pin-on** (heavier, not universal).
+
+**Process frameworks = invisible infrastructure, never user toggles:**
+- **Superpowers** — bake the useful framing into the kernel/apps; the partner just works
+  methodically. Take the shape, drop what the model now does natively. Never a user-facing toggle.
+- **Grill-me** — the technique powers the onboarding interview (invisible). Plus one visible
+  **floor app**: *"grill me on this decision"* (stress-test a hire / price change / big job —
+  pure reasoning, no tools).
+
+## D7 — Money: location-agnostic core + opt-in regional pack
+- The MONEY cluster is **location-agnostic at the core** — cash flow, profit-per-job, expenses,
+  budgeting, margin: universal business math that works for any business anywhere, no region set.
+- **Regional tax/compliance is a swappable data module** (a "regional pack") selected during
+  onboarding (the profile records the locale). **Australia ships first and complete** (Simpler-BAS
+  G1/1A/1B, GST, super, PAYG, Fair-Work basics via a versioned ATO/Fair-Work constants file). Other
+  regions are a clean extension point — stubbed now, filled on demand. Same thin-core + swappable-
+  module pattern as drivers; no new architecture.
+- Region-specific apps (e.g. `estimate-my-bas`) only surface once a region is set; the universal
+  core works with none. **We prepare figures; the owner lodges** (no direct tax-authority filing —
+  DSP accreditation is incompatible with the MIT floor).
+- **Why:** keeps "anyone can run it" honest (a US/UK owner gets the universal money apps day one)
+  while preserving the AU depth that's our edge for the Skool base.
