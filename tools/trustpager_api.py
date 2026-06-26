@@ -64,6 +64,14 @@ DEFAULT_PARALLEL_WORKERS = 8
 # instead of preserving the slash. Verified live: the slashed paths 200, the
 # dashed paths 404. Other dashed resources (voice-agent-kbs, event-queues,
 # email-campaigns, etc.) are genuinely dashed paths and work correctly.
+#
+# STATUS (reviewed 2026-06-25, P0 substrate freeze): KEPT — load-bearing.
+# resolve_path() relies on this to turn the catalog's dashed scheduling ids
+# into the slashed paths the live API actually serves. We CANNOT verify from
+# here whether the upstream docs-generator fix has shipped, so this stays until
+# someone confirms api-index.json serves the slashed paths (then delete the
+# matching entry). Do NOT remove blind — removing a still-needed entry 404s the
+# scheduling calls. Paired with the cross-catalog bridge in resolve_path().
 # -----------------------------------------------------------------------------
 PATH_OVERRIDES: dict[str, str] = {
     # docs say                       # actually works
@@ -696,7 +704,7 @@ def resolve_path(resource_id: str, method: str = "GET",
     resource = next((r for r in catalog.get("resources", [])
                      if r.get("id") == resource_id), None)
 
-    # ---- Cross-catalog bridge (delete ~48h post-cutover) ---------------------
+    # ---- Cross-catalog bridge (known docs-generator bug workaround) ----------
     # The upstream docs fix consolidates 3 dashed scheduling resources
     # (scheduling-bookings, scheduling-availability, scheduling-event-types)
     # under a single "scheduling" parent. Callers should already be using the
@@ -704,7 +712,16 @@ def resolve_path(resource_id: str, method: str = "GET",
     # During the cutover window (DNS + 24h cache TTL) some clients still see
     # the legacy catalog where "scheduling" doesn't exist as a resource_id.
     # Fall back to the dashed legacy id so the same call works in both worlds.
-    # TODO(post-cutover): drop this block + PATH_OVERRIDES dict.
+    #
+    # STATUS (reviewed 2026-06-25, P0 substrate freeze): KEPT until
+    # verified-removable. The original "~48h post-cutover" note was a guess; we
+    # cannot confirm from here whether every client's cached catalog has the
+    # consolidated "scheduling" resource, and removing this early breaks callers
+    # still on the legacy dashed catalog. Safe-by-design: this only fires when
+    # the canonical resource_id is absent AND a path_contains hint is present,
+    # so it is a no-op once the new catalog is everywhere. Remove this block +
+    # the PATH_OVERRIDES scheduling entries together, only after confirming the
+    # consolidated catalog has fully propagated.
     if not resource and path_contains:
         legacy_id = f"{resource_id}-{path_contains}"
         resource = next((r for r in catalog.get("resources", [])
