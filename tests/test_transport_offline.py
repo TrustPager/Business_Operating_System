@@ -193,6 +193,119 @@ class TestTransportOffline(unittest.TestCase):
         self.assertIn("404", msg)
         self.assertNotIn("trustpager", msg.lower())
 
+    # --- 5xx sentinel + exact-code precedence (vendor-neutral) -------------
+    # These lock in _format_http_error's lookup order: an exact int code wins,
+    # then (for 500-599 only) the "5xx" string sentinel, then the GENERIC
+    # kernel fallback. The kernel file holds NO vendor literal, so we drive it
+    # entirely with a synthetic cfg and never import the TrustPager driver.
+    #
+    # Note: a 503 must clear retries to reach the formatter. The retry path
+    # (transport.request, 5xx branch) recurses up to DEFAULT_RETRIES_ON_5XX
+    # times with time.sleep(2**attempt). To keep these tests fast and offline
+    # we pass _attempt past that ceiling so the first raised HTTPError formats
+    # immediately — we're testing the formatter, not the backoff.
+
+    def _make_cfg_with_map(self, error_map):
+        """A fabricated, vendor-neutral cfg whose error_map we control."""
+        return transport.DriverConfig(
+            base_url="https://example.invalid/api",
+            key_resolver=lambda: "fake_key_value",
+            secret_pattern=r"fakesecret_[A-Za-z0-9]{6,}",
+            error_map=error_map,
+            approval_url="https://example.invalid/approvals",
+        )
+
+    def _raise_http(self, code, body: bytes):
+        """Return a fake _http that raises HTTPError(code) with a JSON body."""
+        def fake_http(req, timeout):
+            raise urllib.error.HTTPError(
+                url="https://example.invalid/api/ping",
+                code=code,
+                msg="Synthetic",
+                hdrs=None,
+                fp=io.BytesIO(body),
+            )
+        return fake_http
+
+    def test_5xx_sentinel_fires_and_echoes_detail(self):
+        # A "5xx" sentinel template (no exact 503 key) handles a 503, echoing
+        # the server-body message via {detail}.
+        os.environ.pop("BOS_OFFLINE", None)
+        cfg = self._make_cfg_with_map({"5xx": "Upstream said: {detail}"})
+        transport._http = self._raise_http(
+            503, b'{"error": {"message": "gateway exploded"}}'
+        )
+        with self.assertRaises(BOSError) as ctx:
+            transport.request(cfg, "GET", "ping",
+                              _attempt=transport.DEFAULT_RETRIES_ON_5XX)
+        msg = str(ctx.exception)
+        self.assertIn("Upstream said: gateway exploded", msg)
+
+    def test_exact_code_shadows_5xx_sentinel(self):
+        # An exact 503 entry must win over the "5xx" sentinel.
+        os.environ.pop("BOS_OFFLINE", None)
+        cfg = self._make_cfg_with_map({503: "exact 503 msg", "5xx": "sentinel msg"})
+        transport._http = self._raise_http(503, b'{}')
+        with self.assertRaises(BOSError) as ctx:
+            transport.request(cfg, "GET", "ping",
+                              _attempt=transport.DEFAULT_RETRIES_ON_5XX)
+        msg = str(ctx.exception)
+        self.assertIn("exact 503 msg", msg)
+        self.assertNotIn("sentinel msg", msg)
+
+    def test_5xx_sentinel_band_boundary(self):
+        # With a "5xx" sentinel present: a 503 uses it, but a 600 is OUT of the
+        # 500-599 band and falls to the GENERIC kernel message instead.
+        os.environ.pop("BOS_OFFLINE", None)
+        cfg = self._make_cfg_with_map({"5xx": "sentinel msg"})
+
+        # 503 -> sentinel.
+        transport._http = self._raise_http(503, b'{}')
+        with self.assertRaises(BOSError) as ctx:
+            transport.request(cfg, "GET", "ping",
+                              _attempt=transport.DEFAULT_RETRIES_ON_5XX)
+        self.assertIn("sentinel msg", str(ctx.exception))
+
+        # 600 -> out of band -> generic kernel fallback, no sentinel, no vendor.
+        # (600 is not 5xx, so no retry path applies and _attempt is irrelevant.)
+        transport._http = self._raise_http(600, b'{}')
+        with self.assertRaises(BOSError) as ctx:
+            transport.request(cfg, "GET", "ping")
+        msg = str(ctx.exception)
+        self.assertNotIn("sentinel msg", msg)
+        self.assertIn("600", msg)
+        self.assertIn("ping", msg)
+        self.assertNotIn("trustpager", msg.lower())
+
+    def test_no_sentinel_5xx_falls_back_to_generic(self):
+        # Empty error_map -> a 503 has neither an exact key nor a "5xx" sentinel,
+        # so the GENERIC vendor-neutral server-error message is used.
+        os.environ.pop("BOS_OFFLINE", None)
+        cfg = self._make_cfg_with_map({})
+        transport._http = self._raise_http(
+            503, b'{"error": {"message": "boom"}}'
+        )
+        with self.assertRaises(BOSError) as ctx:
+            transport.request(cfg, "GET", "ping",
+                              _attempt=transport.DEFAULT_RETRIES_ON_5XX)
+        msg = str(ctx.exception)
+        self.assertIn("server error (503)", msg)
+        self.assertIn("ping", msg)
+        self.assertNotIn("trustpager", msg.lower())
+
+    def test_exact_429_template_renders(self):
+        # An exact 429 template renders (echoing {detail}); 429 must clear its
+        # own retry ceiling (DEFAULT_RETRIES_ON_429) to reach the formatter.
+        os.environ.pop("BOS_OFFLINE", None)
+        cfg = self._make_cfg_with_map({429: "Slow down: {detail}"})
+        transport._http = self._raise_http(
+            429, b'{"error": {"message": "too many"}}'
+        )
+        with self.assertRaises(BOSError) as ctx:
+            transport.request(cfg, "GET", "ping",
+                              _attempt=transport.DEFAULT_RETRIES_ON_429)
+        self.assertIn("Slow down: too many", str(ctx.exception))
+
 
 if __name__ == "__main__":
     unittest.main()
