@@ -35,13 +35,10 @@ import json
 import os
 import re
 import sys
-import time
 import urllib.error
-import urllib.parse
 import urllib.request
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Callable, Iterator
 
@@ -74,6 +71,13 @@ from kernel.runtime.helpers import (  # noqa: E402,F401  (re-exported)
     parse_iso,
     top_n_by,
 )
+from kernel.runtime import journal as _journal  # noqa: E402
+from kernel.runtime import reads as _reads  # noqa: E402
+from kernel.runtime import transport as _transport  # noqa: E402
+from kernel.runtime.transport import (  # noqa: E402
+    DriverConfig,
+    ApprovalPending as _KernelApprovalPending,
+)
 
 # Backwards-compatible aliases for the semi-private names callers/tests still
 # use (e.g. tests/test_safety.py references _redact and _is_offline). Keep
@@ -98,6 +102,7 @@ CATALOG_URL = "https://docs.trustpager.com/api-index.json"
 CONFIG_PATH = Path.home() / ".claude" / "bos.json"
 CATALOG_CACHE_PATH = Path.home() / ".claude" / "bos-cache" / "api-index.json"
 JOURNAL_DIR = Path.home() / ".claude" / "bos-journal"  # write audit trail (see tools/journal.py)
+APPROVAL_URL = "https://app.trustpager.com/settings/api?tab=approvals"  # 202 approve-here page
 CATALOG_TTL_SECONDS = 24 * 60 * 60  # 24h
 DEFAULT_TIMEOUT_SECONDS = 30
 DEFAULT_PARALLEL_WORKERS = 8
@@ -129,7 +134,7 @@ PATH_OVERRIDES: dict[str, str] = {
 
 
 @dataclass
-class ApprovalPending:
+class ApprovalPending(_KernelApprovalPending):
     """Returned (NOT raised) when an API write returns 202 + approval_id.
 
     The action has been queued for human approval, not executed. Scripts can:
@@ -139,16 +144,16 @@ class ApprovalPending:
 
     Skills that don't care about the approval flow can pass ApprovalPending
     results back to the operator as-is — the str() form is human-readable.
-    """
-    approval_id: str
-    body: dict[str, Any]
-    approval_url: str = "https://app.trustpager.com/settings/api?tab=approvals"
 
-    def __str__(self) -> str:
-        return (
-            f"Queued for approval (id: {self.approval_id}). "
-            f"Approve at {self.approval_url}"
-        )
+    The vendor-neutral base (kernel.runtime.transport.ApprovalPending) carries
+    approval_id/body/approval_url + the human-readable __str__. This subclass
+    adds the TrustPager-specific poll()/executed behaviour (which read the live
+    API) and defaults approval_url to the TrustPager approvals page.
+
+    INTERIM HOME: this TrustPager-specific subclass relocates to
+    drivers/trustpager in P0 Task 3.
+    """
+    approval_url: str = "https://app.trustpager.com/settings/api?tab=approvals"
 
     def poll(self) -> dict[str, Any]:
         """Fetch the current state of this approval. Returns the approval row."""
@@ -162,6 +167,22 @@ class ApprovalPending:
             return bool(row.get("executed") or row.get("executed_at"))
         except BOSError:
             return False
+
+
+def _to_tp_approval(result: Any) -> Any:
+    """Upgrade a kernel ApprovalPending into the TrustPager subclass.
+
+    transport.request() returns the vendor-neutral base ApprovalPending. Wrap
+    it so callers/skills get the poll()/executed methods they already rely on,
+    and so isinstance(result, ApprovalPending) keeps matching.
+    """
+    if isinstance(result, _KernelApprovalPending) and not isinstance(result, ApprovalPending):
+        return ApprovalPending(
+            approval_id=result.approval_id,
+            body=result.body,
+            approval_url=result.approval_url or APPROVAL_URL,
+        )
+    return result
 
 
 def get_api_key() -> str:
@@ -194,237 +215,108 @@ def get_api_key() -> str:
     )
 
 
-def _build_url(path: str, params: dict[str, Any] | None = None) -> str:
-    """Build a full URL from a path (with or without leading slash) and query params."""
-    path = path.lstrip("/")
-    url = f"{API_BASE}/{path}"
-    if params:
-        # Drop None values; stringify everything else
-        clean = {k: ("true" if v is True else "false" if v is False else str(v))
-                 for k, v in params.items() if v is not None}
-        if clean:
-            url = f"{url}?{urllib.parse.urlencode(clean)}"
-    return url
+# =============================================================================
+# Transport — INTERIM TrustPager DriverConfig wiring the kernel HTTP seam.
+#
+# The vendor-neutral HTTP mechanism (DriverConfig + request + retries + 202)
+# now lives in kernel/runtime/transport.py. Here we build the ONE TrustPager
+# DriverConfig that parameterizes it: the base URL, the key resolver, the key
+# shape to redact, the per-HTTP-code human messages (lifted verbatim from the
+# old _request 401/402/403/404/422 branches), and the approval URL.
+#
+# INTERIM HOME: this TrustPager config relocates to drivers/trustpager in P0
+# Task 3. Until then it lives next to its callers so trustpager_api stays a
+# drop-in for every existing skill and test.
+# =============================================================================
 
+# Per-code, user-facing messages. {path}/{url}/{detail} are filled by the
+# kernel's _format_http_error. 429/5xx use the kernel's generic message (their
+# retry/backoff behaviour is preserved in the kernel transport).
+_TP_ERROR_MAP: dict[int, str] = {
+    401: (
+        "Your TrustPager API key was rejected (401 Unauthorized).\n"
+        "Check that it starts with 'tp_live_' and hasn't been revoked.\n"
+        "Manage keys: https://app.trustpager.com/settings/api"
+    ),
+    402: (
+        "Your TrustPager workspace is out of credits or has a billing issue (402).\n"
+        "Manage billing: https://app.trustpager.com/settings/billing\n"
+        "Server said: {detail}"
+    ),
+    403: (
+        "Your API key doesn't have permission for {path} (403 Forbidden).\n"
+        "Add the required scope at https://app.trustpager.com/settings/api\n"
+        "Server said: {detail}"
+    ),
+    404: (
+        "Endpoint not found: {path} (404).\n"
+        "This may be a BOS bug, a path that's been renamed, or a typo.\n"
+        "Browse the live API catalog: https://docs.trustpager.com/api-index.json\n"
+        "Full URL was: {url}"
+    ),
+    422: (
+        "Validation failed on {path} (422).\n"
+        "Server said: {detail}{available}"
+    ),
+}
 
-DEFAULT_RETRIES_ON_429 = 3
-DEFAULT_RETRIES_ON_5XX = 2
-
-
-def _parse_response_body(raw: bytes) -> dict[str, Any]:
-    """Parse a JSON response body. Returns {} for empty/non-JSON bodies."""
-    if not raw:
-        return {}
-    try:
-        return json.loads(raw.decode("utf-8"))
-    except (json.JSONDecodeError, UnicodeDecodeError):
-        return {"_raw": raw[:300].decode("utf-8", errors="replace")}
+# The single TrustPager DriverConfig. Constructing it registers the tp_ secret
+# pattern with the redaction registry (already registered above; idempotent).
+TP_CFG = DriverConfig(
+    base_url=API_BASE,
+    key_resolver=get_api_key,
+    secret_pattern=r"tp_(?:live|test)_[A-Za-z0-9_\-]{16,}",
+    error_map=_TP_ERROR_MAP,
+    approval_url=APPROVAL_URL,
+)
 
 
 def _request(method: str, path: str, params: dict[str, Any] | None = None,
              body: dict[str, Any] | None = None, timeout: int = DEFAULT_TIMEOUT_SECONDS,
-             extra_headers: dict[str, str] | None = None,
-             _attempt: int = 0) -> dict[str, Any] | ApprovalPending:
-    """Low-level HTTP request with rich error handling.
+             extra_headers: dict[str, str] | None = None) -> dict[str, Any] | ApprovalPending:
+    """Low-level HTTP request — thin alias over the kernel transport bound to TP_CFG.
 
     Returns:
         - dict on 2xx (parsed JSON response)
         - ApprovalPending on 202 (write was queued, not executed)
         - Raises BOSError on every other failure mode
 
-    Retry behaviour:
-        - 429: retries up to DEFAULT_RETRIES_ON_429 times, honouring Retry-After
-        - 5xx: retries up to DEFAULT_RETRIES_ON_5XX times with exponential backoff
-        - Network errors: no retry — bubbles up immediately
+    Retry/backoff (429 honouring Retry-After, 5xx) and the offline-guard-before-
+    key ordering all live in the kernel transport now. We upgrade the kernel's
+    plain ApprovalPending into the TrustPager subclass so poll()/executed work.
     """
-    if _is_offline():
-        raise BOSError(
-            f"BOS is in offline mode (BOS_OFFLINE is set) — refusing the {method} {path} "
-            f"network call.\nThis guard means tests and CI can never reach the live API or "
-            f"read a real API key. Mock api_get/api_post with fixtures instead "
-            f"(see tools/test-skill.py)."
-        )
-    api_key = get_api_key()
-    url = _build_url(path, params)
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Accept": "application/json",
-        "User-Agent": "BusinessOperatingSystem/1.0",
-    }
-    if extra_headers:
-        headers.update(extra_headers)
-    data: bytes | None = None
-    if body is not None:
-        headers["Content-Type"] = "application/json"
-        data = json.dumps(body).encode("utf-8")
-
-    req = urllib.request.Request(url, data=data, headers=headers, method=method)
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            payload = resp.read()
-            parsed = _parse_response_body(payload)
-            # 202 = queued for approval. Return ApprovalPending, don't raise.
-            if resp.status == 202:
-                approval_id = (
-                    parsed.get("approval_id")
-                    or parsed.get("id")
-                    or (parsed.get("data") or {}).get("approval_id")
-                    or "unknown"
-                )
-                return ApprovalPending(approval_id=approval_id, body=parsed)
-            return parsed
-    except urllib.error.HTTPError as e:
-        detail_raw = b""
-        try:
-            detail_raw = e.read()
-        except OSError:
-            pass
-        detail_parsed = _parse_response_body(detail_raw)
-        detail_str = (detail_raw or b"").decode("utf-8", errors="replace")[:500]
-        docs_hint = "See https://docs.trustpager.com for details."
-
-        # 401 — bad / missing key
-        if e.code == 401:
-            raise BOSError(
-                f"Your TrustPager API key was rejected (401 Unauthorized).\n"
-                f"Check that it starts with 'tp_live_' and hasn't been revoked.\n"
-                f"Manage keys: https://app.trustpager.com/settings/api"
-            ) from None
-
-        # 402 — billing / out of credits
-        if e.code == 402:
-            raise BOSError(
-                f"Your TrustPager workspace is out of credits or has a billing issue (402).\n"
-                f"Manage billing: https://app.trustpager.com/settings/billing\n"
-                f"Server said: {detail_str}"
-            ) from None
-
-        # 403 — missing scope
-        if e.code == 403:
-            raise BOSError(
-                f"Your API key doesn't have permission for {path} (403 Forbidden).\n"
-                f"Add the required scope at https://app.trustpager.com/settings/api\n"
-                f"Server said: {detail_str}"
-            ) from None
-
-        # 404 — bad path
-        if e.code == 404:
-            raise BOSError(
-                f"Endpoint not found: {path} (404).\n"
-                f"This may be a BOS bug, a path that's been renamed, or a typo.\n"
-                f"Browse the live API catalog: https://docs.trustpager.com/api-index.json\n"
-                f"Full URL was: {url}"
-            ) from None
-
-        # 422 — validation error. The API helpfully puts valid values in details.available.
-        if e.code == 422:
-            err = detail_parsed.get("error", {})
-            msg = err.get("message") or detail_str
-            available = (err.get("details") or {}).get("available")
-            avail_str = f"\nValid options: {available}" if available else ""
-            raise BOSError(
-                f"Validation failed on {path} (422).\n"
-                f"Server said: {msg}{avail_str}"
-            ) from None
-
-        # 429 — rate limited. Retry honouring Retry-After.
-        if e.code == 429 and _attempt < DEFAULT_RETRIES_ON_429:
-            retry_after = e.headers.get("Retry-After") if hasattr(e, "headers") else None
-            wait = int(retry_after) if retry_after and retry_after.isdigit() else 2 ** _attempt
-            time.sleep(min(wait, 30))
-            return _request(method, path, params=params, body=body,
-                            timeout=timeout, extra_headers=extra_headers,
-                            _attempt=_attempt + 1)
-        if e.code == 429:
-            raise BOSError(
-                f"Rate-limited by the TrustPager API after {DEFAULT_RETRIES_ON_429} retries.\n"
-                f"Slow down the request rate or contact support to raise your limit."
-            ) from None
-
-        # 5xx — server error. Retry a couple of times then give up.
-        if 500 <= e.code < 600:
-            if _attempt < DEFAULT_RETRIES_ON_5XX:
-                time.sleep(2 ** _attempt)
-                return _request(method, path, params=params, body=body,
-                                timeout=timeout, extra_headers=extra_headers,
-                                _attempt=_attempt + 1)
-            raise BOSError(
-                f"TrustPager API returned a server error ({e.code}) after "
-                f"{DEFAULT_RETRIES_ON_5XX} retries.\n"
-                f"This is usually temporary. {docs_hint}\n"
-                f"Server said: {detail_str}"
-            ) from None
-
-        # Catch-all
-        raise BOSError(f"HTTP {e.code} on {path}. {docs_hint}\nServer said: {detail_str}") from None
-    except urllib.error.URLError as e:
-        raise BOSError(
-            f"Could not reach the TrustPager API.\n"
-            f"Check your internet connection. Underlying error: {e.reason}"
-        ) from None
-    except (json.JSONDecodeError, OSError) as e:
-        raise BOSError(f"Unexpected response from {path}: {e}") from None
+    result = _transport.request(TP_CFG, method, path, params=params, body=body,
+                                timeout=timeout, extra_headers=extra_headers)
+    return _to_tp_approval(result)
 
 
 # =============================================================================
 # Write journal — every write BOS issues is appended to ~/.claude/bos-journal.
 # Reads are never journaled. Best-effort: journaling failures never break the
-# write. Disable with BOS_JOURNAL=0. The reader CLI is tools/journal.py.
+# write. Disable with BOS_JOURNAL=0. The mechanism lives in
+# kernel/runtime/journal.py; these thin wrappers bind it to JOURNAL_DIR (which
+# tests reassign) and the TrustPager ApprovalPending type.
 # =============================================================================
 
 
 def _record_write(method: str, path: str, body: dict[str, Any] | None, *,
                   status: str, result_id: str | None = None,
                   approval_id: str | None = None, error: str | None = None) -> None:
-    """Append one write-attempt line to today's journal file. Never raises."""
-    if os.environ.get("BOS_JOURNAL", "1").strip().lower() in {"0", "false", "no", "off"}:
-        return
-    try:
-        JOURNAL_DIR.mkdir(parents=True, exist_ok=True)
-        body_summary: str | None = None
-        if body is not None:
-            try:
-                body_summary = json.dumps(body, default=str)[:1000]
-            except (TypeError, ValueError):
-                body_summary = str(body)[:1000]
-        # Redact any API key token before it touches disk — a write body should
-        # never carry a key, but if one ever did, it must not land in the journal.
-        entry = {
-            "ts": now_utc().isoformat(),
-            "method": method,
-            "path": path,
-            "status": status,
-            "result_id": result_id,
-            "approval_id": approval_id,
-            "error": _redact(error[:300]) if error else None,
-            "body_summary": _redact(body_summary),
-        }
-        day = now_utc().strftime("%Y-%m-%d")
-        with (JOURNAL_DIR / f"{day}.jsonl").open("a", encoding="utf-8") as fh:
-            fh.write(json.dumps(entry, default=str) + "\n")
-    except Exception:  # noqa: BLE001 — journaling must never break a real write
-        pass
+    """Append one write-attempt line to today's journal file. Never raises.
+
+    Passes the module-level JOURNAL_DIR explicitly so tests that reassign
+    trustpager_api.JOURNAL_DIR keep redirecting the journal.
+    """
+    _journal.record_write(method, path, body, status=status, result_id=result_id,
+                          approval_id=approval_id, error=error, journal_dir=JOURNAL_DIR)
 
 
 def _journaled(method: str, path: str, body: dict[str, Any] | None,
                fn: Callable[[], Any]) -> dict[str, Any] | ApprovalPending:
     """Run a write callable, journal the outcome (ok / approval_pending / error)."""
-    try:
-        result = fn()
-    except BOSError as e:
-        _record_write(method, path, body, status="error", error=str(e))
-        raise
-    if isinstance(result, ApprovalPending):
-        _record_write(method, path, body, status="approval_pending",
-                      approval_id=result.approval_id)
-    else:
-        result_id = None
-        if isinstance(result, dict):
-            data = result.get("data", result)
-            if isinstance(data, dict):
-                result_id = data.get("id")
-        _record_write(method, path, body, status="ok", result_id=result_id)
-    return result
+    return _journal.journaled(method, path, body, fn,
+                              approval_cls=_KernelApprovalPending,
+                              journal_dir=JOURNAL_DIR)
 
 
 def api_get(path: str, **params: Any) -> dict[str, Any]:
@@ -477,77 +369,30 @@ def idempotent_post(path: str, body: dict[str, Any] | None = None,
         extra_headers={"Idempotency-Key": idempotency_key}))
 
 
+# =============================================================================
+# Scaled reads/writes — bound wrappers over kernel.runtime.reads.
+#
+# The mechanism (fan-out, pagination, bulk) is vendor-neutral in the kernel and
+# takes the bound get/write callable as its first argument. These wrappers keep
+# the SAME signatures the 22 skill fetch.py scripts already call:
+#     parallel_get([(path, params), ...])
+#     paginate(path, limit=100, max_pages=N)
+#     bulk_apply(write_fn, items, ...)
+# They look api_get up at call time (via this module's globals) so tools/
+# test-skill.py, which monkeypatches trustpager_api.api_get, is still observed.
+# =============================================================================
+
+
 def parallel_get(calls: list[tuple[str, dict[str, Any]]],
-                 max_workers: int = DEFAULT_PARALLEL_WORKERS) -> dict[str, dict[str, Any]]:
-    """Fan out multiple GET requests in parallel.
-
-    Args:
-        calls: list of (path, params_dict) tuples. The path is also the result key.
-        max_workers: parallel HTTP threads (default 8).
-
-    Returns:
-        Dict mapping each path to its response (or an `{"error": "..."}` dict
-        on failure). Never raises — failures land per-key in the result.
-
-    Example:
-        results = parallel_get([
-            ("opportunities", {"limit": 100}),
-            ("tasks", {"completed": "false"}),
-            ("bookings", {"date_from": "today"}),
-        ])
-        opps = results["opportunities"].get("data", [])
-    """
-    out: dict[str, dict[str, Any]] = {}
-    with ThreadPoolExecutor(max_workers=max_workers) as pool:
-        future_to_path = {
-            pool.submit(api_get, path, **params): path
-            for path, params in calls
-        }
-        for future in as_completed(future_to_path):
-            path = future_to_path[future]
-            try:
-                out[path] = future.result()
-            except BOSError as e:
-                out[path] = {"error": str(e)}
-            except Exception as e:  # noqa: BLE001 — last-resort safety net
-                out[path] = {"error": f"Unexpected error on {path}: {e}"}
-    return out
+                  max_workers: int = DEFAULT_PARALLEL_WORKERS) -> dict[str, dict[str, Any]]:
+    """Fan out multiple GET requests in parallel. See kernel.runtime.reads."""
+    return _reads.parallel_get(api_get, calls, max_workers=max_workers)
 
 
 def paginate(path: str, max_pages: int | None = None,
              **params: Any) -> Iterator[dict[str, Any]]:
-    """Yield every row across every page of a list endpoint.
-
-    Auto-follows pagination.next_cursor until has_more is false (or max_pages
-    is reached, if set). Use when you need ALL records, not just the first
-    page. Default API limit is 25, max 100 — pass limit=100 to minimise calls.
-
-    Example:
-        all_opps = list(paginate("opportunities", limit=100))
-        for contact in paginate("contacts", limit=100, source="referral"):
-            do_something(contact)
-
-    The path-param `after` is reserved for the cursor — don't pass it manually.
-    """
-    cursor: str | None = None
-    pages = 0
-    while True:
-        call_params = dict(params)
-        if cursor:
-            call_params["after"] = cursor
-        response = api_get(path, **call_params)
-        rows = response.get("data", []) if isinstance(response, dict) else []
-        for row in rows:
-            yield row
-        pages += 1
-        if max_pages is not None and pages >= max_pages:
-            return
-        pagination = response.get("pagination", {}) if isinstance(response, dict) else {}
-        if not pagination.get("has_more"):
-            return
-        cursor = pagination.get("next_cursor")
-        if not cursor:
-            return
+    """Yield every row across every page of a list endpoint. See kernel.runtime.reads."""
+    return _reads.paginate(api_get, path, max_pages=max_pages, **params)
 
 
 def bulk_apply(write_fn: Callable[[Any], Any], items: list[Any],
@@ -555,62 +400,10 @@ def bulk_apply(write_fn: Callable[[Any], Any], items: list[Any],
                on_error: str = "collect",
                progress: Callable[[int, int, str], None] | None = None
                ) -> dict[str, Any]:
-    """Apply a write function across many items with progress + error aggregation.
-
-    Args:
-        write_fn: callable taking a single item, returning anything
-        items: list of inputs to write_fn
-        parallelism: concurrent writes (default 4 — keep low to avoid 429s)
-        on_error: 'collect' (default) accumulates errors and continues
-                  'raise' raises on first failure
-        progress: optional callback(completed, total, item_summary) for logging
-
-    Returns:
-        {
-          "total": N,
-          "succeeded": [{"item": ..., "result": ...}, ...],
-          "failed":    [{"item": ..., "error": "..."}, ...],
-          "queued":    [{"item": ..., "approval_id": "..."}, ...],   # 202 responses
-        }
-
-    Use for any bulk write — bulk send emails, bulk-update opportunities,
-    bulk-create contacts. Pair with idempotent_post for safe retries.
-    """
-    succeeded: list[dict[str, Any]] = []
-    failed: list[dict[str, Any]] = []
-    queued: list[dict[str, Any]] = []
-    total = len(items)
-    completed = 0
-
-    with ThreadPoolExecutor(max_workers=parallelism) as pool:
-        futures = {pool.submit(write_fn, item): item for item in items}
-        for future in as_completed(futures):
-            item = futures[future]
-            completed += 1
-            try:
-                result = future.result()
-                if isinstance(result, ApprovalPending):
-                    queued.append({"item": item, "approval_id": result.approval_id})
-                else:
-                    succeeded.append({"item": item, "result": result})
-            except BOSError as e:
-                if on_error == "raise":
-                    raise
-                failed.append({"item": item, "error": str(e)})
-            except Exception as e:  # noqa: BLE001
-                if on_error == "raise":
-                    raise
-                failed.append({"item": item, "error": f"Unexpected: {e}"})
-            if progress:
-                summary = str(item)[:60]
-                progress(completed, total, summary)
-
-    return {
-        "total": total,
-        "succeeded": succeeded,
-        "failed": failed,
-        "queued": queued,
-    }
+    """Apply a write function across many items. See kernel.runtime.reads."""
+    return _reads.bulk_apply(write_fn, items, parallelism=parallelism,
+                             on_error=on_error, progress=progress,
+                             approval_cls=_KernelApprovalPending)
 
 
 # =============================================================================
