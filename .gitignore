@@ -46,3 +46,9 @@ yarn.lock
 
 # Graphify knowledge-graph build artefacts
 graphify-out/
+
+# Git worktrees (isolated build workspaces)
+.worktrees/
+
+# Firecrawl scratch (research-run cache, not a deliverable)
+.firecrawl/
