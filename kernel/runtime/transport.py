@@ -49,9 +49,14 @@ class DriverConfig:
         secret_pattern: regex matching this vendor's key shape. Registered with
                         the redaction registry on construction so the key never
                         lands in a journal/log.
-        error_map:      {http_code: human_message_template}. The template may
-                        contain {path}, {url}, {detail}, {code} placeholders;
-                        any subset is fine (missing keys are tolerated).
+        error_map:      {http_code: human_message_template}. Keys are normally
+                        an exact int HTTP code; the string sentinel "5xx" is
+                        also honoured as a fallback template for any 500-599
+                        code with no exact-code entry (so a driver can give one
+                        rich server-error message without listing every code).
+                        The template may contain {path}, {url}, {detail},
+                        {code}, {available} placeholders; any subset is fine
+                        (missing keys are tolerated).
         approval_url:   where the operator approves a queued (202) write.
         extra_headers:  optional headers merged into every request.
     """
@@ -59,7 +64,9 @@ class DriverConfig:
     base_url: str
     key_resolver: Callable[[], str]
     secret_pattern: str
-    error_map: dict[int, str]
+    # Keys are exact int HTTP codes, plus an optional "5xx" string sentinel
+    # honoured as a fallback for any 500-599 code (see _format_http_error).
+    error_map: dict[int | str, str]
     approval_url: str
     extra_headers: dict[str, str] | None = None
 
@@ -226,11 +233,20 @@ def _format_http_error(cfg: DriverConfig, code: int, path: str, url: str,
     Prefers the vendor-specific template from cfg.error_map; falls back to a
     GENERIC kernel message (no vendor literal) when the code isn't mapped.
 
+    Lookup order for the template:
+      1. an exact int key for this code (e.g. error_map[404])
+      2. for any 500-599 code, the string sentinel error_map["5xx"]
+    This lets a driver supply ONE rich server-error message (with {detail}) for
+    the whole 5xx band without enumerating every code, while the kernel keeps
+    no vendor strings of its own.
+
     Templates may reference any subset of {path}, {url}, {code}, {detail},
-    {available}. A driver that wants to surface a validation endpoint's
-    available-options hint (the common 422 shape) puts {available} in that
-    code's template; {available} resolves to the empty string when the server
-    sent no such hint, so it stays inert for codes/responses without one.
+    {available}. {detail} resolves to the server's response body/message, so a
+    driver can echo what the server said (e.g. on 429/5xx). A driver that wants
+    to surface a validation endpoint's available-options hint (the common 422
+    shape) puts {available} in that code's template; {available} resolves to the
+    empty string when the server sent no such hint, so it stays inert for
+    codes/responses without one.
     """
     # Pull a server-side message + any "available" hint (common 422 shape).
     err = detail_parsed.get("error", {}) if isinstance(detail_parsed, dict) else {}
@@ -238,7 +254,11 @@ def _format_http_error(cfg: DriverConfig, code: int, path: str, url: str,
     available = (err.get("details") or {}).get("available") if isinstance(err, dict) else None
     avail_str = f"\nValid options: {available}" if available else ""
 
+    # Exact-code template first; then the "5xx" sentinel for any server-error
+    # code. Both are driver-supplied — the kernel hardcodes no vendor template.
     template = cfg.error_map.get(code)
+    if template is None and 500 <= code < 600:
+        template = cfg.error_map.get("5xx")
     if template is not None:
         try:
             base = template.format(path=path, url=url, code=code,
@@ -250,7 +270,12 @@ def _format_http_error(cfg: DriverConfig, code: int, path: str, url: str,
             base = template
         return base
 
-    # Generic kernel fallback — vendor-neutral.
+    # Generic kernel fallback — vendor-neutral. Reached when neither an
+    # exact-code template nor (for 5xx) the "5xx" sentinel is present in
+    # cfg.error_map. 429 and 5xx land here by default with the generic
+    # messages below; a driver MAY override either with its own richer message
+    # (e.g. echoing {detail} or adding a docs link) by adding an error_map
+    # entry (429 as an exact key, "5xx" as the band sentinel).
     server_said = f"\nServer said: {server_msg or detail_str}" if (server_msg or detail_str) else ""
     if 500 <= code < 600:
         return (

@@ -84,9 +84,14 @@ def _catalog_is_fresh(path: Path, ttl_seconds: int) -> bool:
 def _fetch_catalog_live() -> dict[str, Any]:
     """Download api-index.json from docs.trustpager.com. No auth needed.
 
-    NOT gated by BOS_OFFLINE: the catalog is public and unauthenticated, so
-    fetching it can't leak a key. BOS_OFFLINE only blocks the authenticated
-    request path that reads the API key.
+    INTENTIONALLY NOT gated by BOS_OFFLINE — and this is load-bearing, not an
+    oversight. The catalog is public and unauthenticated: there's no API key on
+    this path, so fetching it can't leak a secret (BOS_OFFLINE exists only to
+    stop the authenticated request path from reading a real key in tests/CI).
+    Adding an offline gate here would BREAK the `_use_live` test fixtures, which
+    deliberately fetch the live public catalog under BOS_OFFLINE=1 in CI
+    (documented in TESTING.md — "the public, unauthenticated API catalog can
+    still load ... so `_use_live` fixtures still work in CI"). Do not gate this.
     """
     req = urllib.request.Request(
         CATALOG_URL,

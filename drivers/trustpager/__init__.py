@@ -11,7 +11,8 @@ This is where the vendor-neutral kernel gets parameterized for TrustPager:
   - api_get / api_post / api_patch / idempotent_post: bound over
     kernel.runtime.transport.request(TP_CFG, ...), with writes wrapped in
     kernel.runtime.journal.journaled and 202s upgraded to the subclass.
-  - parallel_get / paginate / bulk_apply: bound over kernel.runtime.reads.
+  - bulk_apply: bound over kernel.runtime.reads. (parallel_get / paginate are
+    defined in the shim, not here — see the bulk_apply section comment.)
   - resolve_path / get_catalog / inspect_endpoint: re-exported from .catalog.
 
 Dependencies are one-way: this package imports from kernel.runtime.* and
@@ -25,7 +26,7 @@ import json
 import sys
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Callable, Iterator
+from typing import Any, Callable
 
 # Put the repo root on sys.path so `import kernel.runtime.*` resolves even when
 # only tools/ was added by a skill caller.
@@ -60,7 +61,6 @@ from drivers.trustpager.catalog import (  # noqa: E402
 )
 
 DEFAULT_TIMEOUT_SECONDS = 30
-DEFAULT_PARALLEL_WORKERS = 8
 
 # The write journal's directory has exactly ONE home: kernel.runtime.journal
 # .JOURNAL_DIR (a vendor-neutral path under the user's home). This driver does
@@ -212,26 +212,18 @@ def idempotent_post(path: str, body: dict[str, Any] | None = None,
 
 
 # =============================================================================
-# Scaled reads/writes — bound wrappers over kernel.runtime.reads.
+# Scaled writes — bound wrapper over kernel.runtime.reads.
 #
-# The mechanism (fan-out, pagination, bulk) is vendor-neutral in the kernel and
-# takes the bound get/write callable as its first argument. These wrappers keep
-# the SAME signatures the skill fetch.py scripts already call. They look api_get
-# up via this module's globals at call time, so a monkeypatch of the bound
-# api_get (e.g. tools/test-skill.py) is still observed.
+# The mechanism (bulk fan-out) is vendor-neutral in the kernel and takes the
+# bound write callable as its first argument; bulk_apply has no api_get global
+# dependence, so it's bound here.
+#
+# The read wrappers parallel_get / paginate are NOT defined here: they live in
+# the shim (tools/trustpager_api.py) so they resolve api_get through the shim's
+# globals at call time — that's the seam tools/test-skill.py rebinds with a
+# fixture mock. Defining them here too would be dead code (nothing imports them
+# from this package — the shim builds its own), so they were removed.
 # =============================================================================
-
-
-def parallel_get(calls: list[tuple[str, dict[str, Any]]],
-                  max_workers: int = DEFAULT_PARALLEL_WORKERS) -> dict[str, dict[str, Any]]:
-    """Fan out multiple GET requests in parallel. See kernel.runtime.reads."""
-    return _reads.parallel_get(api_get, calls, max_workers=max_workers)
-
-
-def paginate(path: str, max_pages: int | None = None,
-             **params: Any) -> Iterator[dict[str, Any]]:
-    """Yield every row across every page of a list endpoint. See kernel.runtime.reads."""
-    return _reads.paginate(api_get, path, max_pages=max_pages, **params)
 
 
 def bulk_apply(write_fn: Callable[[Any], Any], items: list[Any],
@@ -252,8 +244,6 @@ __all__ = [
     "api_post",
     "api_patch",
     "idempotent_post",
-    "parallel_get",
-    "paginate",
     "bulk_apply",
     "resolve_path",
     "get_catalog",

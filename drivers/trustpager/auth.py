@@ -41,9 +41,11 @@ APPROVAL_URL = "https://app.trustpager.com/settings/api?tab=approvals"
 TP_SECRET_PATTERN = r"tp_(?:live|test)_[A-Za-z0-9_\-]{16,}"
 
 # Per-code, user-facing messages. {path}/{url}/{detail}/{available} are filled
-# by the kernel's _format_http_error. 429/5xx use the kernel's generic message
-# (their retry/backoff behaviour lives in the kernel transport).
-TP_ERROR_MAP: dict[int, str] = {
+# by the kernel's _format_http_error. Retry/backoff for 429/5xx lives in the
+# kernel transport; these templates are only used once retries are exhausted.
+# The "5xx" string key is the kernel's band sentinel — it covers any 500-599
+# code that has no exact-code entry (see kernel.runtime.transport).
+TP_ERROR_MAP: dict[int | str, str] = {
     401: (
         "Your TrustPager API key was rejected (401 Unauthorized).\n"
         "Check that it starts with 'tp_live_' and hasn't been revoked.\n"
@@ -68,6 +70,20 @@ TP_ERROR_MAP: dict[int, str] = {
     422: (
         "Validation failed on {path} (422).\n"
         "Server said: {detail}{available}"
+    ),
+    429: (
+        "Rate-limited by TrustPager (429) on {path} after retries.\n"
+        "Slow the request rate, or contact support to raise your limit.\n"
+        "Server said: {detail}"
+    ),
+    # "5xx" band sentinel — used for any 500-599 code (the kernel falls back to
+    # this when there's no exact-code entry).
+    "5xx": (
+        "TrustPager returned a server error ({code}) for {path}.\n"
+        "This is usually temporary; try again shortly.\n"
+        "If it persists, check status or contact support: "
+        "https://app.trustpager.com/settings/api\n"
+        "Server said: {detail}"
     ),
 }
 
