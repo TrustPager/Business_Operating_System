@@ -280,6 +280,23 @@ def validate_manifest(meta: dict[str, Any]) -> list[str]:
     # 4. Optional status enum.
     _check_enum(meta, "status", STATUSES, errors)
 
+    # 4b. credential:none ⇒ no mcp__ tool in uses_tools. A keyless skill claims to
+    #     run with zero accounts connected; listing an MCP tool it can only call
+    #     through a connection is a contradiction (this is what catches a keyless
+    #     app that quietly reaches into TrustPager, e.g. quote-from-photo's
+    #     mcp__trustpager__list_products). The body-reference linter (lint-skill.py
+    #     Task 3c) misses it because the tool IS declared — declaring it is the bug.
+    if meta.get("requires_credential") == "none":
+        tools = meta.get("uses_tools")
+        if isinstance(tools, list):
+            mcp_tools = [t for t in tools if isinstance(t, str) and t.startswith("mcp__")]
+            for tool in mcp_tools:
+                errors.append(
+                    f"uses_tools: requires_credential is 'none' but lists an mcp__ "
+                    f"tool '{tool}' — a keyless skill may not call MCP tools; remove "
+                    f"it or set requires_credential to 'mcp'"
+                )
+
     # 5. Unknown keys (anything outside manifest + passthrough).
     for key in meta:
         if key not in KNOWN_KEYS:

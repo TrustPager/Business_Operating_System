@@ -21,12 +21,12 @@ Each section is the same shape:
 **Typical products:** Home loan (owner-occupier / investor), refinance, top-up / equity release, construction loan, SMSF loan, commercial loan, personal loan, asset / car finance.
 
 **Gotchas:**
-- **Compliance + data ownership.** Client records must be retained ~7 years; the operator's data should live in *their* TrustPager workspace, not an aggregator's database. Always log comms as activities on the opportunity so there's a complete audit trail.
+- **Compliance + data ownership.** Client records must be retained ~7 years; the operator's data should live in *their own* CRM / system of record, not an aggregator's database. Always log comms as activities on the opportunity so there's a complete audit trail.
 - **Credit checks (Equifax) increasingly required upfront.** When a deal moves from "Documents collected" → "Pre-approval submitted", flag if no credit pull is recorded yet.
 - **Referrals are the lifeblood** — past clients, accountants, financial planners, real estate agents. When a deal settles, prompt about asking for a referral.
 - **Birthday / loan-anniversary touches** keep the broker top-of-mind for refinances — surface these in follow-up sweeps.
 - **Never quote a rate** without checking the current panel; **never promise a settlement date** (the lender controls it); avoid the word "guarantee".
-- **Aggregator vs workspace:** the aggregator software is source of truth for the lender lodgement; TrustPager is source of truth for relationship history, comms, notes, follow-ups.
+- **Aggregator vs workspace:** the aggregator software is source of truth for the lender lodgement; the operator's own CRM / system of record holds relationship history, comms, notes, follow-ups.
 
 **Comms style:** Relationship-driven, warm, professional, plain text (no marketing chrome), first names, no jargon.
 

@@ -9,9 +9,9 @@ triggers:
   - write the auto queue emails
   - design the post-signup sequence
 function_slot: comms
-requires_driver: none
-requires_credential: none
-data_path: reasoning_only
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
 status: active
 ---
 

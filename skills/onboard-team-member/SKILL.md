@@ -35,7 +35,7 @@ You need three things. If the command didn't supply them, ask in one short
 message:
 
 - **Name** (e.g. "Sarah Lee").
-- **Email** (their login / TrustPager email).
+- **Email** (their login / workspace email, if the team uses a connected CRM).
 - **Role** — must match a role row in `templates/team-standards.md` section 3
   (e.g. `manager`, `ae`, `sdr`, `ops`). If they gave a role that isn't in the
   table, ask which existing role fits, or tell them to add the row to
@@ -65,9 +65,9 @@ overwrite silently — show what changed and ask first (their pack may have
 hand-tuned notes worth keeping).
 
 **a) `./team/<slug>/CLAUDE.md`** — the person's context file. Build it from the
-owner's `./CLAUDE.md` (shared business context: the "About TrustPager" block,
-business, products, pipeline, lead sources — copied as-is) PLUS a role-specific
-section that states, in plain language:
+owner's `./CLAUDE.md` (shared business context: the owner's own business-context
+block, i.e. business, products, pipeline, lead sources, copied as-is) PLUS a
+role-specific section that states, in plain language:
 - Their name and role.
 - The team voice in one line + a pointer: "All customer messages follow the team
   voice — see `memory/team-voice.md`."
@@ -107,7 +107,8 @@ the owner a short, copy-paste set of steps to forward to the new hire:
 
 ```
 1. Install Claude Code, and install the Business Operating System (see INSTALL.md).
-2. Connect your TrustPager workspace with your own key (run the setup wizard).
+2. If the owner uses a connected CRM, connect your workspace with your own key
+   (run the setup wizard). Skip this if the team runs keyless.
 3. Copy the CLAUDE.md and the memory/ folder from the pack you were sent into the
    root of your Claude Code project folder.
 4. Tell your Claude, once: "Read CLAUDE.md and everything in memory/, and follow

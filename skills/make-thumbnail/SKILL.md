@@ -1,6 +1,6 @@
 ---
 name: Make Thumbnail
-description: Design and render a 1280×720 YouTube thumbnail for a tutorial video using the bundled TrustPager Thumbnail Studio. Headline-first layout with hero UI on the right, distilled from 22+ iterations of design corrections.
+description: Design and render a 1280×720 YouTube thumbnail for a tutorial video using the bundled Thumbnail Studio. Headline-first layout with hero UI on the right, distilled from 22+ iterations of design corrections.
 triggers:
   - make a thumbnail
   - design a youtube thumbnail
@@ -22,7 +22,7 @@ You're helping the operator design and render a YouTube thumbnail for one
 of their tutorial videos using the bundled studio at
 `studio/thumbnails/`. The studio is a Vite + React + Puppeteer pipeline
 producing 1280×720 PNGs that can either stay local or be uploaded to the
-operator's TrustPager workspace.
+operator's workspace (when connected).
 
 The design rules + title patterns + banned framings live in **three**
 canonical files inside the studio (read them BEFORE designing anything,
@@ -75,7 +75,7 @@ shape is:
     "headline": "Forms That Auto-Fill Your CRM",
     "accentWord": "Auto-Fill",
     "hero": "field-stack",
-    "title": "How to Build & Send Forms in TrustPager"
+    "title": "How to Build & Send Forms in Your Workspace"
   }
 }
 ```
@@ -122,9 +122,10 @@ rasterisation libraries.
 If something looks off in the rendered PNG that looked fine in the
 browser, the JSDoc has a "Common mistakes" section worth reading.
 
-## Step 5 — Publish (optional)
+## Step 5 — Publish (optional, when connected)
 
-To upload the PNG to the operator's own TrustPager workspace's
+The keyless deliverable is the rendered PNG. If the operator has a connected
+workspace, you can also upload the PNG to their own
 `Files > Images > Tutorial Thumbnails` folder:
 
 ```bash
