@@ -1,7 +1,3 @@
-I now have everything I need. All facts are confirmed against the four grounding files. Assembling the deliverable.
-
----
-
 # BOS Onboarding — Starter-Projects Library
 
 *The deduped, vertical-aware menu the "3 things we could build" moment draws from. Every project maps to a real registry skill (`kernel/registry.json`) or a DECIDED-BUT-UNBUILT floor app named in `floor-completion-plan.md`. No invented apps.*

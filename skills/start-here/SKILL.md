@@ -75,7 +75,7 @@ Then the 3 as plain outcomes they'd recognise (worked examples in `knowledge/sta
 Build the chosen project end to end — a real, finished artifact. As you build you naturally learn their rates, voice, products, competitors; capture that into the profile (Step 9). **Don't pause to interrogate what the build will reveal anyway.** This is where they fall for the system: they're operating it now.
 
 ## Step 9 — Write the profile (your notes)
-Merge `./CLAUDE.md` from `templates/CLAUDE.md`: spine from confirmed data, inferred fields as **labelled guesses**, unknowns as visible `<<< guesses to confirm later >>>`, and update the resume marker (`<!-- bos-onboarding: spine=…; pending=[…]; win_delivered=…; last_touched=<date> -->`). Fold in what the build just taught you. **Never clobber a hand-tuned file without showing the diff.** Frame it as *"here's what I've jotted about you — tell me what I've got wrong."*
+Merge `./CLAUDE.md` from `templates/CLAUDE.md`: spine from confirmed data, inferred fields as **labelled guesses**, unknowns as visible `<<< guesses to confirm later >>>`, and update the resume marker (`<!-- bos-onboarding: spine=…; tier2=…; pending=[…]; win_delivered=…; last_touched=<date> -->`). Fold in what the build just taught you. **Never clobber a hand-tuned file without showing the diff.** Frame it as *"here's what I've jotted about you — tell me what I've got wrong."*
 
 ## Step 10 — Earn the next ask, then offer it (Tier 2)
 Each bigger ask is gated behind the value you just delivered. After a real build lands and they're engaged:
