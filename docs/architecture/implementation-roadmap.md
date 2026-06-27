@@ -33,7 +33,16 @@
 | **P7** | TrustPager re-slot + de-brand | P1–P4 | TrustPager lives behind the "unlock" section; user-facing prose vendor-neutral; Xero proves driver #2 |
 | **P8** | Install + migration + ship | all | One-command conversational plugin install; existing installs migrate without breakage |
 
-Phases P0→P3 are strictly sequential (the spine). P4/P5/P6 can parallelize once P3 lands. P7/P8 close out.
+**Status (updated 2026-06-26): P0 ✅ and P1 ✅ shipped to `main`.** (P0 = kernel/driver split, 49 tests; P1 = manifest + registry contract across all 58 skills, 97 tests.)
+
+**Floor-first re-sequence (founder directive — make the day-zero floor the star, not TrustPager).** The P0–P8 numbering stands, but the BUILD ORDER after P1 is re-prioritized to foreground the floor:
+1. **P0 ✅ → P1 ✅** — done (the foundation + the data-driven contract that surfaces the floor).
+2. **Floor build leads next** — P3 (conversational onboarding) + the floor portions of P4/P5/P6: the keyless day-zero apps (research via Firecrawl, the document tools, brand/content, the location-agnostic MONEY cluster, `grill-me`, `price-my-work`→`write-a-proposal`, the Remotion creative engine) **plus re-pointing the ~37 `floorable` skills toward keyless** (the P1 backfill identified them). This is where the product's value for "anyone" lives.
+3. **Then the plumbing** — P2 (safety hardening), P7 (TrustPager re-slot), P8 (install) — *after* the floor is robust.
+
+**P1 follow-ups (inert today; harden before a 2nd connected driver lands):** normalize `review-team-draft`'s bare `uses_tools` names to the `mcp__…` form; tighten the lint MCP-tool regex (hyphenated-UUID server segments) and swap `_driver_owns_tool`'s substring match for an exact `mcp__<driver>__` segment match.
+
+The original spine note still holds mechanically: P0→P3 are sequential; P4/P5/P6 parallelize after P3; P7/P8 close out — the re-sequence just moves the floor ahead of P2/P7 in priority.
 
 ---
 
