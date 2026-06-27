@@ -346,5 +346,81 @@ class TestCleanSurfacePasses(unittest.TestCase):
             self.assertEqual(failures, [], f"clean surface should pass: {failures}")
 
 
+class TestWave1Drivers(unittest.TestCase):
+    """Floor Wave 1 Increment 1: the new keyless drivers are recognised.
+
+    - ``doclib`` (doc-lib-set keyless WRITE) counts as keyless in assertion B.
+    - the firecrawl convention reconciles cleanly: a credential:none /
+      requires_driver:firecrawl skill that references firecrawl in its BODY but
+      lists no ``mcp__firecrawl__`` in uses_tools passes BOTH the manifest rule
+      and assertion C (which only forbids TrustPager coupling).
+    """
+
+    def test_doclib_app_offered_keyless_passes_B(self):
+        # A [live] + keyless app whose registry entry uses requires_driver: doclib
+        # is an honest keyless offer (doclib is in _KEYLESS_DRIVERS) → B passes.
+        registry = dict(_SAMPLE_REGISTRY)
+        registry["write-a-proposal"] = {
+            "requires_credential": "none",
+            "requires_driver": "doclib",
+            "data_path": "local",
+            "status": "active",
+        }
+        starter = """\
+# Starter Projects
+
+| Project | Builds on | Keyless/CRM |
+|---|---|---|
+| Brand written down | `build-brand-strategy` `[live]` | keyless |
+| A real proposal | `write-a-proposal` `[live]` | keyless |
+"""
+        with tempfile.TemporaryDirectory() as t:
+            tmp = Path(t)
+            _write_surface(tmp, _CLEAN_START_HERE, _CLEAN_WHATS_POSSIBLE, starter)
+            failures = _run(tmp, registry=registry)
+            self.assertEqual(failures, [], f"doclib app should be keyless-honest: {failures}")
+
+    def test_firecrawl_body_reference_passes_C(self):
+        # A keyless firecrawl skill: driver in the manifest, firecrawl tools in the
+        # BODY, no mcp__firecrawl__ in uses_tools. C only forbids TrustPager → passes.
+        body = (
+            "---\nname: Research A Competitor\n---\n# Research A Competitor\n"
+            "Use `firecrawl-scrape` on the rival URL and `firecrawl-search` their "
+            "name, then synthesise a one-page read.\n"
+        )
+        registry = dict(_SAMPLE_REGISTRY)
+        registry["research-a-competitor"] = {
+            "requires_credential": "none",
+            "requires_driver": "firecrawl",
+            "data_path": "fetch_rest",
+            "status": "active",
+        }
+        with tempfile.TemporaryDirectory() as t:
+            tmp = Path(t)
+            _write_surface(tmp, _CLEAN_START_HERE, _CLEAN_WHATS_POSSIBLE,
+                           _CLEAN_STARTER_PROJECTS)
+            (tmp / "skills" / "research-a-competitor").mkdir(parents=True, exist_ok=True)
+            (tmp / "skills" / "research-a-competitor" / "SKILL.md").write_text(
+                body, encoding="utf-8")
+            failures = _run(tmp, registry=registry)
+            self.assertEqual([f for f in failures if f.startswith("C")], [],
+                             f"firecrawl body reference must not trip C: {failures}")
+
+    def test_firecrawl_manifest_no_mcp_in_uses_tools_passes(self):
+        # The manifest rule: a keyless firecrawl app declares the driver, NOT the
+        # mcp__firecrawl__ tools, in uses_tools → validates clean.
+        meta = {
+            "name": "Research A Competitor",
+            "description": "x",
+            "triggers": ["a", "b", "c"],
+            "function_slot": "research",
+            "requires_driver": "firecrawl",
+            "requires_credential": "none",
+            "data_path": "fetch_rest",
+            "status": "active",
+        }
+        self.assertEqual(validate_manifest(meta), [])
+
+
 if __name__ == "__main__":
     unittest.main()

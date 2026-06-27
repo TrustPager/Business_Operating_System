@@ -19,7 +19,7 @@ Three assertions:
   B (keyless honesty) — any app the surface offers as a keyless win (tagged
       ``[live]`` + a keyless tag, or routed as a cold instant-win in start-here)
       must be ``requires_credential: none`` AND ``requires_driver`` in
-      {none, markitdown, render, firecrawl}. A keyless-offered app the registry
+      {none, markitdown, render, firecrawl, doclib}. A keyless-offered app the registry
       marks ``mcp``/``trustpager`` (or any non-keyless driver) FAILS. EXEMPT:
       apps explicitly tagged ``better_with_crm`` / ``needs_crm``, or placed in a
       non-routable "Planned" / "coming soon" section — those are honestly flagged
@@ -53,7 +53,7 @@ from typing import Any, Iterable
 # Keyless = requires_credential: none AND a driver that runs locally / keyless-
 # hosted. A remote driver like trustpager needs a connection, so it is NOT keyless
 # even if credential were somehow "none".
-_KEYLESS_DRIVERS: frozenset[str] = frozenset({"none", "markitdown", "render", "firecrawl"})
+_KEYLESS_DRIVERS: frozenset[str] = frozenset({"none", "markitdown", "render", "firecrawl", "doclib"})
 
 # Honest connected-tier / unbuilt tags that EXEMPT a reference from B (and, in a
 # Planned section, from A too). These say "this isn't a keyless instant-win" out loud.
