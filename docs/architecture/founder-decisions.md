@@ -81,3 +81,31 @@ partner with the least possible friction.
   DSP accreditation is incompatible with the MIT floor).
 - **Why:** keeps "anyone can run it" honest (a US/UK owner gets the universal money apps day one)
   while preserving the AU depth that's our edge for the Skool base.
+
+## D8 — TrustPager data path: MCP-first / keyless (revises bos-rearchitecture-review §5)
+Verified against TrustPager's own help center (read live via the connector):
+- The **MCP connector in claude.ai (OAuth)** is the documented way to connect Claude — *"Connect Claude
+  to TrustPager"*, *"Edit OAuth Client Scopes"* (Claude.com is a connected OAuth integration with
+  per-scope tiers + revocable user tokens), *"Scopes — the guardrails for agents"*.
+- The **REST API + `tp_live_` keys** is a SEPARATE developer path — *"Use the TrustPager REST API"*,
+  *"Create and Manage API Keys"*.
+
+**Ruling:**
+- The TrustPager driver is **MCP-first / keyless by default.** BOS apps reach TrustPager through the
+  connected MCP (authed via the user's OAuth connection — no key paste). Onboarding follows the help
+  center's connector flow. This is how real users (incl. Vic) actually operate, and it makes install
+  truly keyless.
+- The `fetch.py` + `tp_live_` REST fan-out is **demoted**: the kernel keeps the keyed-REST transport
+  for OTHER drivers (third-party APIs with no MCP), and it stays available only as an optional,
+  off-by-default "turbo reads" mode for TrustPager. Never the default, never required.
+- The digest/ranking logic currently in `fetch.py` moves into the skills (driven over MCP tools) and
+  leans on TrustPager's aggregate MCP tools (`get_pipeline_summary`, `get_agent_dashboard`,
+  `query_report`) to keep reads cheap in one call.
+- **Supersedes** bos-rearchitecture-review §5 ("keep the 22 fetch.py as the read path on a read-only
+  key") — that assumed the key path was worth keeping for speed; real usage (everything via MCP) makes
+  keyless MCP the right default. P0's kernel/driver abstraction is exactly what makes this a
+  driver-*type* swap (keyed-REST → MCP), not a rewrite.
+- **Roadmap impact:** install (P8) drops the `tp_live_`/`bos.json` key step for TrustPager; a new work
+  item re-points the TrustPager read apps from key'd `fetch.py` to MCP tools; manifests (P1) carry
+  `requires_credential: mcp` + `data_path: mcp_tools` for TrustPager apps. The manifest enums below are
+  the contract that encodes this.
