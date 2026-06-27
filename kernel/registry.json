@@ -502,6 +502,13 @@
       "mcp__trustpager__void_signing_envelope"
     ]
   },
+  "start-here": {
+    "data_path": "reasoning_only",
+    "function_slot": "strategy",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
   "sweep-my-day": {
     "data_path": "mcp_tools",
     "function_slot": "crm",
@@ -605,6 +612,13 @@
       "mcp__trustpager__get_pipeline_summary",
       "mcp__trustpager__complete_task"
     ]
+  },
+  "whats-possible": {
+    "data_path": "reasoning_only",
+    "function_slot": "floor",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
   },
   "why-didnt-it-fire": {
     "data_path": "mcp_tools",

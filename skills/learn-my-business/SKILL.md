@@ -1,6 +1,6 @@
 ---
 name: Learn My Business
-description: Read the operator's live TrustPager workspace and WRITE their CLAUDE.md profile for them — company + brand, the real pipeline stages, products and prices, lead sources, opportunity types — folding in any industry gotchas from knowledge/industry-notes.md. The single front door to setup; replaces hand-filling a template. Run once at setup, or re-run when the workspace shape changes.
+description: Once a CRM is connected, read the operator's live TrustPager workspace and DEEPEN their CLAUDE.md profile from real data — company + brand, the real pipeline stages, products and prices, lead sources, opportunity types — folding in any industry gotchas from knowledge/industry-notes.md. This is the connected deepener, not the cold front door: brand-new or keyless owners start with /start-here (a 60-second brain-dump, no accounts needed); this runs once a workspace is connected, or re-runs when its shape changes.
 triggers:
   - learn my business
   - set up my CLAUDE.md
@@ -24,11 +24,13 @@ status: active
 
 # Learn My Business
 
-Hand-filling a template means picking the right one and completing a dozen
-`<<< ... >>>` blanks. Most operators never do — so Claude starts every session
-not knowing their pipeline, products, or stages. This skill is the front door
-that removes that step: it reads the live workspace and writes a filled,
-accurate `CLAUDE.md` for them, with any industry-specific gotchas folded in.
+**This is the connected deepener, not the cold front door.** Brand-new and keyless
+owners start with `/start-here` — a 60-second brain-dump that fills the profile and
+lands a real win with zero accounts. This skill picks up *after* a CRM is connected:
+it reads the live workspace and replaces the inferred guesses in `CLAUDE.md` with
+filled, accurate data — the real pipeline, products and prices, stages, lead
+sources — with any industry-specific gotchas folded in. Run it once on connect, and
+re-run it whenever the workspace shape changes.
 
 ## Step 1 — Read the workspace shape
 
@@ -49,8 +51,10 @@ may need to ask "what's your business name and what do you do?").
 ## Step 2 — Load the structure + the industry gotchas
 
 There is one base template: **`templates/CLAUDE.md`** — read it so the file you
-write keeps its structure (including the fixed "About TrustPager" block) and you
-fill it from real data rather than inventing a new format.
+write keeps its structure and you fill it from real data rather than inventing a
+new format. The template is vendor-neutral by design: it carries no TrustPager
+pitch or tool catalogue. The TrustPager operating context is added separately in
+Step 2b once you've confirmed the connection is live.
 
 Then match the operator's industry to a section in **`knowledge/industry-notes.md`**
 using `company.industry` and the pipeline shape:
@@ -65,6 +69,23 @@ If the industry is ambiguous or `unavailable`, **ask one short question**
 Pull that section's **gotchas** and **comms style** into the file you write —
 but treat them as industry patterns to confirm, never as facts read from the
 workspace (see hard rules).
+
+## Step 2b — Plant the TrustPager operating context
+
+Because this skill only runs once a TrustPager workspace is connected (Step 1
+read its live shape), the owner's profile should now carry the full TrustPager
+operating capability — the part the day-zero template deliberately leaves out.
+
+Read **`drivers/trustpager/OPERATING-CONTEXT.md`** (the canonical source for how
+to behave when the connection is live: the one-workspace/your-key framing, the
+Australian-first defaults, the approval-queue guardrail, credits, signals, and
+the practical tool list). Fold it into the owner's `./CLAUDE.md` as a clearly
+marked TrustPager operating section, so every subsequent session carries it.
+
+This merge follows the same no-clobber rule as Step 3: if `./CLAUDE.md` already
+exists, **never silently overwrite it** — show the diff (what you're adding /
+changing) and ask before replacing. A hand-tuned profile may have edits worth
+keeping; merge the operating context in, don't clobber.
 
 ## Step 3 — Write the CLAUDE.md
 
@@ -112,7 +133,7 @@ End by telling them: "Claude will use this from your next session. Re-run
   workspace. If a section is `unavailable`, ask one question; don't fabricate.
 - ❌ Don't fill the "ideal customer" / "tone" sections as if they were read from
   data — they're your guess; label them for confirmation.
-- ✅ Keep `templates/CLAUDE.md`'s structure (incl. the "About TrustPager" block) intact, and fold in the matched industry section's gotchas + comms style.
+- ✅ Keep `templates/CLAUDE.md`'s structure intact, fold in the matched industry section's gotchas + comms style, and plant the TrustPager operating context from `drivers/trustpager/OPERATING-CONTEXT.md` (Step 2b).
 - ✅ Industry gotchas are *patterns to confirm*, not workspace facts — present them as defaults the operator can correct, and let real workspace data win where they conflict.
 - ✅ Use the operator's exact stage and product names, spelled as the workspace
   spells them.
