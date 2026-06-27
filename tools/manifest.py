@@ -12,10 +12,14 @@ importable functions:
 
     parse_frontmatter(text) -> dict
         Lift the YAML-ish frontmatter block (between leading `---` fences) into
-        a dict. Supports flat scalars and `  - ` string lists ONLY (the
-        frontmatter is flat by design — no nesting, no PyYAML). Returns {} when
-        there is no frontmatter. (Task 5 will harden this parser; for now it
-        shares the same minimal logic used by tools/lint-skill.py.)
+        a dict. Supports flat scalars (incl. quoted values containing `:`),
+        `  - ` string lists, explicit empty lists (`key: []`), and bare `key:`
+        empty values (kept as `""` so present-but-empty is distinct from
+        absent). The frontmatter is flat by design — no nesting, no PyYAML.
+        Returns {} when there is no frontmatter. Structurally invalid lines
+        (mis-indented list items, nested mappings, orphan `  - ` items) raise
+        ValueError rather than vanishing. This is the SINGLE parser owner;
+        tools/lint-skill.py imports it instead of duplicating the logic.
 
     validate_manifest(meta) -> list[str]
         Return a list of human-readable errors (empty == valid).
@@ -104,14 +108,44 @@ STATUSES: frozenset[str] = frozenset({"active", "deprecated", "removed"})
 # --- Parser --------------------------------------------------------------
 
 
+# Indentation expected for a `  - item` list element (two spaces, then `- `).
+_LIST_ITEM_PREFIX = "  - "
+
+
+def _strip_quotes(value: str) -> str:
+    """Strip a single pair of matching surrounding quotes, if present.
+
+    ``"a: b"`` -> ``a: b``; ``'x'`` -> ``x``. A bare value is returned as-is.
+    Only a matched leading+trailing pair of the SAME quote char is stripped,
+    so an apostrophe inside prose (``it's``) is never touched.
+    """
+    if len(value) >= 2 and value[0] == value[-1] and value[0] in ("'", '"'):
+        return value[1:-1]
+    return value
+
+
 def parse_frontmatter(text: str) -> dict[str, Any]:
-    """Extract the YAML-ish frontmatter block into a dict.
+    """Extract the flat YAML-ish frontmatter block into a dict.
 
-    Supports flat scalars (``key: value``) and ``  - item`` string lists only.
-    Returns an empty dict when there is no leading ``---`` frontmatter block.
+    The frontmatter contract is flat by design (no PyYAML): each line is one of
+      * ``key: value``       — a scalar (value may itself contain ``:``);
+                               surrounding matched quotes are stripped, so
+                               ``key: "a: b"`` yields ``a: b``.
+      * ``key: []``          — an explicit empty list.
+      * ``key:``             — a key whose value is a following ``  - `` list,
+                               OR (if no items follow) an empty value, kept as
+                               ``""`` so it is *present-but-empty* rather than
+                               silently absent.
+      * ``  - item``         — one element of the most recent ``key:`` list.
+      * a blank line         — closes any open list.
 
-    Shares the minimal logic used by tools/lint-skill.py so the two don't drift;
-    Task 5 will replace this with a hardened parser.
+    Returns ``{}`` when there is no leading ``---`` frontmatter block.
+
+    Hardened (P1 Task 5): structurally invalid lines no longer vanish. A list
+    item at the wrong indent, a nested mapping (indented ``key: value``), or a
+    ``  - `` item with no open list all raise ``ValueError`` so drift surfaces
+    instead of producing a false pass. This is the single parser owner;
+    tools/lint-skill.py imports it rather than carrying its own copy.
     """
     if not text.startswith("---"):
         return {}
@@ -119,27 +153,75 @@ def parse_frontmatter(text: str) -> dict[str, Any]:
     if end < 0:
         return {}
     block = text[4:end]
+
     out: dict[str, Any] = {}
-    current_list_key: str | None = None
-    for line in block.splitlines():
-        if not line.strip():
-            current_list_key = None
+    # The key opened by a bare ``key:`` line, awaiting its ``  - `` items. While
+    # pending it is NOT yet committed to ``out`` — if no items arrive it resolves
+    # to an empty string (present-but-empty).
+    pending_key: str | None = None
+    pending_has_items = False
+
+    def _resolve_pending() -> None:
+        nonlocal pending_key, pending_has_items
+        if pending_key is not None and not pending_has_items:
+            # A ``key:`` line with nothing following it: an empty value.
+            out[pending_key] = ""
+        pending_key = None
+        pending_has_items = False
+
+    for raw in block.splitlines():
+        # Blank line: close any open list / resolve a dangling empty key.
+        if not raw.strip():
+            _resolve_pending()
             continue
-        if line.startswith("  - "):
-            if current_list_key:
-                out.setdefault(current_list_key, []).append(line[4:].strip())
+
+        # A list element: must be exactly two-space indented (``  - ``) and
+        # must belong to an open ``key:`` list.
+        if raw.lstrip().startswith("- "):
+            indent = len(raw) - len(raw.lstrip(" "))
+            if indent != 2 or not raw.startswith(_LIST_ITEM_PREFIX):
+                raise ValueError(
+                    f"frontmatter: mis-indented list item (expected 2-space '  - '): {raw!r}"
+                )
+            if pending_key is None:
+                raise ValueError(
+                    f"frontmatter: list item with no preceding 'key:' opener: {raw!r}"
+                )
+            out.setdefault(pending_key, []).append(_strip_quotes(raw[len(_LIST_ITEM_PREFIX):].strip()))
+            pending_has_items = True
             continue
-        if ": " in line:
-            k, v = line.split(": ", 1)
-            k = k.strip()
-            v = v.strip()
-            if v:
-                out[k] = v
-                current_list_key = None
-            else:
-                current_list_key = k
-        elif line.endswith(":"):
-            current_list_key = line[:-1].strip()
+
+        # Any other indented line is nested content — not part of the flat
+        # contract. Reject it rather than silently dropping it.
+        if raw[0] in (" ", "\t"):
+            raise ValueError(
+                f"frontmatter: unexpected indented (nested) line, flat schema only: {raw!r}"
+            )
+
+        # A new top-level key closes the previous open list / empty key.
+        _resolve_pending()
+
+        if ":" not in raw:
+            raise ValueError(f"frontmatter: line is not 'key: value' or 'key:': {raw!r}")
+
+        key, _, value = raw.partition(":")
+        key = key.strip()
+        value = value.strip()
+        if not key:
+            raise ValueError(f"frontmatter: empty key: {raw!r}")
+
+        if value == "":
+            # Bare ``key:`` — open a list / empty-value key, resolved later.
+            pending_key = key
+            pending_has_items = False
+        elif value == "[]":
+            # Explicit empty list, distinct from a missing key.
+            out[key] = []
+        else:
+            out[key] = _strip_quotes(value)
+
+    # End of block: resolve any still-open ``key:`` to an empty value.
+    _resolve_pending()
     return out
 
 

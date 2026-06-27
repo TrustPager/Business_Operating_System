@@ -36,41 +36,13 @@ import argparse
 import re
 import sys
 from pathlib import Path
-from typing import Any
+
+# Single parser owner: lint imports parse_frontmatter from tools/manifest.py
+# rather than carrying its own copy (P1 Task 5 collapsed the fork).
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from manifest import parse_frontmatter  # noqa: E402
 
 REQUIRED_FRONTMATTER = {"name", "description", "triggers"}
-
-
-def _parse_simple_frontmatter(text: str) -> dict[str, Any] | None:
-    """Minimal YAML-frontmatter parser. Returns None if no frontmatter."""
-    if not text.startswith("---"):
-        return None
-    end = text.find("\n---", 3)
-    if end < 0:
-        return None
-    block = text[4:end]
-    out: dict[str, Any] = {}
-    current_list_key: str | None = None
-    for line in block.splitlines():
-        if not line.strip():
-            current_list_key = None
-            continue
-        if line.startswith("  - "):
-            if current_list_key:
-                out.setdefault(current_list_key, []).append(line[4:].strip())
-            continue
-        if ": " in line:
-            k, v = line.split(": ", 1)
-            k = k.strip()
-            v = v.strip()
-            if v:
-                out[k] = v
-                current_list_key = None
-            else:
-                current_list_key = k
-        elif line.endswith(":"):
-            current_list_key = line[:-1].strip()
-    return out
 
 
 def main() -> int:
@@ -90,9 +62,14 @@ def main() -> int:
         issues.append(("FAIL", f"missing {skill_md.name}"))
     else:
         text = skill_md.read_text(encoding="utf-8")
-        fm = _parse_simple_frontmatter(text)
+        try:
+            fm = parse_frontmatter(text)
+        except ValueError as exc:
+            fm = None
+            issues.append(("FAIL", f"SKILL.md frontmatter is malformed: {exc}"))
         if not fm:
-            issues.append(("FAIL", "SKILL.md missing YAML frontmatter (--- ... ---)"))
+            if not any(sev == "FAIL" for sev, _ in issues):
+                issues.append(("FAIL", "SKILL.md missing YAML frontmatter (--- ... ---)"))
         else:
             missing = REQUIRED_FRONTMATTER - set(fm)
             for k in missing:

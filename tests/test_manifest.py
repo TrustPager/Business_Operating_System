@@ -140,6 +140,120 @@ class TestParseFrontmatter(unittest.TestCase):
         self.assertEqual(parse_frontmatter("# just a heading\n"), {})
 
 
+class TestParseFrontmatterHardened(unittest.TestCase):
+    """Round-trip coverage for the single hardened parser (P1 Task 5).
+
+    Each case is one shape the flat frontmatter contract must handle:
+    scalar, quoted-with-special-chars, a list, an empty list, an empty
+    value (distinguishable from absent), and a nested/over-indented value
+    (now rejected with an error rather than silently dropped).
+    """
+
+    def _fm(self, body: str) -> str:
+        return "---\n" + body + "---\n\n# Body\n"
+
+    # --- scalar ---------------------------------------------------------
+    def test_plain_scalar(self):
+        meta = parse_frontmatter(self._fm("function_slot: floor\n"))
+        self.assertEqual(meta["function_slot"], "floor")
+
+    # --- quoted scalar with special chars (incl. a colon) ---------------
+    def test_quoted_scalar_with_colon_keeps_inner_colon(self):
+        # A double-quoted value containing a ': ' must survive intact; the
+        # surrounding quotes are stripped, the inner colon is preserved.
+        meta = parse_frontmatter(self._fm('description: "Stage: intake, then review"\n'))
+        self.assertEqual(meta["description"], "Stage: intake, then review")
+
+    def test_single_quoted_scalar_strips_quotes(self):
+        meta = parse_frontmatter(self._fm("name: 'Sweep My Day'\n"))
+        self.assertEqual(meta["name"], "Sweep My Day")
+
+    def test_unquoted_value_with_colon_is_preserved(self):
+        # Real descriptions carry prose; an unquoted value containing a colon
+        # must keep everything after the FIRST 'key:' delimiter.
+        meta = parse_frontmatter(self._fm("description: Does X: then Y.\n"))
+        self.assertEqual(meta["description"], "Does X: then Y.")
+
+    # --- list -----------------------------------------------------------
+    def test_dash_list(self):
+        meta = parse_frontmatter(self._fm("triggers:\n  - one\n  - two\n  - three\n"))
+        self.assertEqual(meta["triggers"], ["one", "two", "three"])
+
+    # --- empty list -----------------------------------------------------
+    def test_empty_inline_list(self):
+        # `key: []` is an explicit empty list, distinct from a missing key.
+        meta = parse_frontmatter(self._fm("uses_tools: []\n"))
+        self.assertIn("uses_tools", meta)
+        self.assertEqual(meta["uses_tools"], [])
+
+    # --- empty value: present-but-empty, distinct from absent -----------
+    def test_empty_value_is_present_not_absent(self):
+        # A value-less line with nothing following must be representable as an
+        # empty value (empty string), so validate_manifest can say "empty"
+        # rather than "missing".
+        meta = parse_frontmatter(self._fm("function_slot:\nrequires_driver: none\n"))
+        self.assertIn("function_slot", meta)          # present...
+        self.assertEqual(meta["function_slot"], "")   # ...but empty
+
+    def test_empty_value_still_fails_validation_via_enum(self):
+        meta = parse_frontmatter(self._fm(
+            "function_slot:\n"
+            "requires_driver: none\n"
+            "requires_credential: none\n"
+            "data_path: reasoning_only\n"
+        ))
+        errors = validate_manifest(meta)
+        # function_slot is present-but-empty -> enum rejects '' (NOT "missing").
+        self.assertTrue(any("function_slot" in e for e in errors))
+        self.assertFalse(any("missing required key: function_slot" in e for e in errors))
+
+    def test_absent_value_reports_missing_not_empty(self):
+        # Contrast: a genuinely absent required key reports "missing".
+        meta = parse_frontmatter(self._fm(
+            "requires_driver: none\n"
+            "requires_credential: none\n"
+            "data_path: reasoning_only\n"
+        ))
+        errors = validate_manifest(meta)
+        self.assertTrue(any("missing required key: function_slot" in e for e in errors))
+
+    # --- nested / over-indented value: rejected, not silently dropped ---
+    def test_over_indented_list_item_raises(self):
+        # A 4-space-indented list item used to be silently dropped (false pass).
+        with self.assertRaises(ValueError):
+            parse_frontmatter(self._fm("triggers:\n    - one\n"))
+
+    def test_nested_mapping_raises(self):
+        # An indented `key: value` (a nested map) is not part of the flat
+        # contract and must surface an error, not vanish.
+        with self.assertRaises(ValueError):
+            parse_frontmatter(self._fm("function_slot: crm\n  nested: oops\n"))
+
+    def test_dash_item_without_open_list_raises(self):
+        # A list item with no preceding `key:` opener is structurally broken.
+        with self.assertRaises(ValueError):
+            parse_frontmatter(self._fm("  - orphan\n"))
+
+    def test_blank_line_splitting_a_list_raises(self):
+        # A blank line closes the open list; a list item after it is now an
+        # orphan and raises (the old parser silently dropped the tail items).
+        with self.assertRaises(ValueError):
+            parse_frontmatter(self._fm("triggers:\n  - one\n\n  - two\n"))
+
+    # --- regression: existing clean shapes still parse ------------------
+    def test_mixed_scalars_then_list_then_scalar(self):
+        meta = parse_frontmatter(self._fm(
+            "name: Demo\n"
+            "triggers:\n"
+            "  - a\n"
+            "  - b\n"
+            "status: active\n"
+        ))
+        self.assertEqual(meta["name"], "Demo")
+        self.assertEqual(meta["triggers"], ["a", "b"])
+        self.assertEqual(meta["status"], "active")
+
+
 class TestExemplarsValidate(unittest.TestCase):
     def _check(self, skill_name: str) -> None:
         path = REPO / "skills" / skill_name / "SKILL.md"
