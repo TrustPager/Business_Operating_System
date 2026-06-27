@@ -8,6 +8,13 @@ triggers:
   - give this to sarah
   - delegate this work
   - assign the prep to
+function_slot: people
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__create_task
+status: active
 ---
 
 # Delegate This Work

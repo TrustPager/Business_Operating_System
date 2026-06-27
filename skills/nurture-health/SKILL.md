@@ -11,6 +11,17 @@ triggers:
   - auto queue health
   - sequence performance
   - is my reawakening campaign working
+function_slot: comms
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__list_auto_queues
+  - mcp__get_auto_queue
+  - mcp__get_auto_queue_board
+  - mcp__list_auto_queue_enrollments
+  - mcp__list_email_logs
+status: active
 ---
 
 # Nurture Health

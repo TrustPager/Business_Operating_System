@@ -62,6 +62,22 @@ class TestValidateManifest(unittest.TestCase):
         self.assertTrue(errors)
         self.assertTrue(any("data_path" in e and "nope" in e for e in errors))
 
+    def test_data_path_local_validates(self):
+        # 'local' is a valid data_path: skill reads local files the operator
+        # provides (e.g. MarkItDown over a dropped-in PDF). Keyless driver,
+        # no credential.
+        meta = _floor_manifest()
+        meta["requires_driver"] = "markitdown"
+        meta["data_path"] = "local"
+        self.assertEqual(validate_manifest(meta), [])
+
+    def test_bogus_data_path_still_fails(self):
+        meta = _floor_manifest()
+        meta["data_path"] = "bogus"
+        errors = validate_manifest(meta)
+        self.assertTrue(errors)
+        self.assertTrue(any("data_path" in e and "bogus" in e for e in errors))
+
     def test_unknown_key_is_an_error(self):
         meta = _floor_manifest()
         meta["wibble"] = "anything"

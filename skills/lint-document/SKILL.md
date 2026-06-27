@@ -8,6 +8,14 @@ triggers:
   - review my document template
   - check this document before I send it
   - pre-flight my signing document
+function_slot: documents
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__list_document_templates
+  - mcp__trustpager__get_document_template
+status: active
 ---
 
 # Lint Document

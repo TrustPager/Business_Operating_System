@@ -8,6 +8,11 @@ triggers:
   - add a dropdown for
   - add broker name as a field
   - put a field on the card
+function_slot: crm
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+status: active
 ---
 
 # Add a Field

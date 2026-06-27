@@ -7,6 +7,11 @@ triggers:
   - update everyone's setup
   - i changed team-standards, roll it out
   - refresh the team packs
+function_slot: people
+requires_driver: none
+requires_credential: none
+data_path: local
+status: active
 ---
 
 # Sync Team Standards

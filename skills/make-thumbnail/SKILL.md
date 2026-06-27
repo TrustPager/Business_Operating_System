@@ -9,6 +9,11 @@ triggers:
   - publish thumbnail
   - render thumbnail
   - shoot thumbnail
+function_slot: creative
+requires_driver: render
+requires_credential: none
+data_path: local
+status: active
 ---
 
 # Make Thumbnail

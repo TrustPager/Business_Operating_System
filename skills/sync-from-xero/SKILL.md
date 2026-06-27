@@ -10,6 +10,15 @@ triggers:
   - which opps have been paid
   - update payment status from xero
   - which xero customers aren't in crm
+function_slot: accounting
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__query_integration
+  - mcp__trustpager__update_opportunity
+  - mcp__trustpager__describe_resource
+status: active
 ---
 
 # /sync-from-xero

@@ -9,6 +9,17 @@ triggers:
   - make the form save to the right fields
   - send the form to a client
   - wire the form to an automation
+function_slot: documents
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__get_form_template
+  - mcp__trustpager__list_form_fields
+  - mcp__trustpager__bulk_update_form_field_wiring
+  - mcp__trustpager__send_form
+  - mcp__trustpager__create_internal_form_submission
+status: active
 ---
 
 # Wire Form

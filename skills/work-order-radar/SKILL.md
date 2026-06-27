@@ -9,6 +9,14 @@ triggers:
   - what's stuck in progress
   - how are my jobs tracking
   - which work orders need attention
+function_slot: crm
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__list_work_orders
+  - mcp__trustpager__send_work_status
+status: active
 ---
 
 # Work Order Radar

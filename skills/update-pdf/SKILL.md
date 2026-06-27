@@ -8,6 +8,11 @@ triggers:
   - fill the application from this opportunity
   - put this client's data into the form
   - prefill this pdf
+function_slot: documents
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+status: active
 ---
 
 # Update PDF

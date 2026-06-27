@@ -12,6 +12,17 @@ triggers:
   - report digest
   - schedule a dashboard
   - automate a report
+function_slot: strategy
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__create_report_dashboard
+  - mcp__add_report_card
+  - mcp__query_report
+  - mcp__describe_action_type
+  - mcp__describe_resource
+status: active
 ---
 
 # Email Me A Report

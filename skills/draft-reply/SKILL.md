@@ -10,6 +10,14 @@ triggers:
   - how should I respond
   - write a reply
   - draft me a response
+function_slot: comms
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__reply_to_email
+  - mcp__trustpager__send_sms
+status: active
 ---
 
 # /draft-reply

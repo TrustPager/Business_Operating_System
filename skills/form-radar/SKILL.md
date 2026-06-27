@@ -9,6 +9,15 @@ triggers:
   - who opened but didn't complete the form
   - chase incomplete forms
   - form submission status
+function_slot: crm
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__list_form_submissions
+  - mcp__trustpager__resend_form_submission
+  - mcp__trustpager__void_form_submission
+status: active
 ---
 
 # Form Radar

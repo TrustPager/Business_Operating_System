@@ -10,6 +10,17 @@ triggers:
   - automation didn't trigger
   - debug my automation
   - why did nothing happen
+function_slot: crm
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__enable_automation
+  - mcp__trustpager__add_automation_trigger
+  - mcp__trustpager__update_automation
+  - mcp__trustpager__update_automation_action
+  - mcp__trustpager__execute_automation_action
+status: active
 ---
 
 # Why Didn't It Fire

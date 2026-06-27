@@ -7,6 +7,11 @@ triggers:
   - make a template from this document
   - build a form from this pdf
   - turn this contract into a signing template
+function_slot: documents
+requires_driver: markitdown
+requires_credential: none
+data_path: local
+status: active
 ---
 
 # Template From Document

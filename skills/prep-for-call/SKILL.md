@@ -9,6 +9,22 @@ triggers:
   - who am I talking to
   - get me ready for the meeting
   - what do I need to know before this call
+function_slot: crm
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__list_bookings
+  - mcp__trustpager__get_booking
+  - mcp__trustpager__search_contacts
+  - mcp__trustpager__search_opportunities
+  - mcp__trustpager__get_opportunity
+  - mcp__trustpager__get_opportunity_activities
+  - mcp__trustpager__list_transcripts
+  - mcp__trustpager__get_opportunity_tasks
+  - mcp__trustpager__get_contact
+  - mcp__trustpager__get_opportunity_products
+status: active
 ---
 
 # Prep For Call

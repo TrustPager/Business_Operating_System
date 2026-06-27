@@ -9,6 +9,11 @@ triggers:
   - check the auto queue emails
   - are these emails on-brand
   - sequence quality check
+function_slot: comms
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+status: active
 ---
 
 # Lint Nurture Sequence

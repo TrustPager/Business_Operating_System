@@ -10,6 +10,14 @@ triggers:
   - call back the people who tried me
   - someone tried to call earlier
   - any calls go to voicemail
+function_slot: comms
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__send_sms
+  - mcp__trustpager__send_email
+status: active
 ---
 
 # /missed-call-recovery

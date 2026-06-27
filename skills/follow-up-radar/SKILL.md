@@ -10,6 +10,16 @@ triggers:
   - send follow-ups
   - chase up
   - what should I chase
+function_slot: crm
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__send_sms
+  - mcp__send_email
+  - mcp__add_note
+  - mcp__update_opportunity
+status: active
 ---
 
 # Follow-up Radar

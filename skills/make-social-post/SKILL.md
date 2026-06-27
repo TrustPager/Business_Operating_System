@@ -11,6 +11,11 @@ triggers:
   - publish social post
   - render social post
   - shoot social post
+function_slot: social
+requires_driver: render
+requires_credential: none
+data_path: local
+status: active
 ---
 
 # Make Social Post

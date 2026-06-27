@@ -9,6 +9,18 @@ triggers:
   - chase missing documents
   - who hasn't sent their documents
   - document checklist
+function_slot: documents
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__list_form_submissions
+  - mcp__get_form_submission
+  - mcp__describe_resource
+  - mcp__list_opportunity_files
+  - mcp__list_opportunities
+  - mcp__resend_form_submission
+status: active
 ---
 
 # Outstanding Documents

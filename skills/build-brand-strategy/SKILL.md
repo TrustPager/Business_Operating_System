@@ -9,6 +9,11 @@ triggers:
   - author value props
   - content pillars from customer voice
   - turn customer voice into strategy
+function_slot: strategy
+requires_driver: none
+requires_credential: none
+data_path: local
+status: active
 ---
 
 # Build Brand Strategy

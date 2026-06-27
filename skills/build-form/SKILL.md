@@ -9,6 +9,17 @@ triggers:
   - build a client questionnaire
   - turn this paper form into a TrustPager form
   - create a booking request form
+function_slot: documents
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__create_form_template
+  - mcp__trustpager__add_form_field
+  - mcp__trustpager__reorder_form_fields
+  - mcp__trustpager__list_form_fields
+  - mcp__trustpager__describe_resource
+status: active
 ---
 
 # Build Form

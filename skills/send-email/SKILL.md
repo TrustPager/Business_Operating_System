@@ -10,6 +10,16 @@ triggers:
   - email them
   - draft and send an email
   - reply via email
+function_slot: comms
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__send_email
+  - mcp__trustpager__reply_to_email
+  - mcp__trustpager__list_opportunity_files
+  - mcp__trustpager__schedule_communication
+status: active
 ---
 
 # /send-email

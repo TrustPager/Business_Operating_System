@@ -7,6 +7,14 @@ triggers:
   - review sarah's draft
   - approve team draft
   - check the drafts queue
+function_slot: comms
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - get_opportunity
+  - get_contact
+status: active
 ---
 
 # Review Team Draft

@@ -8,6 +8,13 @@ triggers:
   - does this form map correctly
   - test the client portal
   - send myself a test form
+function_slot: crm
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__send_form
+status: active
 ---
 
 # Test Form

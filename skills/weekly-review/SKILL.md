@@ -9,6 +9,16 @@ triggers:
   - end of week summary
   - weekly recap
   - review my week
+function_slot: strategy
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__list_opportunities
+  - mcp__trustpager__list_tasks
+  - mcp__trustpager__get_pipeline_summary
+  - mcp__trustpager__complete_task
+status: active
 ---
 
 # Weekly Review

@@ -9,6 +9,11 @@ triggers:
   - get the fields from this form
   - summarise this document
   - import this statement
+function_slot: documents
+requires_driver: markitdown
+requires_credential: none
+data_path: local
+status: active
 ---
 
 # Extract Document

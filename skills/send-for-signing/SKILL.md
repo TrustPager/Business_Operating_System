@@ -8,6 +8,15 @@ triggers:
   - get this signed
   - email the agreement for signature
   - send the document to the signers
+function_slot: documents
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__send_for_signing
+  - mcp__trustpager__list_document_templates
+  - mcp__trustpager__search_opportunities
+status: active
 ---
 
 # Send For Signing

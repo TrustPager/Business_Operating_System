@@ -1,4 +1,504 @@
 {
+  "add-a-field": {
+    "data_path": "mcp_tools",
+    "function_slot": "crm",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active"
+  },
+  "assemble-pack": {
+    "data_path": "mcp_tools",
+    "function_slot": "documents",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__list_opportunity_files",
+      "mcp__trustpager__list_opportunity_documents",
+      "mcp__trustpager__describe_resource",
+      "mcp__trustpager__bundle_files"
+    ]
+  },
+  "audit-my-automations": {
+    "data_path": "mcp_tools",
+    "function_slot": "crm",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__list_automations",
+      "mcp__trustpager__list_automation_runs",
+      "mcp__trustpager__update_automation",
+      "mcp__trustpager__disable_automation"
+    ]
+  },
+  "audit-my-data": {
+    "data_path": "mcp_tools",
+    "function_slot": "crm",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__list_contacts",
+      "mcp__trustpager__list_opportunities",
+      "mcp__trustpager__list_tasks",
+      "mcp__trustpager__update_opportunity"
+    ]
+  },
+  "automate-this": {
+    "data_path": "mcp_tools",
+    "function_slot": "crm",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__get_trigger_schema",
+      "mcp__trustpager__describe_action_type",
+      "mcp__trustpager__create_automation",
+      "mcp__trustpager__add_automation_action",
+      "mcp__trustpager__add_automation_trigger",
+      "mcp__trustpager__execute_automation_action",
+      "mcp__trustpager__enable_automation"
+    ]
+  },
+  "brand-my-workspace": {
+    "data_path": "local",
+    "function_slot": "creative",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
+  "build-brand-strategy": {
+    "data_path": "local",
+    "function_slot": "strategy",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
+  "build-customer-voice": {
+    "data_path": "mcp_tools",
+    "function_slot": "research",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active"
+  },
+  "build-document": {
+    "data_path": "mcp_tools",
+    "function_slot": "documents",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__create_document_template",
+      "mcp__trustpager__add_document_section",
+      "mcp__trustpager__reorder_document_sections",
+      "mcp__trustpager__get_document_template",
+      "mcp__trustpager__render_document_template",
+      "mcp__trustpager__describe_resource"
+    ]
+  },
+  "build-form": {
+    "data_path": "mcp_tools",
+    "function_slot": "documents",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__create_form_template",
+      "mcp__trustpager__add_form_field",
+      "mcp__trustpager__reorder_form_fields",
+      "mcp__trustpager__list_form_fields",
+      "mcp__trustpager__describe_resource"
+    ]
+  },
+  "build-knowledge-base-from-docs": {
+    "data_path": "mcp_tools",
+    "function_slot": "documents",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__create_knowledge",
+      "mcp__trustpager__ingest_knowledge_base_text"
+    ]
+  },
+  "build-spreadsheet": {
+    "data_path": "mcp_tools",
+    "function_slot": "accounting",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__create_spreadsheet",
+      "mcp__list_spreadsheet_templates",
+      "mcp__bulk_append_spreadsheet_rows"
+    ]
+  },
+  "build-work-order-process": {
+    "data_path": "mcp_tools",
+    "function_slot": "crm",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__list_work_order_statuses",
+      "mcp__trustpager__list_work_order_fields",
+      "mcp__trustpager__create_work_order_status",
+      "mcp__trustpager__reorder_work_order_statuses",
+      "mcp__trustpager__create_work_order_field",
+      "mcp__trustpager__describe_resource",
+      "mcp__trustpager__create_work_order"
+    ]
+  },
+  "compare-documents": {
+    "data_path": "local",
+    "function_slot": "documents",
+    "requires_credential": "none",
+    "requires_driver": "markitdown",
+    "status": "active"
+  },
+  "delegate-this-work": {
+    "data_path": "mcp_tools",
+    "function_slot": "people",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__create_task"
+    ]
+  },
+  "design-nurture-sequence": {
+    "data_path": "reasoning_only",
+    "function_slot": "comms",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
+  "draft-reply": {
+    "data_path": "mcp_tools",
+    "function_slot": "comms",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__reply_to_email",
+      "mcp__trustpager__send_sms"
+    ]
+  },
+  "email-me-a-report": {
+    "data_path": "mcp_tools",
+    "function_slot": "strategy",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__create_report_dashboard",
+      "mcp__add_report_card",
+      "mcp__query_report",
+      "mcp__describe_action_type",
+      "mcp__describe_resource"
+    ]
+  },
+  "extract-document": {
+    "data_path": "local",
+    "function_slot": "documents",
+    "requires_credential": "none",
+    "requires_driver": "markitdown",
+    "status": "active"
+  },
+  "follow-up-radar": {
+    "data_path": "mcp_tools",
+    "function_slot": "crm",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__send_sms",
+      "mcp__send_email",
+      "mcp__add_note",
+      "mcp__update_opportunity"
+    ]
+  },
+  "form-radar": {
+    "data_path": "mcp_tools",
+    "function_slot": "crm",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__list_form_submissions",
+      "mcp__trustpager__resend_form_submission",
+      "mcp__trustpager__void_form_submission"
+    ]
+  },
+  "import-from-anywhere": {
+    "data_path": "mcp_tools",
+    "function_slot": "crm",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__bulk_create_contacts",
+      "mcp__trustpager__bulk_append_spreadsheet_rows"
+    ]
+  },
+  "lead-triage": {
+    "data_path": "mcp_tools",
+    "function_slot": "crm",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__create_opportunity",
+      "mcp__trustpager__send_email",
+      "mcp__trustpager__send_sms"
+    ]
+  },
+  "learn-my-business": {
+    "data_path": "mcp_tools",
+    "function_slot": "strategy",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__list_pipelines",
+      "mcp__list_pipeline_stages",
+      "mcp__list_products",
+      "mcp__get_company_profile",
+      "mcp__get_crm_settings"
+    ]
+  },
+  "lint-document": {
+    "data_path": "mcp_tools",
+    "function_slot": "documents",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__list_document_templates",
+      "mcp__trustpager__get_document_template"
+    ]
+  },
+  "lint-form": {
+    "data_path": "mcp_tools",
+    "function_slot": "documents",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__get_form_template",
+      "mcp__trustpager__list_form_fields",
+      "mcp__trustpager__list_form_templates"
+    ]
+  },
+  "lint-nurture-sequence": {
+    "data_path": "mcp_tools",
+    "function_slot": "comms",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active"
+  },
+  "log-this-call": {
+    "data_path": "mcp_tools",
+    "function_slot": "crm",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__add_note",
+      "mcp__trustpager__move_opportunity_card",
+      "mcp__trustpager__create_task",
+      "mcp__trustpager__send_email"
+    ]
+  },
+  "make-it-happen": {
+    "data_path": "mcp_tools",
+    "function_slot": "crm",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__get_ai_instructions",
+      "mcp__trustpager__describe_resource",
+      "mcp__trustpager__describe_action_type",
+      "mcp__trustpager__get_trigger_schema",
+      "mcp__trustpager__list_action_types"
+    ]
+  },
+  "make-social-post": {
+    "data_path": "local",
+    "function_slot": "social",
+    "requires_credential": "none",
+    "requires_driver": "render",
+    "status": "active"
+  },
+  "make-thumbnail": {
+    "data_path": "local",
+    "function_slot": "creative",
+    "requires_credential": "none",
+    "requires_driver": "render",
+    "status": "active"
+  },
+  "missed-call-recovery": {
+    "data_path": "mcp_tools",
+    "function_slot": "comms",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__send_sms",
+      "mcp__trustpager__send_email"
+    ]
+  },
+  "nurture-health": {
+    "data_path": "mcp_tools",
+    "function_slot": "comms",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__list_auto_queues",
+      "mcp__get_auto_queue",
+      "mcp__get_auto_queue_board",
+      "mcp__list_auto_queue_enrollments",
+      "mcp__list_email_logs"
+    ]
+  },
+  "onboard-team-member": {
+    "data_path": "local",
+    "function_slot": "people",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
+  "outstanding-documents": {
+    "data_path": "mcp_tools",
+    "function_slot": "documents",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__list_form_submissions",
+      "mcp__get_form_submission",
+      "mcp__describe_resource",
+      "mcp__list_opportunity_files",
+      "mcp__list_opportunities",
+      "mcp__resend_form_submission"
+    ]
+  },
+  "outstanding-invoices": {
+    "data_path": "mcp_tools",
+    "function_slot": "money",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__sync_receivables",
+      "mcp__create_report_dashboard",
+      "mcp__add_report_card",
+      "mcp__query_report",
+      "mcp__send_report_email",
+      "mcp__describe_action_type",
+      "mcp__describe_resource"
+    ]
+  },
+  "prep-for-call": {
+    "data_path": "mcp_tools",
+    "function_slot": "crm",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__list_bookings",
+      "mcp__trustpager__get_booking",
+      "mcp__trustpager__search_contacts",
+      "mcp__trustpager__search_opportunities",
+      "mcp__trustpager__get_opportunity",
+      "mcp__trustpager__get_opportunity_activities",
+      "mcp__trustpager__list_transcripts",
+      "mcp__trustpager__get_opportunity_tasks",
+      "mcp__trustpager__get_contact",
+      "mcp__trustpager__get_opportunity_products"
+    ]
+  },
+  "quote-from-photo": {
+    "data_path": "reasoning_only",
+    "function_slot": "documents",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
+  "report-an-issue": {
+    "data_path": "mcp_tools",
+    "function_slot": "comms",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__create_service_request"
+    ]
+  },
+  "review-team-draft": {
+    "data_path": "mcp_tools",
+    "function_slot": "comms",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "get_opportunity",
+      "get_contact"
+    ]
+  },
+  "send-email": {
+    "data_path": "mcp_tools",
+    "function_slot": "comms",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__send_email",
+      "mcp__trustpager__reply_to_email",
+      "mcp__trustpager__list_opportunity_files",
+      "mcp__trustpager__schedule_communication"
+    ]
+  },
+  "send-for-signing": {
+    "data_path": "mcp_tools",
+    "function_slot": "documents",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__send_for_signing",
+      "mcp__trustpager__list_document_templates",
+      "mcp__trustpager__search_opportunities"
+    ]
+  },
+  "show-me-how": {
+    "data_path": "mcp_tools",
+    "function_slot": "strategy",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__search_help_center",
+      "mcp__trustpager__describe_resource",
+      "mcp__trustpager__describe_action_type",
+      "mcp__trustpager__create_service_request"
+    ]
+  },
+  "signing-radar": {
+    "data_path": "mcp_tools",
+    "function_slot": "documents",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__list_signing_envelopes",
+      "mcp__trustpager__resend_signing_envelope",
+      "mcp__trustpager__void_signing_envelope"
+    ]
+  },
   "sweep-my-day": {
     "data_path": "mcp_tools",
     "function_slot": "crm",
@@ -19,6 +519,141 @@
       "mcp__trustpager__list_transcripts",
       "mcp__trustpager__list_bookings",
       "mcp__trustpager__get_pipeline_summary"
+    ]
+  },
+  "sync-from-xero": {
+    "data_path": "mcp_tools",
+    "function_slot": "accounting",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__query_integration",
+      "mcp__trustpager__update_opportunity",
+      "mcp__trustpager__describe_resource"
+    ]
+  },
+  "sync-team-standards": {
+    "data_path": "local",
+    "function_slot": "people",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
+  "team-review": {
+    "data_path": "mcp_tools",
+    "function_slot": "people",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__list_tasks",
+      "mcp__list_activities"
+    ]
+  },
+  "template-from-document": {
+    "data_path": "local",
+    "function_slot": "documents",
+    "requires_credential": "none",
+    "requires_driver": "markitdown",
+    "status": "active"
+  },
+  "test-form": {
+    "data_path": "mcp_tools",
+    "function_slot": "crm",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__send_form"
+    ]
+  },
+  "transcript-summary": {
+    "data_path": "mcp_tools",
+    "function_slot": "comms",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__list_transcripts",
+      "mcp__trustpager__get_transcript",
+      "mcp__trustpager__ai_transcript_summary",
+      "mcp__trustpager__add_note",
+      "mcp__trustpager__log_meeting",
+      "mcp__trustpager__create_task"
+    ]
+  },
+  "update-pdf": {
+    "data_path": "mcp_tools",
+    "function_slot": "documents",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active"
+  },
+  "weekly-review": {
+    "data_path": "mcp_tools",
+    "function_slot": "strategy",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__list_opportunities",
+      "mcp__trustpager__list_tasks",
+      "mcp__trustpager__get_pipeline_summary",
+      "mcp__trustpager__complete_task"
+    ]
+  },
+  "why-didnt-it-fire": {
+    "data_path": "mcp_tools",
+    "function_slot": "crm",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__enable_automation",
+      "mcp__trustpager__add_automation_trigger",
+      "mcp__trustpager__update_automation",
+      "mcp__trustpager__update_automation_action",
+      "mcp__trustpager__execute_automation_action"
+    ]
+  },
+  "wire-form": {
+    "data_path": "mcp_tools",
+    "function_slot": "documents",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__get_form_template",
+      "mcp__trustpager__list_form_fields",
+      "mcp__trustpager__bulk_update_form_field_wiring",
+      "mcp__trustpager__send_form",
+      "mcp__trustpager__create_internal_form_submission"
+    ]
+  },
+  "wire-nurture-sequence": {
+    "data_path": "mcp_tools",
+    "function_slot": "comms",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__update_automation_action",
+      "mcp__trustpager__add_automation_action",
+      "mcp__trustpager__create_automation",
+      "mcp__trustpager__add_auto_queue_step",
+      "mcp__trustpager__update_auto_queue_step"
+    ]
+  },
+  "work-order-radar": {
+    "data_path": "mcp_tools",
+    "function_slot": "crm",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__list_work_orders",
+      "mcp__trustpager__send_work_status"
     ]
   },
   "write-prompt": {

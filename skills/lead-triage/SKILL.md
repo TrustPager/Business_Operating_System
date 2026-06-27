@@ -10,6 +10,15 @@ triggers:
   - any new inbounds
   - sort my inbox of new leads
   - which leads should I call first
+function_slot: crm
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__create_opportunity
+  - mcp__trustpager__send_email
+  - mcp__trustpager__send_sms
+status: active
 ---
 
 # /lead-triage

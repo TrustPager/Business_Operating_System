@@ -11,6 +11,16 @@ triggers:
   - teach me how
   - help me understand
   - tutorial for
+function_slot: strategy
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__search_help_center
+  - mcp__trustpager__describe_resource
+  - mcp__trustpager__describe_action_type
+  - mcp__trustpager__create_service_request
+status: active
 ---
 
 # /show-me-how

@@ -9,6 +9,11 @@ triggers:
   - customer voice synthesis
   - what pain do my customers describe
   - voice-of-customer research
+function_slot: research
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+status: active
 ---
 
 # Build Customer Voice

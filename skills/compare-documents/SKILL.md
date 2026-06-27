@@ -7,6 +7,11 @@ triggers:
   - diff these contracts
   - compare v1 and v2
   - what's different in the new version
+function_slot: documents
+requires_driver: markitdown
+requires_credential: none
+data_path: local
+status: active
 ---
 
 # Compare Documents

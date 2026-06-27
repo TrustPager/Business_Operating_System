@@ -9,6 +9,16 @@ triggers:
   - put the application pack together
   - make a submission pack
   - merge these files into one pdf
+function_slot: documents
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__list_opportunity_files
+  - mcp__trustpager__list_opportunity_documents
+  - mcp__trustpager__describe_resource
+  - mcp__trustpager__bundle_files
+status: active
 ---
 
 # Assemble Pack

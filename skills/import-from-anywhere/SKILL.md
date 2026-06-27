@@ -12,6 +12,14 @@ triggers:
   - paste of contacts
   - paste of leads
   - I have a spreadsheet
+function_slot: crm
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__bulk_create_contacts
+  - mcp__trustpager__bulk_append_spreadsheet_rows
+status: active
 ---
 
 # /import-from-anywhere

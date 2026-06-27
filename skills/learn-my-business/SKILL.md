@@ -9,6 +9,17 @@ triggers:
   - onboard me
   - read my workspace and set me up
   - generate my context file
+function_slot: strategy
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__list_pipelines
+  - mcp__list_pipeline_stages
+  - mcp__list_products
+  - mcp__get_company_profile
+  - mcp__get_crm_settings
+status: active
 ---
 
 # Learn My Business

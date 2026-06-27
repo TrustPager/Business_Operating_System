@@ -10,6 +10,15 @@ triggers:
   - total my X by month
   - import this excel into a spreadsheet
   - settlement spreadsheet
+function_slot: accounting
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__create_spreadsheet
+  - mcp__list_spreadsheet_templates
+  - mcp__bulk_append_spreadsheet_rows
+status: active
 ---
 
 # Build Spreadsheet

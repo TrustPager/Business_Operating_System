@@ -9,6 +9,13 @@ triggers:
   - request a feature
   - file a service request
   - tell the team about a problem
+function_slot: comms
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__create_service_request
+status: active
 ---
 
 # Report an Issue

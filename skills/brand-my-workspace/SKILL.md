@@ -8,6 +8,11 @@ triggers:
   - skin BOS to my brand
   - import brand from my website
   - update brand kit
+function_slot: creative
+requires_driver: none
+requires_credential: none
+data_path: local
+status: active
 ---
 
 # Brand My Workspace

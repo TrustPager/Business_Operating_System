@@ -10,6 +10,16 @@ triggers:
   - I just spoke to
   - just hung up
   - log a call
+function_slot: crm
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__add_note
+  - mcp__trustpager__move_opportunity_card
+  - mcp__trustpager__create_task
+  - mcp__trustpager__send_email
+status: active
 ---
 
 # /log-this-call

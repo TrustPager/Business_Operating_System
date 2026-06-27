@@ -10,6 +10,16 @@ triggers:
   - review my automations
   - are my automations still firing
   - automation audit
+function_slot: crm
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__list_automations
+  - mcp__trustpager__list_automation_runs
+  - mcp__trustpager__update_automation
+  - mcp__trustpager__disable_automation
+status: active
 ---
 
 # Audit My Automations

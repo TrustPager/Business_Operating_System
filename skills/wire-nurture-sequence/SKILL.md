@@ -7,6 +7,17 @@ triggers:
   - deploy the nurture emails
   - apply the nurture sequence
   - write the sequence to TrustPager
+function_slot: comms
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__update_automation_action
+  - mcp__trustpager__add_automation_action
+  - mcp__trustpager__create_automation
+  - mcp__trustpager__add_auto_queue_step
+  - mcp__trustpager__update_auto_queue_step
+status: active
 ---
 
 # Wire Nurture Sequence

@@ -13,6 +13,19 @@ triggers:
   - chase invoices
   - email me my receivables
   - daily invoice report
+function_slot: money
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__sync_receivables
+  - mcp__create_report_dashboard
+  - mcp__add_report_card
+  - mcp__query_report
+  - mcp__send_report_email
+  - mcp__describe_action_type
+  - mcp__describe_resource
+status: active
 ---
 
 # Outstanding Invoices

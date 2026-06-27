@@ -9,6 +9,19 @@ triggers:
   - set up my fulfilment board
   - create work order fields
   - set up job tracking
+function_slot: crm
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__list_work_order_statuses
+  - mcp__trustpager__list_work_order_fields
+  - mcp__trustpager__create_work_order_status
+  - mcp__trustpager__reorder_work_order_statuses
+  - mcp__trustpager__create_work_order_field
+  - mcp__trustpager__describe_resource
+  - mcp__trustpager__create_work_order
+status: active
 ---
 
 # Build Work Order Process

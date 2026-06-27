@@ -11,6 +11,19 @@ triggers:
   - I want an automation that
   - can you automate
   - what should I automate
+function_slot: crm
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__get_trigger_schema
+  - mcp__trustpager__describe_action_type
+  - mcp__trustpager__create_automation
+  - mcp__trustpager__add_automation_action
+  - mcp__trustpager__add_automation_trigger
+  - mcp__trustpager__execute_automation_action
+  - mcp__trustpager__enable_automation
+status: active
 ---
 
 # /automate-this

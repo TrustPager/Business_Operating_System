@@ -8,6 +8,15 @@ triggers:
   - review my intake form
   - check the form before I send it
   - are my form fields wired
+function_slot: documents
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__get_form_template
+  - mcp__trustpager__list_form_fields
+  - mcp__trustpager__list_form_templates
+status: active
 ---
 
 # Lint Form

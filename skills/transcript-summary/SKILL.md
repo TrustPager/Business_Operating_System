@@ -9,6 +9,18 @@ triggers:
   - turn the call into notes
   - write up the meeting
   - action items from the call
+function_slot: comms
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__list_transcripts
+  - mcp__trustpager__get_transcript
+  - mcp__trustpager__ai_transcript_summary
+  - mcp__trustpager__add_note
+  - mcp__trustpager__log_meeting
+  - mcp__trustpager__create_task
+status: active
 ---
 
 # Transcript Summary

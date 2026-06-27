@@ -7,6 +7,14 @@ triggers:
   - turn these documents into faqs
   - make my docs answerable
   - ingest these into knowledge
+function_slot: documents
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__create_knowledge
+  - mcp__trustpager__ingest_knowledge_base_text
+status: active
 ---
 
 # Build Knowledge Base From Docs

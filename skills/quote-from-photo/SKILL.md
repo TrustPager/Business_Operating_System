@@ -8,6 +8,11 @@ triggers:
   - here's a photo of the job
   - turn this photo into a proposal
   - estimate from this image
+function_slot: documents
+requires_driver: none
+requires_credential: none
+data_path: reasoning_only
+status: active
 ---
 
 # Quote From Photo

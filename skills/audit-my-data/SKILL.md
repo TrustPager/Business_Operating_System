@@ -10,6 +10,16 @@ triggers:
   - data hygiene check
   - clean up my crm
   - find missing fields
+function_slot: crm
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__list_contacts
+  - mcp__trustpager__list_opportunities
+  - mcp__trustpager__list_tasks
+  - mcp__trustpager__update_opportunity
+status: active
 ---
 
 # Audit My Data

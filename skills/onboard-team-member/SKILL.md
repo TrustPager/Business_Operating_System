@@ -8,6 +8,11 @@ triggers:
   - onboard sarah
   - give my team the standards
   - generate a teammate's claude setup
+function_slot: people
+requires_driver: none
+requires_credential: none
+data_path: local
+status: active
 ---
 
 # Onboard Team Member

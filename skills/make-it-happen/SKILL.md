@@ -10,6 +10,17 @@ triggers:
   - clean up
   - take care of
   - I need you to
+function_slot: crm
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__get_ai_instructions
+  - mcp__trustpager__describe_resource
+  - mcp__trustpager__describe_action_type
+  - mcp__trustpager__get_trigger_schema
+  - mcp__trustpager__list_action_types
+status: active
 ---
 
 # /make-it-happen

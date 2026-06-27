@@ -10,6 +10,15 @@ triggers:
   - chase unsigned documents
   - signing status
   - what's outstanding for signature
+function_slot: documents
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__list_signing_envelopes
+  - mcp__trustpager__resend_signing_envelope
+  - mcp__trustpager__void_signing_envelope
+status: active
 ---
 
 # Signing Radar

@@ -95,7 +95,9 @@ FUNCTION_SLOTS: frozenset[str] = frozenset(
     }
 )
 REQUIRES_CREDENTIAL: frozenset[str] = frozenset({"none", "mcp", "key"})
-DATA_PATHS: frozenset[str] = frozenset({"reasoning_only", "mcp_tools", "fetch_rest"})
+DATA_PATHS: frozenset[str] = frozenset(
+    {"reasoning_only", "mcp_tools", "fetch_rest", "local"}
+)
 STATUSES: frozenset[str] = frozenset({"active", "deprecated", "removed"})
 
 

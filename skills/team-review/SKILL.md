@@ -7,6 +7,14 @@ triggers:
   - team weekly rollup
   - what did the team ship
   - team retrospective
+function_slot: people
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__list_tasks
+  - mcp__list_activities
+status: active
 ---
 
 # Team Review
