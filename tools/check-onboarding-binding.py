@@ -86,6 +86,14 @@ _BACKTICK_RE = re.compile(r"`([^`]+)`")
 # text after the leading ``#`` markers.
 _PLANNED_HEADING_RE = re.compile(r"planned|coming soon|not yet built|unbuilt", re.IGNORECASE)
 
+# An inline "Planned" / not-yet-built flag on a single non-table line. Bullets/prose
+# outside a Planned heading flag a not-yet-built app inline — either the word
+# "planned" / "coming soon", or the ``[floor-new]`` build-status tag. A line carrying
+# one is treated as Planned-exempt from A, the prose analogue of the section heading.
+_PLANNED_INLINE_RE = re.compile(
+    r"\bplanned\b|coming soon|not yet built|unbuilt|\[floor-new\]", re.IGNORECASE
+)
+
 # Build-status tags used in starter-projects rows.
 _LIVE_TAG = "[live]"
 
@@ -206,6 +214,14 @@ def extract_starter_projects_refs(text: str, source: str = "starter-projects"
       - ``connected_tier`` if the row carries a better_with_crm / needs_crm tag;
       - ``offered_keyless`` if the row carries the literal ``keyless`` tag and a
         ``[live]`` build-status tag (a live, keyless-offered app).
+
+    Non-table lines (bullets / prose) can also name a buildable app, so a phantom
+    smuggled into a bullet must not evade A. For each non-heading line *without* a
+    ``|``, we emit every backticked app-id as a bare existence reference
+    (``offered_keyless=False`` — a bullet carries no per-row keyless/CRM tag, so we
+    can't classify it as a keyless *offer*; that's B's job, table-rows only). The
+    Planned flag is honored: a bullet under a Planned heading, or one carrying an
+    inline Planned / ``[floor-new]`` flag, stays exempt from A — same as a table row.
     """
     refs: list[Reference] = []
     in_planned = False
@@ -219,8 +235,15 @@ def extract_starter_projects_refs(text: str, source: str = "starter-projects"
             in_planned = bool(_PLANNED_HEADING_RE.search(heading))
             continue
 
-        # Only table rows carry "Builds on" app-ids.
+        # Non-table line (bullet / prose). Still subject to A (existence) so a phantom
+        # named here can't evade assertion. Not subject to B: a bullet has no per-row
+        # keyless/CRM tag to classify it as a keyless offer. A line is Planned-exempt
+        # when under a Planned heading OR carrying an inline Planned / [floor-new] flag.
         if "|" not in raw:
+            line_planned = in_planned or bool(_PLANNED_INLINE_RE.search(raw))
+            for app_id in _backticked_app_ids(raw):
+                refs.append(Reference(app_id, source, offered_keyless=False,
+                                      connected_tier=False, planned=line_planned))
             continue
 
         app_ids = _backticked_app_ids(raw)

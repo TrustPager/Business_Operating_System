@@ -10,7 +10,7 @@ Status legend: ✅ ships keyless today · 🟡 partly built · 🔁 needs decoup
 
 | # | First win (the artifact the owner walks away with) | Vertical fit | Relief | Required components | Status |
 |---|---|---|---|---|---|
-| 1 | A line-itemed quote from a photo + 30s voice note | Trades | win-work | quote-from-photo, price-my-work, doc-lib-set | 🔁 |
+| 1 | A line-itemed quote from a photo + 30s voice note | Trades | win-work | quote-from-photo (✅ keyless: photo → scope + line-item structure ships now), price-my-work (full auto-pricing enrichment), doc-lib-set | ✅ |
 | 2 | A defensible price for one common job (margin shown) | Trades, mfg, consulting | get-paid | price-my-work, doc-lib-set | 🆕 |
 | 3 | An on-brand proposal/SOW in the owner's voice (.docx) | Consulting, property | win-work | write-a-proposal, price-my-work, build-brand-strategy, doc-lib-set | 🆕 |
 | 4 | A one-page read of one competitor's site | All; consulting/property | decide-well | research-a-competitor, firecrawl-keyless | 🆕 |
@@ -47,7 +47,7 @@ Build in this order (each "unlocks" = number of roster wins it enables). Reasoni
 | 9 | **build-spreadsheet** (decouple) | 2 | small | local | Keyless standalone .xlsx via doc-lib-set; live workspace sheet is the deepener. |
 | 10 | **import-from-anywhere** (decouple) | 1 | medium | local | MarkItDown read → normalized local file; CRM seed only on connect. The natural connect on-ramp. |
 | 11 | **transcript-summary** (fix: keyless paste/local path) | 1 | small | local | Correctness gap: floor's zero-account claim isn't literally true until this lands. |
-| 12 | **quote-from-photo** (decouple: drop list_products) | 1 | trivial | reasoning_only | Lean on price-my-work for pricing; remove the contradictory `mcp` tool. |
+| 12 | **✅ (done) quote-from-photo** (decouple: drop list_products) | 1 | trivial | reasoning_only | Decoupled in Wave 0; price-my-work remains its pricing enrichment. |
 | 13 | **write-a-job-ad** | 1 | small | reasoning_only | Completes the team cluster's before-hire gap. Positive-only. |
 | 14 | **write-a-policy** | 1 | small | reasoning_only | High day-one demand; pre-feeds build-knowledge-base-from-docs on connect. Positive-only. |
 | 15 | **assemble-content-pack** | 1 | small | local | Publish-ready terminus of the MAKE cluster; pure orchestration, no generation. |

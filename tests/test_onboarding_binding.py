@@ -159,6 +159,52 @@ class TestAExists(unittest.TestCase):
             self.assertIn("A", joined)
             self.assertIn("research-a-competitor", joined)
 
+    def test_phantom_in_bullet_nonplanned_fails_A(self):
+        # A phantom app named as buildable in a BULLET line (no `|`) in a NON-Planned
+        # section must not evade A — the bullet-line evasion gap. `phantom-bullet-app`
+        # is not in the registry and the bullet carries no Planned / [floor-new] flag.
+        starter = """\
+# Starter Projects
+
+| Project | Builds on | Keyless/CRM |
+|---|---|---|
+| Brand written down | `build-brand-strategy` `[live]` | keyless |
+
+### Win work
+
+- **Spin me up a thing** today — `phantom-bullet-app` does it cold, no setup.
+"""
+        with tempfile.TemporaryDirectory() as t:
+            tmp = Path(t)
+            _write_surface(tmp, _CLEAN_START_HERE, _CLEAN_WHATS_POSSIBLE, starter)
+            failures = _run(tmp)
+            a_failures = [f for f in failures if f.startswith("A")]
+            self.assertTrue(a_failures, f"bullet-line phantom should fail A: {failures}")
+            joined = "\n".join(a_failures)
+            self.assertIn("phantom-bullet-app", joined)
+
+    def test_phantom_in_bullet_under_planned_heading_passes_A(self):
+        # The same phantom in a BULLET under a `## Planned` heading is EXEMPT from A —
+        # honestly flagged unbuilt, same exemption a Planned table row gets.
+        starter = """\
+# Starter Projects
+
+| Project | Builds on | Keyless/CRM |
+|---|---|---|
+| Brand written down | `build-brand-strategy` `[live]` | keyless |
+
+## Planned / coming soon (not buildable yet — non-routable)
+
+- **Spin me up a thing** — `phantom-bullet-app`, on the way.
+"""
+        with tempfile.TemporaryDirectory() as t:
+            tmp = Path(t)
+            _write_surface(tmp, _CLEAN_START_HERE, _CLEAN_WHATS_POSSIBLE, starter)
+            failures = _run(tmp)
+            self.assertEqual(
+                failures, [],
+                f"bullet phantom under a Planned heading should be exempt: {failures}")
+
 
 class TestBKeylessHonesty(unittest.TestCase):
     """B — a [live]/keyless-offered app the registry marks mcp/trustpager FAILS."""
