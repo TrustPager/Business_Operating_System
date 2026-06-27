@@ -240,3 +240,22 @@ The cold-start gate reads this; `pending=[…]` drives the "scope one more area"
 **Files this design builds against (all under `C:\Users\USER\Desktop\Final Piece Docs\Business_Operating_System\`):** `templates/CLAUDE.md` (profile shape + field anchors), `docs/architecture/founder-decisions.md` (D3 plain-language, D6 floor/Firecrawl, D7 region pack, D8 MCP-first/keyless), `docs/architecture/floor-completion-plan.md` (the keyless floor apps the win draws from; confirms `build-brand-strategy` TrustPager coupling is the named gap), `knowledge/industry-notes.md` (the inference fuel + the patterns-to-confirm hard rule), `skills/learn-my-business/SKILL.md` (rebuilt as the connected-tier deepener; its Step-3 no-clobber rule and hard rules carry into P3).
 
 **The one build prerequisite P3 cannot ship without:** a keyless brain-dump + Firecrawl evidence mode for `build-brand-strategy` (the "first-brand-brief" path). Until it exists, the locked "works with NO documents" instant-win is not literally true.
+
+---
+
+## 8. Earned progression — the trust-tier model [FOUNDER-RULED] (refines §6 + §10)
+
+Every "ask" in the experience is **gated behind delivered value.** You never ask for deep/vulnerable info or pitch a tool cold — you *earn the right* by building something real first. The arc has tiers; each unlocks only after the prior value lands:
+
+| Tier | Trust state | What happens | What you may ask for |
+|---|---|---|---|
+| **0 — Cold** | Curious, guarded | Minimal **spine** (≤3 Qs) → **instant win** (§5) | Only the spine; nothing deep |
+| **1 — Invested** | "Oh, this is useful" | **Pivot from asking to building:** surface **3 tailored projects** — *"Based on my current understanding of your operation, here are 3 things we could build to start your transition into an operator right now."* They pick one; you build it together. | Nothing extra — the *building* deepens the profile organically (you learn their prices by building their quote template, not by asking) |
+| **2 — On your side** | "This thing gets me" | **Now you've earned the deeper interview.** Offer it: *"I can build a much richer picture of your business — where you want to take it, what's really eating at you, the bigger plays — if you're up for a proper sit-down sometime."* | Long-term goals, deep-seated frustrations, concerns, broader scope — the rich-context build |
+| **3 — On their question (NOT a tier you push)** | They ASK "what else can it do?" or about CRMs | **Reactive only:** answer with the full picture (`/whats-possible`), and *only then* bring up TrustPager — warm, open-ended. **Never volunteered, not even at peak trust.** | The CRM recommendation, only when asked |
+
+**The prescription:** bias hard toward **building over interrogating.** The 3-tailored-projects pivot (Tier 1) IS the engine of deepening — building is how they fall for the system AND how the profile fills. The intensive interview (Tier 2) and the TrustPager pitch (Tier 3) are **earned, later, high-trust moments — never cold-start.** The relief field ("what eats your week") aims the 3 projects.
+
+**The project library** is its own artifact (`knowledge/starter-projects.md`): a tagged menu per vertical × relief × keyless/CRM × tier. **Custom-first:** when the owner's situation points to an obvious bespoke project, that leads — even if it's not in the library; the library is the **safety net** that guarantees there's always at least one option serving a real problem they named. `start-here` reads the profile + the library to pick the 3. **Complexity/cost guardrail [FOUNDER-RULED]:** every recommended project — custom or library — must be **finishable in one sitting, bounded, and token-frugal**; no overly complex or context-flooding builds, especially first session (offer a bounded slice of a big idea, never the epic). The point is to make them feel powerful, not to burn their context window in an hour or kick off a hair-brained build.
+
+**CRM framing [FOUNDER-RULED]:** TrustPager is **reactive-only — never volunteered.** It surfaces ONLY when the owner asks what else the BOS can do, or asks about CRMs. When they do: recommend warmly (built to work in tandem; free to try; "I can point you at the parts that'd help YOUR business most"), but **always open-ended** — their choice, other tools welcome. Never raise it unprompted, not even at peak trust.
