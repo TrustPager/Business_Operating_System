@@ -76,10 +76,10 @@
     "status": "active"
   },
   "build-customer-voice": {
-    "data_path": "mcp_tools",
-    "function_slot": "research",
-    "requires_credential": "mcp",
-    "requires_driver": "trustpager",
+    "data_path": "local",
+    "function_slot": "strategy",
+    "requires_credential": "none",
+    "requires_driver": "markitdown",
     "status": "active"
   },
   "build-document": {
@@ -230,6 +230,13 @@
       "mcp__trustpager__resend_form_submission",
       "mcp__trustpager__void_form_submission"
     ]
+  },
+  "grill-me-on-this-decision": {
+    "data_path": "reasoning_only",
+    "function_slot": "strategy",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
   },
   "import-from-anywhere": {
     "data_path": "mcp_tools",
@@ -402,6 +409,13 @@
       "mcp__describe_resource"
     ]
   },
+  "plan-my-content": {
+    "data_path": "reasoning_only",
+    "function_slot": "social",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
   "prep-for-call": {
     "data_path": "mcp_tools",
     "function_slot": "crm",
@@ -420,6 +434,13 @@
       "mcp__trustpager__get_contact",
       "mcp__trustpager__get_opportunity_products"
     ]
+  },
+  "price-my-work": {
+    "data_path": "reasoning_only",
+    "function_slot": "money",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
   },
   "quote-from-photo": {
     "data_path": "reasoning_only",
@@ -669,6 +690,27 @@
       "mcp__trustpager__list_work_orders",
       "mcp__trustpager__send_work_status"
     ]
+  },
+  "write-a-job-ad": {
+    "data_path": "reasoning_only",
+    "function_slot": "people",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
+  "write-a-policy": {
+    "data_path": "reasoning_only",
+    "function_slot": "people",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
+  "write-post-copy": {
+    "data_path": "reasoning_only",
+    "function_slot": "social",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
   },
   "write-prompt": {
     "data_path": "reasoning_only",
