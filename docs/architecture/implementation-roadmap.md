@@ -77,6 +77,7 @@ The original spine note still holds mechanically: P0→P3 are sequential; P4/P5/
 
 ## P4 — The floor: fix, adopt, build
 **Goal:** A complete, powerful default-on floor that stands at zero accounts.
+**Now roster-defined (founder [D9](founder-decisions.md), 2026-06-27):** the floor is defined by the first-win roster in [`floor-roster.md`](floor-roster.md) and built in its unlock-priority order. **Wave 0 (guardrail + onboarding repair) is the prerequisite to all further floor work** — it binds onboarding to the registry so the surface can never again advertise unbuilt/non-keyless apps (plan: [`plans/2026-06-27-floor-guardrail-and-repair.md`](plans/2026-06-27-floor-guardrail-and-repair.md)). The build list below is the menu the roster draws from.
 **Builds:**
 - **Fix:** `transcript-summary` gets a keyless paste/local-file path.
 - **Adopt (the only two survivors):** wire `firecrawl-keyless` (`scrape`/`search`/`interact` only) as the KNOW driver; vendor the **doc-lib-set** (`openpyxl`, `python-docx`, `pdfplumber`, `reportlab` core; `OCRmyPDF` gated behind one-time install preflight; `python-pptx` on-demand) as `tools/` Bash wrappers; name MarkItDown + the render engine as first-class keyless drivers.

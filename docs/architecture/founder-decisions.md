@@ -109,3 +109,20 @@ Verified against TrustPager's own help center (read live via the connector):
   item re-points the TrustPager read apps from key'd `fetch.py` to MCP tools; manifests (P1) carry
   `requires_credential: mcp` + `data_path: mcp_tools` for TrustPager apps. The manifest enums below are
   the contract that encodes this.
+
+## D9 — The floor is defined by the first-win roster, and onboarding is registry-bound (2026-06-27)
+- **The floor is defined by the set of tangible first-win projects we offer a brand-new owner**, not by
+  whatever skills happen to exist. The roster IS the floor spec — see [floor-roster.md](floor-roster.md).
+  A win is "on the floor" only when it is genuinely keyless (zero accounts, zero files), produces a real
+  artifact, is finishable in one sitting, and is token-frugal. The floor build proceeds in the roster's
+  unlock-priority order.
+- **Onboarding is bound to the registry as the single source of truth (belt-and-suspenders):** a CI
+  binding check asserts every app the onboarding surface names exists + is correctly classified; a
+  manifest rule forbids `mcp__` tools on `requires_credential: none` skills; and `start-here` may only
+  *route* to registry-keyless apps at runtime. The curated `starter-projects.md` library is kept for
+  vertical-tailored project selection, but it can never point at a phantom or a mislabelled-keyless app.
+- **Why:** P3 shipped an onboarding that advertised 10 unbuilt apps + several CRM-coupled apps as keyless
+  wins, because the surface was authored against the design vision with nothing binding it to the built
+  registry. This decision makes "onboarding only ever offers real, keyless wins" a checked invariant.
+- **Roadmap impact:** re-frames P4/P5 around the roster; adds the guardrail (Wave 0) as the prerequisite
+  to all further floor work; the `design-nurture-sequence` registry mislabel is corrected to connected-tier.
