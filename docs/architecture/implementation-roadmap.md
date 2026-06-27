@@ -33,7 +33,7 @@
 | **P7** | TrustPager re-slot + de-brand | P1–P4 | TrustPager lives behind the "unlock" section; user-facing prose vendor-neutral; Xero proves driver #2 |
 | **P8** | Install + migration + ship | all | One-command conversational plugin install; existing installs migrate without breakage |
 
-**Status (updated 2026-06-26): P0 ✅ and P1 ✅ shipped to `main`.** (P0 = kernel/driver split, 49 tests; P1 = manifest + registry contract across all 58 skills, 97 tests.)
+**Status (updated 2026-06-27): P0 ✅, P1 ✅, and P3 (onboarding + catalog) ✅ shipped to `main`.** (P0 = kernel/driver split, 49 tests; P1 = manifest + registry contract, 97 tests; P3 = keyless `start-here` onboarding + `whats-possible` registry catalog + keyless `build-brand-strategy` first-win + `learn-my-business` reframed as the connected deepener + state-gated TrustPager, 60 skills registered, 97 tests.) **P3 remainder deferred:** `connect-a-tool` + `tools/preflight.py` (connect-on-demand) ride on P2's safety work and land with the plumbing phases — the shipped P3 increment is onboarding + the registry-driven catalog.
 
 **Floor-first re-sequence (founder directive — make the day-zero floor the star, not TrustPager).** The P0–P8 numbering stands, but the BUILD ORDER after P1 is re-prioritized to foreground the floor:
 1. **P0 ✅ → P1 ✅** — done (the foundation + the data-driven contract that surfaces the floor).
