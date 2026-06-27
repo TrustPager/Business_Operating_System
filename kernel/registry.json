@@ -426,7 +426,10 @@
     "function_slot": "documents",
     "requires_credential": "none",
     "requires_driver": "none",
-    "status": "active"
+    "status": "active",
+    "uses_tools": [
+      "mcp__trustpager__list_products"
+    ]
   },
   "report-an-issue": {
     "data_path": "mcp_tools",

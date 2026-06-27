@@ -12,6 +12,8 @@ function_slot: documents
 requires_driver: none
 requires_credential: none
 data_path: reasoning_only
+uses_tools:
+  - mcp__trustpager__list_products
 status: active
 ---
 
