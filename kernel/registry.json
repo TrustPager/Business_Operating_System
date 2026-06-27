@@ -168,10 +168,10 @@
     ]
   },
   "design-nurture-sequence": {
-    "data_path": "reasoning_only",
+    "data_path": "mcp_tools",
     "function_slot": "comms",
-    "requires_credential": "none",
-    "requires_driver": "none",
+    "requires_credential": "mcp",
+    "requires_driver": "trustpager",
     "status": "active"
   },
   "draft-reply": {
@@ -426,10 +426,7 @@
     "function_slot": "documents",
     "requires_credential": "none",
     "requires_driver": "none",
-    "status": "active",
-    "uses_tools": [
-      "mcp__trustpager__list_products"
-    ]
+    "status": "active"
   },
   "report-an-issue": {
     "data_path": "mcp_tools",

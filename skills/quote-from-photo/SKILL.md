@@ -12,8 +12,6 @@ function_slot: documents
 requires_driver: none
 requires_credential: none
 data_path: reasoning_only
-uses_tools:
-  - mcp__trustpager__list_products
 status: active
 ---
 
@@ -40,9 +38,15 @@ show). Work from all of it:
 
 ## Step 2 — Draft the scope + line items
 
-Pull from the operator's own products/services where they exist
-(`mcp__trustpager__list_products`) so pricing and names match their catalogue —
-don't invent product names or prices they don't use. Present:
+The keyless default is to **draft the scope + line-item structure and leave the
+prices for the operator to drop in**. Name the items, lay out the table, and
+flag the rates as theirs to fill. Don't invent product names or prices they
+don't use.
+
+*If your workspace is connected*, you can pull the operator's own
+products/services as optional enrichment so item names and pricing match their
+live catalogue. That's a deepener, never required: cold, structure-first is the
+win. Present:
 
 ```
 ## Quote — <job, from the photo> — <client, if known>

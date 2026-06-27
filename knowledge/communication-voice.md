@@ -29,7 +29,7 @@ Subject: Booking from a company record
 Hi James,
 Sorted, this is working now. You can book a meeting straight from a company
 record and it creates the opportunity for you automatically.
-To use it: open the company at https://app.trustpager.com/crm/accounts, click
+To use it: open the company at https://your-app.example.com/crm/accounts, click
 Book a Meeting, choose the meeting type, pick a time, and confirm.
 Reply if anything looks off.
 Sarah

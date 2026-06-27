@@ -1,6 +1,6 @@
 ---
 name: Make Social Post
-description: Design and render branded social posts (Instagram square/portrait, LinkedIn, X) for your TrustPager brand using the bundled Social Studio. Headline-first billboard layout with optional product card, stat strip, or testimonial. Browser preview → puppeteer-rendered PNG → optional one-command publish to your Files folder.
+description: Design and render branded social posts (Instagram square/portrait, LinkedIn, X) for your brand using the bundled Social Studio. Headline-first billboard layout with optional product card, stat strip, or testimonial. Browser preview → puppeteer-rendered PNG → optional one-command publish to your Files folder (when connected).
 triggers:
   - make a social post
   - design an instagram post
@@ -23,7 +23,7 @@ status: active
 You're helping the operator design and render a social post for their own
 brand using the bundled studio at `studio/social/`. It's a Vite + React +
 Puppeteer pipeline producing PNGs in four formats that can stay local or be
-uploaded to the operator's TrustPager workspace.
+uploaded to the operator's workspace (when connected).
 
 The design rules + the post anatomy + the data shape live in **two**
 canonical files inside the studio (read them BEFORE designing, not after):
@@ -111,7 +111,10 @@ Puppeteer + real Chrome writes the PNG to `studio/social/output/` and opens
 it. Inspect at 100% — the gradient accent word uses `background-clip:text`,
 which ONLY renders correctly in real Chrome, not in-browser rasterisers.
 
-## Step 5 — Publish (optional)
+## Step 5 — Publish (optional, when connected)
+
+The keyless deliverable is the rendered PNG. If the operator has a connected
+workspace, you can also one-command publish it straight to their Files folder:
 
 ```bash
 npm run publish <key>            # one design
@@ -119,8 +122,7 @@ npm run publish -- --all         # every design (skip existing)
 npm run publish <key> --replace  # overwrite
 ```
 
-Uploads to the operator's `Files > Images > Social Posts` folder. Auth
-resolves from `$TRUSTPAGER_API_KEY` then `~/.claude/bos.json`. Idempotent:
+Uploads to the operator's `Files > Images > Social Posts` folder. Idempotent:
 skip-if-exists by default, `--replace` to overwrite.
 
 ## Hard rules
