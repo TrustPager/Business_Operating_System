@@ -32,8 +32,16 @@ Design rules this module upholds:
 CLI:
     python tools/registry-generator.py            # write kernel/registry.json
     python tools/registry-generator.py --out PATH # write somewhere else
+    python tools/registry-generator.py --check    # verify, NEVER write (CI gate)
 
-It prints a one-line summary to stderr (N included, M skipped).
+In write mode it prints a one-line summary to stderr (N included, M skipped).
+
+In ``--check`` mode it regenerates the registry IN MEMORY, compares it
+byte-for-byte to the committed ``kernel/registry.json`` (against the exact text
+``serialize_registry`` would write), and NEVER touches the file: identical →
+prints "registry up to date" and exits 0; different (or missing) → prints a
+concise summary of which skills were added / removed / changed and exits 1. This
+is the drift guard that fails CI when a manifest is edited without regenerating.
 """
 
 from __future__ import annotations
@@ -158,6 +166,30 @@ def serialize_registry(registry: dict[str, Any]) -> str:
     return json.dumps(registry, indent=2, sort_keys=True) + "\n"
 
 
+def _diff_summary(
+    committed: dict[str, Any], fresh: dict[str, Any]
+) -> list[str]:
+    """Human-readable summary of how ``fresh`` differs from ``committed``.
+
+    Reports skills added (in fresh, not committed), removed (in committed, not
+    fresh), and changed (present in both but with a different entry). Each line
+    names the skill so a developer knows exactly what drifted. Sorted for a
+    stable, deterministic message.
+    """
+    committed_keys = set(committed)
+    fresh_keys = set(fresh)
+
+    lines: list[str] = []
+    for name in sorted(fresh_keys - committed_keys):
+        lines.append(f"  + added:   {name}")
+    for name in sorted(committed_keys - fresh_keys):
+        lines.append(f"  - removed: {name}")
+    for name in sorted(committed_keys & fresh_keys):
+        if committed[name] != fresh[name]:
+            lines.append(f"  ~ changed: {name}")
+    return lines
+
+
 def _default_skills_dir() -> Path:
     """The repo's skills/ dir, resolved via plugin_root() when available."""
     try:
@@ -190,6 +222,12 @@ def main(argv: list[str] | None = None) -> int:
         default=None,
         help="Output path (default: <repo>/kernel/registry.json).",
     )
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="Verify the committed registry is fresh WITHOUT writing it; "
+        "exit non-zero (and print which skills drifted) if it is stale.",
+    )
     args = parser.parse_args(argv)
 
     skills_dir = Path(args.skills_dir) if args.skills_dir else _default_skills_dir()
@@ -197,6 +235,41 @@ def main(argv: list[str] | None = None) -> int:
 
     registry = generate_registry(skills_dir)
     text = serialize_registry(registry)
+
+    if args.check:
+        # Read-only verification. NEVER write the file in --check mode.
+        if not out_path.is_file():
+            print(
+                f"[registry] FAIL: {out_path} is missing — run "
+                "`python tools/registry-generator.py` to create it.",
+                file=sys.stderr,
+            )
+            return 1
+
+        committed_text = out_path.read_text(encoding="utf-8")
+        if committed_text == text:
+            print("registry up to date", file=sys.stderr)
+            return 0
+
+        # Stale. Summarise which skills drifted (added / removed / changed)
+        # so the operator knows exactly what to look at — then how to fix it.
+        try:
+            committed_registry = json.loads(committed_text)
+        except json.JSONDecodeError:
+            committed_registry = {}
+        print(
+            f"[registry] FAIL: {out_path} is STALE — it drifted from the "
+            "skill manifests:",
+            file=sys.stderr,
+        )
+        for line in _diff_summary(committed_registry, registry):
+            print(line, file=sys.stderr)
+        print(
+            "[registry] Fix: run `python tools/registry-generator.py` and "
+            "commit the regenerated kernel/registry.json.",
+            file=sys.stderr,
+        )
+        return 1
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(text, encoding="utf-8")

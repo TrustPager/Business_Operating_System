@@ -29,6 +29,9 @@ jobs:
       - name: Kernel-clean (kernel must name no vendor)
         run: python tools/check-kernel-clean.py
 
+      - name: Registry fresh (committed registry must match manifests)
+        run: python tools/registry-generator.py --check
+
       - name: Lint every skill
         run: |
           set -e
