@@ -10,6 +10,24 @@ triggers:
   - what's hot
   - daily roundup
   - start my day
+function_slot: crm
+requires_driver: trustpager
+requires_credential: mcp
+data_path: mcp_tools
+uses_tools:
+  - mcp__trustpager__list_email_threads
+  - mcp__trustpager__list_sms_conversations
+  - mcp__trustpager__list_phone_call_logs
+  - mcp__trustpager__list_form_submissions
+  - mcp__trustpager__list_whatsapp_conversations
+  - mcp__trustpager__list_tasks
+  - mcp__trustpager__list_work_orders
+  - mcp__trustpager__list_scheduled_communications
+  - mcp__trustpager__list_opportunities
+  - mcp__trustpager__get_opportunity_activities
+  - mcp__trustpager__list_transcripts
+  - mcp__trustpager__list_bookings
+  - mcp__trustpager__get_pipeline_summary
 ---
 
 # Sweep My Day

@@ -8,6 +8,10 @@ triggers:
   - help me brief this
   - make this prompt explicit
   - improve this prompt
+function_slot: floor
+requires_driver: none
+requires_credential: none
+data_path: reasoning_only
 ---
 
 # Write Prompt
