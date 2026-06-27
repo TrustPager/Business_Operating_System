@@ -1,6 +1,6 @@
 ---
 name: Learn My Business
-description: Read the operator's live TrustPager workspace and WRITE their CLAUDE.md profile for them — company + brand, the real pipeline stages, products and prices, lead sources, opportunity types — folding in any industry gotchas from knowledge/industry-notes.md. The single front door to setup; replaces hand-filling a template. Run once at setup, or re-run when the workspace shape changes.
+description: Once a CRM is connected, read the operator's live TrustPager workspace and DEEPEN their CLAUDE.md profile from real data — company + brand, the real pipeline stages, products and prices, lead sources, opportunity types — folding in any industry gotchas from knowledge/industry-notes.md. This is the connected deepener, not the cold front door: brand-new or keyless owners start with /start-here (a 60-second brain-dump, no accounts needed); this runs once a workspace is connected, or re-runs when its shape changes.
 triggers:
   - learn my business
   - set up my CLAUDE.md
@@ -24,11 +24,13 @@ status: active
 
 # Learn My Business
 
-Hand-filling a template means picking the right one and completing a dozen
-`<<< ... >>>` blanks. Most operators never do — so Claude starts every session
-not knowing their pipeline, products, or stages. This skill is the front door
-that removes that step: it reads the live workspace and writes a filled,
-accurate `CLAUDE.md` for them, with any industry-specific gotchas folded in.
+**This is the connected deepener, not the cold front door.** Brand-new and keyless
+owners start with `/start-here` — a 60-second brain-dump that fills the profile and
+lands a real win with zero accounts. This skill picks up *after* a CRM is connected:
+it reads the live workspace and replaces the inferred guesses in `CLAUDE.md` with
+filled, accurate data — the real pipeline, products and prices, stages, lead
+sources — with any industry-specific gotchas folded in. Run it once on connect, and
+re-run it whenever the workspace shape changes.
 
 ## Step 1 — Read the workspace shape
 
