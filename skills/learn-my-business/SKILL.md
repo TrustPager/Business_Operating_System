@@ -51,8 +51,10 @@ may need to ask "what's your business name and what do you do?").
 ## Step 2 — Load the structure + the industry gotchas
 
 There is one base template: **`templates/CLAUDE.md`** — read it so the file you
-write keeps its structure (including the fixed "About TrustPager" block) and you
-fill it from real data rather than inventing a new format.
+write keeps its structure and you fill it from real data rather than inventing a
+new format. The template is vendor-neutral by design: it carries no TrustPager
+pitch or tool catalogue. The TrustPager operating context is added separately in
+Step 2b once you've confirmed the connection is live.
 
 Then match the operator's industry to a section in **`knowledge/industry-notes.md`**
 using `company.industry` and the pipeline shape:
@@ -67,6 +69,23 @@ If the industry is ambiguous or `unavailable`, **ask one short question**
 Pull that section's **gotchas** and **comms style** into the file you write —
 but treat them as industry patterns to confirm, never as facts read from the
 workspace (see hard rules).
+
+## Step 2b — Plant the TrustPager operating context
+
+Because this skill only runs once a TrustPager workspace is connected (Step 1
+read its live shape), the owner's profile should now carry the full TrustPager
+operating capability — the part the day-zero template deliberately leaves out.
+
+Read **`drivers/trustpager/OPERATING-CONTEXT.md`** (the canonical source for how
+to behave when the connection is live: the one-workspace/your-key framing, the
+Australian-first defaults, the approval-queue guardrail, credits, signals, and
+the practical tool list). Fold it into the owner's `./CLAUDE.md` as a clearly
+marked TrustPager operating section, so every subsequent session carries it.
+
+This merge follows the same no-clobber rule as Step 3: if `./CLAUDE.md` already
+exists, **never silently overwrite it** — show the diff (what you're adding /
+changing) and ask before replacing. A hand-tuned profile may have edits worth
+keeping; merge the operating context in, don't clobber.
 
 ## Step 3 — Write the CLAUDE.md
 
@@ -114,7 +133,7 @@ End by telling them: "Claude will use this from your next session. Re-run
   workspace. If a section is `unavailable`, ask one question; don't fabricate.
 - ❌ Don't fill the "ideal customer" / "tone" sections as if they were read from
   data — they're your guess; label them for confirmation.
-- ✅ Keep `templates/CLAUDE.md`'s structure (incl. the "About TrustPager" block) intact, and fold in the matched industry section's gotchas + comms style.
+- ✅ Keep `templates/CLAUDE.md`'s structure intact, fold in the matched industry section's gotchas + comms style, and plant the TrustPager operating context from `drivers/trustpager/OPERATING-CONTEXT.md` (Step 2b).
 - ✅ Industry gotchas are *patterns to confirm*, not workspace facts — present them as defaults the operator can correct, and let real workspace data win where they conflict.
 - ✅ Use the operator's exact stage and product names, spelled as the workspace
   spells them.

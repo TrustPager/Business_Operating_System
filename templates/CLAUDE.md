@@ -16,32 +16,6 @@
 
 ---
 
-## About TrustPager — optional context for Claude (only relevant once a CRM is connected; don't edit this section)
-
-> Background for *if and when* you connect TrustPager as your CRM. If you haven't
-> connected a CRM, ignore this block — I'll work from the profile below and what
-> you share. Everything *below* this section is about my business — edit that.
-
-**TrustPager is an AI-first, all-in-one CRM, automation, and communication hub for Australian businesses** (`https://app.trustpager.com`). It's one workspace that replaces a stack of separate tools, built so an AI can run it end to end. If I connect it, you operate it on my behalf through the TrustPager connection (the `mcp__trustpager__*` tools) — one workspace, mine, using my key. Reads are free, so look around freely; writes cost credits and need my OK.
-
-**What lives in it** (so you know what's possible when I ask):
-- **CRM** — Opportunities (deals), Contacts, Accounts (companies), Products, Tasks, Workflows (pipelines + stages), Work Orders, Calendar, Reporting dashboards.
-- **Comms (Inbox)** — Email (TrustPager Mail or Gmail), SMS, WhatsApp, AI voice/text agents — all logged to the record.
-- **Automations (Auto)** — Automations (trigger → conditions → ordered actions), Auto Queues (multi-step nurture/follow-up sequences), Auto Schedules (cron-driven sends), native integrations (Xero/MYOB), webhooks.
-- **Tools** — Documents + built-in e-signing, Forms (answers write back onto the CRM record), AI Image Builder, Notepads, Spreadsheets, Websites, Stripe order forms, Email Campaigns.
-- **AI built in** — call transcription + coaching, needs analysis, form auto-fill, image generation, AI Knowledge (company FAQs/policies), and Evie (the in-app assistant).
-- **Lead gen, public reputation pages, referrals, and CRM export** round it out.
-
-**Things that change how you behave:**
-- **Australian-first:** AUD, Australia/Sydney time, +61 phone format, DD/MM/YYYY dates. Default to these.
-- **Approval queue:** if a write comes back "queued for approval" (HTTP 202 + an approval id), that's not a failure and not done — it's waiting on a human. Tell me to approve it at `app.trustpager.com/settings/api?tab=approvals` and **stop. Never retry or route around it.**
-- **Credits:** reads free; sends and AI generation cost credits; **voice calls are the most expensive** — flag before anything that burns a lot.
-- **Signals drive automations:** opening/signing a document or opening/submitting a form can trigger follow-ups automatically — keep that in mind before also chasing someone manually.
-- **Terminology:** the platform says "opportunities" for what some tools call "deals" — same thing.
-- **One workspace, mine.** You only ever touch my TrustPager workspace, never anyone else's.
-
----
-
 ## My business
 
 I'm `<<< your name >>>`, and I run `<<< business name >>>`. I'm based in `<<< city, country >>>`.
@@ -122,19 +96,6 @@ When drafting any client-facing email, SMS, or message:
 - ❌ Never quote prices without checking my product catalogue
 - ❌ Never promise dates or outcomes I can't control
 - ❌ `<<< add any other "never do this in my voice" rules >>>`
-
-## Tools I rely on
-
-*(Relevant once I've connected a CRM — until then, skip this.)* If TrustPager is connected, its tools give you access to my workspace. Lean on these:
-
-- **`list_opportunities` / `get_opportunity`** — every deal lives here
-- **`add_note` / `log_meeting` / `log_call`** — activity timeline
-- **`send_email` / `send_sms`** — comms with full logging
-- **`create_task` / `complete_task`** — my to-do list
-- **`list_transcripts`** — recordings from sales calls
-- **`ai_transcript_summary`** — turn a recording into a usable summary
-- **`get_pipeline_summary`** — gut check on the business
-- **`search_help_center`** — when I ask "how do I do X in TrustPager"
 
 ## When in doubt
 
