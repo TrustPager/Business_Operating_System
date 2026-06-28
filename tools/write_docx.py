@@ -28,10 +28,18 @@ import json
 import argparse
 
 
+# The pip spec the BOS installs when this lib is missing. python-docx imports
+# as `docx`, so the missing-import branch keys off `docx` but installs `python-docx`.
+MISSING_DEP_SPEC = "python-docx"
+
+# Machine-readable + human missing-dependency signal (D11). The leading
+# BOS_MISSING_DEP: line is what the SKILL layer keys off to run a detect ->
+# offer -> install-on-yes -> verify loop; the second line recommends
+# `python -m pip install` (never bare `pip`, a churn trap on multi-Python Windows).
 INSTALL_HINT = (
-    "python-docx isn't installed. It's the doc-lib-set tool for writing .docx files.\n"
-    "Install it once:\n"
-    "    pip install python-docx\n"
+    f"BOS_MISSING_DEP: {MISSING_DEP_SPEC}\n"
+    "python-docx isn't installed (the doc-lib-set tool for writing .docx files).\n"
+    f"Install it with: python -m pip install {MISSING_DEP_SPEC}\n"
 )
 
 

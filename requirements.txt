@@ -1,0 +1,25 @@
+# Business Operating System: bundled keyless document stack.
+#
+# These are the always-needed libraries for the keyless document floor (read +
+# write any common office file with no account and no network at runtime). A
+# normal install pulls them in automatically via `python tools/setup.py`, so a
+# brand-new owner needs ZERO manual steps. This file is the manual fallback and
+# the single declared list that `python tools/check-install.py --fix` heals against.
+#
+# Install them all (the rare manual path; the BOS normally does this for you):
+#     python -m pip install -r requirements.txt
+#
+# The kernel itself stays pure stdlib + vendor-neutral; these libs live only
+# behind the tools/ wrappers (see knowledge/document-tools-method.md). All are
+# permissive-licensed (MIT/BSD), safe to ship behind the keyless drivers.
+
+# Read any document into clean Markdown (the standard READ path). The [docx,pdf,
+# xlsx,pptx] extras are what make markitdown actually READ those office formats;
+# without them it degrades to an unreliable raw fallback.
+markitdown[docx,pdf,xlsx,pptx]
+
+# The keyless WRITE driver (doc-lib-set) + precise PDF read:
+python-docx   # write_docx.py:  write a real .docx from JSON blocks
+openpyxl      # write_xlsx.py:  write a real .xlsx from JSON rows
+reportlab     # make_pdf.py:    generate a PDF from JSON blocks
+pdfplumber    # pdf_tables.py:  extract a PDF's table grid as structured rows

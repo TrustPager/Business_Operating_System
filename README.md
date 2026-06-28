@@ -1,24 +1,34 @@
 # Business Operating System
 
-**Run your business from Claude. Built on TrustPager.**
+**Run your business from Claude.**
 
-A library of skills, slash commands, and templates that turn Claude Code into a hands-on operator for your TrustPager workspace — drafting follow-ups, triaging leads, recovering missed calls, prepping you for the next call, logging the last one.
+A library of skills, slash commands, and templates that turn Claude Code into a hands-on operator for your business: writing your proposals and policies, pricing your work, researching a competitor, turning a photo into a quote, prepping you for the next call. It works on day one with no accounts and no setup, and grows deeper when you connect the tools you already use.
+
+---
+
+## Start here
+
+**New? Type `/start-here`.** Your assistant introduces itself, learns your business from a 60-second brain-dump (no accounts, no files, nothing to install), and hands you a real win on the spot: a first proposal, a priced quote, a competitor read, or a brand brief. One short conversation and you're operating.
+
+```
+You:    /start-here
+Claude: Right, I'm your new AI assistant. Tell me what you do, who it's for,
+        and what eats most of your week. Got a website? Drop it in and I'll do
+        my own homework.
+You:    "Solo sparky in Geelong. Quoting eats my week."
+Claude: → here's your business as I now understand it
+        → and here's a finished, priced quote you can send today
+```
+
+That's the keyless floor: real work, zero setup. From there `/whats-possible` shows everything your system can already do.
 
 ---
 
 ## What this is
 
-Business Operating System (BOS) is a free, open-source pack you install once into Claude Code. After that, talking to Claude is the same as running your business — and Claude knows how, because every skill in here is a battle-tested workflow distilled from real TrustPager operations.
+Business Operating System (BOS) is a free, open-source pack you install once into Claude Code. After that, talking to Claude is the same as running your business, and Claude knows how, because every skill in here is a battle-tested workflow distilled from real operations.
 
-You don't need to learn the TrustPager API. You don't need to memorise tool names. You ask Claude to do the thing. Claude calls the right tools, in the right order, with the right safeguards.
-
-```
-You:    "What needs my attention today?"
-Claude: /sweep-my-day
-        → 3 hot leads from yesterday that haven't been replied to
-        → 2 quotes overdue from last week
-        → 1 missed call from a returning customer (drafting recovery SMS now)
-```
+You don't need to learn an API. You don't need to memorise tool names. You ask Claude to do the thing. Claude calls the right tools, in the right order, with the right safeguards. The first wins need nothing connected; the deeper, always-on workflows light up once you connect a CRM (BOS works hand-in-hand with **TrustPager**).
 
 ---
 
@@ -145,20 +155,21 @@ If that's you — this is built for you.
 
 ## How to install
 
-1. Sign up for TrustPager and grab your API key from your workspace settings
-2. Run the installer (see [INSTALL.md](./INSTALL.md))
-3. Restart Claude Code
-4. Type `/sweep-my-day` and say good morning
+1. Install the BOS pack into Claude Code (see [INSTALL.md](./INSTALL.md))
+2. Restart Claude Code
+3. Type `/start-here`
+
+That's it for a first win: no account, no key. Setup installs the small document tool-kit (read/write Word, Excel, PDF) for you automatically; if anything's ever missing, your assistant offers to add it and does it for you, so you never run a command (see [knowledge/setup-and-dependencies.md](./knowledge/setup-and-dependencies.md)).
 
 Full step-by-step: **[INSTALL.md](./INSTALL.md)**
 
 ---
 
-## Setting up your business context
+## Going deeper: connect your business
 
-Claude works best when it knows the shape of your business. The easiest way:
+`/start-here` gets you operating keyless. When you're ready for the always-on workflows (your live pipeline, automations, server-side reports), connect a CRM (BOS works hand-in-hand with TrustPager), then:
 
-**Run `/learn-my-business`.** It reads your live TrustPager workspace and writes your `CLAUDE.md` for you — your real pipeline, products, and brand — folding in the gotchas for your line of work. Re-run it whenever your workspace changes.
+**Run `/learn-my-business`.** This is the connected-tier deepener: it reads your live workspace and writes your `CLAUDE.md` for you (your real pipeline, products, and brand), folding in the gotchas for your line of work. Re-run it whenever your workspace changes. (`/start-here` already wrote a first profile from your brain-dump; this enriches it from live data once you're connected.)
 
 Prefer to do it by hand? Start from the [generic template](./templates/CLAUDE.md) and fill in the blanks. Industry-specific gotchas (mortgage/finance, trades, insurance, consulting, allied health, manufacturing) live in [knowledge/industry-notes.md](./knowledge/industry-notes.md) — one section per vertical, which `/learn-my-business` pulls from automatically.
 

@@ -26,12 +26,62 @@ from __future__ import annotations
 
 import argparse
 import json
+import subprocess
 import sys
 from pathlib import Path
 from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from trustpager_api import CONFIG_PATH  # noqa: E402
+
+
+def _repo_root() -> Path:
+    """This clone's root (the dir that contains tools/ and requirements.txt)."""
+    return Path(__file__).resolve().parent.parent
+
+
+# The always-needed keyless document stack. Bundled here so a normal install has
+# the floor with ZERO manual steps (D11: the BOS does setup, never hands the
+# owner a command). These mirror requirements.txt; check-install.py --fix heals
+# them later if anything is missing. Installed with the SAME interpreter
+# (sys.executable -m pip) so there's no Windows multi-Python mismatch.
+_DOC_STACK = [
+    "markitdown[docx,pdf,xlsx,pptx]",
+    "python-docx",
+    "openpyxl",
+    "reportlab",
+    "pdfplumber",
+]
+
+
+def _install_doc_stack() -> int:
+    """Install the bundled keyless document stack via this interpreter's pip.
+
+    Best-effort: a failure here does not abort setup (the key step still runs,
+    and check-install.py --fix can heal the doc stack later), but it is reported.
+    Returns the pip return code (0 == success).
+    """
+    req = _repo_root() / "requirements.txt"
+    if req.is_file():
+        cmd = [sys.executable, "-m", "pip", "install", "-r", str(req)]
+    else:
+        cmd = [sys.executable, "-m", "pip", "install", *_DOC_STACK]
+    print("Setting up the document tools (read/write Word, Excel, PDF). This is")
+    print("a one-time install so you never have to touch a command yourself:")
+    print(f"  {' '.join(cmd)}")
+    try:
+        rc = subprocess.run(cmd).returncode
+    except OSError as e:
+        print(f"  [warn] couldn't run pip ({e}). "
+              "You can heal this later with: python tools/check-install.py --fix")
+        return 1
+    if rc == 0:
+        print("  Document tools ready.")
+    else:
+        print("  [warn] document tools didn't fully install. "
+              "Heal it later with: python tools/check-install.py --fix")
+    print()
+    return rc
 
 
 def _walk_for_key(obj: Any) -> str | None:
@@ -137,11 +187,21 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.strip().splitlines()[0])
     parser.add_argument("--force", action="store_true",
                         help="Overwrite an existing key without prompting")
+    parser.add_argument("--skip-deps", action="store_true",
+                        help="Skip installing the bundled document stack")
     args = parser.parse_args()
 
-    print("TrustPager — first-run setup for Claude Code skills")
+    print("Business Operating System: first-run setup")
     print()
+
+    # Bundle the always-needed keyless document stack first (D11). This makes the
+    # keyless document floor work with zero manual steps. It is independent of any
+    # TrustPager key, so a keyless owner gets it too.
+    if not args.skip_deps:
+        _install_doc_stack()
+
     print(f"This will write your TrustPager API key to: {CONFIG_PATH}")
+    print("(optional: the keyless floor works without it)")
     print()
 
     existing_key = None

@@ -43,10 +43,12 @@ python tools/markitdown_convert.py "<path-to-file>"
 
 This is the standard read path (`knowledge/document-tools-method.md`). It
 turns any file into clean Markdown that's easy to work on, and it OCRs photos
-and scans. If the wrapper reports MarkItDown isn't installed, relay its
-one-line install hint (`pip install markitdown`) and stop until it's in. If
-the conversion comes back empty (e.g. a blurry photo with no readable text),
-say so plainly rather than inventing rows.
+and scans. If the wrapper exits non-zero with a `BOS_MISSING_DEP: <spec>` line,
+run the detect/offer/install-on-yes/verify loop in
+`knowledge/document-tools-method.md` (offer to set it up, then run
+`python -m pip install <spec>` yourself and retry). Never hand the owner a
+command. If the conversion comes back empty (e.g. a blurry photo with no
+readable text), say so plainly rather than inventing rows.
 
 **Only skip Step 1 when the owner literally pastes the text** — then the paste
 itself is your source and you go straight to Step 2.
@@ -115,7 +117,7 @@ python tools/write_xlsx.py --out customers.xlsx --header --rows '[["First","Last
 
 - Use `--header` so the column row is bold.
 - For a plain `.csv` instead of `.xlsx`, write the same rows out as comma-separated lines.
-- If openpyxl isn't installed for the `.xlsx` path, relay the wrapper's one-line install hint (`pip install openpyxl`) — or fall back to writing a `.csv`, which needs nothing extra.
+- If the `.xlsx` path exits non-zero with `BOS_MISSING_DEP: openpyxl`, run the detect/offer/install-on-yes/verify loop in `knowledge/document-tools-method.md` (offer, then run `python -m pip install openpyxl` yourself and retry). Never hand the owner a command. Or fall back to writing a `.csv`, which needs nothing extra.
 
 Tell the owner exactly where the file landed and what's in it.
 
