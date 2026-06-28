@@ -148,3 +148,30 @@ Verified against TrustPager's own help center (read live via the connector):
   connector; confirm how granular TrustPager's OAuth scopes are; survey + vet public MCP proxy/router
   projects (license + no-ceremony fit); prototype the chosen lever; write it up as the connected-tier
   loading spec. Do not lock P7/P8 connection design until this lands.
+
+## D11 — Brain-dead self-sufficiency: the BOS does setup, it never hands the owner a command (2026-06-28)
+- **The standard:** the BOS either runs self-sufficiently with what we ship, or — for anything that must
+  run on the owner's own machine — it gets that done FOR them, with permission. It never tells a
+  non-technical owner to "go run this file" or pastes a `pip install` line and walks away.
+- **The anti-pattern (founder-spotted in Claude Code):** "Hey, you need to run X and do Y." Wrong. The
+  correct shape is: *"To do this I need to add the document reader. Here's what that involves and I can do
+  it for you — may I go ahead?"* → on yes, the BOS runs it itself (against the right interpreter), then
+  verifies it worked and continues. Permission first, then action — not instruction.
+- **Implementation contract:** (1) BUNDLE the always-needed dependencies in setup so a normal install has
+  them; (2) for the rest, tools emit a machine-readable "missing dependency X, fix = `python -m pip install
+  Y`" signal (and exit non-zero on real failure), and the SKILL layer turns that into a detect → offer →
+  do-on-yes → verify loop; (3) a plain-language `knowledge/` setup doc so any unavoidable manual step is
+  stress-free; (4) `check-install.py` gets a keyless-floor mode that verifies the document stack (write→read
+  round-trip) and offers to fix what's missing. The field test proved the old `pip install` hints are a
+  churn trap for exactly the non-technical owner we build for.
+
+## D12 — Inclusive via business-shapes, not industry niches (2026-06-28)
+- **Scope:** the BOS serves ANY small business, not just service businesses. The field test confirmed the
+  floor already delivers excellent first wins for ecommerce and hospitality owners with NO matching vertical
+  (the generic reasoning carried them) — so verticals are inference shortcuts, not gates.
+- **The model:** cover a small, finite set of **business shapes** (service/professional, trades/on-the-tools,
+  product-seller/ecommerce-retail, hospitality/walk-in, clinic/appointment) that any industry maps onto,
+  backed by the proven generic fallback. This is inclusive AND scalable, versus chasing infinite per-industry
+  niches. `industry-notes.md` re-frames around shapes; `starter-projects.md` follows.
+- **Marketing may still LEAD with service businesses** (where the [name] / [name] proof lives)
+  without the product excluding anyone. Positioning ≠ product scope.
