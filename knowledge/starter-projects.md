@@ -19,6 +19,7 @@
 | **Write the proposal that wins the job** | Give me the scope and price and I'll write a sharp, on-brand proposal or SOW in your voice, laid out as a real .docx you can send today. | `write-a-proposal` `[live]`, `price-my-work` `[live]` | keyless | first_build |
 | **Size up a competitor before you bid** | Point me at a rival's site and I'll read it like a sharp operator: how they position, what they appear to charge, and where the openings are for you. | `research-a-competitor` `[live]` | keyless | first_build |
 | **Research a prospect before the call** | Tell me who you're meeting and I'll hand you a one-page brief plus three sharp questions that make you the most prepared person in the room. | `research-before-call` `[live]` | keyless | instant_win |
+| **A firm letter, in your voice** | Tell me what happened and I'll write the firm, professional letter that holds the line: a variation notice, a dispute response, a payment-terms letter, factual and in your voice, as text or a real .docx. | `write-a-letter` `[live]` | keyless | first_build |
 
 ### 💰 Get paid — chasing invoices, recovering missed work
 
@@ -45,6 +46,7 @@
 | **Your brand, written down (positioning + voice)** | I'll turn your brain-dump into who you're for, what makes you the obvious choice, and exactly how you sound — then lock it into everything we make. | `build-brand-strategy` `[live]`, `brand-my-workspace` `[live]` | keyless | first_build |
 | **A branded post you can publish today** | Give me one thing you want to say this week and I'll make the on-brand graphic — ready to drop straight on socials. | `make-social-post` `[live]` | keyless | instant_win |
 | **The words for your post, in your voice** | Give me the idea and I'll write the on-brand caption and body in your voice — positive and outcome-led, ready to publish with the graphic. | `write-post-copy` `[live]`, `make-social-post` `[live]` | keyless | first_build |
+| **A product description that sells it** | Send a photo of one product (or a few notes) and I'll write the on-brand description for your store or listing, in your voice, leading with what the buyer gets. | `describe-a-product` `[live]` | keyless | first_build |
 | **A fortnight of content, planned and written** | I'll turn your brand into a dated two-week posting plan — what to post, when, on which channel — then write the first captions in your voice. | `plan-my-content` `[live]`, `write-post-copy` `[live]` | keyless | deeper |
 | **The way your customers actually talk, captured** | Paste your reviews, testimonials or call notes and I'll pull out the exact phrases, the outcomes they want and the worries that stall them — the voice every bit of your marketing should echo. | `build-customer-voice` `[live]` | keyless | first_build |
 | **Put a finished post together, ready to publish** | Hand me the caption and the graphic you've already made and I'll collate them into one clean, named folder with a short readme, so the whole post sits in one place when it's time to publish. | `assemble-content-pack` `[live]`, `make-social-post` `[live]`, `write-post-copy` `[live]` | keyless | deeper |
@@ -100,8 +102,10 @@ These work for **any** 2-10 person AU service business and are the default pool 
 19. **Get your customer list into one clean place** — `import-from-anywhere` + `build-spreadsheet` · keyless · first_build *(real clean file; seeding it into the CRM is the connect-time deepener)*
 20. **Build the spreadsheet that runs a slice of your business** — `build-spreadsheet` · keyless · first_build *(job tracker / cashflow / lead log as a real .xlsx; live self-updating sheet is the connect-time deepener)*
 21. **Put a finished post together, ready to publish** — `assemble-content-pack` + `make-social-post` + `write-post-copy` · keyless · deeper *(collates caption + graphic + brief into one named folder; filing it into the workspace is the connect-time deepener)*
+22. **A firm letter, in your voice** — `write-a-letter` · keyless · first_build *(a variation notice / dispute response / payment-terms letter; firm and factual, text or a real .docx)*
+23. **A product description that sells it** — `describe-a-product` · keyless · first_build *(one product → an on-brand description for a store or listing; the product-seller market win)*
 
-**Note for builders:** every copy-producing app (`write-post-copy`, `plan-my-content`, `write-a-job-ad`, `write-a-policy`, `write-a-proposal`) enforces the positive-only language rule (global CLAUDE.md + floor-completion-plan DoD). `transcript-summary`, `import-from-anywhere`, and `build-spreadsheet` are keyless on the floor (the MarkItDown paste/local-file read and the doc-lib WRITE side ship today, floor-completion-plan ruling #2); their CRM-side payoff (logging onto a record, seeding the customer database, a live self-updating sheet) is the plain-language connect-time deepener, never the price of the keyless win. The two research apps are keyless-but-online: they need connectivity at runtime but no account or key.
+**Note for builders:** every copy-producing app (`write-post-copy`, `plan-my-content`, `write-a-job-ad`, `write-a-policy`, `write-a-proposal`, `write-a-letter`, `describe-a-product`) enforces the positive-only language rule (global CLAUDE.md + floor-completion-plan DoD; `write-a-letter` carries the labelled firm-but-factual exception for dispute letters). Each also carries the explicit "before you output anything customer-facing: positive/outcome-led, no em dashes" guard line. `transcript-summary`, `import-from-anywhere`, and `build-spreadsheet` are keyless on the floor (the MarkItDown paste/local-file read and the doc-lib WRITE side ship today, floor-completion-plan ruling #2); their CRM-side payoff (logging onto a record, seeding the customer database, a live self-updating sheet) is the plain-language connect-time deepener, never the price of the keyless win. The two research apps are keyless-but-online: they need connectivity at runtime but no account or key.
 
 ---
 
@@ -134,6 +138,16 @@ These beat the universal core *for that vertical* because they hit a named gotch
 - **A reusable RFQ intake sheet** (`build-form` + `build-spreadsheet`, better_with_crm) — missing spec inputs stall every quote.
 - **A reorder reminder system** (`design-nurture-sequence` + `follow-up-radar`, better_with_crm) — repeat/wholesale accounts are the backbone; reorder timing is the lifeblood.
 
+**Ecommerce / retail (product sellers)**
+- **A product description that sells it** (`describe-a-product`, live keyless) — every product needs on-brand description copy; the blank "description" box is the daily blocker. One product per run, photo or notes in.
+- **The words for your post, in your voice** (`write-post-copy` + `make-social-post`, live keyless) — product launches and promos live or die on the post; lead with what the buyer gets.
+- **A firm letter, in your voice** (`write-a-letter`, live keyless) — supplier disputes, refund/return responses, payment-terms letters: firm and factual, in the owner's voice.
+
+**Technical services (engineering, environmental, specialist trades)**
+- **Write the tender section that scores** (`write-a-proposal` tender/technical-section mode, live keyless) — methodology / technical-approach / capability sections answering an RFP, where price sits in a separate schedule; graded on approach, not price.
+- **A firm letter, in your voice** (`write-a-letter`, live keyless) — variation notices and dispute responses are routine on technical jobs; firm, factual, and in the owner's voice.
+- **A defensible price for one common job** (`price-my-work`, live keyless) — a number the owner can stand behind when the brief is technical.
+
 ---
 
 ## Planned (coming soon)
@@ -165,7 +179,8 @@ These beat the universal core *for that vertical* because they hit a named gotch
    - chasing invoices → (cold) *Price this job* (live) or *Your brand, written down* (live) or *Chase stale quotes* (better_with_crm); (connected) *Spot uninvoiced jobs* / *follow-up radar*
    - looking professional → *Your brand, written down* (live) · *A proposal that wins* (live keyless)
    - staying on top of customers → *Throw me any file* (live) / *call-to-notes* (live keyless) / *clean customer list* (live keyless) / *recovery text* (better_with_crm)
-   - content/marketing → *A branded post today* (live) · *fortnight of content* (live) · *post copy in your voice* (live) · *put a finished post together* (live keyless)
+   - content/marketing → *A branded post today* (live) · *fortnight of content* (live) · *post copy in your voice* (live) · *put a finished post together* (live keyless) · (product sellers) *A product description that sells it* (live keyless)
+   - firm letter / dispute / variation → *A firm letter, in your voice* (live keyless)
    - thinking/deciding → *A sharp reusable prompt* (live) · *Stress-test your decision* (live)
    - hiring/team → *A job ad + screening questions* (live) · *onboard your next team member* (live)
    - policies/admin → *The policies & FAQs your business runs on* (live) · *Build a spreadsheet for a slice* (live keyless) · *clean customer list* (live keyless)
@@ -196,7 +211,7 @@ Then each option as a one-line outcome the owner recognises, e.g. for a trades o
 **Tier map (which is what):**
 
 - **instant_win** (the <2-min pre-pivot taste — *not* offered in the 3-menu): *photo-to-quote* on one photo, one *branded post*, *throw-me-any-file*, *call-to-notes* (live keyless), *Research a prospect before the call* (live keyless, online). These trigger the pivot; the menu is drawn from the tiers below.
-- **first_build** (the cold 3-option pool, keyless, visibly operator-grade, deepens profile as a side effect): the LIVE cold pool is *Your brand written down*, *photo-to-quote*, *fact-find pack*, *throw-me-any-file*, *a sharp reusable prompt*, *Price this job*, *Stress-test your decision*, *post copy in your voice*, *customer-voice doc*, *Write the proposal that wins the job*, *Size up a competitor* (online), *clean customer list*, *Build a spreadsheet for a slice*. The two research apps are keyless-but-online, so fall back to an offline-safe pick if there's no connectivity.
+- **first_build** (the cold 3-option pool, keyless, visibly operator-grade, deepens profile as a side effect): the LIVE cold pool is *Your brand written down*, *photo-to-quote*, *fact-find pack*, *throw-me-any-file*, *a sharp reusable prompt*, *Price this job*, *Stress-test your decision*, *post copy in your voice*, *customer-voice doc*, *Write the proposal that wins the job* (priced or tender/technical-section mode), *A firm letter in your voice*, *A product description that sells it* (product sellers), *Size up a competitor* (online), *clean customer list*, *Build a spreadsheet for a slice*. The two research apps are keyless-but-online, so fall back to an offline-safe pick if there's no connectivity.
 - **deeper** (offered once trust is high or a connection exists): the live keyless deeper set — *onboard a team member*, *fortnight of content*, *job ad + screening*, *policies & FAQs*, *put a finished post together* — plus the still-Planned-or-connected set — *branded promo video*, *uninvoiced-jobs*, *renewal/reorder radar*, *nurture sequences*.
 
 **The CRM/TrustPager on-ramp (the high-trust conversation seeders).** Each of these ships a real keyless win today; their fuller payoff lands on connect, so they are the natural, non-cold bridge to "connect your workspace" — described in plain language, never named as a tool or a requirement:

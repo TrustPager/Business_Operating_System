@@ -19,6 +19,13 @@ Input shape: a JSON array of blocks. Each block is an object with a "type":
     {"type":"heading","text":"...","level":1}   # level 0-9, default 1
     {"type":"paragraph","text":"..."}            # a body paragraph
     {"type":"bullet","text":"..."}               # a bulleted list item
+    {"type":"table","header":["Item","Qty","Price"],   # header row (optional)
+     "rows":[["Site visit","1","$120"],              # one list per data row
+             ["Labour","2","$180"]]}                 # a real priced line-item TABLE
+
+The table block renders a real Word table (header row bolded when present),
+so a quote or proposal lays its priced line items out in a grid the owner can
+send, instead of bullets with `$____`.
 
 This is part of the doc-lib-set keyless WRITE driver (`doclib`). See
 knowledge/document-tools-method.md. No network at runtime.
@@ -66,6 +73,53 @@ def _load_blocks(blocks_arg: str | None) -> list[dict]:
     return blocks
 
 
+def _add_table(doc, block: dict) -> None:
+    """Render a {"type":"table", "header":[...], "rows":[[...], ...]} block.
+
+    A real Word table so priced line items land in a grid, not bullets with
+    `$____`. ``header`` is an optional list of column labels (rendered bold);
+    ``rows`` is a list of rows, each a list of cell values. Every cell is
+    coerced to a string. The column count is taken from the header if present,
+    else from the widest row. Short rows are padded, long rows truncated, so a
+    ragged payload still produces a valid table rather than crashing.
+    """
+    header = block.get("header")
+    rows = block.get("rows", [])
+    if header is not None and not isinstance(header, list):
+        sys.stderr.write("table block: 'header' must be a list of column labels.\n")
+        sys.exit(1)
+    if not isinstance(rows, list) or not all(isinstance(r, list) for r in rows):
+        sys.stderr.write("table block: 'rows' must be a list of rows (each a list of cells).\n")
+        sys.exit(1)
+    if header is None and not rows:
+        sys.stderr.write("table block: needs a 'header' or at least one row.\n")
+        sys.exit(1)
+
+    ncols = len(header) if header else max((len(r) for r in rows), default=0)
+    if ncols == 0:
+        sys.stderr.write("table block: could not determine any columns.\n")
+        sys.exit(1)
+
+    def _cells(values: list) -> list[str]:
+        cells = [("" if v is None else str(v)) for v in values][:ncols]
+        cells += [""] * (ncols - len(cells))
+        return cells
+
+    table = doc.add_table(rows=0, cols=ncols)
+    table.style = "Table Grid"
+    if header:
+        hdr = table.add_row().cells
+        for cell, value in zip(hdr, _cells(header)):
+            cell.text = value
+            for paragraph in cell.paragraphs:
+                for run in paragraph.runs:
+                    run.bold = True
+    for row in rows:
+        cells = table.add_row().cells
+        for cell, value in zip(cells, _cells(row)):
+            cell.text = value
+
+
 def write_docx(path: str, blocks: list[dict]) -> None:
     try:
         from docx import Document
@@ -90,9 +144,11 @@ def write_docx(path: str, blocks: list[dict]) -> None:
                 doc.add_paragraph(text, style="List Bullet")
             elif btype == "paragraph":
                 doc.add_paragraph(text)
+            elif btype == "table":
+                _add_table(doc, block)
             else:
                 sys.stderr.write(
-                    f"Unknown block type {btype!r} (expected heading/paragraph/bullet).\n"
+                    f"Unknown block type {btype!r} (expected heading/paragraph/bullet/table).\n"
                 )
                 sys.exit(1)
         doc.save(path)

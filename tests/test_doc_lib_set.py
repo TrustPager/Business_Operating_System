@@ -170,6 +170,65 @@ class TestDocxRoundTrip(unittest.TestCase):
             self.assertIn("Thanks for the opportunity.", texts)
             self.assertIn("Scope confirmed.", texts)
 
+    def test_write_then_read_back_table_block(self):
+        """A table block renders a real Word table (priced line items as a grid),
+        with the header row bold, round-tripping every cell back out."""
+        from docx import Document
+        with tempfile.TemporaryDirectory() as d:
+            out = Path(d) / "rt_table.docx"
+            blocks = [
+                {"type": "heading", "text": "Your investment", "level": 2},
+                {
+                    "type": "table",
+                    "header": ["Item", "Qty", "Price"],
+                    "rows": [
+                        ["Site visit", "1", "$120"],
+                        ["Labour", "2", "$180"],
+                    ],
+                },
+            ]
+            proc = _run_wrapper(
+                "write_docx.py", ["--out", str(out), "--blocks", json.dumps(blocks)]
+            )
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+            self.assertTrue(out.is_file())
+
+            doc = Document(str(out))
+            self.assertEqual(len(doc.tables), 1)
+            table = doc.tables[0]
+            grid = [[c.text for c in row.cells] for row in table.rows]
+            self.assertEqual(
+                grid,
+                [
+                    ["Item", "Qty", "Price"],
+                    ["Site visit", "1", "$120"],
+                    ["Labour", "2", "$180"],
+                ],
+            )
+            # The header row is rendered bold.
+            header_runs = [
+                run for cell in table.rows[0].cells
+                for paragraph in cell.paragraphs for run in paragraph.runs
+            ]
+            self.assertTrue(header_runs and all(run.bold for run in header_runs))
+
+    def test_write_table_without_header_rows_only(self):
+        """A header-less table block (rows only) still renders a valid grid."""
+        from docx import Document
+        with tempfile.TemporaryDirectory() as d:
+            out = Path(d) / "rt_table_nohdr.docx"
+            blocks = [
+                {"type": "table", "rows": [["A", "1"], ["B", "2"]]},
+            ]
+            proc = _run_wrapper(
+                "write_docx.py", ["--out", str(out), "--blocks", json.dumps(blocks)]
+            )
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+            doc = Document(str(out))
+            self.assertEqual(len(doc.tables), 1)
+            grid = [[c.text for c in row.cells] for row in doc.tables[0].rows]
+            self.assertEqual(grid, [["A", "1"], ["B", "2"]])
+
 
 @unittest.skipUnless(HAS_REPORTLAB and HAS_PDFPLUMBER,
                      "reportlab and pdfplumber both needed for the PDF table round-trip")

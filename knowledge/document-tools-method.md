@@ -49,7 +49,7 @@ The write counterpart. Where MarkItDown reads, doc-lib-set produces a real file 
 | Wrapper | Library | What it does |
 |---|---|---|
 | `tools/write_xlsx.py` | **openpyxl** | Write a real `.xlsx` from JSON rows (optional bold header, sheet title). |
-| `tools/write_docx.py` | **python-docx** | Write a real `.docx` from JSON blocks (heading / paragraph / bullet). |
+| `tools/write_docx.py` | **python-docx** | Write a real `.docx` from JSON blocks (heading / paragraph / bullet / table). |
 | `tools/make_pdf.py` | **reportlab** | Generate a PDF from JSON blocks (heading / paragraph / bullet). |
 | `tools/pdf_tables.py` | **pdfplumber** | Extract a PDF's table grid (or `--text`) as structured JSON — beyond what MarkItDown's flattened Markdown gives you. |
 
@@ -62,6 +62,29 @@ python tools/pdf_tables.py statement.pdf --text          # page text instead
 ```
 
 Each wrapper also reads its JSON from stdin if `--rows`/`--blocks` is omitted, so Claude can pipe a generated payload straight in.
+
+#### `write_docx.py` block types (including the priced-line-item `table`)
+`write_docx.py` renders an ordered list of blocks. Each block is an object keyed by `type`:
+
+| Block | Shape | Renders |
+|---|---|---|
+| `heading` | `{"type":"heading","text":"...","level":1}` | A heading (`level` 0-9, default 1). |
+| `paragraph` | `{"type":"paragraph","text":"..."}` | A body paragraph. |
+| `bullet` | `{"type":"bullet","text":"..."}` | A bulleted list item. |
+| `table` | `{"type":"table","header":[...],"rows":[[...],...]}` | A real Word table (Table Grid). |
+
+The **`table`** block is how a quote or proposal lays out priced line items as a real grid, not bullets with `$____`. `header` is an optional list of column labels (rendered **bold** as the first row); `rows` is a list of rows, each a list of cell values. Every cell is coerced to a string, so numbers and money strings (`"$120"`) both work. The column count comes from the header when present, else from the widest row; short rows are padded and over-long rows truncated, so a slightly ragged payload still produces a valid table. A `table` block with neither a header nor any rows is an error (exit 1).
+
+```bash
+python tools/write_docx.py --out quote.docx --blocks '[
+  {"type":"heading","text":"Your investment","level":2},
+  {"type":"table",
+   "header":["Item","Qty","Price"],
+   "rows":[["Site visit","1","$120"],["Labour","2","$180"],["Total","","$300"]]}
+]'
+```
+
+Use the `table` block (not bullets) wherever a proposal or quote shows a priced breakdown, or wherever a tender section shows a deliverables / criteria grid.
 
 ### Read vs write — don't conflate
 - **Read** a document → `tools/markitdown_convert.py` (Markdown) or `tools/pdf_tables.py` (precise PDF grid).

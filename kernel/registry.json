@@ -169,6 +169,13 @@
       "mcp__create_task"
     ]
   },
+  "describe-a-product": {
+    "data_path": "reasoning_only",
+    "function_slot": "social",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
   "design-nurture-sequence": {
     "data_path": "mcp_tools",
     "function_slot": "comms",
@@ -698,6 +705,13 @@
   "write-a-job-ad": {
     "data_path": "reasoning_only",
     "function_slot": "people",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
+  "write-a-letter": {
+    "data_path": "reasoning_only",
+    "function_slot": "comms",
     "requires_credential": "none",
     "requires_driver": "none",
     "status": "active"

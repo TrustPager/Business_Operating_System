@@ -12,7 +12,7 @@ Status legend: ✅ ships keyless today · 🟡 partly built · 🔁 needs decoup
 |---|---|---|---|---|---|
 | 1 | A line-itemed quote from a photo + 30s voice note | Trades | win-work | quote-from-photo (✅ keyless: photo → scope + line-item structure ships now), price-my-work (full auto-pricing enrichment), doc-lib-set | ✅ |
 | 2 | A defensible price for one common job (margin shown) | Trades, mfg, consulting | get-paid | price-my-work (✅ keyless, reasoning-only), doc-lib-set (optional .xlsx tidy-up) | ✅ |
-| 3 | An on-brand proposal/SOW in the owner's voice (.docx) | Consulting, property | win-work | write-a-proposal (✅ keyless: doclib WRITE → .docx), price-my-work, build-brand-strategy, doc-lib-set | ✅ |
+| 3 | An on-brand proposal/SOW in the owner's voice (.docx) | Consulting, property | win-work | write-a-proposal (✅ keyless: doclib WRITE → .docx; priced-line-item `table` block + a tender/technical-section mode for technical-services RFPs), price-my-work, build-brand-strategy, doc-lib-set | ✅ |
 | 4 | A one-page read of one competitor's site | All; consulting/property | decide-well | research-a-competitor (✅ keyless: firecrawl scrape/search), firecrawl-keyless | ✅ |
 | 5 | A pre-meeting brief + 3 sharp questions | Consulting, broking, property | win-work | research-before-call (✅ keyless: firecrawl scrape/search), research-a-competitor, firecrawl-keyless | ✅ |
 | 6 | A 2-week multi-channel content plan + first captions | Consulting, wellness, hospitality | market | plan-my-content (✅ keyless), write-post-copy (✅ keyless), build-brand-strategy (✅) | ✅ |
@@ -29,6 +29,8 @@ Status legend: ✅ ships keyless today · 🟡 partly built · 🔁 needs decoup
 | 17 | On-brand policies + FAQ answers (deposits, cancellations, privacy) | Wellness, hospitality, allied health | market | write-a-policy (✅ keyless), build-brand-strategy (✅) | ✅ |
 | 18 | The brand written down → brand.json that reskins everything | All | market | build-brand-strategy (✅), build-customer-voice (✅ keyless: decoupled, paste/local-file path), brand-my-workspace (✅) | ✅ |
 | 19 | Throw-me-any-file structuring into a reusable template spec | Broking, mfg, allied health | save-time | template-from-document, markitdown-driver | ✅ |
+| 20 | A firm letter / variation notice / dispute response in the owner's voice | Trades, technical services, all | win-work | write-a-letter (✅ keyless: reasoning-only; optional .docx via doc-lib-set), build-brand-strategy | ✅ |
+| 21 | An on-brand product description for one product (store / listing) | Ecommerce, retail, product sellers | market | describe-a-product (✅ keyless: reasoning-only, photo or notes in), build-brand-strategy | ✅ |
 
 ## Derived build set — priority by unlock count
 

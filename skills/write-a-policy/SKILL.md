@@ -143,6 +143,11 @@ Then offer where it can go next, without making any of it a requirement:
 > the text stands on its own today.
 
 ## Hard rules
+- **Before you output anything customer-facing: positive/outcome-led, and NO em
+  dashes** (use colons, commas, parentheses, or separate sentences). The policy
+  or FAQ names what the customer gets and what good looks like, never the
+  owner's frustration. A field test shipped a quote with an em dash because
+  nothing reminded the model; this is the reminder, check the output.
 - Never invent a rule, number, window, or condition the owner didn't state.
 - Never invent a legal or compliance claim: no guessed privacy-law citations,
   no assumed NDIS / Medicare figures or eligibility criteria.
