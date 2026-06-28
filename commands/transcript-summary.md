@@ -1,15 +1,14 @@
 ---
-description: Turn a recorded call or meeting into a usable document — summary, decisions, action items, next step — logged to the opportunity timeline. Works on the latest transcript, a contact's, or a specific one.
+description: Turn a recorded call or meeting into a usable write-up — summary, decisions, action items, next step — from a transcript you paste or a local recording/transcript file. Works day one with no accounts; logging it to the customer's record is the upgrade once your CRM is connected.
 ---
 
 Run the **Transcript Summary** skill.
 
-Invoke the skill at `skills/transcript-summary/SKILL.md`. Find the transcript
-(`list_transcripts`, default to most recent or let the operator pick), read it
-(`get_transcript`, optionally `ai_transcript_summary` — say it costs credits),
-and produce the structured write-up: summary, decisions, action items, next step.
-Only summarise what's actually in the transcript; flag empty ones rather than
-inventing content. Offer to log it to the deal/contact timeline (`add_note` /
-`log_meeting`) and turn action items into tasks — with approval.
-
-For mining many transcripts at once, that's `/build-customer-voice`, not this.
+Invoke the skill at `skills/transcript-summary/SKILL.md`. Follow it exactly. Get
+the transcript in front of you (the owner pastes it, or point at a local file and
+convert it with `tools/markitdown_convert.py`, the standard MarkItDown read
+path). Read it end to end and produce the structured write-up: summary,
+decisions, action items, next step. Only summarise what is actually in the
+transcript and flag an empty one rather than inventing content. Offer to save it
+as a file and, in plain words, offer to push it onto the customer's record once
+the CRM is connected.

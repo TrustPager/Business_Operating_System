@@ -1,0 +1,174 @@
+---
+name: Write Post Copy
+description: Draft the publish-ready words for a social post in the owner's own voice. This writes the caption or body that goes out with the graphic, built from a planned content idea or a one-line brief. Reads the brand voice if it has been set, and falls back to the owner's words if not. Optionally also drafts the paid-ad primary text and a headline variant. Pairs with make-social-post, which makes the picture. Keyless, positive-only, outcome-led.
+triggers:
+  - write post copy
+  - draft a caption
+  - write the caption for this post
+  - draft the post body
+  - write the words for this post
+  - draft ad copy
+  - write the primary text for an ad
+  - caption in my voice
+  - write a linkedin post
+  - turn this content idea into a post
+function_slot: social
+requires_driver: none
+requires_credential: none
+data_path: reasoning_only
+status: active
+---
+
+# Write Post Copy
+
+You write the words a post goes out with: the caption, the body, the line under
+the picture. The graphic studio handles the on-image headline (that's the job of
+`make-social-post`). This is the publish-ready text the owner copies straight
+into the platform. One post per run, or a small matched set for a single
+campaign idea. Always in the owner's own voice, always leading with the result.
+
+This pairs with `make-social-post`. That one makes the picture, this one writes
+the words. They run happily together (a graphic plus its caption for the same
+idea) or each on its own.
+
+## Step 1: Find the source, a planned idea or a one-line brief
+
+There are two ways the owner arrives, and either is fine:
+
+| The owner has... | Where it comes from | What you do |
+|---|---|---|
+| A planned content idea: a row from their content plan (the platform, the angle, the date, a rough topic) | the `plan-my-content` app, or pasted in | Read the row, pull the angle and platform, then write the post that fills it |
+| A standalone brief: "write me a post about the new same-day quotes thing" | straight from the owner | Take the brief as the idea and write from it |
+
+If they hand you a planned row, honour what it already decided: the platform,
+the angle, the rough hook. Don't re-litigate the plan, fill it. If they give you
+a loose brief, that brief is the idea, so write from it.
+
+When the idea is genuinely thin (a one-word topic, no angle, no audience), ask
+ONE sharpening question before drafting, not five. For example: *"Happy to write
+this. What's the one thing you'd want a reader to take away from it?"* One good
+answer beats a vague post built from nothing.
+
+## Step 2: Read the brand voice if it's there (graceful fallback if not)
+
+Look for the owner's brand voice doc, usually at
+`marketing-strategy/<BrandName>/voice.md` (built by `build-brand-strategy`, or
+captured in their first brand brief). If it exists, read it and write to it:
+
+- the tone adjectives and signature moves,
+- the **vocabulary available**: phrases lifted from how their customers actually
+  talk. Reach for one when it fits, and don't stuff every line with them.
+- the **watch-out-for** register: the jargon and hype words their voice avoids,
+- the words that are **fine** despite looking fancy: normal business English the
+  owner genuinely uses, which you should not over-sanitise out.
+
+If there's no voice doc yet, that's fine. This still runs keyless. Fall back to
+the owner's own words from the brief and how they talk, and say so plainly:
+*"I don't have your brand voice on file yet, so I've written this from how you
+described it. We can lock in your voice properly whenever you'd like."* Never
+stall waiting for a voice doc. A real post in their words today beats a perfect
+one that never ships. The brand-voice path is the upgrade, not the entry fee.
+
+The shared reference for how customer-facing messages should sound is
+[`knowledge/communication-voice.md`](../../knowledge/communication-voice.md).
+The strategy artifacts this reads slot into the pipeline described in
+[`knowledge/marketing-strategy-method.md`](../../knowledge/marketing-strategy-method.md).
+(That method's CRM and auto-queue layers are connected-tier deepeners, not
+something this app needs. This writes copy from reasoning alone.)
+
+## Step 3: Write the post for its platform
+
+A caption is not a billboard (that's the on-image headline). It's the few lines
+that earn the scroll-stop and point at the next step. Match the shape to where
+it's going:
+
+| Platform | Shape that lands |
+|---|---|
+| Instagram | A warm hook line, two or three short lines of substance, one clear next step, then a small set of relevant hashtags |
+| LinkedIn | A strong first line (it's the only line shown before "see more"), short punchy paragraphs, a human close, one ask |
+| X (Twitter) | One tight thought that stands alone; trim every word that isn't load-bearing |
+| Facebook | Conversational, a touch longer is OK, one clear call to action |
+
+Across all of them:
+
+1. **Open with the outcome, not the wind-up.** The first line names the win the
+   reader cares about. No "So I wanted to share something..." preamble.
+2. **One idea per post.** If two ideas are fighting, that's two posts. Pick the
+   stronger one for this run.
+3. **One clear next step.** Book, reply, read, visit: one ask, stated plainly,
+   with a raw link as its own visible text when there's a link (never "click
+   here", never breadcrumb navigation).
+4. **Sound like a person.** Short sentences. Their words. No jargon, no
+   system-internals, no hype register.
+
+## Step 4: Optional, the ad variant (only if they ask)
+
+If the owner wants this as a paid ad too, add a second block. Don't replace the
+organic caption, sit it alongside:
+
+- **Primary text**: the body that runs above the creative. Tighter and more
+  direct than the organic caption. Lead with the outcome in the first line
+  (assume it gets truncated), make the value plain fast, one call to action.
+- **Headline variant**: a single short line (think 5 to 7 words) for the ad's
+  headline field, outcome-led, that complements the on-image headline rather
+  than repeating it word for word.
+
+Keep the ad copy on the same positive, outcome-led footing as everything else.
+Label the two clearly so the owner knows which is the organic caption and which
+is the paid version.
+
+## Step 5: Hand it over, ready to publish
+
+Give the owner copy they can paste straight in, plus a couple of light choices.
+Never a pile of homework:
+
+```
+Post copy for Instagram (your "same-day quotes" idea)
+
+Caption:
+Your quote, same day, every time.
+We turned the bit that used to take a week into something that lands while
+the kettle's still warm. You get a clear number fast, they get to say yes
+fast, and the job's moving before the day's out.
+Want yours that quick? Book a 15-min look: https://example.com/book
+#localtrades #smallbusiness #samedayservice
+
+Voice note: written from your brand voice on file (lifted "while the kettle's
+still warm", that's yours). Want a paid-ad version of this too?
+```
+
+If you wrote a small matched set for one campaign idea (say the same message for
+Instagram and LinkedIn), show each clearly labelled: same core message, shaped
+for its platform. Stay bounded: one idea per run, not a month's calendar.
+
+## Hard rules
+
+- **Keyless and reasoning-only.** This needs no accounts and no files beyond
+  what the owner gives you. The real, finished artifact is the publish-ready
+  copy itself.
+- **The owner's voice wins.** When a brand voice doc exists, write to it. When
+  the owner's actual phrasing differs from any guideline, the owner's phrasing
+  wins. Reflect their words back so it reads as *"that's exactly how I'd say it."*
+- **Positive-only, outcome-led, always.** The copy names the win, never the pain
+  or what's missing. Not "stop losing leads", but "every enquiry answered the
+  same day". (Understanding the owner's frustration while you talk it through is
+  fine; the shipped post stays on the result.)
+- **No em dashes in the copy.** Use a comma, a colon, parentheses, or two
+  sentences. This holds for every word that ships.
+- **One idea per post, one clear next step.** If it needs two asks or two ideas,
+  it's two posts. Write the stronger one.
+- **No invented proof.** Don't put a fake stat, a made-up testimonial, or a
+  customer quote the owner didn't give you into a post. Anchor in what's real.
+- **No third-party vendor or tool names** anywhere a follower would see them.
+  The post is the owner's brand, full stop.
+- **Bounded scope.** One post, or one small matched set for a single campaign
+  idea, per run. A whole content calendar is a different job (that's the
+  `plan-my-content` app).
+
+## Output shape
+
+The publish-ready post copy, labelled by platform, ready to paste, plus a
+one-line note on whose voice it's written from (brand doc on file, or the
+owner's own words) and any single open choice left for them. If an ad variant
+was asked for, the primary text and headline variant sit alongside, clearly
+labelled.

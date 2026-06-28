@@ -1,12 +1,12 @@
 ---
-description: Build either kind of TrustPager spreadsheet. A workspace sheet pulls live from your CRM (e.g. settled-this-month by broker, with monthly views, totals, and a rolling auto-create). A standalone sheet holds its own data (a calculator, a tracker, or an existing Excel imported in). The skill asks which, then builds it.
+description: Build a real spreadsheet you can open and start filling today — a job tracker, a simple cashflow, or a lead log — with columns designed for your trade and a working .xlsx saved locally. No account needed. Once your workspace is connected, the same tracker can live inside it and keep itself current as your work moves.
 ---
 
 Run the **Build Spreadsheet** skill.
 
-Invoke the skill at `skills/build-spreadsheet/SKILL.md`. Follow it exactly: first
-work out whether they want a **workspace** spreadsheet (live from the CRM) or a
-**standalone** one (its own data), then build it down the matching path — columns
-+ period views + totals + rolling automation for workspace, or columns + data
-(from scratch, a template, or an imported Excel/CSV via MarkItDown) + formulas for
-standalone. Confirm before writing.
+Invoke the skill at `skills/build-spreadsheet/SKILL.md`. Follow it exactly: work
+out which slice the sheet is for (job tracker, simple cashflow, or lead log),
+design the columns to fit how they run that part of the business, confirm the
+header row, then write a real `.xlsx` with `tools/write_xlsx.py` (bold header, a
+couple of clearly-labelled example rows). Hand the file over, then offer the
+live, self-updating version once their workspace is connected, in plain words.

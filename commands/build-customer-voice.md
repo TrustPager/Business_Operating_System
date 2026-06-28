@@ -1,16 +1,21 @@
 ---
-description: Mine ≥5min call + meeting transcripts into a verbatim customer-voice synthesis. Foundation for every marketing strategy artefact downstream.
+description: Turn the words your customers actually use — from reviews, testimonials, and call notes you paste in (or local files) — into a customer-voice doc. Works with zero accounts; deepens automatically when your workspace is connected.
 ---
 
 Run the **Build Customer Voice** skill.
 
-Invoke the skill at `skills/build-customer-voice/SKILL.md`. Follow its
-instructions exactly: pull transcripts with `tools/dump-transcripts.py`,
-read every file end-to-end (filter out the host's voice), then write
-`customer-voice-synthesis.md` with the 10 prescribed sections. Quote
-verbatim with `[Speaker, transcript-filename]` attribution. Report back
-under 200 words.
+Invoke the skill at `skills/build-customer-voice/SKILL.md` and follow it
+exactly. Default to the keyless mode: gather the customer's actual words from
+whatever the owner pastes (reviews, testimonials, support emails, call notes)
+or from local files (convert each with `tools/markitdown_convert.py` first),
+read every source end-to-end, keep the customer's voice and drop the owner's,
+then write `customer-voice-synthesis.md` with the 10 prescribed sections.
+Quote verbatim with source attribution. Report back under 200 words.
 
-If the operator hasn't said where to write the synthesis, default to
-`transcripts/<UTC-date>/customer-voice-synthesis.md` alongside the
-pulled transcripts.
+Do NOT demand recorded calls or a connected workspace. The richer
+transcript-mined version is the deeper mode the skill offers only when the
+workspace is connected — never the price of entry.
+
+If the owner hasn't said where to write it, default to
+`marketing-strategy/<BrandName>/customer-voice-synthesis.md` (or alongside the
+source files they pointed you at).

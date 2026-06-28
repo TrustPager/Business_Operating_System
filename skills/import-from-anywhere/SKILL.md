@@ -1,122 +1,158 @@
 ---
 name: import-from-anywhere
-description: Take a paste (CSV, screenshot text, PDF excerpt, email export, list of names) and import it as opportunities, contacts, or companies into TrustPager.
+description: Take a messy source — a photo of a notebook, a phone-contacts export, a screenshot, a half-broken spreadsheet, a pasted list of names — and turn it into one tidy customer list you can open and use. Reads anything with the standard MarkItDown converter, normalises it, and writes a clean .csv/.xlsx. Works keylessly day one; once your CRM is connected, the same list can go straight in.
 triggers:
   - import this list
   - import this CSV
-  - import these contacts
-  - turn this list into
-  - bulk import
-  - add these to the CRM
-  - here's a list of
-  - paste of contacts
-  - paste of leads
-  - I have a spreadsheet
-function_slot: crm
-requires_driver: trustpager
-requires_credential: mcp
-data_path: mcp_tools
-uses_tools:
-  - mcp__trustpager__bulk_create_contacts
-  - mcp__trustpager__bulk_append_spreadsheet_rows
+  - tidy up this list
+  - clean up these contacts
+  - turn this list into a spreadsheet
+  - photo of my customer list
+  - here's a list of customers
+  - my contacts are a mess
+  - make one customer list
+  - I have a spreadsheet that's a mess
+function_slot: documents
+requires_driver: markitdown
+requires_credential: none
+data_path: local
 status: active
 ---
 
 # /import-from-anywhere
 
-Customers paste data in 20 different shapes — CSV, screenshot OCR, copy-pasted email lists, PDF tables, "here's everyone I met at the conference, sorted by who looked at me weird." This skill turns any of those into clean TrustPager records.
+Customer lists show up in twenty different shapes: a photo of a notebook page,
+a contacts export off a phone, a screenshot of an old email, a spreadsheet
+that's been hand-edited into a mess. This skill turns any of those into **one
+clean customer list** you can open, sort, and send — a real `.csv`/`.xlsx`
+file, built locally, no account needed.
 
-## Step 0 — If the source is a FILE, convert it first (the standard path)
+The win is the tidy list itself. If you've connected your CRM, the very same
+list can also go straight in for you (see the last section) — but that's a
+bonus on top, never the price of getting your list sorted.
 
-If the data is in a file (PDF, Word, Excel, a screenshot/scan, HTML) rather than
-pasted text, run it through the standard converter first — don't ask the operator
-to re-paste it and don't hand-parse it:
+## Step 1 — Read the source with the standard converter
+
+Whatever the source is — a photo, a PDF, a Word doc, an Excel file, an HTML
+export, a screenshot/scan — run it through the one standard converter first.
+Don't hand-parse raw bytes and don't ask the owner to re-type it:
 
 ```bash
 python tools/markitdown_convert.py "<path-to-file>"
 ```
 
-Then treat the resulting Markdown as the "paste" for Step 1 onward. This is the
-standard ingest path (`knowledge/document-tools-method.md`) and it removes the
-old "paste again into a code block" / OCR-fix friction. Only skip Step 0 when the
-operator literally pastes text.
+This is the standard read path (`knowledge/document-tools-method.md`). It
+turns any file into clean Markdown that's easy to work on, and it OCRs photos
+and scans. If the wrapper reports MarkItDown isn't installed, relay its
+one-line install hint (`pip install markitdown`) and stop until it's in. If
+the conversion comes back empty (e.g. a blurry photo with no readable text),
+say so plainly rather than inventing rows.
 
-## Step 1 — Detect what they pasted
+**Only skip Step 1 when the owner literally pastes the text** — then the paste
+itself is your source and you go straight to Step 2.
 
-After the user pastes, identify the shape:
-- **Has commas or tabs + a header row** → CSV/TSV.
-- **Has email-like patterns + name-like patterns interleaved** → free-text contact list.
-- **Has dollar amounts + names + dates** → likely opportunities.
-- **Has companies / ABNs / addresses** → companies, not contacts.
-- **Has phone numbers, no emails** → contacts from a phone list.
+## Step 2 — Work out the shape
 
-If ambiguous, ASK:
-> "I can see roughly 40 rows. Are these meant to land as contacts, opportunities, or companies?"
+Look at the converted text (or the paste) and read what kind of list it is:
 
-## Step 1.5 — Build the dedup baseline (in parallel with parsing)
+- **Commas or tabs + a header row** → already a table; map the columns.
+- **Names with emails / phones mixed in** → a contact list to split into fields.
+- **Names with dollar amounts and dates** → looks like jobs or deals, not plain contacts. Flag it and ask.
+- **Company names, ABNs, addresses** → businesses, not people.
+- **Just phone numbers, no names** → a phone list; each number becomes a row.
 
-While the user is reviewing the paste, run:
+If it's genuinely ambiguous, ASK one short question rather than guessing:
+
+> I can see about 40 rows here. Should this come out as a people list (names,
+> emails, phones) or a business list (company names and addresses)?
+
+## Step 3 — Normalise into one tidy table
+
+Decide a single clean column set and map every row onto it. A sensible default
+for a people list:
 
 ```
-python ~/.claude/bos-run.py import-from-anywhere
+First | Last | Email | Phone | Company | Notes
 ```
 
-This returns an index of every existing contact (by email + phone + name+company), every existing company (by name + domain), and every open opportunity (by name). Hold this in memory and check each parsed row against it during preview.
+Then tidy as you go:
+- **Split full names** into First / Last where it's clear; leave the whole name in First and flag it where it isn't.
+- **Normalise Australian phone numbers** to a consistent format (`+61...`).
+- **Trim stray punctuation, fix obvious casing** (ALL CAPS names → Title Case).
+- **Flag likely OCR slips** from photos/scans (`O` vs `0`, `l` vs `1`) on the rows where they appear, rather than silently "correcting" them.
+- **Keep the original line in Notes** when a row is messy, so nothing is lost and the owner can check it.
 
-## Step 2 — Show what you parsed BEFORE writing anything
+## Step 4 — Show the preview BEFORE writing the file
 
-Build a preview table of the first 5 rows with the fields you've extracted. Show:
+Build a preview of the first 5 cleaned rows plus a count and an issues list:
 
 ```
-Detected: 38 contacts
+Tidied: 38 people
 Preview:
   | First | Last | Email | Phone | Company |
   |---|---|---|---|---|
   | (first) | (last) | (email) | (phone) | (company) |
   ...
 
-Issues found:
+Worth a look:
   - 3 rows have no email (rows 4, 11, 27)
-  - 1 row has an unparseable phone (row 18: "see card")
-  - 2 rows look like duplicates of existing contacts
+  - 1 phone couldn't be read (row 18: "see card")
+  - 2 names look like the same person twice (rows 9 and 31)
 ```
-
-Run the duplicate detection by calling `python tools/audit-contacts.py --json` and matching against the parsed paste — show the user which rows are likely already in their workspace.
 
 ASK:
-> "OK to proceed? You can also tell me to skip the rows with issues, or to merge with existing rather than create new."
 
-## Step 3 — Import in batches with progress
+> Happy with this shape? I can drop the rows with gaps, merge the two that look
+> like duplicates, or keep everything as-is. Your call.
 
-After explicit go:
-- Use `mcp__trustpager__bulk_create_contacts` (or opportunities / companies) in batches of 50.
-- Stream progress to the user: "Importing 38 contacts… 25/38 done… 38/38 done."
-- If a batch fails: print the error and ask whether to continue with remaining batches or stop.
+## Step 5 — Write the clean list to a real file
 
-For opportunities: each one needs a pipeline + stage. Ask once up front:
-> "Which pipeline should these land in? (current options: [list_pipelines]) — and which stage?"
+After the go-ahead, write the tidy list locally with the standard writer:
 
-## Step 4 — Report
-
-End with:
+```bash
+python tools/write_xlsx.py --out customers.xlsx --header --rows '[["First","Last","Email","Phone","Company","Notes"], ... ]'
 ```
-Imported 38 contacts into TrustPager.
-✅ 35 created cleanly.
-⚠️  2 skipped as likely duplicates (you can review at /settings/...).
-❌ 1 failed: row 18 had an unparseable phone number.
+
+- Use `--header` so the column row is bold.
+- For a plain `.csv` instead of `.xlsx`, write the same rows out as comma-separated lines.
+- If openpyxl isn't installed for the `.xlsx` path, relay the wrapper's one-line install hint (`pip install openpyxl`) — or fall back to writing a `.csv`, which needs nothing extra.
+
+Tell the owner exactly where the file landed and what's in it.
+
+## Step 6 — Report
+
+End with a short, plain summary:
+
+```
+Built one tidy customer list: customers.xlsx
+✅ 35 rows came through clean.
+🔁 2 rows merged as the same person (kept the one with the email).
+📝 1 phone left blank: couldn't read row 18 ("see card").
+The original messy lines are saved in the Notes column so nothing's lost.
 ```
 
 ## Important behaviours
 
-- **NEVER write without showing the preview first.** Even for 3 rows. Importing the wrong shape is hard to undo.
-- **No silent dedup.** If a row matches an existing record, surface it — don't auto-merge.
-- **Names are not contacts.** "Sarah from Acme" with no other detail = ask, don't import a half-record.
-- **Phone normalization.** Aussie phones get normalized to E.164 (+61...) before writing.
-- **The paste itself is data.** Save the original paste as a note on each created record so the source is traceable.
-- **Spreadsheets are different.** If the user wants a SPREADSHEET row dump (not records), use `mcp__trustpager__bulk_append_spreadsheet_rows` instead and pick or create the target spreadsheet.
+- **Always show the preview before writing the file.** Even for a handful of rows — it's the owner's data, and one quick look saves a re-do.
+- **Never invent a value.** A blank cell with the original kept in Notes beats a guessed email or a "fixed" name that's now wrong.
+- **No silent merging.** If two rows look like the same person, surface them and let the owner decide — don't quietly drop one.
+- **Half a record isn't a record.** "Sarah from the markets" with nothing else is a Note to follow up, not a contact row — flag it.
+- **The source stays traceable.** Keep the original line in Notes so the owner can always check the tidy version against what they started with.
 
 ## Edge cases
 
-- **PDF / Word / Excel file** — convert with `tools/markitdown_convert.py` (Step 0), don't ask for a re-paste.
-- **Screenshot / scan** — convert the image with MarkItDown (OCR) via Step 0; then flag any name/email with characters that look like OCR mistakes ("O" vs "0", "l" vs "1") and confirm those rows.
-- **List of just emails, no names** — import as contacts with first_name=email_local_part, ask the user to confirm or supply names.
+- **Photo / scan / screenshot** — convert it with `tools/markitdown_convert.py` (Step 1); MarkItDown OCRs it. Then flag any character that looks like an OCR slip and confirm those rows before they go in the file.
+- **PDF / Word / Excel file** — same path: convert first, then tidy. Don't ask for a re-type.
+- **A spreadsheet that's already mostly fine** — still run it through the converter so you're working on clean text, then just fix the few messy rows rather than rebuilding the whole thing.
+- **A list of just emails, no names** — put the email in the Email column and the part before the `@` in First as a placeholder; ask the owner to confirm or supply real names.
+
+## Once your CRM is connected (the bonus on-ramp)
+
+The tidy list above is the whole win on its own. It's yours, it's a real file,
+and it needed nothing connected to make.
+
+When you've connected your CRM, there's a natural next step: instead of stopping
+at the file, I can take that same clean list and seed it straight into your
+customer database for you, each tidy row becoming a customer record ready to
+work with. Same list, one step further. It's an upgrade you can take whenever
+you're ready, and the file stands on its own until then.
