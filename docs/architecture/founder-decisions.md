@@ -126,3 +126,25 @@ Verified against TrustPager's own help center (read live via the connector):
   registry. This decision makes "onboarding only ever offers real, keyless wins" a checked invariant.
 - **Roadmap impact:** re-frames P4/P5 around the roster; adds the guardrail (Wave 0) as the prerequisite
   to all further floor work; the `design-nurture-sequence` registry mislabel is corrected to connected-tier.
+
+## D10 — Token-frugality is a first-class constraint; the connected tier must not flood context (2026-06-28)
+- **The concern (founder-raised):** a brand-new owner is likely on a Pro plan. If connecting a tool loads
+  a large MCP tool surface every turn (TrustPager alone exposes ~600 tools), it taxes context on every
+  turn and can burn their usage within a few turns — an unacceptable first-impression cost. "Designed
+  intelligently" is a hard requirement, not a nice-to-have.
+- **The floor is already safe.** Every floor app is `reasoning_only` / `local` / `firecrawl` and loads
+  ZERO MCP tools. The bloat is strictly a CONNECTED-tier concern, so it does not block the floor build.
+- **v1 strategy (no new moving parts):** lean on the client's native tool-deferral / tool-search (Claude
+  Code already defers connected-MCP tools, surfacing names + loading schemas on demand) + TrustPager's
+  **OAuth scoping** (connect only the tool groups the owner needs, trimming the surface at the source) +
+  the kernel's **REST path** for read-heavy skills (call the API in python → zero MCP tools loaded).
+- **Planned path for the multi-driver future:** a thin BOS **gateway/proxy** fronting all connected MCP
+  servers and exposing a small `search_tools` + `invoke_tool` façade (a "driver multiplexer" in the
+  kernel/driver model). Adopt ONLY if measurement + scoping prove insufficient, and weigh against D1's
+  "no install ceremony" (a proxy is a running process — local or hosted — with its own trust/dependency
+  surface).
+- **A DEEP investigation is queued (founder-ruled scope) BEFORE finalizing the TrustPager re-slot (P7) /
+  install (P8) connection design:** measure real per-turn tool overhead on Claude Code vs the claude.ai
+  connector; confirm how granular TrustPager's OAuth scopes are; survey + vet public MCP proxy/router
+  projects (license + no-ceremony fit); prototype the chosen lever; write it up as the connected-tier
+  loading spec. Do not lock P7/P8 connection design until this lands.
