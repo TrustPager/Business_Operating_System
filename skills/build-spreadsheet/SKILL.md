@@ -1,125 +1,138 @@
 ---
 name: Build Spreadsheet
-description: Build either kind of TrustPager spreadsheet. A WORKSPACE spreadsheet pulls live from the CRM (pick columns including custom fields, period views, running totals, a rolling auto-create) — for "track X by month" like monthly settlement reconciliation. A STANDALONE spreadsheet holds its own data (a calculator, a planner, a tracker, or an existing Excel/CSV imported in) and isn't bound to the CRM. This skill asks which, then builds it.
+description: Build a real spreadsheet you can open and start filling today — a job tracker, a simple cashflow, or a lead log — with the right columns designed for your trade and a working .xlsx saved locally. No account needed. Once your workspace is connected, the same tracker can live inside it and keep itself current as your work moves.
 triggers:
   - build a spreadsheet
-  - make a workspace spreadsheet
-  - make a standalone spreadsheet
-  - track settled this month
-  - monthly reconciliation spreadsheet
-  - total my X by month
-  - import this excel into a spreadsheet
-  - settlement spreadsheet
-function_slot: accounting
-requires_driver: trustpager
-requires_credential: mcp
-data_path: mcp_tools
-uses_tools:
-  - mcp__create_spreadsheet
-  - mcp__list_spreadsheet_templates
-  - mcp__bulk_append_spreadsheet_rows
+  - make me a job tracker
+  - i need a cashflow spreadsheet
+  - set up a lead log
+  - track my jobs in a spreadsheet
+  - spreadsheet to track money in and out
+  - simple cashflow sheet
+  - create an xlsx
+function_slot: documents
+requires_driver: doclib
+requires_credential: none
+data_path: local
 status: active
 ---
 
 # Build Spreadsheet
 
-TrustPager has two spreadsheet types, and they're for different jobs. Pick the
-right one first, then build it.
+You hand the owner a real spreadsheet they can open in Excel or Google Sheets
+and start filling the same minute. No account, no setup: pick the slice of the
+business the sheet is for, design the columns so they actually fit the trade,
+and write a real `.xlsx` to disk with `tools/write_xlsx.py`.
 
-## Step 1 — Which kind?
+The keyless `.xlsx` is the win. A live workspace version that keeps itself
+current is the deeper version you offer afterward, in plain words, once their
+workspace is connected.
 
-Ask (or infer from the request, then confirm):
+This is the keyless WRITE path built on the doc-lib-set driver
+([`knowledge/document-tools-method.md`](../../knowledge/document-tools-method.md)).
+The owner never has to think about any of that: they ask for a spreadsheet,
+they get a spreadsheet.
 
-- **Workspace spreadsheet** — pulls live from the CRM and stays current as
-  records change. Use when the data IS your CRM: opportunities, values, custom
-  fields, totalled by period (e.g. settled-this-month by broker and bank). → Path A.
-- **Standalone spreadsheet** — its own data, not bound to the CRM. Use for a
-  calculator, a planner, a commission model, an ad-hoc tracker, or bringing an
-  existing Excel/CSV into TrustPager. → Path B.
+## Step 1 — Which slice of the business?
 
-If the request is "total my opportunities / settlements / pipeline by month" it's
-workspace. If it's "a sheet to work out X" or "import my spreadsheet" it's
-standalone.
+Most owners who ask for "a spreadsheet" want one of three. Ask which fits, or
+infer from what they said and confirm:
 
----
+- **Job tracker** — every job in one place: who it's for, what it is, the
+  stage it's at, what it's worth, when it's due. The default for a trade or
+  service business that runs work job by job.
+- **Simple cashflow** — money in and money out by date, with a running
+  balance, so they can see where they stand this month at a glance.
+- **Lead log** — every enquiry as it comes in: who, where from, what they
+  want, what's been done about it, and whether it turned into work.
 
-## Path A — Workspace spreadsheet (live from the CRM)
+If they describe something close to one of these, name it back and build that.
+If it's genuinely a fourth thing (a quoting calculator, a stock list, a
+planner), design columns for it the same way: a header row that matches how
+they actually talk about the work, in a sensible order.
 
-### A1 — Confirm columns + period + totals
-- **Columns** — opportunity fields + custom fields (e.g. opportunity name, value,
-  settlement date, broker, bank). If a needed custom field doesn't exist, hand off
-  to `/add-a-field` first (and ensure it's exposed to the spreadsheet system).
-- **Period** — how it's grouped (usually by month, on a date field like settlement date).
-- **Totals** — which column to sum (e.g. value).
+It's fine to ask one quick question about how they run that part of the
+business, so the columns fit. Naming the messy part they want tidier is fine in
+this conversation: the sheet itself stays plainly useful.
 
-### A2 — Create + add columns
-Create a workspace spreadsheet (`create_spreadsheet`, sourced from opportunities)
-and add the confirmed columns. Remove unwanted defaults. If a custom field can't
-be added as a column, that's the known platform gap — tell the operator and offer
-`/report-an-issue` rather than silently dropping it. Respect the approval queue.
+## Step 2 — Design the columns for that slice
 
-### A3 — Period views + totals
-A **view per period** (e.g. "June 2026") filtered on the date field to that month,
-each with a **sum** on the totals column. Seed the last couple of periods + the
-current one.
+Lay out the header row before writing anything, and shape it to their trade.
+Starting points (adapt the wording to how *they* describe it):
 
-### A4 — Offer the rolling automation
-Offer a **scheduled automation** that creates next period's view automatically
-(hand off to `/automate-this`). Confirm before creating.
+- **Job tracker:** `Job` · `Customer` · `Stage` · `Value` · `Due date` ·
+  `Notes`. Stage is their real stages (e.g. quoted, booked, in progress, done,
+  invoiced) — ask, don't assume.
+- **Simple cashflow:** `Date` · `Description` · `Money in` · `Money out` ·
+  `Running balance`. One row per movement; the balance column is where the
+  running total goes.
+- **Lead log:** `Date` · `Name` · `Source` · `What they want` · `Status` ·
+  `Next step`. Source is where the enquiry came from (referral, website, a call).
 
----
+Show the planned header row in plain language and confirm it's right before you
+generate the file. Columns are cheap to change now, annoying to redo once
+they've typed real data in.
 
-## Path B — Standalone spreadsheet (its own data)
+## Step 3 — Write the real .xlsx
 
-### B1 — Where does the data come from?
-- **From scratch** — the operator describes the columns and what it's for (e.g. a
-  commission calculator: deal, loan amount, rate, commission). 
-- **From a template** — if there's a fitting spreadsheet template, start from it
-  (`list_spreadsheet_templates`).
-- **From an existing file** — if they have an Excel/CSV, convert it with the
-  standard tool first: `python tools/markitdown_convert.py "<file.xlsx>"`
-  (`knowledge/document-tools-method.md`), then build the sheet from its columns
-  and rows. Don't hand-parse the file.
+Build the rows as a JSON array of arrays: the header row first, then a few
+example rows so the sheet shows what good looks like (label them clearly as
+examples the owner can type over, e.g. an `Example` in the first cell). Then
+write it:
 
-### B2 — Create + set columns
-Create a standalone spreadsheet (`create_spreadsheet` as a standalone sheet, not
-CRM-sourced) with the confirmed columns and types. For an import, load the rows
-(`bulk_append_spreadsheet_rows`); stream progress.
+```bash
+python tools/write_xlsx.py --out "job-tracker.xlsx" --rows '[["Job","Customer","Stage","Value","Due date","Notes"],["Example: fit-out at 14 Example St","A. Customer","Booked",4200,"2026-07-10","deposit paid"]]' --sheet "Jobs" --header
+```
 
-### B3 — Formulas / totals
-Add the calculations the operator wants (sums, per-row formulas like
-amount × rate). Confirm the formula logic in plain language before applying it,
-so a wrong calc doesn't go unnoticed.
+- `--header` makes the first row bold so the columns read as headings.
+- `--sheet` titles the tab for the slice ("Jobs", "Cashflow", "Leads").
+- For a cashflow, put a sensible starting balance in the first example row's
+  balance cell, and say in plain words how the running balance works (each row
+  is the one above plus money in, minus money out) so they can keep it going.
 
-### B4 — Confirm it's standalone
-Make clear it does NOT read from the CRM — it's a self-contained sheet. If they
-later want it tied to CRM data, that's a workspace spreadsheet (Path A).
+If the wrapper reports the spreadsheet library isn't installed, relay its
+one-line install hint (`pip install openpyxl`) and stop until it's installed —
+don't try to hand-build the file another way.
 
----
+## Step 4 — Hand it over + offer the deeper version
 
-## Confirm (either path)
+Tell them what you built, where it saved, and how to keep it going:
 
 ```
-✓ Built "Monthly settlement" (workspace, live from opportunities):
-  columns: opportunity, loan amount, settlement date, broker, bank
-  views: Apr / May / June 2026, each summing loan amount
-  → want next month's view auto-created each month?
+✓ Built "job-tracker.xlsx" (saved here, opens in Excel or Google Sheets):
+  columns: Job · Customer · Stage · Value · Due date · Notes
+  one example row in there. Type over it and add your own.
 ```
-or
-```
-✓ Built "Commission calculator" (standalone): 5 columns, commission = loan × rate.
-  Self-contained — it doesn't read from your CRM.
-```
+
+Then offer the upgrade in plain language, without making it the price of
+entry:
+
+> This one's yours to fill in by hand, and it works today. Once your workspace
+> is connected, I can set up the same tracker to live right inside it and keep
+> itself current as your jobs move along, so you're not retyping anything. No
+> rush though: this sheet stands on its own.
+
+That live, self-updating version is a connected capability. Describe it the way
+above and leave it there; the keyless file is the real deliverable here.
 
 ## Hard rules
-- ❌ Don't pick the type for the operator silently when it's ambiguous — confirm workspace vs standalone.
-- ❌ Workspace: don't drop a needed custom-field column silently — create it (`/add-a-field`) or flag the gap.
-- ❌ Standalone: don't hand-parse an Excel/CSV — convert via `tools/markitdown_convert.py`.
-- ❌ Don't route around an approval gate (202 = queued).
-- ✅ Workspace sheets source live from the CRM; standalone sheets hold their own data — don't blur the two.
-- ✅ Confirm formula logic in plain language before applying it.
+
+- ❌ Don't make the owner connect anything to get a usable spreadsheet — the
+  keyless `.xlsx` is the whole point, and it ships first.
+- ❌ Don't invent columns that don't fit how they run the work — design to the
+  slice and confirm the header row before writing.
+- ❌ Don't hand-build the file some other way if the library's missing — relay
+  the one-line install hint and stop.
+- ❌ Don't promise the live, self-updating version as if it's part of this
+  keyless build — it's the deeper version, offered in words, after.
+- ✅ Write a real `.xlsx` with `tools/write_xlsx.py`, header row bold, a couple
+  of clearly-labelled example rows so the sheet teaches itself.
+- ✅ Keep the sheet and every label plainly useful and forward-looking: it
+  shows the owner where their work stands.
 
 ## Output shape
-A one-line confirmation naming the spreadsheet, its type (workspace/standalone),
-its columns, and either the period views + totals + auto-create offer (workspace)
-or the formulas + "self-contained" note (standalone).
+
+A confirmed header row for the chosen slice, then a one-line confirmation
+naming the saved `.xlsx`, its columns, and the example row — followed by the
+plain-language offer of the live, self-updating version once their workspace is
+connected.

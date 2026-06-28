@@ -12,18 +12,18 @@ Status legend: ✅ ships keyless today · 🟡 partly built · 🔁 needs decoup
 |---|---|---|---|---|---|
 | 1 | A line-itemed quote from a photo + 30s voice note | Trades | win-work | quote-from-photo (✅ keyless: photo → scope + line-item structure ships now), price-my-work (full auto-pricing enrichment), doc-lib-set | ✅ |
 | 2 | A defensible price for one common job (margin shown) | Trades, mfg, consulting | get-paid | price-my-work (✅ keyless, reasoning-only), doc-lib-set (optional .xlsx tidy-up) | ✅ |
-| 3 | An on-brand proposal/SOW in the owner's voice (.docx) | Consulting, property | win-work | write-a-proposal, price-my-work, build-brand-strategy, doc-lib-set | 🆕 |
-| 4 | A one-page read of one competitor's site | All; consulting/property | decide-well | research-a-competitor, firecrawl-keyless | 🆕 |
-| 5 | A pre-meeting brief + 3 sharp questions | Consulting, broking, property | win-work | research-before-call, research-a-competitor, firecrawl-keyless | 🆕 |
+| 3 | An on-brand proposal/SOW in the owner's voice (.docx) | Consulting, property | win-work | write-a-proposal (✅ keyless: doclib WRITE → .docx), price-my-work, build-brand-strategy, doc-lib-set | ✅ |
+| 4 | A one-page read of one competitor's site | All; consulting/property | decide-well | research-a-competitor (✅ keyless: firecrawl scrape/search), firecrawl-keyless | ✅ |
+| 5 | A pre-meeting brief + 3 sharp questions | Consulting, broking, property | win-work | research-before-call (✅ keyless: firecrawl scrape/search), research-a-competitor, firecrawl-keyless | ✅ |
 | 6 | A 2-week multi-channel content plan + first captions | Consulting, wellness, hospitality | market | plan-my-content (✅ keyless), write-post-copy (✅ keyless), build-brand-strategy (✅) | ✅ |
 | 7 | One on-brand graphic + caption for this week | Wellness, hospitality, property | market | make-social-post (✅), write-post-copy (✅ keyless), build-brand-strategy (✅) | ✅ |
 | 8 | A 15-30s branded promo video | Hospitality, wellness, property | market | make-brand-video, creative-render-driver, build-brand-strategy | 🆕 |
-| 9 | A publish-ready folder (brief + caption + asset) | All running socials | save-time | assemble-content-pack, make-social-post, write-post-copy | 🟡 |
+| 9 | A publish-ready folder (brief + caption + asset) | All running socials | save-time | assemble-content-pack (✅ keyless: local collate, no generation), make-social-post, write-post-copy | ✅ |
 | 10 | Any messy file → clean usable data | Broking, mfg, admin-heavy | save-time | extract-document, compare-documents, markitdown-driver | ✅ |
 | 11 | An intake/fact-find pack read in seconds + what's-missing | Broking, allied health | save-time | extract-document, template-from-document, markitdown-driver | ✅ |
-| 12 | A structured spreadsheet that runs one slice | Trades, mfg, property | save-time | build-spreadsheet, doc-lib-set | 🔁 |
-| 13 | A scattered customer list → one clean normalized file | All pre-CRM | save-time | import-from-anywhere, markitdown-driver, build-spreadsheet, doc-lib-set | 🔁 |
-| 14 | A call/meeting → clean summary + actions (paste a transcript) | Consulting, allied health | save-time | transcript-summary, markitdown-driver | 🔁 |
+| 12 | A structured spreadsheet that runs one slice | Trades, mfg, property | save-time | build-spreadsheet (✅ keyless: doclib WRITE → .xlsx; live workspace sheet is the deepener), doc-lib-set | ✅ |
+| 13 | A scattered customer list → one clean normalized file | All pre-CRM | save-time | import-from-anywhere (✅ keyless: markitdown READ → normalized local file; CRM seed only on connect), markitdown-driver, build-spreadsheet, doc-lib-set | ✅ |
+| 14 | A call/meeting → clean summary + actions (paste a transcript) | Consulting, allied health | save-time | transcript-summary (✅ keyless: paste/local-file path via markitdown), markitdown-driver | ✅ |
 | 15 | A grilling on the owner's next big decision | All; consulting/trades | decide-well | grill-me-on-this-decision (✅ keyless), write-prompt (✅) | ✅ |
 | 16 | A job ad + screening questions in the owner's voice | Trades, hospitality, wellness | save-time | write-a-job-ad (✅ keyless), onboard-team-member (✅), build-brand-strategy (✅) | ✅ |
 | 17 | On-brand policies + FAQ answers (deposits, cancellations, privacy) | Wellness, hospitality, allied health | market | write-a-policy (✅ keyless), build-brand-strategy (✅) | ✅ |
@@ -42,18 +42,18 @@ Build in this order (each "unlocks" = number of roster wins it enables). Reasoni
 | 4 | **✅ (done) build-customer-voice** (decoupled) | 3 | small | reasoning_only/local | Documented prerequisite of floor `build-brand-strategy`; now accepts owner-pasted notes / local files instead of `mcp list_transcripts`. Keyless, Inc 2. |
 | 5 | **✅ (done) write-post-copy** | 3 | small | reasoning_only | Studios render only the on-image headline; this drafts the caption/body. Positive-only enforced. Built keyless, Inc 2. |
 | 6 | **✅ (done) grill-me-on-this-decision** | 1 | small | reasoning_only | Locked floor app (D6); the reasoning anchor. Routed by start-here Step 6. Built keyless, Inc 2. |
-| 7 | **write-a-proposal** | 1 | medium | reasoning_only + doc-lib-set | Closes price→proposal. Becomes the live signing template on connect. Positive-only. |
+| 7 | **✅ (done) write-a-proposal** | 1 | medium | reasoning_only + doc-lib-set | Closes price→proposal; writes a real .docx. Live signing template described as the connect-time outcome. Positive-only. Built keyless, Inc 3. |
 | 8 | **✅ (done) plan-my-content** | 1 | medium | reasoning_only | THE missing hinge: content-pillars → dated multi-channel plan. Horizon clamped to 1-2 weeks. Built keyless, Inc 2. |
-| 9 | **build-spreadsheet** (decouple) | 2 | small | local | Keyless standalone .xlsx via doc-lib-set; live workspace sheet is the deepener. |
-| 10 | **import-from-anywhere** (decouple) | 1 | medium | local | MarkItDown read → normalized local file; CRM seed only on connect. The natural connect on-ramp. |
-| 11 | **transcript-summary** (fix: keyless paste/local path) | 1 | small | local | Correctness gap: floor's zero-account claim isn't literally true until this lands. |
+| 9 | **✅ (done) build-spreadsheet** (decouple) | 2 | small | local | Keyless standalone .xlsx via doc-lib-set; live workspace sheet is the connect-time deepener (plain-language). Built keyless, Inc 3. |
+| 10 | **✅ (done) import-from-anywhere** (decouple) | 1 | medium | local | MarkItDown read → normalized local file; CRM seed described as the connect-time on-ramp (plain-language). Built keyless, Inc 3. |
+| 11 | **✅ (done) transcript-summary** (fix: keyless paste/local path) | 1 | small | local | Keyless paste/local-file path lands; floor's zero-account claim now literally true. Built keyless, Inc 3. |
 | 12 | **✅ (done) quote-from-photo** (decouple: drop list_products) | 1 | trivial | reasoning_only | Decoupled in Wave 0; price-my-work remains its pricing enrichment. |
 | 13 | **✅ (done) write-a-job-ad** | 1 | small | reasoning_only | Completes the team cluster's before-hire gap. Positive-only. Built keyless, Inc 2. |
 | 14 | **✅ (done) write-a-policy** | 1 | small | reasoning_only | High day-one demand; pre-feeds build-knowledge-base-from-docs on connect. Positive-only. Built keyless, Inc 2. |
-| 15 | **assemble-content-pack** | 1 | small | local | Publish-ready terminus of the MAKE cluster; pure orchestration, no generation. |
-| 16 | **research-a-competitor** | 2 | medium | fetch_rest (Firecrawl) | Floor's KNOW dimension. **Network — not `BOS_OFFLINE`-green; harness mocks/skips the fetch.** scrape/search/interact only, never crawl/map/agent/extract. |
-| 17 | **research-before-call** | 1 | medium | fetch_rest (Firecrawl) | Builds on research-a-competitor. Network. |
-| 18 | **firecrawl-keyless** driver (wire scrape/search/interact) | 2 | trivial | fetch_rest | Already active in `.mcp.json`. Wired not vendored. Manifest must NOT advertise crawl/map/agent/extract as keyless. |
+| 15 | **✅ (done) assemble-content-pack** | 1 | small | local | Publish-ready terminus of the MAKE cluster; pure orchestration, no generation. Built keyless, Inc 3. |
+| 16 | **✅ (done) research-a-competitor** | 2 | medium | fetch_rest (Firecrawl) | Floor's KNOW dimension. **Network — not `BOS_OFFLINE`-green; tests exercise synthesis on a fixture, never a live fetch.** scrape/search only, never crawl/map/agent/extract. Built keyless, Inc 3. |
+| 17 | **✅ (done) research-before-call** | 1 | medium | fetch_rest (Firecrawl) | Builds on research-a-competitor. Network; synthesis-tested on a fixture. Built keyless, Inc 3. |
+| 18 | **✅ (done) firecrawl-keyless** driver (wire scrape/search/interact) | 2 | trivial | fetch_rest | Active in `.mcp.json`; wired not vendored. Driver in the manifest, tools in the body; manifest does NOT advertise crawl/map/agent/extract as keyless. Wired Inc 3. |
 | — | **make-brand-video + creative-render-driver** | 1 | large | local render | Founder priority but **P6** (Remotion bridge, cross-repo, pin-on, heavy install). Genericise the RVS promo layer first. Voiceover OFF to stay keyless. |
 
 ## The guardrail (anti-recurrence)

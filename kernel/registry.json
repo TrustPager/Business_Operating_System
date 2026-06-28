@@ -6,6 +6,13 @@
     "requires_driver": "trustpager",
     "status": "active"
   },
+  "assemble-content-pack": {
+    "data_path": "local",
+    "function_slot": "social",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
   "assemble-pack": {
     "data_path": "mcp_tools",
     "function_slot": "documents",
@@ -123,16 +130,11 @@
     ]
   },
   "build-spreadsheet": {
-    "data_path": "mcp_tools",
-    "function_slot": "accounting",
-    "requires_credential": "mcp",
-    "requires_driver": "trustpager",
-    "status": "active",
-    "uses_tools": [
-      "mcp__create_spreadsheet",
-      "mcp__list_spreadsheet_templates",
-      "mcp__bulk_append_spreadsheet_rows"
-    ]
+    "data_path": "local",
+    "function_slot": "documents",
+    "requires_credential": "none",
+    "requires_driver": "doclib",
+    "status": "active"
   },
   "build-work-order-process": {
     "data_path": "mcp_tools",
@@ -239,15 +241,11 @@
     "status": "active"
   },
   "import-from-anywhere": {
-    "data_path": "mcp_tools",
-    "function_slot": "crm",
-    "requires_credential": "mcp",
-    "requires_driver": "trustpager",
-    "status": "active",
-    "uses_tools": [
-      "mcp__trustpager__bulk_create_contacts",
-      "mcp__trustpager__bulk_append_spreadsheet_rows"
-    ]
+    "data_path": "local",
+    "function_slot": "documents",
+    "requires_credential": "none",
+    "requires_driver": "markitdown",
+    "status": "active"
   },
   "lead-triage": {
     "data_path": "mcp_tools",
@@ -459,6 +457,20 @@
       "mcp__trustpager__create_service_request"
     ]
   },
+  "research-a-competitor": {
+    "data_path": "fetch_rest",
+    "function_slot": "research",
+    "requires_credential": "none",
+    "requires_driver": "firecrawl",
+    "status": "active"
+  },
+  "research-before-call": {
+    "data_path": "fetch_rest",
+    "function_slot": "research",
+    "requires_credential": "none",
+    "requires_driver": "firecrawl",
+    "status": "active"
+  },
   "review-team-draft": {
     "data_path": "mcp_tools",
     "function_slot": "comms",
@@ -597,19 +609,11 @@
     ]
   },
   "transcript-summary": {
-    "data_path": "mcp_tools",
+    "data_path": "local",
     "function_slot": "comms",
-    "requires_credential": "mcp",
-    "requires_driver": "trustpager",
-    "status": "active",
-    "uses_tools": [
-      "mcp__trustpager__list_transcripts",
-      "mcp__trustpager__get_transcript",
-      "mcp__trustpager__ai_transcript_summary",
-      "mcp__trustpager__add_note",
-      "mcp__trustpager__log_meeting",
-      "mcp__trustpager__create_task"
-    ]
+    "requires_credential": "none",
+    "requires_driver": "markitdown",
+    "status": "active"
   },
   "update-pdf": {
     "data_path": "mcp_tools",
@@ -703,6 +707,13 @@
     "function_slot": "people",
     "requires_credential": "none",
     "requires_driver": "none",
+    "status": "active"
+  },
+  "write-a-proposal": {
+    "data_path": "local",
+    "function_slot": "strategy",
+    "requires_credential": "none",
+    "requires_driver": "doclib",
     "status": "active"
   },
   "write-post-copy": {

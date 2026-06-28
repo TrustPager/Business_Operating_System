@@ -2,7 +2,7 @@
 
 *The deduped, vertical-aware menu the "3 things we could build" moment draws from. Every project offered as buildable-now maps to a real registry skill (`kernel/registry.json`, `status: active`). Decided-but-unbuilt floor ideas live in the non-routable [Planned (coming soon)](#planned-coming-soon) section so the vision is preserved without offering it as a live win. No invented apps; the registry is the source of truth.*
 
-**Build-status legend:** `[live]` = ships today (in registry, `status: active`); `[floor-new]` = decided keyless floor build, not yet built (Planned only); `[fix]` = exists but needs the keyless paste/local-file path (only `transcript-summary`).
+**Build-status legend:** `[live]` = ships today (in registry, `status: active`); `[floor-new]` = decided keyless floor build, not yet built (Planned only — now only `make-brand-video`).
 
 **Keyless/CRM tags:** `keyless` = zero accounts (`reasoning_only` / local MarkItDown read / keyless render / keyless hosted Firecrawl); `better_with_crm` = genuinely valuable cold but the payoff (auto-send, live tracking) lands on connect; `needs_crm` = requires live CRM data (last-activity dates, receivables) to work at all.
 
@@ -16,8 +16,9 @@
 |---|---|---|---|---|
 | **Turn a photo into a ready-to-send quote** | Send a photo of the job and a quick voice note — I'll turn it into a laid-out quote with line items and the scope structured, ready for your prices. | `quote-from-photo` `[live]` | keyless | instant_win |
 | **Price one common job with confidence** | Tell me the work, your costs and hours and I'll build a defensible price with your margin shown openly, so every quote comes off a number you can stand behind, not a gut feel. | `price-my-work` `[live]` | keyless | first_build |
-
-*(More win-work first-wins are decided and on the way: on-brand proposals, competitor and pre-call research. See [Planned (coming soon)](#planned-coming-soon).)*
+| **Write the proposal that wins the job** | Give me the scope and price and I'll write a sharp, on-brand proposal or SOW in your voice, laid out as a real .docx you can send today. | `write-a-proposal` `[live]`, `price-my-work` `[live]` | keyless | first_build |
+| **Size up a competitor before you bid** | Point me at a rival's site and I'll read it like a sharp operator: how they position, what they appear to charge, and where the openings are for you. | `research-a-competitor` `[live]` | keyless | first_build |
+| **Research a prospect before the call** | Tell me who you're meeting and I'll hand you a one-page brief plus three sharp questions that make you the most prepared person in the room. | `research-before-call` `[live]` | keyless | instant_win |
 
 ### 💰 Get paid — chasing invoices, recovering missed work
 
@@ -30,12 +31,12 @@
 
 | Project | One-line operator pitch | Builds on | Keyless/CRM | Tier |
 |---|---|---|---|---|
-| **Get your customer list into one clean place** | Wherever your customers live — notebook, phone, messy spreadsheet — give it to me and I'll pull it into one tidy list. | `import-from-anywhere` `[live]`, `audit-my-data` `[live]`, `build-spreadsheet` `[live]` | better_with_crm | deeper |
+| **Get your customer list into one clean place** | Wherever your customers live — notebook, phone, messy spreadsheet — give it to me and I'll pull it into one tidy list, a real file you can open today. | `import-from-anywhere` `[live]`, `build-spreadsheet` `[live]` | keyless | first_build |
 | **Chase your stale quotes before they go cold** | I'll write the friendly "still keen?" follow-up plus the two-week nudge — you win more of the jobs you already quoted. | `draft-reply` `[live]`, `design-nurture-sequence` `[live]` | better_with_crm | first_build |
 | **A recovery text for missed calls** | I'll write the text that fires the moment you miss a call, so you stop losing jobs to whoever picked up first. Write it now; it can send itself once connected. | `missed-call-recovery` `[live]`, `draft-reply` `[live]` | better_with_crm | first_build |
 | **A stay-in-touch / renewal sequence** | I'll draft the anniversary check-ins, renewal nudges and reorder reminders in your voice — top-of-mind without lifting a finger; fires on real dates once connected. | `design-nurture-sequence` `[live]`, `wire-nurture-sequence` `[live]` | better_with_crm | deeper |
 | **Renewal / reorder radar** | Connect your workspace and I'll surface every renewal or reorder coming up, flag the ones gone quiet, and draft each review message. | `follow-up-radar` `[live]`, `prep-for-call` `[live]` | needs_crm | deeper |
-| **Turn a call/meeting into notes, decisions and next steps** | Paste a transcript or recording and I'll hand back a clean summary, the decisions, and the action list — the follow-up writes itself. | `transcript-summary` `[fix]`, `build-customer-voice` `[live]` | better_with_crm | instant_win |
+| **Turn a call/meeting into notes, decisions and next steps** | Paste a transcript or point me at a recording and I'll hand back a clean summary, the decisions, and the action list, ready to act on. | `transcript-summary` `[live]`, `build-customer-voice` `[live]` | keyless | instant_win |
 
 ### 🎨 Look professional & market — brand, content, video, social
 
@@ -46,8 +47,9 @@
 | **The words for your post, in your voice** | Give me the idea and I'll write the on-brand caption and body in your voice — positive and outcome-led, ready to publish with the graphic. | `write-post-copy` `[live]`, `make-social-post` `[live]` | keyless | first_build |
 | **A fortnight of content, planned and written** | I'll turn your brand into a dated two-week posting plan — what to post, when, on which channel — then write the first captions in your voice. | `plan-my-content` `[live]`, `write-post-copy` `[live]` | keyless | deeper |
 | **The way your customers actually talk, captured** | Paste your reviews, testimonials or call notes and I'll pull out the exact phrases, the outcomes they want and the worries that stall them — the voice every bit of your marketing should echo. | `build-customer-voice` `[live]` | keyless | first_build |
+| **Put a finished post together, ready to publish** | Hand me the caption and the graphic you've already made and I'll collate them into one clean, named folder with a short readme, so the whole post sits in one place when it's time to publish. | `assemble-content-pack` `[live]`, `make-social-post` `[live]`, `write-post-copy` `[live]` | keyless | deeper |
 
-*(More market first-wins are decided and on the way: a branded promo video and a capabilities one-pager. See [Planned (coming soon)](#planned-coming-soon).)*
+*(One more market first-win is decided and on the way: a branded promo video. See [Planned (coming soon)](#planned-coming-soon).)*
 
 ### 🗂️ Save time on admin — read any file, forms, structure data
 
@@ -57,7 +59,7 @@
 | **Your fact-find / intake pack, read in seconds** | Drop in payslips, statements, IDs or a paper form — I'll pull out the details into one clean summary and tell you what's missing. | `extract-document` `[live]`, `compare-documents` `[live]`, `template-from-document` `[live]` | keyless | instant_win |
 | **A reusable intake / RFQ form, drafted clean** | Hand me your current form or describe it and I'll turn it into a clean structured form spec with the right fields — ready to go live on connect. | `template-from-document` `[live]`, `build-form` `[live]` | better_with_crm | first_build |
 | **The chase-the-missing-docs list** | Tell me what you asked a client for and what's landed; I'll show what's still missing and draft the warm chase. Tracks asked-vs-arrived live once connected. | `outstanding-documents` `[live]`, `extract-document` `[live]` | better_with_crm | first_build |
-| **Build the spreadsheet that runs a slice of your business** | Job tracker, simple cashflow, lead log — tell me what you're keeping on top of and I'll build a clean, structured sheet that scales. | `build-spreadsheet` `[live]`, `import-from-anywhere` `[live]` | better_with_crm | deeper |
+| **Build the spreadsheet that runs a slice of your business** | Job tracker, simple cashflow, lead log — tell me what you're keeping on top of and I'll build a clean, structured .xlsx you can open and fill today. | `build-spreadsheet` `[live]`, `import-from-anywhere` `[live]` | keyless | first_build |
 
 ### 🧭 Plan & decide — stress-test decisions, hire, knowledge base
 
@@ -73,7 +75,7 @@
 
 ## 2. The universal core (the safe default pool)
 
-These work for **any** 2-10 person AU service business and are the default pool to draw the 3 from when the vertical is unclear or generic. **All but the CRM-tagged ones are keyless**, so they survive a cold open. Items marked *(Planned)* are decided but not yet built, so they are never offered as a buildable-now win. See [Planned (coming soon)](#planned-coming-soon).
+These work for **any** 2-10 person AU service business and are the default pool to draw the 3 from when the vertical is unclear or generic. **Every item here is keyless**, so the whole pool survives a cold open; each one names a plain-language connect-time deepener where it has one. The one decided-but-unbuilt market idea (a branded promo video) lives in [Planned (coming soon)](#planned-coming-soon) and is never offered as a buildable-now win.
 
 **Live keyless core (the cold-open pool):**
 
@@ -91,19 +93,15 @@ These work for **any** 2-10 person AU service business and are the default pool 
 12. **The way your customers actually talk, captured** — `build-customer-voice` · keyless · first_build
 13. **A job ad + screening questions in your voice** — `write-a-job-ad` · keyless · deeper
 14. **The policies & FAQs your business runs on** — `write-a-policy` · keyless · deeper
+15. **Write the proposal that wins the job** — `write-a-proposal` + `price-my-work` · keyless · first_build *(real .docx; live signing template is the connect-time deepener)*
+16. **Size up a competitor before you bid** — `research-a-competitor` · keyless · first_build *(keyless-but-online: reaches the live web via the hosted Firecrawl read)*
+17. **Research a prospect before the call** — `research-before-call` · keyless · instant_win *(keyless-but-online, same Firecrawl read)*
+18. **Turn a call into notes, decisions and next steps** — `transcript-summary` · keyless · instant_win *(paste a transcript or point at a local recording file; logs onto the customer's record as the connect-time deepener)*
+19. **Get your customer list into one clean place** — `import-from-anywhere` + `build-spreadsheet` · keyless · first_build *(real clean file; seeding it into the CRM is the connect-time deepener)*
+20. **Build the spreadsheet that runs a slice of your business** — `build-spreadsheet` · keyless · first_build *(job tracker / cashflow / lead log as a real .xlsx; live self-updating sheet is the connect-time deepener)*
+21. **Put a finished post together, ready to publish** — `assemble-content-pack` + `make-social-post` + `write-post-copy` · keyless · deeper *(collates caption + graphic + brief into one named folder; filing it into the workspace is the connect-time deepener)*
 
-**Connected-tier core (opened once a CRM connects; honestly flagged, never cold-keyless):**
-
-15. **Turn a call into notes, decisions and next steps** — `transcript-summary` `[fix]` · better_with_crm · instant_win
-16. **Get your customer list into one clean place** — `import-from-anywhere` + `build-spreadsheet` · better_with_crm · deeper
-
-**Planned core (decided, not yet built, never offered as buildable now):**
-
-- **Write the proposal that wins the job** — `write-a-proposal` *(Planned)* · first_build
-- **Size up a competitor before you bid** — `research-a-competitor` *(Planned)* · first_build
-- **Research a prospect before the call** — `research-before-call` *(Planned)* · instant_win
-
-**Note for builders:** every copy-producing app — now-live (`write-post-copy`, `plan-my-content`, `write-a-job-ad`, `write-a-policy`) and still-Planned (`write-a-proposal`) — enforces the positive-only language rule (global CLAUDE.md + floor-completion-plan DoD). `transcript-summary` is tagged `better_with_crm` not keyless until the planned MarkItDown paste-path lands (floor-completion-plan ruling #2).
+**Note for builders:** every copy-producing app (`write-post-copy`, `plan-my-content`, `write-a-job-ad`, `write-a-policy`, `write-a-proposal`) enforces the positive-only language rule (global CLAUDE.md + floor-completion-plan DoD). `transcript-summary`, `import-from-anywhere`, and `build-spreadsheet` are keyless on the floor (the MarkItDown paste/local-file read and the doc-lib WRITE side ship today, floor-completion-plan ruling #2); their CRM-side payoff (logging onto a record, seeding the customer database, a live self-updating sheet) is the plain-language connect-time deepener, never the price of the keyless win. The two research apps are keyless-but-online: they need connectivity at runtime but no account or key.
 
 ---
 
@@ -144,9 +142,6 @@ These beat the universal core *for that vertical* because they hit a named gotch
 
 | Project | One-line operator pitch | Builds on | Tier |
 |---|---|---|---|
-| **Write the proposal that wins the job** | Give me the scope and price and I'll write a sharp, on-brand proposal/SOW in your voice, ready to send. | `write-a-proposal` `[floor-new]` | first_build |
-| **Size up a competitor before you bid** | Point me at a rival's site and I'll read it like a sharp operator: how they position, what they charge, where the gaps are. | `research-a-competitor` `[floor-new]` | first_build |
-| **Research a prospect/partner before the call** | Tell me who you're meeting and I'll hand you a one-page brief plus three sharp questions that make you the most prepared person in the room. | `research-before-call` `[floor-new]` | instant_win |
 | **A short branded promo video** | A 15-30s branded video (your work, your colours, text on screen), the kind of thing that stops the scroll. No film crew. | `make-brand-video` `[floor-new]` | deeper |
 
 *Every copy-producing Planned app enforces the positive-only language rule when built (global CLAUDE.md + floor-completion-plan DoD).*
@@ -164,16 +159,16 @@ These beat the universal core *for that vertical* because they hit a named gotch
 0. **Custom-first (the default when there's an obvious fit).** If the owner's own situation points to an obvious, high-fit bespoke project, that is the DEFAULT and leads — even if it's not in this library. This library is the **safety net**: it guarantees there's always at least one option serving a real problem they named, for when no obvious custom project exists. (TrustPager is reactive-only: slot-3 "auto-later once connected" options describe the OUTCOME; never name TrustPager unless the owner asks what else the BOS can do or about CRMs.)
 1. **Filter out anything they've already built.** Never re-offer `already_built`.
 2. **Gate by trust + connection.** Cold (nothing connected, first pivot): draw **only from the keyless `first_build` pool** (`instant_win` is the pre-pivot taste, not a menu item; `deeper` and any `needs_crm`/`better_with_crm` project is held back). As trust accrues or a CRM connects, open up `deeper` and `better_with_crm`.
-3. **Anchor on the named relief.** The first of the 3 must map to `named_relief`, and cold it must be a **live keyless** win (Planned projects below are named for vision only — never lead with one until it ships). Relief → project lead:
-   - quoting → *photo-to-quote* (live) · *Price this job* (live)
-   - finding leads → *Size up a competitor* / *Research a prospect* *(both Planned)* — cold, fall back to *Your brand, written down* (live)
+3. **Anchor on the named relief.** The first of the 3 must map to `named_relief`, and cold it must be a **live keyless** win (the one Planned project below is named for vision only — never lead with it until it ships). Relief → project lead:
+   - quoting → *photo-to-quote* (live) · *Price this job* (live) · *A proposal that wins* (live keyless)
+   - finding leads → *Size up a competitor* (live keyless, online) · *Research a prospect* (live keyless, online); fall back to *Your brand, written down* (live) if offline
    - chasing invoices → (cold) *Price this job* (live) or *Your brand, written down* (live) or *Chase stale quotes* (better_with_crm); (connected) *Spot uninvoiced jobs* / *follow-up radar*
-   - looking professional → *Your brand, written down* (live) · *A proposal that wins* *(Planned)*
-   - staying on top of customers → *Throw me any file* (live) / *recovery text* (better_with_crm) / *call-to-notes* (better_with_crm)
-   - content/marketing → *A branded post today* (live) · *fortnight of content* (live) · *post copy in your voice* (live)
+   - looking professional → *Your brand, written down* (live) · *A proposal that wins* (live keyless)
+   - staying on top of customers → *Throw me any file* (live) / *call-to-notes* (live keyless) / *clean customer list* (live keyless) / *recovery text* (better_with_crm)
+   - content/marketing → *A branded post today* (live) · *fortnight of content* (live) · *post copy in your voice* (live) · *put a finished post together* (live keyless)
    - thinking/deciding → *A sharp reusable prompt* (live) · *Stress-test your decision* (live)
    - hiring/team → *A job ad + screening questions* (live) · *onboard your next team member* (live)
-   - policies/admin → *The policies & FAQs your business runs on* (live)
+   - policies/admin → *The policies & FAQs your business runs on* (live) · *Build a spreadsheet for a slice* (live keyless) · *clean customer list* (live keyless)
 4. **Pick the vertical standout if one matches the relief**, else fall to the universal core.
 5. **Shape the 3 as quick-win + meatier + aspirational:**
    - **Slot 1 — quick win** that nails the named relief (the dopamine hit; a short, visibly-finished artifact).
@@ -200,16 +195,17 @@ Then each option as a one-line outcome the owner recognises, e.g. for a trades o
 
 **Tier map (which is what):**
 
-- **instant_win** (the <2-min pre-pivot taste — *not* offered in the 3-menu): *photo-to-quote* on one photo, one *branded post*, *throw-me-any-file*, *call-to-notes* (better_with_crm). These trigger the pivot; the menu is drawn from the tiers below.
-- **first_build** (the cold 3-option pool, keyless, visibly operator-grade, deepens profile as a side effect): the LIVE cold pool is *Your brand written down*, *photo-to-quote*, *fact-find pack*, *throw-me-any-file*, *a sharp reusable prompt*, *Price this job*, *Stress-test your decision*, *post copy in your voice*, *customer-voice doc*. The still-Planned first_builds (*Write the proposal*, *Size up a competitor*) join this pool as they ship (see [Planned (coming soon)](#planned-coming-soon)); never lead with them cold until then.
-- **deeper** (offered once trust is high or a connection exists): the live keyless deeper set — *onboard a team member*, *fortnight of content*, *job ad + screening*, *policies & FAQs* — plus *customer-list import* (better_with_crm), and the still-Planned-or-connected set — *branded promo video*, *spreadsheet*, *uninvoiced-jobs*, *renewal/reorder radar*, *nurture sequences*.
+- **instant_win** (the <2-min pre-pivot taste — *not* offered in the 3-menu): *photo-to-quote* on one photo, one *branded post*, *throw-me-any-file*, *call-to-notes* (live keyless), *Research a prospect before the call* (live keyless, online). These trigger the pivot; the menu is drawn from the tiers below.
+- **first_build** (the cold 3-option pool, keyless, visibly operator-grade, deepens profile as a side effect): the LIVE cold pool is *Your brand written down*, *photo-to-quote*, *fact-find pack*, *throw-me-any-file*, *a sharp reusable prompt*, *Price this job*, *Stress-test your decision*, *post copy in your voice*, *customer-voice doc*, *Write the proposal that wins the job*, *Size up a competitor* (online), *clean customer list*, *Build a spreadsheet for a slice*. The two research apps are keyless-but-online, so fall back to an offline-safe pick if there's no connectivity.
+- **deeper** (offered once trust is high or a connection exists): the live keyless deeper set — *onboard a team member*, *fortnight of content*, *job ad + screening*, *policies & FAQs*, *put a finished post together* — plus the still-Planned-or-connected set — *branded promo video*, *uninvoiced-jobs*, *renewal/reorder radar*, *nurture sequences*.
 
-**The CRM/TrustPager on-ramp (the `better_with_crm` set — the high-trust conversation seeders).** These are valuable cold but their full payoff lands on connect, so they are the natural, non-cold bridge to "connect your workspace":
+**The CRM/TrustPager on-ramp (the high-trust conversation seeders).** Each of these ships a real keyless win today; their fuller payoff lands on connect, so they are the natural, non-cold bridge to "connect your workspace" — described in plain language, never named as a tool or a requirement:
 
-- **Get your customer list into one clean place** (`import-from-anywhere`) — the single most natural on-ramp; clean list cold, becomes the live CRM seed on connect.
-- **A recovery text for missed calls** / **Chase stale quotes** / **A renewal/reorder sequence** (`missed-call-recovery`, `design-nurture-sequence`, `wire-nurture-sequence`) — "write it now, it sends itself once connected" (auto-fire).
+- **Get your customer list into one clean place** (`import-from-anywhere`) — keyless clean file today; seeding it into the customer database is the connect-time deepener, the single most natural on-ramp.
+- **Turn a call into notes** (`transcript-summary`) — keyless standalone summary today; logging it straight onto the client's record is the connect-time deepener.
+- **Build a spreadsheet for a slice** (`build-spreadsheet`) — keyless real .xlsx today; a live, self-updating workspace sheet is the connect-time deepener.
+- **A recovery text for missed calls** / **Chase stale quotes** / **A renewal/reorder sequence** (`missed-call-recovery`, `design-nurture-sequence`, `wire-nurture-sequence`) — "write it now, it sends itself once connected" (auto-fire, better_with_crm).
 - **The outstanding-docs chaser** (`outstanding-documents`) — works off your checklist cold; tracks asked-vs-arrived live once connected.
-- **Turn a call into notes** (`transcript-summary`) — standalone summary cold; logs straight onto the client's file as an activity on connect.
 - **Policies / knowledge base** (`build-knowledge-base-from-docs`) — clean docs cold; powers the AI assistant and voice agent on connect.
 
 **`needs_crm` (held for the deeper tier only, never cold):** *Spot uninvoiced jobs* (`outstanding-invoices` — needs receivables + activity dates), *stalled-proposal radar* and *renewal radar* (`follow-up-radar`, `sweep-my-day`, `weekly-review` — need live `last_activity_at`). These are reserved as the "look what your connected workspace now watches for you" reward once trust is earned.
@@ -218,4 +214,4 @@ Then each option as a one-line outcome the owner recognises, e.g. for a trades o
 
 ---
 
-**Files this draws from (all under `C:\Users\USER\Desktop\Final Piece Docs\Business_Operating_System\`):** `kernel\registry.json` (the capability catalogue + credential/data_path per skill — the source of truth for what is live/keyless), `docs\architecture\floor-completion-plan.md` (the decided keyless floor builds; the ones still `[floor-new]` / Planned today are `write-a-proposal`, `research-a-competitor`, `research-before-call`, `make-brand-video`; plus ruling #2 on `transcript-summary`), `docs\architecture\skill-extraction-audit.md` (the floor/extractable/trustpager_native buckets), `knowledge\industry-notes.md` (per-vertical gotchas driving the relief targeting).
+**Files this draws from (all under `C:\Users\USER\Desktop\Final Piece Docs\Business_Operating_System\`):** `kernel\registry.json` (the capability catalogue + credential/data_path per skill — the source of truth for what is live/keyless), `docs\architecture\floor-completion-plan.md` (the decided keyless floor builds; the only one still `[floor-new]` / Planned today is `make-brand-video`; ruling #2 on `transcript-summary` is now satisfied — its keyless paste/local-file path ships), `docs\architecture\skill-extraction-audit.md` (the floor/extractable/trustpager_native buckets), `knowledge\industry-notes.md` (per-vertical gotchas driving the relief targeting).
