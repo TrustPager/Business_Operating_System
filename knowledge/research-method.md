@@ -45,6 +45,14 @@ Keyless covers **only** these three operations. Use nothing else in a floor rese
 
 A floor research app that needs `crawl`/`map`/`agent`/`extract` is not keyless and does not belong on the floor. Keep research apps to `scrape`/`search`/`interact`.
 
+## JSON shape: scrape vs search return DIFFERENTLY (handle both)
+`scrape` and `search` do not return the same shape, so a skill that parses firecrawl output must handle both or its first parse comes back empty:
+
+- **`scrape`** returns the page **markdown at the top level** (the content is the result, e.g. a `markdown` field on the response).
+- **`search`** nests its results in an array under **`data.web[]`** (each entry a result with its URL / title / snippet, and page content when requested), not at the top level.
+
+So when synthesising: read scrape output as the page itself, and iterate `data.web[]` for search results. A parser that assumes one shape for both silently produces an empty first parse on the other (the exact differing-shape gotcha the field test hit). Code defensively: check for the markdown-at-top-level shape AND the `data.web[]` shape.
+
 ## Offline (`BOS_OFFLINE`) accommodation
 Firecrawl apps are **network** — they reach a live REST endpoint, unlike the reasoning-only and local (doclib/markitdown) apps. So the offline suite cannot fetch. The accommodation for a firecrawl app's unit tests:
 

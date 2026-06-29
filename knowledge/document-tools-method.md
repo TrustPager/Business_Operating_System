@@ -63,6 +63,18 @@ python tools/pdf_tables.py statement.pdf --text          # page text instead
 
 Each wrapper also reads its JSON from stdin if `--rows`/`--blocks` is omitted, so Claude can pipe a generated payload straight in.
 
+#### UTF-8-safe arg passing on Windows (prefer stdin / a temp file for unicode)
+When the JSON payload carries any non-ASCII characters (en-dashes, curly quotes, accented names, emoji), **do NOT inline it after `--rows` / `--blocks` on the Windows command line.** The Windows console code page (often cp1252) mangles those characters into mojibake *before Python ever receives them*, so they render wrong in the output cells (the field test saw an en-dash arrive garbled this way). The safe path: write the JSON to a UTF-8 temp file and pipe it in on stdin.
+
+```bash
+# write the JSON payload to a UTF-8 temp file, then pipe it in (NOT inlined):
+python tools/write_docx.py --out proposal.docx < blocks.json
+python tools/write_xlsx.py --out pricing.xlsx  < rows.json
+python tools/make_pdf.py   --out brief.pdf      < blocks.json
+```
+
+The three write wrappers (`write_docx.py`, `write_xlsx.py`, `make_pdf.py`) read stdin as **UTF-8 explicitly** (decoding `sys.stdin.buffer` rather than relying on the locale code page), so a UTF-8 temp file round-trips cleanly regardless of the console code page. Plain-ASCII payloads are still fine to inline after `--rows` / `--blocks`. Rule of thumb: **any unicode in the content → write a temp file and pipe it on stdin.** (`pdf_tables.py` takes a file path, not a JSON arg, so this does not apply to it; it already reads/writes UTF-8.)
+
 #### `write_docx.py` block types (including the priced-line-item `table`)
 `write_docx.py` renders an ordered list of blocks. Each block is an object keyed by `type`:
 

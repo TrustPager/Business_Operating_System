@@ -72,11 +72,15 @@ priced scope) and **how the owner sounds** (the voice). Take in both, and ask
 only for what is genuinely missing.
 
 1. **The priced scope.** Ideally a priced breakdown from `price-my-work`: the
-   line items, the margin, the total, the assumptions. If the owner pastes or
-   types their own scope and price, take that. If there is no priced number at
-   all, the cleanest move is to run `price-my-work` first so the proposal rests
-   on a number the owner can stand behind, then come back here. Do not invent a
-   price or pad the scope with work the owner did not name.
+   line items, the margin, the total, the assumptions. **If the owner already
+   states a price, take it and move on, with zero friction.** A proposal is
+   often written against a deadline; an owner who has already settled on a
+   number does not want to be detoured into a pricing exercise. Use their
+   figure as the priced scope and go straight to the outline. Only when there
+   is **no priced number at all** is the cleanest move to offer `price-my-work`
+   first so the proposal rests on a number they can stand behind, and even then
+   it is an offer, not a gate. Do not invent a price or pad the scope with work
+   the owner did not name.
 2. **The brand voice.** If the owner has built a `voice.md` or a first-brand
    brief from `build-brand-strategy`, read it first so the proposal sounds like
    them, not like a template. Read
@@ -346,8 +350,10 @@ response.
 - **One proposal (or one tender section) per run.** Write the first one
   properly; offer the rest as fresh runs.
 - **Never invent the price, the scope, the terms, or a capability.** In Mode A
-  the price comes from the priced scope (run `price-my-work` if there is none),
-  and scope / timeline / terms come from the owner. In Mode B, never invent a
+  the price comes from the priced scope: if the owner states a price, take it
+  and skip the pricing detour; only offer `price-my-work` when there is no
+  number at all. Scope / timeline / terms come from the owner. In Mode B, never
+  invent a
   credential, accreditation, standard met, past project, or tender criterion.
   Ask one plain question for anything missing, or flag it as a `[confirm: …]`
   placeholder, rather than guessing.

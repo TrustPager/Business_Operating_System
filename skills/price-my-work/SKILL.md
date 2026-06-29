@@ -52,7 +52,21 @@ Gather what you need, and ask for only the pieces that are actually missing:
 
 If a number is missing, ask one plain question for it rather than inventing it.
 If they genuinely don't track something (say, overheads), price what you have
-and note that overheads aren't included — don't silently assume a figure.
+and note that overheads aren't included, don't silently assume a figure.
+
+## Step 1b: Read the figures back before you compute (one line)
+
+Owners fumble numbers out loud, and a wrong figure here flows straight into a
+total they might quote a customer. Before you do any maths, play the costs back
+in one tight line and get a yes:
+
+> Here's what I've got for your costs: materials $X, labour Y hrs at $Z/hr,
+> overheads $W, and you want a [n]% margin. That right?
+
+Keep it to the numbers (no full breakdown yet, that's Step 3). If they correct
+one, take the correction and read it back once more so you're both sure. Only
+once the inputs are confirmed do you compute the total. This costs one line and
+saves a wrong number going out in a quote.
 
 ## Step 2 — Do the maths, margin shown openly
 
