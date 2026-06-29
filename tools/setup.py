@@ -14,6 +14,8 @@ What it does:
 - Writes the key (and this clone's location, bos_home) to ~/.claude/bos.json.
 - Writes a tiny launcher shim to ~/.claude/bos-run.py so skills can run their
   data-fetchers from any working directory (`python ~/.claude/bos-run.py <skill>`).
+- Copies skills and commands into ~/.claude/ so Claude Code discovers them
+  automatically (no plugin or marketplace needed).
 
 Usage:
     python tools/setup.py
@@ -26,6 +28,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -163,6 +166,102 @@ def _write_launcher_shim() -> Path:
     return shim
 
 
+def _install_skills(bos_home: str, config_path: Path) -> tuple[int, int]:
+    """Copy BOS skills and commands into ~/.claude/ for Claude Code discovery.
+
+    Mechanism: file/directory COPY (not symlink). Symlinks require elevated
+    privilege on Windows (Developer Mode or admin), making them unreliable for
+    a conversational install. Copying is always available, is cross-OS safe,
+    and stays correct on re-runs because we refresh BOS-owned targets in place.
+    Re-running setup is the update path, so stale copies self-heal.
+
+    Collision policy: if a target already exists AND was not placed by BOS
+    (i.e., its name is not in the recorded installed_skills/installed_commands
+    lists), we skip it and print a one-line warning. We never overwrite the
+    user's own work.
+
+    Idempotent: running twice does not error or duplicate. If the target exists
+    and BOS owns it, we remove-and-recopy to refresh it.
+
+    Recording: installed_skills (list of skill dir names) and
+    installed_commands (list of command file basenames, no extension) are
+    stored in bos.json so a future uninstall/update can manage only BOS-owned
+    entries.
+
+    Returns (n_skills_placed, n_commands_placed).
+    """
+    home_claude = config_path.parent  # ~/.claude/
+    home_claude.mkdir(parents=True, exist_ok=True)
+
+    # Load current bos.json so we know what BOS already owns.
+    cfg: dict[str, Any] = {}
+    if config_path.exists():
+        try:
+            cfg = json.loads(config_path.read_text(encoding="utf-8")) or {}
+        except (json.JSONDecodeError, OSError):
+            cfg = {}
+
+    owned_skills: list[str] = list(cfg.get("installed_skills") or [])
+    owned_commands: list[str] = list(cfg.get("installed_commands") or [])
+
+    bos = Path(bos_home)
+    skills_placed = 0
+    commands_placed = 0
+
+    # --- skills: each <bos_home>/skills/<name>/ containing SKILL.md ---
+    src_skills_root = bos / "skills"
+    dst_skills_root = home_claude / "skills"
+    dst_skills_root.mkdir(exist_ok=True)
+
+    if src_skills_root.is_dir():
+        for src_skill in sorted(src_skills_root.iterdir()):
+            if not src_skill.is_dir():
+                continue
+            if not (src_skill / "SKILL.md").exists():
+                continue
+            name = src_skill.name
+            dst = dst_skills_root / name
+            if dst.exists() and name not in owned_skills:
+                print(f"  [skip] ~/.claude/skills/{name} exists and was not "
+                      f"created by BOS; leaving it unchanged.")
+                continue
+            # BOS owns it (or it does not exist): refresh by replacing.
+            if dst.exists():
+                shutil.rmtree(dst)
+            shutil.copytree(src_skill, dst)
+            if name not in owned_skills:
+                owned_skills.append(name)
+            skills_placed += 1
+
+    # --- commands: each <bos_home>/commands/<name>.md ---
+    src_commands_root = bos / "commands"
+    dst_commands_root = home_claude / "commands"
+    dst_commands_root.mkdir(exist_ok=True)
+
+    if src_commands_root.is_dir():
+        for src_cmd in sorted(src_commands_root.iterdir()):
+            if src_cmd.suffix != ".md" or not src_cmd.is_file():
+                continue
+            stem = src_cmd.stem
+            dst = dst_commands_root / src_cmd.name
+            if dst.exists() and stem not in owned_commands:
+                print(f"  [skip] ~/.claude/commands/{src_cmd.name} exists and "
+                      f"was not created by BOS; leaving it unchanged.")
+                continue
+            # BOS owns it (or it does not exist): write/overwrite.
+            shutil.copy2(src_cmd, dst)
+            if stem not in owned_commands:
+                owned_commands.append(stem)
+            commands_placed += 1
+
+    # Persist the updated ownership lists back to bos.json.
+    cfg["installed_skills"] = owned_skills
+    cfg["installed_commands"] = owned_commands
+    config_path.write_text(json.dumps(cfg, indent=2), encoding="utf-8")
+
+    return skills_placed, commands_placed
+
+
 def _write_key(key: str) -> int:
     CONFIG_PATH.parent.mkdir(parents=True, exist_ok=True)
     # Preserve any existing config keys; just update api_key + bos_home.
@@ -178,6 +277,8 @@ def _write_key(key: str) -> int:
     print(f"Wrote {CONFIG_PATH}")
     shim = _write_launcher_shim()
     print(f"Wrote {shim}  (skills run via: python ~/.claude/bos-run.py <skill>)")
+    n_skills, n_cmds = _install_skills(_bos_home(), CONFIG_PATH)
+    print(f"Made {n_skills} skills + {n_cmds} commands discoverable in ~/.claude/")
     print()
     print("Next: run `python tools/check-install.py` to verify everything works.")
     return 0
@@ -201,6 +302,8 @@ def _write_keyless() -> int:
     CONFIG_PATH.write_text(json.dumps(cfg, indent=2), encoding="utf-8")
     shim = _write_launcher_shim()
     print(f"Wrote {shim}  (skills run via: python ~/.claude/bos-run.py <skill>)")
+    n_skills, n_cmds = _install_skills(_bos_home(), CONFIG_PATH)
+    print(f"Made {n_skills} skills + {n_cmds} commands discoverable in ~/.claude/")
     print()
     print("No key set. The keyless floor is ready to use. "
           "You can connect TrustPager later to unlock the connected features.")
@@ -247,6 +350,8 @@ def main() -> int:
                 print(f"Updated bos_home in {CONFIG_PATH}")
             shim = _write_launcher_shim()
             print(f"Ensured launcher shim at {shim}")
+            n_skills, n_cmds = _install_skills(_bos_home(), CONFIG_PATH)
+            print(f"Made {n_skills} skills + {n_cmds} commands discoverable in ~/.claude/")
             print("Re-run with --force to replace the key, or skip setup entirely.")
             return 0
 
