@@ -72,7 +72,7 @@ order of richness:
    reading clean text, not guessing at a scan:
 
    ```bash
-   python tools/markitdown_convert.py "<path-to-file>"
+   python "${CLAUDE_PLUGIN_ROOT}/tools/markitdown_convert.py" "<path-to-file>"
    ```
 
    This handles PDF, Word, Excel, PowerPoint, images (OCR), HTML, CSV, JSON.

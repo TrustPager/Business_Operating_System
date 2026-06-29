@@ -110,7 +110,7 @@ equipment serves in that same period:
 ```bash
 # Equipment financed at 7.2% per year over 5 years (60 monthly payments) on a $24,000 principal.
 # rate is the PERIODIC rate: 0.072 / 12 per month. nper is the number of periods.
-python tools/finance_calc.py pmt --rate 0.006 --nper 60 --pv 24000
+python "${CLAUDE_PLUGIN_ROOT}/tools/finance_calc.py" pmt --rate 0.006 --nper 60 --pv 24000
 # -> {"result": 477.42...}  (the monthly repayment)
 ```
 
@@ -124,11 +124,11 @@ way. Prime-cost (straight-line) with `sln`, or diminishing-value with `ddb`:
 
 ```bash
 # Prime-cost: $24,000 asset, $4,000 salvage, 5-year life -> depreciation per YEAR.
-python tools/finance_calc.py sln --cost 24000 --salvage 4000 --life 5
+python "${CLAUDE_PLUGIN_ROOT}/tools/finance_calc.py" sln --cost 24000 --salvage 4000 --life 5
 # -> {"result": 4000.0}  (per year; divide by jobs/year for the per-job slice)
 
 # Diminishing-value (double-declining), first year of a 5-year life:
-python tools/finance_calc.py ddb --cost 24000 --salvage 4000 --life 5 --period 1
+python "${CLAUDE_PLUGIN_ROOT}/tools/finance_calc.py" ddb --cost 24000 --salvage 4000 --life 5 --period 1
 # -> {"result": 9600.0}  (year-1 depreciation; ddb front-loads it)
 ```
 
@@ -224,7 +224,7 @@ profile or a prior `price-my-work` run when one is available, so the model
 starts populated rather than blank:
 
 ```bash
-python tools/write_xlsx.py --out "profit-per-job.xlsx" --rows '[["Line","Detail","Amount"],["Revenue","what the job brings in",1800],["Materials","reseal kit + sundries",120],["Labour","4 hrs x $70/hr",280],["Overheads","12% of revenue",216],["Equipment (per job)","pmt $477.42/mo over 40 jobs",11.94],["True cost base","",627.94],["True profit per job","revenue minus all costs",1172.06]]' --sheet "Profit per job" --header
+python "${CLAUDE_PLUGIN_ROOT}/tools/write_xlsx.py" --out "profit-per-job.xlsx" --rows '[["Line","Detail","Amount"],["Revenue","what the job brings in",1800],["Materials","reseal kit + sundries",120],["Labour","4 hrs x $70/hr",280],["Overheads","12% of revenue",216],["Equipment (per job)","pmt $477.42/mo over 40 jobs",11.94],["True cost base","",627.94],["True profit per job","revenue minus all costs",1172.06]]' --sheet "Profit per job" --header
 ```
 
 - `--header` makes the first row bold.

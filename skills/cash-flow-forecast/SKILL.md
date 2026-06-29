@@ -184,7 +184,7 @@ closing-balance column recalculates. That is the live behaviour.
 JSON array):**
 
 ```bash
-python tools/write_xlsx.py \
+python "${CLAUDE_PLUGIN_ROOT}/tools/write_xlsx.py" \
   --out "cash-flow-forecast.xlsx" \
   --sheet "Cash Flow" \
   --header \
@@ -207,7 +207,7 @@ accented names), write the rows to a UTF-8 temp file and pipe it in on stdin
 instead of passing it after `--rows`:
 
 ```bash
-python tools/write_xlsx.py --out "cash-flow-forecast.xlsx" --sheet "Cash Flow" --header < rows.json
+python "${CLAUDE_PLUGIN_ROOT}/tools/write_xlsx.py" --out "cash-flow-forecast.xlsx" --sheet "Cash Flow" --header < rows.json
 ```
 
 **If openpyxl is missing.** The tool prints a line starting `BOS_MISSING_DEP:`

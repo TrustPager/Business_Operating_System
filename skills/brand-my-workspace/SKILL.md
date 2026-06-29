@@ -171,7 +171,7 @@ Skip this step if you only have a wide wordmark (not a square icon). Tell the us
 ## Step 10 — Run sync-brand.py
 
 ```bash
-python tools/sync-brand.py
+python "${CLAUDE_PLUGIN_ROOT}/tools/sync-brand.py"
 ```
 
 This copies the new `brand/logo.png` + favicon set into every studio's `public/`.

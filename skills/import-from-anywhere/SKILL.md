@@ -38,7 +38,7 @@ export, a screenshot/scan — run it through the one standard converter first.
 Don't hand-parse raw bytes and don't ask the owner to re-type it:
 
 ```bash
-python tools/markitdown_convert.py "<path-to-file>"
+python "${CLAUDE_PLUGIN_ROOT}/tools/markitdown_convert.py" "<path-to-file>"
 ```
 
 This is the standard read path (`knowledge/document-tools-method.md`). It
@@ -112,7 +112,7 @@ ASK:
 After the go-ahead, write the tidy list locally with the standard writer:
 
 ```bash
-python tools/write_xlsx.py --out customers.xlsx --header --rows '[["First","Last","Email","Phone","Company","Notes"], ... ]'
+python "${CLAUDE_PLUGIN_ROOT}/tools/write_xlsx.py" --out customers.xlsx --header --rows '[["First","Last","Email","Phone","Company","Notes"], ... ]'
 ```
 
 - Use `--header` so the column row is bold.

@@ -5,7 +5,7 @@ description: Find the mess — missing fields, bad/missing emails, likely-duplic
 Run the **Audit My Data** skill.
 
 Invoke the skill at `skills/audit-my-data/SKILL.md`. Run both
-`python tools/find-gaps.py --json` and `python tools/audit-contacts.py --json`,
+`python "${CLAUDE_PLUGIN_ROOT}/tools/find-gaps.py" --json` and `python "${CLAUDE_PLUGIN_ROOT}/tools/audit-contacts.py" --json`,
 then present a consolidated hygiene report worst-first — FIX (unowned/duplicate/
 no-value records that cost money) then WORTH-A-LOOK (missing emails, dormant
 contacts). Offer the safe mechanical fixes one at a time with a yes; never merge

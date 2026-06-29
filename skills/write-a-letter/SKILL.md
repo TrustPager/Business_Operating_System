@@ -138,7 +138,7 @@ as a real `.docx` with the keyless document writer (the `doclib` write path,
 built from `heading` / `paragraph` blocks:
 
 ```bash
-python tools/write_docx.py --out "Letter - <Recipient> - <subject>.docx" --blocks '[
+python "${CLAUDE_PLUGIN_ROOT}/tools/write_docx.py" --out "Letter - <Recipient> - <subject>.docx" --blocks '[
   {"type":"heading","text":"<subject / reference line>","level":2},
   {"type":"paragraph","text":"<opening sentence>"},
   {"type":"paragraph","text":"<the facts in order>"},

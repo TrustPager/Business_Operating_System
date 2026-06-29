@@ -36,7 +36,7 @@ There are two keyless ways in, and both stay on your own machine:
    text first, the standard way:
 
    ```bash
-   python tools/markitdown_convert.py "<path-to-file>"
+   python "${CLAUDE_PLUGIN_ROOT}/tools/markitdown_convert.py" "<path-to-file>"
    ```
 
    This handles PDF, Word, text, HTML, and more (the standard MarkItDown read

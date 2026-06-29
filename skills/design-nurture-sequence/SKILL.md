@@ -48,7 +48,7 @@ Ask the operator:
 
 1. **Which auto queue?** (Name or ID — they should already have it set up
    with stages, even if the email actions are empty.) Confirm the queue
-   exists by running `python tools/dump-crm-bundle.py --resources auto_queues`
+   exists by running `python "${CLAUDE_PLUGIN_ROOT}/tools/dump-crm-bundle.py" --resources auto_queues`
    and reading the result.
 2. **Audience + trigger.** Who's enrolled and when (e.g. trial signups
    moving into a "Welcome" stage, Facebook leads via form submission).

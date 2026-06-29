@@ -28,7 +28,7 @@ process guides). This skill makes them answerable everywhere TrustPager AI runs
 For every file the operator points at:
 
 ```bash
-python tools/markitdown_convert.py "<path>"
+python "${CLAUDE_PLUGIN_ROOT}/tools/markitdown_convert.py" "<path>"
 ```
 
 Handles PDF, Word, PowerPoint, Excel, HTML. If MarkItDown isn't installed, relay

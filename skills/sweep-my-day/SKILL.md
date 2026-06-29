@@ -42,7 +42,7 @@ You are running the operator's morning briefing across their TrustPager workspac
 python ~/.claude/bos-run.py sweep-my-day
 ```
 
-(The `~/.claude/bos-run.py` launcher resolves the install location for you — it works from any folder, plugin or clone install. If the launcher is missing, run `python tools/setup.py` once to create it.)
+(The `~/.claude/bos-run.py` launcher resolves the install location for you — it works from any folder, plugin or clone install. If the launcher is missing, run `python "${CLAUDE_PLUGIN_ROOT}/tools/setup.py"` once to create it.)
 
 The script returns a single JSON document with five top-level sections, one per category below: `hot_inbound`, `overdue`, `going_quiet`, `todays_calendar`, `pipeline_pulse`. Each has a `count` (total found) and `items` (top results). The shape is documented at the bottom of `fetch.py`.
 

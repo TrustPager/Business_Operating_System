@@ -34,14 +34,14 @@ Two ways in:
 
 - **A live auto queue** — lint what's actually deployed:
   ```bash
-  python tools/lint-sequence.py --queue <auto_queue_id> --json
+  python "${CLAUDE_PLUGIN_ROOT}/tools/lint-sequence.py" --queue <auto_queue_id> --json
   ```
-  (Get the queue id from `/nurture-health` or `python tools/dump-crm-bundle.py --resources auto_queues`.)
+  (Get the queue id from `/nurture-health` or `python "${CLAUDE_PLUGIN_ROOT}/tools/dump-crm-bundle.py" --resources auto_queues`.)
 
 - **Local drafts** — lint before shipping, e.g. the drafts from
   `design-nurture-sequence`:
   ```bash
-  python tools/lint-sequence.py --drafts drafts.json --json
+  python "${CLAUDE_PLUGIN_ROOT}/tools/lint-sequence.py" --drafts drafts.json --json
   ```
   Drafts file: `[{"label": "Day 0", "subject": "...", "body": "<p>...</p>"}, ...]`.
 

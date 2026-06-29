@@ -191,7 +191,7 @@ data row (D2, D3, D4, ...).
 **Exact write_xlsx command (4-item example, adjust for the owner's actual list):**
 
 ```bash
-python tools/write_xlsx.py \
+python "${CLAUDE_PLUGIN_ROOT}/tools/write_xlsx.py" \
   --out "renewal-tracker.xlsx" \
   --sheet "Renewal Tracker" \
   --header \
@@ -212,7 +212,7 @@ each time the owner opens the file.
 beyond standard ASCII), write the rows to a UTF-8 temp file and pipe on stdin:
 
 ```bash
-python tools/write_xlsx.py --out "renewal-tracker.xlsx" --sheet "Renewal Tracker" --header < rows.json
+python "${CLAUDE_PLUGIN_ROOT}/tools/write_xlsx.py" --out "renewal-tracker.xlsx" --sheet "Renewal Tracker" --header < rows.json
 ```
 
 **If openpyxl is missing.** The tool prints a line starting `BOS_MISSING_DEP:`

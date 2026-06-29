@@ -22,7 +22,7 @@ and builds the TrustPager version, so the operator stops re-keying paper forms.
 ## Step 1 — Convert the source
 
 ```bash
-python tools/markitdown_convert.py "<path-to-source>"
+python "${CLAUDE_PLUGIN_ROOT}/tools/markitdown_convert.py" "<path-to-source>"
 ```
 
 If it converts empty (image-only scan, no OCR text), say so and ask for a better

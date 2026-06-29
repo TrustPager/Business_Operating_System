@@ -23,8 +23,8 @@ character-level diff.
 ## Step 1 — Convert both files
 
 ```bash
-python tools/markitdown_convert.py "<file-A>"
-python tools/markitdown_convert.py "<file-B>"
+python "${CLAUDE_PLUGIN_ROOT}/tools/markitdown_convert.py" "<file-A>"
+python "${CLAUDE_PLUGIN_ROOT}/tools/markitdown_convert.py" "<file-B>"
 ```
 
 If either converts empty, say so and stop — you can't compare what you can't read.

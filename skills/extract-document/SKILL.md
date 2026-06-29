@@ -25,7 +25,7 @@ or guess at a scan — convert first.
 ## Step 1 — Convert the file to Markdown
 
 ```bash
-python tools/markitdown_convert.py "<path-to-file>"
+python "${CLAUDE_PLUGIN_ROOT}/tools/markitdown_convert.py" "<path-to-file>"
 ```
 
 Handles PDF, Word, Excel, PowerPoint, images (OCR), HTML, CSV, JSON, ZIP. If the

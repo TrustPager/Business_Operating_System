@@ -81,7 +81,7 @@ examples the owner can type over, e.g. an `Example` in the first cell). Then
 write it:
 
 ```bash
-python tools/write_xlsx.py --out "job-tracker.xlsx" --rows '[["Job","Customer","Stage","Value","Due date","Notes"],["Example: fit-out at 14 Example St","A. Customer","Booked",4200,"2026-07-10","deposit paid"]]' --sheet "Jobs" --header
+python "${CLAUDE_PLUGIN_ROOT}/tools/write_xlsx.py" --out "job-tracker.xlsx" --rows '[["Job","Customer","Stage","Value","Due date","Notes"],["Example: fit-out at 14 Example St","A. Customer","Booked",4200,"2026-07-10","deposit paid"]]' --sheet "Jobs" --header
 ```
 
 - `--header` makes the first row bold so the columns read as headings.

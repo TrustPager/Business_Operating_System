@@ -211,7 +211,7 @@ Build the rows as a JSON array of arrays (the breakdown above, line by line) and
 write it:
 
 ```bash
-python tools/write_xlsx.py --out "bas-figures.xlsx" --rows '[["Field","What it is","Calculation","Amount"],["G1","Total sales (GST-inclusive)","as supplied",44000],["1A","GST on sales","G1 / 11",4000],["1B","GST on purchases","purchases / 11",1200],["Net GST","1A minus 1B","",2800]]' --sheet "BAS figures" --header
+python "${CLAUDE_PLUGIN_ROOT}/tools/write_xlsx.py" --out "bas-figures.xlsx" --rows '[["Field","What it is","Calculation","Amount"],["G1","Total sales (GST-inclusive)","as supplied",44000],["1A","GST on sales","G1 / 11",4000],["1B","GST on purchases","purchases / 11",1200],["Net GST","1A minus 1B","",2800]]' --sheet "BAS figures" --header
 ```
 
 - `--header` makes the first row bold.
