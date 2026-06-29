@@ -175,3 +175,24 @@ Verified against TrustPager's own help center (read live via the connector):
   niches. `industry-notes.md` re-frames around shapes; `starter-projects.md` follows.
 - **Marketing may still LEAD with service businesses** (where the [name] / [name] proof lives)
   without the product excluding anyone. Positioning ≠ product scope.
+
+## D13 — The zero-state floor stays lean; heavy/optional power lives in an off-the-shelf library (2026-06-28)
+- **The split:** what ships standard (zero-state) is the lean keyless floor that gives EVERY owner a fast
+  first win with no heavy setup. Tools that are powerful but heavy, or useful-to-many-but-not-all, are NOT
+  shipped standard — they are **packaged as ready-to-go modules in a library** the owner browses and grabs
+  off the shelf as needed. This is how we stay token-frugal (D10) + brain-dead to install (D11) + inclusive
+  (D12): the standard ship is light; power is opt-in, pulled in exactly to fit the business.
+- **The Remotion creative studio is a tier-1 LIBRARY item, and a FUTURE build — not zero-state.** It is
+  useful to many businesses but not all, and it is heavy (~1GB Chromium install, render pipeline). It gets
+  genericised (TIAC engine → brand-kit-fillable: palette/logo/fonts → branded stills + looped MP4s) and
+  boxed as a grab-and-go library module, with a brand-kit builder companion. Not built in the pre-ship
+  hardening phase.
+- **The social first-win is a STRATEGY, not a single post.** A one-off caption is not exciting; a tailored
+  social-media STRATEGY aimed at the owner's target (more bookings / leads / authority / audience) is. The
+  keyless floor produces the strategy (reasoning_only); the content calendar (`plan-my-content`) and copy
+  (`write-post-copy`) are the execution layer beneath it; the branded VISUAL studio is the library module
+  above it. So `make-social-post` (a heavy render studio) leaves the zero-state cold-win slot and is slated
+  for the library; the cold social win becomes `build-social-strategy`.
+- **Roadmap impact:** introduces a future "Creative Engine + off-the-shelf library" phase (the library
+  mechanism + the genericised Remotion module + the brand-kit builder). Pre-ship hardening only adds the
+  keyless `build-social-strategy` win and re-tiers `make-social-post` out of the zero-state cold offers.
