@@ -475,6 +475,13 @@
     "requires_driver": "none",
     "status": "active"
   },
+  "renewal-tracker": {
+    "data_path": "reasoning_only",
+    "function_slot": "documents",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
   "report-an-issue": {
     "data_path": "mcp_tools",
     "function_slot": "comms",

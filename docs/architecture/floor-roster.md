@@ -34,6 +34,7 @@ Status legend: ✅ ships keyless today · 🟡 partly built · 🔁 needs decoup
 | 20 | A firm letter / variation notice / dispute response in the owner's voice | Trades, technical services, all | win-work | write-a-letter (✅ keyless: reasoning-only; optional .docx via doc-lib-set), build-brand-strategy | ✅ |
 | 21 | An on-brand product description for one product (store / listing) | Ecommerce, retail, product sellers | market | describe-a-product (✅ keyless: reasoning-only, photo or notes in), build-brand-strategy | ✅ |
 | 22 | A week-by-week cash flow forecast with a live spreadsheet where the running balance recalculates | All; trades, hospitality, consulting | get-paid | cash-flow-forecast (✅ keyless: reasoning-only + live-formula .xlsx via write_xlsx; 4-13 week horizon; tightest week surfaced; budgeting folded in; no NPV) | ✅ |
+| 23 | A live renewal tracker .xlsx where the days-until-renewal column recalculates on open, rows soonest-first | All; trades, consulting, broking, allied health, hospitality | save-time | renewal-tracker (✅ keyless: reasoning-only + required live-formula .xlsx via write_xlsx; =DATE(yyyy,m,d)-TODAY() per row; soonest-first; status flags; connect-tier reminder split stated honestly) | ✅ |
 
 ## Derived build set — priority by unlock count
 
@@ -61,6 +62,7 @@ Build in this order (each "unlocks" = number of roster wins it enables). Reasoni
 | 18 | **✅ (done) firecrawl-keyless** driver (wire scrape/search/interact) | 2 | trivial | fetch_rest | Active in `.mcp.json`; wired not vendored. Driver in the manifest, tools in the body; manifest does NOT advertise crawl/map/agent/extract as keyless. Wired Inc 3. |
 | 19 | **✅ (done) profit-per-job** | 1 | small | reasoning_only | True profit per job type: the load-bearing consumer of `finance_calc` (pmt for financed gear, sln/ddb for depreciation, apportioned per job) plus an optional reusable .xlsx via `write_xlsx`. Margin folded in. Built keyless, P5. |
 | 20 | **✅ (done) cash-flow-forecast** | 1 | small | reasoning_only | Week-by-week cash flow forecast clamped to 4-13 weeks; live .xlsx with formula cells for running balance (openpyxl writes "=..." strings as live formulas); tightest week surfaced as a forward-planning signal; basic budgeting (planned vs expected) folded in. No NPV. Built keyless, P5. |
+| 21 | **✅ (done) renewal-tracker** | 1 | small | reasoning_only | Live renewal tracker .xlsx; days-until-renewal column uses =DATE(yyyy,m,d)-TODAY() per row (recalculates on open); rows soonest-first; status flag formula keyed to lead-time; honest connect-tier split (keyless file tracks, CRM/calendar fires reminders). Built keyless, P5. |
 | — | **make-brand-video + creative-render-driver** | 1 | large | local render | Founder priority but **P6** (Remotion bridge, cross-repo, pin-on, heavy install). Genericise the RVS promo layer first. Voiceover OFF to stay keyless. |
 
 ## The guardrail (anti-recurrence)

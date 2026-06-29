@@ -98,6 +98,7 @@ Reading any file and structuring it, forms, documents, e-signing, spreadsheets, 
 - **Compare Documents**: Compare two documents and show what actually changed, in plain language: added, removed, and changed.
 - **Extract Document**: Pull the data out of any file and use it: answer a question, summarise it, or map it onto a record.
 - **Import from Anywhere**: Turn a messy source, like a screenshot or a broken export, into one tidy customer list you can use.
+- **Renewal Tracker**: A live renewal tracker .xlsx the owner keeps and updates, where a days-until-renewal column is a live formula that recalculates every time the file is opened
 - **Template From Document**: Turn an existing paper or PDF form or contract into a reusable digital template.
 
 **Switches on when you connect a tool**
