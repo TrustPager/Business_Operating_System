@@ -1,5 +1,5 @@
 ---
-description: Fill a PDF with data from a CRM record — populate a lender/application/agreement form from an opportunity or contact, so you don't retype it. Reads the blank form to learn its fields, maps them to the record, and writes a filled copy for you to check.
+description: Fill a PDF with data from a CRM record. Populate a lender/application/agreement form from an opportunity or contact, so you don't retype it. Reads the blank form to learn its fields, maps them to the record, and writes a filled copy for you to check.
 ---
 
 Run the **Update PDF** skill.

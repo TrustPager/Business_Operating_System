@@ -1,5 +1,5 @@
 ---
-description: Deliver any report as a recurring email digest — pick or build a dashboard, then schedule it (e.g. 7am weekdays).
+description: Deliver any report as a recurring email digest. Pick or build a dashboard, then schedule it (e.g. 7am weekdays).
 ---
 
 Run the **Email Me A Report** skill.

@@ -1,5 +1,5 @@
 ---
-description: Turn a priced scope and your brand voice into the proposal that wins the job — an on-brand proposal or statement of work in your voice, written out as a real .docx you can send today. Cover, understanding of the need, scope and deliverables, the priced breakdown, timeline, terms, and the next step. Works from what you have, no accounts needed.
+description: Turn a priced scope and your brand voice into the proposal that wins the job: an on-brand proposal or statement of work in your voice, written out as a real .docx you can send today. Cover, understanding of the need, scope and deliverables, the priced breakdown, timeline, terms, and the next step. Works from what you have, no accounts needed.
 ---
 
 Run the **Write A Proposal** skill.
@@ -11,9 +11,9 @@ specifics a proposal needs (who it is for, the job in one line, the timeline, an
 any terms), asking one plain question for anything missing rather than inventing
 it.
 
-Lay out the proposal as a seven-section outline in chat for approval — cover and
+Lay out the proposal as a seven-section outline in chat for approval (cover and
 intro, understanding of the need, scope and deliverables, the priced breakdown,
-timeline, terms, and the next step — then, once approved, generate it as a real
+timeline, terms, and the next step), then, once approved, generate it as a real
 `.docx` with the document writer (the `doclib` write path, `tools/write_docx.py`)
 built from JSON `heading` / `paragraph` / `bullet` blocks.
 

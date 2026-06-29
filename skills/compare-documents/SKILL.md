@@ -23,9 +23,11 @@ character-level diff.
 ## Step 1 — Convert both files
 
 ```bash
-python tools/markitdown_convert.py "<file-A>"
-python tools/markitdown_convert.py "<file-B>"
+python ~/.claude/bos-run.py tool markitdown_convert "<file-A>"
+python ~/.claude/bos-run.py tool markitdown_convert "<file-B>"
 ```
+
+(The `~/.claude/bos-run.py` launcher resolves the install location for you. If it is missing, run `python tools/setup.py` once from the BOS directory to create it.)
 
 If either converts empty, say so and stop — you can't compare what you can't read.
 

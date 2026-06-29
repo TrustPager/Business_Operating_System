@@ -1,5 +1,5 @@
 ---
-description: Build a real spreadsheet you can open and start filling today — a job tracker, a simple cashflow, or a lead log — with columns designed for your trade and a working .xlsx saved locally. No account needed. Once your workspace is connected, the same tracker can live inside it and keep itself current as your work moves.
+description: Build a real spreadsheet you can open and start filling today (a job tracker, a simple cashflow, or a lead log) with columns designed for your trade and a working .xlsx saved locally. No account needed. Once your workspace is connected, the same tracker can live inside it and keep itself current as your work moves.
 ---
 
 Run the **Build Spreadsheet** skill.

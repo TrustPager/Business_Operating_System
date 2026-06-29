@@ -171,8 +171,10 @@ Skip this step if you only have a wide wordmark (not a square icon). Tell the us
 ## Step 10 — Run sync-brand.py
 
 ```bash
-python tools/sync-brand.py
+python ~/.claude/bos-run.py tool sync-brand
 ```
+
+(The `~/.claude/bos-run.py` launcher resolves the install location for you. If it is missing, run `python tools/setup.py` once from the BOS directory to create it.)
 
 This copies the new `brand/logo.png` + favicon set into every studio's `public/`.
 

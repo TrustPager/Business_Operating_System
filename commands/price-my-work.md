@@ -1,5 +1,5 @@
 ---
-description: Turn the costs of a common job into a priced breakdown you can stand behind — line items, your margin shown openly as its own number, the total, and the assumptions written down so the price holds up when a customer asks how you got there. Works from what you type in, no accounts or files needed.
+description: Turn the costs of a common job into a priced breakdown you can stand behind: line items, your margin shown openly as its own number, the total, and the assumptions written down so the price holds up when a customer asks how you got there. Works from what you type in, no accounts or files needed.
 ---
 
 Run the **Price My Work** skill.
@@ -14,5 +14,5 @@ rests on so the owner can defend it.
 
 One job per run. Never invent a cost. The typed breakdown is the win; if they
 want it tidied into a real `.xlsx` they can save and send, offer to build one
-with the document tools (`tools/write_xlsx.py`) — but don't make that the price
+with the document tools (`tools/write_xlsx.py`), but don't make that the price
 of the win.

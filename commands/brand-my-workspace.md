@@ -11,7 +11,7 @@ steps in order: fetch the homepage, find the logo, detect colours, set
 the name + tagline, compose the gradients, write `brand/brand.json`,
 sync the assets into every studio's `public/`.
 
-Preserve any field you can't determine confidently — keep the existing
+Preserve any field you can't determine confidently: keep the existing
 default rather than guessing.
 
 When done, summarise what changed (brand name, primary colour, accent

@@ -191,7 +191,7 @@ data row (D2, D3, D4, ...).
 **Exact write_xlsx command (4-item example, adjust for the owner's actual list):**
 
 ```bash
-python tools/write_xlsx.py \
+python ~/.claude/bos-run.py tool write_xlsx \
   --out "renewal-tracker.xlsx" \
   --sheet "Renewal Tracker" \
   --header \
@@ -203,6 +203,8 @@ python tools/write_xlsx.py \
   ]'
 ```
 
+(The `~/.claude/bos-run.py` launcher resolves the install location for you. If it is missing, run `python tools/setup.py` once from the BOS directory to create it.)
+
 Fill in the actual items, dates, and lead-times from the owner's data. Adjust
 row numbers (D2/E2, D3/E3, ...) for each row. The `=DATE(yyyy,m,d)-TODAY()`
 cells are written by openpyxl as live formula cells, so the value recalculates
@@ -212,7 +214,7 @@ each time the owner opens the file.
 beyond standard ASCII), write the rows to a UTF-8 temp file and pipe on stdin:
 
 ```bash
-python tools/write_xlsx.py --out "renewal-tracker.xlsx" --sheet "Renewal Tracker" --header < rows.json
+python ~/.claude/bos-run.py tool write_xlsx --out "renewal-tracker.xlsx" --sheet "Renewal Tracker" --header < rows.json
 ```
 
 **If openpyxl is missing.** The tool prints a line starting `BOS_MISSING_DEP:`

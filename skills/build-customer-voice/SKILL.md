@@ -72,8 +72,10 @@ order of richness:
    reading clean text, not guessing at a scan:
 
    ```bash
-   python tools/markitdown_convert.py "<path-to-file>"
+   python ~/.claude/bos-run.py tool markitdown_convert "<path-to-file>"
    ```
+
+(The `~/.claude/bos-run.py` launcher resolves the install location for you. If it is missing, run `python tools/setup.py` once from the BOS directory to create it.)
 
    This handles PDF, Word, Excel, PowerPoint, images (OCR), HTML, CSV, JSON.
    If the converter reports it isn't installed, relay its one-line install

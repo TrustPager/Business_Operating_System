@@ -38,8 +38,10 @@ export, a screenshot/scan — run it through the one standard converter first.
 Don't hand-parse raw bytes and don't ask the owner to re-type it:
 
 ```bash
-python tools/markitdown_convert.py "<path-to-file>"
+python ~/.claude/bos-run.py tool markitdown_convert "<path-to-file>"
 ```
+
+(The `~/.claude/bos-run.py` launcher resolves the install location for you. If it is missing, run `python tools/setup.py` once from the BOS directory to create it.)
 
 This is the standard read path (`knowledge/document-tools-method.md`). It
 turns any file into clean Markdown that's easy to work on, and it OCRs photos
@@ -112,7 +114,7 @@ ASK:
 After the go-ahead, write the tidy list locally with the standard writer:
 
 ```bash
-python tools/write_xlsx.py --out customers.xlsx --header --rows '[["First","Last","Email","Phone","Company","Notes"], ... ]'
+python ~/.claude/bos-run.py tool write_xlsx --out customers.xlsx --header --rows '[["First","Last","Email","Phone","Company","Notes"], ... ]'
 ```
 
 - Use `--header` so the column row is bold.

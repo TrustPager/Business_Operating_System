@@ -5,16 +5,16 @@
     "url": "https://trustpager.com"
   },
   "metadata": {
-    "description": "TrustPager's official Claude Code plugins for running a small business from the terminal."
+    "description": "Keyless business skills and optional TrustPager CRM workflows for small businesses running on Claude."
   },
   "plugins": [
     {
       "name": "business-operating-system",
       "source": "./",
-      "description": "Run your TrustPager workspace from Claude — daily sweep, lead triage, missed-call recovery, nurture sequences, automations, and content studios.",
-      "version": "0.2.0",
+      "description": "Run your business from Claude: keyless skills for pricing, proposals, research, money, documents, and content that work day one with no account required. Connect TrustPager as an optional CRM layer for always-on workflows, lead triage, nurture sequences, and automations.",
+      "version": "1.0.0",
       "category": "productivity",
-      "keywords": ["trustpager", "crm", "sales", "automation", "nurture"]
+      "keywords": ["small-business", "productivity", "sales", "automation", "nurture", "crm", "trustpager"]
     }
   ]
 }

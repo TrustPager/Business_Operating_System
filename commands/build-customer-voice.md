@@ -1,5 +1,5 @@
 ---
-description: Turn the words your customers actually use — from reviews, testimonials, and call notes you paste in (or local files) — into a customer-voice doc. Works with zero accounts; deepens automatically when your workspace is connected.
+description: Turn the words your customers actually use (from reviews, testimonials, and call notes you paste in, or local files) into a customer-voice doc. Works with zero accounts; deepens automatically when your workspace is connected.
 ---
 
 Run the **Build Customer Voice** skill.
@@ -14,7 +14,7 @@ Quote verbatim with source attribution. Report back under 200 words.
 
 Do NOT demand recorded calls or a connected workspace. The richer
 transcript-mined version is the deeper mode the skill offers only when the
-workspace is connected — never the price of entry.
+workspace is connected, never the price of entry.
 
 If the owner hasn't said where to write it, default to
 `marketing-strategy/<BrandName>/customer-voice-synthesis.md` (or alongside the
