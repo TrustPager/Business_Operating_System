@@ -26,6 +26,10 @@ Quoting, proposals, positioning, sizing up a competitor, researching a prospect 
 
 Spotting unbilled or unpaid work and chasing what you're owed.
 
+**Works now (keyless)**
+
+- **Profit Per Job**: Find out what one job type actually makes you, not what it bills
+
 **Switches on when you connect a tool**
 
 - **Outstanding Invoices**: Show who owes you money as an aged summary, and optionally email it to you on a schedule.

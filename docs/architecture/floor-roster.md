@@ -12,6 +12,7 @@ Status legend: ✅ ships keyless today · 🟡 partly built · 🔁 needs decoup
 |---|---|---|---|---|---|
 | 1 | A line-itemed quote from a photo + 30s voice note | Trades | win-work | quote-from-photo (✅ keyless: photo → scope + line-item structure ships now), price-my-work (full auto-pricing enrichment), doc-lib-set | ✅ |
 | 2 | A defensible price for one common job (margin shown) | Trades, mfg, consulting | get-paid | price-my-work (✅ keyless, reasoning-only), doc-lib-set (optional .xlsx tidy-up) | ✅ |
+| 2b | The true profit on one job type (margin shown; per-job finance/depreciation costed) | Trades, mfg, consulting, all | get-paid | profit-per-job (✅ keyless, reasoning-only; finance_calc pmt/sln/ddb for equipment + optional .xlsx model), price-my-work (rate defaults), finance_calc, write_xlsx | ✅ |
 | 3 | An on-brand proposal/SOW in the owner's voice (.docx) | Consulting, property | win-work | write-a-proposal (✅ keyless: doclib WRITE → .docx; priced-line-item `table` block + a tender/technical-section mode for technical-services RFPs), price-my-work, build-brand-strategy, doc-lib-set | ✅ |
 | 4 | A one-page read of one competitor's site | All; consulting/property | decide-well | research-a-competitor (✅ keyless: firecrawl scrape/search), firecrawl-keyless | ✅ |
 | 5 | A pre-meeting brief + 3 sharp questions | Consulting, broking, property | win-work | research-before-call (✅ keyless: firecrawl scrape/search), research-a-competitor, firecrawl-keyless | ✅ |
@@ -57,6 +58,7 @@ Build in this order (each "unlocks" = number of roster wins it enables). Reasoni
 | 16 | **✅ (done) research-a-competitor** | 2 | medium | fetch_rest (Firecrawl) | Floor's KNOW dimension. **Network — not `BOS_OFFLINE`-green; tests exercise synthesis on a fixture, never a live fetch.** scrape/search only, never crawl/map/agent/extract. Built keyless, Inc 3. |
 | 17 | **✅ (done) research-before-call** | 1 | medium | fetch_rest (Firecrawl) | Builds on research-a-competitor. Network; synthesis-tested on a fixture. Built keyless, Inc 3. |
 | 18 | **✅ (done) firecrawl-keyless** driver (wire scrape/search/interact) | 2 | trivial | fetch_rest | Active in `.mcp.json`; wired not vendored. Driver in the manifest, tools in the body; manifest does NOT advertise crawl/map/agent/extract as keyless. Wired Inc 3. |
+| 19 | **✅ (done) profit-per-job** | 1 | small | reasoning_only | True profit per job type: the load-bearing consumer of `finance_calc` (pmt for financed gear, sln/ddb for depreciation, apportioned per job) plus an optional reusable .xlsx via `write_xlsx`. Margin folded in. Built keyless, P5. |
 | — | **make-brand-video + creative-render-driver** | 1 | large | local render | Founder priority but **P6** (Remotion bridge, cross-repo, pin-on, heavy install). Genericise the RVS promo layer first. Voiceover OFF to stay keyless. |
 
 ## The guardrail (anti-recurrence)

@@ -454,6 +454,13 @@
     "requires_driver": "none",
     "status": "active"
   },
+  "profit-per-job": {
+    "data_path": "reasoning_only",
+    "function_slot": "money",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
   "quote-from-photo": {
     "data_path": "reasoning_only",
     "function_slot": "documents",

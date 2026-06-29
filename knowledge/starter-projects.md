@@ -16,6 +16,7 @@
 |---|---|---|---|---|
 | **Turn a photo into a ready-to-send quote** | Send a photo of the job and a quick voice note — I'll turn it into a laid-out quote with line items and the scope structured, ready for your prices. | `quote-from-photo` `[live]` | keyless | instant_win |
 | **Price one common job with confidence** | Tell me the work, your costs and hours and I'll build a defensible price with your margin shown openly, so every quote comes off a number you can stand behind, not a gut feel. | `price-my-work` `[live]` | keyless | first_build |
+| **See what one job type actually makes you** | Pick one job you do all the time and tell me what it brings in and what it really costs, including the per-job cost of any financed or depreciating gear, and I'll show the true profit per job with your margin in dollars and the overhead share stated openly. Reusable spreadsheet model on request. | `profit-per-job` `[live]`, `price-my-work` `[live]` | keyless | first_build |
 | **Write the proposal that wins the job** | Give me the scope and price and I'll write a sharp, on-brand proposal or SOW in your voice, laid out as a real .docx you can send today. | `write-a-proposal` `[live]`, `price-my-work` `[live]` | keyless | first_build |
 | **Size up a competitor before you bid** | Point me at a rival's site and I'll read it like a sharp operator: how they position, what they appear to charge, and where the openings are for you. | `research-a-competitor` `[live]` | keyless | first_build |
 | **Research a prospect before the call** | Tell me who you're meeting and I'll hand you a one-page brief plus three sharp questions that make you the most prepared person in the room. | `research-before-call` `[live]` | keyless | instant_win |
@@ -91,21 +92,22 @@ These work for **any** 2-10 person small business and are the default pool to dr
 6. **A sharp, reusable prompt for a job you repeat** — `write-prompt` · keyless · first_build
 7. **Onboard your next team member** — `onboard-team-member` + `sync-team-standards` · keyless · deeper
 8. **Price one common job with confidence** — `price-my-work` · keyless · first_build *(margin shown openly; the pricing engine quote-from-photo leans on)*
-9. **Stress-test your next big decision** — `grill-me-on-this-decision` · keyless · first_build
-10. **The words for your post, in your voice** — `write-post-copy` · keyless · first_build
-11. **A fortnight of content, planned and written** — `plan-my-content` + `write-post-copy` · keyless · deeper
-12. **The way your customers actually talk, captured** — `build-customer-voice` · keyless · first_build
-13. **A job ad + screening questions in your voice** — `write-a-job-ad` · keyless · deeper
-14. **The policies & FAQs your business runs on** — `write-a-policy` · keyless · deeper
-15. **Write the proposal that wins the job** — `write-a-proposal` + `price-my-work` · keyless · first_build *(real .docx; live signing template is the connect-time deepener)*
-16. **Size up a competitor before you bid** — `research-a-competitor` · keyless · first_build *(keyless-but-online: reaches the live web via the hosted Firecrawl read)*
-17. **Research a prospect before the call** — `research-before-call` · keyless · instant_win *(keyless-but-online, same Firecrawl read)*
-18. **Turn a call into notes, decisions and next steps** — `transcript-summary` · keyless · instant_win *(paste a transcript or point at a local recording file; logs onto the customer's record as the connect-time deepener)*
-19. **Get your customer list into one clean place** — `import-from-anywhere` + `build-spreadsheet` · keyless · first_build *(real clean file; seeding it into the CRM is the connect-time deepener)*
-20. **Build the spreadsheet that runs a slice of your business** — `build-spreadsheet` · keyless · first_build *(job tracker / cashflow / lead log as a real .xlsx; live self-updating sheet is the connect-time deepener)*
-21. **Put a finished post together, ready to publish** — `assemble-content-pack` + `write-post-copy` · keyless · deeper *(collates caption + any image + brief into one named folder; filing it into the workspace is the connect-time deepener)*
-22. **A firm letter, in your voice** — `write-a-letter` · keyless · first_build *(a variation notice / dispute response / payment-terms letter; firm and factual, text or a real .docx)*
-23. **A product description that sells it** — `describe-a-product` · keyless · first_build *(one product → an on-brand description for a store or listing; the product-seller market win)*
+9. **See what one job type actually makes you**: `profit-per-job` · keyless · first_build *(true profit per job: revenue minus materials, labour, a stated overhead share, and the real per-job cost of financed/depreciating gear computed with the finance tool; margin shown as money; optional reusable .xlsx model; folds in margin so no separate margin app)*
+10. **Stress-test your next big decision** — `grill-me-on-this-decision` · keyless · first_build
+11. **The words for your post, in your voice** — `write-post-copy` · keyless · first_build
+12. **A fortnight of content, planned and written** — `plan-my-content` + `write-post-copy` · keyless · deeper
+13. **The way your customers actually talk, captured** — `build-customer-voice` · keyless · first_build
+14. **A job ad + screening questions in your voice** — `write-a-job-ad` · keyless · deeper
+15. **The policies & FAQs your business runs on** — `write-a-policy` · keyless · deeper
+16. **Write the proposal that wins the job** — `write-a-proposal` + `price-my-work` · keyless · first_build *(real .docx; live signing template is the connect-time deepener)*
+17. **Size up a competitor before you bid** — `research-a-competitor` · keyless · first_build *(keyless-but-online: reaches the live web via the hosted Firecrawl read)*
+18. **Research a prospect before the call** — `research-before-call` · keyless · instant_win *(keyless-but-online, same Firecrawl read)*
+19. **Turn a call into notes, decisions and next steps** — `transcript-summary` · keyless · instant_win *(paste a transcript or point at a local recording file; logs onto the customer's record as the connect-time deepener)*
+20. **Get your customer list into one clean place** — `import-from-anywhere` + `build-spreadsheet` · keyless · first_build *(real clean file; seeding it into the CRM is the connect-time deepener)*
+21. **Build the spreadsheet that runs a slice of your business** — `build-spreadsheet` · keyless · first_build *(job tracker / cashflow / lead log as a real .xlsx; live self-updating sheet is the connect-time deepener)*
+22. **Put a finished post together, ready to publish** — `assemble-content-pack` + `write-post-copy` · keyless · deeper *(collates caption + any image + brief into one named folder; filing it into the workspace is the connect-time deepener)*
+23. **A firm letter, in your voice** — `write-a-letter` · keyless · first_build *(a variation notice / dispute response / payment-terms letter; firm and factual, text or a real .docx)*
+24. **A product description that sells it** — `describe-a-product` · keyless · first_build *(one product → an on-brand description for a store or listing; the product-seller market win)*
 
 **Note for builders:** every copy-producing app (`build-social-strategy`, `write-post-copy`, `plan-my-content`, `write-a-job-ad`, `write-a-policy`, `write-a-proposal`, `write-a-letter`, `describe-a-product`) enforces the positive-only language rule (global CLAUDE.md + floor-completion-plan DoD; `write-a-letter` carries the labelled firm-but-factual exception for dispute letters). Each also carries the explicit "before you output anything customer-facing: positive/outcome-led, no em dashes" guard line. `transcript-summary`, `import-from-anywhere`, and `build-spreadsheet` are keyless on the floor (the MarkItDown paste/local-file read and the doc-lib WRITE side ship today, floor-completion-plan ruling #2); their CRM-side payoff (logging onto a record, seeding the customer database, a live self-updating sheet) is the plain-language connect-time deepener, never the price of the keyless win. The two research apps are keyless-but-online: they need connectivity at runtime but no account or key.
 
