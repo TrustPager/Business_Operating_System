@@ -4,6 +4,21 @@ Every file in this folder is a single-purpose Python script. Stdlib only — no 
 
 ## Quick reference (intent → tool)
 
+### Financial math (P5-money)
+
+| When you want to… | Run |
+|---|---|
+| Calculate a loan or equipment-finance repayment (pmt, ipmt, ppmt) | `python tools/finance_calc.py pmt --rate 0.01 --nper 12 --pv 10000` |
+| Calculate straight-line (prime-cost) depreciation | `python tools/finance_calc.py sln --cost 10000 --salvage 1000 --life 5` |
+| Calculate declining-balance (diminishing-value) depreciation | `python tools/finance_calc.py db  --cost 10000 --salvage 1000 --life 5 --period 1` |
+| Calculate double-declining-balance depreciation | `python tools/finance_calc.py ddb --cost 10000 --salvage 0    --life 5 --period 1` |
+
+**finance_calc.py** wraps numpy-financial (BSD-3-Clause, MIT/BSD/MPL-clean, no AGPL/GPL) for loan
+functions (pmt, ipmt, ppmt) and implements the depreciation formulas directly (sln, db, ddb) using
+the public financial standard, because numpy-financial 1.0 removed those functions. The load-bearing
+consumer is `profit-per-job` (forthcoming P5 app). Each subcommand writes `{"result": <float>}` JSON
+to stdout. Missing-lib: exits 2 with `BOS_MISSING_DEP: numpy-financial` to stderr.
+
 ### Foundations
 
 | When you want to… | Run |
