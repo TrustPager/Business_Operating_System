@@ -19,10 +19,10 @@ official source URL, the date it became effective, and the date we retrieved it.
 |--------|-------|----------------|------------|-----------|
 | GST rate | 10% | 2000-07-01 | https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works | 2026-06-28 |
 | GST registration threshold (standard) | $75,000 | 2012-07-01 | https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works | 2026-06-28 |
-| BAS field G1 (total sales) | Label + method | 2017-07-01 | https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/reporting-and-paying-gst/completing-your-bas/how-to-complete-the-simpler-bas | 2026-06-28 |
-| BAS field 1A (GST on sales) | Label + method | 2017-07-01 | https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/reporting-and-paying-gst/completing-your-bas/how-to-complete-the-simpler-bas | 2026-06-28 |
-| BAS field 1B (GST on purchases) | Label + method | 2017-07-01 | https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/reporting-and-paying-gst/completing-your-bas/how-to-complete-the-simpler-bas | 2026-06-28 |
-| Super guarantee rate | 12% | 2026-07-01 | https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee | 2026-06-28 |
+| BAS field G1 (total sales) | Label + method | 2017-07-01 | https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas/goods-and-services-tax-gst/simpler-bas-gst-bookkeeping-guide | 2026-06-28 |
+| BAS field 1A (GST on sales) | Label + method | 2017-07-01 | https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas/goods-and-services-tax-gst/simpler-bas-gst-bookkeeping-guide | 2026-06-28 |
+| BAS field 1B (GST on purchases) | Label + method | 2017-07-01 | https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas/goods-and-services-tax-gst/simpler-bas-gst-bookkeeping-guide | 2026-06-28 |
+| Super guarantee rate | 12% | 2025-07-01 | https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee | 2026-06-28 |
 | Super max contribution base (annual) | $270,830 | 2026-07-01 | https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee | 2026-06-28 |
 | Super concessional contributions cap | $32,500 | 2026-07-01 | https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/contributions-caps | 2026-06-28 |
 | Resident income tax brackets | 5-band table (see notes) | 2024-07-01 | https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents | 2026-06-28 |

@@ -37,7 +37,7 @@
         "description": "Report the total of all your taxable, GST-free and input-taxed sales. Include the GST amount in the total.",
         "calc": "Sum of all sales including GST where applicable",
         "effective_from": "2017-07-01",
-        "source_url": "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/reporting-and-paying-gst/completing-your-bas/how-to-complete-the-simpler-bas",
+        "source_url": "https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas/goods-and-services-tax-gst/simpler-bas-gst-bookkeeping-guide",
         "retrieved_on": "2026-06-28",
         "notes": "Simpler BAS reporting method. G1 is the only sales figure required under Simpler BAS (introduced 1 July 2017 for small businesses with turnover under $10M).",
         "value": "total_sales_gst_inclusive"
@@ -47,7 +47,7 @@
         "description": "Report the GST included in the price of your taxable sales. Under Simpler BAS, calculated as G1 divided by 11 (for fully taxable sales).",
         "calc": "Taxable sales GST amount = taxable sales value / 11",
         "effective_from": "2017-07-01",
-        "source_url": "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/reporting-and-paying-gst/completing-your-bas/how-to-complete-the-simpler-bas",
+        "source_url": "https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas/goods-and-services-tax-gst/simpler-bas-gst-bookkeeping-guide",
         "retrieved_on": "2026-06-28",
         "notes": "This is the GST liability on sales. Remitted to the ATO.",
         "value": "gst_on_taxable_sales"
@@ -57,7 +57,7 @@
         "description": "Report the GST included in the price of business purchases for which you are claiming a GST credit (input tax credit).",
         "calc": "Sum of GST on creditable acquisitions (purchase price / 11 for fully taxable purchases)",
         "effective_from": "2017-07-01",
-        "source_url": "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/reporting-and-paying-gst/completing-your-bas/how-to-complete-the-simpler-bas",
+        "source_url": "https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas/goods-and-services-tax-gst/simpler-bas-gst-bookkeeping-guide",
         "retrieved_on": "2026-06-28",
         "notes": "This is the input tax credit. Reduces the GST you owe. Net GST payable = 1A minus 1B.",
         "value": "gst_on_creditable_purchases"
@@ -69,10 +69,10 @@
       "label": "Super guarantee rate (SG rate)",
       "value": 0.12,
       "value_pct": "12%",
-      "effective_from": "2026-07-01",
+      "effective_from": "2025-07-01",
       "source_url": "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
       "retrieved_on": "2026-06-28",
-      "notes": "Rate applies from 1 July 2026. Unchanged from FY2025-26 (12%). Previous rates: 11.5% FY2024-25, 11% FY2023-24. With Payday Super from 1 July 2026, employers pay super per payday (not quarterly)."
+      "notes": "12% rate has been in effect since 1 July 2025 (ATO Table 21: 1 July 2025 to 30 June 2026 is 12.00%, continuing 1 July 2026 to 30 June 2027 at 12.00%). It is unchanged for FY2026-27. Previous rates: 11.5% FY2024-25, 11% FY2023-24. With Payday Super from 1 July 2026, employers pay super per payday (not quarterly)."
     },
     "max_contribution_base_annual_aud": {
       "label": "Maximum super contribution base FY2026-27 (annual, from 1 July 2026)",
