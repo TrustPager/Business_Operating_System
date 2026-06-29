@@ -117,7 +117,7 @@ Opening balance: $X
 ...
 |  N   | $...    | $...     | $.. | $...            | $...                       |
 
-**Tightest week:** Week [N] closes at $[X] — plan your cash for this week.
+**Tightest week:** Week [N] closes at $[X], so this is the week to plan your cash for.
 
 **Assumptions** (the numbers this forecast rests on):
 - Opening balance: $X [confirmed / estimated]
