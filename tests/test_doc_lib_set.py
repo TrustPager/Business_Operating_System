@@ -146,6 +146,50 @@ class TestXlsxRoundTrip(unittest.TestCase):
             # header row rendered bold
             self.assertTrue(ws.cell(row=1, column=1).font.bold)
 
+    def test_write_xlsx_formula_cells_round_trip_as_live_formulas(self):
+        """A cell value starting with '=' is written as a live formula (data_type 'f'),
+        not a plain string. This is the cash-flow-forecast running-balance contract:
+        the owner changes an inflow and every closing balance recalculates."""
+        from openpyxl import load_workbook
+        with tempfile.TemporaryDirectory() as d:
+            out = Path(d) / "formula.xlsx"
+            # Minimal cash-flow shape: header, opening balance, two weekly rows.
+            rows = [
+                ["Week", "Inflows", "Outflows", "Net", "Closing balance"],
+                ["Opening balance", "", "", "", 5000],
+                ["Week 1", 4000, 2500, "=B3-C3", "=E2+D3"],
+                ["Week 2", 3500, 2000, "=B4-C4", "=E3+D4"],
+            ]
+            proc = _run_wrapper(
+                "write_xlsx.py",
+                ["--out", str(out), "--rows", json.dumps(rows), "--header", "--sheet", "Cash Flow"],
+            )
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+            self.assertTrue(out.is_file())
+
+            # Load WITHOUT evaluating cached values (data_only=False is the default
+            # and is what we want: we check the stored formula, not a computed result).
+            wb = load_workbook(out, data_only=False)
+            ws = wb.active
+
+            # Net column (D) for Week 1 and Week 2 must be live formula cells.
+            net_week1 = ws.cell(row=3, column=4)
+            net_week2 = ws.cell(row=4, column=4)
+            self.assertEqual(net_week1.value, "=B3-C3", "Net Week 1 must be a formula")
+            self.assertEqual(net_week2.value, "=B4-C4", "Net Week 2 must be a formula")
+            self.assertEqual(net_week1.data_type, "f", "Net Week 1 data_type must be 'f' (formula)")
+
+            # Closing balance column (E) for Week 1 and Week 2 must be live formula cells.
+            bal_week1 = ws.cell(row=3, column=5)
+            bal_week2 = ws.cell(row=4, column=5)
+            self.assertEqual(bal_week1.value, "=E2+D3", "Balance Week 1 must be a formula")
+            self.assertEqual(bal_week2.value, "=E3+D4", "Balance Week 2 must be a formula")
+            self.assertEqual(bal_week1.data_type, "f", "Balance Week 1 data_type must be 'f' (formula)")
+
+            # Static numeric values must still round-trip as numbers.
+            self.assertEqual(ws.cell(row=3, column=2).value, 4000)
+            self.assertEqual(ws.cell(row=2, column=5).value, 5000)
+
 
 @unittest.skipUnless(HAS_DOCX, "python-docx not installed")
 class TestDocxRoundTrip(unittest.TestCase):

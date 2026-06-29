@@ -159,6 +159,13 @@
       "mcp__trustpager__create_work_order"
     ]
   },
+  "cash-flow-forecast": {
+    "data_path": "reasoning_only",
+    "function_slot": "money",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
   "compare-documents": {
     "data_path": "local",
     "function_slot": "documents",

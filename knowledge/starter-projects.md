@@ -26,6 +26,7 @@
 
 | Project | One-line operator pitch | Builds on | Keyless/CRM | Tier |
 |---|---|---|---|---|
+| **See your cash position week by week, in a live spreadsheet** | Tell me your opening balance and what you expect in and out each week, and I'll build a week-by-week forecast with a live spreadsheet where the balance updates when you change a number, so you can see the tight weeks coming and plan for them. | `cash-flow-forecast` `[live]` | keyless | first_build |
 | **Spot every completed job you forgot to invoice** | Give me your job list or receivables and I'll show what's done-but-unbilled and billed-but-unpaid, so you chase the lot in one go. | `outstanding-invoices` `[live]`, `email-me-a-report` `[live]` | needs_crm | deeper |
 | **Set up your stalled-proposal follow-up radar** | I'll spot every proposal that's gone quiet and draft the well-timed nudge — no warm opportunity slips because nobody chased it. | `follow-up-radar` `[live]`, `design-nurture-sequence` `[live]` | needs_crm | deeper |
 
@@ -108,6 +109,7 @@ These work for **any** 2-10 person small business and are the default pool to dr
 22. **Put a finished post together, ready to publish** — `assemble-content-pack` + `write-post-copy` · keyless · deeper *(collates caption + any image + brief into one named folder; filing it into the workspace is the connect-time deepener)*
 23. **A firm letter, in your voice** — `write-a-letter` · keyless · first_build *(a variation notice / dispute response / payment-terms letter; firm and factual, text or a real .docx)*
 24. **A product description that sells it** — `describe-a-product` · keyless · first_build *(one product → an on-brand description for a store or listing; the product-seller market win)*
+25. **See your cash position week by week, in a live spreadsheet** — `cash-flow-forecast` · keyless · first_build *(opening balance + expected inflows and outflows by week, 4-13 week horizon clamped, tightest week named as the one to plan for; live .xlsx where the running balance is a formula that recalculates when any number changes; budgeting folded in; no NPV)*
 
 **Note for builders:** every copy-producing app (`build-social-strategy`, `write-post-copy`, `plan-my-content`, `write-a-job-ad`, `write-a-policy`, `write-a-proposal`, `write-a-letter`, `describe-a-product`) enforces the positive-only language rule (global CLAUDE.md + floor-completion-plan DoD; `write-a-letter` carries the labelled firm-but-factual exception for dispute letters). Each also carries the explicit "before you output anything customer-facing: positive/outcome-led, no em dashes" guard line. `transcript-summary`, `import-from-anywhere`, and `build-spreadsheet` are keyless on the floor (the MarkItDown paste/local-file read and the doc-lib WRITE side ship today, floor-completion-plan ruling #2); their CRM-side payoff (logging onto a record, seeding the customer database, a live self-updating sheet) is the plain-language connect-time deepener, never the price of the keyless win. The two research apps are keyless-but-online: they need connectivity at runtime but no account or key.
 
@@ -205,6 +207,7 @@ Reminders protect the calendar; privacy and funding wording come first.
    - firm letter / dispute / variation → *A firm letter, in your voice* (live keyless)
    - thinking/deciding → *A sharp reusable prompt* (live) · *Stress-test your decision* (live)
    - hiring/team → *A job ad + screening questions* (live) · *onboard your next team member* (live)
+   - cash / runway / "will I make rent" / "tight month" / "what's coming in and out" → *See your cash position week by week* (`cash-flow-forecast`, live keyless)
    - policies/admin → *The policies & FAQs your business runs on* (live) · *Build a spreadsheet for a slice* (live keyless) · *clean customer list* (live keyless)
 4. **Pick the vertical standout if one matches the relief**, else fall to the universal core.
 5. **Shape the 3 as quick-win + meatier + aspirational:**

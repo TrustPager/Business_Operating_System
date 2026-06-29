@@ -28,6 +28,7 @@ Spotting unbilled or unpaid work and chasing what you're owed.
 
 **Works now (keyless)**
 
+- **Cash Flow Forecast**: A week-by-week cash flow forecast with a live .xlsx where the running balance recalculates when you change a number
 - **Profit Per Job**: Find out what one job type actually makes you, not what it bills
 
 **Switches on when you connect a tool**
