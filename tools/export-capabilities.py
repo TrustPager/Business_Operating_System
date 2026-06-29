@@ -79,6 +79,22 @@ _KEYLESS_DRIVERS: frozenset[str] = frozenset(
     {"none", "markitdown", "render", "doclib", "firecrawl"}
 )
 
+# --- Heavy render-studio apps (D13) ----------------------------------------
+#
+# These are keyless (no credential, render driver counts as keyless) but they
+# require the bundled browser/puppeteer render stack to actually execute. They
+# are NOT cold day-one instant wins and must not appear in the plain "Works now
+# (keyless)" instant-win block. They get their own clearly-labelled subgroup:
+# "Keyless, heavier setup (optional studios)".
+#
+# Rule: only apps whose SKILL.md describes a browser/puppeteer render pipeline
+# belong here. Keyless apps that merely write files or read a website do NOT
+# belong here even if they touch a studio (e.g. brand-my-workspace just writes
+# JSON; assemble-content-pack just collects files).
+_HEAVY_RENDER_APPS: frozenset[str] = frozenset(
+    {"make-social-post", "make-thumbnail"}
+)
+
 # --- The six owner-facing job groups (mirrors skills/whats-possible) ------
 #
 # Order is the presentation order in the doc. Each is (emoji+title, intro line).
@@ -399,11 +415,27 @@ def _lead_clause(text: str) -> str:
 
 
 def _is_keyless(entry: dict[str, Any]) -> bool:
-    """True when the capability works at zero accounts (keyless floor)."""
+    """True when the capability works at zero accounts (keyless floor).
+
+    Both light keyless and heavy-render keyless apps satisfy this check;
+    use ``_is_heavy_render`` to further distinguish them within the keyless
+    tier.
+    """
     return (
         entry.get("requires_credential") == "none"
         and entry.get("requires_driver") in _KEYLESS_DRIVERS
     )
+
+
+def _is_heavy_render(app_id: str) -> bool:
+    """True when the capability is keyless but requires the render studio.
+
+    These are listed separately under "Keyless, heavier setup (optional
+    studios)" rather than the cold-day-one "Works now (keyless)" block so
+    readers are not misled into expecting instant zero-setup wins. The set is
+    defined explicitly in ``_HEAVY_RENDER_APPS`` (data-driven, not prose).
+    """
+    return app_id in _HEAVY_RENDER_APPS
 
 
 def _group_for(app_id: str, entry: dict[str, Any]) -> str:
@@ -426,9 +458,14 @@ def build_capabilities(registry: dict[str, Any], skills_dir: Path) -> str:
     frontmatter. No timestamp, commit, or machine state is read or embedded.
     """
     # Collect active capabilities, resolve name + one-liner from SKILL.md.
-    # rows: group_key -> list of (plain_name, one_liner, is_keyless), each list
-    # sorted by plain_name for a stable, scannable order.
-    rows: dict[str, list[tuple[str, str, bool]]] = {key: [] for key, _, _ in _GROUPS}
+    # rows: group_key -> list of (plain_name, one_liner, is_keyless,
+    # is_heavy_render), each list sorted by plain_name for a stable, scannable
+    # order.
+    #
+    # is_keyless=True + is_heavy_render=False  -> "Works now (keyless)" block
+    # is_keyless=True + is_heavy_render=True   -> "Keyless, heavier setup" block
+    # is_keyless=False                         -> "Switches on when you connect" block
+    rows: dict[str, list[tuple[str, str, bool, bool]]] = {key: [] for key, _, _ in _GROUPS}
 
     for app_id in sorted(registry):
         entry = registry[app_id]
@@ -439,13 +476,14 @@ def build_capabilities(registry: dict[str, Any], skills_dir: Path) -> str:
         plain = _plain_name(app_id, meta)
         liner = _one_liner(app_id, meta)
         keyless = _is_keyless(entry)
+        heavy = _is_heavy_render(app_id)
         group_key = _group_for(app_id, entry)
-        rows[group_key].append((plain, liner, keyless))
+        rows[group_key].append((plain, liner, keyless, heavy))
 
     for key in rows:
         rows[key].sort(key=lambda r: r[0].lower())
 
-    return _render(rows)
+    return _render(rows)  # type: ignore[arg-type]
 
 
 def _read_meta(skill_md: Path, app_id: str) -> dict[str, Any]:
@@ -489,8 +527,17 @@ _INTRO = (
 )
 
 
-def _render(rows: dict[str, list[tuple[str, str, bool]]]) -> str:
-    """Render the grouped rows into the final Markdown body."""
+def _render(rows: dict[str, list[tuple[str, str, bool, bool]]]) -> str:
+    """Render the grouped rows into the final Markdown body.
+
+    Each row is (plain_name, one_liner, is_keyless, is_heavy_render).
+    Three subgroups per job section:
+      - "Works now (keyless)": keyless AND not heavy render — cold day-one wins.
+      - "Keyless, heavier setup (optional studios)": keyless but require the
+        bundled render stack. Still no accounts needed, but not instant.
+      - "Switches on when you connect a tool": requires a credential or
+        non-keyless driver.
+    """
     parts: list[str] = [_HEADER, "\n", _INTRO]
 
     for key, title, intro in _GROUPS:
@@ -498,7 +545,9 @@ def _render(rows: dict[str, list[tuple[str, str, bool]]]) -> str:
         if not group_rows:
             continue
 
-        keyless = [r for r in group_rows if r[2]]
+        # Three-way split: light keyless | heavy keyless | connect-tier
+        keyless_light = [r for r in group_rows if r[2] and not r[3]]
+        keyless_heavy = [r for r in group_rows if r[2] and r[3]]
         connect = [r for r in group_rows if not r[2]]
 
         parts.append("\n")
@@ -506,18 +555,27 @@ def _render(rows: dict[str, list[tuple[str, str, bool]]]) -> str:
         parts.append("\n")
         parts.append(f"{intro}\n")
 
-        if keyless:
+        if keyless_light:
             parts.append("\n")
             parts.append("**Works now (keyless)**\n")
             parts.append("\n")
-            for plain, liner, _ in keyless:
+            for plain, liner, _kl, _hr in keyless_light:
+                parts.append(_bullet(plain, liner))
+
+        if keyless_heavy:
+            parts.append("\n")
+            parts.append(
+                "**Keyless, heavier setup (optional studios)**\n"
+            )
+            parts.append("\n")
+            for plain, liner, _kl, _hr in keyless_heavy:
                 parts.append(_bullet(plain, liner))
 
         if connect:
             parts.append("\n")
             parts.append("**Switches on when you connect a tool**\n")
             parts.append("\n")
-            for plain, liner, _ in connect:
+            for plain, liner, _kl, _hr in connect:
                 parts.append(_bullet(plain, liner))
 
     return "".join(parts)

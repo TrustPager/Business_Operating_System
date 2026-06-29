@@ -84,10 +84,13 @@ Your brand and voice, branded posts, content plans, and a workspace that looks l
 - **Build Brand Strategy**: Turn how you talk about your work into a sharp brand brief: positioning, a promise, and content angles, in your words.
 - **Build Customer Voice**: Turn the words your customers actually use into a customer-voice doc that grounds all your marketing.
 - **Build Social Strategy**: Turn your goal into a tailored social plan: the platforms, a realistic cadence, content pillars, and the first move.
-- **Make Social Post**: Design and render branded social posts for Instagram, LinkedIn, and X, ready to publish.
-- **Make Thumbnail**: Design and render a polished YouTube thumbnail for a tutorial video.
 - **Plan My Content**: Turn your content pillars and voice into a dated, ready-to-post calendar for the next week or two.
 - **Write Post Copy**: Draft the publish-ready words for a social post in your own voice, ready to go out with the graphic.
+
+**Keyless, heavier setup (optional studios)**
+
+- **Make Social Post**: Design and render branded social posts for Instagram, LinkedIn, and X, ready to publish.
+- **Make Thumbnail**: Design and render a polished YouTube thumbnail for a tutorial video.
 
 ## 🗂️ Handle paperwork
 
