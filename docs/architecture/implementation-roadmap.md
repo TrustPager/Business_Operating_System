@@ -34,7 +34,15 @@
 | **P7** | TrustPager re-slot + de-brand | P1–P4 | TrustPager lives behind the "unlock" section; user-facing prose vendor-neutral; Xero proves driver #2 |
 | **P8** | Install + migration + ship | all | One-command conversational plugin install; existing installs migrate without breakage |
 
-**Status (updated 2026-06-27): P0 ✅, P1 ✅, and P3 (onboarding + catalog) ✅ shipped to `main`.** (P0 = kernel/driver split, 49 tests; P1 = manifest + registry contract, 97 tests; P3 = keyless `start-here` onboarding + `whats-possible` registry catalog + keyless `build-brand-strategy` first-win + `learn-my-business` reframed as the connected deepener + state-gated TrustPager, 60 skills registered, 97 tests.) **P3 remainder deferred:** `connect-a-tool` + `tools/preflight.py` (connect-on-demand) ride on P2's safety work and land with the plumbing phases — the shipped P3 increment is onboarding + the registry-driven catalog.
+**Status (updated 2026-06-28): P0 ✅, P1 ✅, P3 ✅, the keyless floor (Wave 0 + Wave 1) ✅, a 10-persona field test ✅, and Wave 1.5 pre-ship hardening ✅ — all shipped to `main`.** (P0 = kernel/driver split; P1 = manifest + registry contract; P3 = `start-here` onboarding + `whats-possible` catalog; Wave 0 = the onboarding-binding guardrail + drift repair + the floor roster as definition-of-done; Wave 1 = the full keyless wins library — doc-lib-set/markitdown/firecrawl drivers + 14 apps; Wave 1.5 = cold-install self-sufficiency (D11), inclusive business-shapes (D12), lean-floor-plus-library + social-win-is-a-strategy (D13), the `write_docx` table block, `write-a-letter`/`describe-a-product`/`build-social-strategy`, content-rule guards, and a polish pass. **73 apps registered; 133 tests; binding check green.**)
+
+**Field test (10 personas) + confirming re-test (4 personas):** a brand-new keyless owner reaches a real first win across the full business gamut (trades, professional, enviro, finance, allied-health, ecommerce, hospitality, digital-services, consulting) at ~16k output tokens/win; 10/10 would return. The two ship-blockers it found (cold-install dependency wall; the social win being a heavy render) are both closed in Wave 1.5 and confirmed by the re-test (all 4 targeted fixes verified).
+
+**Confirmed-but-deferred follow-ups (next, in priority order):**
+- **Mechanical em-dash guard** (recurring field-test finding): a post-write normalizer in the doc/content output path so the no-em-dash rule is self-enforcing, not discipline-dependent. Small; recommended first.
+- **Creative Engine + off-the-shelf library phase** (founder [D13]): genericise the TIAC Remotion engine into a brand-kit-fillable studio (palette/logo/fonts → branded stills + looped MP4s) + a brand-kit builder, packaged as a grab-and-go library module. The library mechanism is its own subsystem. NOT zero-state.
+- **Connected-tier token investigation** (founder [D10]): deep measurement before P7/P8 connection design.
+- **P3 connect-on-demand remainder** (`connect-a-tool` + `tools/preflight.py`) rides on P2's safety work.
 
 **Floor-first re-sequence (founder directive — make the day-zero floor the star, not TrustPager).** The P0–P8 numbering stands, but the BUILD ORDER after P1 is re-prioritized to foreground the floor:
 1. **P0 ✅ → P1 ✅** — done (the foundation + the data-driven contract that surfaces the floor).
