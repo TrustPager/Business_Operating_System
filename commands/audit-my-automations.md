@@ -1,7 +1,7 @@
 ---
-description: Health-check every automation — which are firing, stale, erroring, missing safety dials, or overlapping. Problems first, each with a one-line fix.
+description: Health-check every automation: which are firing, stale, erroring, missing safety dials, or overlapping. Problems first, each with a one-line fix.
 ---
 
 Run the **audit-my-automations** skill.
 
-Invoke the skill at `skills/audit-my-automations/SKILL.md`. Follow its instructions exactly — including running `fetch.py` first and presenting findings worst-first, never auto-applying fixes.
+Invoke the skill at `skills/audit-my-automations/SKILL.md`. Follow its instructions exactly, including running `fetch.py` first and presenting findings worst-first, never auto-applying fixes.

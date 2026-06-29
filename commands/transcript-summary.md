@@ -1,5 +1,5 @@
 ---
-description: Turn a recorded call or meeting into a usable write-up — summary, decisions, action items, next step — from a transcript you paste or a local recording/transcript file. Works day one with no accounts; logging it to the customer's record is the upgrade once your CRM is connected.
+description: Turn a recorded call or meeting into a usable write-up (summary, decisions, action items, next step) from a transcript you paste or a local recording/transcript file. Works day one with no accounts; logging it to the customer's record is the upgrade once your CRM is connected.
 ---
 
 Run the **Transcript Summary** skill.
