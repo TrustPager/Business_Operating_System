@@ -56,19 +56,23 @@ new format. The template is vendor-neutral by design: it carries no TrustPager
 pitch or tool catalogue. The TrustPager operating context is added separately in
 Step 2b once you've confirmed the connection is live.
 
-Then match the operator's industry to a section in **`knowledge/industry-notes.md`**
-using `company.industry` and the pipeline shape:
+Then match the operator to a **business shape** in **`knowledge/industry-notes.md`**
+using `company.industry` and how their work flows (how leads arrive, how it's
+priced and delivered, what brings customers back):
 
-- mortgage / finance, trades, insurance, consultant / professional services,
-  allied health, manufacturing → read that section.
-- nothing fits → use the generic template as-is and ask one or two short
-  questions about their pipeline quirks and comms style.
+- match the shape first — service/professional, trades/on-the-tools,
+  product-seller/ecommerce-retail, hospitality/walk-in, clinic/appointment —
+  then layer the vertical specifics nested under that shape if a named industry
+  (mortgage/finance, trades, insurance, consultant, technical services,
+  manufacturing, ecommerce/retail, hospitality, allied health, wellness) fits.
+- nothing fits cleanly → use the generic fallback as-is and ask one or two short
+  questions about how their work flows and their comms style.
 
-If the industry is ambiguous or `unavailable`, **ask one short question**
-("what would you call your line of work?") rather than guessing the section.
-Pull that section's **gotchas** and **comms style** into the file you write —
-but treat them as industry patterns to confirm, never as facts read from the
-workspace (see hard rules).
+If the line of work is ambiguous or `unavailable`, **ask one short question**
+("what would you call your line of work?") rather than guessing the shape.
+Pull the shape's (and any vertical's) **gotchas** and **comms style** into the
+file you write — but treat them as patterns to confirm, never as facts read from
+the workspace (see hard rules).
 
 ## Step 2b — Plant the TrustPager operating context
 

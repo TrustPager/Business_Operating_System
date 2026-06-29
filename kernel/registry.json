@@ -129,6 +129,13 @@
       "mcp__trustpager__ingest_knowledge_base_text"
     ]
   },
+  "build-social-strategy": {
+    "data_path": "reasoning_only",
+    "function_slot": "social",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
   "build-spreadsheet": {
     "data_path": "local",
     "function_slot": "documents",
