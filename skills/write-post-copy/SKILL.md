@@ -143,6 +143,11 @@ for its platform. Stay bounded: one idea per run, not a month's calendar.
 
 ## Hard rules
 
+- **Before you output anything customer-facing: positive/outcome-led, and NO em
+  dashes** (use colons, commas, parentheses, or separate sentences). Every word
+  that ships names the win, never the pain or what's missing. A field test
+  shipped a quote with an em dash because nothing reminded the model; this is
+  the reminder, check the copy before handing it over.
 - **Keyless and reasoning-only.** This needs no accounts and no files beyond
   what the owner gives you. The real, finished artifact is the publish-ready
   copy itself.

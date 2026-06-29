@@ -134,6 +134,20 @@ sentences.
 Show the finished policy / FAQ, point out one or two phrases you kept in their
 own words, and list any flagged placeholders still needing a real specific.
 
+**Add the plain review line (especially for anything compliance-sensitive).**
+This is policy text that may go on a website or bind how the business handles
+money, privacy, or funding, so hand it over as a starting draft, not a final
+legal document:
+
+> This is a solid starting draft. Give it a read before you publish it, and if
+> it touches anything regulated (privacy, funding, refunds), it's worth a
+> quick look from whoever signs off on that for you. The wording's yours to
+> tweak.
+
+Keep it warm and plain, never alarming: it sets the right expectation without
+undercutting the work. For privacy and funding / eligibility topics the line is
+not optional.
+
 Then offer where it can go next, without making any of it a requirement:
 
 > This is ready to paste onto your site, drop into a confirmation email, or
@@ -143,11 +157,19 @@ Then offer where it can go next, without making any of it a requirement:
 > the text stands on its own today.
 
 ## Hard rules
+- **Before you output anything customer-facing: positive/outcome-led, and NO em
+  dashes** (use colons, commas, parentheses, or separate sentences). The policy
+  or FAQ names what the customer gets and what good looks like, never the
+  owner's frustration. A field test shipped a quote with an em dash because
+  nothing reminded the model; this is the reminder, check the output.
 - Never invent a rule, number, window, or condition the owner didn't state.
 - Never invent a legal or compliance claim: no guessed privacy-law citations,
   no assumed NDIS / Medicare figures or eligibility criteria.
 - Don't ship a compliance-sensitive policy (privacy, funding/eligibility)
   without reading the specifics back and getting an explicit confirmation.
+- Hand every policy over as a **starting draft with a plain "give it a read
+  before you publish" line** (Step 5); for privacy and funding / eligibility
+  topics that review line is mandatory.
 - Don't write more than one policy / FAQ topic in a single run.
 - Keep the owner's exact phrasing for the load-bearing facts; reflect their
   voice.

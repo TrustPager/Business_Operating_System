@@ -148,3 +148,51 @@ Verified against TrustPager's own help center (read live via the connector):
   connector; confirm how granular TrustPager's OAuth scopes are; survey + vet public MCP proxy/router
   projects (license + no-ceremony fit); prototype the chosen lever; write it up as the connected-tier
   loading spec. Do not lock P7/P8 connection design until this lands.
+
+## D11 — Brain-dead self-sufficiency: the BOS does setup, it never hands the owner a command (2026-06-28)
+- **The standard:** the BOS either runs self-sufficiently with what we ship, or — for anything that must
+  run on the owner's own machine — it gets that done FOR them, with permission. It never tells a
+  non-technical owner to "go run this file" or pastes a `pip install` line and walks away.
+- **The anti-pattern (founder-spotted in Claude Code):** "Hey, you need to run X and do Y." Wrong. The
+  correct shape is: *"To do this I need to add the document reader. Here's what that involves and I can do
+  it for you — may I go ahead?"* → on yes, the BOS runs it itself (against the right interpreter), then
+  verifies it worked and continues. Permission first, then action — not instruction.
+- **Implementation contract:** (1) BUNDLE the always-needed dependencies in setup so a normal install has
+  them; (2) for the rest, tools emit a machine-readable "missing dependency X, fix = `python -m pip install
+  Y`" signal (and exit non-zero on real failure), and the SKILL layer turns that into a detect → offer →
+  do-on-yes → verify loop; (3) a plain-language `knowledge/` setup doc so any unavoidable manual step is
+  stress-free; (4) `check-install.py` gets a keyless-floor mode that verifies the document stack (write→read
+  round-trip) and offers to fix what's missing. The field test proved the old `pip install` hints are a
+  churn trap for exactly the non-technical owner we build for.
+
+## D12 — Inclusive via business-shapes, not industry niches (2026-06-28)
+- **Scope:** the BOS serves ANY small business, not just service businesses. The field test confirmed the
+  floor already delivers excellent first wins for ecommerce and hospitality owners with NO matching vertical
+  (the generic reasoning carried them) — so verticals are inference shortcuts, not gates.
+- **The model:** cover a small, finite set of **business shapes** (service/professional, trades/on-the-tools,
+  product-seller/ecommerce-retail, hospitality/walk-in, clinic/appointment) that any industry maps onto,
+  backed by the proven generic fallback. This is inclusive AND scalable, versus chasing infinite per-industry
+  niches. `industry-notes.md` re-frames around shapes; `starter-projects.md` follows.
+- **Marketing may still LEAD with service businesses** (where the [name] / [name] proof lives)
+  without the product excluding anyone. Positioning ≠ product scope.
+
+## D13 — The zero-state floor stays lean; heavy/optional power lives in an off-the-shelf library (2026-06-28)
+- **The split:** what ships standard (zero-state) is the lean keyless floor that gives EVERY owner a fast
+  first win with no heavy setup. Tools that are powerful but heavy, or useful-to-many-but-not-all, are NOT
+  shipped standard — they are **packaged as ready-to-go modules in a library** the owner browses and grabs
+  off the shelf as needed. This is how we stay token-frugal (D10) + brain-dead to install (D11) + inclusive
+  (D12): the standard ship is light; power is opt-in, pulled in exactly to fit the business.
+- **The Remotion creative studio is a tier-1 LIBRARY item, and a FUTURE build — not zero-state.** It is
+  useful to many businesses but not all, and it is heavy (~1GB Chromium install, render pipeline). It gets
+  genericised (TIAC engine → brand-kit-fillable: palette/logo/fonts → branded stills + looped MP4s) and
+  boxed as a grab-and-go library module, with a brand-kit builder companion. Not built in the pre-ship
+  hardening phase.
+- **The social first-win is a STRATEGY, not a single post.** A one-off caption is not exciting; a tailored
+  social-media STRATEGY aimed at the owner's target (more bookings / leads / authority / audience) is. The
+  keyless floor produces the strategy (reasoning_only); the content calendar (`plan-my-content`) and copy
+  (`write-post-copy`) are the execution layer beneath it; the branded VISUAL studio is the library module
+  above it. So `make-social-post` (a heavy render studio) leaves the zero-state cold-win slot and is slated
+  for the library; the cold social win becomes `build-social-strategy`.
+- **Roadmap impact:** introduces a future "Creative Engine + off-the-shelf library" phase (the library
+  mechanism + the genericised Remotion module + the brand-kit builder). Pre-ship hardening only adds the
+  keyless `build-social-strategy` win and re-tiers `make-social-post` out of the zero-state cold offers.

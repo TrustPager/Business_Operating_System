@@ -129,6 +129,13 @@
       "mcp__trustpager__ingest_knowledge_base_text"
     ]
   },
+  "build-social-strategy": {
+    "data_path": "reasoning_only",
+    "function_slot": "social",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
   "build-spreadsheet": {
     "data_path": "local",
     "function_slot": "documents",
@@ -168,6 +175,13 @@
     "uses_tools": [
       "mcp__create_task"
     ]
+  },
+  "describe-a-product": {
+    "data_path": "reasoning_only",
+    "function_slot": "social",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
   },
   "design-nurture-sequence": {
     "data_path": "mcp_tools",
@@ -698,6 +712,13 @@
   "write-a-job-ad": {
     "data_path": "reasoning_only",
     "function_slot": "people",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
+  "write-a-letter": {
+    "data_path": "reasoning_only",
+    "function_slot": "comms",
     "requires_credential": "none",
     "requires_driver": "none",
     "status": "active"
