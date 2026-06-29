@@ -1,139 +1,195 @@
 # Install Business Operating System
 
-Total time: about 10 minutes. No coding required.
+No accounts. No API keys. Real wins from minute one.
+
+Total time: about 5 minutes. All you need is [Claude Code](https://claude.com/claude-code), `git`, and `python` (3.10 or later).
 
 ---
 
-## Before you start
+## The easy path: let Claude do it
 
-You need:
+Open Claude Code and say:
 
-1. **A TrustPager workspace.** Sign up at [trustpager.com](https://trustpager.com) — you'll get one free.
-2. **TrustPager already connected to Claude.** If you're on Claude in the browser, connect TrustPager from the [TrustPager AI access page](https://app.trustpager.com/auto/ai-access). Once it's connected there, Claude Code picks it up automatically.
-3. **Claude Code installed.** Get it from [claude.com/claude-code](https://claude.com/claude-code) (works on Mac, Windows, and Linux).
-4. **Your TrustPager API key.** Find it under your workspace settings → API. It starts with `tp_live_`.
+```
+Go get the Business Operating System from TrustPager.
+```
+
+Claude clones the public repo, installs the small document helper libraries (Word, Excel, PDF support), writes a signpost at `~/.claude/bos-run.py` so every skill can find its tools from any folder, and copies the skills and commands into `~/.claude/skills/` and `~/.claude/commands/` so Claude Code discovers them automatically. No key required. No account needed.
+
+**The one thing Claude cannot do for you:** trigger a Claude Code restart. After the setup finishes, restart Claude Code (or type `/reload-plugins`) so the new skills load. Then type:
+
+```
+/start-here
+```
+
+You're running.
 
 ---
 
-## Install in 2 steps
+## Manual install (step by step)
 
-### Step 1 — Install the Business Operating System pack
+Works identically on Mac, Windows, and Linux. You need `git` and `python` (3.10+) already installed.
 
-You have two ways to get the skills + commands. **Either way you still run the
-Python setup** in 1b, because that's what stores your API key for the tools.
-
-**Option A — as a Claude Code plugin (recommended).** This registers every
-command, skill, and subagent with Claude Code automatically. In Claude Code:
+### Step 1. Clone the repo
 
 ```
-/plugin marketplace add TrustPager/Business_Operating_System
-/plugin install business-operating-system@trustpager
-```
-
-Then clone the repo too (the Python tools and the installer live in it):
-
-```
-cd ~
-git clone https://github.com/TrustPager/Business_Operating_System.git
-```
-
-**Option B — clone only.** Clone to your home folder and point Claude Code at
-the directory (or run from inside it):
-
-```
-cd ~
-git clone https://github.com/TrustPager/Business_Operating_System.git
-```
-
-#### 1b — Run setup (both options, same on Mac, Linux, and Windows)
-
-```
+git clone https://github.com/TrustPager/Business_Operating_System
 cd Business_Operating_System
+```
+
+### Step 2. Run setup
+
+```
 python tools/setup.py
+```
+
+Setup does four things automatically:
+
+1. Installs the document libraries (Word, Excel, PDF read and write). One-time. Uses the same Python interpreter you ran it with, so there's no version mismatch on Windows.
+2. Writes `~/.claude/bos.json` recording this clone's location.
+3. Writes `~/.claude/bos-run.py`, the signpost that lets every skill call its tools from any working directory.
+4. Copies the skills and commands into `~/.claude/skills/` and `~/.claude/commands/` so Claude Code discovers them without a plugin store or marketplace.
+
+**At the key prompt, press Enter to skip.** The keyless floor installs completely. You can connect TrustPager later without re-running setup from scratch.
+
+### Step 3. Verify
+
+```
 python tools/check-install.py
 ```
 
-`setup.py` writes your TrustPager API key to `~/.claude/bos.json`. If you've already connected TrustPager to Claude in the browser, it'll detect that key and offer to reuse it (no copy-paste needed).
+You'll see a `[OK]` / `[FAIL]` list. The keyless floor checks come first (document libraries, a real write-then-read round trip). The connected tier checks only run if you have a TrustPager key configured. "All checks passed" means you're ready.
 
-`check-install.py` runs 7 quick health checks and prints a green / red list. If you see "All checks passed", you're ready.
+If a document library is missing, run:
 
-### Step 2 — Teach Claude your business (run `/learn-my-business`)
+```
+python tools/check-install.py --fix
+```
 
-**Restart Claude Code** so the new commands load, then type:
+It installs the missing pieces for you.
+
+### Step 4. Restart, then start
+
+Restart Claude Code (or type `/reload-plugins` if your version supports it). Then:
+
+```
+/start-here
+```
+
+---
+
+## Try it (keyless, right now)
+
+No account needed. No key. Just type one of these after setup:
+
+```
+/start-here
+```
+
+Your assistant introduces itself, learns your business from a 60-second brain-dump, and hands you a first real win: a priced quote, a proposal draft, a competitor read. One short conversation and you're operating.
+
+Or go straight to a specific win:
+
+```
+/price-my-work
+```
+
+Tell it the job, your costs, and the margin you want. It shows the price, the margin in dollars, and the rate you'd need to hit your target.
+
+Run `/whats-possible` to see the full keyless capability list.
+
+---
+
+## Going deeper: connect TrustPager (optional)
+
+TrustPager is a CRM, automation, and client portal platform built for service businesses. Connecting it switches on the always-on workflows: live pipeline briefings, follow-up radar, missed call recovery, nurture sequences, automations, reports, and more. It requires a TrustPager subscription.
+
+**The primary connection path is the OAuth connector.** In Claude Code, say:
+
+```
+Connect my TrustPager workspace.
+```
+
+Claude walks you through the connector flow. Once connected, the TrustPager MCP server authenticates via OAuth and no key is needed.
+
+**The API key path is an advanced alternative.** If you prefer a direct key (for scripting or a shared team setup), get one from your TrustPager workspace under Settings, then API, then Create new key. It starts with `tp_live_`. Re-run setup and paste it at the prompt:
+
+```
+python tools/setup.py --force
+```
+
+Once connected (either path), run:
 
 ```
 /learn-my-business
 ```
 
-It reads your live TrustPager workspace and writes a `CLAUDE.md` into your project folder for you — your real pipeline, products, and brand — and folds in the gotchas for your line of work. That file tells Claude the shape of your business so it doesn't have to ask every time. Re-run it whenever your pipeline, products, or brand change.
+This reads your live TrustPager workspace and writes a `CLAUDE.md` for your project: your real pipeline, products, and brand, with the gotchas for your line of work. Re-run it whenever your workspace changes. (If you already ran `/start-here`, it wrote a first profile from your brain-dump. This enriches it from live data.)
 
-**Prefer to do it by hand?** Copy `templates/CLAUDE.md` into your project folder as `CLAUDE.md` and fill in the `<<< ... >>>` blanks. Industry-specific gotchas live in `knowledge/industry-notes.md` (one section per vertical: mortgage/finance, trades, insurance, consulting, allied health, manufacturing).
+Prefer to do it by hand? Copy `templates/CLAUDE.md` into your project folder as `CLAUDE.md` and fill in the blanks. Industry-specific notes live in `knowledge/industry-notes.md`.
 
----
-
-## Try it
-
-With your `CLAUDE.md` written (Step 2), type:
-
-```
-/sweep-my-day
-```
-
-You should see Claude pull up everything that needs your attention today — quotes overdue, hot leads, missed calls, follow-ups due. If you see that, you're done.
-
----
-
-## Troubleshooting
-
-**"trustpager mcp not found"**
-The TrustPager connector isn't connected to Claude. Connect it at [app.trustpager.com/auto/ai-access](https://app.trustpager.com/auto/ai-access), then restart Claude Code.
-
-**"Authorization: Bearer invalid"**
-The API key didn't paste correctly. Generate a new one in your TrustPager workspace settings → API → Create new key.
-
-**"command /sweep-my-day not found"**
-Step 1 didn't complete. Make sure you ran `python tools/setup.py` from inside the `Business_Operating_System` folder and restart Claude Code.
-
-**"Claude doesn't know about my products / pipeline / brand"**
-You skipped Step 2. Run `/learn-my-business` and it'll write your `CLAUDE.md` from your live workspace (or copy `templates/CLAUDE.md` in by hand). Claude picks it up next session.
+Sign up at [trustpager.com](https://trustpager.com).
 
 ---
 
 ## Updating
 
-When new skills ship, pull the latest:
+When new skills ship:
 
 ```
-cd ~/Business_Operating_System
+cd Business_Operating_System
 git pull
-python tools/setup.py        # refreshes the skill launcher (safe to re-run; won't touch your key)
-python tools/check-install.py
+python tools/setup.py
 ```
 
-Claude Code reads the skills directly from this folder, so there's no plugin re-install. The `setup.py` step just makes sure the `~/.claude/bos-run.py` launcher is present and points at this folder — it's idempotent and leaves your API key alone.
+Setup is idempotent. It refreshes BOS-owned skills and commands in `~/.claude/`, updates the signpost if the clone moved, and prints a `[refresh]` line for each skill it updates. It never touches your TrustPager key or any skill you placed there yourself.
+
+Run `python tools/check-install.py` afterward to confirm the floor is still green.
 
 ---
 
 ## Uninstall
 
-To remove BOS, just delete the folder:
+Delete the cloned folder:
 
 ```
 rm -rf ~/Business_Operating_System
 ```
 
-Optionally clear the stored API key + cache:
+To remove the skills and commands BOS copied into `~/.claude/`, delete the entries listed in `~/.claude/bos.json` under `installed_skills` and `installed_commands`. You can also delete `~/.claude/bos.json` and `~/.claude/bos-run.py`. None of this touches a TrustPager workspace. Your data stays where it is.
+
+---
+
+## Troubleshooting
+
+**Skills don't appear after setup**
+Restart Claude Code. Skills load at startup, not mid-session. If restarting doesn't help, check that `~/.claude/skills/` contains the BOS skill folders and `~/.claude/commands/` contains the command files. If they're missing, re-run `python tools/setup.py`.
+
+**"A tool says a library is missing"**
+Your assistant will offer to install it for you. Say yes and it runs `check-install.py --fix` on your behalf. Or run it yourself:
 
 ```
-python tools/config.py --clear-all
+python tools/check-install.py --fix
 ```
 
-(Neither step touches your TrustPager workspace — your data is unaffected.)
+**"The launcher is missing" or skills error with bos-run.py not found**
+The signpost `~/.claude/bos-run.py` was not written or was deleted. Re-run:
+
+```
+python tools/setup.py
+```
+
+**Skills appear but TrustPager commands return "no key configured"**
+You're using a connected-tier skill without a key. Either press Enter to skip (keyless skills will still work), or add your TrustPager key by running `python tools/setup.py --force`.
+
+**TrustPager connection issues (connected tier)**
+Confirm your subscription is active at [trustpager.com](https://trustpager.com). If using the OAuth connector, try reconnecting from [app.trustpager.com/auto/ai-access](https://app.trustpager.com/auto/ai-access). If using an API key, check it starts with `tp_live_` and regenerate if needed.
 
 ---
 
 ## Help
 
-If something's not working, the fastest path is:
-1. Check [docs.trustpager.com](https://docs.trustpager.com) — most questions are answered there
-2. Email support and we'll get back to you the same day (Australian business hours)
+If something is not working:
+
+1. Check [docs.trustpager.com](https://docs.trustpager.com). Most questions are answered there.
+2. Email support and we'll get back to you the same day (Australian business hours).
