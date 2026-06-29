@@ -107,6 +107,7 @@ The original spine note still holds mechanically: P0→P3 are sequential; P4/P5/
 **Implements:** department-gap analysis, floor-completion §2, stress-test (au-gov-data → constants file, not a live driver).
 **Depends on:** P4.
 **Done when:** AU finance + people-ops apps run keyless and green; constants file is FY-versioned with an update note.
+**Detailed plan (reviewed + approved 2026-06-28):** [`plans/2026-06-28-p5-money-people-ops.md`](plans/2026-06-28-p5-money-people-ops.md). The plan reshapes this section against the actual build: people-ops (`write-a-job-ad`, `write-a-policy`) already shipped in Wave 1; `expense-sense` is cut (fails the "more than vanilla Claude" bar) and margin/budgeting fold into `profit-per-job`/`cash-flow-forecast`; the money apps gain a `numpy-financial` calc wrapper + real `.xlsx` output to clear that bar; the AU pack is locked behind an explicit owner-confirmed `Region: AU` gate enforced at six layers (manifest `requires_region` → registry → binding check → onboarding surface → skill body → data loader), never inferred; PAYG schedules are referenced to the ATO calculator, not embedded; FWC MAPD + ABS Indicator APIs are named connect-tier deepeners for P7/P8.
 
 ## P6 — Creative engine: Remotion bridge
 **Goal:** Brand video + GIFs + ads for paid & organic, on-brand by default, keyless-local.
