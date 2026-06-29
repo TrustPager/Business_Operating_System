@@ -171,7 +171,7 @@ Full step-by-step: **[INSTALL.md](./INSTALL.md)**
 
 **Run `/learn-my-business`.** This is the connected-tier deepener: it reads your live workspace and writes your `CLAUDE.md` for you (your real pipeline, products, and brand), folding in the gotchas for your line of work. Re-run it whenever your workspace changes. (`/start-here` already wrote a first profile from your brain-dump; this enriches it from live data once you're connected.)
 
-Prefer to do it by hand? Start from the [generic template](./templates/CLAUDE.md) and fill in the blanks. Industry-specific gotchas (mortgage/finance, trades, insurance, consulting, allied health, manufacturing) live in [knowledge/industry-notes.md](./knowledge/industry-notes.md) — one section per vertical, which `/learn-my-business` pulls from automatically.
+Prefer to do it by hand? Start from the [generic template](./templates/CLAUDE.md) and fill in the blanks. Business gotchas live in [knowledge/industry-notes.md](./knowledge/industry-notes.md), organized by business shape (service/professional, trades/on-the-tools, product-seller/ecommerce-retail, hospitality/walk-in, clinic/appointment) with the per-vertical specifics nested inside, which `/start-here` and `/learn-my-business` pull from automatically.
 
 ---
 
