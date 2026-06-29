@@ -41,6 +41,27 @@ BOS_HOME = Path(__file__).resolve().parent.parent
 SKILLS_DIR = BOS_HOME / "skills"
 TOOLS_DIR = BOS_HOME / "tools"
 
+# The tools a skill may invoke through the signpost `tool` mode. An allowlist
+# (defence in depth): every file in tools/ is BOS's own code, but the launcher
+# must only run the data/helper tools skills actually call, never the admin
+# scripts (config.py can clear the key, setup.py re-runs the installer, run.py
+# would recurse). To add a new signpost-invoked tool, add its bare name here.
+# The test suite asserts every tool a skill invokes is listed here, so this set
+# cannot silently drift out of sync.
+_ALLOWED_TOOLS: frozenset[str] = frozenset({
+    "audit-contacts",
+    "audit-pipeline",
+    "check-install",
+    "dump-crm-bundle",
+    "finance_calc",
+    "find-gaps",
+    "lint-sequence",
+    "markitdown_convert",
+    "sync-brand",
+    "write_docx",
+    "write_xlsx",
+})
+
 
 def _runnable() -> list[str]:
     if not SKILLS_DIR.is_dir():
@@ -70,6 +91,12 @@ def _dispatch_tool(argv: list[str]) -> int:
     if _unsafe_toolname(toolname):
         print(f"[err] unsafe tool name '{toolname}': must be a bare filename with no path separators or '..'.",
               file=sys.stderr)
+        return 2
+
+    stem = toolname[:-3] if toolname.endswith(".py") else toolname
+    if stem not in _ALLOWED_TOOLS:
+        print(f"[err] '{stem}' is not a runnable BOS tool.", file=sys.stderr)
+        print(f"      allowed: {', '.join(sorted(_ALLOWED_TOOLS))}", file=sys.stderr)
         return 2
 
     tool_file = TOOLS_DIR / (toolname if toolname.endswith(".py") else toolname + ".py")

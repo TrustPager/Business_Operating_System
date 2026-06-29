@@ -172,5 +172,48 @@ class TestSkillDispatchRegression(unittest.TestCase):
                       f"expected skill name in error; got:\n{proc.stderr}")
 
 
+# ---------------------------------------------------------------------------
+# Allowlist: only intended tools run via the signpost; admin scripts do not.
+# ---------------------------------------------------------------------------
+
+import re  # noqa: E402
+
+
+def _allowed_tools() -> frozenset[str]:
+    sys.path.insert(0, str(REPO / "tools"))
+    import run  # the launcher module
+    return run._ALLOWED_TOOLS
+
+
+class TestToolAllowlist(unittest.TestCase):
+    """The 'tool' mode runs only allowlisted tools, never admin scripts."""
+
+    def test_admin_script_config_is_rejected(self):
+        # config.py is a real file in tools/ (it can clear the API key) but is
+        # NOT an allowed signpost tool. It must be rejected with exit 2.
+        proc = _run(["tool", "config", "--clear-key"])
+        self.assertEqual(proc.returncode, 2,
+                         f"config must not run via the signpost; stderr:\n{proc.stderr}")
+        self.assertIn("not a runnable BOS tool", proc.stderr)
+
+    def test_setup_and_run_are_rejected(self):
+        for name in ("setup", "run"):
+            proc = _run(["tool", name])
+            self.assertEqual(proc.returncode, 2,
+                             f"'{name}' must not run via the signpost; stderr:\n{proc.stderr}")
+
+    def test_every_invoked_tool_is_allowlisted(self):
+        """Drift guard: every tool a skill/command invokes is in _ALLOWED_TOOLS."""
+        allowed = _allowed_tools()
+        pat = re.compile(r"bos-run\.py tool ([A-Za-z0-9_-]+)")
+        invoked: set[str] = set()
+        for base in ("skills", "commands"):
+            for md in (REPO / base).rglob("*.md"):
+                invoked.update(pat.findall(md.read_text(encoding="utf-8")))
+        missing = sorted(invoked - allowed)
+        self.assertEqual(missing, [],
+                         f"these invoked tools are not allowlisted in run.py: {missing}")
+
+
 if __name__ == "__main__":
     unittest.main()

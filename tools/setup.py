@@ -227,6 +227,8 @@ def _install_skills(bos_home: str, config_path: Path) -> tuple[int, int]:
                 continue
             # BOS owns it (or it does not exist): refresh by replacing.
             if dst.exists():
+                print(f"  [refresh] ~/.claude/skills/{name} (BOS-owned; "
+                      f"local edits to this copy are replaced)")
                 shutil.rmtree(dst)
             shutil.copytree(src_skill, dst)
             if name not in owned_skills:

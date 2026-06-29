@@ -5,12 +5,12 @@ Checks all skills/**/SKILL.md and commands/*.md and asserts:
 
   (a) No bare 'python tools/' invocation (no path-relative call).
   (b) No '${CLAUDE_PLUGIN_ROOT}/tools/' invocation (the old portable form
-      that does not expand in PowerShell — the primary platform).
+      that does not expand in PowerShell: the primary platform).
   (c) Every tool invocation uses the cross-OS signpost form:
           python ~/.claude/bos-run.py tool <toolname> [args...]
 
 The connected-skill form 'python ~/.claude/bos-run.py <skill>' (without the
-'tool' sub-command) is intentional and must NOT be flagged — only the literal
+'tool' sub-command) is intentional and must NOT be flagged: only the literal
 string '~/.claude/bos-run.py tool ' is the pattern for tool invocations.
 """
 import re
@@ -19,16 +19,16 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
-# (a) Bare relative path — never acceptable
+# (a) Bare relative path: never acceptable
 BARE_PYTHON_TOOLS = re.compile(r'python tools/')
 
-# (b) Old CLAUDE_PLUGIN_ROOT form — superseded by signpost
+# (b) Old CLAUDE_PLUGIN_ROOT form: superseded by signpost
 PLUGIN_ROOT_FORM = re.compile(r'\$\{CLAUDE_PLUGIN_ROOT\}/tools/')
 
 # (c) Correct signpost form for tool invocations
 SIGNPOST_TOOL_FORM = re.compile(r'python\s+~/.claude/bos-run\.py\s+tool\s+\S')
 
-# Connected-skill form (without 'tool') — intentional, must not be flagged
+# Connected-skill form (without 'tool'): intentional, must not be flagged
 CONNECTED_SKILL_FORM = re.compile(r'python\s+~/.claude/bos-run\.py\s+(?!tool\s)\S')
 
 
@@ -67,7 +67,7 @@ class TestInvocationForm(unittest.TestCase):
             )
 
     def test_no_plugin_root_tool_invocations(self):
-        """(b) No ${CLAUDE_PLUGIN_ROOT}/tools/ invocations — does not expand in PowerShell."""
+        """(b) No ${CLAUDE_PLUGIN_ROOT}/tools/ invocations: does not expand in PowerShell."""
         violations = []
         for filepath in _skill_and_command_files():
             content = filepath.read_text(encoding="utf-8")
@@ -79,7 +79,7 @@ class TestInvocationForm(unittest.TestCase):
         if violations:
             self.fail(
                 "Found '${CLAUDE_PLUGIN_ROOT}/tools/' invocations (superseded by"
-                " 'python ~/.claude/bos-run.py tool <name>' — the old form does not"
+                " 'python ~/.claude/bos-run.py tool <name>': the old form does not"
                 " expand in PowerShell):\n"
                 + "\n".join(violations)
             )
