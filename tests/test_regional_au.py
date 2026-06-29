@@ -8,6 +8,8 @@ Verifies:
 - load_au_constants("AU") returns a non-empty dict.
 - load_au_constants("US") raises ValueError (region-gated loader).
 - load_au_constants("") raises ValueError.
+- load_au_constants("AU") works from a foreign cwd (cwd-independence audit,
+  Task 1.2).
 
 Offline-safe: no network, no key. The JSON is bundled; tests read the file.
 Run:
@@ -15,7 +17,10 @@ Run:
 """
 
 import json
+import os
+import shutil
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -203,6 +208,45 @@ class TestAUConstantsLoader(unittest.TestCase):
         """load_au_constants(None) must raise ValueError (region gate)."""
         with self.assertRaises(ValueError):
             self.loader(None)
+
+
+class TestAUConstantsCwdIndependence(unittest.TestCase):
+    """Task 1.2 audit: load_au_constants must work from any working directory.
+
+    regional.py resolves its data path via Path(__file__).resolve(), so the
+    loader is inherently cwd-independent. This class proves it with a real
+    os.chdir() to a foreign temp directory before calling the loader.
+    """
+
+    def setUp(self):
+        self._original_cwd = os.getcwd()
+        self._tmp = tempfile.mkdtemp()
+        os.chdir(self._tmp)
+
+    def tearDown(self):
+        os.chdir(self._original_cwd)
+        shutil.rmtree(self._tmp, ignore_errors=True)
+
+    def test_load_au_constants_from_foreign_cwd(self):
+        """load_au_constants('AU') returns a non-empty dict from a temp cwd."""
+        from regional import load_au_constants
+        result = load_au_constants("AU")
+        self.assertIsInstance(result, dict)
+        self.assertTrue(len(result) > 0,
+                        "load_au_constants returned empty dict from foreign cwd")
+
+    def test_load_au_constants_gst_from_foreign_cwd(self):
+        """load_au_constants('AU') contains the gst section from a temp cwd."""
+        from regional import load_au_constants
+        result = load_au_constants("AU")
+        self.assertIn("gst", result,
+                      "'gst' key missing when called from foreign cwd")
+
+    def test_load_au_constants_region_gate_still_works_from_foreign_cwd(self):
+        """load_au_constants('US') still raises ValueError from a temp cwd."""
+        from regional import load_au_constants
+        with self.assertRaises(ValueError):
+            load_au_constants("US")
 
 
 if __name__ == "__main__":
