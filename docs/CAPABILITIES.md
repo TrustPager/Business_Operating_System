@@ -28,9 +28,9 @@ Spotting unbilled or unpaid work and chasing what you're owed.
 
 **Works now (keyless)**
 
-- **Cash Flow Forecast**: A week-by-week cash flow forecast with a live .xlsx where the running balance recalculates when you change a number
-- **Estimate My BAS**: For Australian businesses
-- **Profit Per Job**: Find out what one job type actually makes you, not what it bills
+- **Cash Flow Forecast**: See your cash position week by week, with a live spreadsheet where the running balance updates when you change any number.
+- **Estimate My BAS**: Prepare your quarterly Simpler-BAS GST figures (G1, 1A, 1B) with the calculation shown and the ATO source cited, ready to enter on your own BAS. Australian businesses only.
+- **Profit Per Job**: Find out what one job type actually earns you after every cost is counted, with your margin shown as a dollar figure.
 
 **Switches on when you connect a tool**
 
@@ -99,7 +99,7 @@ Reading any file and structuring it, forms, documents, e-signing, spreadsheets, 
 - **Compare Documents**: Compare two documents and show what actually changed, in plain language: added, removed, and changed.
 - **Extract Document**: Pull the data out of any file and use it: answer a question, summarise it, or map it onto a record.
 - **Import from Anywhere**: Turn a messy source, like a screenshot or a broken export, into one tidy customer list you can use.
-- **Renewal Tracker**: A live renewal tracker .xlsx the owner keeps and updates, where a days-until-renewal column is a live formula that recalculates every time the file is opened
+- **Renewal Tracker**: A live tracker spreadsheet for licenses, insurances, certifications, and memberships, where the days-until-renewal column recalculates every time you open the file.
 - **Template From Document**: Turn an existing paper or PDF form or contract into a reusable digital template.
 
 **Switches on when you connect a tool**

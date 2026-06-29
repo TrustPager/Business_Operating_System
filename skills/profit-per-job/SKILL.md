@@ -264,6 +264,7 @@ next job type?"*
   discovery, not the shipped number.)
 - **No accounts, no files needed.** This runs on typed inputs alone. The `.xlsx`
   model is an optional add-on, never a dependency for the win.
+- **No em dashes in anything the owner reads.** Use commas, colons, or periods.
 
 ## Output shape
 

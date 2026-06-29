@@ -205,11 +205,21 @@ _ONE_LINERS: dict[str, str] = {
     "research-before-call": "Walk into any meeting prepared, with a one-page "
     "brief on the person or company plus three questions that open the room.",
     # 💰 Get paid
+    "profit-per-job": "Find out what one job type actually earns you after every "
+    "cost is counted, with your margin shown as a dollar figure.",
+    "cash-flow-forecast": "See your cash position week by week, with a live "
+    "spreadsheet where the running balance updates when you change any number.",
+    "estimate-my-bas": "Prepare your quarterly Simpler-BAS GST figures (G1, 1A, "
+    "1B) with the calculation shown and the ATO source cited, ready to enter on "
+    "your own BAS. Australian businesses only.",
     "outstanding-invoices": "Show who owes you money as an aged summary, and "
     "optionally email it to you on a schedule.",
     "sync-from-xero": "Pull your customer, invoice, and payment data from Xero "
     "so your deals reflect what has actually been paid.",
     # 📞 Stay on top of customers
+    "renewal-tracker": "A live tracker spreadsheet for licenses, insurances, "
+    "certifications, and memberships, where the days-until-renewal column "
+    "recalculates every time you open the file.",
     "transcript-summary": "Turn a recorded call or meeting into a clean "
     "write-up with the decisions and the action list.",
     "write-a-letter": "Turn what happened, in your own words, into a firm, "

@@ -6,7 +6,7 @@ ppmt) and implements depreciation schedules (sln, db, ddb) using the standard
 financial formulas (numpy-financial 1.0 does not include depreciation functions;
 the formulas are reproduced from the public financial standard).
 
-Load-bearing consumer: profit-per-job (forthcoming P5 app).
+Load-bearing consumer: profit-per-job.
 
 Python API (import and call directly):
     from finance_calc import pmt, ipmt, ppmt, sln, db, ddb
