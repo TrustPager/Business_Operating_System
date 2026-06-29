@@ -185,6 +185,8 @@ Every skill in here:
 - Asks before doing anything destructive
 - Logs what it did, so you can see the trail — every write lands in `~/.claude/bos-journal/`; read it any time with `python tools/journal.py`
 
+The live list of every active capability lives in [`kernel/registry.json`](./kernel/registry.json), generated from the skills by `tools/registry-generator.py`. From that same registry, `tools/export-capabilities.py` generates [`docs/CAPABILITIES.md`](./docs/CAPABILITIES.md): the plain-language, GTM-facing capability list, grouped by the job each capability gets done and split into what works keyless versus what switches on when you connect a tool. That doc is the single source of truth for what BOS can do. External docs and go-to-market material should reference it rather than restating the feature list, so the story never drifts from the plugin. Both are CI-checked for freshness, so neither can go stale.
+
 ## Subagents
 
 Some work is heavy enough that it should run in its own context rather than
