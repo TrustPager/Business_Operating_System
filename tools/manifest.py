@@ -31,7 +31,7 @@ them differently:
 
 - **Manifest keys** — the capability contract this module owns. Required:
   function_slot, requires_driver, requires_credential, data_path. Optional:
-  uses_tools, unlocks, reads_for_profile, status.
+  uses_tools, unlocks, reads_for_profile, status, requires_region.
 
 - **Passthrough keys** — pre-existing non-manifest frontmatter that skills
   legitimately carry and that other tooling (Claude Code skill loading,

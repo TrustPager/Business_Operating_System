@@ -44,9 +44,9 @@ class TestRequiresRegion(unittest.TestCase):
     def test_requires_region_unknown_value_is_an_error(self):
         """A manifest with requires_region set to an unknown value must fail."""
         meta = _base()
-        meta["requires_region"] = "xx"
+        meta["requires_region"] = "US"
         errors = validate_manifest(meta)
-        self.assertTrue(errors, "expected at least one error for unknown region 'xx'")
+        self.assertTrue(errors, "expected at least one error for unknown region 'US'")
         self.assertTrue(
             any("requires_region" in e for e in errors),
             f"expected 'requires_region' in error messages, got: {errors}",
