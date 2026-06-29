@@ -27,6 +27,7 @@ wins.
 | `unlocks` | optional | list of strings |
 | `reads_for_profile` | optional | list of strings |
 | `status` | optional (default `active`) | `active` \| `deprecated` \| `removed` |
+| `requires_region` | optional | `AU` or absent; region is modelled like a driver per D7: an app with `requires_region` only surfaces once the profile confirms that region; never inferred |
 
 These enums encode founder decision **D8**: TrustPager apps run on the MCP data
 path (`data_path: mcp_tools`, `requires_credential: mcp`); floor apps are

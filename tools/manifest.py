@@ -70,7 +70,7 @@ OPTIONAL_LIST_KEYS: tuple[str, ...] = (
 )
 
 # Optional manifest scalar keys (with defaults applied by the generator, not here).
-OPTIONAL_SCALAR_KEYS: tuple[str, ...] = ("status",)
+OPTIONAL_SCALAR_KEYS: tuple[str, ...] = ("status", "requires_region")
 
 # Pre-existing non-manifest frontmatter keys skills legitimately carry. These
 # are allowed and are NOT validated as manifest fields (lint-skill.py owns them).
@@ -103,6 +103,8 @@ DATA_PATHS: frozenset[str] = frozenset(
     {"reasoning_only", "mcp_tools", "fetch_rest", "local"}
 )
 STATUSES: frozenset[str] = frozenset({"active", "deprecated", "removed"})
+# Allowed region values. Starts minimal (AU only); extend when a second region ships.
+REGIONS: frozenset[str] = frozenset({"AU"})
 
 
 # --- Parser --------------------------------------------------------------
@@ -277,8 +279,9 @@ def validate_manifest(meta: dict[str, Any]) -> list[str]:
         if key in meta and not isinstance(meta[key], list):
             errors.append(f"{key}: must be a list (use '  - item' lines), got a scalar")
 
-    # 4. Optional status enum.
+    # 4. Optional scalar enums.
     _check_enum(meta, "status", STATUSES, errors)
+    _check_enum(meta, "requires_region", REGIONS, errors)
 
     # 4b. credential:none ⇒ no mcp__ tool in uses_tools. A keyless skill claims to
     #     run with zero accounts connected; listing an MCP tool it can only call
