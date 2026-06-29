@@ -4,13 +4,14 @@
 The onboarding surface — `skills/start-here/SKILL.md`, `skills/whats-possible/
 SKILL.md`, `knowledge/starter-projects.md` — is what a brand-new owner sees on
 day one. It must never advertise an app that doesn't exist, dress a connected-tier
-app up as a keyless instant-win, or smuggle TrustPager coupling into a skill that
-claims to be keyless. The registry (`kernel/registry.json`, generated from the
-skill manifests) is the single source of truth for what is real and what is
-keyless; this checker makes "onboarding only ever offers real, keyless wins" a
-checked invariant.
+app up as a keyless instant-win, smuggle TrustPager coupling into a skill that
+claims to be keyless, or surface an Australia-only app outside an explicitly
+AU-gated section of the onboarding surface. The registry (`kernel/registry.json`,
+generated from the skill manifests) is the single source of truth for what is real
+and what is keyless; this checker makes "onboarding only ever offers real, keyless
+wins" a checked invariant.
 
-Three assertions:
+Four assertions:
 
   A (exists) — every app-id the surface references is a registry key with
       ``status: active``. A reference to an app with no registry entry (a phantom)
@@ -30,9 +31,18 @@ Three assertions:
       ``dump-crm-bundle`` / ``dump-transcripts`` script call, or an
       ``api.trustpager.com`` URL. FAILS naming the skill + the token.
 
+  D (region honesty) — any app whose registry entry has ``requires_region`` set
+      (e.g. ``requires_region: AU``) must ONLY be referenced from within a section
+      of the onboarding surface that is explicitly AU-gated: either a heading that
+      matches ``_AU_GATED_HEADING_RE``, or a row/line carrying the inline tag
+      ``requires_region:au``. A region-restricted app that appears in any UNMARKED
+      context (including a plain keyless offer) FAILS D. D overrides B: even if an
+      AU-only app is technically ``requires_credential: none``, surfacing it in an
+      unmarked keyless offer is a D failure.
+
 Exit codes:
     0 — clean (prints a one-line OK)
-    1 — at least one A/B/C failure (prints a grouped report)
+    1 — at least one A/B/C/D failure (prints a grouped report)
 
 Runnable as ``python tools/check-onboarding-binding.py`` and import-testable
 (``check_onboarding_binding(...)`` returns the list of failure strings).
@@ -97,6 +107,20 @@ _PLANNED_INLINE_RE = re.compile(
 # Build-status tags used in starter-projects rows.
 _LIVE_TAG = "[live]"
 
+# Concrete AU-gated section marker. A heading whose text (after the leading ``#``
+# markers) matches this pattern gates the section: every reference inside is
+# treated as AU-gated. The heading text must explicitly say "Australia", "AU", or
+# "Australian" (case-insensitive) — a vague heading never qualifies.
+_AU_GATED_HEADING_RE = re.compile(
+    r"\baustrali(?:a|an)\b|\bau\b(?:\s+only|\s+business|\s+app|\s+section)?",
+    re.IGNORECASE,
+)
+
+# Inline AU-gated row/line tag. A table row or non-table line carrying this literal
+# tag is treated as AU-gated for that reference, mirroring how ``better_with_crm``
+# and ``needs_crm`` classify a row without requiring a section heading.
+_AU_GATED_INLINE_TAG = "requires_region:au"
+
 
 # --- Loading --------------------------------------------------------------
 
@@ -147,17 +171,23 @@ class Reference:
         route, or a starter-projects row tagged keyless / [live]+keyless).
     ``connected_tier`` — explicitly tagged better_with_crm / needs_crm (exempt from B).
     ``planned`` — sits in a non-routable Planned / coming-soon section (exempt from A & B).
+    ``au_gated`` — the reference sits inside an AU-gated section (a heading matching
+        ``_AU_GATED_HEADING_RE``) or the row/line carries the ``requires_region:au``
+        inline tag. Required for D: a ``requires_region`` app is valid only when
+        au_gated is True.
     """
 
-    __slots__ = ("app_id", "source", "offered_keyless", "connected_tier", "planned")
+    __slots__ = ("app_id", "source", "offered_keyless", "connected_tier", "planned",
+                 "au_gated")
 
     def __init__(self, app_id: str, source: str, *, offered_keyless: bool,
-                 connected_tier: bool, planned: bool):
+                 connected_tier: bool, planned: bool, au_gated: bool = False):
         self.app_id = app_id
         self.source = source
         self.offered_keyless = offered_keyless
         self.connected_tier = connected_tier
         self.planned = planned
+        self.au_gated = au_gated
 
 
 def _backticked_app_ids(text: str) -> list[str]:
@@ -175,30 +205,47 @@ def extract_start_here_refs(body: str, source: str = "start-here") -> list[Refer
 
     start-here may only route to keyless apps (it is the cold entry path), so every
     app-id it backticks is treated as ``offered_keyless`` — subject to A and B. Known
-    external driver commands (firecrawl-*) are dropped.
+    external driver commands (firecrawl-*) are dropped. start-here has no section
+    headings, so AU-gated context is detected only by an inline ``requires_region:au``
+    tag on the same line as the app-id backtick.
     """
     refs: list[Reference] = []
     seen: set[str] = set()
-    for app_id in _backticked_app_ids(body):
-        if app_id in _EXTERNAL_TOKENS or app_id in seen:
-            continue
-        seen.add(app_id)
-        refs.append(Reference(app_id, source, offered_keyless=True,
-                              connected_tier=False, planned=False))
+    for line in body.splitlines():
+        au_gated = _AU_GATED_INLINE_TAG in line.lower()
+        for app_id in _backticked_app_ids(line):
+            if app_id in _EXTERNAL_TOKENS or app_id in seen:
+                continue
+            seen.add(app_id)
+            refs.append(Reference(app_id, source, offered_keyless=True,
+                                  connected_tier=False, planned=False,
+                                  au_gated=au_gated))
     return refs
 
 
 def extract_whats_possible_refs(body: str, source: str = "whats-possible") -> list[Reference]:
     """whats-possible reads the registry at runtime; any app-id it names is checked
-    for existence (A) but not asserted keyless (it deliberately shows both tiers)."""
+    for existence (A) but not asserted keyless (it deliberately shows both tiers).
+    AU-gated context is detected by an inline ``requires_region:au`` tag on the
+    same line as the app-id backtick, or a heading matching ``_AU_GATED_HEADING_RE``.
+    """
     refs: list[Reference] = []
     seen: set[str] = set()
-    for app_id in _backticked_app_ids(body):
-        if app_id in _EXTERNAL_TOKENS or app_id in seen:
+    in_au_section = False
+    for line in body.splitlines():
+        stripped = line.strip()
+        if stripped.startswith("#"):
+            heading = stripped.lstrip("#").strip()
+            in_au_section = bool(_AU_GATED_HEADING_RE.search(heading))
             continue
-        seen.add(app_id)
-        refs.append(Reference(app_id, source, offered_keyless=False,
-                              connected_tier=False, planned=False))
+        au_gated = in_au_section or _AU_GATED_INLINE_TAG in line.lower()
+        for app_id in _backticked_app_ids(line):
+            if app_id in _EXTERNAL_TOKENS or app_id in seen:
+                continue
+            seen.add(app_id)
+            refs.append(Reference(app_id, source, offered_keyless=False,
+                                  connected_tier=False, planned=False,
+                                  au_gated=au_gated))
     return refs
 
 
@@ -225,25 +272,30 @@ def extract_starter_projects_refs(text: str, source: str = "starter-projects"
     """
     refs: list[Reference] = []
     in_planned = False
+    in_au_section = False
 
     for raw in text.splitlines():
         stripped = raw.strip()
 
-        # Section heading: flip the Planned flag.
+        # Section heading: flip the Planned and AU-gated flags.
         if stripped.startswith("#"):
             heading = stripped.lstrip("#").strip()
             in_planned = bool(_PLANNED_HEADING_RE.search(heading))
+            in_au_section = bool(_AU_GATED_HEADING_RE.search(heading))
             continue
 
         # Non-table line (bullet / prose). Still subject to A (existence) so a phantom
         # named here can't evade assertion. Not subject to B: a bullet has no per-row
         # keyless/CRM tag to classify it as a keyless offer. A line is Planned-exempt
         # when under a Planned heading OR carrying an inline Planned / [floor-new] flag.
+        # AU-gated when under an AU-gated heading OR the line carries the inline tag.
         if "|" not in raw:
             line_planned = in_planned or bool(_PLANNED_INLINE_RE.search(raw))
+            line_au_gated = in_au_section or _AU_GATED_INLINE_TAG in raw.lower()
             for app_id in _backticked_app_ids(raw):
                 refs.append(Reference(app_id, source, offered_keyless=False,
-                                      connected_tier=False, planned=line_planned))
+                                      connected_tier=False, planned=line_planned,
+                                      au_gated=line_au_gated))
             continue
 
         app_ids = _backticked_app_ids(raw)
@@ -257,10 +309,14 @@ def extract_starter_projects_refs(text: str, source: str = "starter-projects"
         has_keyless_tag = bool(re.search(r"(?<![a-z_])keyless(?![a-z_])", low))
         has_live = _LIVE_TAG in low
         offered_keyless = has_keyless_tag and has_live and not connected_tier
+        # AU-gated: either we are under an AU-gated heading, or the row carries the
+        # inline ``requires_region:au`` tag.
+        row_au_gated = in_au_section or _AU_GATED_INLINE_TAG in low
 
         for app_id in app_ids:
             refs.append(Reference(app_id, source, offered_keyless=offered_keyless,
-                                  connected_tier=connected_tier, planned=in_planned))
+                                  connected_tier=connected_tier, planned=in_planned,
+                                  au_gated=row_au_gated))
     return refs
 
 
@@ -313,6 +369,50 @@ def _check_keyless_honesty(registry: dict[str, Any], refs: Iterable[Reference]
     return failures
 
 
+def _has_requires_region(registry: dict[str, Any], app_id: str) -> bool:
+    """True if the registry entry for ``app_id`` has a non-empty ``requires_region``."""
+    entry = registry.get(app_id) or {}
+    region = entry.get("requires_region")
+    return bool(region) and region != "none"
+
+
+def _check_region_honesty(registry: dict[str, Any], refs: Iterable[Reference]
+                          ) -> list[str]:
+    """D -- a region-restricted app must only appear in an AU-gated context.
+
+    Any reference to an app whose registry entry has ``requires_region`` set
+    (e.g. ``requires_region: AU``) FAILS when the reference's ``au_gated`` flag
+    is False. This catches an AU-only app slipping into a universal keyless offer
+    or any unmarked section of the onboarding surface.
+
+    D overrides B: a technically-keyless AU app in an unmarked section is a D
+    failure even if B would pass it (B only checks credential/driver, not region).
+    Planned references are still exempt (they are not offered at all).
+    """
+    offenders: dict[str, set[str]] = {}
+    for ref in refs:
+        if ref.planned:
+            continue  # not offered; no gate needed
+        if not _is_active(registry, ref.app_id):
+            continue  # A already reports the phantom
+        if not _has_requires_region(registry, ref.app_id):
+            continue  # not region-restricted; D does not apply
+        if not ref.au_gated:
+            offenders.setdefault(ref.app_id, set()).add(ref.source)
+    failures: list[str] = []
+    for app_id in sorted(offenders):
+        entry = registry.get(app_id, {})
+        region = entry.get("requires_region")
+        srcs = ", ".join(sorted(offenders[app_id]))
+        failures.append(
+            f"D (region leak): `{app_id}` has requires_region={region!r} but is "
+            f"referenced outside an AU-gated section ({srcs}). Move it under a "
+            f"heading matching 'Australia/AU' or tag the row/line with "
+            f"'requires_region:au' — never offer a region-restricted app universally."
+        )
+    return failures
+
+
 def _check_no_coupling(registry: dict[str, Any], skills_dir: Path) -> list[str]:
     """C — no credential:none skill body carries a TrustPager coupling token."""
     failures: list[str] = []
@@ -346,11 +446,11 @@ def check_onboarding_binding(
     starter_projects_path: Path,
     skills_dir: Path | None = None,
 ) -> list[str]:
-    """Run A + B + C and return the (possibly empty) list of failure strings.
+    """Run A + B + C + D and return the (possibly empty) list of failure strings.
 
-    A and B scan the three surface files for referenced app-ids. C scans the bodies
-    of every credential:none skill in ``skills_dir`` (defaults to the parent of
-    ``start_here_path``'s skill folder). An empty return == clean.
+    A, B, and D scan the three surface files for referenced app-ids. C scans the
+    bodies of every credential:none skill in ``skills_dir`` (defaults to the parent
+    of ``start_here_path``'s skill folder). An empty return == clean.
     """
     refs: list[Reference] = []
     if start_here_path.is_file():
@@ -368,6 +468,7 @@ def check_onboarding_binding(
     failures += _check_exists(registry, refs)
     failures += _check_keyless_honesty(registry, refs)
     failures += _check_no_coupling(registry, skills_dir)
+    failures += _check_region_honesty(registry, refs)
     return failures
 
 
@@ -396,17 +497,18 @@ def main(argv: list[str] | None = None) -> int:
         print("[onboarding-binding] OK — every onboarding offer is a real, keyless win.")
         return 0
 
-    # Grouped report: A, then B, then C, in the order produced (already grouped
-    # because check_onboarding_binding runs A → B → C).
+    # Grouped report: A, then B, then C, then D, in the order produced (already
+    # grouped because check_onboarding_binding runs A -> B -> C -> D).
     print(
         f"[onboarding-binding] FAIL: {len(failures)} drift issue(s) — the onboarding "
-        "surface advertises apps that don't exist, aren't keyless, or hide TrustPager "
-        "coupling:",
+        "surface advertises apps that don't exist, aren't keyless, hide TrustPager "
+        "coupling, or surface a region-restricted app outside a gated section:",
         file=sys.stderr,
     )
     groups = {"A": "A — phantom (no registry entry)",
               "B": "B — dishonest keyless offer",
-              "C": "C — hidden TrustPager coupling"}
+              "C": "C — hidden TrustPager coupling",
+              "D": "D — region leak (AU-only app in unmarked section)"}
     for key, title in groups.items():
         bucket = [f for f in failures if f.startswith(key + " ")]
         if not bucket:
@@ -416,8 +518,9 @@ def main(argv: list[str] | None = None) -> int:
             print(f"    - {f}", file=sys.stderr)
     print(
         "\n[onboarding-binding] Fix: bind every onboarding offer to an active, keyless "
-        "registry app (or honestly retag / move to Planned). The registry is the "
-        "source of truth.",
+        "registry app (or honestly retag / move to Planned). Region-restricted apps "
+        "must live under an AU-gated heading or carry a requires_region:au inline tag. "
+        "The registry is the source of truth.",
         file=sys.stderr,
     )
     return 1
