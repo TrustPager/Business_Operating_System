@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/TrustPager/Business_Operating_System/security/advisories/new
+    about: Report a security vulnerability privately via GitHub's security advisory feature, or email security@trustpager.com.
