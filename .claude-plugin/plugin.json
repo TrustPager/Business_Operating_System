@@ -1,7 +1,7 @@
 {
   "name": "business-operating-system",
-  "version": "0.2.0",
-  "description": "Run your business from Claude. Skills, slash commands, and subagents that turn Claude Code into a hands-on operator for your TrustPager workspace — daily sweep, lead triage, missed-call recovery, nurture sequences, automations, and branded content. Run /learn-my-business once and it writes your context file for you.",
+  "version": "1.0.0",
+  "description": "Run your business from Claude: keyless skills for pricing, proposals, research, money, documents, and content that work day one with no account required. Connect TrustPager as an optional CRM layer to unlock always-on workflows, lead triage, missed-call recovery, nurture sequences, and automations. Run /start-here once to get oriented.",
   "author": {
     "name": "TrustPager",
     "url": "https://trustpager.com"
@@ -10,12 +10,13 @@
   "repository": "https://github.com/TrustPager/Business_Operating_System",
   "license": "MIT",
   "keywords": [
-    "trustpager",
-    "crm",
+    "small-business",
+    "productivity",
     "sales",
     "automation",
     "nurture",
-    "small-business",
+    "crm",
+    "trustpager",
     "australia"
   ]
 }

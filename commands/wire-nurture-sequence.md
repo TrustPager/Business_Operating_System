@@ -1,5 +1,5 @@
 ---
-description: Push approved nurture-sequence drafts into a live TrustPager auto queue — updates existing actions, adds new ones for silent stage-movers, inserts new queue steps with the reverse-order step_order shuffle.
+description: Push approved nurture-sequence drafts into a live TrustPager auto queue: updates existing actions, adds new ones for silent stage-movers, inserts new queue steps with the reverse-order step_order shuffle. Requires TrustPager connected.
 ---
 
 Run the **Wire Nurture Sequence** skill.
@@ -10,7 +10,7 @@ live auto queue state first via `tools/dump-crm-bundle.py
 and confirm with the operator before any MCP calls.
 
 For inserting a new step at position 1 (or any middle position), use
-the REVERSE-ORDER step_order shuffle described in the skill — never the
+the REVERSE-ORDER step_order shuffle described in the skill, never the
 forward-order version.
 
 If drafts haven't been approved yet, STOP and ask the operator to run
