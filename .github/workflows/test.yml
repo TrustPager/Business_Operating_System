@@ -2,7 +2,7 @@ name: tests
 
 # Offline by design. BOS_OFFLINE=1 makes the shared library refuse every
 # network call, so this workflow can never reach the live API or read a real
-# API key. No secrets are referenced anywhere in this file — on purpose.
+# API key. No secrets are referenced anywhere in this file, on purpose.
 
 on:
   push:
