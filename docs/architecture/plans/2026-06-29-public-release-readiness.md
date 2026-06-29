@@ -23,14 +23,13 @@
 
 > The riskiest workstream and the one the release gate verifies against. Sequential.
 
-### Task 1.1 — `tools/_paths.py` shared root resolver
-**Files:** create `tools/_paths.py`; test `tests/test_paths_resolver.py` (create).
-**Build:** a tiny stdlib module exposing `bos_root() -> Path`: returns `Path(os.environ["CLAUDE_PLUGIN_ROOT"])` if that env var is set and non-empty, else the repo root derived from this file's location (`Path(__file__).resolve().parent.parent`). Also expose `tool_path(name)` and `data_path(*parts)` convenience helpers built on `bos_root()`.
-**Tests (TDD, write first, watch fail, then implement):**
-- With `CLAUDE_PLUGIN_ROOT` set to a temp dir, `bos_root()` returns it (monkeypatch `os.environ`).
-- With the env var unset/empty, `bos_root()` returns the actual repo root (parent of `tools/`) regardless of `os.getcwd()` (chdir to a temp dir in the test to prove cwd-independence).
-- `data_path("drivers","regional")` resolves under `bos_root()`.
-**Acceptance:** resolver is cwd-independent and env-aware; tests green; suite green; no secrets; no em dashes in code comments.
+### Task 1.1 — reuse + extend the EXISTING root resolver (`kernel/runtime/paths.py`)
+**Do NOT create a new resolver.** `kernel/runtime/paths.py` already implements `plugin_root()` (the `CLAUDE_PLUGIN_ROOT` → walk-upward → fallback chain) with tests at `tests/test_paths.py`. Creating a second `tools/_paths.py` would be a competing system (anti-drift violation). This task audits and extends the existing one.
+**Files:** modify `kernel/runtime/paths.py` (only if helpers are missing); extend `tests/test_paths.py`.
+**Build:** read `kernel/runtime/paths.py` and confirm `plugin_root()` returns: `CLAUDE_PLUGIN_ROOT` if set and non-empty, else the repo root derived from the file location, cwd-independently. Add `tool_path(name)` and `data_path(*parts)` convenience helpers ONLY if not already present, built on `plugin_root()`. If the existing fallback already satisfies cwd-independence, this task is mostly verification + (maybe) the two helpers.
+**Import note for tools:** a standalone `tools/foo.py` shelled directly cannot `import kernel.runtime.paths` without the repo root on `sys.path`. The convention (used by Task 1.2): the tool resolves its own location and inserts the repo root onto `sys.path` before importing, e.g. `import sys, pathlib; sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent)); from kernel.runtime.paths import plugin_root`. Document this one-line bootstrap in the resolver's docstring so every tool uses the same idiom.
+**Tests (extend `tests/test_paths.py`):** `plugin_root()` honors `CLAUDE_PLUGIN_ROOT` when set (monkeypatch); falls back to the real repo root when unset, regardless of `os.getcwd()` (chdir to a temp dir to prove cwd-independence); any new helper resolves under `plugin_root()`.
+**Acceptance:** ONE resolver (the kernel one), cwd-independent and env-aware; the tool bootstrap idiom is documented; tests green; suite green; no em dashes in code comments.
 
 ### Task 1.2 — route repo-relative tool data reads through `_paths`
 **Files:** modify the tools that read repo-relative data — at minimum `tools/regional.py` (the AU constants dir), and audit `tools/registry-generator.py`, `tools/export-capabilities.py`, `tools/check-install.py`, `tools/markitdown_convert.py`, `tools/write_xlsx.py`, `tools/finance_calc.py` for any path that assumes cwd. Most already resolve from `__file__`; convert any that assume cwd to `_paths`. Test: `tests/test_paths_resolver.py` (extend) or `tests/test_regional_au.py`.
@@ -38,15 +37,16 @@
 **Tests:** a test that imports/invokes `load_au_constants("AU")` (and any other data-reading tool touched) after `os.chdir(tempdir)` and asserts it still loads. Add a regression that `registry-generator`/`export-capabilities --check` still pass from a foreign cwd.
 **Acceptance:** every data-reading tool works from any cwd; outputs byte-identical to before; suite + `--check`s green.
 
-### Task 1.3 — `CLAUDE_PLUGIN_ROOT`-resolved tool invocation in keyless skills
-**Files:** modify the keyless SKILL bodies that shell `python tools/*.py` (the money apps `profit-per-job`/`cash-flow-forecast`/`renewal-tracker`/`estimate-my-bas`, plus `extract-document`, `compare-documents`, `import-from-anywhere`, `build-spreadsheet`, `transcript-summary`, `quote-from-photo`, `template-from-document`, `assemble-pack`, `update-pdf`, and any other keyless skill invoking a tool — grep `python tools/` across `skills/` to get the full list). Also `commands/*.md` if any embed a raw tool command.
-**Build:** change the shelled form from `python tools/foo.py ...` to a cwd-independent form with a dev fallback:
-```bash
-python "${CLAUDE_PLUGIN_ROOT:-.}/tools/foo.py" ...
+### Task 1.3 — `CLAUDE_PLUGIN_ROOT`-resolved tool invocation in skills + commands
+**Files:** grep-driven scope, NOT a hardcoded list. Run `grep -rl "python tools/" skills/ commands/` to get the exact set (repo verification at plan time: ~23 `skills/**/SKILL.md` plus at least `commands/audit-my-data.md`; include `build-customer-voice` and `build-knowledge-base-from-docs`, which do shell tools). Do not assume `assemble-pack`/`quote-from-photo` are in scope (they shell nothing); trust the grep.
+**Build:** change every bare `python tools/foo.py ...` to the official Claude Code plugin form (confirmed against the plugins reference: Claude Code substitutes `${CLAUDE_PLUGIN_ROOT}` and the plugin's `tools/` is materialized on disk under it):
 ```
-(plugin install: `CLAUDE_PLUGIN_ROOT` is set by Claude Code, so it resolves to the installed location; dev/clone: env unset, falls back to `.` so running from the repo root still works). Apply consistently. Update any prose that says "run from the repo root" to reflect the plugin-install reality.
-**Tests:** grep assertion in `tests/` (or a check-install sub-check) that no keyless SKILL body still uses a bare `python tools/` invocation without the `CLAUDE_PLUGIN_ROOT` form. Lint each touched skill (`lint-skill.py`) clean; manifests unchanged so registry stays fresh.
-**Acceptance:** every keyless tool-shelling skill uses the resolved form; lint clean; binding + registry + suite green; em-dash scan clean on touched files.
+python "${CLAUDE_PLUGIN_ROOT}/tools/foo.py" ...
+```
+Double-quote the path (spaces); forward slashes are fine on Windows for `python`. **Do NOT use a Bash `${VAR:-default}` fallback** (it breaks in PowerShell/cmd, the primary platform). Dev/clone runs set `CLAUDE_PLUGIN_ROOT` to the checkout root (documented in CONTRIBUTING and set by the harness/smoke), so the same single form works in dev and in a plugin install. Update any prose that says "run from the repo root."
+**Open verification (resolved in Task 1.5):** the docs confirm `${CLAUDE_PLUGIN_ROOT}` substitution for hooks/MCP/monitors but do not formally confirm it inside SKILL bodies, nor the Windows shell. Task 1.5 empirically verifies this form on Windows in a real plugin-cache layout. **Fallback if verification fails:** a launcher in `bin/` (auto-added to PATH when the plugin is active, per the plugins reference) that resolves the root internally, so skills call `bos-tool foo ...` with no path/var in the command. If 1.5 shows the token form does not expand in skill bodies on Windows, switch this task to the `bin/` launcher form before proceeding.
+**Tests:** a `tests/` assertion (or check-install sub-check) that no in-scope skill/command still uses a bare `python tools/` without the `${CLAUDE_PLUGIN_ROOT}` form. Lint each touched skill clean; manifests unchanged so registry stays fresh.
+**Acceptance:** every in-scope skill/command uses the resolved form (or the `bin/` launcher if 1.5 dictates); lint + binding + registry + suite green; em-dash scan clean on touched files.
 
 ### Task 1.4 — `setup.py` clean key-skip (keyless success)
 **Files:** modify `tools/setup.py`; test `tests/test_setup_keyskip.py` (create) or extend an existing setup test.
@@ -57,8 +57,9 @@ python "${CLAUDE_PLUGIN_ROOT:-.}/tools/foo.py" ...
 ### Task 1.5 — cold-install smoke (no false-green) + check-install keyless mode
 **Files:** modify `tools/check-install.py` (confirm/extend its keyless-floor mode); create `tests/test_cold_install_smoke.py` or a documented script `tools/cold-install-smoke.py`.
 **Build:** a smoke that sets `CLAUDE_PLUGIN_ROOT` to the repo, runs from a cwd OUTSIDE the repo, and exercises the keyless floor end-to-end with zero key: a doc write to read round-trip (`write_xlsx` then `markitdown_convert`), a `finance_calc` run, and the `regional` loader for `AU`. It must FAIL if any tool cannot resolve its path. `check-install.py --keyless` (or equivalent) runs the same checks and prints green/red.
-**Tests:** the smoke passes with `CLAUDE_PLUGIN_ROOT` set + foreign cwd; a deliberate negative (unset env + foreign cwd with the OLD bare-invocation form) would fail (documented, not committed as a failing test). Wire the smoke into the offline suite so the harness exercises the plugin-resolution path (closes the false-green risk).
-**Acceptance:** cold-install smoke green from a foreign cwd; harness now tests the `CLAUDE_PLUGIN_ROOT` path; suite green.
+**Windows verification of the Task 1.3 invocation form (resolves the open question):** in addition to the Python-level smoke, verify the actual `${CLAUDE_PLUGIN_ROOT}` skill-invocation form on Windows by staging a real plugin-cache-style layout (copy the repo to a temp dir, set `CLAUDE_PLUGIN_ROOT` to it) and running the exact `python "${CLAUDE_PLUGIN_ROOT}/tools/foo.py"` command a skill would emit, through the session shell (PowerShell). Confirm it resolves and runs. If the token does not expand in the skill-execution path on Windows, report it: Task 1.3 switches to the `bin/` launcher fallback and this smoke re-verifies that form.
+**Tests:** the smoke passes with `CLAUDE_PLUGIN_ROOT` set + foreign cwd; a deliberate negative (unset env + foreign cwd with the OLD bare-invocation form) would fail (documented, not committed as a failing test). Wire the Python-level smoke into the offline suite so the harness exercises the plugin-resolution path (closes the false-green risk).
+**Acceptance:** cold-install smoke green from a foreign cwd; the Task 1.3 invocation form is empirically confirmed on Windows (or the `bin/` fallback is adopted and confirmed); harness now tests the `CLAUDE_PLUGIN_ROOT` path; suite green.
 
 ---
 
@@ -68,7 +69,7 @@ python "${CLAUDE_PLUGIN_ROOT:-.}/tools/foo.py" ...
 
 ### Task 2.1 — audit + correct `CAPABILITIES.md` classification (D13)
 **Files:** modify `tools/export-capabilities.py` (grouping/one-liners) if needed; regenerate `docs/CAPABILITIES.md`; possibly adjust registry manifest tiering only if a `requires_credential` is genuinely wrong (do NOT change app behavior). Test: `tests/test_capabilities_fresh.py` (exists) + a new assertion.
-**Build:** confirm `make-social-post` and `make-thumbnail` `requires_credential` in the registry, and ensure the keyless-vs-connected grouping in CAPABILITIES does not present a heavy/branded render studio as a day-one keyless win. Per D13 they are keyless-but-heavy library-tier items: regroup them out of the cold "Works now (keyless)" floor list into a clearly-labelled "heavier / optional studio" subgroup (still keyless, not advertised as an instant win). Adjust `export-capabilities.py`'s grouping so the generated doc reflects this, and regenerate.
+**Build:** audit the WHOLE "Works now (keyless)" block in `docs/CAPABILITIES.md` (not just two named apps) for items that are keyless-but-heavy render-studio dependent. Confirmed candidates: `make-social-post` and `make-thumbnail` (D13 re-tiered/demoted). Also evaluate the other marketing-block items (e.g. `brand-my-workspace`, `assemble-content-pack`) against whether they need the heavy render stack; only re-group the ones that genuinely do. Per D13 the heavy ones are keyless-but-heavy library-tier items: regroup them out of the cold "Works now (keyless)" floor list into a clearly-labelled "heavier / optional studio" subgroup (still keyless, not advertised as a cold instant win). Adjust `export-capabilities.py`'s grouping so the generated doc reflects this, and regenerate. Do NOT change any app's behavior or its `requires_credential`; this is grouping/labelling only.
 **Tests:** add an assertion that no item in the cold-keyless floor group is a heavy render-studio app; `export-capabilities.py --check` fresh.
 **Acceptance:** CAPABILITIES.md is honest about tiering; freshness check green; the doc is a safe source for the README.
 
@@ -87,13 +88,14 @@ python "${CLAUDE_PLUGIN_ROOT:-.}/tools/foo.py" ...
 ### Task 2.4 — update plugin.json + marketplace.json
 **Files:** modify `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`.
 **Build:** rewrite `description` (both) and `keywords` to be keyless-first / platform-agnostic (lead with the floor; name TrustPager as the optional integration, not the subject). Bump `version` to `1.0.0` in both. Owner, name, repository, homepage unchanged.
-**Verification:** valid JSON (`python -c "import json,sys; json.load(open(...))"`); em-dash scan zero; descriptions contain no "for your TrustPager workspace" framing.
-**Acceptance:** manifests describe the keyless-first product; version 1.0.0; valid JSON.
+**Own version consistency here:** after bumping, grep the whole repo for version strings (`grep -rn "0\.2\.0\|version" .claude-plugin/ INSTALL.md README.md pyproject.toml package.json 2>/dev/null`) and list every place a version appears, so the `1.0.0` set is consistent across manifests, any packaging file, and any docs that cite a version. Reconcile them in this task; do not leave it to the Task 4.1 sweep to discover a mismatch.
+**Verification:** valid JSON (`python -c "import json; json.load(open(...))"` for both); em-dash scan zero; descriptions contain no "for your TrustPager workspace" framing; version `1.0.0` everywhere it appears.
+**Acceptance:** manifests describe the keyless-first product; version 1.0.0 consistent across all surfaces; valid JSON.
 
 ### Task 2.5 — de-brand `commands/*.md` descriptions + verify onboarding prose
 **Files:** modify the `commands/*.md` whose `description` names TrustPager as a required connection (audit all; `learn-my-business.md` is a known case: "Read your live TrustPager workspace..."); verification-only pass over `skills/start-here/SKILL.md` and `skills/whats-possible/SKILL.md`.
-**Build:** reword connected-tier command descriptions so TrustPager reads as the optional upgrade the command deepens into, not a prerequisite (keyless command descriptions unchanged). Do not change command behavior. For `start-here`/`whats-possible`, confirm the prose already reads keyless-first; fix only if a stale required-TP claim is found.
-**Verification:** grep `commands/*.md` for "your TrustPager workspace"-style required language (gone or reframed); em-dash scan on touched files zero; `lint-skill.py` clean for any touched skill; binding + registry green.
+**Build:** reword connected-tier command text so TrustPager reads as the optional upgrade the command deepens into, not a prerequisite. Cover BOTH the `description:` field AND the body prose: e.g. `make-thumbnail.md` and `make-social-post.md` reference "your TrustPager Files folder" / "your TrustPager workspace" in the body, and `learn-my-business.md` in the description. Reframe required-connection phrasing to optional ("once you connect TrustPager, ... publishes to your Files folder"). Keyless command text unchanged. Do not change command behavior. For `start-here`/`whats-possible`, confirm the prose already reads keyless-first; fix only if a stale required-TP claim is found.
+**Verification:** grep `commands/*.md` (descriptions AND bodies) for "your TrustPager workspace"/"TrustPager Files"-style required language (gone or reframed to optional); em-dash scan on touched files zero; `lint-skill.py` clean for any touched skill; binding + registry green.
 **Acceptance:** no command description implies TrustPager is required; onboarding prose verified keyless-first.
 
 ---
