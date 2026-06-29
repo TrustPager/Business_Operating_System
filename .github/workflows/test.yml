@@ -32,6 +32,9 @@ jobs:
       - name: Registry fresh (committed registry must match manifests)
         run: python tools/registry-generator.py --check
 
+      - name: Capabilities fresh (GTM doc must match the registry)
+        run: python tools/export-capabilities.py --check
+
       - name: Onboarding binding (surface must only offer real, keyless wins)
         run: python tools/check-onboarding-binding.py
 
