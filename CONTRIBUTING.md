@@ -168,7 +168,7 @@ These rules apply to any text that a user or customer reads: skill bodies, `SKIL
 
 **No em dashes.** Never use em dashes in shipped content. Break the thought into two sentences, or use a comma, a colon, or parentheses instead. Hyphens in compound words are fine.
 
-**Positive-only copy.** Frame value by what the skill delivers, not by the pain it eliminates. "Your priced quote, ready to send" is correct. "Stop guessing what to charge" is not. See the full rule in [`CLAUDE.md`](.claude/settings.json) or the project README for background.
+**Positive-only copy.** Frame value by what the skill delivers, not by the pain it eliminates. "Your priced quote, ready to send" is correct. "Stop guessing what to charge" is not. See the content rules in the project [README](./README.md) for background.
 
 These two rules are enforced by the unit tests (`test_lint_sequence.py`) and reviewed on every PR.
 

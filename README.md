@@ -81,7 +81,6 @@ These work keyless but need their studio started first (one `npm install` per st
 
 - Design and render branded social posts (Instagram, LinkedIn, X) at `localhost:3216`
 - Design and render YouTube thumbnails at `localhost:3210`
-- Generate link-preview OG images for your website at `localhost:3217`
 
 ### Switches on when you connect TrustPager
 
@@ -160,7 +159,7 @@ You don't need TrustPager to get real value from BOS. When you're ready for the 
 
 ## What's a skill?
 
-A skill is a small Markdown file Claude reads automatically when you mention what you want to do. There's no UI, no menu, no click-through wizard. You say "what needs my attention" and `/sweep-my-day` fires.
+A skill is a small Markdown file Claude reads automatically when you mention what you want to do. There's no UI, no menu, no click-through wizard. You say "what should I charge for this job" and `/price-my-work` fires.
 
 Every skill in here:
 - Is open source and inspectable: read the source, modify it, fork it
