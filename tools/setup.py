@@ -183,6 +183,32 @@ def _write_key(key: str) -> int:
     return 0
 
 
+def _write_keyless() -> int:
+    """Finish setup without a TrustPager key.
+
+    Writes bos_home into bos.json and deploys the launcher shim so the
+    keyless document floor is fully operational.  No api_key is written.
+    """
+    CONFIG_PATH.parent.mkdir(parents=True, exist_ok=True)
+    cfg: dict[str, Any] = {}
+    if CONFIG_PATH.exists():
+        try:
+            cfg = json.loads(CONFIG_PATH.read_text(encoding="utf-8")) or {}
+        except (json.JSONDecodeError, OSError):
+            cfg = {}
+    cfg["bos_home"] = _bos_home()
+    # Do not set or clear api_key; preserve any existing value.
+    CONFIG_PATH.write_text(json.dumps(cfg, indent=2), encoding="utf-8")
+    shim = _write_launcher_shim()
+    print(f"Wrote {shim}  (skills run via: python ~/.claude/bos-run.py <skill>)")
+    print()
+    print("No key set. The keyless floor is ready to use. "
+          "You can connect TrustPager later to unlock the connected features.")
+    print()
+    print("Next: run `python tools/check-install.py` to verify everything works.")
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.strip().splitlines()[0])
     parser.add_argument("--force", action="store_true",
@@ -234,10 +260,9 @@ def main() -> int:
 
     print("Get your key from: https://app.trustpager.com/settings/api")
     print()
-    key = input("Paste your tp_live_... key: ").strip()
+    key = input("Paste your tp_live_... key (or press Enter to skip): ").strip()
     if not key:
-        print("ERROR: empty key. Aborting.", file=sys.stderr)
-        return 2
+        return _write_keyless()
     if not key.startswith("tp_live_"):
         print(f"WARNING: key doesn't start with 'tp_live_'. Got '{key[:10]}...'",
               file=sys.stderr)
