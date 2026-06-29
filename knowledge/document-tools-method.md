@@ -98,6 +98,9 @@ python tools/write_docx.py --out quote.docx --blocks '[
 
 Use the `table` block (not bullets) wherever a proposal or quote shows a priced breakdown, or wherever a tender section shows a deliverables / criteria grid.
 
+#### Content guard: no em dashes in customer-facing output (mechanical)
+The three write wrappers refuse to write content containing an em dash. After the library import (so a missing dependency still signals first) and before any file is written, each tool runs `assert_no_em_dash(...)` from `tools/_content_rules.py`; if an em dash is present it prints `BOS_CONTENT_RULE: ...` with the offending text and exits non-zero (3). This makes the global no-em-dash rule self-enforcing at the artifact boundary rather than relying on a re-read. When you hit it, rewrite that line with a comma, a colon, parentheses, or separate sentences (hyphens and en-dash number ranges are fine), then write it again. Only the em dash (U+2014) is blocked.
+
 ### Read vs write — don't conflate
 - **Read** a document → `tools/markitdown_convert.py` (Markdown) or `tools/pdf_tables.py` (precise PDF grid).
 - **Write / generate** a document → `tools/write_xlsx.py` / `tools/write_docx.py` / `tools/make_pdf.py`.

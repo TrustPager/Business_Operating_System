@@ -143,12 +143,35 @@ def _add_table(doc, block: dict) -> None:
             cell.text = value
 
 
+def _block_texts(blocks: list[dict]) -> list[str]:
+    """Every customer-facing text string in the blocks (heading/paragraph/bullet text + table cells)."""
+    texts: list[str] = []
+    for b in blocks:
+        if not isinstance(b, dict):
+            continue
+        if isinstance(b.get("text"), str):
+            texts.append(b["text"])
+        if b.get("type") == "table":
+            header = b.get("header")
+            if isinstance(header, list):
+                texts += [c for c in header if isinstance(c, str)]
+            for row in b.get("rows", []):
+                if isinstance(row, list):
+                    texts += [c for c in row if isinstance(c, str)]
+    return texts
+
+
 def write_docx(path: str, blocks: list[dict]) -> None:
     try:
         from docx import Document
     except ImportError:
         sys.stderr.write(INSTALL_HINT)
         sys.exit(2)
+
+    # Content rule (after the lib check so a missing dependency still signals first, but
+    # before any write): a customer-facing artifact must not contain em dashes.
+    from _content_rules import assert_no_em_dash
+    assert_no_em_dash(_block_texts(blocks), source="the .docx content")
 
     doc = Document()
     try:

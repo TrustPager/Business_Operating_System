@@ -95,6 +95,11 @@ def write_xlsx(path: str, rows: list[list], *, sheet: str | None = None,
         sys.stderr.write(INSTALL_HINT)
         sys.exit(2)
 
+    # Content rule (after the lib check so a missing dependency still signals first, but
+    # before any write): a customer-facing sheet must not contain em dashes.
+    from _content_rules import assert_no_em_dash
+    assert_no_em_dash([v for row in rows for v in row], source="the .xlsx content")
+
     wb = Workbook()
     ws = wb.active
     if sheet:

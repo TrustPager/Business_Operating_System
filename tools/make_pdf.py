@@ -101,6 +101,11 @@ def make_pdf(path: str, blocks: list[dict]) -> None:
         sys.stderr.write(INSTALL_HINT)
         sys.exit(2)
 
+    # Content rule (after the lib check so a missing dependency still signals first, but
+    # before any write): a customer-facing PDF must not contain em dashes.
+    from _content_rules import assert_no_em_dash
+    assert_no_em_dash([b.get("text") for b in blocks if isinstance(b, dict)], source="the PDF content")
+
     styles = getSampleStyleSheet()
     heading_styles = {1: styles["Heading1"], 2: styles["Heading2"], 3: styles["Heading3"]}
 
