@@ -18,6 +18,14 @@
 
 ## My business
 
+Region: `<<< AU if your business is in Australia, otherwise leave blank >>>`
+
+> This `Region:` line is the ONLY signal that switches on any region-specific
+> tools (for example Australian BAS / GST prep). It stays off until you set it
+> explicitly. The "based in <city, country>" line below is descriptive only: it
+> never switches on region-specific tools on its own, even if it names an
+> Australian city.
+
 I'm `<<< your name >>>`, and I run `<<< business name >>>`. I'm based in `<<< city, country >>>`.
 
 We do `<<< short description: what you sell, who you sell to >>>`. Team size: `<<< just me / N people / N people plus contractors >>>`.

@@ -222,6 +222,14 @@
       "mcp__describe_resource"
     ]
   },
+  "estimate-my-bas": {
+    "data_path": "reasoning_only",
+    "function_slot": "accounting",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "requires_region": "AU",
+    "status": "active"
+  },
   "extract-document": {
     "data_path": "local",
     "function_slot": "documents",

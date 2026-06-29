@@ -78,6 +78,14 @@
 | **A job ad + screening questions in your voice** | I'll write the job ad and screening questions that sound like you, so the right people apply and the wrong ones screen themselves out. | `write-a-job-ad` `[live]`, `onboard-team-member` `[live]` | keyless | deeper |
 | **The policies & FAQs your business runs on** | Tell me how you handle deposits, cancellations, refunds or privacy and I'll write clean, on-brand policy and FAQ text for your site, emails or staff. | `write-a-policy` `[live]` | keyless | deeper |
 
+### 🇦🇺 Australian businesses only (switches on once you confirm Region: AU)
+
+*Region-gated. These appear only once the owner has explicitly confirmed their business is in Australia (`Region: AU` in the profile). They are never in the universal cold pool and are never offered until the region is confirmed in words. Inferring region from a city or address is never enough.*
+
+| Project | One-line operator pitch | Builds on | Keyless/CRM | Tier |
+|---|---|---|---|---|
+| **Prepare your quarterly BAS GST figures** | Tell me the quarter's total sales and purchases and I'll prepare your Simpler-BAS figures (G1 total sales, 1A GST on sales, 1B GST on purchases) with the GST calc shown and the ATO source cited, ready for you to enter on your own BAS. I prepare the numbers; you lodge. | `estimate-my-bas` `[live]` | keyless requires_region:au | first_build |
+
 ---
 
 ## 2. The universal core (the safe default pool)

@@ -31,6 +31,7 @@ The full design is in `docs/architecture/onboarding-intake-design.md` (esp. §8,
 - **Identity/ownership framing, light touch:** it's *their* Business Operating System (BOS), their command centre. One earned beat per moment — never a pitch.
 - **Pain-naming is fine in discovery** ("what eats your week"); anything customer-facing you produce stays strictly positive/outcome-led.
 - **Earned progression — the spine of the back half (§8):** every bigger ask is gated behind value you just delivered. Spine → instant win → **build something** → (earned) deeper interview. **Build, don't interrogate** — the building is how the profile deepens. (TrustPager stays reactive-only, per the rule above.)
+- **Region is explicit opt-in, NEVER inferred.** Region-specific tools (e.g. Australian BAS / GST prep) stay invisible until the owner explicitly confirms their region in words and you record it in the profile. Never infer it from a city, an address, language, timezone, or currency. The only signal any region-gated app keys on is the explicit `Region:` line in the profile. See the region question in Step 9.
 - **Complexity / cost guardrail:** never pitch an overly complex or token-heavy project — especially first session. Every option must be **finishable in one focused sitting** (one clear artifact), **bounded** (one photo / one competitor / this week's post — never "all your X"), and **token-frugal** (it won't flood the context window). If the obvious custom project is big, offer a **bounded first slice**, not the epic. No hair-brained, open-ended builds on day one.
 
 ## Step 1 — Cold-start gate (greet or resume)
@@ -103,6 +104,11 @@ Build the chosen project end to end — a real, finished artifact. As you build 
 
 ## Step 9 — Write the profile (your notes)
 Merge `./CLAUDE.md` from `templates/CLAUDE.md`: spine from confirmed data, inferred fields as **labelled guesses**, unknowns as visible `<<< guesses to confirm later >>>`, and update the resume marker (`<!-- bos-onboarding: spine=…; tier2=…; pending=[…]; win_delivered=…; last_touched=<date> -->`). Fold in what the build just taught you. **Never clobber a hand-tuned file without showing the diff.** Frame it as *"here's what I've jotted about you — tell me what I've got wrong."*
+
+**The region question (explicit opt-in, the ONE place region is set).** The profile carries a `Region:` line that is the only signal region-specific tools key on, and it is set only when the owner says so in words. Ask it plainly, once, as its own light question (a natural moment is while writing the profile, or when an Australian tax need comes up):
+> Is your business based in Australia? I only switch on Australian tools, like BAS / GST prep, if you say yes.
+
+On a clear yes, write `Region: AU` into the profile. On a no or "not sure," leave the line blank and move on; the floor tools all work the same either way. **Never infer this from the free-text "based in <city, country>" line, or from language, timezone, currency, or address.** Even an Australian city in that free-text line does NOT set `Region: AU`. Only the explicit answer does. Until `Region: AU` is set, AU-only apps (e.g. `estimate-my-bas` requires_region:au) stay invisible: never offer or route to them. Once it is set, they become available to offer like any other keyless win.
 
 ## Step 10 — Earn the next ask, then offer it (Tier 2)
 Each bigger ask is gated behind the value you just delivered. After a real build lands and they're engaged:
