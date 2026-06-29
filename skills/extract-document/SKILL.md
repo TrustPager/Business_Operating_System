@@ -25,8 +25,10 @@ or guess at a scan — convert first.
 ## Step 1 — Convert the file to Markdown
 
 ```bash
-python "${CLAUDE_PLUGIN_ROOT}/tools/markitdown_convert.py" "<path-to-file>"
+python ~/.claude/bos-run.py tool markitdown_convert "<path-to-file>"
 ```
+
+(The `~/.claude/bos-run.py` launcher resolves the install location for you. If it is missing, run `python tools/setup.py` once from the BOS directory to create it.)
 
 Handles PDF, Word, Excel, PowerPoint, images (OCR), HTML, CSV, JSON, ZIP. If the
 wrapper reports MarkItDown isn't installed, relay its one-line install hint

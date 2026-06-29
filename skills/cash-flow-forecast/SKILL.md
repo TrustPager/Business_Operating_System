@@ -184,7 +184,7 @@ closing-balance column recalculates. That is the live behaviour.
 JSON array):**
 
 ```bash
-python "${CLAUDE_PLUGIN_ROOT}/tools/write_xlsx.py" \
+python ~/.claude/bos-run.py tool write_xlsx \
   --out "cash-flow-forecast.xlsx" \
   --sheet "Cash Flow" \
   --header \
@@ -198,6 +198,8 @@ python "${CLAUDE_PLUGIN_ROOT}/tools/write_xlsx.py" \
   ]'
 ```
 
+(The `~/.claude/bos-run.py` launcher resolves the install location for you. If it is missing, run `python tools/setup.py` once from the BOS directory to create it.)
+
 Fill in the actual inflow and outflow values from the owner's inputs. The formula
 strings (beginning with `=`) are written by openpyxl as live formula cells, not
 text, so they recalculate when the owner edits any value in the spreadsheet.
@@ -207,7 +209,7 @@ accented names), write the rows to a UTF-8 temp file and pipe it in on stdin
 instead of passing it after `--rows`:
 
 ```bash
-python "${CLAUDE_PLUGIN_ROOT}/tools/write_xlsx.py" --out "cash-flow-forecast.xlsx" --sheet "Cash Flow" --header < rows.json
+python ~/.claude/bos-run.py tool write_xlsx --out "cash-flow-forecast.xlsx" --sheet "Cash Flow" --header < rows.json
 ```
 
 **If openpyxl is missing.** The tool prints a line starting `BOS_MISSING_DEP:`

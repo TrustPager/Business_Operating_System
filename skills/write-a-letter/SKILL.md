@@ -138,7 +138,7 @@ as a real `.docx` with the keyless document writer (the `doclib` write path,
 built from `heading` / `paragraph` blocks:
 
 ```bash
-python "${CLAUDE_PLUGIN_ROOT}/tools/write_docx.py" --out "Letter - <Recipient> - <subject>.docx" --blocks '[
+python ~/.claude/bos-run.py tool write_docx --out "Letter - <Recipient> - <subject>.docx" --blocks '[
   {"type":"heading","text":"<subject / reference line>","level":2},
   {"type":"paragraph","text":"<opening sentence>"},
   {"type":"paragraph","text":"<the facts in order>"},
@@ -146,6 +146,8 @@ python "${CLAUDE_PLUGIN_ROOT}/tools/write_docx.py" --out "Letter - <Recipient> -
   {"type":"paragraph","text":"<sign-off in the owner’s name>"}
 ]'
 ```
+
+(The `~/.claude/bos-run.py` launcher resolves the install location for you. If it is missing, run `python tools/setup.py` once from the BOS directory to create it.)
 
 The `.docx` is an optional convenience, not the floor: the letter text is the
 win and stands on its own. If the document writer reports it is missing a

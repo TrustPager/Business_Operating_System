@@ -140,7 +140,7 @@ priced breakdown is a **`table`** block, so the line items render as a real
 grid the prospect can read at a glance, not bullets with `$____`:
 
 ```bash
-python "${CLAUDE_PLUGIN_ROOT}/tools/write_docx.py" --out "Proposal - <Prospect> - <job>.docx" --blocks '[
+python ~/.claude/bos-run.py tool write_docx --out "Proposal - <Prospect> - <job>.docx" --blocks '[
   {"type":"heading","text":"Proposal for <Prospect>","level":1},
   {"type":"paragraph","text":"<warm intro that names the outcome they want>"},
   {"type":"heading","text":"Understanding your need","level":2},
@@ -163,6 +163,8 @@ python "${CLAUDE_PLUGIN_ROOT}/tools/write_docx.py" --out "Proposal - <Prospect> 
   {"type":"paragraph","text":"<one clear positive call to action>"}
 ]'
 ```
+
+(The `~/.claude/bos-run.py` launcher resolves the install location for you. If it is missing, run `python tools/setup.py` once from the BOS directory to create it.)
 
 Carry the line items, quantities, and totals straight from the priced scope
 into the table verbatim; never invent or pad a line. You can also pipe the JSON
@@ -288,7 +290,7 @@ path as Mode A. Use **`table`** blocks for the deliverables / stages grid and
 the criteria-response grid, so an evaluator can score the response at a glance:
 
 ```bash
-python "${CLAUDE_PLUGIN_ROOT}/tools/write_docx.py" --out "Tender - <Project> - methodology.docx" --blocks '[
+python ~/.claude/bos-run.py tool write_docx --out "Tender - <Project> - methodology.docx" --blocks '[
   {"type":"heading","text":"Understanding of the requirement","level":2},
   {"type":"paragraph","text":"<reflect the tender requirement back in its terms>"},
   {"type":"heading","text":"Methodology and technical approach","level":2},

@@ -41,7 +41,7 @@ The shape is documented at the bottom of `fetch.py`.
 Fallback if it can't run: `mcp__trustpager__list_opportunities` +
 `list_tasks` + `get_pipeline_summary` — many calls; prefer the script. For
 deeper pipeline analysis (stuck-by-value, stage drop-offs) run
-`python "${CLAUDE_PLUGIN_ROOT}/tools/audit-pipeline.py"` and fold it in.
+`python ~/.claude/bos-run.py tool audit-pipeline` and fold it in.
 
 ## Step 2 — Present the review
 

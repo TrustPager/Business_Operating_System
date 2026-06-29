@@ -22,8 +22,10 @@ and builds the TrustPager version, so the operator stops re-keying paper forms.
 ## Step 1 — Convert the source
 
 ```bash
-python "${CLAUDE_PLUGIN_ROOT}/tools/markitdown_convert.py" "<path-to-source>"
+python ~/.claude/bos-run.py tool markitdown_convert "<path-to-source>"
 ```
+
+(The `~/.claude/bos-run.py` launcher resolves the install location for you. If it is missing, run `python tools/setup.py` once from the BOS directory to create it.)
 
 If it converts empty (image-only scan, no OCR text), say so and ask for a better
 source rather than guessing the fields.

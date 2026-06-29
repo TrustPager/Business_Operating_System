@@ -36,8 +36,10 @@ There are two keyless ways in, and both stay on your own machine:
    text first, the standard way:
 
    ```bash
-   python "${CLAUDE_PLUGIN_ROOT}/tools/markitdown_convert.py" "<path-to-file>"
+   python ~/.claude/bos-run.py tool markitdown_convert "<path-to-file>"
    ```
+
+(The `~/.claude/bos-run.py` launcher resolves the install location for you. If it is missing, run `python tools/setup.py` once from the BOS directory to create it.)
 
    This handles PDF, Word, text, HTML, and more (the standard MarkItDown read
    path, same as `/extract-document`). If the wrapper reports the converter

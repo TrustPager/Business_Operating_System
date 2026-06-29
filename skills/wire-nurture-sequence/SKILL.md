@@ -39,7 +39,7 @@ Before running ANY MCP write, you need:
 1. **The auto queue ID** + its current state (steps, step_orders,
    delays, linked automation IDs). Run:
    ```bash
-   python "${CLAUDE_PLUGIN_ROOT}/tools/dump-crm-bundle.py" --resources auto_queues
+   python ~/.claude/bos-run.py tool dump-crm-bundle --resources auto_queues
    ```
    Then read `auto_queues.json` for the target queue.
 
@@ -210,7 +210,7 @@ reschedule their `automation_timer_tasks` rows directly (or unenrol + re-enrol).
 After all writes:
 
 ```bash
-python "${CLAUDE_PLUGIN_ROOT}/tools/dump-crm-bundle.py" --resources auto_queues
+python ~/.claude/bos-run.py tool dump-crm-bundle --resources auto_queues
 ```
 
 Read the new `auto_queues.json` and confirm:

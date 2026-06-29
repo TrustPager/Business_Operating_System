@@ -34,8 +34,8 @@ offers the safe fixes one at a time.
 Two read-only tools cover the data-hygiene surface; run both:
 
 ```bash
-python "${CLAUDE_PLUGIN_ROOT}/tools/find-gaps.py" --json
-python "${CLAUDE_PLUGIN_ROOT}/tools/audit-contacts.py" --json
+python ~/.claude/bos-run.py tool find-gaps --json
+python ~/.claude/bos-run.py tool audit-contacts --json
 ```
 
 - `find-gaps.py` — opportunities with no contact / no value / no stage / no

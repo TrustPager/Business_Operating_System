@@ -26,7 +26,7 @@ PDF writer fills it.
 Read the blank PDF so you know what it's asking for:
 
 ```bash
-python "${CLAUDE_PLUGIN_ROOT}/tools/markitdown_convert.py" "<path-to-blank-form.pdf>"
+python ~/.claude/bos-run.py tool markitdown_convert "<path-to-blank-form.pdf>"
 ```
 
 From the Markdown, list the fields the form wants (applicant name, income, ABN,
