@@ -18,6 +18,7 @@ Run:
     BOS_OFFLINE=1 python -m unittest tests.test_finance_calc
 """
 
+import json
 import subprocess
 import sys
 import unittest
@@ -212,11 +213,10 @@ class TestSln(unittest.TestCase):
         result = fc.sln(cost=5000.0, salvage=0.0, life=4)
         self.assertAlmostEqual(result, 1250.0, places=6)
 
-    def test_sln_is_constant(self):
-        """Straight-line depreciation is the same every period."""
+    def test_sln_value_is_correct(self):
+        """Straight-line per-period amount: (cost - salvage) / life."""
         fc = self._fc()
         d = fc.sln(cost=12000.0, salvage=2000.0, life=10)
-        # Any period should return the same value (sln is period-independent)
         self.assertAlmostEqual(d, 1000.0, places=6)
 
 
@@ -250,6 +250,17 @@ class TestDb(unittest.TestCase):
         for p in range(1, 7):
             result = fc.db(cost=10000.0, salvage=1000.0, life=6, period=p)
             self.assertGreater(result, 0, f"db period {p} must be positive")
+
+    def test_db_partial_first_year(self):
+        """month != 12 prorates period 1 by month/12 (partial-first-year branch).
+
+        rate = round(1 - (100000/1000000)^(1/6), 3) = 0.319.
+        period 1, month=6: cost * rate * 6/12 = 1000000 * 0.319 * 0.5 = 159500.
+        """
+        fc = self._fc()
+        result = fc.db(cost=1_000_000.0, salvage=100_000.0, life=6, period=1, month=6)
+        self.assertAlmostEqual(result, 159_500.0, delta=1000.0,
+                               msg=f"db period 1 month=6 = {result}, expected ~159500")
 
     def test_db_total_within_reasonable_range(self):
         """Sum of DB period depreciations stays within a reasonable range of cost - salvage.
@@ -309,6 +320,12 @@ class TestDdb(unittest.TestCase):
         result = fc.ddb(cost=2000.0, salvage=0.0, life=10, period=1, factor=1.5)
         self.assertAlmostEqual(result, 300.0, places=4)
 
+    def test_ddb_nonpositive_factor_errors(self):
+        """A factor <= 0 is invalid input and exits 1 (no nonsense output)."""
+        fc = self._fc()
+        with self.assertRaises(SystemExit):
+            fc.ddb(cost=2000.0, salvage=0.0, life=10, period=1, factor=0.0)
+
 
 @unittest.skipUnless(HAS_NUMPY_FINANCIAL, "numpy-financial not installed")
 class TestCliSubcommands(unittest.TestCase):
@@ -323,7 +340,6 @@ class TestCliSubcommands(unittest.TestCase):
     def test_cli_pmt_json(self):
         proc = self._run(["pmt", "--rate", "0.01", "--nper", "12", "--pv", "10000"])
         self.assertEqual(proc.returncode, 0, f"stderr:\n{proc.stderr}")
-        import json
         data = json.loads(proc.stdout)
         self.assertIn("result", data)
         self.assertAlmostEqual(data["result"], 888.49, places=1)
@@ -331,7 +347,6 @@ class TestCliSubcommands(unittest.TestCase):
     def test_cli_sln_json(self):
         proc = self._run(["sln", "--cost", "10000", "--salvage", "1000", "--life", "5"])
         self.assertEqual(proc.returncode, 0, f"stderr:\n{proc.stderr}")
-        import json
         data = json.loads(proc.stdout)
         self.assertAlmostEqual(data["result"], 1800.0, places=4)
 
@@ -339,7 +354,6 @@ class TestCliSubcommands(unittest.TestCase):
         proc = self._run(["db", "--cost", "1000000", "--salvage", "100000",
                           "--life", "6", "--period", "1"])
         self.assertEqual(proc.returncode, 0, f"stderr:\n{proc.stderr}")
-        import json
         data = json.loads(proc.stdout)
         self.assertAlmostEqual(data["result"], 319_000.0, delta=2000.0)
 
@@ -347,21 +361,18 @@ class TestCliSubcommands(unittest.TestCase):
         proc = self._run(["ddb", "--cost", "2000", "--salvage", "0",
                           "--life", "10", "--period", "1"])
         self.assertEqual(proc.returncode, 0, f"stderr:\n{proc.stderr}")
-        import json
         data = json.loads(proc.stdout)
         self.assertAlmostEqual(data["result"], 400.0, places=4)
 
     def test_cli_ipmt_json(self):
         proc = self._run(["ipmt", "--rate", "0.01", "--per", "1", "--nper", "12", "--pv", "10000"])
         self.assertEqual(proc.returncode, 0, f"stderr:\n{proc.stderr}")
-        import json
         data = json.loads(proc.stdout)
         self.assertAlmostEqual(data["result"], 100.0, places=2)
 
     def test_cli_ppmt_json(self):
         proc = self._run(["ppmt", "--rate", "0.01", "--per", "1", "--nper", "12", "--pv", "10000"])
         self.assertEqual(proc.returncode, 0, f"stderr:\n{proc.stderr}")
-        import json
         data = json.loads(proc.stdout)
         self.assertAlmostEqual(data["result"], 788.49, places=1)
 

@@ -76,7 +76,9 @@ def pmt(rate: float, nper: int, pv: float, fv: float = 0.0) -> float:
     pv:   present value (loan principal)
     fv:   future value after all payments (default 0)
 
-    Returns the payment amount as a positive number.
+    Returns the payment amount as a positive number. numpy_financial uses a
+    negative cash-out sign convention; we normalise to a positive magnitude via
+    abs() so callers get a plain payment figure.
     """
     npf = _require_numpy_financial()
     return abs(float(npf.pmt(rate, nper, pv, fv)))
@@ -86,6 +88,8 @@ def ipmt(rate: float, per: int, nper: int, pv: float, fv: float = 0.0) -> float:
     """Interest portion of payment ``per`` in a loan/finance schedule.
 
     Returns a positive amount (the interest component of that period's payment).
+    numpy_financial uses a negative cash-out sign convention; we normalise to a
+    positive magnitude via abs() so callers get a plain interest figure.
     """
     npf = _require_numpy_financial()
     return abs(float(npf.ipmt(rate, per, nper, pv, fv)))
@@ -95,6 +99,8 @@ def ppmt(rate: float, per: int, nper: int, pv: float, fv: float = 0.0) -> float:
     """Principal portion of payment ``per`` in a loan/finance schedule.
 
     Returns a positive amount (the principal repaid in that period).
+    numpy_financial uses a negative cash-out sign convention; we normalise to a
+    positive magnitude via abs() so callers get a plain principal figure.
     """
     npf = _require_numpy_financial()
     return abs(float(npf.ppmt(rate, per, nper, pv, fv)))
@@ -139,9 +145,6 @@ def db(cost: float, salvage: float, life: int, period: int,
     if salvage <= 0:
         salvage = 0.0
 
-    if cost == 0:
-        return 0.0
-
     # Rate rounded to 3 decimal places, matching Excel DB behaviour.
     rate = round(1.0 - (salvage / cost) ** (1.0 / life), 3)
     dep = 0.0
@@ -173,7 +176,7 @@ def ddb(cost: float, salvage: float, life: int, period: int,
     specification (public standard). The library guard still runs.
     """
     _require_numpy_financial()  # guard: exits 2 if lib absent
-    if life <= 0 or period < 1 or period > life:
+    if life <= 0 or period < 1 or period > life or factor <= 0:
         sys.stderr.write("Invalid inputs for ddb depreciation.\n")
         sys.exit(1)
 
@@ -193,6 +196,7 @@ def ddb(cost: float, salvage: float, life: int, period: int,
 # ---------------------------------------------------------------------------
 
 def _emit(value: float) -> None:
+    # round to 10 dp: strips float noise while preserving precision for chaining.
     sys.stdout.write(json.dumps({"result": round(value, 10)}) + "\n")
 
 
