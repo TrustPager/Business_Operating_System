@@ -34,7 +34,8 @@ Four assertions:
   D (region honesty) — any app whose registry entry has ``requires_region`` set
       (e.g. ``requires_region: AU``) must ONLY be referenced from within a section
       of the onboarding surface that is explicitly AU-gated: either a heading that
-      matches ``_AU_GATED_HEADING_RE``, or a row/line carrying the inline tag
+      satisfies ``is_au_gated_heading`` (names Australia / Australian / the
+      uppercase acronym AU), or a row/line carrying the inline tag
       ``requires_region:au``. A region-restricted app that appears in any UNMARKED
       context (including a plain keyless offer) FAILS D. D overrides B: even if an
       AU-only app is technically ``requires_credential: none``, surfacing it in an
@@ -107,14 +108,26 @@ _PLANNED_INLINE_RE = re.compile(
 # Build-status tags used in starter-projects rows.
 _LIVE_TAG = "[live]"
 
-# Concrete AU-gated section marker. A heading whose text (after the leading ``#``
-# markers) matches this pattern gates the section: every reference inside is
-# treated as AU-gated. The heading text must explicitly say "Australia", "AU", or
-# "Australian" (case-insensitive) — a vague heading never qualifies.
-_AU_GATED_HEADING_RE = re.compile(
-    r"\baustrali(?:a|an)\b|\bau\b(?:\s+only|\s+business|\s+app|\s+section)?",
-    re.IGNORECASE,
-)
+# Concrete AU-gated section marker. A heading gates the section (every reference
+# inside is AU-gated) only when it explicitly names Australia. The gate is STRICT:
+#   - the geographic word ``Australia`` / ``Australian`` matches case-INSENSITIVELY
+#     (so lowercase prose ``australia`` still gates);
+#   - the bare acronym matches only the uppercase token ``AU`` case-SENSITIVELY,
+#     so a bare lowercase word ``au`` (``au revoir``, ``review au integrations``)
+#     never gates.
+# Two patterns, not one, because the acronym branch needs case-sensitivity the
+# geographic branch must not have. ``is_au_gated_heading`` combines them.
+_AU_GATED_WORD_RE = re.compile(r"\baustrali(?:a|an)\b", re.IGNORECASE)
+_AU_GATED_ACRONYM_RE = re.compile(r"\bAU\b")  # case-sensitive: only uppercase AU
+
+
+def is_au_gated_heading(heading: str) -> bool:
+    """True if a heading explicitly names Australia (strict AU gate).
+
+    Matches ``Australia`` / ``Australian`` case-insensitively, OR the uppercase
+    acronym ``AU`` case-sensitively. A bare lowercase ``au`` word never gates.
+    """
+    return bool(_AU_GATED_WORD_RE.search(heading) or _AU_GATED_ACRONYM_RE.search(heading))
 
 # Inline AU-gated row/line tag. A table row or non-table line carrying this literal
 # tag is treated as AU-gated for that reference, mirroring how ``better_with_crm``
@@ -171,10 +184,10 @@ class Reference:
         route, or a starter-projects row tagged keyless / [live]+keyless).
     ``connected_tier`` — explicitly tagged better_with_crm / needs_crm (exempt from B).
     ``planned`` — sits in a non-routable Planned / coming-soon section (exempt from A & B).
-    ``au_gated`` — the reference sits inside an AU-gated section (a heading matching
-        ``_AU_GATED_HEADING_RE``) or the row/line carries the ``requires_region:au``
-        inline tag. Required for D: a ``requires_region`` app is valid only when
-        au_gated is True.
+    ``au_gated`` (D): the reference sits inside an AU-gated section (a heading that
+        satisfies ``is_au_gated_heading``) or the row/line carries the
+        ``requires_region:au`` inline tag. Required for D: a ``requires_region``
+        app is valid only when au_gated is True.
     """
 
     __slots__ = ("app_id", "source", "offered_keyless", "connected_tier", "planned",
@@ -227,7 +240,7 @@ def extract_whats_possible_refs(body: str, source: str = "whats-possible") -> li
     """whats-possible reads the registry at runtime; any app-id it names is checked
     for existence (A) but not asserted keyless (it deliberately shows both tiers).
     AU-gated context is detected by an inline ``requires_region:au`` tag on the
-    same line as the app-id backtick, or a heading matching ``_AU_GATED_HEADING_RE``.
+    same line as the app-id backtick, or a heading satisfying ``is_au_gated_heading``.
     """
     refs: list[Reference] = []
     seen: set[str] = set()
@@ -236,7 +249,7 @@ def extract_whats_possible_refs(body: str, source: str = "whats-possible") -> li
         stripped = line.strip()
         if stripped.startswith("#"):
             heading = stripped.lstrip("#").strip()
-            in_au_section = bool(_AU_GATED_HEADING_RE.search(heading))
+            in_au_section = is_au_gated_heading(heading)
             continue
         au_gated = in_au_section or _AU_GATED_INLINE_TAG in line.lower()
         for app_id in _backticked_app_ids(line):
@@ -281,7 +294,7 @@ def extract_starter_projects_refs(text: str, source: str = "starter-projects"
         if stripped.startswith("#"):
             heading = stripped.lstrip("#").strip()
             in_planned = bool(_PLANNED_HEADING_RE.search(heading))
-            in_au_section = bool(_AU_GATED_HEADING_RE.search(heading))
+            in_au_section = is_au_gated_heading(heading)
             continue
 
         # Non-table line (bullet / prose). Still subject to A (existence) so a phantom

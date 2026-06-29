@@ -381,6 +381,120 @@ Default `build-brand-strategy`; route AU owners to `estimate-my-bas` requires_re
 
 
 # ---------------------------------------------------------------------------
+# Strict AU-gate heading regex (the bare lowercase "au" must NOT gate)
+# ---------------------------------------------------------------------------
+
+class TestAuGateHeadingStrictness(unittest.TestCase):
+    """is_au_gated_heading must gate only on Australia/Australian or uppercase AU.
+
+    A bare lowercase word "au" (au revoir, review au integrations) must NEVER gate,
+    or a region-restricted app could leak through a heading that only coincidentally
+    contains the letters a-u.
+    """
+
+    def test_bare_lowercase_au_revoir_does_not_gate(self):
+        self.assertFalse(chk.is_au_gated_heading("au revoir"),
+                         "'au revoir' must NOT be AU-gated")
+
+    def test_bare_lowercase_au_in_prose_does_not_gate(self):
+        self.assertFalse(chk.is_au_gated_heading("review au integrations"),
+                         "'review au integrations' must NOT be AU-gated")
+
+    def test_uppercase_AU_token_gates(self):
+        self.assertTrue(chk.is_au_gated_heading("AU"), "'AU' must be AU-gated")
+
+    def test_australia_word_gates(self):
+        self.assertTrue(chk.is_au_gated_heading("Australia"), "'Australia' must gate")
+
+    def test_australian_tax_tools_gates(self):
+        self.assertTrue(chk.is_au_gated_heading("Australian tax tools"),
+                        "'Australian tax tools' must gate")
+
+    def test_lowercase_australia_word_still_gates(self):
+        # The geographic word matches case-insensitively, so lowercase prose gates.
+        self.assertTrue(chk.is_au_gated_heading("for australia only"),
+                        "lowercase 'australia' word must still gate (case-insensitive)")
+
+    def test_lowercase_acronym_au_does_not_gate_even_with_suffix(self):
+        # Even "au only" must not gate: the bare lowercase acronym is not a real gate.
+        self.assertFalse(chk.is_au_gated_heading("au only"),
+                         "'au only' (lowercase acronym) must NOT gate")
+
+    def test_au_app_under_au_revoir_heading_fails_D(self):
+        # End-to-end: an AU app under a `## au revoir` heading is NOT gated, fails D.
+        starter = """\
+# Starter Projects
+
+## au revoir
+
+| Project | Builds on | Keyless/CRM |
+|---|---|---|
+| Lodge my BAS | `estimate-my-bas` `[live]` | keyless |
+"""
+        with tempfile.TemporaryDirectory() as t:
+            tmp = Path(t)
+            _write_surface(tmp, _CLEAN_START_HERE, _CLEAN_WHATS_POSSIBLE, starter)
+            failures = _run(tmp, _REGISTRY_WITH_AU)
+            d_failures = [f for f in failures if f.startswith("D")]
+            self.assertTrue(d_failures,
+                            f"AU app under 'au revoir' must fail D: {failures}")
+
+    def test_au_app_under_review_au_integrations_heading_fails_D(self):
+        starter = """\
+# Starter Projects
+
+## review au integrations
+
+| Project | Builds on | Keyless/CRM |
+|---|---|---|
+| Lodge my BAS | `estimate-my-bas` `[live]` | keyless |
+"""
+        with tempfile.TemporaryDirectory() as t:
+            tmp = Path(t)
+            _write_surface(tmp, _CLEAN_START_HERE, _CLEAN_WHATS_POSSIBLE, starter)
+            failures = _run(tmp, _REGISTRY_WITH_AU)
+            d_failures = [f for f in failures if f.startswith("D")]
+            self.assertTrue(d_failures,
+                            f"AU app under 'review au integrations' must fail D: {failures}")
+
+    def test_au_app_under_uppercase_AU_heading_passes_D(self):
+        starter = """\
+# Starter Projects
+
+## AU
+
+| Project | Builds on | Keyless/CRM |
+|---|---|---|
+| Lodge my BAS | `estimate-my-bas` `[live]` | keyless |
+"""
+        with tempfile.TemporaryDirectory() as t:
+            tmp = Path(t)
+            _write_surface(tmp, _CLEAN_START_HERE, _CLEAN_WHATS_POSSIBLE, starter)
+            failures = _run(tmp, _REGISTRY_WITH_AU)
+            d_failures = [f for f in failures if f.startswith("D")]
+            self.assertEqual(d_failures, [],
+                             f"AU app under '## AU' must pass D: {failures}")
+
+    def test_au_app_under_australian_tax_tools_heading_passes_D(self):
+        starter = """\
+# Starter Projects
+
+## Australian tax tools
+
+| Project | Builds on | Keyless/CRM |
+|---|---|---|
+| Lodge my BAS | `estimate-my-bas` `[live]` | keyless |
+"""
+        with tempfile.TemporaryDirectory() as t:
+            tmp = Path(t)
+            _write_surface(tmp, _CLEAN_START_HERE, _CLEAN_WHATS_POSSIBLE, starter)
+            failures = _run(tmp, _REGISTRY_WITH_AU)
+            d_failures = [f for f in failures if f.startswith("D")]
+            self.assertEqual(d_failures, [],
+                             f"AU app under '## Australian tax tools' must pass D: {failures}")
+
+
+# ---------------------------------------------------------------------------
 # D overrides B: au_only app is keyless but still fails D when unmarked
 # ---------------------------------------------------------------------------
 
