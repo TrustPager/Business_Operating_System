@@ -35,9 +35,10 @@ This sits at the top of the social stack:
 - **`plan-my-content`** turns that strategy into a dated 1-2 week calendar (what
   to post, when, on which channel).
 - **`write-post-copy`** writes the publish-ready words for each post.
-- (The branded *visual* studio — on-brand graphics and video from a brand kit —
-  is a heavier capability coming as a future library module; the strategy stands
-  on its own without it.)
+- **`make-social-post`** renders the branded graphic for a post (the bundled
+  Social Studio: on-brand PNGs for Instagram, LinkedIn, X). Keyless. The
+  strategy stands on its own, and when the owner wants the picture made, this is
+  where it happens.
 
 So when you finish, point the owner at those execution follow-ons by outcome.
 
@@ -78,11 +79,32 @@ files required:
    `build-brand-strategy`). If present, the pillars and voice you set here should
    echo the brand's positioning and tone, not contradict it. If absent, that's
    fine — derive from the brain-dump and say so.
-3. **Optional keyless web research** — `firecrawl-scrape` the owner's site and
+3. **Keyless web research** — `firecrawl-scrape` the owner's site and
    `firecrawl-search` their name to see how they already show up and what their
-   market responds to. Cap the effort: if it's slow, blocked, or empty, fall
-   back to the brain-dump alone and say so plainly. Never let research stall the
-   win. Confirm any business you turn up is actually theirs before leaning on it.
+   market responds to (firecrawl ships with the floor; if it's slow or empty,
+   fall back to the built-in `WebSearch`/`WebFetch` or the brain-dump alone, and
+   say so plainly). Never let research stall the win. Confirm any business you
+   turn up is actually theirs before leaning on it.
+
+### The current-state read (do this before you prescribe)
+
+A strategy that ignores what the owner already does reads as generic. Before you
+write the plan, form an honest read of **where they are now** — from their words
+and any research — and let it shape the strategy:
+
+- **What they do today:** which platforms they're on (or none), how often, how
+  long they've been at it.
+- **What's working:** the posts/formats that already get traction (the
+  before-and-afters that get comments, the reel that travelled). Build the
+  strategy on these, don't discard them.
+- **What's quiet or missing:** the channel they set up and abandoned, the format
+  they've never tried that fits their shape, the gap between effort and result.
+
+This read is what makes the plan feel tailored: *"you're already winning with X,
+let's do more of it and add Y; the Z account isn't paying off, so park it."*
+Surface it at the top of the strategy (Step 3) as a short, honest, positive read
+— building on strengths, never scolding. If they genuinely do nothing on social
+yet, say that plainly and the strategy is a clean first start, not a fix.
 
 Also read the **business shape** (Step 5 of `start-here`, or
 `industry-notes.md`): a hospitality/walk-in owner lives on Instagram and local
@@ -93,7 +115,9 @@ platform call — don't apply the same answer to every business.
 ## Step 3 — Produce the strategy
 
 Write a single, tight strategy (Markdown is fine; offer to save it to
-`marketing-strategy/<BrandName>/social-strategy.md`). Six parts, in order:
+`marketing-strategy/<BrandName>/social-strategy.md`). Open with the **where you
+are now** read from Step 2 (two or three honest, positive lines: what's already
+working to build on, what to park), then the six parts, in order:
 
 1. **Platform focus — which platform(s), and why.** Pick the ONE or TWO
    platforms that fit this business shape and this goal, and say plainly why
@@ -177,11 +201,14 @@ Show the strategy, then make the next moves obvious — the strategy is the
 >   channel), and
 > - write the actual posts in your voice, ready to paste straight in.
 
+> - make the branded graphic for a post when you want the picture, not just the
+>   words.
+
 Name those as outcomes (the calendar = `plan-my-content`; the posts =
-`write-post-copy`) so the owner sees the path from strategy to published. Keep
-it an offer, not homework. Mention the branded-visual studio only as a "coming
-later" nicety if they ask about graphics — it's a future library module, not a
-dependency of this strategy.
+`write-post-copy`; the branded graphic = `make-social-post`) so the owner sees
+the path from strategy to published. Keep it an offer, not homework. The visual
+studio is a real, keyless follow-on now, not a dependency of the strategy: point
+at it by outcome when they want the picture made.
 
 ## Hard rules
 
@@ -207,8 +234,8 @@ dependency of this strategy.
   see. The strategy is the owner's brand.
 - **This is the strategy, not the calendar or the posts.** Stop at the
   direction. The dated calendar is `plan-my-content`; the post copy is
-  `write-post-copy`; the branded visual studio is a future library module. Point
-  at them by outcome — don't do their job here.
+  `write-post-copy`; the branded graphic is `make-social-post`. Point at them by
+  outcome — don't do their job here.
 
 ## Output shape
 
