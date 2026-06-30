@@ -57,6 +57,7 @@ _ALLOWED_TOOLS: frozenset[str] = frozenset({
     "find-gaps",
     "lint-sequence",
     "markitdown_convert",
+    "setup_claude_config",
     "sync-brand",
     "write_docx",
     "write_xlsx",
