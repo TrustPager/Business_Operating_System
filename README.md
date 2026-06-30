@@ -116,7 +116,7 @@ BOS is built for that.
 The easiest path: tell Claude to get the Business Operating System for you.
 
 ```
-You:    Go get the Business Operating System from TrustPager.
+You:    Go get the Business Operating System from TrustPager on GitHub.
 Claude: → clones the public repo
         → installs the small helper libraries (document reading, PDF tools)
         → no key required, no account needed

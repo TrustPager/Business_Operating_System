@@ -11,7 +11,7 @@ Total time: about 5 minutes. All you need is [Claude Code](https://claude.com/cl
 Open Claude Code and say:
 
 ```
-Go get the Business Operating System from TrustPager.
+Go get the Business Operating System from TrustPager on GitHub.
 ```
 
 Claude clones the public repo, installs the small document helper libraries (Word, Excel, PDF support), writes a signpost at `~/.claude/bos-run.py` so every skill can find its tools from any folder, and copies the skills and commands into `~/.claude/skills/` and `~/.claude/commands/` so Claude Code discovers them automatically. No key required. No account needed.
