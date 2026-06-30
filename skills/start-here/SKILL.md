@@ -41,7 +41,7 @@ Check for the profile with a **non-aborting** existence test, never a bare read 
 test -f ./CLAUDE.md && echo FOUND || echo COLD
 ```
 
-Then decide by the **`bos-onboarding` marker**, not by file existence alone — a `CLAUDE.md` can belong to a stranger's unrelated project (plenty of Claude Code users already have one):
+Then decide by the **`<!-- bos-onboarding: … -->` marker**, not by file existence alone — a `CLAUDE.md` can belong to a stranger's unrelated project (plenty of Claude Code users already have one):
 - `COLD` (no file) → **cold start**, go to Step 2; you'll create the profile fresh at Step 9.
 - `FOUND` **with** the `<!-- bos-onboarding: … -->` marker and `spine=complete` → read it, then **do NOT re-onboard**: greet them back by name, surface `pending=[…]` from the marker, and go to the deepening loop.
 - `FOUND` **with** the marker but `spine=incomplete` / still the starter template (contains `<<< your name >>>`) → **cold start**, go to Step 2.

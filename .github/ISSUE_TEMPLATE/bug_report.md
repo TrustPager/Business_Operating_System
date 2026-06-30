@@ -21,7 +21,7 @@ Describe what you did and what went wrong. Be as specific as you can.
 - **Keyless or TrustPager-connected?** (e.g. keyless floor, TrustPager MCP connected)
 - **OS:** (Mac / Windows / Linux)
 - **Claude Code version:** (run `claude --version`)
-- **BOS install method:** (plugin marketplace or git clone)
+- **BOS install method:** (Claude did it for me / manual `python tools/setup.py`)
 
 ## Relevant output
 

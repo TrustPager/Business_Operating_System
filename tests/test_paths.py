@@ -1,9 +1,10 @@
 """Tests for kernel.runtime.paths.plugin_root().
 
-The kernel needs ONE reliable way to find the plugin root so skills can
-locate tools/, the registry, etc. on a plugin install. plugin_root() adopts
-the documented CLAUDE_PLUGIN_ROOT anchor (referenced nowhere before this) and
-falls back to walking up for the directory that owns .claude-plugin/.
+The kernel needs ONE reliable way to find the BOS install root so skills can
+locate tools/, the registry, etc. after a clone + setup.py install (there is no
+plugin marketplace path). plugin_root() honours the optional CLAUDE_PLUGIN_ROOT
+override and otherwise walks up for the directory that looks like the BOS root
+(it contains both tools/ and kernel/).
 
 Offline-safe: no network, no key. Run:
     python -m unittest tests.test_paths
@@ -39,13 +40,14 @@ class TestPluginRoot(unittest.TestCase):
         # An empty/blank env var must NOT win — fall back to the walk-up.
         os.environ["CLAUDE_PLUGIN_ROOT"] = ""
         root = plugin_root()
-        self.assertTrue((root / ".claude-plugin").is_dir())
+        self.assertTrue((root / "tools").is_dir() and (root / "kernel").is_dir())
 
-    def test_walks_up_to_claude_plugin_dir_when_unset(self):
+    def test_walks_up_to_bos_root_when_unset(self):
         os.environ.pop("CLAUDE_PLUGIN_ROOT", None)
         root = plugin_root()
-        # The discovered root is the directory that owns .claude-plugin/.
-        self.assertTrue((root / ".claude-plugin").is_dir())
+        # The discovered root is the BOS root: it owns both tools/ and kernel/.
+        self.assertTrue((root / "tools").is_dir())
+        self.assertTrue((root / "kernel").is_dir())
         # In this repo that is the repo root.
         self.assertEqual(root, REPO)
 

@@ -122,7 +122,7 @@ Claude: → clones the public repo
         → no key required, no account needed
 ```
 
-Then restart Claude Code (or run `/reload-plugins`) and type `/start-here`.
+Then fully close and reopen Claude Code (skills load at startup) and type `/start-here`.
 
 Full step-by-step, including how to connect TrustPager when you're ready: **[INSTALL.md](./INSTALL.md)**
 

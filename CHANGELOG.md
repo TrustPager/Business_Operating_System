@@ -25,7 +25,7 @@ Every floor skill uses `requires_driver: none`, `requires_credential: none`, and
 
 **Conversational cross-platform install**
 
-Install via the Claude Code plugin marketplace (`/plugin marketplace add TrustPager/Business_Operating_System`) or by cloning the repo. The `tools/setup.py` installer and `tools/check-install.py` health-check run the same way on Mac, Windows, and Linux. The `~/.claude/bos-run.py` signpost launcher means skills work from any directory without hardcoded paths.
+Install by telling Claude to get the Business Operating System (it clones the repo and runs setup for you), or clone and run `python tools/setup.py` yourself. The `tools/setup.py` installer and `tools/check-install.py` health-check run the same way on Mac, Windows, and Linux. The `~/.claude/bos-run.py` signpost launcher means skills work from any directory without hardcoded paths.
 
 **TrustPager as the optional connected layer**
 

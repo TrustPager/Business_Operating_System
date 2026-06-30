@@ -16,7 +16,7 @@ Go get the Business Operating System from TrustPager.
 
 Claude clones the public repo, installs the small document helper libraries (Word, Excel, PDF support), writes a signpost at `~/.claude/bos-run.py` so every skill can find its tools from any folder, and copies the skills and commands into `~/.claude/skills/` and `~/.claude/commands/` so Claude Code discovers them automatically. No key required. No account needed.
 
-**The one thing Claude cannot do for you:** trigger a Claude Code restart. After the setup finishes, restart Claude Code (or type `/reload-plugins`) so the new skills load. Then type:
+**The one thing Claude cannot do for you:** trigger a Claude Code restart. After the setup finishes, fully close and reopen Claude Code so the new skills load (they load at startup, not mid-session). Then type:
 
 ```
 /start-here
@@ -70,7 +70,7 @@ It installs the missing pieces for you.
 
 ### Step 4. Restart, then start
 
-Restart Claude Code (or type `/reload-plugins` if your version supports it). Then:
+Fully close and reopen Claude Code so the new skills load. Then:
 
 ```
 /start-here

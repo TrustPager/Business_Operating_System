@@ -1,14 +1,18 @@
-"""Plugin path resolution for the BOS kernel.
+"""Install-root path resolution for the BOS kernel.
 
-ONE reliable way to find the plugin root, so skills and the kernel can locate
-tools/, the shipped registry, etc. regardless of how BOS was installed.
+ONE reliable way to find the BOS install root, so skills and the kernel can
+locate tools/, the shipped registry, etc. regardless of where BOS was cloned.
+The supported install is the "easy" clone + setup.py path (there is no plugin
+marketplace path), so the anchor is the repo's own structure, not a plugin
+manifest.
 
 Resolution order (first hit wins):
-    1. $CLAUDE_PLUGIN_ROOT — the documented Claude Code anchor. Set by the
-       loader on a plugin install. Adopted here (it was referenced nowhere in
-       the repo before this) so plugin-only installs resolve correctly.
-    2. Walk upward from this module's location until a directory containing
-       .claude-plugin/ is found (the clone-install / dev case).
+    1. $CLAUDE_PLUGIN_ROOT — kept as a harmless override hook (e.g. a symlinked
+       or relocated install can point resolution at the true root). Normally
+       unset.
+    2. Walk upward from this module's location until a directory that looks like
+       the BOS root is found: it contains both tools/ and kernel/ (the
+       clone-install / dev case).
     3. Fall back to the repo root (two levels up from this file: kernel/runtime
        -> kernel -> repo), so callers always get a Path, never an exception.
 
@@ -45,7 +49,7 @@ def plugin_root() -> Path:
     here = Path(__file__).resolve()
     # here.parents = [kernel/runtime, kernel, <repo root>, ...]
     for candidate in here.parents:
-        if (candidate / ".claude-plugin").is_dir():
+        if (candidate / "tools").is_dir() and (candidate / "kernel").is_dir():
             return candidate
 
     # Fallback: the repo root relative to this file's known location.

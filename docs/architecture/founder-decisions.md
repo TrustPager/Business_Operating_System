@@ -10,13 +10,22 @@ The lowest common denominator is a business owner who **just wants to feel power
 capable users get the same brain-dead-simple path. BOS must self-actualise into their business
 partner with the least possible friction.
 
-## D1 — Install: one plugin, conversational
-- **Single plugin install. No separate clone, no terminal ceremony.**
+## D1 — Install: one conversational path (clone + setup.py)
+- **One supported install, conversational. No terminal ceremony for the owner.**
 - The owner tells Claude something like *"go get the business operating system"* → Claude fetches
-  the public repo, installs it, initialises it, and walks them through it in conversation.
-- Adopt `CLAUDE_PLUGIN_ROOT`; retire the dual-install seam (the separate clone + `bos.json` +
-  `bos-run.py` launcher) as the canonical path.
-- Rationale: the dual-install seam was the #1 first-run / churn risk for a paid community.
+  the public repo, runs `setup.py` (doc-lib floor + `bos-run.py` signpost + skills/commands into
+  `~/.claude/`), and walks them through it in conversation.
+- `CLAUDE_PLUGIN_ROOT` is kept only as an optional override hook; path resolution otherwise anchors
+  on the BOS repo structure (a dir containing `tools/` and `kernel/`). The `bos-run.py` launcher
+  STAYS — it is the floor's cwd-independent signpost, not a seam to retire.
+- Rationale: first-run / churn risk for a paid community is the thing to kill.
+
+> **[SUPERSEDED 2026-06-30, Dogfooding-V1 / R1 — founder-reaffirmed]** The original D1 called for a
+> *plugin-marketplace* install (`/plugin install`) and retiring the clone + `bos-run.py` seam.
+> Dogfooding V1 found the plugin path skips the keyless floor (it never runs `setup.py`, so no doc
+> libs and no `bos-run.py` — document skills break). Decision reversed: the `.claude-plugin/`
+> manifests are removed, and the conversational clone + `setup.py` path above is the single
+> supported install. See `AI-BOS/Dogfooding-V1.md` (R1) and the decisions locked there.
 
 ## D2 — TrustPager key: no read-only available → lock it down
 - TrustPager does not mint read-only keys today, so the two-key model (read-only for read
