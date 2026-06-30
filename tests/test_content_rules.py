@@ -19,6 +19,25 @@ import make_pdf  # noqa: E402
 
 EM = "—"  # em dash
 
+# The doc-write tools check the library import BEFORE the content rule, so a
+# missing dependency exits 2 (install hint) before the em-dash check is reached.
+# These integration tests therefore only assert the content-rule exit when the
+# relevant library is installed (CI runs offline with no doc libs, so they skip
+# there). The core guard logic is covered library-free in TestAssertNoEmDash.
+from importlib import util as _util  # noqa: E402
+
+
+def _has(mod: str) -> bool:
+    try:
+        return _util.find_spec(mod) is not None
+    except (ImportError, ValueError):
+        return False
+
+
+HAS_OPENPYXL = _has("openpyxl")
+HAS_DOCX = _has("docx")
+HAS_REPORTLAB = _has("reportlab")
+
 
 class TestFindEmDashes(unittest.TestCase):
     def test_clean_text_has_no_offenders(self):
@@ -49,11 +68,13 @@ class TestAssertNoEmDash(unittest.TestCase):
 class TestDocToolsRejectEmDash(unittest.TestCase):
     """Each write tool rejects an em-dash payload (exit 3) before writing the file."""
 
+    @unittest.skipUnless(HAS_DOCX, "python-docx not installed")
     def test_write_docx_rejects_em_dash_paragraph(self):
         with self.assertRaises(SystemExit) as cm:
             write_docx.write_docx("unused.docx", [{"type": "paragraph", "text": f"a{EM}b"}])
         self.assertEqual(cm.exception.code, _content_rules.EXIT_CONTENT_RULE)
 
+    @unittest.skipUnless(HAS_DOCX, "python-docx not installed")
     def test_write_docx_rejects_em_dash_in_table_cell(self):
         with self.assertRaises(SystemExit) as cm:
             write_docx.write_docx(
@@ -62,11 +83,13 @@ class TestDocToolsRejectEmDash(unittest.TestCase):
             )
         self.assertEqual(cm.exception.code, _content_rules.EXIT_CONTENT_RULE)
 
+    @unittest.skipUnless(HAS_OPENPYXL, "openpyxl not installed")
     def test_write_xlsx_rejects_em_dash_cell(self):
         with self.assertRaises(SystemExit) as cm:
             write_xlsx.write_xlsx("unused.xlsx", [["Item", "Price"], [f"Parts{EM}misc", 450]])
         self.assertEqual(cm.exception.code, _content_rules.EXIT_CONTENT_RULE)
 
+    @unittest.skipUnless(HAS_REPORTLAB, "reportlab not installed")
     def test_make_pdf_rejects_em_dash_paragraph(self):
         with self.assertRaises(SystemExit) as cm:
             make_pdf.make_pdf("unused.pdf", [{"type": "paragraph", "text": f"x{EM}y"}])
