@@ -14,6 +14,8 @@ What it does:
 - Writes the key (and this clone's location, bos_home) to ~/.claude/bos.json.
 - Writes a tiny launcher shim to ~/.claude/bos-run.py so skills can run their
   data-fetchers from any working directory (`python ~/.claude/bos-run.py <skill>`).
+- Registers the keyless hosted firecrawl web-research MCP at user scope so
+  every member can research a business from just its name/site on day 0.
 - Copies skills and commands into ~/.claude/ so Claude Code discovers them
   automatically (no plugin or marketplace needed).
 
@@ -85,6 +87,90 @@ def _install_doc_stack() -> int:
               "Heal it later with: python tools/check-install.py --fix")
     print()
     return rc
+
+
+# The keyless web-research capability that ships with the floor. The hosted
+# firecrawl MCP needs no API key for scrape/search, so a brand-new member can
+# research a business from just its name/site on day 0 (the "how did it know"
+# beat in start-here). Registered at USER scope (~/.claude.json -> mcpServers),
+# which Claude Code trusts by default (no approval prompt) and loads on the next
+# session start (the restart the member does anyway). Best-effort, like the doc
+# stack: a failure never aborts setup, and the built-in WebSearch/WebFetch still
+# work as a fallback.
+_FIRECRAWL_NAME = "firecrawl"
+_FIRECRAWL_URL = "https://mcp.firecrawl.dev/v2/mcp"
+_CLAUDE_JSON = Path.home() / ".claude.json"
+
+
+def _firecrawl_already_registered() -> bool:
+    """True if a user-scope firecrawl MCP server is already configured."""
+    if not _CLAUDE_JSON.exists():
+        return False
+    try:
+        data = json.loads(_CLAUDE_JSON.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return False
+    servers = data.get("mcpServers")
+    return isinstance(servers, dict) and _FIRECRAWL_NAME in servers
+
+
+def _register_firecrawl_via_cli() -> bool:
+    """Register firecrawl with the official CLI (forward-compatible). True on success."""
+    claude = shutil.which("claude")
+    if not claude:
+        return False
+    cmd = [claude, "mcp", "add", "--transport", "http", "--scope", "user",
+           _FIRECRAWL_NAME, _FIRECRAWL_URL]
+    try:
+        return subprocess.run(cmd, capture_output=True, text=True).returncode == 0
+    except OSError:
+        return False
+
+
+def _register_firecrawl_via_json() -> bool:
+    """Merge firecrawl into ~/.claude.json mcpServers, preserving everything else.
+
+    Fallback for when the `claude` CLI isn't on PATH (common on Windows). A full
+    JSON round-trip keeps every existing key/value; only the firecrawl entry is
+    added. Refuses to write if the existing file can't be parsed, so we never
+    clobber a large, important config we couldn't read. Returns True on success.
+    """
+    data: dict[str, Any] = {}
+    if _CLAUDE_JSON.exists():
+        try:
+            data = json.loads(_CLAUDE_JSON.read_text(encoding="utf-8")) or {}
+        except (json.JSONDecodeError, OSError):
+            return False
+    servers = data.get("mcpServers")
+    if not isinstance(servers, dict):
+        servers = {}
+    servers[_FIRECRAWL_NAME] = {"type": "http", "url": _FIRECRAWL_URL}
+    data["mcpServers"] = servers
+    try:
+        _CLAUDE_JSON.write_text(json.dumps(data, indent=2), encoding="utf-8")
+    except OSError:
+        return False
+    return True
+
+
+def _register_firecrawl_mcp() -> None:
+    """Ensure the keyless firecrawl web-research MCP is registered (user scope).
+
+    Best-effort and idempotent: if firecrawl is already configured we leave it
+    untouched; otherwise we try the CLI, then the JSON merge. Never aborts setup.
+    """
+    if _firecrawl_already_registered():
+        print("Web research (firecrawl) already set up. Leaving it as is.")
+        print()
+        return
+    print("Setting up web research so I can look up a business from just its name")
+    print("or website (free, no account, no key needed):")
+    if _register_firecrawl_via_cli() or _register_firecrawl_via_json():
+        print("  Web research ready. It loads when you restart Claude Code.")
+    else:
+        print("  [warn] couldn't auto-set-up firecrawl web research. The built-in "
+              "web search still works; you can add firecrawl later.")
+    print()
 
 
 def _walk_for_key(obj: Any) -> str | None:
@@ -330,6 +416,11 @@ def main() -> int:
     # TrustPager key, so a keyless owner gets it too.
     if not args.skip_deps:
         _install_doc_stack()
+
+    # Register the keyless web-research MCP (firecrawl) as part of the floor, for
+    # keyed and keyless members alike. Best-effort; runs before the key logic so
+    # upgraders (existing-key early-return below) get it too.
+    _register_firecrawl_mcp()
 
     print(f"This will write your TrustPager API key to: {CONFIG_PATH}")
     print("(optional: the keyless floor works without it)")

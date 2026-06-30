@@ -41,7 +41,11 @@ Check for the profile with a **non-aborting** existence test, never a bare read 
 test -f ./CLAUDE.md && echo FOUND || echo COLD
 ```
 
-`COLD` (or the file is still the starter template: `spine=incomplete` / contains `<<< your name >>>`) → **cold start**, go to Step 2. `FOUND` with a filled profile (`spine=complete`) → read it, then **do NOT re-onboard**: greet them back by name, surface `pending=[…]` from the marker, and go to the deepening loop.
+Then decide by the **`bos-onboarding` marker**, not by file existence alone — a `CLAUDE.md` can belong to a stranger's unrelated project (plenty of Claude Code users already have one):
+- `COLD` (no file) → **cold start**, go to Step 2; you'll create the profile fresh at Step 9.
+- `FOUND` **with** the `<!-- bos-onboarding: … -->` marker and `spine=complete` → read it, then **do NOT re-onboard**: greet them back by name, surface `pending=[…]` from the marker, and go to the deepening loop.
+- `FOUND` **with** the marker but `spine=incomplete` / still the starter template (contains `<<< your name >>>`) → **cold start**, go to Step 2.
+- `FOUND` **without** the marker → this is the owner's **own, non-BOS `CLAUDE.md`**. Treat it as a **cold start**, but do **not** assume you may write into it — you'll ask where your notes should live at Step 9 before touching it. Never mistake an unmarked file for a resume.
 
 ## Step 2 — The cold-open (you speak first)
 
@@ -65,7 +69,7 @@ Optional, once (either variant): *"Everything you tell me stays in a notes file 
 One line or three paragraphs; typed / pasted / voice. One line is a valid start. (No mic in the client → take typed; never promise what isn't there.)
 
 ## Step 4 — Enrich silently (if they gave a name/URL) — the "how did it know" beat
-`firecrawl-scrape` their site + `firecrawl-search` their name → services, area, hours, reviews, tone. Cap the effort. Confirm identity before trusting: *"Found [Business] in [suburb] doing [X], that you?"* Own-business research silent; competitor research only on invite.
+`firecrawl-scrape` their site + `firecrawl-search` their name → services, area, hours, reviews, tone. **Firecrawl ships with the keyless floor** (the install registers the hosted, keyless firecrawl MCP), so every member has it day 0 — it's richer than a plain web lookup, so it's the default. If for any reason firecrawl isn't responding, fall back to the **built-in `WebSearch` + `WebFetch` tools** (always present for every Claude Code user, no key) — there's no automatic fallback, so reach for them yourself rather than dropping the beat. Cap the effort. Confirm identity before trusting: *"Found [Business] in [suburb] doing [X], that you?"* Own-business research silent; competitor research only on invite.
 
 **When the scrape comes back empty / blocked / can't-resolve (common for a new, typo'd, or parked domain):** don't silently swallow the "how did it know" beat. Offer a one-line recovery so the owner can still get the enriched feel, then carry on either way:
 > Couldn't reach that one (might be new, or I've got the address slightly off). Want to paste your homepage text, or just tell me, and I'll pick it up from there?
@@ -92,7 +96,12 @@ Play back the business in *their* words (industry as a guess; attribute research
 (The `~/.claude/bos-run.py` launcher resolves the install location for you. If it is missing, run `python tools/setup.py` once from the BOS directory to create it.)
 
 ## Step 7 — PIVOT from asking to building: offer 3 tailored projects (Tier 1)
-This is the heart of it. You need only enough spine to target the 3 — the **vertical** (inferred) and the **relief** ("what eats your week"). If the dump made the relief clear, pivot now. If not, **one** smart-default-to-confirm question to pin it (*"Sounds like quoting's the time-sink — that the one?"*) with an exit — then pivot. **Don't grind questions; the building fills the rest.**
+This is the heart of it. You need only enough spine to target the 3 — the **vertical** (inferred) and the **relief / the owner's #1 doubt** ("what eats your week", or the worry they keep circling). Read which case you're in and route the questions accordingly — **at most 1–2, never a grind** (this is still the ≤3-question Tier-0 budget, just aimed):
+
+- **They already named a doubt or worry** (e.g. "I post but don't know if it fills seats", "I'm not sure I'm charging enough"): take that as the target. Ask only what you need to *aim the build at it* — *"what else do I need to understand about how your business works to nail THIS for you?"* — 1, maybe 2 questions for the context around their stated doubt. Don't make them re-justify it; they handed it to you, so build toward it.
+- **No doubt surfaced in the dump:** draw it out warmly, without it reading like a quiz. Ask the smart-default-to-confirm relief question (*"Sounds like quoting's the time-sink — that the one?"*) with an exit. The aim is to find where the week actually hurts so the 3 projects point at something real, not generic. (Pain-naming here is fine — it's diagnosis to aim the help; the OUTPUT you build stays positive/outcome-led.)
+
+Either way stop at 1–2 questions and pivot. **The building fills the rest** — don't interrogate what the build will reveal anyway.
 
 **Pick the 3 — custom-first, library as the safety net.** If their own situation points to an **obvious, high-fit project** — the clear best move for *this* owner, even if it's not in the library — **make that the default and lead with it.** Then fill the rest (and always at least one) from `knowledge/starter-projects.md` per its §4 selection logic: a quick win that nails their named relief, a meatier build that deepens the profile (brand / pricing / proposal), and an aspirational one hinting at the operator they're becoming. **There must always be at least one option that serves a real problem they named** — the library guarantees that even when no obvious custom project exists. Keep the cold options keyless; never offer one they've already built; outcomes only — never app names. (When slot 3 seeds a "now, auto-later once connected" build, describe the *outcome* — do NOT name TrustPager unless they ask.)
 
@@ -101,11 +110,19 @@ The pivot line:
 
 Then the 3 as plain outcomes they'd recognise (worked examples in `knowledge/starter-projects.md` §4). They pick one.
 
-## Step 8 — Build it (the build IS the discovery)
-Build the chosen project end to end — a real, finished artifact. As you build you naturally learn their rates, voice, products, competitors; capture that into the profile (Step 9). **Don't pause to interrogate what the build will reveal anyway.** This is where they fall for the system: they're operating it now.
+## Step 8 — Build it WITH them, in stages (the build IS the discovery)
+Build the chosen project into a real, finished artifact — but bring them INTO it rather than handing over a finished block they can't yet judge. A brand-new owner has no operator eye yet, so a polished-looking first pass reads as *done* when parts are still first-pass guesses (their voice, the chosen play, the target). Handing that over whole risks false confidence and a passenger dynamic — the opposite of owner → operator. Stage it instead:
+
+1. **Rough pass, shown inline.** Produce the first version and show the **full content right here in the chat** — not a summary table, not just "saved to a file." If it also lands in a file, say exactly where and that they can open it.
+2. **Surface your guesses as guesses.** Name the 1–2 things you guessed rather than knew, out loud: *"Two things I guessed here: your tone, and that [X] is the right test. Let's sharpen those."* Make the guesses the place you invite them in.
+3. **Sharpen together, then harden.** Take their corrections, fold them back, show the hardened version. Now it's theirs — and they just learned one operating move (driving and correcting the system), not just received an asset.
+
+As you build you naturally learn their rates, voice, products, competitors; capture that into the profile (Step 9). Keep the speed, but make the win one they can **evaluate and own** — they're operating it now, not watching.
 
 ## Step 9 — Write the profile (your notes)
 Merge `./CLAUDE.md` from `templates/CLAUDE.md`: spine from confirmed data, inferred fields as **labelled guesses**, unknowns as visible `<<< guesses to confirm later >>>`, and update the resume marker (`<!-- bos-onboarding: spine=…; tier2=…; pending=[…]; win_delivered=…; last_touched=<date> -->`). Fold in what the build just taught you. **Never clobber a hand-tuned file without showing the diff.** Frame it as *"here's what I've jotted about you — tell me what I've got wrong."*
+
+**If Step 1 found a non-BOS `CLAUDE.md` (no marker):** it's the owner's own file, and Claude Code auto-loads `./CLAUDE.md` every session, so the profile still belongs there — but do **not** merge silently. Ask once: *"You've already got a notes file in this folder. Want me to add my notes about your business into it (I'll show you exactly what I'm adding first), or would you rather keep that yours and I'll sort it another way?"* On a yes, **append** a clearly-marked BOS block — starting with the `<!-- bos-onboarding: … -->` marker — to the existing content and **show the diff before saving**; never overwrite what's already there. On a no, leave the file untouched and keep the profile in-session, telling them they can run `/start-here` again whenever they'd like it saved.
 
 **The region question (explicit opt-in, the ONE place region is set).** The profile carries a `Region:` line that is the only signal region-specific tools key on, and it is set only when the owner says so in words. Ask it plainly, once, as its own light question (a natural moment is while writing the profile, or when an Australian tax need comes up):
 > Is your business based in Australia? I only switch on Australian tools, like BAS / GST prep, if you say yes.
@@ -130,6 +147,9 @@ The cold-start gate (Step 1) sees a filled profile and sends you here: greet by 
 - ❌ Grind questions — pivot to building once the vertical + relief are clear; the build is the discovery.
 - ❌ Offer the intensive interview (Tier 2) or the TrustPager chat (Tier 3) COLD — they're earned, gated behind delivered value.
 - ❌ Write an inferred guess as fact, or invent a customer quote in a win.
+- ❌ Hand over a polished-looking first pass as if it's finished — stage it, label your guesses, and let them sharpen it (a new owner can't yet tell a guess from a fact).
+- ❌ Hide the actual content in a file while chat shows only a summary — show the full artifact inline, and say where the file is.
+- ❌ Treat an unmarked `./CLAUDE.md` as yours — ask before writing into a file you didn't create.
 - ❌ Show an app name or any internal/technical word — outcomes only.
 - ❌ Let web research stall the conversation — cap it, fall back to the dump.
 - ❌ Volunteer TrustPager or connecting a CRM at all — bring it up ONLY when the owner explicitly asks what else the BOS can do, or asks about CRMs.
