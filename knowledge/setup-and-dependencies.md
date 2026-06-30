@@ -24,6 +24,12 @@ They run entirely on your machine. Nothing is uploaded, no account is needed.
 When you first ran setup, your assistant installed the common ones for you. So most of the
 time everything just works and you never think about this.
 
+Setup also switches on **web research** so your assistant can look up a business from just
+its name or website (handy the very first time it meets your business). It's free, needs no
+account, and loads the next time you open Claude Code. If it's ever not available, your
+assistant uses the built-in web search instead, so the "it already knew my business" moment
+still lands.
+
 ## What happens if one is missing
 
 Occasionally, usually on a brand-new computer, a specific helper isn't there yet. When

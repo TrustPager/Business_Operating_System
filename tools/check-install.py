@@ -17,6 +17,8 @@ What it checks (keyless floor, always):
 - The document WRITE tools produce a real .docx and .xlsx (python-docx, openpyxl)
 - The document READ tool (markitdown) reads those files back (the round-trip)
 - reportlab (PDF write) and pdfplumber (precise PDF read) import cleanly
+- Web research (the keyless firecrawl MCP) is registered (informational WARN
+  only; the built-in WebSearch/WebFetch are the fallback, so it never fails)
 
 What it checks (connected tier, only if a TrustPager key is configured):
 - API key present and well-formed
@@ -181,7 +183,33 @@ def check_floor() -> int:
             failures += 1
     else:
         _warn("skipping the write->read round-trip until the libraries above are installed")
+
+    _check_web_research()
     return failures
+
+
+def _check_web_research() -> None:
+    """Report whether the keyless web-research MCP (firecrawl) is registered.
+
+    Informational only — never a failure. firecrawl ships with the floor
+    (setup.py registers it at user scope) and powers the "research a business
+    from its name/site" beat, but the built-in WebSearch/WebFetch tools are a
+    real fallback, so a missing firecrawl must not fail the floor health check.
+    """
+    claude_json = Path.home() / ".claude.json"
+    registered = False
+    if claude_json.exists():
+        try:
+            data = json.loads(claude_json.read_text(encoding="utf-8"))
+            servers = data.get("mcpServers")
+            registered = isinstance(servers, dict) and "firecrawl" in servers
+        except (json.JSONDecodeError, OSError):
+            registered = False
+    if registered:
+        _ok("web research ready (firecrawl MCP registered; loads on restart)")
+    else:
+        _warn("web research (firecrawl) not registered yet. setup.py adds it; "
+              "until then the built-in web search is the fallback")
 
 
 def _configured_key() -> str | None:
