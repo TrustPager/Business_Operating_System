@@ -196,6 +196,24 @@ Reminders protect the calendar; privacy and funding wording come first.
 
 ---
 
+## Opt-in setup modules (recommended, not in the 3-menu)
+
+These are live keyless modules that improve the owner's Claude Code environment
+rather than producing a business artifact. They are NOT offered in the
+3-options menu (start-here routes to business wins, not config tasks), but they
+are real, active, and worth pointing to whenever the context fits.
+
+| Module | What it does | Builds on | Keyless/CRM |
+|---|---|---|---|
+| **Set up Claude Code best practices** | Walk through the recommended working-style and permissions setup for Claude Code in two modes: apply the recommended defaults in one step, or answer a few questions to build a personalised version. Additive and reversible at any time. | `tune-my-setup` `[live]` | keyless |
+
+*Surface this when:* the owner asks about Claude Code settings, permissions, or
+working-style preferences; when they report Claude prompting them too often for
+safe reads; or when they want to make their assistant feel more natural. Point
+them to `/tune-my-setup`.
+
+---
+
 ## 4. The 3-options selection logic
 
 **Inputs:** `vertical`, `named_relief` (the RELIEF field — what eats their week), `connected` (CRM yes/no), `already_built` (project names done this session).

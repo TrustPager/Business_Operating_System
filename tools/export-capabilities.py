@@ -369,6 +369,8 @@ _ONE_LINERS: dict[str, str] = {
     "deals moved, and where work is stuck.",
     "weekly-review": "Get the Friday rollup: what shipped, what stalled, and "
     "where the pipeline sits now.",
+    "tune-my-setup": "Set up Claude Code with sensible working-style defaults "
+    "and safe-read permissions, additive and reversible at any time.",
 }
 
 
