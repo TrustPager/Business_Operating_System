@@ -5,7 +5,7 @@ The help-center search itself is a TrustPager MCP tool (search_help_center)
 that doesn't have a public REST equivalent. So the SKILL.md still calls
 that via MCP. What this script CAN do up front:
 
-- Fetch the workspace's own training canvases (Learning Hub) for the
+- Fetch the workspace's own Playbooks for the
   topic — "here's also what's in your own training materials."
 - Fetch AI instructions, which sometimes contain workflow guidance
   that supersedes the generic help-center answer.
@@ -42,29 +42,29 @@ def fetch(query: str, quiet: bool) -> dict[str, Any]:
 
     calls = [
         ("ai-instructions", {}),
-        ("training-canvases", {"limit": 20, "search": query}),
+        ("playbooks", {"limit": 20, "search": query}),
     ]
     results = parallel_get(calls)
     ai_instructions = results.get("ai-instructions", {})
-    canvases_resp = results.get("training-canvases", {})
+    canvases_resp = results.get("playbooks", {})
     canvases = canvases_resp.get("data") or []
 
     return {
         "generated_at": now.isoformat(),
         "query": query,
         "ai_instructions": ai_instructions,
-        "workspace_training_canvases": [
+        "workspace_playbooks": [
             {
                 "id": c.get("id"),
                 "name": c.get("name"),
                 "description": c.get("description"),
-                "url": f"https://app.trustpager.com/training/learning-hub/{c.get('id')}",
+                "url": f"https://app.trustpager.com/training/playbooks?playbook={c.get('id')}",
                 "card_count": c.get("card_count"),
             }
             for c in canvases
         ],
         "headline": {
-            "training_canvases_matched": len(canvases),
+            "playbooks_matched": len(canvases),
             "ai_instructions_available": bool(ai_instructions),
             "next_step": "Call mcp__trustpager__search_help_center for the canonical articles.",
         },

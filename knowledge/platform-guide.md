@@ -567,14 +567,14 @@ AI agents and the API can edit notepads without re-sending the full content. Thr
 
 These modes let agents grow or update a notepad incrementally -- no need to download and re-upload the whole document. Agents can also pass `return_content: true` to receive the updated HTML in the response.
 
-### Learning Hub
+### Playbooks
 
-The Learning Hub is a drag-and-drop canvas where you build onboarding boards, training modules, and reference libraries for your team. Each canvas holds multiple cards -- video players, links, notepads, PDFs, images, and secure files -- arranged in a responsive grid.
+Playbooks are drag-and-drop boards where you build onboarding flows, training modules, and reference libraries for your team. Each Playbook holds multiple cards -- video players, links, notepads, PDFs, images, and secure files -- arranged in a responsive grid.
 
-**URL:** https://app.trustpager.com/training/learning-hub
+**URL:** https://app.trustpager.com/training/playbooks
 
-**How to create a Learning Hub canvas:**
-1. Go to [Learning Hub](https://app.trustpager.com/training/learning-hub).
+**How to create a Playbook:**
+1. Go to [Playbooks](https://app.trustpager.com/training/playbooks).
 2. Click **"New Canvas"** in the top-right.
 3. Enter a canvas name and optionally choose the **"Getting Started"** template to pre-load 6 starter cards.
 4. Click **"Create"**.
@@ -619,14 +619,14 @@ Workflow Training shows each pipeline alongside its linked training resource. Te
 2. Hover over any pipeline card and click the **settings gear** that appears in the top-right corner.
 3. The **Training Link** modal opens with a segmented control:
    - **External URL** -- paste any URL (Notion, Loom, Google Doc, internal wiki, etc.)
-   - **Learning Hub Canvas** -- search and pick a canvas you have built in Learning Hub
+   - **Playbook** -- search and pick a canvas you have built in Playbooks
 4. Select your option, then click **Save**.
 5. A "View Training" button now appears on the pipeline card footer and on the pipeline board.
 
 **How to open training from the pipeline board:**
 - Go to [Workflows](https://app.trustpager.com/crm/workflows) and open any pipeline.
 - If a training resource is linked, a **"View Training"** button appears in the action bar at the top.
-- Clicking it opens the Learning Hub canvas in-app (canvas link) or the external URL in a new tab (external URL).
+- Clicking it opens the Playbook in-app (canvas link) or the external URL in a new tab (external URL).
 
 **Note:** `sop_url` (external URL) and `learning_hub_canvas_id` (in-app canvas) are mutually exclusive. Setting one clears the other.
 
