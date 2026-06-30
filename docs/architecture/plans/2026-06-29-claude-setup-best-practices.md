@@ -26,7 +26,7 @@
 - **`merge-settings`**: additively merge given `permissions.allow` / `permissions.deny` entries into `~/.claude/settings.json` (create if absent), de-duplicating, NEVER removing the user's existing entries, preserving all other keys. If the existing file is unreadable or not valid JSON, REFUSE (exit non-zero, clear message), never overwrite.
 - **`merge-claude-md`**: insert-or-replace a BOS-managed block delimited by `<!-- bos:best-practices:start -->` ... `<!-- bos:best-practices:end -->` in `~/.claude/CLAUDE.md` (create if absent). Defenses (spec Issue 5): if the file is unreadable / non-UTF-8, refuse and report; if a `start` marker exists without a matching `end` (corrupted prior run), refuse and tell the user to fix it manually; only insert (zero markers) or replace-in-place (exactly one well-formed pair).
 - A `--home <dir>` (or env) override so tests can point at a temp home; default `Path.home()`.
-- Add `setup_claude_config` to `_ALLOWED_TOOLS` in `tools/run.py` (the signpost drift-guard `test_every_invoked_tool_is_allowlisted` requires this once a skill references it).
+- Add `setup_claude_config` to `_ALLOWED_TOOLS` in `tools/run.py` (the signpost drift-guard `test_every_invoked_tool_is_allowlisted` requires this once a skill references it). The tool FILENAME must be exactly `tools/setup_claude_config.py` (underscores) so the allowlist entry, the skill-body `tool setup_claude_config` reference, and the file all match.
 
 **Tests (temp home, offline):**
 - merge into a NON-existent settings.json creates it with the given permissions.
@@ -57,7 +57,7 @@
 **Files:** create `skills/tune-my-setup/SKILL.md`; create `commands/tune-my-setup.md`; modify `knowledge/starter-projects.md` (promote as an opt-in module); regenerate `kernel/registry.json` + `docs/CAPABILITIES.md`; confirm `/whats-possible` surfaces it.
 
 **Build (mirror an existing keyless skill for shape, e.g. `skills/build-customer-voice/SKILL.md`):**
-- Manifest: `function_slot: floor`, `requires_driver: none`, `requires_credential: none`, `data_path: local`, `status: active`. Add a one-line frontmatter comment noting it writes the user's GLOBAL `~/.claude/` config (not project files), per the spec's `data_path` note.
+- Manifest: `function_slot: floor`, `requires_driver: none`, `requires_credential: none`, `data_path: local`, `status: active`. Put the "writes the user's GLOBAL `~/.claude/` config, not project files" note in the SKILL BODY, NOT the frontmatter: the manifest parser is a flat `key: value` reader that raises on a `#` comment line and would skip the skill. (Per the spec's `data_path` note.)
 - Body: open by explaining what it does and that everything is reversible; offer the two modes.
   - **Recommended:** preview the global CLAUDE.md block (from `settings/recommended-global-claude.md`) and the settings.json permission merge (from `settings/recommended-settings.json`), explain each briefly (teach as it sets up), ask for a yes, then apply via `python ~/.claude/bos-run.py tool setup_claude_config merge-claude-md ...` and `... merge-settings ...`.
   - **Guided (Q&A):** ask short plain questions (how do you like Claude to work; want the positive-only / no-em-dash content rules on; do you use or plan to use TrustPager so its safe reads are pre-allowed; keep all writes prompting), explaining the why behind each, then build the same files from the answers.
