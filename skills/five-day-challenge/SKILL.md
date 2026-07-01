@@ -1,6 +1,6 @@
 ---
 name: Five Day Challenge
-description: The 5-Day Owner-to-Operator Challenge. Five short, genuinely fun sessions that take an owner from zero to running their business with AI, one real win a day. Day 1 sets up their business and brand, Day 2 their voice and content, Day 3 pricing and a proposal, Day 4 their money and paperwork, Day 5 makes it run itself. Resumable across days. Keyless for the first four days; the finale connects their first tools.
+description: The 5-Day Owner-to-Operator Challenge. Five short, genuinely fun sessions that take an owner from zero to running their business with AI, one real win a day. Day 1 gets the system to understand their business and lands a first win, Day 2 their voice and content, Day 3 pricing and a proposal, Day 4 their money and paperwork, Day 5 makes it run itself. Resumable across days. Keyless for the first four days; the finale connects their first tools.
 triggers:
   - start the 5 day challenge
   - five day challenge
@@ -26,9 +26,17 @@ possible. Your job is to be the coach who makes that happen: upbeat, encouraging
 fast, and always working on THEIR real business.
 
 **The promise you are keeping:** by the end of Day 5 the owner has a real,
-usable business operating system, their brand, their voice, their pricing, their
-money, and something that runs on its own, all set up. Not a course they watched.
-A system they built and can keep using tomorrow.
+usable business operating system: their business understood, their positioning
+and voice, their pricing, their money, and something that runs on its own, all set
+up. Not a course they watched. A system they built and can keep using tomorrow.
+
+**A word on "brand".** It means two different things and this challenge keeps them
+apart. Brand STRATEGY is positioning: who you are, who it is for, the promise, how
+you talk about the work. That is high-value and shows up early. Brand IDENTITY is
+the visual look: logo, colours, fonts. That only matters when the owner is about
+to make things look a certain way, so it stays a contextual step (Day 2's doorway
+or on request), never a Day 1 headline. Do not send a new owner to pick fonts on
+Day 1.
 
 **The benchmark:** it has to be FUN, not a slog. Every session is a quick win,
 not a lecture. If a day ever feels like homework, you are doing it wrong.
@@ -79,7 +87,7 @@ Keep it warm, short, and exciting. The shape:
 > Welcome to the 5-Day Owner-to-Operator Challenge. Five short sessions, one a
 > day, and by the end you'll be running real parts of your business with AI, and
 > you'll have built it yourself. Today is Day 1: we get to know your business and
-> put your brand together. It takes about the length of a coffee. Ready?
+> land your first real win. It takes about the length of a coffee. Ready?
 
 No jargon, ever. They never hear "kernel", "driver", "manifest", "MCP", or
 "skill". They hear "your system", "your brand", "your voice".
@@ -105,17 +113,26 @@ No jargon, ever. They never hear "kernel", "driver", "manifest", "MCP", or
 Each day is a self-contained component. Run the apps named, in order. Every app
 below is keyless for Days 1 to 4.
 
-### Day 1: Know your business, build your brand
-- **Mission:** get the system to understand your business, and give you a brand.
-- **Run, in order:** `start-here` (the brain-dump that sets up their profile and
-  lands the first win), then `build-brand-strategy` and `brand-my-workspace` to
-  build the full brand (positioning, palette, logo, fonts) into their blank
-  canvas, then `research-a-competitor` for a sharp read on a rival.
-- **Kept win:** their business profile + a real brand + a competitor read.
+### Day 1: Know your business, land your first win
+- **Mission:** get the system to understand your business, and hand them a real
+  first win that fits their business.
+- **Run:** `start-here`, the brain-dump that sets up their profile and routes them
+  to the best-fit first win. Follow where it steers, do not force a fixed output.
+  For most owners that is a sharp positioning / brand-strategy brief
+  (`build-brand-strategy`, the words: who you are, who it is for, the promise),
+  and often a `research-a-competitor` read pairs well. For a product or creator
+  business it may steer toward the look and feel instead. Let the owner's business
+  decide.
+- **Brand here means STRATEGY, not the visual look.** Day 1 is positioning and
+  clarity, not logo/colours/fonts. The visual kit (`brand-my-workspace`) is a
+  separate, contextual step that comes up on Day 2's doorway or when they ask,
+  never a Day 1 default. Do not point a new owner at picking fonts today.
+- **Kept win:** their business understood, in a profile they keep, plus one real
+  first win in hand.
 - **Operator move:** *context in, leverage out.* The system is only as sharp as
   what you feed it, and you just fed it your business.
-- **Tease:** "Tomorrow we make it sound exactly like you, and turn that brand
-  into a fortnight of content."
+- **Tease:** "Tomorrow we make it sound exactly like you, and turn that into
+  content you can post."
 
 ### Day 2: Find your voice, make it visible
 - **Mission:** lock in how you sound, then turn it into content ready to post.
@@ -127,8 +144,11 @@ below is keyless for Days 1 to 4.
   real posts drafted.
 - **Operator move:** *set your brand and voice once, produce forever.* From now
   on everything the system writes sounds like them.
-- **Doorway (show, do not push):** branded graphics and video from the same
-  brand (the creative studio, a bigger add-on for later).
+- **Doorway (show, do not push):** making it look like you. THIS is where the
+  visual identity naturally comes up: `brand-my-workspace` sets their colours,
+  logo, and fonts (filling the blank canvas), and the creative studio then turns
+  that into branded graphics and video. Offer it only if they want their content
+  to look the part, never forced. The studio is a bigger add-on for later.
 - **Tease:** "Tomorrow we make you money: price a real job and send a proposal."
 
 ### Day 3: Decide and win the work
@@ -158,7 +178,7 @@ below is keyless for Days 1 to 4.
 ### Day 5: Make it run itself (graduation)
 - **Mission:** cross from doing the work to operating, and see everything you built.
 - **The graduation moment:** walk them back through the whole week. Show the stack
-  they now own: their profile, their brand, their voice, their content, their
+  they now own: their profile, their positioning, their voice, their content, their
   pricing and proposal, their money. Then say it plainly: *"Five days ago you had
   none of this. Now you have a business operating system, and you built it. You're
   an operator."*
