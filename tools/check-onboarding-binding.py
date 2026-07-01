@@ -262,6 +262,21 @@ def extract_whats_possible_refs(body: str, source: str = "whats-possible") -> li
     return refs
 
 
+def extract_five_day_challenge_refs(body: str, source: str = "five-day-challenge"
+                                    ) -> list[Reference]:
+    """The 5-day challenge orchestrator names the apps each day routes to.
+
+    It deliberately spans both tiers: Days 1-4 are keyless, Day 5's finale is the
+    connected ``set-up-a-routine`` on Gmail/Calendar. So we check every named app
+    for EXISTENCE (A, no phantoms) without asserting keyless, exactly like
+    whats-possible. Keyless honesty for the actual cold Day-1 path is enforced on
+    ``start-here`` itself (which the challenge runs as Day 1); hidden-coupling (C)
+    is enforced on the challenge's own credential:none body globally. AU-gated
+    context is honored via headings / inline tag, same as the other surfaces.
+    """
+    return extract_whats_possible_refs(body, source=source)
+
+
 def extract_starter_projects_refs(text: str, source: str = "starter-projects"
                                   ) -> list[Reference]:
     """Parse starter-projects.md row by row, binding each backticked app-id to its
@@ -457,13 +472,16 @@ def check_onboarding_binding(
     start_here_path: Path,
     whats_possible_path: Path,
     starter_projects_path: Path,
+    five_day_challenge_path: Path | None = None,
     skills_dir: Path | None = None,
 ) -> list[str]:
     """Run A + B + C + D and return the (possibly empty) list of failure strings.
 
-    A, B, and D scan the three surface files for referenced app-ids. C scans the
-    bodies of every credential:none skill in ``skills_dir`` (defaults to the parent
-    of ``start_here_path``'s skill folder). An empty return == clean.
+    A, B, and D scan the onboarding surface files for referenced app-ids (start-here,
+    whats-possible, starter-projects, and the five-day-challenge orchestrator when
+    given). C scans the bodies of every credential:none skill in ``skills_dir``
+    (defaults to the parent of ``start_here_path``'s skill folder). An empty return
+    == clean.
     """
     refs: list[Reference] = []
     if start_here_path.is_file():
@@ -472,6 +490,9 @@ def check_onboarding_binding(
         refs += extract_whats_possible_refs(_split_body(whats_possible_path.read_text(encoding="utf-8")))
     if starter_projects_path.is_file():
         refs += extract_starter_projects_refs(starter_projects_path.read_text(encoding="utf-8"))
+    if five_day_challenge_path is not None and five_day_challenge_path.is_file():
+        refs += extract_five_day_challenge_refs(
+            _split_body(five_day_challenge_path.read_text(encoding="utf-8")))
 
     if skills_dir is None:
         # start_here_path is skills/start-here/SKILL.md → skills/ is two parents up.
@@ -491,6 +512,7 @@ def _default_paths() -> dict[str, Path]:
         "start_here_path": root / "skills" / "start-here" / "SKILL.md",
         "whats_possible_path": root / "skills" / "whats-possible" / "SKILL.md",
         "starter_projects_path": root / "knowledge" / "starter-projects.md",
+        "five_day_challenge_path": root / "skills" / "five-day-challenge" / "SKILL.md",
         "skills_dir": root / "skills",
     }
 

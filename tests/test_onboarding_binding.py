@@ -74,19 +74,22 @@ _SAMPLE_REGISTRY = {
 
 
 def _write_surface(tmp: Path, start_here: str = "", whats_possible: str = "",
-                   starter_projects: str = "") -> None:
-    """Materialise the three onboarding-surface files under a temp tree.
+                   starter_projects: str = "", five_day_challenge: str = "") -> None:
+    """Materialise the onboarding-surface files under a temp tree.
 
     Mirrors the real layout: skills/start-here/SKILL.md, skills/whats-possible/
-    SKILL.md, knowledge/starter-projects.md.
+    SKILL.md, knowledge/starter-projects.md, skills/five-day-challenge/SKILL.md.
+    The challenge file is always created (empty by default) so the path exists.
     """
     sh = tmp / "skills" / "start-here"
     wp = tmp / "skills" / "whats-possible"
+    fd = tmp / "skills" / "five-day-challenge"
     kn = tmp / "knowledge"
-    for d in (sh, wp, kn):
+    for d in (sh, wp, fd, kn):
         d.mkdir(parents=True, exist_ok=True)
     (sh / "SKILL.md").write_text(start_here, encoding="utf-8")
     (wp / "SKILL.md").write_text(whats_possible, encoding="utf-8")
+    (fd / "SKILL.md").write_text(five_day_challenge, encoding="utf-8")
     (kn / "starter-projects.md").write_text(starter_projects, encoding="utf-8")
 
 
@@ -137,6 +140,7 @@ def _run(tmp: Path, registry: dict | None = None):
         start_here_path=tmp / "skills" / "start-here" / "SKILL.md",
         whats_possible_path=tmp / "skills" / "whats-possible" / "SKILL.md",
         starter_projects_path=tmp / "knowledge" / "starter-projects.md",
+        five_day_challenge_path=tmp / "skills" / "five-day-challenge" / "SKILL.md",
         skills_dir=tmp / "skills",
     )
 
@@ -420,6 +424,50 @@ class TestWave1Drivers(unittest.TestCase):
             "status": "active",
         }
         self.assertEqual(validate_manifest(meta), [])
+
+
+class TestChallengeBinding(unittest.TestCase):
+    """The five-day-challenge orchestrator is a bound surface: every app it names
+    must exist (A). It spans tiers (keyless Days 1-4 + a connected Day-5 finale),
+    so naming an mcp app is fine (existence-checked, not asserted keyless)."""
+
+    def test_phantom_app_in_challenge_fails_A(self):
+        challenge = """\
+---
+name: Five Day Challenge
+---
+# Challenge
+### Day 1
+Run `build-brand-strategy`.
+### Day 5
+Run `totally-fake-app` to finish.
+"""
+        with tempfile.TemporaryDirectory() as d:
+            tmp = Path(d)
+            _write_surface(tmp, _CLEAN_START_HERE, _CLEAN_WHATS_POSSIBLE,
+                           _CLEAN_STARTER_PROJECTS, five_day_challenge=challenge)
+            failures = _run(tmp)
+            self.assertTrue(any("totally-fake-app" in f for f in failures),
+                            f"phantom in challenge should fail A; got {failures}")
+
+    def test_clean_challenge_spanning_tiers_passes(self):
+        # Day 1-4 keyless app + a Day-5 connected (mcp) app: both real, so it passes.
+        # The mcp app must NOT trip B, because the challenge does not assert keyless.
+        challenge = """\
+---
+name: Five Day Challenge
+---
+# Challenge
+### Day 1
+Run `build-brand-strategy`.
+### Day 5
+Connect a tool, then run `outstanding-invoices` (connected).
+"""
+        with tempfile.TemporaryDirectory() as d:
+            tmp = Path(d)
+            _write_surface(tmp, _CLEAN_START_HERE, _CLEAN_WHATS_POSSIBLE,
+                           _CLEAN_STARTER_PROJECTS, five_day_challenge=challenge)
+            self.assertEqual(_run(tmp), [])
 
 
 if __name__ == "__main__":
