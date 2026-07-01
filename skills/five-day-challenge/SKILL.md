@@ -187,20 +187,19 @@ below is keyless for Days 1 to 4.
   pricing and proposal, their money. Then say it plainly: *"Five days ago you had
   none of this. Now you have a business operating system, and you built it. You're
   an operator."*
-- **The finale (what's next):** the most powerful step is connecting their first
-  real tools (Gmail and Google Calendar) and having the system run a routine on
-  them, like a morning brief that reads their day and drafts their follow-ups.
-  **This connected finale is coming.** For now, set it up as the exciting next
-  step: show them what it will do, and that it is the on-ramp to plugging in more
-  of their tools. Then run `whats-possible` so they can see the full menu of what
-  their system can do and what unlocks as they connect more.
+- **The finale (make it run itself):** the most powerful step is connecting their
+  first real tools and building a routine on them. Run `connect-a-tool` to connect
+  Gmail and Google Calendar (the friendly, verified walkthrough), then
+  `set-up-a-routine` to build a morning brief that reads their day and drafts
+  their follow-ups, and run it once so they see it work. This is also the on-ramp
+  to plugging in more of their tools later. If they would rather not connect
+  anything today, do not force it: set up a keyless routine (a weekly review of
+  their own numbers) so they still leave with something running, and leave the
+  connectors as an open, exciting next step.
+- **Then** run `whats-possible` so they see the full menu of what their system can
+  do and what unlocks as they connect more.
 - **Operator move:** *it runs the work, you operate.*
 - **Mark:** set `challenge=complete` and record the win. Congratulate them warmly.
-
-> **Note for the builder:** Day 5's live connector routine (Gmail + Calendar +
-> `set-up-a-routine`) depends on the connect-on-demand work that is not shipped
-> yet. Until it lands, run Day 5 as the graduation + the honest "here's what's
-> next" preview above. Do not claim the routine is running when it is not.
 
 ---
 

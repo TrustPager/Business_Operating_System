@@ -67,6 +67,7 @@ Follow-ups, missed-call recovery, turning a call into notes and next steps, and 
 - **Report an Issue**: File a clean bug report or feature request to the platform team without leaving your assistant.
 - **Review Team Draft**: Review a teammate's customer-facing draft before it ships: on-voice and verified, then approve it or send it back.
 - **Send Email**: Send an email that drafts the body in your tone, attaches what is relevant, and gets your approval before it goes.
+- **Set Up A Routine**: Turn a recurring job into something your system runs on its own
 - **Sweep My Day**: Get a morning briefing of everything that needs your attention today across deals, tasks, and messages.
 - **Test Form**: Safely test a form or client portal before any real customer sees it, confirming answers land on the record.
 - **Why Didn't It Fire**: Find the one real reason an automation did not do what you expected, plus the fix.

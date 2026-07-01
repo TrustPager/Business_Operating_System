@@ -571,6 +571,13 @@
       "mcp__trustpager__search_opportunities"
     ]
   },
+  "set-up-a-routine": {
+    "data_path": "mcp_tools",
+    "function_slot": "comms",
+    "requires_credential": "mcp",
+    "requires_driver": "none",
+    "status": "active"
+  },
   "show-me-how": {
     "data_path": "mcp_tools",
     "function_slot": "strategy",
