@@ -48,6 +48,27 @@ class TestValidateManifest(unittest.TestCase):
         }
         self.assertEqual(validate_manifest(meta), [])
 
+    def test_keyless_skill_listing_foreign_mcp_tool_is_an_error(self):
+        # Rule 4b: a keyless skill (requires_credential: none) that lists an
+        # mcp__ tool it could only reach through a connection is a contradiction.
+        # This is the leak guard (e.g. quote-from-photo reaching into TrustPager).
+        meta = _floor_manifest()
+        meta["uses_tools"] = ["mcp__trustpager__list_products"]
+        errors = validate_manifest(meta)
+        self.assertTrue(errors)
+        self.assertTrue(any("mcp__trustpager__list_products" in e for e in errors))
+
+    def test_keyless_firecrawl_skill_may_list_its_own_driver_tools(self):
+        # A keyless HOSTED driver (firecrawl) is credential-free but IS an MCP.
+        # A firecrawl app may honestly declare its own driver's tools without
+        # tripping rule 4b — mirrors lint-skill.py's _driver_owns_tool exception.
+        meta = _floor_manifest()
+        meta["function_slot"] = "research"
+        meta["requires_driver"] = "firecrawl"
+        meta["data_path"] = "fetch_rest"
+        meta["uses_tools"] = ["mcp__firecrawl__firecrawl_scrape"]
+        self.assertEqual(validate_manifest(meta), [])
+
     def test_missing_required_key_is_an_error(self):
         meta = _floor_manifest()
         del meta["data_path"]

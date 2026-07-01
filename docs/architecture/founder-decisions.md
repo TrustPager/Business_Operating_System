@@ -142,7 +142,9 @@ Verified against TrustPager's own help center (read live via the connector):
   turn and can burn their usage within a few turns — an unacceptable first-impression cost. "Designed
   intelligently" is a hard requirement, not a nice-to-have.
 - **The floor is already safe.** Every floor app is `reasoning_only` / `local` / `firecrawl` and loads
-  ZERO MCP tools. The bloat is strictly a CONNECTED-tier concern, so it does not block the floor build.
+  zero *connected-driver* MCP tools. The one MCP the floor ships is the small, keyless hosted Firecrawl
+  server (registered by `setup.py`), whose handful of tools the client defers until called. The bloat
+  risk is strictly a CONNECTED-tier concern (TrustPager's ~600 tools), so it does not block the floor build.
 - **v1 strategy (no new moving parts):** lean on the client's native tool-deferral / tool-search (Claude
   Code already defers connected-MCP tools, surfacing names + loading schemas on demand) + TrustPager's
   **OAuth scoping** (connect only the tool groups the owner needs, trimming the surface at the source) +

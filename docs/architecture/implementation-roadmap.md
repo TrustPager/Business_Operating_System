@@ -16,7 +16,7 @@
 - Plain-language partner — owners never see "kernel/driver/app/MCP".
 - Every default-on app is green under `BOS_OFFLINE` (zero key, zero network).
 - MIT-clean: no AGPL/GPL/proprietary code vendored (service/blueprint boundaries documented).
-- **Token-frugal per turn:** the connected tier must never flood context. A brand-new owner on a Pro plan must not have their usage burned by tool-loading overhead in the first few turns. The floor loads zero MCP tools by construction; connected-driver loading must be designed (native tool-deferral + OAuth scoping + REST path; gateway/proxy as the planned multi-driver path). See [D10](founder-decisions.md).
+- **Token-frugal per turn:** the connected tier must never flood context. A brand-new owner on a Pro plan must not have their usage burned by tool-loading overhead in the first few turns. The floor loads zero connected-driver MCP tools by construction (the one MCP it ships is the small keyless Firecrawl server, whose tools the client defers until called); connected-driver loading must be designed (native tool-deferral + OAuth scoping + REST path; gateway/proxy as the planned multi-driver path). See [D10](founder-decisions.md).
 
 ---
 
