@@ -261,6 +261,18 @@ def validate_manifest(meta: dict[str, Any]) -> list[str]:
         if key not in meta:
             errors.append(f"missing required key: {key}")
 
+    def _driver_owns_tool(tool: str, driver: Any) -> bool:
+        """True if ``tool`` belongs to the skill's declared ``requires_driver``.
+
+        Case-insensitive substring of the driver id within the tool's
+        fully-qualified name (the driver id appears as a segment of its tools'
+        names). ``none``/empty owns nothing. Mirrors lint-skill.py exactly so the
+        two validators never disagree on the keyless-hosted-driver exception.
+        """
+        if not isinstance(driver, str) or not driver or driver == "none":
+            return False
+        return driver.lower() in tool.lower()
+
     # 2. Enum fields (only checked when present; absence handled above).
     _check_enum(meta, "function_slot", FUNCTION_SLOTS, errors)
     _check_enum(meta, "requires_credential", REQUIRES_CREDENTIAL, errors)
@@ -283,21 +295,30 @@ def validate_manifest(meta: dict[str, Any]) -> list[str]:
     _check_enum(meta, "status", STATUSES, errors)
     _check_enum(meta, "requires_region", REGIONS, errors)
 
-    # 4b. credential:none ⇒ no mcp__ tool in uses_tools. A keyless skill claims to
-    #     run with zero accounts connected; listing an MCP tool it can only call
-    #     through a connection is a contradiction (this is what catches a keyless
-    #     app that quietly reaches into TrustPager, e.g. quote-from-photo's
+    # 4b. credential:none => no FOREIGN mcp__ tool in uses_tools. A keyless skill
+    #     claims to run with zero accounts connected; listing an MCP tool it could
+    #     only call through a connection is a contradiction (this is what catches a
+    #     keyless app that quietly reaches into TrustPager, e.g. quote-from-photo's
     #     mcp__trustpager__list_products). The body-reference linter (lint-skill.py
-    #     Task 3c) misses it because the tool IS declared — declaring it is the bug.
+    #     Task 3c) misses it because the tool IS declared; declaring it is the bug.
+    #
+    #     EXCEPTION: a keyless HOSTED driver (e.g. firecrawl) is credential-free but
+    #     IS an MCP. A skill may own its OWN declared driver's tools. This mirrors
+    #     lint-skill.py's _driver_owns_tool exception exactly, so the two validators
+    #     agree: requires_driver: firecrawl + requires_credential: none may list
+    #     mcp__firecrawl__* tools, while a foreign trustpager tool is still caught.
     if meta.get("requires_credential") == "none":
         tools = meta.get("uses_tools")
+        driver = meta.get("requires_driver")
         if isinstance(tools, list):
             mcp_tools = [t for t in tools if isinstance(t, str) and t.startswith("mcp__")]
             for tool in mcp_tools:
+                if _driver_owns_tool(tool, driver):
+                    continue
                 errors.append(
-                    f"uses_tools: requires_credential is 'none' but lists an mcp__ "
-                    f"tool '{tool}' — a keyless skill may not call MCP tools; remove "
-                    f"it or set requires_credential to 'mcp'"
+                    f"uses_tools: requires_credential is 'none' but lists a foreign "
+                    f"mcp__ tool '{tool}': a keyless skill may only call its own "
+                    f"keyless driver's tools; remove it or set requires_credential to 'mcp'"
                 )
 
     # 5. Unknown keys (anything outside manifest + passthrough).

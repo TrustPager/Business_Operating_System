@@ -1,39 +1,39 @@
 {
-  "name": "TrustPager",
-  "tagline": "The unified CRM for service businesses",
+  "name": "Your Business",
+  "tagline": "",
 
-  "_comment": "Edit this file (or run /brand-my-workspace) to retheme every BOS studio in one shot. After editing, run `python tools/sync-brand.py` to refresh logo + favicons in each studio's public/ folder. Studios import this JSON via src/brand.js — no other files need touching.",
+  "_comment": "This is a neutral blank-canvas starter, not a real brand. It carries no company's identity on purpose, so a new owner's very first creative act (run /brand-my-workspace, or ask to build your brand) fills it in and every BOS studio becomes theirs in one shot. After it is set, run `python tools/sync-brand.py` to refresh logo + favicons in each studio's public/ folder. Studios import this JSON via src/brand.js, no other files need touching.",
 
   "colors": {
-    "primary":     "#29c6c6",
-    "primaryDeep": "#1ea5a5",
-    "primaryTint": "#e6f7f7",
-    "primaryTintDeep": "#cbeded",
-    "accent":      "#47a3d9",
-    "deepBlue":    "#2e7fb0",
-    "midMint":     "#5ed4d4",
-    "light":       "#7dd3d3",
+    "primary":     "#334155",
+    "primaryDeep": "#1e293b",
+    "primaryTint": "#f1f5f9",
+    "primaryTintDeep": "#e2e8f0",
+    "accent":      "#64748b",
+    "deepBlue":    "#475569",
+    "midMint":     "#94a3b8",
+    "light":       "#cbd5e1",
     "slate":       "#94a3b8",
-    "success":     "#2db87d",
-    "warning":     "#facc15",
+    "success":     "#16a34a",
+    "warning":     "#d97706",
 
-    "text":        "#020817",
-    "textMuted":   "#647086",
+    "text":        "#0f172a",
+    "textMuted":   "#64748b",
     "panel":       "#ffffff",
     "border":      "#e2e8f0",
     "pageBg":      "#f8fafc",
     "canvasBg":    "#f1f5f9"
   },
 
-  "gradient":      "linear-gradient(110deg, #1ea5a5 0%, #29c6c6 35%, #5ed4d4 50%, #47a3d9 70%, #2e7fb0 100%)",
-  "heroGradient":  "linear-gradient(135deg, #29c6c6 0%, #47a3d9 100%)",
-  "warmGradient":  "linear-gradient(135deg, #29c6c6 0%, #2db87d 100%)",
+  "gradient":      "linear-gradient(110deg, #1e293b 0%, #334155 40%, #475569 70%, #64748b 100%)",
+  "heroGradient":  "linear-gradient(135deg, #334155 0%, #64748b 100%)",
+  "warmGradient":  "linear-gradient(135deg, #475569 0%, #94a3b8 100%)",
 
   "fonts": {
-    "primary":   "\"Plus Jakarta Sans\", -apple-system, BlinkMacSystemFont, system-ui, sans-serif",
-    "serif":     "\"Playfair Display\", Georgia, serif",
-    "mono":      "\"JetBrains Mono\", \"Fira Code\", monospace"
+    "primary":   "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, system-ui, sans-serif",
+    "serif":     "Georgia, \"Times New Roman\", serif",
+    "mono":      "\"SF Mono\", Menlo, Consolas, \"Liberation Mono\", monospace"
   },
 
-  "googleFontsHref": "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap"
+  "googleFontsHref": ""
 }

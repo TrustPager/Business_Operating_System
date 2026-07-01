@@ -129,6 +129,13 @@
       "mcp__trustpager__ingest_knowledge_base_text"
     ]
   },
+  "build-my-voice": {
+    "data_path": "local",
+    "function_slot": "strategy",
+    "requires_credential": "none",
+    "requires_driver": "markitdown",
+    "status": "active"
+  },
   "build-social-strategy": {
     "data_path": "reasoning_only",
     "function_slot": "social",
@@ -171,6 +178,13 @@
     "function_slot": "documents",
     "requires_credential": "none",
     "requires_driver": "markitdown",
+    "status": "active"
+  },
+  "connect-a-tool": {
+    "data_path": "reasoning_only",
+    "function_slot": "floor",
+    "requires_credential": "none",
+    "requires_driver": "none",
     "status": "active"
   },
   "delegate-this-work": {
@@ -235,6 +249,13 @@
     "function_slot": "documents",
     "requires_credential": "none",
     "requires_driver": "markitdown",
+    "status": "active"
+  },
+  "five-day-challenge": {
+    "data_path": "reasoning_only",
+    "function_slot": "floor",
+    "requires_credential": "none",
+    "requires_driver": "none",
     "status": "active"
   },
   "follow-up-radar": {

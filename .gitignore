@@ -52,3 +52,6 @@ graphify-out/
 
 # Firecrawl scratch (research-run cache, not a deliverable)
 .firecrawl/
+
+# Dogfood throwaway profile (tools/dogfood.py)
+.dogfood/
