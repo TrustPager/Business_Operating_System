@@ -129,6 +129,13 @@
       "mcp__trustpager__ingest_knowledge_base_text"
     ]
   },
+  "build-my-voice": {
+    "data_path": "local",
+    "function_slot": "strategy",
+    "requires_credential": "none",
+    "requires_driver": "markitdown",
+    "status": "active"
+  },
   "build-social-strategy": {
     "data_path": "reasoning_only",
     "function_slot": "social",

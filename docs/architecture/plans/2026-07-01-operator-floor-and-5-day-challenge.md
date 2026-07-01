@@ -44,36 +44,40 @@
 - Writes: a generated voice skill into the owner's `~/.claude/skills/` (company + personal variants), keyless
 - Test: `skills/build-my-voice/test-fixture.json` if it adds a script; otherwise prose-only
 
-**Build:**
-- [ ] From the owner's brain-dump + any pasted samples (posts, emails, how they describe their work), synthesise two loadable voice skills: **company voice** (how the business speaks) and **personal voice** (how the owner personally writes). Reuse `build-customer-voice`'s evidence discipline (real phrases, never invented).
-- [ ] Output is a *persistent skill* the content apps (`write-post-copy`, `plan-my-content`, `write-a-proposal`, `draft-reply`, `write-a-letter`) load, so "your system writes as you" holds forever, not per-session.
-- [ ] Enforce positive-only + no-em-dash on any customer-facing sample it emits; label any inferred trait as a guess to confirm.
-- [ ] Manifest: `function_slot: strategy`, `requires_driver: none`, `requires_credential: none`, `data_path: reasoning_only` (or `local` if it writes files), keyless.
+**Decided (Vic):** one combined generator, same process for company + personal. The process is: (1) Claude asks for a **file of the owner's real emails/content** to read, then (2) runs a targeted **"this, not that" grill session** so the owner consciously locks their voice in. Output slots into the **existing `voice.md` convention** every content app already reads.
 
-**Acceptance:** runs at zero accounts; produces two named voice skills the owner keeps; downstream content apps can load them; lint + manifest clean; binding check green; suite green.
+**Build (SHIPPED 2026-07-01):**
+- [x] `skills/build-my-voice/SKILL.md` + `commands/build-my-voice.md`. Three steps: read real writing (via `markitdown_convert` or pasted), the this-not-that lock-in, then write the voice file(s).
+- [x] Output is `marketing-strategy/<BrandName>/voice.md` (company; the same file/shape `build-brand-strategy` and every content app already load, so this is the deep evidence-grounded version, not a competitor) + `personal-voice.md` (personal). Does not clobber a hand-tuned file without showing the diff.
+- [x] Reuses `build-customer-voice`'s evidence discipline (real phrases, never invented); positive-only + no-em-dash on any sample; corrections fold back into the file with a change-log line.
+- [x] Manifest: `function_slot: strategy`, `requires_driver: markitdown`, `requires_credential: none`, `data_path: local`, keyless.
 
-**Open design decision (Vic):** one skill with a company/personal toggle, or two separate generated skills? And where does the personal voice live vs the company voice so both are discoverable without colliding?
+**Acceptance (met):** runs at zero accounts; produces the voice file(s) the shipped content apps load; lint + manifest clean; binding check green; 345 tests green; registry + CAPABILITIES regenerated.
+
+**Note:** output is a loadable *guide* (matches the whole system's `voice.md` pattern), not an auto-triggering `~/.claude/skills` entry. If we later want it to auto-apply as a standalone skill, that is a small additive follow-up.
 
 ---
 
-## Task C — The routine generator (`set-up-a-routine`)
+## Task C — The connected routine finale (`set-up-a-routine`)
 
-**Why:** The emotional payload of the north star is *work leaving the owner's shoulders*. The keyless proof is a scheduled Claude task that runs itself (a self-running weekly review, a daily sweep) — the owner sees the machine do the recurring work (operator definition #4).
+**Decided (Vic):** the challenge ends by **connecting Gmail + Google Calendar and building routines on top of them.** This is deliberately NOT keyless: it is the graduation across the threshold into the connected tier, chosen because it is genuinely powerful (a routine that reads the owner's calendar and drafts their email follow-ups) and it trains the owner to add more connectors going forward. Days 1-4 stay fully keyless; Day 5 is the bridge.
 
-**Files:**
-- Create: `skills/set-up-a-routine/SKILL.md` (+ `commands/set-up-a-routine.md`)
-- Uses: the scheduled-task mechanism already available to the client (schedule skill / scheduled-tasks); keyless
-- Test: prose-only unless it adds a script
+**Dependency flag (must resolve before building):** this rides on **connect-on-demand infrastructure that is not built yet** — the roadmap lists `connect-a-tool` + `tools/preflight.py` as the "P3 connect-on-demand remainder." So Task C is no longer a keyless leaf; it needs:
+1. A **connector-readiness pass**: what Gmail + Google Calendar connection path BOS ships or drives (there is a Google Calendar MCP and a Google Drive MCP available; confirm the Gmail path), how `setup.py`/`connect-a-tool` performs it *for* the owner (D11: permission first, then BOS does it), and the token-frugality profile of loading those MCPs (D10 — both are far smaller than TrustPager, so acceptable, but measure).
+2. The `connect-a-tool` + `preflight` plumbing itself, or a minimal version scoped to Gmail + Calendar for the finale.
 
-**Build:**
-- [ ] Walk the owner from "what do you do every week that you would love to stop touching?" to a concrete, scheduled, keyless recurring task (e.g. a Monday weekly-review digest, a daily sweep-my-day summary), set up *for* them (D11: permission first, then the BOS does it — never "go run this").
-- [ ] The routine must be a *real running thing* they can point at, and must be reversible/pausable in plain language.
-- [ ] Keep it keyless: the seed routines wrap floor apps that already run at zero accounts (`weekly-review`, `sweep-my-day`, `follow-up-radar`-style digests). A connected-tier routine (real automations) is a later doorway, not this task.
-- [ ] Manifest: keyless; if it schedules via an MCP/tool, classify honestly per Task A's model.
+**Files (once unblocked):**
+- Create: `skills/set-up-a-routine/SKILL.md` (+ command)
+- Depends on: `connect-a-tool` / `tools/preflight.py`; the Google Calendar + Gmail connectors
 
-**Acceptance:** the owner ends with a scheduled task that fires on its own and visibly does work; setup happens with permission, no owner-run commands; plain-language throughout; suite + binding green.
+**Build (once unblocked):**
+- [ ] With the connectors in place, walk the owner from "what do you do every week you'd love to stop touching?" to a concrete recurring task built on calendar + email (e.g. a morning brief that reads the day's calendar and drafts follow-up emails for review).
+- [ ] The routine is a real running, reversible/pausable thing; setup happens with permission, never "go run this."
+- [ ] Classify honestly per Task A's model (connected: `requires_credential: mcp`, the connector's `uses_tools`).
 
-**Open design decision (Vic):** which 2-3 seed routines are the "wow" defaults, and does the scheduler we lean on run reliably keyless on a fresh install (verify before building)?
+**Acceptance:** the owner connects Gmail + Calendar (BOS does the connecting, with permission) and ends with a routine that fires on its own using them; token overhead measured and acceptable; plain-language throughout; suite green.
+
+**Open design decision (Vic):** which 1-2 connected routines are the "wow" finale (morning calendar+email brief is the lead candidate)? And do we build a minimal Gmail+Calendar-scoped `connect-a-tool`, or the general connect-on-demand plumbing, first?
 
 ---
 
@@ -118,12 +122,15 @@
 - [ ] **Day 2 — Find your voice & make it visible:** `build-my-voice` (company + personal) → `build-social-strategy` → `plan-my-content` → `write-post-copy`. Move: *set brand + voice once, produce forever.* Doorway: the creative studio (T1).
 - [ ] **Day 3 — Decide & think:** `grill-me-on-this-decision` + `price-my-work` → `write-a-proposal`. Move: *pressure-test your thinking, not just make stuff.* Doorway: connected CRM turns the proposal live.
 - [ ] **Day 4 — Handle the paperwork & data:** `extract-document` / `import-from-anywhere` / `build-spreadsheet` / `cash-flow-forecast` / `transcript-summary`. Move: *throw it any mess, get structure.* Doorway: regional money pack + connect accounting.
-- [ ] **Day 5 — Make it run itself:** `set-up-a-routine` (the self-running task) + `onboard-team-member`/`sync-team-standards` + a `whats-possible` graduation tour. Move: *it runs the work, you operate.* Graduation opens the shelf (T1/T2 awareness, low-key per the community-sells decision).
+- [ ] **Day 5 — Make it run itself (cross into connected):** `set-up-a-routine` — **connect Gmail + Google Calendar and build a routine on top** (Task C), plus a `whats-possible` graduation tour. Move: *it runs the work, you operate.* This is the bridge into the connected tier and the on-ramp to adding more connectors. Graduation opens the shelf low-key (T1/T2 awareness; the community does the selling, not Claude).
+
+**Decided (Vic):** the arc is **modular/cluster-based** (each day a component we can add/adjust independently as we iterate), not a single hero project. The challenge **literally starts with `start-here`** as Day 1 (it owns onboarding). Day 5 crosses from keyless into connected (see Task C).
+
 - [ ] Progress is resumable across sessions via the profile marker; a returning owner picks up where they left off; opened-but-not-taken doorways are captured as data for later contextual (never pushy) re-offers.
 
-**Acceptance:** a keyless owner can complete all five days across sessions, resumably; each day delivers a real kept artifact; by Day 5 they have brand + voice + environment + a running routine locked into their own system; every routed app is registry-keyless (binding check); plain-language; suite green.
+**Acceptance:** an owner completes all five days across sessions, resumably; each day delivers a real kept artifact; Days 1-4 run fully keyless; by Day 5 they have brand + voice + environment locked in and have connected their first tools (Gmail + Calendar) with a routine running on them; every keyless day routes only to registry-keyless apps (binding check); plain-language; suite green.
 
-**Open design decisions (Vic):** (1) is the arc sequenced by cluster as above, or by a single hero project that compounds across days? (2) how hard does Day 5 open the shelf, given the community does the selling? (3) does the challenge own onboarding outright (start-here becomes Day 1) or run beside it?
+**Open design decisions (Vic):** how hard does Day 5 open the shelf, given the community does the selling? (Arc shape, start-here ownership, and the connector finale are now decided above.)
 
 ---
 
