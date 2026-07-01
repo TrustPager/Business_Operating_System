@@ -1682,10 +1682,11 @@ The old Tools menu has been split across three top-level sections in the navbar:
 #### Phone Number Settings — [Open](https://app.trustpager.com/settings/phone)
 - View and manage your SMS and voice phone numbers. Click any number row to open the detail page for that number.
 - **Phone number detail page** (`/settings/phone/:id`): shows the number's friendly name, capability badges (SMS/Voice/MMS), and the **Call Settings** card.
-- **Call Settings card:** Choose how to handle incoming calls using the three-way mode toggle:
+- **Call Settings card:** Choose how to handle incoming calls using the mode toggle:
   - **AI Voice Agent** -- select the agent that answers incoming calls. Auto-saves when you pick an agent.
   - **Forward** -- enter a destination in E.164 format (e.g. +61400000001). Auto-saves when you click Save.
-  - **Just log it** -- calls are logged to activity only; nothing answers and nothing forwards.
+  - **Answer in TrustPager** -- the call rings the browser softphone of the team member(s) you choose, so a person answers it live inside TrustPager (no separate app or desk phone). Pick one or more people: all their browsers ring at once, and whoever picks up first takes the call. They must be signed in to TrustPager to receive it. If no one answers, the call is logged as a missed call.
+- **After Hours card:** Turn this on to handle calls differently outside your business hours, independent of the mode above. Set your business days, open/close hours, and timezone, then choose what handles calls OUTSIDE those hours -- AI Voice Agent, Forward, or Answer in TrustPager. For example: your team answers in the browser during business hours, and your AI voice agent picks up after hours so no call is missed. Auto-saves.
 - **Outbound calls (read-only):** the "Outbound calls" section shows which AI agents are configured to dial out from this number. This is configured per voice agent, not here.
 
 **How to set up call forwarding:**
@@ -1694,6 +1695,18 @@ The old Tools menu has been split across three top-level sections in the navbar:
 3. In the **Call Settings** card, click **Forward** in the mode toggle.
 4. Enter the forwarding number in E.164 format (e.g. +61400000001).
 5. Click **Save**. The change applies immediately.
+
+**How to answer calls in the browser (Answer in TrustPager):**
+1. Go to [Settings > Phone](https://app.trustpager.com/settings/phone) and click the number.
+2. In the **Call Settings** card, click **Answer in TrustPager**.
+3. Pick the team member(s) whose browser should ring. Their selection saves automatically.
+4. When a call comes in, an incoming-call panel pops up in TrustPager for everyone selected; the first to click **Answer** is connected.
+
+**How to set up after-hours handling:**
+1. Go to [Settings > Phone](https://app.trustpager.com/settings/phone) and click the number.
+2. In the **After Hours** card, switch on **"Use a different handler outside business hours"**.
+3. Set your business days, open and close times, and timezone.
+4. Choose the mode for calls outside those hours -- **AI Voice Agent**, **Forward**, or **Answer in TrustPager** -- and fill in its detail (agent, number, or people). It saves automatically.
 
 #### Regulatory Compliance (Phone Number Setup for SMS) -- [Open](https://app.trustpager.com/settings/sms-setup)
 Some countries (including Australia) require identity verification before activating SMS or voice capabilities on a phone number. TrustPager guides you through creating and submitting a regulatory bundle.
@@ -1731,6 +1744,8 @@ When your voice agent (e.g. Evie, your AI receptionist) is connected to your Tru
 These capabilities are wired by your FinalPiece onboarding team as custom tools on your voice agent. No action is required on your end to enable them -- they are included in the voice agent setup.
 
 **Business-hours call forwarding:**
+
+> **Tip:** The easiest place to schedule different call handling by time of day is now the **After Hours** card on the phone number itself (Settings > Phone > click the number). It works for every mode -- AI Voice Agent, Forward, or Answer in TrustPager -- so you can, for example, have your team answer in the browser during business hours and your AI agent pick up after hours. The voice-agent option below still works for AI-answered numbers that forward to a phone number.
 
 If you want inbound calls automatically forwarded to a different number outside business hours (or during specific windows), you can set this up from the voice agent's detail page.
 
