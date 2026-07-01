@@ -244,6 +244,13 @@
     "requires_driver": "markitdown",
     "status": "active"
   },
+  "five-day-challenge": {
+    "data_path": "reasoning_only",
+    "function_slot": "floor",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
   "follow-up-radar": {
     "data_path": "mcp_tools",
     "function_slot": "crm",

@@ -119,7 +119,9 @@
 - Modify: `templates/CLAUDE.md` — extend the resumability marker with challenge progress state (`day_completed`, `wins_delivered`, `doorways_opened_not_taken`)
 - Reuse: `start-here` (Day 1), the built floor apps per day, the new voice/routine generators
 
-**Build (proposed arc — each day = one session, one cluster, a kept artifact, a transferable operator move, a low-key doorway):**
+**Shell SHIPPED 2026-07-01 (Days 1-4 live, Day 5 graduation + honest "what's next"):** `skills/five-day-challenge/SKILL.md` (the orchestrator + engagement doctrine + resumable daily flow), `commands/five-day-challenge.md`, and the profile marker extended with `challenge` / `challenge_wins` / `doorways_open`. Blank-canvas brand default also shipped (neutral `brand.json` + placeholder logo/favicons) so Day 1 builds onto a clean slate, not TrustPager teal. Two follow-ups remain: (1) build Day 5's live connector routine (Task C, blocked on connect-on-demand); (2) wire `five-day-challenge` into `check-onboarding-binding.py` as a fourth scanned surface (new extractor) so the primary onboarding path is registry-bound like the others.
+
+**Build (arc — each day = one session, one cluster, a kept artifact, a transferable operator move, a low-key doorway):**
 - [ ] **Day 1 — Know yourself & your market:** `start-here` brain-dump → business profile; `build-brand-strategy` + `research-a-competitor`. Move: *context in, leverage out.* Also lock the **full brand kit** and offer `tune-my-setup`.
 - [ ] **Day 2 — Find your voice & make it visible:** `build-my-voice` (company + personal) → `build-social-strategy` → `plan-my-content` → `write-post-copy`. Move: *set brand + voice once, produce forever.* Doorway: the creative studio (T1).
 - [ ] **Day 3 — Decide & think:** `grill-me-on-this-decision` + `price-my-work` → `write-a-proposal`. Move: *pressure-test your thinking, not just make stuff.* Doorway: connected CRM turns the proposal live.
