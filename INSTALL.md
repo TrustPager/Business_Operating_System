@@ -134,7 +134,9 @@ Sign up at [trustpager.com](https://trustpager.com).
 
 ## Updating
 
-When new skills ship:
+The easiest way: just ask Claude to **"update my Business Operating System."** It finds your install, pulls the newest version, refreshes your skills and commands, protects anything you have personalised, and tells you what changed. Restart Claude Code afterward so the new skills load.
+
+If you prefer to do it by hand:
 
 ```
 cd Business_Operating_System
@@ -142,7 +144,9 @@ git pull
 python tools/setup.py
 ```
 
-Setup is idempotent. It refreshes BOS-owned skills and commands in `~/.claude/`, updates the signpost if the clone moved, and prints a `[refresh]` line for each skill it updates. It never touches your TrustPager key or any skill you placed there yourself.
+Setup is idempotent. It refreshes BOS-owned skills and commands in `~/.claude/`, updates the signpost if the clone moved, seeds any new blank-canvas brand defaults, and prints a `[refresh]` line for each skill it updates. It never touches your TrustPager key or any skill you placed there yourself.
+
+**Your brand is safe across updates.** Your brand kit (`brand/brand.json`, your logo and favicons) is yours: it is not tracked by git, so `git pull` never overwrites it. A fresh install seeds a neutral blank canvas from `brand/defaults/`; once you set your brand with `/brand-my-workspace`, updates leave it alone.
 
 Run `python tools/check-install.py` afterward to confirm the floor is still green.
 

@@ -173,6 +173,37 @@ def _register_firecrawl_mcp() -> None:
     print()
 
 
+def _seed_brand(root: Path | None = None) -> None:
+    """Seed the owner's brand kit from brand/defaults/ if the live files are missing.
+
+    The live brand files (brand/brand.json, logo, favicons) are gitignored user-data,
+    so a fresh clone ships only the neutral defaults under brand/defaults/. Copy any
+    missing live file so the studios render and brand-my-workspace has a file to write.
+
+    Never overwrites an existing file, so it is safe on every setup and never clobbers
+    a brand the owner already set. This is what lets "git pull" updates never collide
+    with someone's branding: the brand they own is untracked, seeded once, then theirs.
+
+    ``root`` defaults to the BOS home; it is a parameter so it can be unit-tested
+    against a temp tree.
+    """
+    root = root or Path(_bos_home())
+    defaults = root / "brand" / "defaults"
+    if not defaults.is_dir():
+        return
+    seeded = 0
+    for src in sorted(defaults.iterdir()):
+        if src.is_file():
+            dst = root / "brand" / src.name
+            if not dst.exists():
+                shutil.copy2(src, dst)
+                seeded += 1
+    if seeded:
+        print(f"Set up your blank-canvas brand ({seeded} file(s)). "
+              "Run /brand-my-workspace anytime to make it yours.")
+        print()
+
+
 def _walk_for_key(obj: Any) -> str | None:
     if isinstance(obj, str):
         if obj.startswith("tp_live_") and len(obj) > 20:
@@ -421,6 +452,10 @@ def main() -> int:
     # keyed and keyless members alike. Best-effort; runs before the key logic so
     # upgraders (existing-key early-return below) get it too.
     _register_firecrawl_mcp()
+
+    # Seed the owner's blank-canvas brand kit if it isn't there yet. Runs before the
+    # key logic so every path (keyless, keyed, upgrader) gets it. Never overwrites.
+    _seed_brand()
 
     print(f"This will write your TrustPager API key to: {CONFIG_PATH}")
     print("(optional: the keyless floor works without it)")

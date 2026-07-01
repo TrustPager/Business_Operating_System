@@ -55,3 +55,16 @@ graphify-out/
 
 # Dogfood throwaway profile (tools/dogfood.py)
 .dogfood/
+
+# Your brand kit is YOURS. The live brand files are seeded from brand/defaults/
+# on setup and are never tracked, so updating (git pull) never collides with your
+# branding. brand-my-workspace writes to these; brand/defaults/ stays the neutral
+# blank-canvas fallback.
+brand/brand.json
+brand/logo.png
+brand/icon.png
+brand/favicon-16x16.png
+brand/favicon-32x32.png
+brand/favicon-192x192.png
+brand/favicon-512x512.png
+brand/favicon.ico

@@ -134,6 +134,7 @@ Stress-testing a decision, writing a sharp brief or prompt, hiring and onboardin
 - **Start Here**: Get your assistant up to speed on your business in one short conversation, and hand you a real win on the spot.
 - **Sync Team Standards**: Push a change to your team's standards out to everyone, with a per-person preview before it updates.
 - **Tune My Setup**: Set up Claude Code with sensible working-style defaults and safe-read permissions, additive and reversible at any time.
+- **Update BOS**: Update your Business Operating System to the latest version, safely
 - **What's Possible**: Show everything your system can already do for you, grouped by the job it gets done.
 - **Write A Job Ad**: Turn a role and its must-haves into a ready-to-post job ad in your voice, with screening questions that filter applicants.
 - **Write A Policy**: Turn how you actually handle something into clean, on-brand policy or FAQ text ready for your website, emails, or staff.

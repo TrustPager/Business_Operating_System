@@ -693,6 +693,13 @@
     "requires_driver": "none",
     "status": "active"
   },
+  "update-bos": {
+    "data_path": "reasoning_only",
+    "function_slot": "floor",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
   "update-pdf": {
     "data_path": "mcp_tools",
     "function_slot": "documents",
