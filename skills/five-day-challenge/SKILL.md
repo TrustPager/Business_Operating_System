@@ -117,7 +117,12 @@ below is keyless for Days 1 to 4.
 - **Mission:** get the system to understand your business, and hand them a real
   first win that fits their business.
 - **Run:** `start-here`, the brain-dump that sets up their profile and routes them
-  to the best-fit first win. Follow where it steers, do not force a fixed output.
+  to the best-fit first win. As part of it, if they give a business name or URL,
+  `start-here` scrapes their own website and searches their name (keyless
+  Firecrawl, with the built-in WebSearch/WebFetch as the fallback if Firecrawl is
+  not responding) to supplement what they told you, then confirms what it found
+  before trusting it. That "how did it already know that" moment is part of the
+  Day 1 magic. Follow where it steers, do not force a fixed output.
   For most owners that is a sharp positioning / brand-strategy brief
   (`build-brand-strategy`, the words: who you are, who it is for, the promise),
   and often a `research-a-competitor` read pairs well. For a product or creator
