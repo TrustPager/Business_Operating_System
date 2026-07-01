@@ -93,6 +93,8 @@
 
 **Acceptance:** a written statement of what the brand kit captures today vs the full-kit target, with any gap turned into a concrete task.
 
+**Audit result (2026-07-01): COMPLETE, no build needed.** `brand-my-workspace` writes name, tagline, full colour palette (primary + derived + semantic), fonts (+ `googleFontsHref`), and `logo.png` to `brand.json`; `sync-brand.py` propagates all of it to every studio. Two notes, neither a blocker: (1) the *verbal* brand (positioning, voice) lives separately under `marketing-strategy/<Brand>/`, so the challenge shell should present visual + verbal as one "your brand" moment; (2) the shipped default `brand.json` is still TrustPager (the de-brand debt the roadmap already tracks), overwritten on Day 1.
+
 ---
 
 ## Task E — Wire Claude-setup into the arc
