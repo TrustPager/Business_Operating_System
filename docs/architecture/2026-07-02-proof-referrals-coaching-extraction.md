@@ -32,11 +32,14 @@ capture. Together they complete the floor's growth story:
 ## 2. The founder enrichment — proof is a *transformation story*, not a review
 
 The centerpiece: a written 5-star review is weak proof; a **measured before→after
-transformation in the client's own voice** is the strongest proof there is
-(§7.2 Belief). So `build-my-proof` runs a **play across the whole engagement**,
-not a one-time ask. This is doctrine-perfect: the value equation's Arrival made
-provable (§6), the strongest likelihood signal (§7.2), proof-publishing (§10.5
-tier 4), and it fires the referral moment (§10.7). The
+transformation in the client's own voice** is the strongest proof there is. So
+`build-my-proof` runs a **play across the whole engagement**, not a one-time ask.
+This is doctrine-perfect: it raises the **Belief** variable of the value equation
+(§6, variable 2 — "how sure they are it will work for THEM… what proof,
+specificity, mechanism back the promise"), the value equation's **Arrival** made
+provable (§6, variable 1), and it feeds **proof publishing** (§10.5 tier 4) and
+fires the referral moment (§10.7). (A *performance/results guarantee* backing the
+proof is the §7.2 guarantee move — only where one is actually offered.) The
 `create_reputation_case_study` tool is literally `problem → solution → outcome →
 key_metrics` — the same spine.
 
@@ -82,9 +85,18 @@ Keyless: it produces scripts/docs from what the owner provides; an optional
 **Deepener doorway (reactive, outcome-only):** tracked review-request sends, live
 rating stats, case studies published on the reputation page, video hosting.
 
-**Doctrine anchors:** §6 (Arrival), §7.2 (Belief/proof stack), §10.5 (tiers 2 &
-4), §10.7 (the win moment feeds referrals), §11.3 (baseline is captured at
-activation — the first-win moment).
+**Doctrine anchors:** §6 (the Belief variable — proof/specificity/mechanism — and
+the Arrival), §10.5 (tiers 2 & 4: review timing + proof publishing), §10.7 (the
+win moment feeds referrals), §11.3 (baseline is captured at activation — the
+first-win moment). §7.2 only where a results/performance guarantee is offered.
+
+**Shape guard (§15 — HARD, esp. clinic/regulated).** For clinic/appointment and
+other regulated shapes, §15 bars outcome testimonials, before/after claims, and
+result guarantees in owned channels. `build-my-proof` must detect the shape and,
+for those, NOT produce outcome-transformation testimonials or before→after result
+claims; redirect to compliant proof (service-level: response time, turn-up,
+we-handle-everything; process; logistics), mirroring the clinic wording on the
+existing review-engine starter rows. Never publish a clinical-outcome claim.
 
 ## 4. Skill 2 — `set-up-referrals` (the referral engine)
 
@@ -113,9 +125,13 @@ are an L4 lead-getter, not an L1 machine — keep it simple for small owners).
 **Frontmatter:** `function_slot: strategy`, `requires_driver: none`,
 `requires_credential: none`, `data_path: reasoning_only`, `status: active`.
 
-Paste a call / quote-visit / discovery transcript (or bring one from
-`transcript-summary`, which owns the paste/local-file/transcribe path) → coaching
-against the **discovery arc (§12.5)**:
+**Input contract (HARD, keeps it `reasoning_only`):** `coach-my-calls` consumes
+**already-text** input only — a pasted transcript, or the text write-up
+`transcript-summary` already produced. For a local file or audio, the owner runs
+`/transcript-summary` first (it owns the markitdown local-file read; it does NOT
+transcribe audio, so audio must be transcribed upstream). `coach-my-calls` never
+calls a converter itself. Coaching a pasted transcript → work against the
+**discovery arc (§12.5)**:
 - Score the six beats (hear it → name it → map what they tried → sell the arrival
   → settle the concerns → seal it) and the three objection costumes
   (circumstances / other people / self).
@@ -135,11 +151,19 @@ calls, track improvement over time, feed `team-review`.
 
 One home for the word-of-mouth how-to that `build-my-proof` and `set-up-referrals`
 share: the transformation-story structure, the baseline-capture checklist, the
-video-testimonial script template, the review-ask timing, and the
-introduction-style referral ask. It **links to** §6/§7.2 (why transformation
-proof beats a star review), §10.5 (review timing + proof publishing), §10.7
-(referral engine), and §11.3 (baseline at activation) rather than restating them
-(one home). Ends with the positive-only + no-em-dash output rule.
+video-testimonial script template, **the canonical review-ask script + timing**,
+and the introduction-style referral ask. It **links to** §6 (the Belief variable
+— why transformation proof beats a star review), §10.5 (review timing + proof
+publishing), §10.7 (referral engine), and §11.3 (baseline at activation) rather
+than restating them (one home). Ends with the positive-only + no-em-dash rule.
+
+**Review-ask one home (reconcile the three surfaces).** The review-ask
+script/timing template lives ONLY here. `get-found-online` keeps *flagging* the
+review gap as a §10.5 fix but points to `build-my-proof` (via this method file) to
+build it, rather than carrying its own script. The existing "A review engine that
+runs itself" starter-projects row is scoped to the connected automation/wiring
+angle (`write-prompt` + `design-nurture-sequence`), with the keyless script now
+owned by `build-my-proof`; reconcile that row's copy so it doesn't duplicate.
 
 `coach-my-calls` references `business-method.md` §12.5 directly (it is already a
 complete rubric) — no separate method file needed.
@@ -148,11 +172,15 @@ complete rubric) — no separate method file needed.
 
 - **`kernel/registry.json`** — three entries, `reasoning_only` / `none` / `none`
   (copy `grill-me-on-this-decision`'s shape; no `uses_tools`).
-- **`knowledge/starter-projects.md`** — a row for each in the relevant group
-  (🤝 Stay on top of customers / 🏆 Win work), add to the §2 keyless-core pool,
-  and to the §4 relief→project mapping (proof/referrals under "finding leads /
-  looking professional / staying on top of customers"; coaching under a
-  sales/"win more of what I quote" relief).
+- **`knowledge/starter-projects.md`** — a row for each, add to the §2
+  keyless-core pool, and to the §4 relief→project mapping. Placement:
+  - `build-my-proof` → 🤝 Stay on top of customers group; §4 under "looking
+    professional" and "staying on top of customers".
+  - `set-up-referrals` → 🤝 group; §4 under "finding leads" and "staying on top
+    of customers".
+  - `coach-my-calls` → 🏆 Win work group (there is no sales-motion group). **§4
+    has no sales/conversion relief key today — ADD one** (e.g. "win more of what
+    I quote / closing the sale" → `coach-my-calls`); do not assume it exists.
 - **Do NOT hand-edit `whats-possible`** (runtime registry reader).
 - **`docs/CAPABILITIES.md`** — regenerate via `python tools/export-capabilities.py`.
 - **`docs/architecture/trustpager-to-floor-extraction.md`** — move these three
@@ -165,12 +193,25 @@ complete rubric) — no separate method file needed.
   with the right "before" data; wrap computes the before→after delta and produces
   BOTH a `problem→solution→outcome→metrics` case study AND a natural, short video
   script in the client's voice; positive-only, no em dash; deepener reactive.
+  **No invented data (HARD):** the case study and video script use only the
+  owner's supplied numbers and the client's real words — never a fabricated quote
+  or metric; unknowns are placeholders the owner fills. Also test the
+  clinic-shape guard (regulated shape → no outcome testimonial/before-after).
+  **Baseline persistence:** the slug must be deterministic; wrap must handle
+  "baseline file not found" gracefully (reconstruct from the owner's memory and
+  say so). Keyless owners on a different machine losing the file is acceptable and
+  stated.
 - **`set-up-referrals`:** pass bar: the ask is an *introduction* not "any names?",
   timed to the win moment, mutual reward, and it references handing off from a
   captured win; shape-aware on incentives.
 - **`coach-my-calls`:** paste a flawed discovery transcript. Pass bar: scores the
   six beats, names the 1-2 highest-leverage fixes (not a laundry list), gives a
   rehearsal line, keeps the ethics line, no invented transcript content.
+  **Tone:** leads with what went well and frames fixes as forward moves (the
+  get-found-online "forward move, never what they lack" rule). This is
+  *internal/coaching voice* to the owner, so plainly naming what to improve is
+  fine (per the pain-language-in-discovery memory) — but it stays encouraging, not
+  harsh.
 
 ## 9. Non-goals (YAGNI)
 
