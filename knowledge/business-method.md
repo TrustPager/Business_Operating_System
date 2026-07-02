@@ -799,7 +799,7 @@ can hold. Every move lands on a real BOS surface.
 
 | Constraint | Situation | Move | Executes via |
 |---|---|---|---|
-| LEADS | New business, no pipeline | Warm outreach at Rule-of-100 (10.1-10.2); one channel | `plan-my-content`, `write-post-copy`, drafts in chat |
+| LEADS | New business, no pipeline | Warm outreach at the volume floor (10.1-10.2); one channel | `plan-my-content`, `write-post-copy`, drafts in chat |
 | LEADS | Local business wants "more leads" | Gate 10.5 first: answer speed + review engine before ANY spend | `missed-call-recovery`, `follow-up-radar`, `automate-this` (connected) |
 | LEADS | Content running, no enquiries | Swap the lead magnet, not the channel; name it like an offer | `describe-a-product` (magnet), `build-social-strategy`, `plan-my-content` |
 | LEADS | "Should we try [new platform]?" | More-Better-New gate (4.4); usually the answer is a Better move on the current channel | `grill-me-on-this-decision` |
@@ -811,6 +811,7 @@ can hold. Every move lands on a real BOS surface.
 | DELIVERY | Owner is the product | Delivery grid (11.6) + prototype build (12.4): document, one-to-many the teachable parts | `delegate-this-work`, `write-a-policy`, `sync-team-standards`, `build-document` |
 | RETENTION | One-off customers, no repeats | Continuity + back-end offer (9.4); premium tier for the top 20% | `design-nurture-sequence`, `describe-a-product`, `renewal-tracker` |
 | RETENTION | Members/clients quietly leaving | Activation protocol (11.3) + retention cadence (11.4) + cancellation saves (11.5) | `design-nurture-sequence`, `follow-up-radar`, `set-up-a-routine` |
+| RETENTION | Happy customers, referrals thin (directional: under ~25% of new business) | Engineer the ask (10.7): at the high-emotion moment, as an introduction, mutual reward, tracked | `work-order-radar`, `draft-reply`, `automate-this` (connected) |
 | PROFIT | Busy but broke | Margin gauge (8.1) → delivery grid or price rise (8.4); check comp structure and the cost floor (8.6) | `profit-per-job`, `price-my-work`, `cash-flow-forecast` |
 | PROFIT | Close rate suspiciously high | Underpricing (8.2, directional): staged rises to the healthy band | `price-my-work`, `grill-me-on-this-decision` |
 | PROFIT | Cash tight despite sales | Cash pull-forward (9.5) + 30-day test (9.2) | `cash-flow-forecast`, `outstanding-invoices` |

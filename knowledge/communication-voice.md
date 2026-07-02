@@ -2,6 +2,13 @@
 
 **The one voice every customer-facing message uses — from anyone on the team.** Email, SMS, portal note, fix confirmation, onboarding update. It is how the business sounds to a customer. When five people send messages in five tones, the business feels disorganised; one voice builds trust and removes the customer's effort.
 
+**Scope note (labelled boundary, not drift):** this voice governs operational
+and service messages. Drafts inside a live sales conversation — a discovery
+follow-up, a proposal — follow the discovery arc (business-method.md 12.5)
+and the content-rules bridge (§18): they may play back the customer's stated
+problem once, in the customer's own words, then lead and close on the
+outcome.
+
 ## The voice in one line
 Plain, warm, reassuring, and short: lead with the outcome, say what we did in one human sentence, give one clear next step, and stop.
 

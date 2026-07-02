@@ -32,6 +32,18 @@ We do `<<< short description: what you sell, who you sell to >>>`. Team size: `<
 
 **The bit I'd most love to hand off:** `<<< what eats most of your week, the thing you'd hand a capable new employee first >>>`
 
+## How the business is running (labelled guesses — confirm before relying on them)
+
+> Filled from what I volunteer or what my workspace shows; never asked as an
+> interview. Each line stays labelled (stated / estimated / diagnosed) so a
+> guess is never treated as a fact.
+
+- Rough revenue and goal: `<<< only if I volunteered it (stated) >>>`
+- How full my calendar is: `<<< e.g. "booked out 3 weeks" (stated) >>>`
+- Customers find me: `<<< locally / anywhere / both (stated) >>>`
+- What I think is stopping me: `<<< my own words (stated — data, not the diagnosis) >>>`
+- Current pressure point: `<<< only when a diagnosis session has named one (diagnosed, with date) >>>`
+
 If I've connected a CRM (e.g. TrustPager), treat it as the source of truth for everything related to opportunities, contacts, companies, communications, and tasks. Until then, work from this profile and what I share.
 
 ## My products / services

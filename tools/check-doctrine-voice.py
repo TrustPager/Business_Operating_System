@@ -35,10 +35,12 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
-# Paths where source coinages are allowed (provenance spots only).
+# Paths where source coinages are allowed: the provenance spots, plus this
+# gate's own teeth-test (which plants the banned terms on purpose).
 ALLOWED_PREFIXES = (
     "knowledge/business-method.md",
     "docs/architecture/research/",
+    "tests/test_doctrine_voice.py",
 )
 
 # Each entry: (label, compiled pattern, the BOS-native replacement to suggest).

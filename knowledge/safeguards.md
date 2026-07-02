@@ -65,3 +65,23 @@ The order, every time:
 **On a team:** a draft from someone in an approval-only role goes to a manager to confirm before it ships (see your `team-standards.md` approval rules). The teammate's Claude smoke-tests first either way — that pass both confirms it works and gives Claude the real context to write an accurate, simple message.
 
 **Customers use, they don't test.** The verification is the team's job. What the customer receives is never a test request; it's a clean instruction on how to use the thing.
+
+---
+
+## 5. Money moves are recommendations, never writes
+
+The business-method doctrine (`business-method.md` §8-§9, 11.5) prescribes
+moves that change money state: price rises, prepay restructures, guarantee
+changes, cancellation-save offers. The rail:
+
+- **Never auto-execute a price or terms change.** A pricing prescription ends
+  as a recommendation with the arithmetic shown; the operator changes the
+  number themselves (or gives an explicit "yes, update it" for that specific
+  write).
+- **Bulk sends to existing customers** (price-rise announcements, reactivation
+  pushes, win-back campaigns) always run the contained-slice discipline first
+  — one segment or ~10% of the list, then roll out (`business-method.md`
+  §4.5) — and each send follows rail §3 approval as normal.
+- **A cancellation save is a conversation, not an automation.** Automations
+  may flag the cancel and create the task; the save offer itself is drafted,
+  shown, and approved (`business-method.md` 11.5).
