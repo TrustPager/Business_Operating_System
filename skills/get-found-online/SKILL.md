@@ -77,6 +77,16 @@ engine → 3 profile completeness → 4 proof publishing → 5 community presenc
 or keyword work while answer-speed or a review-ask is missing** — those come
 first, because they win more local jobs than any ranking tweak.
 
+**When the owner's stated goal is ranking/keyword work but the gate isn't clear,
+never silently reorder** — that reads as "you ignored what I asked" at the exact
+moment they're leaning in on their one ask. Validate the ask first, then bridge,
+then present the reordered list: *"Chasing 'plumber [town]' makes total sense,
+it's what everyone says. Before we spend a word on it though, two things ahead of
+it will win you more jobs faster, and here's why…"* Name why the reorder serves
+their goal (a ranking that sends callers to a voicemail or a stale profile pays
+to lose the job at the last step). The owner should feel helped toward their
+goal, never overridden.
+
 ## Step 3 — SERP / winnability spot-check (search)
 
 For 1-3 target terms the owner would want to win, `search` and read the live top

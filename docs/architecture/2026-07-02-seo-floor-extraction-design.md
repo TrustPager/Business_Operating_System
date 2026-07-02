@@ -167,6 +167,13 @@ The doc names the two guard scripts the pattern must pass: `tools/manifest.py`
   tag), stays bounded (no 100-page crawl, no invented volumes), and marks the
   connected deepeners without a cold TrustPager pitch. Output positive-only, no
   em dash.
+  **Result (2026-07-02): 5/5 PASS** on a Ballarat plumber who asked to "rank for
+  plumber Ballarat" — the skill overrode the stated goal, led with missed-call
+  text-back + review engine, gave an honest directory-dominated-SERP winnability
+  read, stayed bounded (1 scrape + 2 searches), and handed exact fixes. Dogfood
+  surfaced one fix now applied: Step 2 now instructs *how* to phrase the reorder
+  of the owner's stated goal (validate → bridge → reorder, never silent), the
+  highest-trust-risk moment in the skill.
 
 ## 8. Non-goals (YAGNI)
 
