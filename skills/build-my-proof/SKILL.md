@@ -99,6 +99,15 @@ client's real words. Never fabricate a quote, a metric, or a result. Anything yo
 don't have is a `[placeholder]` the owner fills. A made-up testimonial is worse
 than none.
 
+**No invented voice, either (this is the subtle one).** Every sentence in the
+testimonial script must be either the fixed template scaffold (the before / we-did
+/ now structure and the neutral connective words) or the client's own supplied
+words. Do NOT add persuasive lines the client never said, even if they sound
+natural, no invented call-to-action ("if you're where I was, do this"), no
+invented sentiment, no invented urging. Putting words in the client's mouth is
+the same failure as inventing a metric. If a closing line would help, mark it
+`[optional line for the client to add in their own words, if they agree]`.
+
 ## Hand off to referrals
 
 A captured win is the best moment to ask for a referral (§10.7). After wrap, offer

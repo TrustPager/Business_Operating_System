@@ -42,7 +42,12 @@ would give.
 
 Work through the discovery arc and note, for each, what happened:
 1. **Hear it** — did they draw out the real problem in the buyer's words before
-   pitching, or pitch to a guess?
+   pitching, or pitch to a guess? **If the buyer never speaks more than a sentence
+   or two before the pitch starts, that IS a beat-1 failure** — call it out
+   directly; do not credit a one-line fragment ("our bathroom's old") as
+   discovery. A call where the seller monologues and the buyer only says "okay /
+   sounds good" is the commonest failure pattern, and it makes everything after
+   it (including the price) land on a guess.
 2. **Name it** — did they play the problem back and get agreement?
 3. **Map what they've tried** — did they position as a different path, not "same
    but better"?

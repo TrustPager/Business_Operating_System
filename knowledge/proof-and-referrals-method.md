@@ -120,9 +120,11 @@ engineered ask. The ask is where most owners leave money on the table.
   exactly when `build-my-proof` captures a win, so the two hand off: capture the
   win, then ask for the introduction while they're delighted.
 - **Make the reward mutual, one-click, tracked, fast-paid.** A reward for both
-  the referrer and the new customer. Match the reward to the shape (§15): some
-  regulated shapes bar cash-for-referral, so use a service credit, a donation, or
-  a simple thank-you where cash isn't allowed.
+  the referrer and the new customer. Match the reward to the shape via
+  `business-method.md` §15's referral & reward-inducement note (the canonical
+  home): regulated shapes (finance/broking, clinic, insurance, legal) can be
+  barred from cash or outcome-tied referral rewards, so use a service credit, a
+  donation, or a thank-you there; non-regulated shapes may use cash/credit freely.
 - **Keep it simple (§10.9).** Most small businesses live at referral level L1-L4;
   a plain ask + a tracking sheet is right. Do not build multi-tier affiliate
   machinery for a 2-person shop.

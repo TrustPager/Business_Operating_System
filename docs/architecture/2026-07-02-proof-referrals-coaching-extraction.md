@@ -213,6 +213,25 @@ complete rubric) — no separate method file needed.
   fine (per the pain-language-in-discovery memory) — but it stays encouraging, not
   harsh.
 
+## 8a. Validation result (2026-07-02)
+
+All three dogfooded on Sonnet, **6/6, 6/6, and effectively 5/5**:
+- `build-my-proof` (6/6): clean kickoff→wrap round-trip; the §15 clinic guard
+  fired and redirected to compliant proof. Fix applied: the no-invented-data rule
+  now also bans invented *voice* (persuasive lines the client never said in the
+  testimonial script), not just invented facts.
+- `set-up-referrals` (5/5, both runs): introduction-style ask, win-moment timing,
+  simple mutual reward + tracking sheet, and it caught the mortgage-broker
+  cash-inducement trap and offered compliant alternatives. Anti-drift fix applied:
+  the referral-inducement rule now has ONE canonical home — a new "Referral &
+  reward-inducement note" in `business-method.md` §15 — and the skill + method
+  file key off it instead of hardcoding their own list, so a newly-added regulated
+  shape inherits the constraint.
+- `coach-my-calls` (6/6): coached against the six beats, 1-2 fixes not a laundry
+  list, real rehearsal lines, led with what went well. Fix applied: Step 1 now
+  calls a seller-monologue / near-silent-buyer transcript a beat-1 failure rather
+  than crediting a one-line fragment as discovery.
+
 ## 9. Non-goals (YAGNI)
 
 - No live review/referral sends or commission tracking on the floor (deepeners).

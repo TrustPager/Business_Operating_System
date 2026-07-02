@@ -58,10 +58,13 @@ solved, a great review just left) and attach the ask to those.
 
 Make the reward mutual (both the referrer and the new customer get something),
 one-click, tracked, and fast-paid. Recommend a specific structure for their
-business. **Shape guard (§15):** some regulated shapes (finance, clinic) bar
-cash-for-referral or referral inducements, so for those use a service credit, a
-charitable donation, a genuine thank-you, or skip the incentive and rely on the
-relationship. Check before recommending cash.
+business. **Shape guard — key off `business-method.md` §15's referral &
+reward-inducement note (the canonical home):** regulated shapes (finance/mortgage
+broking, clinic/health, insurance, legal) can be barred from cash or outcome-tied
+referral rewards to unlicensed parties, so for those use a service credit, a
+charitable donation, a genuine thank-you, or relationship-only, and tell the
+owner to check their regulator. Non-regulated shapes may use cash/credit freely.
+Read §15's note rather than guessing, so a newly-added shape inherits the rule.
 
 ## Step 4 — Build the tracking sheet
 

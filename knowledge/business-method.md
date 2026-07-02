@@ -818,6 +818,19 @@ cancellations from a standby list, and treat show-rate as a tracked funnel
 stage. Directional planning constants: expect a meaningful minority of booked
 strangers to no-show without reminders; deposits move it most.
 
+**Referral & reward-inducement note (adapted — the canonical home for this
+rule).** Regulated shapes can lawfully bar cash or outcome-tied referral rewards
+paid to unlicensed parties (conflicted-remuneration / referral-fee rules).
+Applies most sharply to **finance / mortgage broking, clinic / health, insurance,
+and legal**; jurisdiction-specific real-estate referral-fee limits exist too.
+For those shapes, do NOT design a cash-per-settled-referral or outcome-tied cash
+inducement; use a non-cash thank-you, a service credit, or a charitable donation,
+and tell the owner to check their own regulator. Non-regulated shapes (trades,
+hospitality, most services) may use mutual cash/credit rewards freely. Any
+referral or reward skill (`set-up-referrals`, proof/review work) keys off THIS
+note rather than hardcoding its own list, so a newly-added shape inherits the
+constraint.
+
 ---
 
 ## §16. The prescription table (situation → move → the skill that executes)
