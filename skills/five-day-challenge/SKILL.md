@@ -116,24 +116,24 @@ below is keyless for Days 1 to 4.
 ### Day 1: Know your business, land your first win
 - **Mission:** get the system to understand your business, and hand them a real
   first win that fits their business.
-- **Run:** `start-here`, the brain-dump that sets up their profile and routes them
-  to the best-fit first win. As part of it, if they give a business name or URL,
-  `start-here` scrapes their own website and searches their name (keyless
-  Firecrawl, with the built-in WebSearch/WebFetch as the fallback if Firecrawl is
-  not responding) to supplement what they told you, then confirms what it found
-  before trusting it. That "how did it already know that" moment is part of the
-  Day 1 magic. Follow where it steers, do not force a fixed output.
-  For most owners that is a sharp positioning / brand-strategy brief
-  (`build-brand-strategy`, the words: who you are, who it is for, the promise),
-  and often a `research-a-competitor` read pairs well. For a product or creator
-  business it may steer toward the look and feel instead. Let the owner's business
-  decide.
-  When the dump names more than one thing eating their week, `start-here` asks
-  which to punch first — let that choice happen; the owner steering the aim is
-  part of the Day 1 magic. And keep the win tangible: if the best vehicle is a
-  strategy brief, deliver it applied (the brief plus the first thing written from
-  it — a page opener, a first post, a one-line pitch), so Day 1 ends with
-  something they could use this afternoon, never only a framework.
+- **Run:** `start-here` — the brain-dump that sets up their profile and routes
+  them to the best-fit first win. It owns the flow; follow it exactly. Four beats
+  inside it that make or break Day 1:
+  - **Research them silently first.** If they give a business name or URL,
+    `start-here` scrapes their site and searches their name (keyless Firecrawl,
+    built-in WebSearch/WebFetch as the fallback), then confirms what it found
+    before trusting it. The "how did it already know that" moment is Day 1 magic.
+  - **Let the aiming question happen.** If they name two or more things eating
+    their week, `start-here` ASKS which to punch first. Never auto-pick for them;
+    the owner steering the aim is part of the win.
+  - **The win ships applied.** If the best vehicle is a strategy brief, deliver
+    it WITH the first thing written from it (a page opener, a first post, a
+    one-line pitch), so Day 1 ends with something usable this afternoon, never
+    only a framework.
+  - **Let the owner's business decide the win.** For many owners it is a
+    positioning brief (`build-brand-strategy`), often paired with
+    `research-a-competitor`; a product or creator business may steer elsewhere.
+    Never force a fixed output.
 - **Brand here means STRATEGY, not the visual look.** Day 1 is positioning and
   clarity, not logo/colours/fonts. The visual kit (`brand-my-workspace`) is a
   separate, contextual step that comes up on Day 2's doorway or when they ask,
@@ -147,6 +147,8 @@ below is keyless for Days 1 to 4.
 
 ### Day 2: Find your voice, make it visible
 - **Mission:** lock in how you sound, then turn it into content ready to post.
+- **Headline win (do this first, keep it even if the day stops here):**
+  `build-my-voice` — their voice locked in, plus one real post drafted in it.
 - **Run, in order:** `build-my-voice` (read their real writing, run the
   this-not-that lock-in, write their voice), then `build-social-strategy`, then
   `plan-my-content` for a dated 1-2 week calendar, then `write-post-copy` to
@@ -164,6 +166,9 @@ below is keyless for Days 1 to 4.
 
 ### Day 3: Decide and win the work
 - **Mission:** use the system to think, not just to make things.
+- **Headline win (do this first, keep it even if the day stops here):**
+  `price-my-work` → `write-a-proposal` — a real job priced and the proposal
+  ready to send.
 - **Run, in order:** `grill-me-on-this-decision` on a real decision they are
   sitting on, then `price-my-work` on a real job, then `write-a-proposal` to turn
   that into a branded proposal in their voice.
@@ -176,6 +181,9 @@ below is keyless for Days 1 to 4.
 
 ### Day 4: Handle the money and the paperwork
 - **Mission:** turn mess into order, and see your numbers clearly.
+- **Headline win (do this first, keep it even if the day stops here):** whichever
+  of the two bites harder for THIS owner — `cash-flow-forecast` if money worry
+  came up, otherwise `extract-document` on their real messy file.
 - **Run (pick what fits their business):** `extract-document` or
   `import-from-anywhere` on a real messy file, `build-spreadsheet` to structure
   it, and `cash-flow-forecast` for a week-by-week view of their money.
