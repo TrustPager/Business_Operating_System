@@ -16,6 +16,7 @@ Quoting, proposals, positioning, sizing up a competitor, researching a prospect 
 **Works now (keyless)**
 
 - **Describe A Product**: Turn a photo or a few notes into an on-brand product description ready for your store, a listing, or a catalogue.
+- **Get Found Online**: A bounded "are you findable, and what to fix first" audit for a local or service business, ending in a prioritized fix list you can action this week
 - **Price My Work**: Turn the cost of a job into a priced breakdown you can stand behind, with your margin shown and the assumptions written down.
 - **Quote From Photo**: Turn a site photo and a few notes into a drafted quote or proposal in about a minute, ready for you to review.
 - **Research A Competitor**: Read a rival's page and turn it into a sharp one-page read: how they position, what they charge, and your openings.

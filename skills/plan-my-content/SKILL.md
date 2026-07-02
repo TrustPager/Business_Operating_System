@@ -86,7 +86,18 @@ Spread the pillars across the dates so the mix is balanced (no channel goes
 three posts deep on one pillar while another pillar never appears). When a
 pillar recurs, vary the FORMAT, not the theme: the same proof pillar can
 appear as a before/after, a customer story, and a one-tip carousel
-(business-method.md §4.4). For EVERY slot, fill all five fields:
+(business-method.md §4.4).
+
+**Search-intent lens (bias topic choice toward what people actually search).**
+Where a pillar can be aimed at a real search, prefer topics close to buying
+("cost to rewire a house", "emergency [trade] [suburb]") over broad awareness
+ones, and favour topics the owner can win (see `knowledge/seo-method.md`). If the
+owner has run `get-found-online`, use the winnability read it produced to steer
+topic choice. **This skill is reasoning-only: do not run a web search yourself**
+— reason from the pillars, the owner's terms, or a spot-check they bring;
+`get-found-online` is where live SERP reads happen.
+
+For EVERY slot, fill all five fields:
 
 - **Date** — the real calendar date (and weekday).
 - **Channel** — where it posts.

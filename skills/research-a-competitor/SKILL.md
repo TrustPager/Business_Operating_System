@@ -88,6 +88,15 @@ that this rival can't, stated to pass the only-we rubric (§14).
    has and they don't, a segment the rival ignores. Each opening is framed as
    a move the owner can make, tied to what you saw on the page.
 
+**Findability lens (a light add, when it's relevant).** While you're on the
+rival's page, note how they're set up to get *found*, not just to convert: what
+services/topics they give a dedicated page that the owner doesn't (a content
+gap), and whether their page reads as built for search (a clear service+place
+title, reviews on the page, a real CTA). Surface one or two of these as openings
+where they're genuinely useful. This is the *rival* read; the owner's own-site
+findability audit is `get-found-online` (see the hand-over). Keep it to what's on
+the one page, no crawling.
+
 ## Step 3 — Hand it over
 
 Show the read, name the URL it came from, and point to the one or two openings
@@ -98,9 +107,10 @@ Then offer the natural next step in plain language, without overselling:
 
 > Want me to turn the strongest opening into a positioning line or a content
 > angle for you? That's `build-brand-strategy`, which walks the full
-> positioning ladder. And once your CRM is connected, I can keep a read like
-> this on file against the right account so it's there next time you're
-> pitching head to head.
+> positioning ladder. If a content gap stood out, `get-found-online` audits YOUR
+> own site and local search presence and hands you a fix list. And once your CRM
+> is connected, I can keep a read like this on file against the right account so
+> it's there next time you're pitching head to head.
 
 ## Output shape — positive-only, no em dashes
 

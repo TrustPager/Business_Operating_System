@@ -283,6 +283,13 @@
       "mcp__trustpager__void_form_submission"
     ]
   },
+  "get-found-online": {
+    "data_path": "fetch_rest",
+    "function_slot": "research",
+    "requires_credential": "none",
+    "requires_driver": "firecrawl",
+    "status": "active"
+  },
   "grill-me-on-this-decision": {
     "data_path": "reasoning_only",
     "function_slot": "strategy",
