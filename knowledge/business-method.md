@@ -16,6 +16,13 @@ to moves to the BOS skill that executes them. The per-shape adapters (§15)
 translate everything for the seven business shapes in
 `knowledge/industry-notes.md`.
 
+**The vocabulary is the system's own (hard rule).** The owner never hears a
+source's coined term or a guru's name; every concept surfaces in plain
+language or under the names in THIS file. Source names and coinages live only
+in this file's provenance spots (the header above, §3's label, and the §19
+crosswalk) — never in a skill body, a chat reply, or anything the owner reads.
+If a reply is about to use a source's brand-name for a framework, use ours.
+
 ---
 
 ## §1. The operating stance
@@ -140,7 +147,7 @@ correct — waiting is the failure in judgment.
 1. **All deliberate effort on the one constraint.** Sequential beats parallel;
    the other fires create urgency for this fix. "Could we improve that other
    thing? Probably. Is it the constraint? No."
-2. **The Silent Sixth:** the standing priority underneath the priority — keep
+2. **The standing engine:** the priority underneath the priority — keep
    selling, keep delivering. The proven engine never stops while the constraint
    is attacked.
 3. **Expect bottleneck ping-pong.** Fix conversion → volume swamps delivery →
@@ -178,7 +185,7 @@ later rows exist so the system knows what NOT to prescribe early.
 |---|---|---|
 | **~$0-10k/mo** | Cash over perfection: sell before building, collect up front. Warm outreach to existing contacts first, then ONE channel. Owner does all selling. Take any reasonable customer (aim deliberate acquisition at one avatar, but take the money). | Logo/website polish, hiring, second offers, automation for its own sake, "passive income" structures |
 | **~$10-50k/mo** | The Rule of One: one avatar, one product, one channel until ~$1M/yr. Raise prices (his standing workshop claim, directional: about half the room is underpriced). Fix the sales motion. Document what you do as you do it; first hires take the owner's lowest-value hours. | New avatars/products/channels, personal brand as a project, a second location |
-| **~$1-5M/yr** | Retention and LTV become the multiplier. Profit is a discipline (set the line, keep it). One big bet a year on top of the Silent Sixth. Reinvest in the two capital items of a service business: talent and reputation. Weekly testing cadence. | Founder bootstrapping every new function personally; parallel constraint-fixing; diversifying into a second business |
+| **~$1-5M/yr** | Retention and LTV become the multiplier. Profit is a discipline (set the line, keep it). One big bet a year on top of the standing engine. Reinvest in the two capital items of a service business: talent and reputation. Weekly testing cadence. | Founder bootstrapping every new function personally; parallel constraint-fixing; diversifying into a second business |
 | **~$5M+/yr** | Buy knowledge: hire people who have already built the function. The owner allocates like an investor. Talent attraction becomes a second funnel. | The founder as doer; untested company-wide changes |
 
 Skill-stacking order for the OWNER as they grow: something to sell → promotion
@@ -188,32 +195,32 @@ Skill-stacking order for the OWNER as they grow: something to sell → promotion
 
 ## §6. The value equation (score any offer before touching price or leads)
 
-**Value = (Dream Outcome × Perceived Likelihood) ÷ (Time Delay × Effort &
-Sacrifice).** Every variable is *perceived* — the buyer's head, not the
-spec sheet. The denominator is the higher-leverage side: most small operators
-compete on bigger promises; the money is in faster and easier.
+**Value = (the Arrival × the Belief) ÷ (the Wait × the Work).** Four
+variables, all *perceived* — the buyer's head, not the spec sheet. The
+denominator is the higher-leverage side: most small operators compete on
+bigger promises; the money is in faster and easier.
 
 **Scoring procedure (0-5 each; run on the owner's actual offer):**
-1. **Dream Outcome** — does the offer name the arrival the buyer pictures, or
-   the deliverable? 0 = "6 sessions of physio", 5 = "back on the netball court
-   by March".
-2. **Perceived Likelihood** — what proof, specificity, mechanism, and guarantee
-   back the promise? 0 = bare claim, 5 = named guarantee + local proof +
-   visible mechanism.
-3. **Time Delay** — how soon does the buyer FEEL a first win? 0 = months and
+1. **The Arrival** (what they end up with) — does the offer name the
+   destination the buyer pictures, or the deliverable? 0 = "6 sessions of
+   physio", 5 = "back on the netball court by March".
+2. **The Belief** (how sure they are it will work for THEM) — what proof,
+   specificity, mechanism, and guarantee back the promise? 0 = bare claim,
+   5 = named guarantee + local proof + visible mechanism.
+3. **The Wait** — how soon does the buyer FEEL a first win? 0 = months and
    invisible, 5 = an engineered win within days of paying.
-4. **Effort & Sacrifice** — what must the buyer still do, learn, or give up?
+4. **The Work** — what must the buyer still do, learn, or give up?
    0 = heavy DIY, 5 = done-for-you.
 
 **Stop rules:** the lowest-scoring variable is the offer's constraint — fix it
-before the others. Do not raise price while Likelihood scores 0-2 (premium
+before the others. Do not raise price while the Belief scores 0-2 (premium
 prices on low-certainty offers buy refunds and resentment). "Fast beats free":
 when in doubt, cut the denominator.
 
-**Raising each variable:** Outcome — sharpen, don't inflate; state it in the
-buyer's own words and status terms. Likelihood — proof, guarantee (§7.2),
-narrower avatar, visible mechanism. Time — engineer a first win in the first
-days (this is also the retention lever, §11.3). Effort — move steps from
+**Raising each variable:** Arrival — sharpen, don't inflate; state it in the
+buyer's own words and status terms. Belief — proof, guarantee (§7.2),
+narrower avatar, visible mechanism. Wait — engineer a first win in the first
+days (this is also the retention lever, §11.3). Work — move steps from
 they-do to you-do; remove decisions and homework.
 
 ---
@@ -240,7 +247,7 @@ between "generic" and "hyper-specific").
 WITHIN the niche rather than switching niches (switching resets all learning
 to zero).
 
-**7.1 The Grand Slam build (5 steps).**
+**7.1 The Category-of-One build (5 steps).**
 1. Write the dream outcome as an arrival scene in the buyer's words.
 2. List EVERY problem between the buyer and it — before, during, after
    purchase; through four lenses per step (won't work for me / too slow / too
@@ -293,11 +300,12 @@ below expected demand, sell out, then say so. Urgency = time: rolling cohorts
 ("today's yes starts Monday"), seasonal windows with real end dates,
 bonus/price deadlines, and the one sanctioned discount-shaped move — a real
 price RISE announced with a deadline. Fake caps and fake countdowns destroy the
-Likelihood variable and, for some shapes, are traps outright (§15).
+Belief variable and, for some shapes, are traps outright (§15).
 
-**7.5 Naming (MAGIC) and the refresh order.** Name offers with 3-5 of:
-Magnetic reason-why, Avatar, Goal (outcome-led, per the content rules §18),
-Interval, Container word (Challenge, Blueprint, Sprint, System). When response
+**7.5 Naming (the five parts) and the refresh order.** Name offers with 3-5
+of: a reason-why hook, who it's for, the result (outcome-led, per the content
+rules §18), the timeframe, and a container word (Challenge, Blueprint, Sprint,
+System). When response
 decays, refresh in cost order: creative → body copy → headline/name → duration
 → enhancer → structure. The same offer renamed is new to the market; renaming
 is a near-free lead-flow reset.
@@ -370,7 +378,7 @@ when the money model starts working, operations become the next constraint
 - **Survival bar:** cash collected from a new customer in their first 30 days
   covers CAC + cost of fulfilment. Below this, marketing spend is a loan the
   business makes to itself.
-- **Self-funding bar (client-financed acquisition):** 30-day gross profit >
+- **Self-funding bar:** 30-day gross profit >
   2 × (CAC + fulfilment cost) — one customer funds the acquisition and
   servicing of the next two. The 30-day window matters because it matches
   standard interest-free payment cycles: pass it and acquisition can float on
@@ -426,7 +434,7 @@ referrals) before building anything.
 
 ## §10. Acquisition
 
-**10.1 The Core Four.** All advertising is one of four cells: warm 1-to-1
+**10.1 The four doors.** All advertising is one of four cells: warm 1-to-1
 (warm outreach), warm 1-to-many (content), cold 1-to-1 (cold outreach), cold
 1-to-many (paid ads). Adoption order for a small business:
 1. **Warm outreach until ~10 paying customers exist.** Free, near-certain,
@@ -443,7 +451,7 @@ referrals) before building anything.
 capacity?* At capacity → the capacity rule (8.3) overrides volume: price up,
 route volume through systems (automated follow-up, review asks, reactivation —
 the BOS itself is the mechanism: the system does the 100, the owner does 5).
-Not at capacity + leads constraint → the **Rule of 100**: 100 primary actions
+Not at capacity + leads constraint → the **volume floor**: 100 primary actions
 a day (100 warm/cold reach-outs, 100 minutes of content, or ~$100 of ad work)
 for 100 straight days on the one channel before judging it. A channel judged
 on a fraction of that volume was never tested. Graduate to open-to-goal ("5
@@ -469,7 +477,7 @@ name as the gain: "get your borrowing-power score", per §18), sample/trial
 like an offer (7.5); make the next step explicit. The magnet swap is the
 cheapest "more leads" fix that actually works (it's a Better move, §4.4).
 
-**10.5 The local gravity stack (overrides Core Four ordering for locally
+**10.5 The local gravity stack (overrides four-doors ordering for locally
 bought shapes — trades, clinics, hospitality, many services).** Strict
 priority; don't advance a tier until the one above holds:
 1. **Answer speed** (missed-call text-back, 5-minute responses — first
@@ -514,7 +522,7 @@ track cleanly), or an agency on a learn-then-internalize deal (pay extra for
 them to explain decisions, take it in-house when your results match theirs).
 
 **10.9 The leads roadmap (levels).** L1: your contacts know what you sell.
-L2: one channel at consistent personal max (Rule of 100). L3: someone else
+L2: one channel at consistent personal max (the volume floor). L3: someone else
 runs that channel. L4: the product earns ~25%+ word-of-mouth (directional, 10.7). L5: multiple
 team-run channels. Most 2-10 person businesses should live at L3-4; never
 prescribe L5 machinery to an L1 owner.
@@ -570,7 +578,7 @@ distribution tells you whether to fix onboarding, delivery, or nothing. Chart
 WHEN customers leave; install an intervention one step before the modal exit
 point.
 
-**11.6 The delivery cube (margin and owner-hours redesign).** When margin is
+**11.6 The delivery grid (margin and owner-hours redesign).** When margin is
 below the bands (8.1) or the owner's calendar is the constraint: list every
 promise in the offer; for each, walk the dimensions (1:1 vs group vs
 one-to-many; done-for-you vs done-with-you vs DIY; live vs recorded vs
@@ -619,29 +627,32 @@ role's result and standards, then run the 3Ds. A documented business is a
 sellable, delegable, survivable asset; an undocumented one is a job with
 overhead.
 
-**12.5 The sales conversation (CLOSER, summary depth).** For founder-led
-discovery calls, quote visits, and consults:
-- **C**larify why they're here — their words, a real problem, never pitch to a
-  guess.
-- **L**abel it back and get agreement ("so the real issue is X and the goal is
-  Y — fair?").
-- **O**verview what they've tried — empathy plus positioning as a different
-  path, not "the same but better".
-- **S**ell the vacation — the arrival they named, tied to the top three
-  elements of the solution; never the itinerary of features.
-- **E**xplain away concerns — obstacles (logistics, decision-maker, real
-  information gaps) get dismantled BEFORE the ask, during C-L-O; objections
-  (after the ask) usually wear one of three costumes: circumstances (money/
-  timing), other people (the absent decision-maker — get them on the call or
-  ask "if they said yes, would you?"), or self (fear — "decisions take
-  information, not time; what's the actual concern?"). Loop gently: restate
-  the concern, one relevant story, ask again; a NEW concern each loop is
-  progress, the same concern recycling is the real one.
-- **R**einforce immediately after the yes — same-day personal welcome; buyer's
-  remorse starts at the receipt (this hands off to activation, 11.3).
+**12.5 The discovery arc (the sales conversation, summary depth).** Six
+beats, for founder-led discovery calls, quote visits, and consults:
+1. **Hear it** — why they're here, in their words, until a real problem
+   surfaces; never pitch to a guess.
+2. **Name it** — play it back and get agreement ("so the real issue is X and
+   the goal is Y — fair?").
+3. **Map what they've tried** — empathy plus positioning as a different path,
+   not "the same but better".
+4. **Sell the arrival** — the destination they named, tied to the top three
+   elements of the solution; never the itinerary of features.
+5. **Settle the concerns** — obstacles (logistics, decision-maker, real
+   information gaps) get dismantled BEFORE the ask, during beats 1-3;
+   objections (after the ask) usually wear one of three costumes:
+   circumstances (money/timing), other people (the absent decision-maker —
+   get them on the call or ask "if they said yes, would you?"), or self
+   (fear — "decisions take information, not time; what's the actual
+   concern?"). Loop gently: restate the concern, one relevant story, ask
+   again; a NEW concern each loop is progress, the same concern recycling is
+   the real one.
+6. **Seal it and welcome** — immediately after the yes, a same-day personal
+   welcome; buyer's remorse starts at the receipt (hands off to activation,
+   11.3).
 Ethics line: sell like a coach — help them decide, never corner. Wrong fit →
-say so and decline. Clinic shapes: CLOSER structures the conversation about
-logistics and care plans, NEVER the clinical recommendation (§15).
+say so and decline. Clinic shapes: the discovery arc structures the
+conversation about logistics and care plans, NEVER the clinical
+recommendation (§15).
 
 **12.6 The operating cadence.** One-page weekly scoreboard (leads,
 conversations, close rate, cash collected, activation %, churn/saves, plus THE
@@ -661,7 +672,7 @@ pattern and prescribe against it. Seven principles:
 2. **The work works on you.** The reps forge the person who can run the bigger
    business; confidence is built from evidence, so keep the proof visible
    (counts of calls made, posts shipped, quotes sent).
-3. **The red dress.** New opportunities are the enemy, and they get more
+3. **The shiny-object rule.** New opportunities are the enemy, and they get more
    attractive as the business succeeds. Focus is measured by what the owner
    declines. Re-price the shiny object out loud: the new venture costs the
    current one its compounding.
@@ -679,7 +690,7 @@ pattern and prescribe against it. Seven principles:
    reality than in prospect: run the actual arithmetic of the feared outcome,
    take the action once, let the evidence dissolve the fear.
 
-**Diagnostic tells → pattern:** "thinking of also starting…" → red dress.
+**Diagnostic tells → pattern:** "thinking of also starting…" → shiny-object rule.
 "Tried it for a month, didn't work" → volume/horizon failure. "I'll raise
 prices once…" → fear dressed as sequencing. "Just need the right funnel/tool"
 → lottery-ticket thinking. "Bit bored with the business" → boredom-as-signal
@@ -750,7 +761,7 @@ identifiable segment care disproportionately? stated in the customer's
 category language? Fail any → back up one rung.
 
 The ladder feeds the value equation (§6): the alternatives are the reference
-point, the unique attributes are the Likelihood proof stack, and the
+point, the unique attributes are the Belief proof stack, and the
 who-cares-most segment is who the guarantee (7.2) is engineered for.
 
 ---
@@ -764,7 +775,7 @@ the source material.
 
 | Shape | Usual true constraint at small scale | Lands directly | Handle with care |
 |---|---|---|---|
-| **Service / professional** | Sales-cycle leakage (proposals dying in "sent", referral asks never made, renewals unsurfaced) — not leads | Offer construction (§7) on the proposal; CLOSER on discovery; warm outreach; referral asks at wins | Outcome guarantees often impossible (regulated advice) → service-level guarantees; no scarcity pressure on advice decisions |
+| **Service / professional** | Sales-cycle leakage (proposals dying in "sent", referral asks never made, renewals unsurfaced) — not leads | Offer construction (§7) on the proposal; the discovery arc (12.5) on discovery calls; warm outreach; referral asks at wins | Outcome guarantees often impossible (regulated advice) → service-level guarantees; no scarcity pressure on advice decisions |
 | **Trades / on-the-tools** | Response speed + quote follow-through; second: pricing below the cost floor | Value equation as quote logic; workmanship/turn-up guarantees; capacity-rule price rises; local gravity stack (10.5) | Three-tier quotes with inclusions/proof (adapted); volume through systems, never owner hours; aggressive close scripts poison local word-of-mouth |
 | **Product / ecommerce** | Unit economics + differentiation (margin after fulfilment and CAC too thin, positioning too broad) | Money model at full strength (bumps, bundles, continuity, 30-day cash); volume doctrine applied to creative tests | Cash physics inverted (money leaves before it arrives) — judge by cash-conversion cycle; never scale ads before contribution margin per order is known |
 | **Hospitality / walk-in** (adapted) | Repeat-visit rate, then off-peak utilization — not leads | LTV thinking (the regular IS the business); referral mechanics as bring-a-friend; behind-the-counter content | No pipeline — the "offer" is whatever earns visit two (loyalty mechanics, adapted); no countdown scarcity, no deep discounting (trains deal-hunters, poisons a habit business) |
@@ -797,10 +808,10 @@ can hold. Every move lands on a real BOS surface.
 | SALES | Founder closes, hire doesn't | Motion transfer: record, review, 3Ds with a rubric (12.1) | `delegate-this-work`, `onboard-team-member`, `review-team-draft` |
 | SALES | Price objections every call | Downsell ladder ready (9.4); never same-scope-cheaper; guarantee from the buyer's named fear (7.2) | `write-a-proposal`, `draft-reply`, `prep-for-call` |
 | DELIVERY | Booked out, turning work away | Capacity rule (8.3): raise prices on new work; cap intake and say so (7.4) | `price-my-work`, `profit-per-job` |
-| DELIVERY | Owner is the product | Delivery cube (11.6) + prototype build (12.4): document, one-to-many the teachable parts | `delegate-this-work`, `write-a-policy`, `sync-team-standards`, `build-document` |
+| DELIVERY | Owner is the product | Delivery grid (11.6) + prototype build (12.4): document, one-to-many the teachable parts | `delegate-this-work`, `write-a-policy`, `sync-team-standards`, `build-document` |
 | RETENTION | One-off customers, no repeats | Continuity + back-end offer (9.4); premium tier for the top 20% | `design-nurture-sequence`, `describe-a-product`, `renewal-tracker` |
 | RETENTION | Members/clients quietly leaving | Activation protocol (11.3) + retention cadence (11.4) + cancellation saves (11.5) | `design-nurture-sequence`, `follow-up-radar`, `set-up-a-routine` |
-| PROFIT | Busy but broke | Margin gauge (8.1) → delivery cube or price rise (8.4); check comp structure and the cost floor (8.6) | `profit-per-job`, `price-my-work`, `cash-flow-forecast` |
+| PROFIT | Busy but broke | Margin gauge (8.1) → delivery grid or price rise (8.4); check comp structure and the cost floor (8.6) | `profit-per-job`, `price-my-work`, `cash-flow-forecast` |
 | PROFIT | Close rate suspiciously high | Underpricing (8.2, directional): staged rises to the healthy band | `price-my-work`, `grill-me-on-this-decision` |
 | PROFIT | Cash tight despite sales | Cash pull-forward (9.5) + 30-day test (9.2) | `cash-flow-forecast`, `outstanding-invoices` |
 | OWNER | Second business/avatar splitting focus | Switching-tax conversation (12.7), re-price the shiny object; one avatar for all deliberate acquisition | `grill-me-on-this-decision`, `weekly-review` |
@@ -855,7 +866,7 @@ once, factually, and lead and close with the outcome.**
 
 Applications: problem lists (7.1.2) live in internal worksheets — the copy
 they produce states benefits; every bonus names the benefit it delivers, not
-the fear it kills; MAGIC "Goal" components are outcome-led; hooks are outcome-
+the fear it kills; the naming "result" part (7.5) is outcome-led; hooks are outcome-
 or curiosity-led (the contrarian format frames the better way, never the
 reader's failure); ad callouts are identity + outcome ("Brunswick landlords:
 switchboard certified in 48 hours"), never "Tired of X?"; diagnostic magnets
@@ -866,7 +877,7 @@ the failure condition once as the mechanism of the promise, led and closed on
 the outcome ("Back on the field by week 12, or we work with you free until
 you are"). Live 1:1 discovery conversations MAY name pain in the customer's
 own words (that is the existing discovery-voice boundary) — don't
-over-sanitize CLOSER scripts into vagueness.
+over-sanitize discovery-arc scripts into vagueness.
 
 ---
 
@@ -892,7 +903,27 @@ over-sanitize CLOSER scripts into vagueness.
   "all sales final" can be unlawful for consumers); regulated shapes (§15)
   carry their own overrides. When in doubt, the conservative reading wins.
 - **Naming:** customer-facing copy never brands this as anyone's method; it is
-  simply how the owner's system thinks.
+  simply how the owner's system thinks. The working vocabulary in this file is
+  deliberately the BOS's own; the crosswalk below maps our names to the source
+  coinages so lineage stays traceable (use ours everywhere outside this table):
+
+  | BOS name | Source coinage |
+  |---|---|
+  | The value equation variables: the Arrival / the Belief / the Wait / the Work | Hormozi: Dream Outcome / Perceived Likelihood / Time Delay / Effort & Sacrifice |
+  | The Category-of-One build (7.1) | Grand Slam Offer |
+  | The market gate (7.0) | The "starving crowd" test |
+  | The five naming parts (7.5) | The MAGIC naming formula |
+  | The four doors (10.1) | The Core Four |
+  | The volume floor (10.2) | The Rule of 100 |
+  | The self-funding bar (9.2) | Client-financed acquisition |
+  | The standing engine (§4.2) | The Silent Sixth |
+  | The discovery arc (12.5) | CLOSER (+ the Triple-A objection loop) |
+  | The delivery grid (11.6) | The Delivery Cube |
+  | The retention cadence (11.4) | The Five Horsemen (Gym Launch) |
+  | The seven stuck-points (§3) | The Seven Deadly Growth Sins |
+  | The shiny-object rule (12.7) | "The woman in the red dress" |
+  | The commit rule / niche commitment (7.0) | "The niche slap" |
+
 - The full research briefs behind this file live in
   `docs/architecture/research/business-doctrine/`.
 
