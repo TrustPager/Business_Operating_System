@@ -2,13 +2,23 @@ I have full grounding. All five lenses confirm the same load-bearing facts and t
 
 # BOS Onboarding Intake — The Buildable Design (P3 spec)
 
+> **⚠️ PARTIALLY SUPERSEDED — 2026-07-02.** The `≤3-question` / `hard-stop-at-spine`
+> / `build-over-interrogating` doctrine in this document (ruling #3 below, §2 flow +
+> Beat 4, §6 step 7, §7 risk list, §8 Tier 0/1/2, §8.1) is **superseded by**
+> `docs/architecture/2026-07-02-consultative-intake-design.md` (founder-ruled).
+> The cap is replaced by an engagement-adaptive `business-method.md` §2 intake loop
+> plus a useful-now threshold. Everything ELSE in this document (the cold-open, the
+> instant win, the enrichment beats, the profile schema, the trust design, TrustPager
+> reactivity) still stands. Superseded passages carry an inline **[SUPERSEDED 2026-07-02]**
+> tag pointing here; they are kept visible per the anti-drift labelled-override rule.
+
 This is the single reconciled design for the start-here onboarding skill. It honors every locked decision and resolves the five lenses into one flow. Where lenses converged (they overwhelmingly did), I collapsed; where they diverged, I ruled. Ruling decisions are marked **[RULED]**.
 
 **Three rulings that shape everything below:**
 
 1. **[RULED] The cold-open auto-speaks only on a TRUE cold start.** P3 checks "have I met this business yet?" before volunteering the intro, so returning owners are never re-onboarded. (Lens 3 risk #7.)
 2. **[RULED] The instant win's hard dependency is the one real code change P3 requires.** `build-brand-strategy` today requires a TrustPager-coupled `customer-voice-synthesis.md` (via `build-customer-voice`). All four lenses flagged this independently. P3 ships a **brain-dump + Firecrawl evidence mode** for `build-brand-strategy` (a "first-brand-brief" entry path), or the keyless instant win is a lie on day one. This is the highest-priority build item.
-3. **[RULED] Hard-stop at the SPINE; defer everything else.** The failure mode every lens named is filling the whole profile before delivering value. P3 stops asking the moment the spine is filled and the win can fire — max ~3 follow-ups in sitting one.
+3. **[RULED] [SUPERSEDED 2026-07-02] Hard-stop at the SPINE; defer everything else.** The failure mode every lens named is filling the whole profile before delivering value. P3 stops asking the moment the spine is filled and the win can fire — max ~3 follow-ups in sitting one. *(Superseded: the hard cap is now an engagement-adaptive intake loop + useful-now threshold — see the 2026-07-02 consultative-intake spec. The anti-over-asking intent survives as the gauge + soft ceiling, not a fixed number.)*
 
 ---
 
@@ -51,7 +61,7 @@ If even that stalls, offer a tap-not-type fallback so no one stares at a blank p
 
 ## 2. The elicitation strategy
 
-**The flow: DUMP → INFER (silent) → ENRICH (silent, keyless) → WIN → ≤3 SURGICAL FOLLOW-UPS → opt-in DEEPEN.** This is the re-skinned grill-me: relentless branch-resolution, but Claude resolves most branches *silently by inference/research* instead of asking, so the owner never feels grilled.
+**The flow: DUMP → INFER (silent) → ENRICH (silent, keyless) → WIN → ≤3 SURGICAL FOLLOW-UPS → opt-in DEEPEN.** **[SUPERSEDED 2026-07-02:** the `≤3 SURGICAL FOLLOW-UPS → opt-in DEEPEN` tail is now `CONSULTATIVE DEEPENING LOOP → USEFUL-NOW THRESHOLD`; see the consultative-intake spec.**]** This is the re-skinned grill-me: relentless branch-resolution, but Claude resolves most branches *silently by inference/research* instead of asking, so the owner never feels grilled.
 
 **Beat 1 — Catch & parse silently.** Whatever lands (one line or three paragraphs; typed, pasted, voice-transcribed), Claude runs ONE silent pass tagging every signal as **SAID / INFERABLE / MUST-ASK** against the schema (§3). It never reads the dump back as a checklist — that turns talk into a form. It absorbs.
 
@@ -59,7 +69,7 @@ If even that stalls, offer a tap-not-type fallback so no one stares at a blank p
 
 **Beat 3 — Reflect + win, no questions yet.** Claude plays back a crisp one-paragraph "here's the business as I now understand it," names the industry it inferred (as a guess to correct), attributes any research out loud ("had a look at your site — looks like you do X, Y, Z across the northside, that right?"), THEN fires the instant win (§5).
 
-**Beat 4 — Grill-lite: ≤3 surgical follow-ups, prioritised, batched 1-2 at a time.** Only AFTER the win, and only for fields that are **both high-value AND un-inferable (Class C)**. Each is justified by the win just delivered and ships with an escape:
+**Beat 4 — Grill-lite: ≤3 surgical follow-ups, prioritised, batched 1-2 at a time.** **[SUPERSEDED 2026-07-02:** replaced by the engagement-adaptive intake loop — the questioning is no longer capped at 3, it runs `business-method.md` §2 as far as engagement sustains, then the useful-now threshold. The trust moves below (why-I'm-asking, smart-default-then-confirm, always-an-exit) all still apply per question.**]** Only AFTER the win, and only for fields that are **both high-value AND un-inferable (Class C)**. Each is justified by the win just delivered and ships with an escape:
 
 > To make this positioning sharper, one quick thing — what's the job you wish more of your customers asked for? *(Or skip it; I'll pick it up as we work.)*
 
@@ -211,7 +221,7 @@ BINGE (full deep-dive in one sitting) and SIP (a bit each session) both write to
 4. **Keyless enrich (if name/URL present).** Call Firecrawl: `firecrawl-scrape` on the URL + `firecrawl-search` on the business name. Cap effort/timeout; on empty/garbage/slow, fall back to dump-only and continue (graceful "couldn't find you online, no worries"). Confirm scraped identity before trusting it.
 5. **Infer.** Match dump+research to `knowledge/industry-notes.md`; load that vertical's pipeline + products + lead sources + gotchas + comms-style as **labelled drafts**.
 6. **Reflect + fire the win** (§5) in the same turn as the dump. Route by dump signal; default to `build-brand-strategy` via the new brain-dump evidence mode.
-7. **Grill-lite.** ≤3 Class-C follow-ups, one or two at a time, each justified by the win, each with an escape. Hard-stop when the spine is filled.
+7. **Grill-lite.** ≤3 Class-C follow-ups, one or two at a time, each justified by the win, each with an escape. Hard-stop when the spine is filled. **[SUPERSEDED 2026-07-02:** now the consultative deepening loop + useful-now threshold (see spec); the hard-stop becomes the engagement gauge + soft ceiling.**]**
 8. **Write the profile.** Write/merge `./CLAUDE.md`: spine filled from confirmed data, inferred fields labelled, gaps as `<<< guesses to confirm later >>>`. **Never overwrite a hand-tuned existing file without showing the diff** (inherit `learn-my-business` Step 3 rule). Keep the "About TrustPager" block intact.
 9. **Offer binge-or-sip** (§1 phrasing), AFTER the win.
 10. **Close.** Mention TrustPager connection once, gently, opt-in (D3).
@@ -233,7 +243,7 @@ BINGE (full deep-dive in one sitting) and SIP (a bit each session) both write to
 
 The cold-start gate reads this; `pending=[…]` drives the "scope one more area" offer; `spine=complete` short-circuits re-onboarding. The visible `<<< guesses >>>` are the human-facing mirror of `pending`. Without this block the "I'll remember where we got to" promise breaks on session 2 — so it is **mandatory, not optional**.
 
-**Risks P3 must defensively handle (deduped from all lenses):** Firecrawl empty/slow → dump-only fallback; mis-attributed business → confirm-before-trust; thin dump → recovery prompt, not a weak win; inferred-as-fact → always label as guess; voice unavailable → degrade to type; over-asking → hard-stop at spine; non-AU owner → confirm locale, don't hard-assume; privacy verticals (allied health) → never echo clinical detail into research queries or the brief.
+**Risks P3 must defensively handle (deduped from all lenses):** Firecrawl empty/slow → dump-only fallback; mis-attributed business → confirm-before-trust; thin dump → recovery prompt, not a weak win; inferred-as-fact → always label as guess; voice unavailable → degrade to type; over-asking → **[SUPERSEDED 2026-07-02:** engagement gauge + soft ceiling, not hard-stop at spine**]**; non-AU owner → confirm locale, don't hard-assume; privacy verticals (allied health) → never echo clinical detail into research queries or the brief.
 
 ---
 
@@ -247,14 +257,16 @@ The cold-start gate reads this; `pending=[…]` drives the "scope one more area"
 
 Every "ask" in the experience is **gated behind delivered value.** You never ask for deep/vulnerable info or pitch a tool cold — you *earn the right* by building something real first. The arc has tiers; each unlocks only after the prior value lands:
 
+> **[SUPERSEDED IN PART 2026-07-02]** Tiers 0 and 2 changed. Tier 0's `≤3 Qs` is now the engagement-adaptive intake loop + useful-now threshold, and Tier 2's "earned deeper interview" is now **continuous and owner-invited** (always available, never forced), not a trust gate. **Tier 1 (the 3 projects) and Tier 3 (TrustPager reactive-only) are unchanged.** See `docs/architecture/2026-07-02-consultative-intake-design.md`.
+
 | Tier | Trust state | What happens | What you may ask for |
 |---|---|---|---|
-| **0 — Cold** | Curious, guarded | Minimal **spine** (≤3 Qs) → **instant win** (§5) | Only the spine; nothing deep |
+| **0 — Cold** *(≤3 Qs superseded 2026-07-02 → adaptive loop + threshold)* | Curious, guarded | Minimal **spine** (≤3 Qs) → **instant win** (§5) | Only the spine; nothing deep |
 | **1 — Invested** | "Oh, this is useful" | **Pivot from asking to building:** surface **3 tailored projects** — *"Based on my current understanding of your operation, here are 3 things we could build to start your transition into an operator right now."* They pick one; you build it together. | Nothing extra — the *building* deepens the profile organically (you learn their prices by building their quote template, not by asking) |
-| **2 — On your side** | "This thing gets me" | **Now you've earned the deeper interview.** Offer it: *"I can build a much richer picture of your business — where you want to take it, what's really eating at you, the bigger plays — if you're up for a proper sit-down sometime."* | Long-term goals, deep-seated frustrations, concerns, broader scope — the rich-context build |
+| **2 — On your side** *(superseded 2026-07-02 → deepening is continuous, not earned)* | "This thing gets me" | **Now you've earned the deeper interview.** Offer it: *"I can build a much richer picture of your business — where you want to take it, what's really eating at you, the bigger plays — if you're up for a proper sit-down sometime."* | Long-term goals, deep-seated frustrations, concerns, broader scope — the rich-context build |
 | **3 — On their question (NOT a tier you push)** | They ASK "what else can it do?" or about CRMs | **Reactive only:** answer with the full picture (`/whats-possible`), and *only then* bring up TrustPager — warm, open-ended. **Never volunteered, not even at peak trust.** | The CRM recommendation, only when asked |
 
-**The prescription:** bias hard toward **building over interrogating.** The 3-tailored-projects pivot (Tier 1) IS the engine of deepening — building is how they fall for the system AND how the profile fills. The intensive interview (Tier 2) and the TrustPager pitch (Tier 3) are **earned, later, high-trust moments — never cold-start.** The relief field ("what eats your week") aims the 3 projects.
+**The prescription:** bias hard toward **building over interrogating.** The 3-tailored-projects pivot (Tier 1) IS the engine of deepening — building is how they fall for the system AND how the profile fills. The intensive interview (Tier 2) and the TrustPager pitch (Tier 3) are **earned, later, high-trust moments — never cold-start.** The relief field ("what eats your week") aims the 3 projects. **[SUPERSEDED 2026-07-02:** "bias hard toward building over interrogating" is relaxed — the consultative intake loop now interrogates an ENGAGED owner deliberately (that's the point), while a disengaged owner still short-circuits to building. Tier 2's "earned, never cold-start" becomes "always available, never forced." TrustPager (Tier 3) reactivity is unchanged. See spec.**]**
 
 **The project library** is its own artifact (`knowledge/starter-projects.md`): a tagged menu per vertical × relief × keyless/CRM × tier. **Custom-first:** when the owner's situation points to an obvious bespoke project, that leads — even if it's not in the library; the library is the **safety net** that guarantees there's always at least one option serving a real problem they named. `start-here` reads the profile + the library to pick the 3. **Complexity/cost guardrail [FOUNDER-RULED]:** every recommended project — custom or library — must be **finishable in one sitting, bounded, and token-frugal**; no overly complex or context-flooding builds, especially first session (offer a bounded slice of a big idea, never the epic). The point is to make them feel powerful, not to burn their context window in an hour or kick off a hair-brained build.
 
@@ -264,8 +276,8 @@ Every "ask" in the experience is **gated behind delivered value.** You never ask
 
 Two refinements *within* the tiers above — not changes to the ruling. Evidence: the `This Is A Clue` cold-start run (see `AI-BOS/Dogfooding-V1.md`, findings R8/R9 + the founder's doubt-routing direction). The build of these lives in `skills/start-here/SKILL.md` (Steps 7–9).
 
-- **Tier 0 — the spine questions are doubt-led and conditionally routed (still ≤3, still build-over-interrogate).** The relief question isn't generic; route it:
+- **Tier 0 — the spine questions are doubt-led and conditionally routed (still ≤3, still build-over-interrogate).** **[SUPERSEDED 2026-07-02:** the `≤3` cap is gone; doubt-led routing survives INSIDE the consultative intake loop — see the spec. What follows is kept for the doubt-routing logic, which still holds; only the cap is removed.**]** The relief question isn't generic; route it:
   - *Doubt already named* → ask only what's needed to **aim the build at that stated doubt** (1–2 context questions); don't make them re-justify it.
   - *No doubt surfaced* → draw out where the week hurts warmly (smart-default-to-confirm, with an exit), so the 3 projects target something real.
-  This keeps the ≤3-question budget and the anti-interrogation bias; it just spends those questions on the owner's actual concern. (Pain-naming in discovery remains approved — §intro + memory `pain-language-ok-in-discovery`.)
+  This keeps the ≤3-question budget and the anti-interrogation bias; it just spends those questions on the owner's actual concern. *(Cap superseded 2026-07-02; the doubt-routing intent survives in the loop.)* (Pain-naming in discovery remains approved — §intro + memory `pain-language-ok-in-discovery`.)
 - **Tier 1 — "build it together" is delivered as a staged co-build, not a finished hand-over.** A pre-operator can't yet tell a guess from a fact, so a polished-looking first pass risks false confidence and a passenger dynamic (R8). Stage it: rough pass shown **inline in chat** (R9) → name the 1–2 guesses and invite correction → sharpen and harden together. The win must be one they can **evaluate and own**; the first build should teach one operating move (driving/correcting the system), not just produce an asset. Speed is preserved; participation is added.

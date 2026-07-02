@@ -1,4 +1,4 @@
-<!-- bos-onboarding: spine=incomplete; tier2=empty; pending=[identity, customers, relief, voice]; win_delivered=none; last_touched=none; challenge=not-started; challenge_wins=[]; doorways_open=[] -->
+<!-- bos-onboarding: spine=incomplete; intake_depth=spine; pending=[identity, customers, relief, voice]; win_delivered=none; last_touched=none; challenge=not-started; challenge_wins=[]; doorways_open=[] -->
 # CLAUDE.md: Starter
 
 > **This is your business profile, my notes on how YOU work.** The fastest way to

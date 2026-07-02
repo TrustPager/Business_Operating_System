@@ -96,6 +96,34 @@ are internal.
 - Missing numbers are a finding, not a blocker: "we don't know your churn" makes
   *measure it* the first prescription (a scoreboard beats a guess, §12).
 
+**How `/start-here` runs this intake (the consultative loop).** The intake above
+is not a form to fire off at once, nor a fixed question budget to spend and stop.
+`/start-here` runs it as an **engagement-adaptive loop**: after the instant win
+lands, keep resolving the four-part statement and the numbers ladder as a live
+conversation, each question visibly built on the last answer, going as deep as
+the owner's engagement sustains. This is the consultative-operator behaviour — the
+system gets sharper the more it is told, and depth is *earned by how the owner
+responds*, never capped by a number.
+
+- **Read engagement live.** Rich, expansive answers → keep deepening. Clipped
+  one-liners or low-patience signals ("just tell me what this does") → short-
+  circuit to the lean path and cross the threshold early. Ambiguous read → lean
+  to the threshold (the churn-safe tie-break).
+- **The useful-now threshold (hand the owner the wheel).** The moment there is
+  enough to genuinely recommend — vertical + what/who + a named relief OR one
+  clearly-out-of-line signal, i.e. enough to name a candidate constraint (§3) —
+  reflect that understanding back (the *give*), then offer the fork: keep digging
+  now, or put something to work. Both are valid; the default lean is "put it to
+  work." The offer always follows a give, never stacks on a question.
+- **The soft ceiling (the backstop).** The stop rules above are the primary exit;
+  the loop is adaptive, not infinite. If it passes roughly 6-8 exchanges without
+  a nameable candidate constraint, cross the threshold regardless — a dump too
+  thin to diagnose by interview is diagnosed faster by *building* (§4.7: the
+  output is 1-3 moves, not eight pages).
+- **Deepening is continuous.** What the owner declines now stays available every
+  session (the profile marker tracks how far the intake got); diagnosis is a loop
+  (§4.3), so the intake resumes and compounds rather than being a one-shot gate.
+
 ---
 
 ## §3. The constraint rubric

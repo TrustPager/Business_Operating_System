@@ -117,7 +117,7 @@ below is keyless for Days 1 to 4.
 - **Mission:** get the system to understand your business, and hand them a real
   first win that fits their business.
 - **Run:** `start-here` — the brain-dump that sets up their profile and routes
-  them to the best-fit first win. It owns the flow; follow it exactly. Four beats
+  them to the best-fit first win. It owns the flow; follow it exactly. Five beats
   inside it that make or break Day 1:
   - **Research them silently first.** If they give a business name or URL,
     `start-here` scrapes their site and searches their name (keyless Firecrawl,
@@ -134,6 +134,13 @@ below is keyless for Days 1 to 4.
     positioning brief (`build-brand-strategy`), often paired with
     `research-a-competitor`; a product or creator business may steer elsewhere.
     Never force a fixed output.
+  - **Then deepen consultatively, and hand them the wheel.** After the win,
+    `start-here` runs a real intake (Step 6b): it keeps asking sharp questions
+    that build on each answer, going as deep as the owner's engagement sustains,
+    then hits the "useful-now" moment: *"I've got enough to be genuinely useful
+    now, want to dig a bit more or should I get something working for you?"* An
+    engaged owner gets taken deep; a terse one gets the fast path. This is the
+    consultative-operator feel, not a fixed 3-question cap — do NOT rush past it.
 - **Brand here means STRATEGY, not the visual look.** Day 1 is positioning and
   clarity, not logo/colours/fonts. The visual kit (`brand-my-workspace`) is a
   separate, contextual step that comes up on Day 2's doorway or when they ask,

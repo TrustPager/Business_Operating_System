@@ -1,5 +1,11 @@
 # P3 — Onboarding (the start-here experience) Implementation Plan
 
+> **⚠️ PARTIALLY SUPERSEDED — 2026-07-02.** This plan built the original `≤3-question`
+> intake. That cap is superseded by the consultative intake loop + useful-now threshold
+> (`docs/architecture/2026-07-02-consultative-intake-design.md`). Task 3 step 7 (Grill-lite,
+> ≤3, hard-stop) and the Task 2 marker (now `intake_depth=`, not `tier2=`) are updated inline
+> below. The rest of this plan (cold-start gate, keyless win, profile write, no-clobber) stands.
+
 > **For agentic workers:** Execute via superpowers:subagent-driven-development (fresh subagent per task + review). These are prose **skills**, so the gate per task is: (1) `python tools/lint-skill.py skills/<name>` clean + manifest valid, (2) faithful to the locked design, (3) full offline suite still green. There are no TDD failing-tests for prose skills unless a task adds a script. Run in a dedicated worktree.
 
 **Goal:** A brand-new owner with **zero accounts and zero files** reaches a real, keyless WIN and walks away with a written, resumable business-context profile — feeling that this is *their* powerful system. This is the cold-start that determines Skool retention.
@@ -20,7 +26,7 @@
 
 ## Task 2: Profile template + resumability marker
 **Files:** Modify `templates/CLAUDE.md`.
-**Build:** Add the spine field **"what eats the week / the bit you'd most love to hand off"** (under "How to talk to me" per design §3); add the machine-readable resumability marker block at the top (design §7: `<!-- bos-onboarding: spine=…; pending=[…]; win_delivered=… -->`); keep visible `<<< guesses to confirm later >>>` for unfilled fields; keep the "About TrustPager" block intact but gentle/opt-in/last. Ensure the starter template is detectable (contains a sentinel like `<<< your name >>>`) so the cold-start gate works.
+**Build:** Add the spine field **"what eats the week / the bit you'd most love to hand off"** (under "How to talk to me" per design §3); add the machine-readable resumability marker block at the top (updated 2026-07-02: `<!-- bos-onboarding: spine=…; intake_depth=…; pending=[…]; win_delivered=… -->`; `intake_depth` is `spine`/`diagnosing`/`deep`, replacing the old `tier2=` field); keep visible `<<< guesses to confirm later >>>` for unfilled fields; keep the "About TrustPager" block intact but gentle/opt-in/last. Ensure the starter template is detectable (contains a sentinel like `<<< your name >>>`) so the cold-start gate works.
 **Implements:** design §3 + §6 + §7.
 **Acceptance:** the marker format matches §7 exactly; the starter sentinel is present; lint/suite green.
 
@@ -33,7 +39,7 @@
 4. **Keyless enrich** — Firecrawl scrape (owner's site) + search (business name) if given; cap effort, fall back silently, confirm scraped identity before trusting.
 5. **Infer** — match to `knowledge/industry-notes.md`; load the vertical's pipeline/products/lead-sources/gotchas/comms-style as **labelled guesses**.
 6. **Reflect + fire the win** — reflect the understood picture in their words, then run the win (default `build-brand-strategy` keyless mode; route per §5 table).
-7. **Grill-lite** — ≤3 Class-C follow-ups, 1–2 at a time, smart-default-then-confirm, why-I'm-asking tag, always an escape; hard-stop at the spine.
+7. **Consultative deepening loop + useful-now threshold** *(supersedes the old "Grill-lite — ≤3 follow-ups, hard-stop at spine")* — after the win, run `business-method.md` §2 as an engagement-adaptive loop (each question built on the last), keeping smart-default-then-confirm, the why-I'm-asking tag, and always-an-escape per question; cross the useful-now threshold (reflect the give, then offer the fork) when a candidate constraint is nameable or at the soft ceiling (~6-8 exchanges). See the 2026-07-02 consultative-intake spec.
 8. **Write the profile** — write/merge `./CLAUDE.md` (spine filled, inferred labelled, gaps as `<<< guesses >>>`, marker block); never clobber a hand-tuned file without showing the diff.
 9. **Binge-or-sip** offer (AFTER the win) + **close** (TrustPager mentioned once, gently, opt-in).
 Thread the **identity/ownership framing** (§4b) and the **comfort/trust** moves (§4); plain-language only (D3).
