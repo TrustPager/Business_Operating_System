@@ -100,9 +100,9 @@ the catalog stays searchable:
   can write to the live workspace — every write is journaled and destructive
   actions always ask first. The API key, if used, is stored owner-only in
   `~/.claude/bos.json` and never committed.
-- **Verify:** run `python tools/check-install.py` (the connected-tier checks
-  light up), or ask for a pipeline summary. After connecting, run
-  `/learn-my-business` so the profile fills from live data.
+- **Verify:** run `python tools/check-install.py` from the BOS folder (the
+  connected-tier checks light up), or ask for a pipeline summary. After
+  connecting, run `/learn-my-business` so the profile fills from live data.
 
 ---
 

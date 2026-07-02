@@ -37,7 +37,7 @@ BOS is not a TrustPager product. It is an open-source Claude Code plugin that wo
 
 **Testing and gates**
 
-A 310-test offline suite (`BOS_OFFLINE=1 python -m unittest discover -s tests`), a secret scanner (`tools/check-no-secrets.py`), manifest linting (`tools/lint-skill.py`), and freshness checks for the registry and capabilities doc run on every push and pull request via GitHub Actions. No real API key ever enters CI or the test environment.
+An offline test suite (`BOS_OFFLINE=1 python -m unittest discover -s tests`), a secret scanner (`tools/check-no-secrets.py`), manifest linting (`tools/lint-skill.py`), and freshness checks for the registry and capabilities doc run on every push and pull request via GitHub Actions. No real API key ever enters CI or the test environment.
 
 **License:** MIT
 

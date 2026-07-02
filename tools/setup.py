@@ -41,15 +41,16 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from trustpager_api import CONFIG_PATH  # noqa: E402
 
 
-def _write_bos_config(cfg: dict[str, Any]) -> None:
+def _write_bos_config(cfg: dict[str, Any], path: Path | None = None) -> None:
     """Write bos.json and keep it owner-only readable (it can hold the API key).
 
     chmod is best-effort: on Windows, POSIX modes don't map onto NTFS ACLs, and
     the user profile directory is already private to the account by default.
     """
-    CONFIG_PATH.write_text(json.dumps(cfg, indent=2), encoding="utf-8")
+    target = path if path is not None else CONFIG_PATH
+    target.write_text(json.dumps(cfg, indent=2), encoding="utf-8")
     try:
-        os.chmod(CONFIG_PATH, 0o600)
+        os.chmod(target, 0o600)
     except OSError:
         pass
 
@@ -390,11 +391,7 @@ def _install_skills(bos_home: str, config_path: Path) -> tuple[int, int]:
     # Persist the updated ownership lists back to bos.json.
     cfg["installed_skills"] = owned_skills
     cfg["installed_commands"] = owned_commands
-    config_path.write_text(json.dumps(cfg, indent=2), encoding="utf-8")
-    try:
-        os.chmod(config_path, 0o600)
-    except OSError:
-        pass
+    _write_bos_config(cfg, path=config_path)
 
     return skills_placed, commands_placed
 

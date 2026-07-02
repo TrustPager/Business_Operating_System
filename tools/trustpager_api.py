@@ -91,17 +91,20 @@ from drivers.trustpager import (  # noqa: E402,F401
     inspect_endpoint,
     resolve_path,
 )
+from drivers.trustpager.auth import TP_SECRET_PATTERN as _TP_SECRET_PATTERN  # noqa: E402
 from kernel.runtime import reads as _reads  # noqa: E402
 from kernel.runtime.redaction import _snapshot_patterns as _redaction_snapshot  # noqa: E402
 
 # The driver import above is load-bearing: constructing TP_CFG registers the
 # tp_ secret pattern with the redaction registry. If a refactor ever reorders
 # imports so that side effect stops firing, journal lines would carry raw keys.
-# Fail loudly here instead.
-if not _redaction_snapshot():
+# Fail loudly here instead. Checked against the TP pattern specifically (not
+# just "registry non-empty") so a future second driver's registration can't
+# mask a TrustPager regression.
+if not any(src == _TP_SECRET_PATTERN for src, _ in _redaction_snapshot()):
     raise RuntimeError(
-        "trustpager_api: redaction registry is empty — importing "
-        "drivers.trustpager no longer registers TP_SECRET_PATTERN "
+        "trustpager_api: TP_SECRET_PATTERN is not registered with the redaction "
+        "registry — importing drivers.trustpager no longer registers it "
         "(DriverConfig.__post_init__). Fix the driver import before shipping."
     )
 

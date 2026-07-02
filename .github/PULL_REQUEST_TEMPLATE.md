@@ -21,7 +21,7 @@ Run all of these locally before submitting. CI will run the same sequence.
 
 ### Content rules (for any skill or doc changes)
 
-- [ ] No em dashes in any shipped content (skill bodies, descriptions, docs, templates)
+- [ ] No em dashes on customer- or owner-facing surfaces (generated customer documents, email/SMS/social copy, README, INSTALL, CAPABILITIES, templates/). Skill bodies and maintainer docs are exempt; see the scope in CONTRIBUTING.md
 - [ ] Customer-facing copy is outcome-led, not pain-led
 
 ### Skill additions (complete if this PR adds a new skill)
