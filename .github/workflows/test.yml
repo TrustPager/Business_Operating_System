@@ -29,6 +29,9 @@ jobs:
       - name: Kernel-clean (kernel must name no vendor)
         run: python tools/check-kernel-clean.py
 
+      - name: Doctrine voice (the vocabulary is the system's own)
+        run: python tools/check-doctrine-voice.py
+
       - name: Registry fresh (committed registry must match manifests)
         run: python tools/registry-generator.py --check
 

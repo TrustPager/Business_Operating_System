@@ -169,6 +169,14 @@ python tools/export-capabilities.py
 
 Then run `--check` again.
 
+### 7. Doctrine voice check
+
+```bash
+python tools/check-doctrine-voice.py
+```
+
+The BOS business doctrine (`knowledge/business-method.md`) carries a hard rule: the owner never hears a source's coined framework name or a guru's name — every concept surfaces under the BOS's own vocabulary. This gate scans for the source coinages and fails with the BOS-native replacement to use. Source names are allowed only in the doctrine's provenance spots and `docs/architecture/research/`.
+
 ---
 
 ## Content rules (applies to customer- and owner-facing surfaces)

@@ -14,6 +14,7 @@ Run all of these locally before submitting. CI will run the same sequence.
 - [ ] Secret scan clean: `python tools/check-no-secrets.py`
 - [ ] Skill linted (if a skill changed): `python tools/lint-skill.py skills/<name>`
 - [ ] Onboarding binding valid: `python tools/check-onboarding-binding.py`
+- [ ] Doctrine voice clean: `python tools/check-doctrine-voice.py`
 - [ ] Registry regenerated and fresh (if a skill was added or changed):
       `python tools/registry-generator.py && python tools/registry-generator.py --check`
 - [ ] Capabilities regenerated and fresh (if the registry changed):
