@@ -47,6 +47,26 @@ The shared reference for how customer-facing output should sound is
 Business-shape context (which platform and rhythm tends to fit which kind of
 business) lives in [`knowledge/industry-notes.md`](../../knowledge/industry-notes.md).
 
+## Gate 0 — Two pass/fail checks before any strategy
+
+Run these before pinning the goal; each one changes what the strategy is
+FOR. Neither is a lecture — phrase what they surface as "first move this
+week" routing that feeds Step 3 part 6.
+
+1. **Local gravity (business-method.md §10.5).** If this is a locally
+   bought shape (trades, clinic, hospitality, many services) AND the goal
+   is bookings/leads: confirm enquiries are answered inside 5 minutes in
+   business hours (directional) and a review ask fires on every completed
+   job BEFORE prescribing content volume. If either is missing, say the
+   honest thing — "the fastest bookings win is answer speed and reviews;
+   the content strategy amplifies that" — route `missed-call-recovery` /
+   `follow-up-radar` in as the first move this week, then continue with
+   the strategy.
+2. **Capacity (business-method.md §8.3).** If the owner is at delivery
+   capacity, the strategy's job is authority and price support, not raw
+   lead volume — volume goes through systems, never owner hours. Aim the
+   goal, pillars, and metric at that.
+
 ## Step 1 — Pin the goal (one target per run)
 
 A strategy is only sharp if it's aimed. Get the owner to name the ONE target
@@ -100,6 +120,10 @@ and any research — and let it shape the strategy:
 - **What's quiet or missing:** the channel they set up and abandoned, the format
   they've never tried that fits their shape, the gap between effort and result.
 
+Before recommending a NEW platform, exhaust More (volume on the channel
+that's already working) and Better (new hooks, formats, or magnet on that
+same channel) — a new channel comes last (business-method.md §4.4).
+
 This read is what makes the plan feel tailored: *"you're already winning with X,
 let's do more of it and add Y; the Z account isn't paying off, so park it."*
 Surface it at the top of the strategy (Step 3) as a short, honest, positive read
@@ -131,14 +155,18 @@ working to build on, what to park), then the six parts, in order:
    platform, framed as a rhythm the owner can actually keep. A sustainable
    cadence they hold beats an aspirational one they abandon by week two. Be
    concrete (e.g. *"3 posts a week on Instagram, one of them a reel"*), and keep
-   it honest about the effort.
+   it honest about the effort. And hold it long enough to judge: a channel is
+   judged only after a sustained run at consistent volume (the test bar is 100
+   days at full volume, directional — business-method.md §10.2). A platform
+   "tried for three weeks" was never tested.
 3. **3-4 content pillars, each mapped to the goal.** The recurring themes the
    account posts around. Each pillar names the theme, the outcome it speaks to,
    and **how it serves the chosen target** (so every pillar pulls toward the
    goal, not just "stuff to post"). For *more bookings* a pillar might be
    "proof: happy customers and finished work"; for *authority* it might be
    "the how: teach one thing you know". Anchor pillars in the brand brief/voice
-   when it exists.
+   when it exists. Each pillar is one theme worn in many formats; formats
+   multiply a pillar, they are not new pillars (business-method.md §4.4).
 4. **The content mix — the balance across pillars.** Roughly what share of posts
    are educational / social-proof / promotional / behind-the-scenes (or the mix
    that fits this business). A common healthy balance leans heavily on
@@ -148,9 +176,12 @@ working to build on, what to park), then the six parts, in order:
 5. **What success looks like — the one metric to watch.** Name the single
    metric that tells the owner this is working, tied to the goal — not vanity
    numbers for their own sake. For *bookings/leads*: enquiries or DMs that
-   mention "saw you on [platform]". For *authority*: saves, shares, and
-   profile visits. For *audience*: reach and follower growth. For *sales*:
-   link clicks / store visits from social. Give them the ONE to watch first.
+   mention "saw you on [platform]" — and the full chain behind that metric is
+   the engaged-lead math (business-method.md §10.3): reach → engaged →
+   conversations → enquiries; watch the worst stage, not the top. For
+   *authority*: saves, shares, and profile visits. For *audience*: reach and
+   follower growth. For *sales*: link clicks / store visits from social. Give
+   them the ONE to watch first.
 6. **The first concrete move this week.** One specific, do-it-now action that
    starts the strategy — not "begin posting", but a real first step (e.g.
    *"This week: post one before-and-after of the Tuesday job, caption it with

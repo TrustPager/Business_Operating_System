@@ -72,6 +72,11 @@ One at a time, with a yes:
   progressed) → `update_work_order(work_order_id, ...)`.
 - **Draft a customer check-in** for a stalled job → hand to `/draft-reply`.
 
+When suggesting the review ask on a completed job, shape it per
+`business-method.md` §10.5 tier 2: ask at the moment of demonstrated
+satisfaction (the completion update, while the finished work is fresh), by the
+person who did the work, with a direct link to leave the review.
+
 For "ask for a review automatically when a job completes" or "ping me when the
 customer opens their portal", hand to `/automate-this` (`work_order_opened` and
 the completion path).

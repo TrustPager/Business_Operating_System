@@ -70,6 +70,7 @@ Same approval flow as /send-email:
 
 - **Customer-facing copy: NO em dashes, outcome-led.** The reply is customer-facing output: no em dashes anywhere (use commas, colons, parentheses, or separate sentences), and frame around what the customer gets, not the problem. Check the draft before showing it.
 - **Never invent facts.** If they asked "what's the price?" and you don't know, the reply says "Let me confirm and come back to you today" — not a made-up number.
+- **Objections and 'no's have doctrine.** If the inbound is a price objection or a decline, read business-method.md §9.4 and §12.5 before drafting: never offer the same thing cheaper; a genuine alternative changes scope or payment shape. Restate their concern in the reply before answering it.
 - **Threading matters.** Email replies must use `reply_to_email` (preserves the thread), not `send_email` to the same address (breaks threading).
 - **CCs in the reply.** Preserve the inbound's CC list unless the user removes one. Don't silently drop CCs.
 - **The user is the final filter.** Even after edits, every send is approved.

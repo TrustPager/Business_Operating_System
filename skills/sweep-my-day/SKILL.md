@@ -28,6 +28,7 @@ uses_tools:
   - mcp__trustpager__list_transcripts
   - mcp__trustpager__list_bookings
   - mcp__trustpager__get_pipeline_summary
+status: active
 ---
 
 # Sweep My Day
@@ -120,7 +121,7 @@ Use this exact structure for consistency. The operator should learn to scan it t
 Next move: [The single highest-priority action the operator should take right now]
 ```
 
-End with one concrete next move — not a menu of options. The operator's morning is best spent on the one thing that matters most, not deciding what to start with.
+End with one concrete next move — not a menu of options. The operator's morning is best spent on the one thing that matters most, not deciding what to start with. Pick it in this order: (1) if the operator's CLAUDE.md profile or a prior diagnosis names their current pressure point, the next move is the item that touches it (business-method.md §4); (2) otherwise, the most time-sensitive hot item. Never invent a pressure point the profile doesn't name. Whatever the next move, the standing engine runs regardless: hot inbound gets answered and today's calendar gets delivered (§4).
 
 ## Tone
 

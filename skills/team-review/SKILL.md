@@ -46,6 +46,11 @@ Also pull, team-wide:
   hands it passed through and how long each held it).
 - **Bottlenecks** — people with overdue tasks, opportunities gone quiet 7+ days,
   anyone with no activity in the last 2 days.
+- **Close-gap flag** — where the data shows conversion or win-rate by person, a
+  large founder-vs-team gap is a motion problem, not a market problem
+  (business-method.md §3): flag it as a motion-transfer candidate (record,
+  review, the delegation loop with a rubric, §12.1) rather than a performance
+  mark. If per-person conversion isn't derivable, skip silently.
 
 For anything `unavailable`, note it rather than guessing.
 
@@ -74,9 +79,14 @@ Watch
 End with one line: the single thing the manager should action this week (the
 biggest bottleneck or the deal most at risk).
 
+Per person, the same discipline: if someone's numbers lag, name ONE thing, the
+lowest item, not a list (business-method.md §12.1). The rollup is the input to
+the weekly 1:1 where the manager mostly listens (§12.6).
+
 ## Hard rules
 - ❌ Read-only — this skill never writes. (If the manager wants to act on a
-  bottleneck, point them at `/delegate-this-work`.)
+  bottleneck, point them at `/delegate-this-work`; for quality-shaped
+  bottlenecks, `/review-team-draft`.)
 - ❌ Don't guess numbers for `unavailable` sources — say what couldn't be read.
 - ✅ Group by person, names first; managers scan by who.
 - ✅ Surface bottlenecks plainly; that's the value, not the vanity metrics.

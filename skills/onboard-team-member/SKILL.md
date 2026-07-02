@@ -86,7 +86,11 @@ from `knowledge/safeguards.md` section 4 + team-standards section 2, in the
 "order, every time" form.
 
 **d) `./team/<slug>/memory/role-and-approvals.md`** — their role's permissions
-and the approval rules that apply to them (from sections 3 and 4).
+and the approval rules that apply to them (from sections 3 and 4). Include the
+role's RESULT in one sentence at the top, from the role row in team-standards
+(a handed-over role is defined by its result and standards, business-method.md
+§12.4). If the role row has no result stated, ask the owner one short question
+rather than omitting it.
 
 **e) `./team/<slug>/commands.md`** — the list of slash commands this role gets,
 and which are restricted, derived from the role's permissions. For example an
@@ -117,6 +121,10 @@ the owner a short, copy-paste set of steps to forward to the new hire:
 
 This is the persistence step: the standards now live in the new person's own
 `CLAUDE.md` + memory, not in a one-off chat.
+
+Remind the owner: the pack covers standards; the first weeks still run the
+delegation loop in person (business-method.md §12.1), and training sticks two
+ways: watching the best, and doing it with feedback (§12.2).
 
 ## Step 5 — Confirm + close
 

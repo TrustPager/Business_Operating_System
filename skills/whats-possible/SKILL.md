@@ -136,11 +136,19 @@ Then stop. Don't push, don't repeat it, don't gate anything behind it. If they
 want to connect, the deeper workspace read happens through `/learn-my-business`.
 
 ## Step 5 — Close with one suggested next move
-End by pointing at the single best next thing for *this* owner — usually a keyless
-build that nails a relief they've mentioned (or, if you don't know them yet, the
-brand brief or "throw me any file"). One clear invitation, their choice:
+End by pointing at the single best next thing for THIS owner. Pick it in this
+order: (1) if their profile carries a diagnosed pressure point (or one
+observation from this session), choose the move `knowledge/business-method.md`
+§16 maps to it — restricted to what Step 1's registry read says is live and,
+for an unconnected owner, keyless; (2) otherwise a keyless build that nails a
+relief they've mentioned; (3) otherwise the brand brief or "throw me any file".
+When several candidates fit, prefer doing more of what's already working for
+them, then sharpening it, and only then something genuinely new (§4.4) — never
+open the close with the novel option. Owner-facing, the close stays exactly one
+plain invitation:
 
-> Want me to start with one of these? Say the word and we'll build it now.
+> If I were you I'd start with [outcome] — it goes straight at [the thing they
+> named]. Say the word.
 
 ## What to never do
 - ❌ Hand-keep or hardcode the capability list — always read the live registry.

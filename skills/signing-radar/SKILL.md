@@ -81,6 +81,12 @@ For each hot envelope, offer the next step — one at a time, with a yes:
 - **Void** a dead/superseded envelope → `void_signing_envelope(envelope_id)` —
   name it and get a yes; voids can't be undone (method §6).
 
+When sent-but-unsigned envelopes are aging, prescribe the structured chase, not
+a bare "chase it": three touches around day 2 / 7 / 14, each carrying one new
+piece of information (an answer to a likely concern, a relevant proof point, a
+gentle deadline) rather than a repeat of "just following up"
+(`business-method.md` §16).
+
 For "I want this to happen automatically every time someone opens a document",
 hand to `/automate-this` on the `signature_opened` trigger.
 

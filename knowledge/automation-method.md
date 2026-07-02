@@ -1,6 +1,6 @@
 # Automation Method
 
-**The foundation doc for every automation skill in this pack.** Read this before building, auditing, or debugging a TrustPager automation. The skills (`/automate-this`, `/audit-my-automations`, `/why-didnt-it-fire`) reference it so they all share one mental model and one set of safety rails.
+**The foundation doc for every automation skill in this pack.** Read this before building, auditing, or debugging a TrustPager automation. The skills (`/automate-this`, `/audit-my-automations`, `/why-didnt-it-fire`) reference it so they all share one mental model and one set of safety rails. Which automations matter most for a given business is a diagnosis question — the recipes catalogue (automation-recipes.md) carries the doctrine-backed priorities.
 
 If `marketing-strategy-method.md` is "how to think about a nurture sequence", this is "how to think about everything automations can do".
 

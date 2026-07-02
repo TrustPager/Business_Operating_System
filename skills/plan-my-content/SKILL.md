@@ -83,8 +83,10 @@ Lock four things before you draft a single slot:
 ## Step 4 — Build the dated calendar
 
 Spread the pillars across the dates so the mix is balanced (no channel goes
-three posts deep on one pillar while another pillar never appears). For EVERY
-slot, fill all five fields:
+three posts deep on one pillar while another pillar never appears). When a
+pillar recurs, vary the FORMAT, not the theme: the same proof pillar can
+appear as a before/after, a customer story, and a one-tip carousel
+(business-method.md §4.4). For EVERY slot, fill all five fields:
 
 - **Date** — the real calendar date (and weekday).
 - **Channel** — where it posts.
@@ -92,7 +94,9 @@ slot, fill all five fields:
   strategy, so the plan is never random).
 - **Hook / angle** — the specific outcome-led opening line or idea for THIS
   post, written in the brand's voice. Not a vague topic ("talk about speed") —
-  an actual angle the owner could open with.
+  an actual angle the owner could open with. Outcome- or curiosity-led; the
+  contrarian format frames the better way, never the reader's failure
+  (business-method.md §18).
 - **Format** — what kind of post it is (e.g. carousel, single image, short
   video, customer story, tip, behind-the-scenes, plain-text post, weekly
   email).
@@ -106,6 +110,9 @@ Show the calendar, then:
 
 - Point out how the pillars are balanced across the two weeks (so they see
   every theme gets airtime).
+- Frame the two weeks as one slice of a longer consistent run: results are
+  judged over the sustained run, not at day 14 (business-method.md §10.2,
+  directional).
 - Flag any slot you left open for them to choose (e.g. "Thursday's customer
   story needs a real client — which one?").
 - Offer the natural next move: *"Want me to turn any of these hooks into a

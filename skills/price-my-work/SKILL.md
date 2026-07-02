@@ -68,6 +68,28 @@ one, take the correction and read it back once more so you're both sure. Only
 once the inputs are confirmed do you compute the total. This costs one line and
 saves a wrong number going out in a quote.
 
+## Pricing gates (check before you compute)
+
+Four checks between the read-back and the maths. Each is one question; most
+jobs pass straight through.
+
+1. **The cost floor is the floor.** The Step 2 cost base is the lowest number
+   this job can carry (per `knowledge/business-method.md` §8.6). If the
+   owner's target margin or a price they've already named lands below it,
+   stop and say so before presenting anything. Never write a below-floor
+   price into the breakdown.
+2. **The capacity check.** If the owner has said they're booked out or
+   turning work away, the capacity rule applies (price, not volume, per
+   §8.3): price this job with a rise in mind, not at the old rate.
+3. **The close-rate signal (optional, one question, skip if unknown).** You
+   may ask once: "roughly what share of quotes like this do you win?" If the
+   share is very high, flag likely underpricing per the directional
+   close-rate signal (§8.2) and offer to price a raised version alongside
+   the one they asked for.
+4. **Never anchor on the competition.** Never price from "competitor average
+   minus a bit" (§8.5). The price comes from the owner's costs and the value
+   of the work.
+
 ## Step 2 — Do the maths, margin shown openly
 
 Add up the cost base, apply the margin, and show every step so nothing is a
@@ -126,6 +148,9 @@ Outcome-led and plain — this is what the owner stands behind:
 explaining what's in the price and why it's fair.
 ```
 
+The stand-behind lines name what the customer ends up with (the Arrival, per
+`knowledge/business-method.md` §6), not the cost ledger.
+
 ## Step 4 — Offer the clean spreadsheet (optional, never the win)
 
 The breakdown above IS the win — it's complete and usable as text. If the owner
@@ -153,6 +178,9 @@ should I price the next job?"*
   dollar figure, never buried in the total. State margin vs markup explicitly.
 - **Write down the assumptions.** The breakdown stands or falls on them. Every
   number it rests on goes in the assumptions list so the owner can defend it.
+- **Never a same-scope discount.** If the owner wants a cheaper number, change
+  the scope or the payment shape (per `knowledge/business-method.md` §8.5 and
+  §9.4), never the same job for less.
 - **Customer-facing output stays positive and outcome-led.** The breakdown and
   the stand-behind lines describe what the price covers and why it's fair, never
   pain or what's missing. (Naming a missing cost figure to the owner while

@@ -22,7 +22,7 @@ status: active
 
 # /missed-call-recovery
 
-When someone misses a call, the longer the gap before a response, the lower the chance of recovery. This skill makes that gap as short as possible — pulls every recent missed call, looks up who it was (existing contact? opportunity? cold caller?), and drafts a per-call recovery message you can send with one approval.
+When someone misses a call, the longer the gap before a response, the lower the chance of recovery. This skill makes that gap as short as possible — pulls every recent missed call, looks up who it was (existing contact? opportunity? cold caller?), and drafts a per-call recovery message you can send with one approval. For locally bought businesses, answer speed is the first rung of the whole acquisition ladder, and usually IS the constraint (business-method.md §10.5): first responder wins the job.
 
 ## Step 1 — Pull the data
 
@@ -71,6 +71,7 @@ For each drafted message:
 - **Quiet hours.** If the current time is before 7am or after 8pm in the recipient's timezone (or unknown), draft an email instead of SMS.
 - **One recovery per number.** If the same number called multiple times and we've already recovered the first, treat the rest as resolved.
 - **Don't open with "Sorry I missed your call" if they called more than 6 hours ago.** That feels insincere. Lead with "Hey, I saw your call earlier — what's up?" instead.
+- **Make it standing, not manual.** If the operator runs this more than occasionally, the durable fix is an automatic missed-call text-back; offer `/automate-this` to wire it (§10.5, with the 60-second first touch as the aspiration, §10.3, directional). On the keyless path (TrustPager not connected), skip the automation offer.
 
 ## Output shape
 

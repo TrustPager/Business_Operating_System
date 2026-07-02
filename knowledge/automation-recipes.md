@@ -13,14 +13,14 @@ Every recipe is written as **WHEN → ONLY IF → THEN**, plus the trigger/actio
 ## Universal — every business should have these
 
 ### R1 · Missed-call recovery 🌐
-The highest-ROI automation there is. A missed call is a warm lead you can still save with a 30-second text.
+The highest-ROI automation there is. A missed call is a warm lead you can still save with a 30-second text. The standard is a response inside 5 minutes in business hours; the 60-second automated first touch is the aspiration (business-method.md §10.3, directional). For a local business, R1 + R5 are the hard gate before any lead-generation spend (§10.5).
 - **WHEN:** `call_voicemail` (voice agent) — or an inbound missed-call event if the workspace logs them.
 - **ONLY IF:** caller has a contact record (skip unknown spam numbers if the operator prefers).
 - **THEN:** 1) `send_sms` to the caller — *"Hi {{contact.first_name}}, sorry we missed you just now — what can we help with? Reply here and we'll jump straight on it."* 2) `add_tasks`: "Call back {{contact.first_name}}" due today. 3) `notify_assigned_staff`.
 - **Dials:** dedup ON (15 min) so a double-ring doesn't double-text.
 
 ### R2 · New lead intake → acknowledge + organise 🌐  *(multi-trigger showcase)*
-Leads arrive two ways and both deserve the same instant response. **One automation, two triggers** (§1.1 of the method doc) — don't build two.
+Leads arrive two ways and both deserve the same instant response. **One automation, two triggers** (§1.1 of the method doc) — don't build two. The 2-minute acknowledgement is what keeps every doorway inside the 5-minute response standard (business-method.md §10.3, directional).
 - **WHEN (trigger 1):** `form_completed` — your TrustPager intake form.
 - **WHEN (trigger 2):** `webhook_received` — the contact form on your website.
 - **THEN:** 1) `create_opportunity` in the "Inbound" pipeline, "New" stage. 2) `apply_tags` "new-lead" + the source. 3) `send_custom_email` acknowledgement within 2 min. 4) `add_tasks`: "Qualify {{contact.first_name}}" due today.
@@ -49,7 +49,7 @@ The moment money lands is the warmest moment to ask for a review.
 ### R6 · Deal Won → kick off onboarding 🌐
 - **WHEN:** `stage_changed` into "Won".
 - **THEN:** 1) `attach_to_event_queue` → the onboarding auto queue (welcome, what-happens-next, first-deliverable). 2) `send_custom_email` welcome. 3) `add_tasks` "Set up {{customer.name}}".
-- **Note:** the multi-step welcome lives in the **queue**; the automation just enrols them. Build the queue with the nurture-sequence skills.
+- **Note:** the multi-step welcome lives in the **queue**; the automation just enrols them. Build the queue with the nurture-sequence skills. Doctrine shape: engineer a felt first win inside 7 days and a personal re-sell of the decision inside 48 hours (directional) — the queue carries the sequence, the personal touch stays personal (business-method.md §11.3).
 
 ### R7 · No-show / cancellation → reschedule 🌐
 - **WHEN:** booking cancelled / no-show event (discover the exact `trigger_type` for the operator's scheduler — e.g. `calcom_*`, `booking_*`).
@@ -129,6 +129,25 @@ The InsureHQ pattern. A referral lands via the TrustPager intake form **or** the
 ### R18 · Proposal follow-up
 - **WHEN:** `document_sent` (the proposal) or `stage_changed` into "Proposal Sent".
 - **THEN:** single chase task + delayed email. Escalating cadence → queue.
+
+---
+
+## Retention & saves 🤝
+
+### R21 · Retention cadence — the personal-touch sweep
+The retention cadence (business-method.md §11.4) runs on scheduled personal contact — so this recipe creates TASKS, never auto-sends.
+- **WHEN:** `scheduled` — a sweep of active customers whose last personal touch is older than the cadence (default ~14 days, directional; use the operator's number).
+- **ONLY IF:** active customer; no open task of this kind already on them.
+- **THEN:** 1) `add_tasks`: "Personal check-in with {{contact.first_name}} — something specific to them, not a blast", assigned to the named relationship owner. 2) `notify_assigned_staff`.
+- **Dials:** `max_executions_per_day` cap; a tag/condition guard so the same customer doesn't re-enter the sweep every day.
+- **Never** convert this to a `send_custom_email` — a blast is exactly what the cadence is not.
+
+### R22 · Cancellation → the save conversation
+No silent cancellations — every cancel gets a real conversation within 24 hours (business-method.md §11.5). The automation guarantees the conversation happens; it never makes the save offer itself (safeguards.md §5).
+- **WHEN:** the workspace's cancellation/churn event (discover the exact trigger — a subscription cancelled, a membership ended, a stage change into "Cancelled").
+- **THEN:** 1) `add_tasks`: "Save call with {{contact.first_name}} — within 24 hours" (run it as a discovery conversation: why they joined, what changed, what result they still want). 2) `notify_assigned_staff`. 3) `apply_tags` "cancel-save-open".
+- **After the call:** log the exit in three buckets — never activated / product failed them / life happened — the distribution picks the fix (business-method.md §11.5).
+- **Dials:** dedup ON.
 
 ---
 

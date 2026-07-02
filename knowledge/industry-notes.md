@@ -9,10 +9,11 @@ Each shape is the same structure:
 - **What they sell** — typical products/services.
 - **Reliefs** — what most eats the owner's week (the relief to target a first win at).
 - **Gotchas** — the behaviour-changing rules. This is the real value; the rest is priming.
+- **Doctrine fit** — how the business-method diagnosis lands on this shape: the default pressure point to check, the reliefs typed to the diagnosis rows, what standard growth advice lands / adapts / is a trap here, and the shape's guarantee / attraction-offer / referral-ask defaults. References `business-method.md` sections; never restates them. The diagnosis-level summary lives in `business-method.md` §15; this block is the operational detail behind that row.
 - **Comms style** — how this operator usually wants to sound.
 - **Verticals inside this shape** — named industries that map here, each keeping its own specific gotchas.
 
-> These are *patterns*, not facts about a specific operator. Never write them into a `CLAUDE.md` as if they were read from the workspace — confirm with the operator, and always prefer the real workspace data (pipeline, products, brand) over these defaults.
+> These are *patterns*, not facts about a specific operator. Never write them into a `CLAUDE.md` as if they were read from the workspace — confirm with the operator, and always prefer the real workspace data (pipeline, products, brand) over these defaults. The 'default constraint' in each Doctrine fit block is directional — a default to CHECK with the owner's real numbers (business-method.md §2), never a fact to assert.
 
 **Matching, in one line:** start from the shape (how does work flow here?), then layer the vertical specifics if one of the named industries fits. No shape fits cleanly → use the [Anything else](#anything-else--the-generic-fallback) generic fallback, which is strong on its own.
 
@@ -33,6 +34,14 @@ Each shape is the same structure:
 - **Relationships and referrals are the lifeblood.** Past clients and referral partners drive new work; surface anniversary/renewal touches and prompt for the referral ask when a deal lands.
 - **Sound like the operator, not like marketing.** These clients buy expertise; drafts read as considered and specific, never generic sales copy.
 - **A clear record of advice matters.** Log what was recommended/quoted on the opportunity so there's a complete trail.
+
+**Doctrine fit** *(defaults to check, not facts — verify against this owner's numbers; summary row: `business-method.md` §15)*
+- **Default constraint to check:** sales-cycle leakage — a SALES/CONVERSION constraint (§3 row 2), not leads: proposals dying in "sent", referral asks never made, renewals unsurfaced. Confirm or deny with three probes: what share of sent proposals get a deliberate follow-up, whether a referral ask happens when a deal lands, and close rate against conversation volume.
+- **Reliefs, constraint-typed:** "winning the next piece of work" and "chasing the deals that stall after sent" → conversion; "staying on top of a relationship-driven pipeline" → conversion (cadence); "looking as professional as the expertise actually is" → the Belief variable (§6). None of this shape's reliefs are leads-typed — when this owner asks for "more leads", run the engaged-lead math (§10.3) on the existing pipeline first.
+- **Lands directly:** offer construction (§7) on the proposal itself; the discovery arc (§12.5) on discovery calls; warm outreach as the first door (§10.1); the referral ask engineered at the won-deal moment (§10.7).
+- **Adapt:** guarantees on regulated advice become service-level (§7.2) — response time, we-handle-everything, never a promised outcome; the attraction offer as a paid audit/discovery credited toward the engagement (§9.3).
+- **Traps:** scarcity or countdown pressure on advice decisions (§7.4 — corrodes exactly the trust an expertise sale runs on); discounting to win the work (§8.5).
+- **Shape defaults:** guarantee = conditional or service-level (§7.2; regulated advice never guarantees outcomes) · attraction offer = paid audit/discovery credited toward the engagement (§9.3) · referral-ask moment = the won-deal moment (§10.7) — ask for an introduction, not "any names?".
 
 **Comms style:** Polished but human, specific, low-fluff. Reference the client's actual situation, not boilerplate. Relationship-driven and warm where it's a long game.
 
@@ -97,6 +106,14 @@ Each shape is the same structure:
 - **The operator is on-site, not at a desk.** Prefer SMS over email; keep messages short; one action at a time. Don't expect same-day email reads.
 - **Photos drive quotes** — a site photo + a voice note is often the whole brief (`quote-from-photo`).
 
+**Doctrine fit** *(defaults to check, not facts — verify against this owner's numbers; summary row: `business-method.md` §15)*
+- **Default constraint to check:** response speed and quote follow-through — a SALES/CONVERSION constraint (§3 row 2), not leads. Second suspect: pricing below the cost floor (PROFIT-PER-UNIT, §3 row 5; §8.6). Confirm or deny with three probes: how fast enquiries get answered, what share of sent quotes ever get a second touch, and whether the quote clears the true cost floor.
+- **Reliefs, constraint-typed:** "quoting eats my week" and "chasing quotes before they go cold" → conversion; "winning back missed calls" → conversion (speed); "pricing with confidence" → profit-per-unit. None of this shape's reliefs are leads-typed — when a tradie asks for "more leads", run the local gravity gate (§10.5) before any spend.
+- **Lands directly:** the value equation as quote logic (§6); the capacity rule when the calendar is full — price, not volume (§8.3); the local gravity stack as the whole local plan (§10.5); deposits and progress payments as the cash pull-forward levers (§9.5).
+- **Adapt:** three-tier quotes with inclusions and proof (§7.1 as a quote stack — options, never pressure); volume routed through systems (missed-call text-back, review asks, quote chases), never through owner hours (§10.2 gate).
+- **Traps:** aggressive close scripts and countdown pressure (poison local word-of-mouth); buying leads while calls ring out (§10.5 hard gate); pricing off "competitor average minus 10%" (§8.5).
+- **Shape defaults:** guarantee = service-level — turn-up window, workmanship warranty (§7.2), never inflated outcome promises · attraction offer = paid call-out/diagnostic credited against the job (§9.3) · referral-ask moment = job completion, same visit as the review ask (§10.7 + §10.5 tier 2) — ask for an introduction to the neighbour, not "any names?".
+
 **Comms style:** Short, direct, friendly, plain. No corporate tone. Confirm time windows and what's included.
 
 ### Verticals inside this shape
@@ -135,6 +152,14 @@ Each shape is the same structure:
 - **Supplier and returns correspondence is routine.** Refund/return responses, supplier disputes, payment-terms letters — firm and factual, in the owner's voice (`write-a-letter`).
 - **Reviews and reorders are the flywheel.** Capturing how buyers actually describe the product feeds every listing and post (`build-customer-voice`); reorder/win-back nudges keep AOV compounding.
 
+**Doctrine fit** *(defaults to check, not facts — verify against this owner's numbers; summary row: `business-method.md` §15)*
+- **Default constraint to check:** unit economics and differentiation — PROFIT-PER-UNIT (§3 row 5) plus positioning (§14). Confirm or deny with two probes: contribution margin per order after fulfilment AND acquisition cost, and the repeat-purchase rate.
+- **Reliefs, constraint-typed:** "pricing/AOV decisions across a catalogue" → profit-per-unit; "the blank description box" and "marketing each launch well" → positioning and the Belief variable (§14, §6); reorder/win-back nudges → retention (§11).
+- **Lands directly:** the money model at full strength (§9 — bundles, upsells, continuity, the 30-day cash test); volume doctrine applied to creative tests (§10.2); the referral ask at the review moment (§10.7).
+- **Adapt:** OVERRIDE — judge margin by the cash-conversion cycle (money leaves before it arrives here), not §8.1's service bands.
+- **Traps:** scaling ads before contribution margin per order is known (§10.6 gate); deep-discount launches that train buyers to wait for the sale (§8.5).
+- **Shape defaults:** guarantee = unconditional for low-ticket consumer products (§7.2) · attraction offer = buy-X-get-Y / bundles (§9.3) · referral-ask moment = the review moment (§10.7) — the ask rides the same message as the review request.
+
 **Comms style:** Benefit-led and concrete, friendly, on-brand. Lead with the outcome the buyer gets; specific about what's included, sizing/fit, and dispatch. Channel-native (a product caption reads differently from a service proposal).
 
 ### Verticals inside this shape
@@ -163,6 +188,14 @@ Each shape is the same structure:
 - **Rosters and peaks.** The week revolves around service peaks and staffing; a job ad in the owner's voice and clean staff policies pay off (`write-a-job-ad`, `write-a-policy`).
 - **Reviews are the reputation engine.** How guests describe the experience feeds the marketing voice (`build-customer-voice`); respond and lean into the words guests use.
 - **Bookings/deposits/cancellations need plain policy.** Clear, on-brand policy text for deposits, cancellations, and group bookings prevents friction (`write-a-policy`).
+
+**Doctrine fit** *(defaults to check, not facts — verify against this owner's numbers; summary row: `business-method.md` §15)*
+- **Default constraint to check:** repeat-visit rate first, then off-peak utilization — a RETENTION constraint (§3 row 4), not leads. Quiet Tuesdays are a retention/utilization finding, not a leads problem. Confirm or deny with three probes: what share of guests come back, how full the off-peak sittings run, and whether anything is deliberately engineered to earn visit two.
+- **Reliefs, constraint-typed:** "filling tables/functions" → retention/utilization first (visit two), leads second; "marketing and being found" → the content door (§10.1 — one this shape genuinely lives on); bookings/deposits admin → cash pull-forward (§9.5).
+- **Lands directly:** LTV thinking — the regular IS the business (§11); referral mechanics as bring-a-friend (§10.7); deposits on functions (§9.5); behind-the-counter content as the standing channel (§10.1).
+- **Adapt:** OVERRIDE — there is no pipeline: the "offer" here is whatever earns visit two (loyalty and habit mechanics standing in for continuity, §9.4 adapted).
+- **Traps:** countdown scarcity and deep discounting (§7.4, §8.5 — trains deal-hunters and poisons a habit business).
+- **Shape defaults:** guarantee = a make-it-right promise, not a mechanic (§7.2 adapted) · attraction offer = bring-a-friend / free-with-consumption (§9.3) · referral-ask moment = the engineered bring-a-friend at the great-night moment (§10.7).
 
 **Comms style:** Warm, inviting, on-brand, visual. Lead with the experience and the result (the night out, the full function); concrete about times, what's included, and how to book.
 
@@ -194,6 +227,14 @@ Each shape is the same structure:
 - **Reminders reduce no-shows.** Appointment reminders and rebooking nudges are the highest-value automation; a calm reminder/rebooking sequence is the standout (logistics-only, never clinical over text).
 - **Funding/cost wording must be confirmed first.** Funding schemes (e.g. NDIS, Medicare, private health) change wording and process — confirm the funding type before drafting anything about cost or claiming. Plain-English funding explainers are high-demand (`write-a-policy`).
 - **Intake packs arrive as documents.** Payslips, referrals, paper forms, assessments — reading them into a clean summary and naming what's missing is a strong minute-one move (`extract-document`, `template-from-document`).
+
+**Doctrine fit** *(defaults to check, not facts — verify against this owner's numbers; summary row: `business-method.md` §15)*
+- **Default constraint to check:** rebooking/recall rate and no-shows — a RETENTION constraint (§3 row 4): the leaky bucket, not the tap. Confirm or deny with three probes: rebooking rate after the initial consult, no-show rate, and recall coverage (what share of lapsed patients ever get a recall touch).
+- **Reliefs, constraint-typed:** "reminders and rebooking (the no-show problem)" → retention, and the show-rate doctrine applies in full (§15: the booking is not the win, the show is — remind hard, deposits on long appointments, standby list, track show-rate as a funnel stage); intake-pack reading → delivery/admin; funding wording → compliance, never a growth lever.
+- **Lands directly:** activation and recall as retention math (§11.3, §11.1); speed-to-lead on enquiries (§10.5 tier 1); reminder and recall systems as the highest-value automation.
+- **Adapt:** COMPLIANCE OVERRIDES EVERYTHING (§7.2, §15): no outcome testimonials or before/afters in owned channels, no result guarantees (service-level only), no urgency or price pressure on clinical decisions; the discovery arc structures logistics and care-plan conversations, never the clinical recommendation (§12.5).
+- **Traps:** any proof or scarcity mechanic that touches clinical outcomes (§7.4, §15); treating a quiet book as a leads problem while rebooking and recall sit unmeasured.
+- **Shape defaults:** guarantee = service-level only (§7.2 — on-time, logistics, we-handle-the-paperwork; never a clinical outcome) · attraction offer = the initial consult/assessment as the honest entry point (§9.3 adapted — never discounted clinical care under urgency) · referral default = practitioner partnerships, not patient asks (§10.7 adapted).
 
 **Comms style:** Warm, calm, respectful, clear about logistics (time, place, what to bring). Never clinical over text.
 
@@ -227,6 +268,14 @@ Each shape is the same structure:
 - **Free-to-paid is the pipeline.** The free tier or lead magnet is the top of the funnel; the ascension moment (free → paid) is a designed, measured step, not an afterthought.
 - **Member words sell the offer.** Wins and testimonials captured at the moment they happen ARE the sales page (`build-customer-voice`); make capturing them systematic, and always attribute real, consented results.
 - **Results claims need care.** Income and outcome claims invite platform and consumer-law trouble — anchor every claim in a real, attributable member result and avoid guarantee language.
+
+**Doctrine fit** *(defaults to check, not facts — verify against this owner's numbers; summary row: `business-method.md` §15)*
+- **Default constraint to check:** audience/leads to the first ~$10k, then churn and delivery quality (§15) — the one shape where LEADS (§3 row 1) is the honest early default; past that point, re-run the §3 order and check retention first. Confirm or deny with three probes: list/audience growth, monthly churn, and the share of new members who land a first win in week one.
+- **Reliefs, constraint-typed:** "the content demand that never stops" → leads (the content door, §10.1); "launch and offer copy" → conversion (§7); "onboarding new members to a fast first win" → activation (§11.3); "keeping members month over month" → retention (§11.1, §11.4).
+- **Lands directly:** nearly everything — this is the doctrine's home turf (§15): the value equation, offer construction, the money model, the four doors, and the full retention doctrine all at full strength.
+- **Adapt:** protect a practitioner-owner's hours (§8.3) — a coach at delivery capacity prices up or moves 1:1 into group/one-to-many (§11.6) before chasing volume.
+- **Traps:** income claims and fake scarcity (§7.4 — real cohort caps are fine, because they're true); competing on information (§14 — the competitive alternative is free content, so the only-we is proximity, accountability, and specificity, never information).
+- **Shape defaults:** guarantee = conditional, completion-style (§7.2 — conditions are the actions a successful member takes anyway) · attraction offer = challenge / free tier with a designed ascension moment (§9.3) · referral-ask moment = the celebrated member win (§10.7).
 
 **Comms style:** Founder-voice, energetic but genuine, outcome-and-identity led (speak to who the member is becoming). Plain about what's included, what happens next, and when.
 
@@ -264,6 +313,14 @@ Each shape is the same structure:
 - **The free tier / trial is the top of the pipeline.** Design and measure the upgrade moment deliberately, the same way a shop designs the checkout.
 - **Roadmap language stays honest.** Name what's live versus what's planned; never promise a ship date on an unshipped feature.
 
+**Doctrine fit** *(defaults to check, not facts — verify against this owner's numbers; summary row: `business-method.md` §15)*
+- **Default constraint to check:** retention/product-fit wearing a marketing costume — check churn and activation before any lead prescription (§3 row 4, per the §3 examination order). Churn above ~5%/mo voids all growth spend (§11.1 hard gate, directional). Confirm or deny with three probes: monthly churn, activation rate (share of signups reaching first real value), and LTGP:CAC (§10.6).
+- **Reliefs, constraint-typed:** "the activation/onboarding messages" → activation (§11.3); "quiet accounts drifting toward churn" → retention (§11.4-11.5); "launch and changelog content" → leads (the content door, §10.1); "pricing/packaging decisions" → profit-per-unit (§8).
+- **Lands directly:** LTGP:CAC discipline (§10.6); the positioning ladder (§14) — the PRIMARY doctrine for this shape; niche hard (§7.0).
+- **Adapt:** the trial/free tier as the attraction offer with a deliberately designed upgrade moment (§9.3); annual prepay as the cash engineering (§9.5).
+- **Traps:** discount-to-close (§8.5); buying growth while churn and activation sit unmeasured or failing (§11.1 gate).
+- **Shape defaults:** guarantee = activation-conditional (§7.2 — tied to reaching first value, never a business-outcome promise) · attraction offer = the trial/free tier (§9.3) · referral-ask moment = a visible product win (§10.7) — with annual prepay as the standing cash lever (§9.5).
+
 **Comms style:** Clear, human, jargon-free; concrete about what the product does today. Helpful docs-tone in support, founder-voice in launches.
 
 ### Verticals inside this shape
@@ -283,6 +340,6 @@ Each shape is the same structure:
 
 ## Anything else — the generic fallback
 
-No shape fits cleanly → use the generic `templates/CLAUDE.md` as-is and rely on the real workspace data. The field test confirmed the generic reasoning carries unusual businesses to an excellent first win on its own, so this is a strong default, not a consolation prize. Ask the operator one or two short questions about how their work flows (how leads arrive, how they price, what brings customers back) and their comms style, rather than forcing a shape that doesn't fit. If a shape or vertical comes up repeatedly, add it above.
+No shape fits cleanly → use the generic `templates/CLAUDE.md` as-is and rely on the real workspace data. The field test confirmed the generic reasoning carries unusual businesses to an excellent first win on its own, so this is a strong default, not a consolation prize. Ask the operator one or two short questions about how their work flows (how leads arrive, how they price, what brings customers back) and their comms style, rather than forcing a shape that doesn't fit. The diagnosis still works shapeless: run the intake and the pressure-point check (business-method.md §2-§3) directly off the owner's answers to those flow questions. If a shape or vertical comes up repeatedly, add it above.
 
 **Never narrate the miss (hard rule).** The owner must never hear that their business "doesn't fit", is "unusual to slot in", that "none of my playbooks apply", or any mention of shapes, playbooks, or matching — that is internal machinery, and hearing it lands as "this system wasn't built for me." Before falling back, check for a **blend**: most businesses that don't match one shape are a mix of two (a community with a software upsell, a shop that also runs workshops, a clinic selling products) — take the gotchas from each part and carry on. Blended or fully generic, the playback sounds exactly as confident and specific as a matched one, and the one or two flow questions read as interest in their business, never as confusion about it.

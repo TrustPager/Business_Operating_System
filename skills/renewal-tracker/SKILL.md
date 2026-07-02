@@ -240,6 +240,23 @@ floor provides versus what the connected tier adds:
 Never describe the keyless tracker as if it notifies anyone. Never oversell the
 floor. The reminder-firing is the honest connect-time deepener.
 
+## When the items are customer renewals (conditional)
+
+Most runs track the owner's own compliance and coverage dates; for those,
+nothing in this section applies. When some listed items are things customers
+renew WITH the owner (client contracts, retainers, maintenance plans,
+memberships), add this on top:
+
+1. Say so in one line: for those rows the tracker is also a retention
+   surface, not just a date list.
+2. Each upcoming customer renewal inside its lead window is a re-sign
+   conversation to schedule now, at the before-expiry moment (per
+   `knowledge/business-method.md` §9.4 and §11.4).
+3. A lapsed customer renewal gets the cancellation-save conversation within
+   24 hours (§11.5). Offer to draft it: outcome-led, per §18.
+4. Nothing else changes: same columns, same formulas, same connect-tier
+   close.
+
 ## Step 7: Close the loop
 
 After the tracker is built:
@@ -263,6 +280,10 @@ After the tracker is built:
 - **State the connect-tier split honestly.** The keyless file is the tracker.
   The reminder-firing (CRM, calendar) is the connect-time deepener. Never
   imply the keyless file notifies anyone.
+- **Customer-renewal rows are retention data, not just dates.** Route re-sign
+  and save conversations per `knowledge/business-method.md` §9.4 and §11.5;
+  never let a client renewal sit passive inside its lead window. Compliance
+  renewals are untouched by this.
 - **Customer-facing output is positive and outcome-led.** The tracker shows
   what is coming up so the owner stays ahead of it, never what they might miss
   or what could go wrong.

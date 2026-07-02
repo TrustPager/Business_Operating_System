@@ -116,6 +116,8 @@ Contrasts worth locking (pick the ones the samples make live):
   by channel)
 - Short and punchy **vs** fuller, more explanatory
 - Contractions on **vs** off; emoji on **vs** off
+- How you open a post: outcome-first **vs** question/curiosity-first (both
+  allowed, business-method.md §18; pain-led is not)
 - Preferred greeting and sign-off
 - Signature phrases they own **vs** phrases they never want put in their mouth
 - Jargon tolerance: what's welcome, what's banned
@@ -146,7 +148,10 @@ reads it cleanly:
 - **Vocabulary to reach for**, phrases lifted verbatim from the samples, in a
   table with a source tag. Available, never mandatory.
 - **Watch out for**, the registers and words the owner chose to avoid in Step 2,
-  framed as defaults not absolute bans.
+  framed as defaults not absolute bans. Pain-led hooks are a default-avoid
+  register in every customer-facing surface regardless of personal style, per
+  the content-rules bridge (business-method.md §18): the voice file records it
+  once, and every downstream app inherits it.
 - **Words that are fine**, normal words the owner uses, listed so nothing gets
   over-restricted.
 - **Mechanical preferences**, greeting, sign-off, emoji, punctuation; state the

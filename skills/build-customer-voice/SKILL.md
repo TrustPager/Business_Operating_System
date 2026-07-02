@@ -107,6 +107,14 @@ evidence base you'll have fewer quotes per theme than a full transcript mine
 would — that's fine. Write what the evidence genuinely supports; never pad to
 hit a count.
 
+**What downstream reads from each section:** §3 jobs-to-be-done captures
+the Arrival in the buyer's own words (business-method.md §6); §4 worries
+feed guarantee design — the buyer's biggest fear, inverted (§7.2); §5
+competing options are rung 1 of the positioning ladder — real alternatives
+including "no tool at all" (§14); §6 buying moments feed
+urgency-as-gain-timing (§7.4, §18); §2 pain themes feed the internal
+problem list of the Category-of-One build (§7.1), never shipped copy (§18).
+
 ### 1. Who's actually leaving these words
 
 Industries, business sizes, roles, locations — whatever the source material

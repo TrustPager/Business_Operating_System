@@ -94,6 +94,16 @@ ten seconds.
 | `cancelled` is 0 on a campaign with a "Remove" stage | the **un-enrol automation isn't firing** — booked/dead leads still get drip | check stage automation B (R19); hand to `/why-didnt-it-fire` |
 | `active` piling up, few completing | people stalled mid-sequence | check step delays + that later steps have email actions wired |
 
+### The verdict layer (what the numbers mean for the business)
+
+Read each queue against the doctrine lens that fits its job: an
+onboarding/enrolment queue against the activation lens (`business-method.md`
+§11.3 — the % reaching the first win early IS next quarter's churn,
+directional); a retention sequence against the ceiling equation (§11.1 —
+churn caps the business's size regardless of marketing); a lead/reawakening
+sequence against the engaged-lead math (§10.3 — fix the WORST stage, not the
+top). The funnel says where the leak is; the lens says what it costs.
+
 ## Step 3 — Point at the fix, don't auto-fix
 
 This is a read/diagnose skill. For the fixes it surfaces, hand off:

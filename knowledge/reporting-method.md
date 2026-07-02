@@ -107,6 +107,26 @@ So the only "sync" moment is onboarding. If a receivables report is empty, the f
 
 ---
 
+## 7. The weekly scoreboard — the standing report archetype
+
+The one-page weekly scoreboard (`business-method.md` §12.6) is the standing report most operators should end up with: one dashboard, a handful of `stat` cards, delivered by the §5 digest every Monday in the operator's timezone.
+
+Map each card to a real source:
+
+| Card | Source / query |
+|---|---|
+| Leads & conversations this week | `opportunities` — opportunities created, by stage |
+| Close rate | `opportunities` — won vs decided |
+| Cash collected | `invoices` — sum of `amount_paid` (requires the seeded ledger, §6) |
+| Open / overdue follow-ups | `tasks` — open + overdue counts |
+| THE pressure-point metric of the quarter | one extra card for whatever the current diagnosis says matters most (`business-method.md` §16) |
+
+When a doctrine metric has no source yet (activation %, churn/saves): **don't fake it with a proxy** — a missing number is a finding. The scoreboard ships with the cards the workspace can honestly fill, and "start measuring X" becomes a task, not a chart (`business-method.md` §2).
+
+A business with no numbers rhythm gets this scoreboard as its FIRST prescription; `/weekly-review` reads it, `/email-me-a-report` delivers it.
+
+---
+
 ## Discovery cheat-sheet
 
 | Need | Call |

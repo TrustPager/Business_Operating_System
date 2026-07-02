@@ -31,6 +31,18 @@ Each layer is built **from** the layer above. Synthesis is INPUT to the
 brand voice, not the brand voice itself. Customer phrases are available
 to reach for; they're not required in every email.
 
+## Where this method sits in the business method
+
+- A nurture sequence is warm follow-up in the content/outreach doors
+  (business-method.md §10.1).
+- It exists to fix the engaged-leads-to-conversations stage (§10.3) —
+  before designing one, confirm that IS the weak stage.
+- For locally bought shapes, the local gravity gate (§10.5) comes before
+  any sequence work.
+- Swapping the magnet, creative, or sequence on an existing channel is a
+  Better move; a new channel is New (§4.4) — "redesign the sequence"
+  precedes "try a new platform".
+
 ---
 
 ## Layer 2 — Customer voice synthesis
@@ -213,6 +225,9 @@ Every email follows the same canonical structure:
 
 1. **Subject** — forward-looking, action-oriented. A verb the reader can
    mentally agree to. NOT a receipt for an action they just took.
+   Subjects and hooks obey the content-rules bridge (business-method.md
+   §18): outcome- or curiosity-led; the pain anchor is internal
+   rationale only.
 2. **Warm human opener** — `Hi {{contact.first_name}}` or `Great to meet
    you {{contact.first_name}}` for Day 0.
 3. **One core idea per paragraph.** Don't stuff three customer pains
@@ -240,13 +255,17 @@ For each Day stage:
 
 - **Day 0 = the activation moment.** First email goes immediately on
   enrollment. Often a foundational setup step (e.g. "connect Claude")
-  that every subsequent email assumes.
+  that every subsequent email assumes. This is the activation protocol
+  at work (business-method.md §11.3): a felt win in the first days, and
+  a re-sell of the decision inside 48 hours (directional).
 - **Days 2-N escalate** — start with the spine (pipeline / data),
   add automations, add comms, then move to power features.
 - **Final day = the conversion close.** The most universal,
   highest-leverage feature, framed via meta-narrative if possible
   ("the same way these emails reached you, yours can reach your
-  customers").
+  customers"). Internally, the close follows the next-win timing
+  (business-method.md §9.4); the line the customer reads names the next
+  win (§18).
 
 ---
 

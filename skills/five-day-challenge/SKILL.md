@@ -165,13 +165,27 @@ below is keyless for Days 1 to 4.
 - **Tease:** "Tomorrow we make you money: price a real job and send a proposal."
 
 ### Day 3: Decide and win the work
-- **Mission:** use the system to think, not just to make things.
+- **Mission:** use the system to think, not just to make things, and price like
+  the only one who does what you do.
 - **Headline win (do this first, keep it even if the day stops here):**
   `price-my-work` → `write-a-proposal` — a real job priced and the proposal
   ready to send.
 - **Run, in order:** `grill-me-on-this-decision` on a real decision they are
   sitting on, then `price-my-work` on a real job, then `write-a-proposal` to turn
   that into a branded proposal in their voice.
+  - **Price with the live signal.** Inside `price-my-work`, one extra question
+    earns a lot: roughly how many quotes they win. Read it against the yes-rate
+    bands in `knowledge/business-method.md` §8.2 (directional) and say the
+    verdict in plain words and their numbers ("you're winning nine in ten: that's
+    not a close-rate problem, that's a price with room in it"). Arithmetic first,
+    warm always (§12.7 tone).
+  - **Build the proposal as a named package, not a line-item list.** Run a light
+    pass of the Category-of-One build (§7.1, mini version: the outcome in the
+    buyer's words, the top three worries the package must answer, a named bundle,
+    a guarantee where the shape lawfully allows one — §7.2's compliance overrides
+    for clinic/finance shapes). Owner-facing: "Let's make this quote impossible
+    to compare with the one down the road." The full method lives in the pricing
+    and proposal apps; this day just makes sure it fires.
 - **Kept win:** a decision stress-tested + a job priced + a proposal ready to send.
 - **Operator move:** *pressure-test your thinking.* The system is a sparring
   partner, not just a maker.
@@ -207,9 +221,14 @@ below is keyless for Days 1 to 4.
   `set-up-a-routine` to build a morning brief that reads their day and drafts
   their follow-ups, and run it once so they see it work. This is also the on-ramp
   to plugging in more of their tools later. If they would rather not connect
-  anything today, do not force it: set up a keyless routine (a weekly review of
-  their own numbers) so they still leave with something running, and leave the
-  connectors as an open, exciting next step.
+  anything today, do not force it: set up a keyless routine (their one-page
+  weekly scoreboard: `build-spreadsheet` builds it — leads in, conversations,
+  jobs won, cash collected, plus the one number this quarter turns on — and the
+  routine is the weekly ten minutes that fills it; the shape is
+  `knowledge/business-method.md` §12.6) so they still leave with something
+  running, and leave the connectors as an open, exciting next step. The
+  owner-facing line: "Five numbers, ten minutes a week, and you'll always know
+  what to fix next."
 - **Then** run `whats-possible` so they see the full menu of what their system can
   do and what unlocks as they connect more.
 - **Operator move:** *it runs the work, you operate.*

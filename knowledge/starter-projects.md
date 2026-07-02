@@ -4,6 +4,8 @@
 
 **Build-status legend:** `[live]` = ships today (in registry, `status: active`); `[floor-new]` = decided keyless floor build, not yet built (Planned only — now only `make-brand-video`).
 
+**Constraint note (builders only, never in the operator pitch):** each group maps to the pressure it relieves per `knowledge/business-method.md` §3/§16 — 🏆 Win work → sales/leads, 💰 Get paid → profit/cash, 🤝 Stay on top of customers → retention, 🧭 Plan & decide → owner. Section-level mapping; the groups already carry it.
+
 **Keyless/CRM tags:** `keyless` = zero accounts (`reasoning_only` / local MarkItDown read / keyless render / keyless hosted Firecrawl); `better_with_crm` = genuinely valuable cold but the payoff (auto-send, live tracking) lands on connect; `needs_crm` = requires live CRM data (last-activity dates, receivables) to work at all.
 
 ---
@@ -17,10 +19,12 @@
 | **Turn a photo into a ready-to-send quote** | Send a photo of the job and a quick voice note — I'll turn it into a laid-out quote with line items and the scope structured, ready for your prices. | `quote-from-photo` `[live]` | keyless | instant_win |
 | **Price one common job with confidence** | Tell me the work, your costs and hours and I'll build a defensible price with your margin shown openly, so every quote comes off a number you can stand behind, not a gut feel. | `price-my-work` `[live]` | keyless | first_build |
 | **See what one job type actually makes you** | Pick one job you do all the time and tell me what it brings in and what it really costs, including the per-job cost of any financed or depreciating gear, and I'll show the true profit per job with your margin in dollars and the overhead share stated openly. Reusable spreadsheet model on request. | `profit-per-job` `[live]`, `price-my-work` `[live]` | keyless | first_build |
-| **Write the proposal that wins the job** | Give me the scope and price and I'll write a sharp, on-brand proposal or SOW in your voice, laid out as a real .docx you can send today. | `write-a-proposal` `[live]`, `price-my-work` `[live]` | keyless | first_build |
+| **Write the proposal that wins the job** | Give me the scope and price and I'll write a sharp, on-brand proposal or SOW in your voice, laid out as a real .docx you can send today — built as a named package around the outcome the buyer wants, with options where they fit, so it can't be price-shopped line by line. | `write-a-proposal` `[live]`, `price-my-work` `[live]` | keyless | first_build |
 | **Size up a competitor before you bid** | Point me at a rival's site and I'll read it like a sharp operator: how they position, what they appear to charge, and where the openings are for you. | `research-a-competitor` `[live]` | keyless | first_build |
 | **Research a prospect before the call** | Tell me who you're meeting and I'll hand you a one-page brief plus three sharp questions that make you the most prepared person in the room. | `research-before-call` `[live]` | keyless | instant_win |
 | **A firm letter, in your voice** | Tell me what happened and I'll write the firm, professional letter that holds the line: a variation notice, a dispute response, a payment-terms letter, factual and in your voice, as text or a real .docx. | `write-a-letter` `[live]` | keyless | first_build |
+
+*Builder note (proposal):* the named-package build is `knowledge/business-method.md` §7.1 (Category-of-One, light pass), and the point of it is §7.6's commodity test — a proposal the buyer can't compare line by line with the one down the road.
 
 ### 💰 Get paid — chasing invoices, recovering missed work
 
@@ -41,6 +45,10 @@
 | **A stay-in-touch / renewal sequence** | I'll draft the anniversary check-ins, renewal nudges and reorder reminders in your voice — top-of-mind without lifting a finger; fires on real dates once connected. | `design-nurture-sequence` `[live]`, `wire-nurture-sequence` `[live]` | better_with_crm | deeper |
 | **Renewal / reorder radar** | Connect your workspace and I'll surface every renewal or reorder coming up, flag the ones gone quiet, and draft each review message. | `follow-up-radar` `[live]`, `prep-for-call` `[live]` | needs_crm | deeper |
 | **Turn a call/meeting into notes, decisions and next steps** | Paste a transcript or point me at a recording and I'll hand back a clean summary, the decisions, and the action list, ready to act on. | `transcript-summary` `[live]`, `build-customer-voice` `[live]` | keyless | instant_win |
+| **A review engine that runs itself** | I'll write your review ask (sent at the moment the job's done, by the person who did it, with the direct link) and your reply patterns, in your voice, today; once your workspace is connected the ask fires on every completed job on its own. | `write-prompt` `[live]`, `design-nurture-sequence` `[live]` | better_with_crm | first_build |
+| **A welcome that lands the first win** | I'll draft the first-two-weeks welcome for a new customer: the same-day thank-you, the getting-started note, and the check-in that makes sure they get their first result fast, in your voice; fires on its own once connected. | `design-nurture-sequence` `[live]` | better_with_crm | deeper |
+
+*Builder note (review engine):* `knowledge/business-method.md` §10.5 tier 2 — surface it ahead of any marketing build for trades/hospitality/clinic shapes; the review engine (with answer speed) is §10.5's hard gate before any lead-generation spend. *Builder note (welcome):* activation per business-method.md §11.3; the same-day welcome is how the discovery arc closes, §12.5.
 
 ### 🎨 Look professional & market — brand, content, video, social
 
@@ -77,6 +85,9 @@
 | **Stress-test your next big decision** | A hire, a price rise, dropping a service? Tell me the call and I'll grill you on it — surface your assumptions, argue both sides at full strength, and name the one thing that would change the answer, before you commit. | `grill-me-on-this-decision` `[live]` | keyless | first_build |
 | **A job ad + screening questions in your voice** | I'll write the job ad and screening questions that sound like you, so the right people apply and the wrong ones screen themselves out. | `write-a-job-ad` `[live]`, `onboard-team-member` `[live]` | keyless | deeper |
 | **The policies & FAQs your business runs on** | Tell me how you handle deposits, cancellations, refunds or privacy and I'll write clean, on-brand policy and FAQ text for your site, emails or staff. | `write-a-policy` `[live]` | keyless | deeper |
+| **Your one-page weekly scoreboard** | Tell me the handful of numbers your week turns on (enquiries in, conversations, jobs won, cash collected) and I'll build the one-page tracker you fill in ten minutes every week, so you always know which number to fix next. | `build-spreadsheet` `[live]` | keyless | first_build |
+
+*Builder note (scoreboard):* the sheet's shape is `knowledge/business-method.md` §12.6; §16 makes it the standing first prescription for an owner with no numbers. The connect-time deepener — the workspace filling it on its own, the weekly review reading it — lives here in prose only; the row stays keyless with no connected ids in it.
 
 ### 🇦🇺 Australian businesses only (switches on once you confirm Region: AU)
 
@@ -120,6 +131,7 @@ These work for **any** 2-10 person small business and are the default pool to dr
 24. **A product description that sells it** — `describe-a-product` · keyless · first_build *(one product → an on-brand description for a store or listing; the product-seller market win)*
 25. **See your cash position week by week, in a live spreadsheet** — `cash-flow-forecast` · keyless · first_build *(opening balance + expected inflows and outflows by week, 4-13 week horizon clamped, tightest week named as the one to plan for; live .xlsx where the running balance is a formula that recalculates when any number changes; budgeting folded in; no NPV)*
 26. **Track every renewal so nothing lapses** — `renewal-tracker` · keyless · first_build *(licenses, insurances, certifications, registrations, memberships with renewal dates and optional lead-times; live .xlsx where the days-until-renewal column is a =DATE(yyyy,m,d)-TODAY() formula so it recalculates every open; rows soonest-first; status flags inside/outside lead window; connecting a CRM or calendar is the honest connect-time deepener for reminders that actually fire)*
+27. **Your one-page weekly scoreboard** — `build-spreadsheet` · keyless · first_build *(the handful of numbers the week turns on — enquiries in, conversations, jobs won, cash collected, plus the one number this quarter turns on — filled in ten minutes a week; shape per business-method.md §12.6; the workspace filling it on its own and the weekly review reading it is the connect-time deepener)*
 
 **Note for builders:** every copy-producing app (`build-social-strategy`, `write-post-copy`, `plan-my-content`, `write-a-job-ad`, `write-a-policy`, `write-a-proposal`, `write-a-letter`, `describe-a-product`) enforces the positive-only language rule (global CLAUDE.md + floor-completion-plan DoD; `write-a-letter` carries the labelled firm-but-factual exception for dispute letters). Each also carries the explicit "before you output anything customer-facing: positive/outcome-led, no em dashes" guard line. `transcript-summary`, `import-from-anywhere`, and `build-spreadsheet` are keyless on the floor (the MarkItDown paste/local-file read and the doc-lib WRITE side ship today, floor-completion-plan ruling #2); their CRM-side payoff (logging onto a record, seeding the customer database, a live self-updating sheet) is the plain-language connect-time deepener, never the price of the keyless win. The two research apps are keyless-but-online: they need connectivity at runtime but no account or key.
 
@@ -155,6 +167,7 @@ The shape-wide standouts: winning the next piece of work and looking as professi
 - **A recovery text for missed calls** (`missed-call-recovery`) — speed-to-lead is the #1 trades gotcha; a missed call is a lost job.
 - **Chase your stale quotes** (`draft-reply` + `design-nurture-sequence`) — quotes go cold in ~2 weeks; the chase wins jobs already quoted.
 - **Turn a photo into a quote** (`quote-from-photo`) — a photo + voice note is the whole brief on the tools.
+- **A review engine that runs itself** (`write-prompt` + `design-nurture-sequence`, better_with_crm) — the ask written today, firing on every completed job once connected; with answer speed, it comes before any marketing build.
 
 **Small manufacturing / fabrication** (vertical, trades-shaped: spec-led, repeat accounts)
 - **Your spec-to-price calculator** (`price-my-work`, live keyless) — quotes hinge on specs; a calculator turns any spec into a defensible number.
@@ -174,6 +187,7 @@ Being found drives covers; Instagram (and local social) is a primary channel; fu
 - **A social-media strategy aimed at more bookings** (`build-social-strategy`, live keyless) — a steady, on-brand social presence directly fills tables and functions; the strategy picks the platform (usually Instagram-led), the cadence, and the pillars before any single post. Then **a fortnight of content** (`plan-my-content`, live keyless) dates it.
 - **The policies your bookings run on** (`write-a-policy`, live keyless) — clear deposit, cancellation, and group-booking wording prevents no-shows on the high-value functions.
 - **A job ad in your voice** (`write-a-job-ad`, live keyless) — rosters and peaks mean hiring is routine; an ad that sounds like the venue draws the right people.
+- **A review engine that runs itself** (`write-prompt` + `design-nurture-sequence`, better_with_crm) — a steady drip of recent reviews fills tables; the ask and reply patterns written today, firing on their own once connected, ahead of any marketing build.
 
 ### Shape: Clinic / appointment
 
@@ -181,6 +195,7 @@ Reminders protect the calendar; privacy and funding wording come first.
 - **A calm reminder & rebooking sequence** (`design-nurture-sequence`, better_with_crm) — reminders are the highest-value automation (no-show reduction); logistics-only, never clinical over text.
 - **Your intake & consent forms, drafted clean** (`template-from-document` + `extract-document`) — proper paperwork without retyping; privacy-safe, ready on connect.
 - **Plain-English funding explainers** (`write-a-policy`, live keyless) — NDIS/Medicare/private-health wording, confirmed before drafting. *(Allied health = the privacy-heavy vertical; wellness/personal-care studios share the book-attend-rebook rhythm with a lighter privacy load and lean on `build-social-strategy` to fill the calendar.)*
+- **A review engine that runs itself** (`write-prompt` + `design-nurture-sequence`, better_with_crm) — recent reviews fill the calendar; the ask and reply patterns written today (logistics-only, never clinical), firing on their own once connected, ahead of any marketing build.
 
 ### Shape: Courses / community / coaching
 
@@ -239,6 +254,7 @@ them to `/tune-my-setup`.
 0. **Custom-first (the default when there's an obvious fit).** If the owner's own situation points to an obvious, high-fit bespoke project, that is the DEFAULT and leads — even if it's not in this library. This library is the **safety net**: it guarantees there's always at least one option serving a real problem they named, for when no obvious custom project exists. (TrustPager is reactive-only: slot-3 "auto-later once connected" options describe the OUTCOME; never name TrustPager unless the owner asks what else the BOS can do or about CRMs.)
 1. **Filter out anything they've already built.** Never re-offer `already_built`.
 2. **Gate by trust + connection.** Cold (nothing connected, first pivot): draw **only from the keyless `first_build` pool** (`instant_win` is the pre-pivot taste, not a menu item; `deeper` and any `needs_crm`/`better_with_crm` project is held back). As trust accrues or a CRM connects, open up `deeper` and `better_with_crm`.
+3a. **Anchor on the diagnosed pressure point when one exists.** If the profile carries a diagnosed pressure point or a logged contradiction (start-here rule 2b), slot 1 maps to that constraint's move per `knowledge/business-method.md` §16 — filtered to what's live and keyless cold, exactly like every other offer. Two hard sub-rules: local shapes asking for leads get answer-speed + the review engine offered before ANY marketing build (§10.5's gate — cold, that's the recovery text drafted now to fire on connect, plus the review-ask kit); an owner at capacity asking for leads gets the pricing build first (§8.3). When no diagnosis exists, fall through to 3 unchanged.
 3. **Anchor on the named relief.** The first of the 3 must map to `named_relief`, and cold it must be a **live keyless** win (the one Planned project below is named for vision only — never lead with it until it ships). Relief → project lead:
    - quoting → *photo-to-quote* (live) · *Price this job* (live) · *A proposal that wins* (live keyless)
    - finding leads → *Size up a competitor* (live keyless, online) · *Research a prospect* (live keyless, online); fall back to *Your brand, written down* (live) if offline
@@ -255,7 +271,7 @@ them to `/tune-my-setup`.
 5. **Shape the 3 as quick-win + meatier + aspirational:**
    - **Slot 1 — quick win** that nails the named relief (the dopamine hit; a short, visibly-finished artifact).
    - **Slot 2 — meatier first_build** that deepens the profile (brand, pricing brain, proposal — captures rates/voice/positioning as a side effect).
-   - **Slot 3 — aspirational** that hints at the operator they're becoming (competitor research, content plan, decision grilling) — and, if `connected=false` and trust is rising, this slot is the gentle place to seed a `better_with_crm` project ("…and it can send itself once your workspace is connected").
+   - **Slot 3 — aspirational** that hints at the operator they're becoming (competitor research, content plan, decision grilling) — and, if `connected=false` and trust is rising, this slot is the gentle place to seed a `better_with_crm` project ("…and it can send itself once your workspace is connected"). The aspirational slot prefers more-of-what-works or a sharper version of it over a genuinely new channel (`knowledge/business-method.md` §4.4) — never pitch "new" as the dream by default.
 6. **Keep slot 1 + slot 2 keyless** at the cold open. Only let slot 3 carry a CRM-tagged option, and only phrase it as a "now, then auto-later" build.
 7. **Each option is phrased outcome-first**, in plain operator language, as "here's something we could build for you" — never jargon, never the app name.
 

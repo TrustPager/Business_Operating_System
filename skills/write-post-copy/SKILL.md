@@ -92,7 +92,11 @@ it's going:
 Across all of them:
 
 1. **Open with the outcome, not the wind-up.** The first line names the win the
-   reader cares about. No "So I wanted to share something..." preamble.
+   reader cares about. No "So I wanted to share something..." preamble. The
+   full hook space (business-method.md §18): outcome-led or curiosity-led;
+   contrarian hooks frame the better way, never the reader's failure; ad
+   callouts are identity + outcome ("Brunswick landlords: ..."), never
+   "Tired of X?".
 2. **One idea per post.** If two ideas are fighting, that's two posts. Pick the
    stronger one for this run.
 3. **One clear next step.** Book, reply, read, visit: one ask, stated plainly,
@@ -109,6 +113,9 @@ organic caption, sit it alongside:
 - **Primary text**: the body that runs above the creative. Tighter and more
   direct than the organic caption. Lead with the outcome in the first line
   (assume it gets truncated), make the value plain fast, one call to action.
+  Structure it per the ad anatomy (business-method.md §10.6): call out the
+  person (identity + outcome), make the value vivid, one CTA with a real
+  reason to act now — urgency stated as gain-timing (§18).
 - **Headline variant**: a single short line (think 5 to 7 words) for the ad's
   headline field, outcome-led, that complements the on-image headline rather
   than repeating it word for word.
@@ -162,6 +169,9 @@ for its platform. Stay bounded: one idea per run, not a month's calendar.
   sentences. This holds for every word that ships.
 - **One idea per post, one clear next step.** If it needs two asks or two ideas,
   it's two posts. Write the stronger one.
+- **When the post's next step points at an offer or lead magnet**, use its
+  five-part name (business-method.md §7.5) and sell the gain of a diagnostic
+  magnet (§10.4, §18).
 - **No invented proof.** Don't put a fake stat, a made-up testimonial, or a
   customer quote the owner didn't give you into a post. Anchor in what's real.
 - **No third-party vendor or tool names** anywhere a follower would see them.

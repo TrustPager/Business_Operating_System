@@ -59,6 +59,29 @@ own discovery conversation, not customer-facing copy. Ask the fewest questions
 that let you grill it properly. If they've already given you a tight,
 well-shaped decision, skip straight to Step 2.
 
+## Step 1b: Match the decision to a doctrine test
+
+Once the decision is sharp, check it against the known decision shapes in
+`knowledge/business-method.md`. One row per shape; the sections are pointers
+to read, not scripts to recite:
+
+| The decision is... | Read and apply |
+|---|---|
+| A price rise | the close-rate signal, the price-rise maths, and the fear-is-inch-deep arithmetic (§8.2, §17, §12.7) |
+| A new channel or platform | the More-Better-New gate; test "it didn't work" against the volume floor (§4.4, §10.2) |
+| Spending more on marketing | the LTGP:CAC gate and the self-funding bar (§10.6, §9.2, §13) |
+| A hire | who-not-how, A-player comp, and the technician trap (§12.2, §12.3) |
+| A second business, a new avatar, or broadening the niche | the switching tax and the commit rule (§12.7, §7.0) |
+| Dropping a service, or a big purchase | opportunity sizing (§17) |
+| "Waiting until we have data" | the data-stall rule (§3) |
+
+- When the decision matches a row, read that section and let it shape Steps
+  2-5: the assumptions you surface, the pokes, and the steelman.
+- When it matches nothing, grill from first principles; the table is a
+  shortcut, not a gate.
+- The doctrine informs the pokes and the steelman; it does not pre-write the
+  recommendation.
+
 ## Step 2: Surface the hidden assumptions
 
 Every decision rests on things the owner is treating as true without having
@@ -82,8 +105,11 @@ number; if there are three that matter, name three.
 
 ## Step 3: Poke the weak points
 
-Now go after the decision honestly. For each load-bearing assumption and the
-plan around it, ask the question a sharp, friendly sceptic would ask:
+Now go after the decision honestly. First poke, always: does this decision get
+more customers, or make current customers worth more (per
+`knowledge/business-method.md` §1)? If it does neither, that is itself a
+finding. Then, for each load-bearing assumption and the plan around it, ask
+the question a sharp, friendly sceptic would ask:
 
 - What has to be true for this to work, that isn't guaranteed?
 - What's the failure mode nobody's planning for, and how would they know it's
@@ -123,7 +149,8 @@ hinges on: the thing where, if it were different, the recommendation flips.
 
 Naming this turns an agonising open-ended worry into one answerable question.
 Often the owner can go find that answer (ask five clients, check the numbers)
-and the decision makes itself.
+and the decision makes itself. Where the hinge is a number, compute it with
+the owner using the napkin-math library (`knowledge/business-method.md` §17).
 
 ## Step 6: Give a clear recommendation to weigh
 
@@ -141,7 +168,9 @@ hype-up. The owner came for a sharper view, so give one:
 Keep the recommendation framed around the outcome and the move, not around
 fear. "Run a four-week trial of the new rate with new clients only, and you'll
 know within a month whether it holds" beats "you'll probably lose everyone if
-you get this wrong."
+you get this wrong." When the verdict is hard, deliver it per the tone in
+`knowledge/business-method.md` §12.7: numbers before judgment, and the pattern
+framed as one every owner falls into, never a character flaw.
 
 ## Hard rules
 - ❌ **No cheerleading.** This is a pressure-test. If the decision is shaky, say

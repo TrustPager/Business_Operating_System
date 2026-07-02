@@ -107,6 +107,13 @@ Fill every `<<< ... >>>` from the digest:
 - **Pipeline** — the actual `stages` of the default pipeline, in order. If there
   are several pipelines, list the primary one's stages and name the others.
 - **Lead sources** — tick the boxes that match `settings.lead_sources`.
+- **How the business is running (labelled estimates, never facts)** — where the
+  workspace yields them, compute and write into the profile's "How the business
+  is running" block: rough win rate from won/lost counts, deals per stage,
+  primary lead source by volume, and repeat-vs-one-off customer mix. Label every
+  one "estimated from your workspace — confirm". These are the diagnosis inputs
+  `knowledge/business-method.md` §2 needs; the profile is where they live so no
+  future session re-asks.
 - **Ideal customer / tone** — leave as a short prompt for the operator to
   confirm; you can draft a first guess from the industry, but flag it as a guess.
 
@@ -132,6 +139,13 @@ Two things I couldn't read and guessed — please confirm:
   • Your ideal customer (I drafted a line from your industry)
   • Your tone preferences (left as a prompt)
 ```
+
+If the profile still lacks them, ask AT MOST two of: "How many more customers
+could you take on right now — and what breaks first if you doubled?" (§2's
+capacity probe, `knowledge/business-method.md`); "Do your customers mostly find
+you locally, or could they be anywhere?" (gates the local playbook, §10.5); and
+note the revenue band the workspace implies as a guess to confirm (§5). Two
+questions maximum — this is a sync, not an interview.
 
 End by telling them: "Claude will use this from your next session. Re-run
 `/learn-my-business` whenever your pipeline, products, or brand change."

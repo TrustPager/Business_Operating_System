@@ -73,6 +73,11 @@ Lead with what's actively costing money or will embarrass them, then tidy-ups.
 Use the operator's own pipeline/stage/field names (pull from the data, don't
 invent). Don't dump every row — show the worst few per category and the count.
 
+On dormant-contact findings, name reactivation as the fix: a lead unworked for
+~3 months has gone cold (`business-method.md` §10.3, directional), and a worked
+200 beats a hoarded 5,000 — the value is in re-engaging the recent ones, not in
+keeping the pile.
+
 ## Step 3 — Offer the fixes (with approval, one at a time)
 
 For the safe, mechanical fixes, offer to apply them — one at a time, with a yes:

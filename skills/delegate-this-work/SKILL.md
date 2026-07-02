@@ -72,6 +72,17 @@ confirmation:
   • Your follow-up to verify is set for Fri 20 Jun
 ```
 
+## When it's recurring
+
+If this is the second-plus time the operator has delegated the same work, or
+they say "every week", the durable move is the delegation loop
+(business-method.md §12.1): the owner documents the checklist while doing it,
+demonstrates, then the assignee duplicates against a rubric. Point at
+`/write-a-policy` or `/sync-team-standards` for the checklist, and treat the
+manager follow-up this skill already sets as the duplicate check: feedback on
+the single lowest-scoring item, expecting the checklist to get a competent
+person to about 80% (§12.1, directional).
+
 ## Hard rules
 - ❌ Don't guess an assignee — resolve to a real team member or ask.
 - ❌ Don't skip the manager follow-up; it's the point of the skill.

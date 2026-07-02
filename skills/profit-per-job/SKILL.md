@@ -175,6 +175,20 @@ buried in the total:
 
 Round to sensible money (whole dollars) and say you rounded.
 
+## Step 4b: Read the margin against the gauge
+
+The number means more with a verdict attached. Three checks, in order:
+
+1. Read the computed margin against the margin gauge (per
+   `knowledge/business-method.md` §8.1) and say plainly which band this job
+   type lands in. The bands are directional; say so.
+2. If it lands in the emergency band, name the next move before any growth
+   talk: redesign how the job is delivered per the delivery grid (§11.6), or
+   raise the price (§8.4, via `price-my-work`). Growth multiplies a loss
+   until the margin is fixed (§13).
+3. If the owner is also at delivery capacity, one line: the capacity rule
+   (§8.3) makes price the first lever.
+
 ## Step 5: Lay out the result
 
 Present it as a clean read the owner can act on. Outcome-led and plain:
@@ -208,7 +222,9 @@ Present it as a clean read the owner can act on. Outcome-led and plain:
 ```
 
 Frame it forward: this is the number the owner can trust when they decide which
-jobs to chase more of.
+jobs to chase more of. If this job type repeats for the same customer, offer to
+extend the read to lifetime gross profit (per `knowledge/business-method.md`
+§17): the per-job profit times how often and how long a customer keeps buying.
 
 ## Step 6: Offer the reusable .xlsx model (optional, never the win)
 
@@ -260,6 +276,8 @@ next job type?"*
 - **State the overhead-recovery method.** Name which method recovered the
   overhead (percentage of revenue, per-hour, or per-job) in the output, so the
   recovered figure is legible rather than a mystery.
+- **The margin verdict is a band and a next move, never a lecture.** Point at
+  `knowledge/business-method.md` §8.1 for the gauge; don't restate it.
 - **Customer-facing output stays positive and outcome-led.** The read describes
   what the job earns and what the owner keeps, never pain or what's missing.
   (Naming a missing figure to the owner while gathering inputs is fine: that's

@@ -91,6 +91,12 @@ Close by telling them, in plain words:
 - **Quiet-lead follow-up:** spots enquiries or threads that went quiet and drafts
   a warm nudge for each, for the owner to approve.
 
+When the routine is a customer-contact or cadence routine (regular check-ins on
+active customers), follow the retention cadence spec (`business-method.md`
+§11.4): a named owner for each relationship, a weekly checkbox so it can't
+quietly decay, contact that is genuinely specific to that customer, and never
+a blast.
+
 ## Hard rules
 
 - **Permission first, then you do it.** Never tell a non-technical owner to run a

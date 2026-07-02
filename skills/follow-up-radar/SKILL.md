@@ -70,6 +70,8 @@ For each item in `items[]`, draft ONE re-engagement message. Pick the channel ba
 - ✅ Has email, not email_unsubscribed → **Email** (slightly longer, can reference the deal)
 - ❌ Both unsubscribed → flag the opportunity for manual review, don't draft
 
+If `days_silent` is past ~90, treat it as list reactivation, not a routine chase (business-method.md §10.3): a shorter, fresher-angle message, and flag to the operator that this segment is a worked-list candidate rather than a live deal.
+
 **Each draft must include:**
 
 - **The contact's first name** (from `contact.first_name`) — never "Hi there" or "Hello"

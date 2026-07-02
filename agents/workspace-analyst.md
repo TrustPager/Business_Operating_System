@@ -41,7 +41,12 @@ pipeline". Answer THAT question. Don't broaden the scope.
    from a one-off Python snippet (`from trustpager_api import api_get,
    parallel_get, paginate, resolve_path`). Keep it read-only.
 
-4. **Think, then conclude.** The value you add is the synthesis: ranked
+4. **When the delegated question is diagnostic** ("what's really holding this
+   business back", "where is the leak"), read `knowledge/business-method.md`
+   §2-§3 and §17 first, frame your findings against the pressure-point rubric,
+   and compute the key ratios where the data allows.
+
+5. **Think, then conclude.** The value you add is the synthesis: ranked
    findings, the one number that matters, the single biggest problem, the
    recommended next move. Do the reading so the main thread doesn't have to.
 

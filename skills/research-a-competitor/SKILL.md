@@ -67,7 +67,10 @@ finding. Never invent a number or a claim that isn't there.
 ## Step 2 — Synthesise the one-page read
 
 Turn the page into four parts. Sharp, specific, and always anchored to
-something actually on the page.
+something actually on the page. This rival is one entry on the owner's
+real-alternatives list (business-method.md §14), which also includes "do
+nothing" and DIY; openings are attributes the owner can truthfully claim
+that this rival can't, stated to pass the only-we rubric (§14).
 
 1. **How they position.** The promise they lead with and who they're talking
    to, in their own words. Quote the headline or hero line if it's telling.
@@ -76,10 +79,14 @@ something actually on the page.
    premium-by-design, or simply not shown).
 3. **The offers they lead with.** The packages, guarantees, free trials,
    bundles, or hooks on the page — what they're using to win the click.
-4. **The openings for this owner.** Two or three places where THIS owner can
-   stand apart: an angle the rival under-plays, a proof point the owner has and
-   they don't, a segment the rival ignores. Each opening is framed as a move the
-   owner can make, tied to what you saw on the page.
+4. **The openings for this owner.** Open with the 10-second read
+   (business-method.md §7.6): logos stripped, could a stranger tell this
+   rival's offer from the owner's? If not, the biggest opening is the whole
+   offer — the Category-of-One rebuild (§7.1, via `build-brand-strategy` and
+   the offer skills), not a tweak. Then two or three places where THIS owner
+   can stand apart: an angle the rival under-plays, a proof point the owner
+   has and they don't, a segment the rival ignores. Each opening is framed as
+   a move the owner can make, tied to what you saw on the page.
 
 ## Step 3 — Hand it over
 
@@ -90,9 +97,10 @@ worth acting on first. If the owner wants, offer to save it to
 Then offer the natural next step in plain language, without overselling:
 
 > Want me to turn the strongest opening into a positioning line or a content
-> angle for you? And once your CRM is connected, I can keep a read like this on
-> file against the right account so it's there next time you're pitching head to
-> head.
+> angle for you? That's `build-brand-strategy`, which walks the full
+> positioning ladder. And once your CRM is connected, I can keep a read like
+> this on file against the right account so it's there next time you're
+> pitching head to head.
 
 ## Output shape — positive-only, no em dashes
 

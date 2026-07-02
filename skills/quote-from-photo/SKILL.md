@@ -43,6 +43,13 @@ prices for the operator to drop in**. Name the items, lay out the table, and
 flag the rates as theirs to fill. Don't invent product names or prices they
 don't use.
 
+- If the operator wants numbers computed, run the `price-my-work` maths on
+  their typed costs, cost floor first (per `knowledge/business-method.md`
+  §8.6). Never guess a rate.
+- Where the job suits and the operator names the variations, offer (one line,
+  drop it on a no) a three-option draft per the trades adapter (§15), built
+  only from what they named.
+
 *If your workspace is connected*, you can pull the operator's own
 products/services as optional enrichment so item names and pricing match their
 live catalogue. That's a deepener, never required: cold, structure-first is the
@@ -66,6 +73,11 @@ win. Present:
 <the written proposal in the operator's voice>
 ```
 
+The draft proposal leads with what the client ends up with (the Arrival, per
+`knowledge/business-method.md` §6) and carries the operator's workmanship or
+turn-up guarantee if they have one (§15). The quote is an offer-presentation
+surface, not a number-delivery surface.
+
 If you don't have their price list, draft the scope + line-item structure and
 leave the prices for the operator to drop in — flag that clearly rather than
 guessing rates.
@@ -80,6 +92,10 @@ don't do it unprompted:
 - **Attach to an opportunity** → create/find the deal, add the products
   (`add_opportunity_product`), save the proposal as a note or document.
 - **Just send the text** → `/draft-reply` / `/send-email` with the proposal.
+- **Set the chase** → a sent quote gets a three-touch follow-up (per
+  `knowledge/business-method.md` §16: quotes die in "sent"). Offer
+  `follow-up-radar` when the workspace is connected, or a typed reminder plan
+  keylessly.
 
 End with: *"That's the draft off the photo. Want me to turn it into a signing
 proposal, attach it to a deal, or just send it as-is? Confirm the measurements

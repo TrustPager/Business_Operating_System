@@ -106,7 +106,8 @@ Before you write the file, show the owner the proposal as a section outline so
 they can correct it cheaply. Use these seven sections, in this order:
 
 1. **Cover / intro** — who it is for, who it is from, the job in one line, and
-   a warm opening that names the outcome the prospect wants.
+   a warm opening that names the outcome the prospect wants (the Arrival, per
+   `knowledge/business-method.md` §6, in the prospect's own words).
 2. **Understanding of the need** — reflect back what the prospect is trying to
    achieve, in the prospect's own terms, so they feel heard. This is where the
    proposal earns trust.
@@ -125,6 +126,23 @@ they can correct it cheaply. Use these seven sections, in this order:
    payment term the owner did not give you.
 7. **Next step** — one clear, positive call to action: how the prospect says
    yes and what happens the moment they do.
+
+**Offer lift (one offer, drop it on a no).** With the outline on the table,
+you may offer at most ONE of these lifts. If the owner declines, drop it and
+move on; never stack them or ask twice.
+
+1. **Guarantee.** If the owner already has one, it gets its own line in the
+   Terms section. If they don't, offer to design one with the guarantee
+   picker (per `knowledge/business-method.md` §7.2), respecting its
+   compliance overrides: regulated shapes get service-level guarantees only.
+   Written per §18 — state the condition once, lead and close on the
+   outcome.
+2. **Tiers.** Where the shape fits (trades and services, §15), offer a
+   three-option layout built ONLY from variations the owner names, with the
+   middle option as the intended sale (§9.4). Never pad scope to make a
+   tier.
+3. **Urgency.** Only a real validity window with a real date (§7.4). Never a
+   manufactured countdown.
 
 Confirm the outline (and especially the price, the timeline, and the terms)
 before generating the file.
@@ -206,6 +224,16 @@ separate sentences.
 Tell the owner what you wrote and where the file is. Point out one or two
 phrases you kept in their own voice so they see it is theirs, and flag any spot
 you left for them to fill (a date, a name, a number you did not have).
+
+**Set the chase before you close.** A proposal is not finished until the chase
+exists (per `knowledge/business-method.md` §16: proposals die in "sent"). Hand
+over a three-touch follow-up plan with the file: roughly day 2, day 7, and day
+14, each touch carrying one new piece of information (a relevant proof point,
+an answer to a likely question, a real date from the timeline), never a bare
+"just checking in". Draft the touches on request; they are customer-facing, so
+they obey the content rules (§18: outcome-led, no em dashes). Note that
+`follow-up-radar` runs this chase automatically once the owner's system is
+connected.
 
 Then name where this can go next, as an outcome, without making any of it a
 requirement:
@@ -373,6 +401,9 @@ response.
   section names the result the client is buying (Mode A) or how the firm
   delivers (Mode B). Naming the prospect's problem while gathering inputs is
   fine; that is discovery, not the shipped document.
+- **(Mode A) If the prospect later pushes on price, never the same scope
+  cheaper** (per `knowledge/business-method.md` §8.5). Change what they get or
+  how they pay (§9.4).
 - **Reflect the owner's voice.** If they have a voice doc, match it; otherwise
   keep their own phrasing for the load-bearing lines.
 - **The connected signing template is a described outcome, in plain words.**

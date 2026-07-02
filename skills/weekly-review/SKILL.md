@@ -70,6 +70,17 @@ the pipeline snapshot.
 Use the operator's own stage/product names. Don't dump every row — top few per
 section + the count.
 
+Where the fetch data supports it, add the one-page scoreboard line
+(business-method.md §12.6): this week's leads, conversations, close rate, cash
+collected, and (if tracked) activation and saves, against last week. If most of
+those numbers don't exist, don't fake them: say so, and name the scoreboard
+itself as the first prescription (§12.6), offering `/build-spreadsheet` or
+`/email-me-a-report` to install it.
+
+The focus is one pressure point, not a to-do list (§4: the output is 1-3
+moves). If last week's focus landed, expect the pressure point to have MOVED
+(§4) and say where it likely went, rather than re-prescribing the same fix.
+
 ## Step 3 — Offer to action the stalls (with approval)
 
 Turn the review into next week's first moves — one at a time, with a yes:
@@ -77,6 +88,13 @@ Turn the review into next week's first moves — one at a time, with a yes:
 - **Knock over an overdue task** → `complete_task` if done, or reschedule it.
 - **Set up the recurring version** → mention `/email-me-a-report` can deliver
   this review to their inbox every Friday automatically.
+- **Operator floats something new** ("should we try a new platform / a second
+  offer?") → apply the more-better-new order (§4.4) and route to
+  `/grill-me-on-this-decision`; the default answer is a Better move on the
+  current channel.
+
+End by collapsing the focus to now: "what's the first move, and what are you
+doing in the next two hours that matters more?" (§4). Same-day beats Monday.
 
 ## What to never do
 

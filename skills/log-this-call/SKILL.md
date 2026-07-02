@@ -52,7 +52,7 @@ If multiple contacts matched: present a numbered list and ask which one. If the 
 Walk the user through 4 structured questions, ONE AT A TIME:
 
 1. **What did you discuss?** (the substance — not "we chatted")
-2. **What's their position now?** (more interested / less interested / parked / decided)
+2. **What's their position now?** (more interested / less interested / parked / decided — and if they raised a concern, capture it verbatim: a concern that recycles across calls is the real one (business-method.md §12.5), and `/prep-for-call` surfaces it next time)
 3. **What did you agree on?** (the action they're taking, or the action you're taking)
 4. **When's the next contact?** (specific day if possible)
 
@@ -70,15 +70,19 @@ Discussed:
 
 Their position: {their_position}
 
+Concern on the table: {concern}
+
 Agreed: {agreed_action}
 
 Next contact: {next_date} — {next_action}
 ```
 
+The "Concern on the table" line is optional — include it only when a concern was actually raised, verbatim.
+
 Also:
 - If they said "more interested" → suggest moving the opportunity to the next stage. Show: "Move to **Quote Sent** stage? (y/n)"
 - If they said "less interested" or "parked" → suggest adding a follow-up task for the next contact date.
-- If they said "decided" → ask "Won or lost?" and either move to a won stage (`mcp__trustpager__move_opportunity_card`) or mark lost.
+- If they said "decided" → ask "Won or lost?" and either move to a won stage (`mcp__trustpager__move_opportunity_card`) or mark lost. On won: offer to draft the same-day personal welcome (buyer's remorse starts at the receipt, business-method.md §12.5/§11.3), and note this is also the referral-ask moment (§10.7). Draft only; the one-task-per-call rule stands.
 - ALWAYS create a task for the next contact date (`mcp__trustpager__create_task`) with the agreed action as the title.
 
 ## Step 4 — Notify the right people

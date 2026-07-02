@@ -53,7 +53,17 @@ Ask the operator:
 2. **Audience + trigger.** Who's enrolled and when (e.g. trial signups
    moving into a "Welcome" stage, Facebook leads via form submission).
 3. **Goal of the sequence.** Drive conversion, drive activation, drive
-   referral, etc.
+   referral, etc. Map the goal to its doctrine before drafting:
+   - **Activation** → the activation protocol (business-method.md §11.3):
+     a felt first win inside the first days, plus a personal re-sell
+     touch inside 48 hours (directional) — which may be a task for the
+     operator rather than an email.
+   - **Conversion** → the next-win timing (§9.4): each email sells the
+     solution to the problem the previous win just revealed; the line
+     the reader sees names the next win.
+   - **Retention** → the retention cadence (§11.4): personal and
+     specific, never a newsletter blast — a mass sequence may be the
+     wrong tool here; say so.
 4. **The stages and their delays.** Default to whatever the auto queue
    already has. Common shape: Day 0 (immediate) → Day 2 → 4 → 6 → 8 → 10
    → 12.
@@ -71,7 +81,9 @@ For each stage:
 
 1. **Identify the customer concern that's MOST ACUTE by that point** in
    the trial — i.e. the strongest unaddressed pain from synthesis §2
-   given what earlier emails have already covered.
+   given what earlier emails have already covered. Every solved problem
+   reveals the next one; the stage order follows the problem chain, not
+   the feature list (business-method.md §9.4).
 2. **Find the help video whose title most directly addresses that concern.**
 3. **Cross-reference against the canonical pain themes** in synthesis §2.
 4. **If the chosen video is feature-led** (e.g. "AI Needs Analysis"),
@@ -100,7 +112,7 @@ Subject: <forward-looking, action-oriented verb the reader can agree to>
 
 <warm human opener — "Hi {{contact.first_name}}" or "Great to meet you ..." for Day 0>
 
-<one paragraph: the core idea, anchored to ONE verbatim pain or outcome from synthesis>
+<one paragraph: the core idea — the anchor (ONE verbatim pain or outcome from synthesis) informs it; the copy states the outcome>
 
 <one paragraph: what the video shows, why it matters>
 
@@ -163,6 +175,10 @@ queue via MCP."*
 - **NO em dashes in any email copy.** The emails are customer-facing output: em
   dashes never appear (use commas, colons, parentheses, or separate sentences).
   Check every draft before presenting it.
+- **The pain anchor is internal rationale** (it picks the video and the
+  idea); the shipped sentence leads and closes on the outcome
+  (business-method.md §18). The anchor citation under each draft names the
+  pain; the email body names the win.
 - **Don't write to the auto queue from this skill.** That's the next
   skill (`wire-nurture-sequence`). Stay in design mode.
 - **Iterate in chat, not in MCP.** Voice corrections take 2-3 rounds.
@@ -170,7 +186,9 @@ queue via MCP."*
 - **Quote the synthesis for every anchor.** If you can't cite a specific
   quote for why an email lands, you're inventing pain.
 - **Default to fewer emails over more.** A 4-step sequence done well
-  beats a 7-step sequence with two filler emails.
+  beats a 7-step sequence with two filler emails. Almost all conversion
+  and churn is decided early (business-method.md §11.3), so front-load
+  the first-win emails.
 - **The convert-day email is special.** It's the strongest "concern-
   cutting" video + the conversion close + an explicit out for "if it's
   not working, tell me what's missing". Don't soften this.

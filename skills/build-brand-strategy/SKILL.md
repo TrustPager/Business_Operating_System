@@ -89,6 +89,34 @@ business, check it's actually theirs before leaning on it ("found
 [Business] in [suburb] doing [X] — that you?"). A confident wrong fact
 costs more trust than a missing one.
 
+**Market-gate pre-check (business-method.md §7.0):** if the gathered
+evidence shows a hard fail on real pain or purchasing power for the
+avatar the owner described, flag it as a finding before writing any
+positioning — most offer problems are avatar problems.
+
+## A1.5 — Walk the positioning ladder (internally — this is your thinking order, not five extra questions)
+
+Before writing a word of the brief, walk the positioning ladder
+(business-method.md §14) in strict order. Answer each rung from the
+brain-dump plus the research you already gathered — not from new owner
+interviews:
+
+1. **List the REAL alternatives** — what customers would actually do
+   instead, including "do nothing" and "the brother-in-law". Exclude
+   phantom competitors that never appear in real deals.
+2. **Isolate provable attributes** — capabilities or facts those
+   alternatives can't truthfully claim.
+3. **"So what?" twice per attribute** until each lands on a customer
+   value; cluster into themes.
+4. **Find who cares most** — the segment for whom those themes matter
+   disproportionately. This DERIVES the niche; it isn't picked by taste.
+5. **Name the existing category** — for a local shape, usually the
+   search phrase to own.
+
+The A2 brief parts fall out of the rungs: the positioning paragraph is
+rungs 3-5, the only-we claim is rung 2, and the content angles are rung
+3's themes.
+
 ## A2 — Produce the brief, in the owner's own words
 
 Write a single short brief (Markdown is fine; offer to save it to
@@ -96,7 +124,9 @@ Write a single short brief (Markdown is fine; offer to save it to
 
 1. **Positioning statement (one paragraph).** Who they are, who they
    serve, and the outcome they deliver — phrased the way the owner and
-   their market actually talk, not in agency-speak.
+   their market actually talk, not in agency-speak. Anchor it in an
+   existing category the market already searches for; category creation
+   is a trap at this scale (business-method.md §14).
 2. **The promise / tagline (one sentence).** A single forward-looking
    line that captures the result. Reach for the owner's own phrasing.
 3. **The only-we claim.** Two or three things simultaneously true of this
@@ -185,6 +215,11 @@ Read every section. You'll be quoting from §1 (who's on calls), §2 (pain),
 moments), §7 (vocabulary), §9 (top 10 quotes), §10 (industry patterns)
 throughout the strategy docs.
 
+**Market-gate pre-check (business-method.md §7.0):** if the synthesis
+shows a hard fail on real pain or purchasing power for the primary
+audience, flag it as a finding before writing any positioning — most
+offer problems are avatar problems.
+
 ## Step 2 — Confirm output location + brand name
 
 Default: write into `marketing-strategy/<BrandName>/`. Ask the operator
@@ -224,7 +259,10 @@ Write them in this order — each one's evidence is reusable in the next.
 
 ## The only-we claim
 <3 things simultaneously true of our brand + not jointly true of any
-named competitor in the synthesis>
+named competitor in the synthesis — each passes the only-we rubric
+(business-method.md §14): named against real alternatives including
+do-nothing, provable in one sentence, an identifiable segment cares
+disproportionately, stated in the customer's category language>
 
 ## Proof
 <customer count, industries, founder credibility>
@@ -392,6 +430,10 @@ That's the `design-nurture-sequence` skill."*
 - **Never invent customer quotes or testimonials.** A fabricated quote is
   worse than no quote. When you lack a real one, anchor in the owner's own
   words instead.
+- **Every only-we claim passes the only-we rubric (business-method.md
+  §14):** named against real alternatives including do-nothing, provable
+  in one sentence, an identifiable segment cares disproportionately,
+  stated in the customer's category language. Fail any → back up one rung.
 - **Customer-facing output is positive-only / outcome-led.** Positioning,
   promises, taglines, and angles name the result, never the pain or what's
   missing. (Understanding the owner's pain in conversation is fine — the

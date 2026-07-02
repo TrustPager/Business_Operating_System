@@ -35,7 +35,7 @@ they get a spreadsheet.
 
 ## Step 1 — Which slice of the business?
 
-Most owners who ask for "a spreadsheet" want one of three. Ask which fits, or
+Most owners who ask for "a spreadsheet" want one of these. Ask which fits, or
 infer from what they said and confirm:
 
 - **Job tracker** — every job in one place: who it's for, what it is, the
@@ -45,6 +45,11 @@ infer from what they said and confirm:
   balance, so they can see where they stand this month at a glance.
 - **Lead log** — every enquiry as it comes in: who, where from, what they
   want, what's been done about it, and whether it turned into work.
+- **Weekly scoreboard** — one row a week with the numbers that show whether
+  the business moved: enquiries in, conversations had, jobs won, cash
+  collected, plus one slot for the number this quarter turns on (shape per
+  `business-method.md` §12.6). Keep it exactly this simple — five or six
+  columns an owner fills in ten minutes on a Monday.
 
 If they describe something close to one of these, name it back and build that.
 If it's genuinely a fourth thing (a quoting calculator, a stock list, a
@@ -68,6 +73,10 @@ Starting points (adapt the wording to how *they* describe it):
   running total goes.
 - **Lead log:** `Date` · `Name` · `Source` · `What they want` · `Status` ·
   `Next step`. Source is where the enquiry came from (referral, website, a call).
+- **Weekly scoreboard:** `Week` · `Enquiries in` · `Conversations` ·
+  `Jobs won` · `Cash collected` · one column named for the number this
+  quarter turns on (ask what that is; if they don't have one, leave it as
+  `This quarter's number`).
 
 Show the planned header row in plain language and confirm it's right before you
 generate the file. Columns are cheap to change now, annoying to redo once

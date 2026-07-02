@@ -43,6 +43,10 @@ message if the owner didn't already supply them:
 - **The role.** Title and a one-line sense of what this person does day to day
   (for example "front-desk + bookings for a physio clinic", "apprentice
   electrician").
+- **The result this role owns.** One sentence on what "done well" looks like in
+  90 days (a role is defined by its result, business-method.md §12.4). This
+  feeds the "About the role" paragraph so the ad sells an outcome, not a duty
+  list.
 - **Must-haves.** The few things a candidate genuinely needs (licences, hours,
   location, a non-negotiable skill). Keep this to what truly disqualifies if it's
   missing; nice-to-haves go in a separate, softer list.
@@ -50,7 +54,11 @@ message if the owner didn't already supply them:
   and the start timing if it matters.
 - **What makes it a good job here.** Pay range if they'll share it, the team, the
   work itself, what someone would enjoy about it. This is the raw material for
-  the attractive part of the ad.
+  the attractive part of the ad. If the owner is settling pay, one advisory note
+  for their eyes: top-of-market for one strong hire beats underpaying for three
+  (business-method.md §12.2), and a comp structure that underpays is one of the
+  classic stuck-points (§3). The ad itself never mentions any of this; it
+  carries the number the owner lands on.
 
 It's fine for the owner to name their frustration with hiring or the gap they're
 filling. That's discovery, and it helps you understand the role. The **ad

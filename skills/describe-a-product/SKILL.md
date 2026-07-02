@@ -77,6 +77,12 @@ perfect one that never ships.
 The shared reference for how customer-facing copy should sound is
 [`knowledge/communication-voice.md`](../../knowledge/communication-voice.md).
 
+**When the "product" is a service package, a bundle, or a lead magnet:**
+name it with 3-5 of the five naming parts (business-method.md §7.5), the
+result part outcome-led (§18); a diagnostic magnet sells the gain (§10.4).
+And when a listing stops pulling, rename before rebuilding — the refresh
+order starts with the cheap changes (§7.5).
+
 ## Step 3 — Write the description
 
 A product description earns the buyer's confidence and then their click. Shape
@@ -90,6 +96,8 @@ catalogue line):
 3. **The concrete details, where you have them.** Materials, size, what's
    included, care, the price if the owner gave it. Use only what the owner
    confirmed; flag anything you'd need them to fill (`[confirm: dimensions]`).
+   Named inclusions with the benefit in the name out-persuade a bare list
+   (business-method.md §7.3).
 4. **A short, scannable spec / highlights list** when it helps a buyer decide
    (a few bullet-style lines of the key facts), so the page reads fast.
 5. **One clear next step** if the channel wants one (add to cart, enquire,
@@ -98,6 +106,18 @@ catalogue line):
 Match the length to the channel: a marketplace listing wants tight and
 keyword-natural; a brand store page can breathe a little more. One product,
 one description.
+
+**Pre-flight — the value-equation check (internal, silent).** Before
+handing over, check the draft against the value equation
+(business-method.md §6). This is an internal checklist, NOT four new owner
+questions:
+
+- Does the copy name the **Arrival** — the destination, not the deliverable?
+- Does it back the **Belief** with real, confirmed proof only?
+- Does it shorten the felt **Wait** where true (in stock, ships today)?
+- Does it cut the perceived **Work** (what's included, no assembly)?
+
+Faster-and-easier is the higher-leverage half (§6).
 
 ## Step 4 — Before you output anything customer-facing: positive/outcome-led, and NO em dashes
 

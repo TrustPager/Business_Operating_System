@@ -52,6 +52,8 @@ Get three things from the operator (ask only what's not already clear):
 
 If a matching schedule already exists in `existing_schedules`, say so and offer to edit it rather than create a duplicate.
 
+When the ask is a generic "my weekly numbers" with no specific metrics named, default to the weekly scoreboard metric set (`business-method.md` §12.6; the card-to-source mapping lives in reporting-method §7): leads and conversations this week, close rate, cash collected, open/overdue follow-ups, plus one card for the metric the current diagnosis says matters most. Only build cards the workspace can honestly fill — a metric with no source becomes a "start measuring it" suggestion, not a chart.
+
 ## Step 3 — Build the dashboard (only if needed)
 
 If they picked an existing dashboard, skip this. Otherwise:

@@ -135,6 +135,25 @@ plan cash around."
 Frame everything positively and outcome-led. The forecast tells the owner where
 the opportunity to plan is, not where the danger is.
 
+## Step 4b: Offer the doctrine levers (after the win, never before)
+
+The forecast is the win; these are optional next moves once it has landed.
+Offer at most one at a time, only where it fits, and model anything the owner
+takes up as labelled scenario rows so the base forecast stays untouched:
+
+1. **A tight week showing?** Offer to model the cash pull-forward toolkit
+   (per `knowledge/business-method.md` §9.5) as labelled scenario rows, e.g.
+   "deposit on booking" or "billing on completion day", so the owner sees the
+   same revenue landing earlier.
+2. **Offer a price-rise scenario** using the price-rise maths (§17): a
+   labelled scenario showing the weeks at the raised price.
+3. **Owner wants a profit line?** Add a fixed profit set-aside as its own
+   outflow row. Profit is a discipline (§13): set the line first and make the
+   weeks fit it, not the reverse.
+4. **Owner spends on acquisition and can name what a new customer pays and
+   costs in the first 30 days?** Run the two-tier 30-day cash check (§9.2)
+   and report which bar they clear.
+
 ## Step 5: Build the live .xlsx with formula cells
 
 The live spreadsheet IS the deliverable that makes this real. After the typed
@@ -227,7 +246,11 @@ After the forecast (and the spreadsheet, if built):
 
 > "That's your cash picture for the next [N] weeks, with Week [X] as the one to
 > plan cash for. Change any number in the spreadsheet and the balance updates.
-> Want to model a different scenario, or run a forecast for a different horizon?"
+> Want to model a different scenario, run a forecast for a different horizon,
+> or feed this into your weekly scoreboard?"
+
+(The weekly scoreboard is the operating cadence per
+`knowledge/business-method.md` §12.6.)
 
 ## Hard rules
 
@@ -246,6 +269,9 @@ After the forecast (and the spreadsheet, if built):
   sentences.
 - **Folds in basic budgeting.** If the owner has planned/budgeted figures,
   include them as variance columns. No separate budgeting app needed.
+- **Doctrine levers come after the forecast lands.** Offer them one at a time,
+  model each as labelled scenario rows, and never gate the core forecast on
+  any of them.
 
 ## Output shape
 

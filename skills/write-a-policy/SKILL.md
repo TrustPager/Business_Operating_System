@@ -110,6 +110,13 @@ plain: a customer reads it once and knows exactly where they stand. State the
 real numbers, windows, and conditions from Step 1 verbatim. Don't soften a
 fee they were clear about or round a figure.
 
+If what the owner actually needs is an internal SOP (how the team does a task,
+for staff) rather than a customer-facing policy, shape it per
+`business-method.md` §12.1: write it while doing the task (or from the owner
+walking through a real run of it), expect it to get a competent person to ~80%
+of the owner's outcome (directional) rather than scripting every judgment call,
+and note that it gets updated whenever reality beats the checklist.
+
 ## Step 4 — Positive-only, outcome-led (hard requirement)
 
 The policy is **customer-facing output**, so it obeys the positive-only rule:

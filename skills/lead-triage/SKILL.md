@@ -23,7 +23,7 @@ status: active
 
 # /lead-triage
 
-Inbound leads have a half-life. The ones who heard back inside the hour convert at roughly 5× the rate of ones who got a same-day response. This skill exists to clear the backlog of new leads fast — classify each, score by fit, draft the right first response, and tee them up for your approval.
+Inbound leads have a half-life. The standard is a first response inside 5 minutes in business hours (`knowledge/business-method.md` §10.3); this skill exists to clear whatever missed that window, fastest-first — classify each, score by fit, draft the right first response, and tee them up for your approval.
 
 ## Step 1 — Pull the leads
 
@@ -52,6 +52,8 @@ chat for them to send from their own inbox.
 
 ## Step 2 — Classify each lead
 
+Age matters as much as fit: a fresh engaged lead outranks an older high-score one, and anything unworked ~3 months is cold-list territory, not triage (§10.3, directional). Engaged leads — the ones who replied, wrote a detailed message, or called — are the currency; a raw name-and-email handle is not one yet.
+
 For each lead, propose a category:
 
 | Category | Definition | Default response |
@@ -68,7 +70,7 @@ Show the classification + reasoning to the user. The user can override per lead.
 After classification is agreed, draft the message for each lead. The draft should:
 - Use the lead's first name (never "Hi there", never "Hi friend")
 - Reference something concrete from their enquiry (their stated need, their company name, their question) — this is the moat against generic templates
-- End with a single clear next step ("Are you free Wed or Thurs morning for a 15-min call?", not "Looking forward to hearing from you!")
+- End with a single clear next step ("Are you free Wed or Thurs morning for a 15-min call?", not "Looking forward to hearing from you!") — a concrete time, never "let me know"
 - Match the tone of the workspace — read recent sent emails to calibrate before drafting
 
 ## Step 4 — Send with approval (per lead)
@@ -83,6 +85,7 @@ For each draft:
 
 - **Create the opportunity first if missing.** Every fast-track lead becomes an opportunity in your pipeline before the message goes out. The skill should call `create_opportunity` with the right pipeline + stage + contact link.
 - **Disqualify ≠ delete.** Mark with a "lost" status + reason so you can review later. Never delete.
+- **A genuine-fit 'no' is not lost.** If a lead replies not-now or too-expensive, never offer the same thing cheaper; offer a changed scope or payment shape (business-method.md §9.4) or park them in nurture with a dated next touch.
 - **Spam heuristics.** Free email + generic body + "SEO services / web design proposal / partnership opportunity" = disqualify by default.
 - **Don't promise specifics you don't know.** "Our standard package starts at $X" — only if the user told you the figure or it's in workspace knowledge.
 - **Quiet hours.** Same as missed-call-recovery — before 7am / after 8pm = email not SMS.

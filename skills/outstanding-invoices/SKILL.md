@@ -83,6 +83,8 @@ Most overdue:
 
 Then offer the next move — usually one of: draft a chase message for the worst offenders, or **set up the daily emailed report** (Step 3).
 
+If the 90+ bucket is heavy, or the same customers show up chronically late, offer the structural fix alongside the chase: the cash pull-forward toolkit (per `knowledge/business-method.md` §9.5 — deposits on booking, billing on completion day, charge dates aligned to customer paydays). The chase fixes this month; the toolkit fixes the pattern. Cash timing is strategy (§1). Keep it a short pointer — one offered move, never the toolkit restated.
+
 ## Step 3 — Offer the daily AR digest (the real prize)
 
 If the operator wants this delivered automatically — "email it to me and my bookkeeper every morning" — wire it. This rides the same mechanism as the Team Task Digest (see reporting-method §5). Three pieces:
@@ -114,10 +116,11 @@ Aged summary first (it's the headline), then the worst invoices, then one concre
 - ❌ Don't bypass an approval `202` — surface the approval link and wait (safeguards §1).
 - ❌ Don't tell the operator to "keep re-syncing" — the ledger stays live on its own after the one-time seed (safeguards §2).
 - ❌ Don't name the accounting vendor as the source of truth in a way that confuses — say "your accounting integration" / "your receivables".
+- ❌ Don't offer "pay less if you pay now" on an issued invoice unprompted — that's a same-scope cut (per `knowledge/business-method.md` §8.5). Prepay rewards belong on future work (§9.5).
 
 ## Common follow-ups
 
-- "Draft a reminder for the 90+ ones" → draft per-customer chase messages, show them, then `send_email` / `send_sms` on approval.
+- "Draft a reminder for the 90+ ones" → draft per-customer chase messages, show them, then `send_email` / `send_sms` on approval. Chase drafts are customer-facing: outcome-led with no em dashes (per `knowledge/business-method.md` §18), and never a same-scope discount to settle an issued invoice (§8.5); any settlement concession is the operator's explicit call.
 - "Email this to me and Anna every morning" → Step 3.
 - "Just the ones over $1,000" → re-query with an added `amount_due gt 1000` filter.
 - "How much is genuinely overdue vs just current?" → it's already split; the non-`current` buckets are the overdue total.

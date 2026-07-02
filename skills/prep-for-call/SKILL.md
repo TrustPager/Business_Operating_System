@@ -82,12 +82,25 @@ OPEN / OWED
 ⚠️ WATCH FOR
   <any risk: gone quiet N days, overdue item they'll mention, declined quote>
 
+🧭 CALL SPINE
+  <for discovery/quote/sales calls: run it on the discovery arc
+  (business-method.md §12.5). Pre-fill from the record: what they've tried
+  (from history), the arrival in THEIR words (from the last transcript), and
+  any concern already on the table (from the last log).>
+
 🎯 OUTCOME TO DRIVE
   <the single most useful result from this call — book next step / close / unblock>
 ```
 
-End with the one outcome — not a menu. If useful, offer: *"Want me to draft a
-quick agenda message to send them before the call, or pull the last proposal?"*
+Only include the CALL SPINE line for sales-shaped calls (an early-stage
+opportunity, a quote visit, a first conversation); service and delivery
+check-ins don't get it. Clinic shapes: the arc structures logistics and
+care-plan conversations only, never the clinical recommendation (§12.5, §15).
+
+End with the one outcome — not a menu. Default outcome when nothing more
+specific applies: the next step booked before the call ends. If useful, offer:
+*"Want me to draft a quick agenda message to send them before the call, or
+pull the last proposal?"*
 
 ## Hard rules
 
