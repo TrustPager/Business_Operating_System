@@ -60,10 +60,14 @@ switched-on operator audited them in ten minutes, not an SEO tool's raw report.
    name the service + place), meta description, exactly one H1, heading
    structure, image alt text, internal links between pages, schema hints, and for
    local: visible NAP (name/address/phone) and a clear CTA. Flag issues per page.
+   **Read internal-link and schema signals from the scraped page content only;
+   never follow them into additional fetches beyond the ~5-8 cap** (that would be
+   crawl/map, which is off-floor).
 3. **Local-visibility pass** (`search`): does the business show for its name and
    for "[service] [suburb]"; review recency/volume, profile completeness signals.
-   **Priority is driven by the §10.5 gravity-stack order** (answer speed →
-   reviews → profile → proof → community → paid), including the hard gate: do NOT
+   **Priority is driven by the §10.5 gravity-stack order** (its six tiers, in
+   order: 1 answer speed → 2 review engine → 3 profile completeness → 4 proof
+   publishing → 5 community presence → 6 paid local), including the hard gate: do NOT
    lead with content/keyword work if answer-speed or a review-ask are missing —
    those come first.
 4. **SERP/intent spot-check** (`search`, 1-3 target terms): who ranks, what page
@@ -72,8 +76,9 @@ switched-on operator audited them in ten minutes, not an SEO tool's raw report.
    local competitor for coverage they have and the owner doesn't. Delegate to
    `research-a-competitor` (its SEO lens) rather than re-implement.
 6. **Prioritized fix list.** 3-7 fixes, highest-leverage first, ordered by the
-   gravity stack — not a keyword laundry list (§4.7: lead with the top 1-3
-   moves). Each fix: what, why it matters (in plain words), and the *exact*
+   gravity stack — not a keyword laundry list (§4 item 7: a diagnosis outputs
+   1-3 moves, not eight pages; lead with the top few). Each fix: what, why it
+   matters (in plain words), and the *exact*
    change — the rewritten title tag, the review-ask script, the one page to add.
    Usable today. Positive/outcome-led output, no em dash.
 7. **Connected doorway.** Mark what deepens when an SEO tool is connected: real
@@ -95,8 +100,12 @@ does not need a region set).
   how their site is structured for findability. Cross-ref `get-found-online`.
   (Keep its existing one-page-read shape; this is an added angle, not a rewrite.)
 - **`plan-my-content`:** add search-intent topic selection — bias topic choice
-  toward what people actually search and what's realistically winnable (from a
-  SERP spot-check), cross-ref `get-found-online`. Keep its 1-2 week bound.
+  toward what people actually search and what's realistically winnable, cross-ref
+  `get-found-online`. Keep its 1-2 week bound. **Critical:** `plan-my-content` is
+  `requires_driver: none / reasoning_only` — the threading must NOT make it fire a
+  firecrawl `search` itself (that would break its manifest and make it a network
+  skill). It *consumes* a SERP spot-check the owner brings from `get-found-online`
+  (or reasons from the owner's stated terms); it never fetches.
 
 ## 5. Knowledge home — `knowledge/seo-method.md`
 
@@ -134,8 +143,19 @@ The doc names the two guard scripts the pattern must pass: `tools/manifest.py`
 
 ## 7. Wiring + validation
 
-- **Register** `get-found-online` in `kernel/registry.json` (the entry above).
-- **Add** it to `skills/whats-possible/SKILL.md` so the owner can discover it.
+- **Register** `get-found-online` in `kernel/registry.json` — copy the
+  `research-a-competitor` entry exactly (`data_path: fetch_rest`,
+  `function_slot: research`, `requires_credential: none`,
+  `requires_driver: firecrawl`, `status: active`, **no `uses_tools` key**).
+- **Do NOT hand-edit `skills/whats-possible/SKILL.md`** — it is a runtime
+  registry reader and its own hard rules forbid a hand-kept list. Once the skill
+  is `status: active` in the registry it appears there automatically.
+- **Add it to `knowledge/starter-projects.md`** — the hand-maintained onboarding
+  menu (and one of the three files `check-onboarding-binding.py` scans). Add a
+  `[live] … keyless` row in the relevant group table (Win-work / market), add it
+  to the §2 "Live keyless core" pool, and add an entry to the §4 relief→project
+  mapping under "finding leads / get more known" so the 3-options selection can
+  reach it.
 - **Manifest/lint:** `python tools/lint-skill.py skills/get-found-online` clean;
   manifest + onboarding-binding checks green (keyless).
 - **Offline tests:** per `research-method.md`, mock/skip the fetch; test the
