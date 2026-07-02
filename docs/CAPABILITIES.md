@@ -127,11 +127,14 @@ Stress-testing a decision, writing a sharp brief or prompt, hiring and onboardin
 
 **Works now (keyless)**
 
+- **Build My Proof**: Turn a client result into your strongest marketing asset, a measured before-and-after transformation story in the client's own voice
 - **Build My Voice**: Lock in how YOU sound so every content app writes as you, forever
+- **Coach My Calls**: Paste a sales call, quote visit, or discovery conversation and I'll coach it like a sharp sales manager, against a proven discovery framework, what you did well, the one or two highest-leverage things to change next time, and a line to actually say on the next call
 - **Connect A Tool**: Walk the owner through connecting one of their tools (Gmail, Google Calendar, and more) as a friendly, verified tutorial, then put it to use
 - **Five Day Challenge**: The 5-Day Owner-to-Operator Challenge
 - **Grill Me On This Decision**: Pressure-test a real decision before you commit: the assumptions, both cases at full strength, and a recommendation.
 - **Onboard Team Member**: Set a new hire up with your team's standards baked in, so they follow the same process from day one.
+- **Set Up Referrals**: Install a referral engine that actually brings work in, the ask designed as a warm introduction (not "got any names?"), timed to the moment a client is happiest, with a reward that works for both sides and a simple way to track it
 - **Start Here**: Get your assistant up to speed on your business in one short conversation, and hand you a real win on the spot.
 - **Sync Team Standards**: Push a change to your team's standards out to everyone, with a per-person preview before it updates.
 - **Tune My Setup**: Set up Claude Code with sensible working-style defaults and safe-read permissions, additive and reversible at any time.

@@ -129,6 +129,13 @@
       "mcp__trustpager__ingest_knowledge_base_text"
     ]
   },
+  "build-my-proof": {
+    "data_path": "reasoning_only",
+    "function_slot": "strategy",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
   "build-my-voice": {
     "data_path": "local",
     "function_slot": "strategy",
@@ -169,6 +176,13 @@
   "cash-flow-forecast": {
     "data_path": "reasoning_only",
     "function_slot": "money",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
+  "coach-my-calls": {
+    "data_path": "reasoning_only",
+    "function_slot": "strategy",
     "requires_credential": "none",
     "requires_driver": "none",
     "status": "active"
@@ -582,6 +596,13 @@
     "data_path": "mcp_tools",
     "function_slot": "comms",
     "requires_credential": "mcp",
+    "requires_driver": "none",
+    "status": "active"
+  },
+  "set-up-referrals": {
+    "data_path": "reasoning_only",
+    "function_slot": "strategy",
+    "requires_credential": "none",
     "requires_driver": "none",
     "status": "active"
   },

@@ -6,9 +6,18 @@ to widen how much impressive business coverage a brand-new owner has on day zero
 without lying about "keyless" and without duplicating what a connected tool does
 better.
 
-**Worked example #1: SEO** (`skills/get-found-online`, `knowledge/seo-method.md`,
-spec `docs/architecture/2026-07-02-seo-floor-extraction-design.md`). Read that
-alongside this recipe.
+**Worked examples (built):**
+1. **SEO** — `skills/get-found-online`, `knowledge/seo-method.md`, spec
+   `docs/architecture/2026-07-02-seo-floor-extraction-design.md`.
+2. **Proof / reputation** — `skills/build-my-proof` (transformation-story engine),
+   `knowledge/proof-and-referrals-method.md`.
+3. **Referrals** — `skills/set-up-referrals`, same method file.
+4. **Call coaching** — `skills/coach-my-calls` (references `business-method.md`
+   §12.5 directly). Batch spec:
+   `docs/architecture/2026-07-02-proof-referrals-coaching-extraction.md`.
+
+Read the SEO example alongside this recipe; the proof/referrals/coaching batch
+shows the same split applied to method-heavy capabilities.
 
 ---
 
@@ -118,9 +127,21 @@ this way once you look tool-by-tool.
 
 ## Candidates for the next extraction
 
-The same split applies to other TrustPager capabilities with a large keyless
-method + a paid data/automation tail: reputation/reviews, lead scoring/triage
-(method keyless, live scoring connected), needs-analysis, call coaching from a
-pasted transcript, and the team-requested **CEO skill** (a strategic
-operator's-eye read — almost entirely method + reasoning, a natural keyless
-floor fit). Each gets its own spec; this recipe is the starting point.
+Reputation/reviews, referrals, and call-coaching are now BUILT (worked examples
+2-4 above). The same split still applies to remaining candidates with a large
+keyless method + a paid data/automation tail:
+- **Lead scoring / triage** — the scoring method is keyless (score a pasted lead
+  list against an ICP); live scoring on inbound is the connected deepener.
+  (`lead-triage` exists connected; a keyless slice is extractable.)
+- **Needs-analysis → proposal inputs** — better as a lens threaded into
+  `transcript-summary` → `write-a-proposal` than a standalone skill (heavy
+  overlap); noted, not yet built.
+- **Sales-pipeline design** (`ai_generate_pipeline`) — keyless pipeline/stage
+  design as a spec; medium value, no floor home yet.
+- **Prospect-list building** (`lead_gen_search`) — keyless slice is token-heavy
+  and brushes the Firecrawl scope clamp; `research-before-call` covers the
+  single-prospect case. Watch.
+
+Genuinely native (leave connected): voice agents (telephony), automations, work
+orders, signing, scheduling/bookings, live reporting, inventory. Each new
+extraction gets its own spec; this recipe is the starting point.
