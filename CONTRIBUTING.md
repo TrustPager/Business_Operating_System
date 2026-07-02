@@ -74,6 +74,15 @@ Some drivers are keyless by design (`markitdown`, `firecrawl`, `render`). See th
 
 `skills/sweep-my-day/SKILL.md` is the reference implementation for a connected CRM skill. `skills/price-my-work/SKILL.md` is the reference for a keyless floor skill. Read both before writing your own.
 
+### Write for the lightest model that will run it
+
+Most operators run Claude Code on a Pro plan, which means a lighter-tier model executes your skill, not the strongest one. Dense prose with conditions buried mid-paragraph gets skimmed; explicit structure gets followed. Concretely:
+
+- Prefer **numbered decision procedures** ("pick in this order, stop at the first rule that applies") over conditional prose.
+- Put **gates before defaults**. A lighter model grabs the first strong instruction it sees; if the default is stated first, the conditions after it lose.
+- State hard rules as **short imperative bullets**, one behaviour each.
+- Test-read your skill asking: "could this be skimmed into the wrong action?" If a sentence carries two behaviours, split it.
+
 ---
 
 ## How to invoke tools
