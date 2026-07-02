@@ -128,6 +128,12 @@ below is keyless for Days 1 to 4.
   and often a `research-a-competitor` read pairs well. For a product or creator
   business it may steer toward the look and feel instead. Let the owner's business
   decide.
+  When the dump names more than one thing eating their week, `start-here` asks
+  which to punch first — let that choice happen; the owner steering the aim is
+  part of the Day 1 magic. And keep the win tangible: if the best vehicle is a
+  strategy brief, deliver it applied (the brief plus the first thing written from
+  it — a page opener, a first post, a one-line pitch), so Day 1 ends with
+  something they could use this afternoon, never only a framework.
 - **Brand here means STRATEGY, not the visual look.** Day 1 is positioning and
   clarity, not logo/colours/fonts. The visual kit (`brand-my-workspace`) is a
   separate, contextual step that comes up on Day 2's doorway or when they ask,
