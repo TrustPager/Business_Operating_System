@@ -117,14 +117,21 @@ owner announce themselves through the capacity probe.
 
 **The decision-impasse check (the seven stuck-points).** When the constraint
 seems to be an unmade decision rather than a number, look for these classic
-impasses — each is a choice between hard-today and hard-forever: serving 2-3
-avatars instead of one; a decision stalled "until we have data" (rule: if you
-could decide, fail, and reverse in less time than gathering the data takes,
-deciding is correct); a second business splitting focus (one $2M business beats
-two $1M businesses); expansion before the talent exists; a comp structure that
-underpays (can't hire) or overpays (no margin); underpricing; and a single
-product with no next offer (the customer base is a pool of qualified buyers for
-a back end that doesn't exist yet).
+impasses — each is a choice between hard-today and hard-forever:
+
+1. Serving 2-3 avatars instead of one.
+2. A decision stalled "until we have data".
+3. A second business splitting focus (one $2M business beats two $1M
+   businesses).
+4. Expansion before the talent exists.
+5. A comp structure that underpays (can't hire) or overpays (no margin).
+6. Underpricing.
+7. A single product with no next offer (the customer base is a pool of
+   qualified buyers for a back end that doesn't exist yet).
+
+**The data-stall rule (applies to impasse 2):** if you could decide, fail, and
+reverse in LESS time than gathering the data would take, deciding now is
+correct — waiting is the failure in judgment.
 
 ---
 
@@ -170,7 +177,7 @@ later rows exist so the system knows what NOT to prescribe early.
 | Stage | Focus | Deliberately ignore |
 |---|---|---|
 | **~$0-10k/mo** | Cash over perfection: sell before building, collect up front. Warm outreach to existing contacts first, then ONE channel. Owner does all selling. Take any reasonable customer (aim deliberate acquisition at one avatar, but take the money). | Logo/website polish, hiring, second offers, automation for its own sake, "passive income" structures |
-| **~$10-50k/mo** | The Rule of One: one avatar, one product, one channel until ~$1M/yr. Raise prices (half of small businesses are underpriced). Fix the sales motion. Document what you do as you do it; first hires take the owner's lowest-value hours. | New avatars/products/channels, personal brand as a project, a second location |
+| **~$10-50k/mo** | The Rule of One: one avatar, one product, one channel until ~$1M/yr. Raise prices (his standing workshop claim, directional: about half the room is underpriced). Fix the sales motion. Document what you do as you do it; first hires take the owner's lowest-value hours. | New avatars/products/channels, personal brand as a project, a second location |
 | **~$1-5M/yr** | Retention and LTV become the multiplier. Profit is a discipline (set the line, keep it). One big bet a year on top of the Silent Sixth. Reinvest in the two capital items of a service business: talent and reputation. Weekly testing cadence. | Founder bootstrapping every new function personally; parallel constraint-fixing; diversifying into a second business |
 | **~$5M+/yr** | Buy knowledge: hire people who have already built the function. The owner allocates like an investor. Talent attraction becomes a second funnel. | The founder as doer; untested company-wide changes |
 
@@ -214,16 +221,24 @@ they-do to you-do; remove decisions and homework.
 ## §7. Offer construction
 
 **7.0 The market gate (run first).** Offer work is wasted on a dead market.
-Four pass/fail checks on the target avatar: real pain (a need, not a mild
-want), purchasing power, findability (a channel or watering hole exists), and
-a market that isn't shrinking. A hard fail on pain or purchasing power →
-reposition the avatar before writing an offer word. Most "offer problems" are
-avatar problems. Niche rule for every BOS-sized business: NARROWER — under
-~$10M/yr, specificity raises price and believability simultaneously
-(directional illustration: the same course, re-aimed per audience rung, sells
-at ~100x between "generic" and "hyper-specific"). And commit: one flopped offer
-is not market feedback; iterate offers WITHIN the niche rather than switching
-niches (switching resets all learning to zero).
+Four pass/fail checks on the target avatar:
+
+1. **Real pain** — a need, not a mild want.
+2. **Purchasing power** — they can pay the price that makes the business work.
+3. **Findability** — a channel or watering hole exists to reach them.
+4. **Not shrinking** — the market is stable or growing.
+
+**Stop rule:** a hard fail on pain or purchasing power → reposition the avatar
+before writing an offer word. Most "offer problems" are avatar problems.
+
+**Niche rule (every BOS-sized business): NARROWER.** Under ~$10M/yr,
+specificity raises price and believability simultaneously (directional
+illustration: the same course, re-aimed per audience rung, sells at ~100x
+between "generic" and "hyper-specific").
+
+**Commit rule:** one flopped offer is not market feedback; iterate offers
+WITHIN the niche rather than switching niches (switching resets all learning
+to zero).
 
 **7.1 The Grand Slam build (5 steps).**
 1. Write the dream outcome as an arrival scene in the buyer's words.
@@ -324,8 +339,9 @@ funds better delivery → more value. Cheap prices spin the same wheel backward.
 **8.5 The discount rule.** *You may design a cheaper offer; you may never
 cheapen the offer on the table.* Reactive same-scope price cuts mid-negotiation
 teach buyers that prices are fiction. Engineered structures are fine and are
-not discounts: attraction offers (§9.2), prepay rewards, downsells that change
-scope or payment shape (§9.4), continuity joining benefits. Never price off
+not discounts: attraction offers (§9.3), prepay rewards, downsells that change
+scope or payment shape (§9.4), continuity joining benefits, and barter (a price
+concession traded for reviews, referrals, or testimonials). Never price off
 "competitor average minus 10%": the competitors being copied are broke.
 
 **8.6 Price floors.** Compute the true cost floor (materials, loaded labour,
@@ -499,7 +515,7 @@ them to explain decisions, take it in-house when your results match theirs).
 
 **10.9 The leads roadmap (levels).** L1: your contacts know what you sell.
 L2: one channel at consistent personal max (Rule of 100). L3: someone else
-runs that channel. L4: the product earns ~25%+ word-of-mouth. L5: multiple
+runs that channel. L4: the product earns ~25%+ word-of-mouth (directional, 10.7). L5: multiple
 team-run channels. Most 2-10 person businesses should live at L3-4; never
 prescribe L5 machinery to an L1 owner.
 
@@ -519,6 +535,7 @@ LTV ~3.3x.)
 **11.2 The four LTV levers, in test-cost order:** price (8.3-8.4) → margin
 (11.6) → frequency (continuity AND back-end upsells are different things;
 most owners build neither — campaigns to existing customers run at ~90% margin
+(directional)
 and cost nothing to reach) → duration (11.3-11.5). Always keep a premium tier:
 directionally ~20% of customers will pay 3-5x for more access/certainty, and
 averaging everyone into the middle leaves it unclaimed.
@@ -812,9 +829,9 @@ owner, visibly:
   → 12%, close 30% → 45%) grows the whole business by that lift with zero new
   traffic. Find the stage where that's plausible.
 - **Price-rise maths:** at a 20% rise, how many customers could you LOSE and
-  still make more? (Usually a third or more — then the guarantee version:
-  raise 20%, back it with a profit-back promise, keep the promise 8 times in
-  10, still ahead.)
+  still make more? Run the margin arithmetic — the tolerable loss is usually
+  bigger than the owner fears. Then the guarantee version: raise 20%, back it
+  with a profit-back promise, keep the promise 8 times in 10, still ahead.
 - **Owner-hours lens:** revenue ÷ owner hours = the owner's true rate; any
   recurring task below it is a delegation candidate (12.1).
 - **Opportunity sizing (five minutes, always):** units × price × margin ×
