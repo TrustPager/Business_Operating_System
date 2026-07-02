@@ -68,6 +68,14 @@ Split every active capability into two buckets:
 
 Don't show the owner the field names or the file — they're for you. Translate.
 
+**If the registry is missing or won't parse** (bad install, partial clone): don't
+go silent and don't show an error dump. Describe the keyless floor you know ships
+with every install — pricing a job, drafting a proposal or quote, researching a
+competitor, a cash flow forecast, spreadsheets and documents, call prep — and say
+one line of the fix: "part of my setup didn't finish; want me to repair it?" On
+yes, run `python tools/setup.py` from the BOS folder yourself (it is idempotent)
+and verify before continuing.
+
 ## Step 2 — Group by the job, in plain English
 Sort each capability into one of these owner-facing groups (map from
 `function_slot` and the capability's real outcome — a capability can sit in the

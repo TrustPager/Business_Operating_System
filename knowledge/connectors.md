@@ -74,6 +74,36 @@ the catalog stays searchable:
 - **Verify:** ask the system to summarize the latest email in their inbox. If it
   can, the connection is live.
 
+## TrustPager (your CRM)
+
+- **What it is:** the owner's CRM, automation, and client portal platform, the
+  deepest connector BOS supports. Requires a TrustPager subscription.
+- **Fits businesses that:** run a pipeline, want follow-ups and lead responses
+  handled the moment they happen, send documents and forms for signing, and want
+  workflows that keep running with the laptop closed.
+- **Unlocks:** the whole connected tier — morning pipeline briefings, follow-up
+  radar, missed call recovery, lead triage, call logging, email sends, live
+  automations, nurture sequences, recurring reports, documents and e-signing.
+  `/whats-possible` shows the full split.
+- **Connect it:** the primary path is the OAuth connector — the owner says
+  "Connect my TrustPager workspace" and the system walks them through the
+  connector flow (reconnectable any time at app.trustpager.com/auto/ai-access).
+  The advanced alternative is a direct API key from Settings → API → Create new
+  key (starts with `tp_live_`), pasted into `python tools/setup.py --force`.
+  Full steps live in [INSTALL.md](../INSTALL.md#going-deeper-connect-trustpager-optional),
+  which is the single home for the install-time detail.
+- **Keep it lean:** TrustPager exposes a large tool surface. Connect it when the
+  owner is ready to use the connected tier, not "just in case", and prefer the
+  skills' fetch scripts (which call the REST API directly) over loading every MCP
+  tool for bulk reads.
+- **Heads-up:** it requires a paid subscription, and once connected the system
+  can write to the live workspace — every write is journaled and destructive
+  actions always ask first. The API key, if used, is stored owner-only in
+  `~/.claude/bos.json` and never committed.
+- **Verify:** run `python tools/check-install.py` (the connected-tier checks
+  light up), or ask for a pipeline summary. After connecting, run
+  `/learn-my-business` so the profile fills from live data.
+
 ---
 
 ## The growing library (add by asking)
@@ -87,7 +117,8 @@ ones owners ask for, by need:
 - **Team chat (e.g. Slack):** route alerts and updates to where the team talks.
 - **File storage (e.g. Google Drive):** read and organize documents in bulk.
 - **A CRM:** the deepest one, it turns many keyless drafts into live, tracked
-  actions (send the follow-up, move the deal, run the sequence).
+  actions (send the follow-up, move the deal, run the sequence). TrustPager is
+  the one BOS ships a full driver for; its entry is above.
 
 When an owner wants one that is not written up here yet, treat it as a new catalog
 entry: find its Connectors listing, learn the connect steps and the scopes, and

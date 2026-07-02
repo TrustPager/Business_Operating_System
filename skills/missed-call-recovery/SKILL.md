@@ -39,6 +39,10 @@ python ~/.claude/bos-run.py missed-call-recovery
 
 Pass `--hours 48` for a longer window, or `--include-callbacks` to also surface calls that were already recovered (useful for reviewing the day's recovery work).
 
+**Fallback if the script can't run** (auth/network): say so briefly, then pull the window by hand — `mcp__trustpager__list_phone_call_logs`, plus `get_contact_deals` per matched caller — and triage from that. Proceed with what you have.
+
+**If TrustPager isn't connected at all:** say so plainly, then offer the keyless path — the owner reads you the missed numbers (or pastes their phone's call list) and you draft the recovery texts right in chat for them to send from their own phone.
+
 ## Step 2 — Triage and draft
 
 For each missed call in the output, present a one-line summary to the user, then propose the recovery action:

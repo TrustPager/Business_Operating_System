@@ -218,11 +218,10 @@ def idempotent_post(path: str, body: dict[str, Any] | None = None,
 # bound write callable as its first argument; bulk_apply has no api_get global
 # dependence, so it's bound here.
 #
-# The read wrappers parallel_get / paginate are NOT defined here: they live in
-# the shim (tools/trustpager_api.py) so they resolve api_get through the shim's
-# globals at call time — that's the seam tools/test-skill.py rebinds with a
-# fixture mock. Defining them here too would be dead code (nothing imports them
-# from this package — the shim builds its own), so they were removed.
+# Do NOT define the read wrappers parallel_get / paginate in this package.
+# They must live in the shim (tools/trustpager_api.py) so they resolve api_get
+# through the shim's globals at call time — that is the seam
+# tools/test-skill.py rebinds with a fixture mock.
 # =============================================================================
 
 

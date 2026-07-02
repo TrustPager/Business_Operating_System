@@ -1,4 +1,4 @@
-# Team Standards — Starter
+# Team Standards: Starter
 
 > **The single source for how your team operates through Claude Code.** The owner
 > (or a manager) edits this ONE file. `/onboard-team-member` reads it and generates
@@ -43,7 +43,7 @@ Define who is on the team and what they are allowed to do in Claude. `/onboard-t
 |------|----------|-----------|------------------------|--------------------------------------|------------------------------|----------------------|
 | `manager` / owner | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `ae` (account exec) | ✅ | ✅ | ✅ (per approval rules below) | ✅ | ❌ | ❌ |
-| `sdr` / rep | ✅ | ✅ | drafts only — manager approves | ❌ | ❌ | ❌ |
+| `sdr` / rep | ✅ | ✅ | drafts only (manager approves) | ❌ | ❌ | ❌ |
 | `ops` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 
 `<<< Adjust the roles and permissions to match your team. Add or remove rows. >>>`
@@ -54,7 +54,7 @@ Define who is on the team and what they are allowed to do in Claude. `/onboard-t
 - `<<< Anything that disables or deletes a live automation, contact, or deal → manager only. >>>`
 - `<<< Drafts from anyone in an "approval-only" role → manager reviews before sending. >>>`
 
-(Platform writes that come back "queued for approval", HTTP 202, are a separate, built-in gate — see `knowledge/safeguards.md`. These rules are your team's human approvals on top of that.)
+(Platform writes that come back "queued for approval", HTTP 202, are a separate, built-in gate: see `knowledge/safeguards.md`. These rules are your team's human approvals on top of that.)
 
 ## 5. Team members
 

@@ -160,6 +160,9 @@ queue via MCP."*
 
 ## Hard rules
 
+- **NO em dashes in any email copy.** The emails are customer-facing output: em
+  dashes never appear (use commas, colons, parentheses, or separate sentences).
+  Check every draft before presenting it.
 - **Don't write to the auto queue from this skill.** That's the next
   skill (`wire-nurture-sequence`). Stay in design mode.
 - **Iterate in chat, not in MCP.** Voice corrections take 2-3 rounds.

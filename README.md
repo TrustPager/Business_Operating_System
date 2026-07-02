@@ -30,7 +30,7 @@ Business Operating System (BOS) is a free, open-source pack you install once int
 
 You don't need to learn an API. You don't need to memorise tool names. You ask Claude to do the thing. Claude calls the right tools, in the right order, with the right safeguards.
 
-**The keyless floor works on day one.** No accounts. No subscription. No API key. Real wins from minute one.
+**The keyless floor works on day one.** No accounts. No subscription. No API key. Real wins from minute one. (Keyless means no accounts and no keys. A few wins that read the live web, like researching a competitor, use your internet connection at the moment you ask; everything else runs fully on your machine.)
 
 **TrustPager is the optional deepener.** Connect it when you want always-on workflows: live pipeline, automations, server-side reports, nurture sequences running in the background. It needs a subscription and a connection step. When you're ready, those workflows switch on automatically.
 
@@ -81,6 +81,8 @@ These work keyless but need their studio started first (one `npm install` per st
 
 - Design and render branded social posts (Instagram, LinkedIn, X) at `localhost:3216`
 - Design and render YouTube thumbnails at `localhost:3210`
+
+You never run the setup yourself: ask for a social post or a thumbnail (`/make-social-post`, `/make-thumbnail`) and your assistant checks the studio, installs what's needed, and starts it for you.
 
 ### Switches on when you connect TrustPager
 
@@ -165,7 +167,7 @@ Every skill in here:
 - Is open source and inspectable: read the source, modify it, fork it
 - Only ever talks to your own workspace (never anyone else's)
 - Asks before doing anything destructive
-- Logs what it did, so you can see the trail: every write lands in `~/.claude/bos-journal/`; read it any time with `python tools/journal.py`
+- Logs what it did, so you can see the trail: every write a skill's own script makes lands in `~/.claude/bos-journal/` (read it any time with `python tools/journal.py`), and writes made through the TrustPager connection are logged server-side in your workspace's own action history
 
 The live list of every active capability lives in [`kernel/registry.json`](./kernel/registry.json), generated from the skills by `tools/registry-generator.py`. From that same registry, `tools/export-capabilities.py` generates [`docs/CAPABILITIES.md`](./docs/CAPABILITIES.md): the plain-language, GTM-facing capability list, grouped by the job each capability gets done and split into what works keyless versus what switches on when you connect a tool. That doc is the single source of truth for what BOS can do. External docs and go-to-market material should reference it rather than restating the feature list, so the story never drifts from the plugin. Both are CI-checked for freshness, so neither can go stale.
 
@@ -189,6 +191,12 @@ Pull requests welcome. The [skills/](./skills/) directory has the format. Start 
 - **Not a TrustPager requirement.** BOS works fully keyless from day one. TrustPager is the optional layer that adds always-on workflows; it is not a prerequisite.
 - **Not a chat widget.** Claude Code runs on your machine. Your data stays in your workspace.
 - **Not for everyone.** If you have already automated your way out of all of this in Salesforce, you probably don't need it.
+
+---
+
+## Something not working?
+
+The [troubleshooting section in INSTALL.md](./INSTALL.md#troubleshooting) covers the common cases: skills not appearing, a missing library, the launcher, and the TrustPager connection check. Or describe the problem to your assistant and run `/report-an-issue`.
 
 ---
 

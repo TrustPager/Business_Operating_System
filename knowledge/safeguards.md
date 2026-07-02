@@ -44,7 +44,7 @@ Some report sources (notably **Invoices / Receivables**) read from a ledger that
 Every skill already inherits these — they're listed here so the reasons are in one place:
 
 - **Ask before anything destructive or outward-facing.** Drafts get shown and approved before they send. Deletes get confirmed.
-- **Every write is journaled.** `~/.claude/bos-journal/` gets one line per write (method, path, status, result/approval id) — read it with `python tools/journal.py`. Reads are never journaled.
+- **Writes leave a trail.** Key-path writes (a skill's own script calling the REST API) land one line each in `~/.claude/bos-journal/` (method, path, status, result/approval id) — read it with `python tools/journal.py`. Writes made through the MCP connection are logged server-side in the workspace's own action history instead; a local `journal_mcp_write()` mirror for those is planned (P2 on the roadmap). Reads are never journaled.
 - **One workspace only.** Skills talk to the operator's own TrustPager workspace via their key — never anyone else's.
 - **Idempotency for risky writes.** Use `idempotent_post` for anything where a duplicate would hurt (sends, creates, charges) so a network retry can't double-fire.
 

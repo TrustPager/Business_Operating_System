@@ -35,6 +35,9 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
 # Each pattern matches an ACTUAL credential, not a bare prefix mentioned in prose.
+# This list is deliberately standalone (no imports) so the pre-commit hook runs
+# anywhere. The TrustPager shape must stay in sync with TP_SECRET_PATTERN in
+# drivers/trustpager/auth.py; when a new driver lands, add its key shape here too.
 SECRET_PATTERNS: list[tuple[str, re.Pattern[str]]] = [
     ("TrustPager API key", re.compile(r"tp_(?:live|test)_[A-Za-z0-9_\-]{16,}")),
     ("Anthropic API key", re.compile(r"sk-ant-[A-Za-z0-9_\-]{20,}")),

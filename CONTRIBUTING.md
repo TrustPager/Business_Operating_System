@@ -106,7 +106,7 @@ Run all of these locally before opening a PR. CI runs the same sequence and will
 BOS_OFFLINE=1 python -m unittest discover -s tests
 ```
 
-310 tests, all must pass. `BOS_OFFLINE=1` is mandatory: it prevents any live API call from reaching the TrustPager servers, which means a real key can never accidentally leave your machine during the test run.
+Every test must pass. `BOS_OFFLINE=1` is mandatory: it prevents any live API call from reaching the TrustPager servers, which means a real key can never accidentally leave your machine during the test run.
 
 ### 2. Secret scan
 
@@ -162,15 +162,17 @@ Then run `--check` again.
 
 ---
 
-## Content rules (applies to all shipped content)
+## Content rules (applies to customer- and owner-facing surfaces)
 
-These rules apply to any text that a user or customer reads: skill bodies, `SKILL.md` descriptions, trigger phrases, templates, knowledge files, and docs.
+These rules apply to any text a **customer or owner reads as a finished surface**: content skills generate for customers (documents, quotes, proposals, emails, SMS, nurture sequences, social copy), the owner-facing docs (`README.md`, `INSTALL.md`, `docs/CAPABILITIES.md`), and the templates that become the owner's own files (`templates/`).
 
-**No em dashes.** Never use em dashes in shipped content. Break the thought into two sentences, or use a comma, a colon, or parentheses instead. Hyphens in compound words are fine.
+They do **not** apply to maintainer-facing text: skill bodies and knowledge files (instructions Claude reads, not the customer), `TESTING.md`, `tools/README.md`, architecture docs, and code comments. Write those clearly in whatever punctuation serves.
+
+**No em dashes.** Never use em dashes in in-scope content. Break the thought into two sentences, or use a comma, a colon, or parentheses instead. Hyphens in compound words are fine.
 
 **Positive-only copy.** Frame value by what the skill delivers, not by the pain it eliminates. "Your priced quote, ready to send" is correct. "Stop guessing what to charge" is not. See the content rules in the project [README](./README.md) for background.
 
-These two rules are enforced by the unit tests (`test_lint_sequence.py`) and reviewed on every PR.
+Enforcement: the document writers (`write_docx`, `write_xlsx`, `make_pdf`) reject em dashes at the output boundary (`tools/_content_rules.py`), sequence copy is checked by `test_lint_sequence.py`, and skills that draft customer copy carry the rule as a hard requirement in their body. PR review covers the rest.
 
 ---
 

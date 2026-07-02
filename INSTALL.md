@@ -43,12 +43,14 @@ cd Business_Operating_System
 python tools/setup.py
 ```
 
-Setup does four things automatically:
+Setup runs automatically and:
 
 1. Installs the document libraries (Word, Excel, PDF read and write). One-time. Uses the same Python interpreter you ran it with, so there's no version mismatch on Windows.
-2. Writes `~/.claude/bos.json` recording this clone's location.
+2. Writes `~/.claude/bos.json` recording this clone's location (kept owner-only readable, since it can later hold your API key).
 3. Writes `~/.claude/bos-run.py`, the signpost that lets every skill call its tools from any working directory.
 4. Copies the skills and commands into `~/.claude/skills/` and `~/.claude/commands/` so Claude Code discovers them without a plugin store or marketplace.
+5. Registers the keyless hosted Firecrawl web-research connector, so researching a business from just its name or website works on day one.
+6. Seeds a neutral brand kit (`brand/brand.json`) if you don't have one yet, ready for `/brand-my-workspace` to fill in.
 
 **At the key prompt, press Enter to skip.** The keyless floor installs completely. You can connect TrustPager later without re-running setup from scratch.
 
@@ -97,6 +99,8 @@ Or go straight to a specific win:
 Tell it the job, your costs, and the margin you want. It shows the price, the margin in dollars, and the rate you'd need to hit your target.
 
 Run `/whats-possible` to see the full keyless capability list.
+
+**Optional: tune your setup.** Run `/tune-my-setup` once you're settled in. It walks you through the recommended Claude Code settings for BOS (safe-read permissions so routine reads stop prompting, working-style preferences) and applies them for you. The full recommended posture lives in `settings/recommended-settings.json` if you'd rather read it first.
 
 ---
 

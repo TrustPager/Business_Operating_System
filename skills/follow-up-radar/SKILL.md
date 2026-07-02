@@ -32,6 +32,10 @@ You are surfacing the active opportunities that have gone quiet and drafting per
 python ~/.claude/bos-run.py follow-up-radar
 ```
 
+**Fallback if the script can't run** (auth/network): say so briefly, then pull by hand — `mcp__trustpager__list_opportunities` (active stages), filter to ones with a stale `updated_at` and no future next action, `get_contact` per top item — and proceed with what you have.
+
+**If TrustPager isn't connected at all:** say so plainly, then offer the keyless path — the owner tells you which jobs have gone quiet and you draft the re-engagement messages right in chat.
+
 The script returns a JSON document with:
 
 - `total_silent` — full count across the workspace

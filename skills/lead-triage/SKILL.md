@@ -40,6 +40,16 @@ python ~/.claude/bos-run.py lead-triage
 python ~/.claude/bos-run.py lead-triage --hours 24    # tighter window
 ```
 
+**Fallback if the script can't run** (auth/network): say so briefly, then pull the
+same window by hand — `mcp__trustpager__list_form_submissions`,
+`list_email_threads`, `list_sms_conversations`, `list_phone_call_logs` — and
+classify from those. Proceed with what you have.
+
+**If TrustPager isn't connected at all:** say so plainly, then offer the keyless
+path — the owner pastes the enquiries (form contents, email text) into chat and
+you classify, score, and draft responses exactly the same way; the drafts land in
+chat for them to send from their own inbox.
+
 ## Step 2 — Classify each lead
 
 For each lead, propose a category:

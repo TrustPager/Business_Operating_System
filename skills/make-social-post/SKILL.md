@@ -127,6 +127,10 @@ skip-if-exists by default, `--replace` to overwrite.
 
 ## Hard rules
 
+- **Customer-facing copy: positive/outcome-led, and NO em dashes.** The post is
+  customer-facing output — headlines and body name the win, never the pain or
+  what's missing, and em dashes never appear (use commas, colons, parentheses,
+  or separate sentences). Check the copy before rendering.
 - **Don't invent design rules.** The two canonical files in the studio
   (CLAUDE.md + the SocialPost.jsx JSDoc) are the source of truth. Read them.
 - **The operator owns the copy.** Draft headlines if asked, but don't ship

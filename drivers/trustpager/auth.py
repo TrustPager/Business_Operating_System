@@ -37,7 +37,8 @@ APPROVAL_URL = "https://app.trustpager.com/settings/api?tab=approvals"
 # The vendor key shape the redaction registry masks. Matches a REAL key (a long
 # token after the prefix), NOT the bare prefix that appears in docs/error
 # messages. Registered with the kernel registry when TP_CFG is constructed
-# (DriverConfig.__post_init__).
+# (DriverConfig.__post_init__). The repo scanner keeps its own copy of this
+# shape (tools/check-no-secrets.py, SECRET_PATTERNS) — change both together.
 TP_SECRET_PATTERN = r"tp_(?:live|test)_[A-Za-z0-9_\-]{16,}"
 
 # Per-code, user-facing messages. {path}/{url}/{detail}/{available} are filled

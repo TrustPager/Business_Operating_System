@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -38,6 +39,19 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from trustpager_api import CONFIG_PATH  # noqa: E402
+
+
+def _write_bos_config(cfg: dict[str, Any]) -> None:
+    """Write bos.json and keep it owner-only readable (it can hold the API key).
+
+    chmod is best-effort: on Windows, POSIX modes don't map onto NTFS ACLs, and
+    the user profile directory is already private to the account by default.
+    """
+    CONFIG_PATH.write_text(json.dumps(cfg, indent=2), encoding="utf-8")
+    try:
+        os.chmod(CONFIG_PATH, 0o600)
+    except OSError:
+        pass
 
 
 def _repo_root() -> Path:
@@ -377,6 +391,10 @@ def _install_skills(bos_home: str, config_path: Path) -> tuple[int, int]:
     cfg["installed_skills"] = owned_skills
     cfg["installed_commands"] = owned_commands
     config_path.write_text(json.dumps(cfg, indent=2), encoding="utf-8")
+    try:
+        os.chmod(config_path, 0o600)
+    except OSError:
+        pass
 
     return skills_placed, commands_placed
 
@@ -392,7 +410,7 @@ def _write_key(key: str) -> int:
             cfg = {}
     cfg["api_key"] = key
     cfg["bos_home"] = _bos_home()
-    CONFIG_PATH.write_text(json.dumps(cfg, indent=2), encoding="utf-8")
+    _write_bos_config(cfg)
     print(f"Wrote {CONFIG_PATH}")
     shim = _write_launcher_shim()
     print(f"Wrote {shim}  (skills run via: python ~/.claude/bos-run.py <skill>)")
@@ -418,7 +436,7 @@ def _write_keyless() -> int:
             cfg = {}
     cfg["bos_home"] = _bos_home()
     # Do not set or clear api_key; preserve any existing value.
-    CONFIG_PATH.write_text(json.dumps(cfg, indent=2), encoding="utf-8")
+    _write_bos_config(cfg)
     shim = _write_launcher_shim()
     print(f"Wrote {shim}  (skills run via: python ~/.claude/bos-run.py <skill>)")
     n_skills, n_cmds = _install_skills(_bos_home(), CONFIG_PATH)
@@ -474,7 +492,7 @@ def main() -> int:
             # shim exist even when we're not touching the key.
             if cfg.get("bos_home") != _bos_home():
                 cfg["bos_home"] = _bos_home()
-                CONFIG_PATH.write_text(json.dumps(cfg, indent=2), encoding="utf-8")
+                _write_bos_config(cfg)
                 print(f"Updated bos_home in {CONFIG_PATH}")
             shim = _write_launcher_shim()
             print(f"Ensured launcher shim at {shim}")

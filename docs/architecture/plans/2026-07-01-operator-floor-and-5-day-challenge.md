@@ -143,7 +143,7 @@
 ---
 
 ## Definition of done (the phase gate)
-- [ ] Task A: the "zero MCP tools" claim is honest everywhere; `manifest.py` and `lint-skill.py` agree on keyless firecrawl; the TrustPager-leak guard still bites.
+- [x] Task A: the "zero MCP tools" claim is honest everywhere; `manifest.py` and `lint-skill.py` agree on keyless firecrawl; the TrustPager-leak guard still bites. (Verified shipped: D10 and the roadmap non-negotiables carry the honest wording, `manifest.py` rule 4b has the keyless-firecrawl exception, `tests/test_manifest.py` covers both directions.)
 - [ ] A keyless owner finishes the 5-day challenge and ends with: Claude environment set up, a full brand kit in `brand.json`, their own company + personal voice skills, and a self-running routine.
 - [ ] `build-my-voice` and `set-up-a-routine` are registry-keyless, green under `BOS_OFFLINE`, and pass the binding check.
 - [ ] The challenge is resumable across sessions; every day routes only to registry-keyless apps.

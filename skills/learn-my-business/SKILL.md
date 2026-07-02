@@ -6,7 +6,7 @@ triggers:
   - set up my CLAUDE.md
   - build my workspace profile
   - configure claude for my business
-  - onboard me
+  - sync my workspace profile
   - read my workspace and set me up
   - generate my context file
 function_slot: strategy
