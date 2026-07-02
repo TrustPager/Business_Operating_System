@@ -138,7 +138,7 @@ If anything is ever missing, your assistant offers to add it and does it for you
 
 **`/learn-my-business`** reads your live workspace and writes your `CLAUDE.md` for you: your real pipeline, products, and brand, with the gotchas for your line of work. Re-run it whenever your workspace changes. (`/start-here` already wrote a first profile from your brain-dump; this enriches it from live data once you're connected.)
 
-Prefer to do it by hand? Start from the [generic template](./templates/CLAUDE.md) and fill in the blanks. Business gotchas live in [knowledge/industry-notes.md](./knowledge/industry-notes.md), organised by business shape (service/professional, trades/on-the-tools, product-seller/ecommerce-retail, hospitality/walk-in, clinic/appointment) with the per-vertical specifics nested inside.
+Prefer to do it by hand? Start from the [generic template](./templates/CLAUDE.md) and fill in the blanks. Business gotchas live in [knowledge/industry-notes.md](./knowledge/industry-notes.md), organised by business shape (service/professional, trades, product-seller, hospitality, clinic/appointment, courses/community/coaching, software/digital-product; that file owns the full list) with the per-vertical specifics nested inside.
 
 ---
 

@@ -210,6 +210,79 @@ Each shape is the same structure:
 
 ---
 
+## Shape: Courses / community / coaching
+
+*Audience → free value → offer → member. Sells knowledge and transformation; the content engine is the shopfront, and retention quietly decides everything.*
+
+**Pipeline model:** Discover (content / social / word-of-mouth) → Free tier or lead magnet joined → Engaged / nurtured → Offer presented (launch or evergreen) → Enrolled / member → Onboarded to a first win → Renewing / referring / upgrading.
+
+**What they sell:** Courses, memberships and paid communities, group programs, 1:1 coaching, workshops, digital products (templates, playbooks), sometimes a software or done-for-you upsell at the top of the ladder.
+
+**Reliefs (target the first win here):** the content demand that never stops (the engine is the shopfront), launch and offer copy, onboarding new members to a fast first win, and keeping members month over month.
+
+**Gotchas (shape-wide):**
+- **Retention IS the business.** Recurring revenue means a member kept out-earns a member won — watch engagement, not just signups, and build the renewal/win-back rhythm before the next launch.
+- **The first win in the first week decides retention.** Member onboarding is a pipeline of its own (welcome → orient → first win → celebrate it publicly); a member who lands a real win in days stays.
+- **One idea, many formats.** The content engine runs on repurposing: a single strong idea becomes the post, the email, the lesson, the short. Plan from pillars, not one-off posts (`build-social-strategy`, `plan-my-content`).
+- **Free-to-paid is the pipeline.** The free tier or lead magnet is the top of the funnel; the ascension moment (free → paid) is a designed, measured step, not an afterthought.
+- **Member words sell the offer.** Wins and testimonials captured at the moment they happen ARE the sales page (`build-customer-voice`); make capturing them systematic, and always attribute real, consented results.
+- **Results claims need care.** Income and outcome claims invite platform and consumer-law trouble — anchor every claim in a real, attributable member result and avoid guarantee language.
+
+**Comms style:** Founder-voice, energetic but genuine, outcome-and-identity led (speak to who the member is becoming). Plain about what's included, what happens next, and when.
+
+### Verticals inside this shape
+
+**Course creator / educator**
+- Launch-based or evergreen; the launch calendar shapes the year and the email list is the asset. Launch copy, open-cart sequences, and post-launch debriefs are the recurring work.
+
+**Paid community operator (Skool, Circle, Discord and similar)**
+- Engagement is the retention lever: rituals, live calls, and celebrated member wins keep the room alive. The about/landing page and a clear value ladder do the selling; onboarding to a first win inside the community is the make-or-break week.
+
+**Coach / group program (1:1 or cohort)**
+- Fewer, higher-ticket enrolments; discovery calls are the pipeline and the proposal-follow-up gotchas from service/professional apply to the sales side. Cohort start dates create natural launch rhythms.
+
+**Newsletter / audience business**
+- The list is the product; consistency compounds. Revenue mixes sponsorship, digital products, and paid tiers — the same free-to-paid ascension design applies.
+
+---
+
+## Shape: Software / digital product
+
+*Sign up → activate → subscribe → renew/expand. Sells a product that works while the founder sleeps; activation and churn are the operating reality.*
+
+**Pipeline model:** Discover → Sign-up / trial / install → Activated (first real value) → Converted to paying → Onboarded / adopted → Renewing / expanding → At-risk / win-back.
+
+**What they sell:** Subscriptions (SaaS), one-time licences, plugins/templates/apps, usage tiers, setup and onboarding services, priority support plans.
+
+**Reliefs (target the first win here):** the activation/onboarding messages that get a signup to first value, quiet accounts drifting toward churn, the support inbox, launch and changelog content, and pricing/packaging decisions.
+
+**Gotchas (shape-wide):**
+- **Activation beats acquisition.** A signup who never reaches first value is a churn statistic scheduled in advance — the welcome-to-first-value path is the highest-relief thing to sharpen (`design-nurture-sequence` for the onboarding sequence).
+- **Churn compounds monthly.** Recurring math (MRR, LTV against acquisition cost) frames every decision; a retention fix usually out-earns a new-leads push.
+- **Support conversations are product research.** The words users use in tickets feed the roadmap, the docs, and the marketing (`build-customer-voice`) — answer warmly, capture verbatim.
+- **Ship in public.** Every release is a content moment (changelog → post → email); a visible shipping rhythm reads as a healthy product.
+- **The free tier / trial is the top of the pipeline.** Design and measure the upgrade moment deliberately, the same way a shop designs the checkout.
+- **Roadmap language stays honest.** Name what's live versus what's planned; never promise a ship date on an unshipped feature.
+
+**Comms style:** Clear, human, jargon-free; concrete about what the product does today. Helpful docs-tone in support, founder-voice in launches.
+
+### Verticals inside this shape
+
+**SaaS (subscription app)**
+- The shape-wide pattern above *is* this vertical — activation, churn, and the upgrade moment apply directly.
+
+**Plugins / templates / digital downloads (one-time sales)**
+- Borrows the product-seller listing and content reliefs (the listing is the shopfront); updates, bundles, and cross-sells drive repeat revenue in place of subscriptions.
+
+**Productised service / agency-to-product hybrid**
+- A recurring service sold and delivered like a product (fixed scope, fixed price, subscription billing). The sales side borrows service/professional proposal gotchas; the delivery side borrows activation and churn thinking.
+
+> **Hybrid note (common, expected):** many modern businesses are a blend of these two shapes plus others — a free community that ascends into a paid product, an educator with a software upsell, an open-source tool with a hosted tier. Blend the shapes' gotchas silently; the value-ladder framing (free value → paid offer → deeper product) usually unifies them.
+
+---
+
 ## Anything else — the generic fallback
 
 No shape fits cleanly → use the generic `templates/CLAUDE.md` as-is and rely on the real workspace data. The field test confirmed the generic reasoning carries unusual businesses to an excellent first win on its own, so this is a strong default, not a consolation prize. Ask the operator one or two short questions about how their work flows (how leads arrive, how they price, what brings customers back) and their comms style, rather than forcing a shape that doesn't fit. If a shape or vertical comes up repeatedly, add it above.
+
+**Never narrate the miss (hard rule).** The owner must never hear that their business "doesn't fit", is "unusual to slot in", that "none of my playbooks apply", or any mention of shapes, playbooks, or matching — that is internal machinery, and hearing it lands as "this system wasn't built for me." Before falling back, check for a **blend**: most businesses that don't match one shape are a mix of two (a community with a software upsell, a shop that also runs workshops, a clinic selling products) — take the gotchas from each part and carry on. Blended or fully generic, the playback sounds exactly as confident and specific as a matched one, and the one or two flow questions read as interest in their business, never as confusion about it.

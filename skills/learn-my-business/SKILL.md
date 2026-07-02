@@ -61,12 +61,18 @@ using `company.industry` and how their work flows (how leads arrive, how it's
 priced and delivered, what brings customers back):
 
 - match the shape first — service/professional, trades/on-the-tools,
-  product-seller/ecommerce-retail, hospitality/walk-in, clinic/appointment —
-  then layer the vertical specifics nested under that shape if a named industry
-  (mortgage/finance, trades, insurance, consultant, technical services,
-  manufacturing, ecommerce/retail, hospitality, allied health, wellness) fits.
+  product-seller/ecommerce-retail, hospitality/walk-in, clinic/appointment,
+  courses/community/coaching, software/digital-product (industry-notes.md owns
+  the list) — then layer the vertical specifics nested under that shape if a
+  named industry (mortgage/finance, trades, insurance, consultant, technical
+  services, manufacturing, ecommerce/retail, hospitality, allied health,
+  wellness, course creator, community operator, coach, SaaS) fits.
+- many businesses are a blend of two shapes (a community with a software
+  upsell, a shop that runs workshops) — take the gotchas from each part.
 - nothing fits cleanly → use the generic fallback as-is and ask one or two short
-  questions about how their work flows and their comms style.
+  questions about how their work flows and their comms style. Never tell the
+  operator their business "doesn't fit" or is unusual — shapes are internal
+  machinery; the profile you write sounds equally confident either way.
 
 If the line of work is ambiguous or `unavailable`, **ask one short question**
 ("what would you call your line of work?") rather than guessing the shape.

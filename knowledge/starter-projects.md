@@ -182,6 +182,20 @@ Reminders protect the calendar; privacy and funding wording come first.
 - **Your intake & consent forms, drafted clean** (`template-from-document` + `extract-document`) — proper paperwork without retyping; privacy-safe, ready on connect.
 - **Plain-English funding explainers** (`write-a-policy`, live keyless) — NDIS/Medicare/private-health wording, confirmed before drafting. *(Allied health = the privacy-heavy vertical; wellness/personal-care studios share the book-attend-rebook rhythm with a lighter privacy load and lean on `build-social-strategy` to fill the calendar.)*
 
+### Shape: Courses / community / coaching
+
+The content engine is the shopfront; retention quietly decides everything; the first member win in week one is the keep.
+- **Your content engine, planned from pillars** (`build-social-strategy`, live keyless) → **a fortnight of content, dated** (`plan-my-content`, live keyless) — the content demand never stops; pillars turn one strong idea into the post, the email, and the lesson instead of a blank page every morning.
+- **A member-onboarding sequence that lands the first win** (`design-nurture-sequence`, better_with_crm) — welcome → orient → first win → celebrate; the member who wins in week one renews. Draft it keyless in chat; it goes live on connect.
+- **Your members' wins, in their words** (`build-customer-voice`, live keyless) — captured wins and testimonials ARE the sales page for the next intake; make collecting them systematic.
+
+### Shape: Software / digital product
+
+Activation beats acquisition; every release is a content moment; support words feed everything.
+- **An activation sequence from signup to first value** (`design-nurture-sequence`, better_with_crm) — the welcome-to-first-value path is where churn is prevented in advance. Draft it keyless in chat; it goes live on connect.
+- **Ship-in-public launch posts** (`write-post-copy` + `plan-my-content`, live keyless) — every release becomes the changelog, the post, and the email; a visible shipping rhythm reads as a healthy product.
+- **A pricing/packaging decision, pressure-tested** (`grill-me-on-this-decision` + `price-my-work`, live keyless) — tiers, the free-tier line, and the upgrade moment, reasoned with the recurring math in view.
+
 ---
 
 ## Planned (coming soon)
