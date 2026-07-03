@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
-"""Connector safety gate — reads each connected driver's own DRIVER dict.
+"""Connector gate — safety + structural conformance, from each driver's DRIVER dict.
 
 This is the generalized successor to the one-off ads spend-safety gate. Instead
 of hard-coding one vendor's tools, it discovers every connected driver under
 ``drivers/<id>/__init__.py`` that declares a top-level ``DRIVER`` dict and reads
-that dict's ``never_call`` / ``never_set`` fields as the single source of truth
-for what BOS may never do from a skill body. Add a new connected driver with its
-own ``DRIVER`` dict and its safety surface is enforced automatically — no edit to
-this file.
+that dict as the single source of truth for what BOS may never do (safety) and
+what a well-formed connected add-on looks like (conformance). Add a new connected
+driver with its own ``DRIVER`` dict and both its safety surface and its structure
+are enforced automatically — no edit to this file.
 
-Spend/irreversible-action safety is the ONE thing this gate enforces today. A
-driver's ``DRIVER`` dict expresses two off-limits paths, and this checker closes
-both by scanning every skill body:
+Two families of checks, one findings list, one exit code:
+
+**Safety** (spend/irreversible-action). A driver's ``DRIVER`` dict expresses two
+off-limits paths, and this gate closes both by scanning every skill body:
 
   1. **The obvious switch** — a call to a ``never_call`` tool (e.g. Meta Ads'
      ``ads_activate_entity``). BOS creates PAUSED shells and never turns an ad on;
@@ -26,6 +27,28 @@ both by scanning every skill body:
      Meta exposes three interchangeable status fields (``status``,
      ``configured_status``, ``effective_status``); the DRIVER dict lists all three.
 
+**Conformance** (spec §6) — for each driver that ships a ``DRIVER`` dict:
+
+  - ``kind`` is present and in the canonical taxonomy (§4).
+  - ``requires_driver`` on EVERY skill manifest **resolves**, closing the
+    typo-passes-silently hole. Resolution is threefold because keyless drivers are
+    folderless: valid if ``none``, OR a known keyless driver id (``_KEYLESS_DRIVERS``
+    reused from ``check-onboarding-binding.py``), OR a real ``drivers/<id>/`` folder
+    exists. A naive "the folder must exist" check would wrongly fail every
+    firecrawl/render skill.
+  - For **connected** kinds (``claude_mcp``, ``keyed_cli``): a ``connect.md`` exists
+    in the driver folder, AND a heading in ``knowledge/connectors.md`` **begins with**
+    the ``display_name`` (prefix match — the house style appends a parenthetical, so
+    an exact ``## <display_name>`` match would wrongly fail the real
+    ``## Meta Ads (Facebook & Instagram ads)`` card).
+  - The **connected frontmatter contract** holds for each skill whose
+    ``requires_driver`` is an opted-in DRIVER-dict driver: ``requires_credential`` in
+    ``{mcp, key}``, ``data_path`` in ``{mcp_tools, local}``, and every ``uses_tools``
+    entry is driver-owned (contains the driver id). Floor skills
+    (``requires_driver: none``) are not mechanically linked to a driver, so the gate
+    enforces only this connected half; the floor keyless-clean contract stays with
+    lint + onboarding-binding.
+
 Parity note: a ``DRIVER`` dict stores FULLY-QUALIFIED tool names
 (``mcp__<id>__<tool>``), but a skill body historically refers to the BARE name
 (``ads_activate_entity``). To preserve the exact breadth of the original gate,
@@ -36,29 +59,72 @@ searched — dropping the bare form would regress the gate.
 A driver package with no top-level ``DRIVER`` dict (e.g. ``trustpager``) is
 grandfathered — it contributes no rules — and underscore-prefixed dirs
 (templates/scaffolding) are skipped. This gate is deliberately standalone (stdlib
-only, static ``ast`` read — it never imports driver code) so it runs anywhere, as
+plus the sibling ``manifest.py`` parser / ``check-onboarding-binding.py`` set, all
+stdlib; static ``ast`` read — it never imports driver code) so it runs anywhere, as
 a CI gate and before any push.
-
-Conformance checks (kind / requires_driver / connect.md / card / frontmatter) are
-NOT part of this gate yet; they arrive in a follow-up task.
 
 Exit codes:
     0 — clean (prints a one-line OK)
-    2 — at least one off-limits path found (prints file:line, then a fix hint)
+    2 — at least one off-limits path or conformance failure (prints details + hint)
 
 Usage:
-    python tools/check-connectors.py
+    python tools/check-connectors.py                 # scan the real repo
+    python tools/check-connectors.py --root <dir>    # scan a fixture tree (tests)
 """
 
 from __future__ import annotations
 
+import argparse
 import ast
+import importlib.util
 import re
 import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-SKILLS_DIR = REPO_ROOT / "skills"
+_TOOLS_DIR = Path(__file__).resolve().parent
+
+
+# --- Sibling imports (one home per fact) ---------------------------------
+#
+# The keyless-driver set and the frontmatter parser both already have owners in
+# tools/. Reuse them rather than restate them (anti-drift). manifest.py imports by
+# name (valid identifier); check-onboarding-binding.py is hyphenated, so it cannot
+# be reached by ``import`` and must be loaded from its file path.
+
+sys.path.insert(0, str(_TOOLS_DIR))
+from manifest import (  # noqa: E402  (path set just above)
+    DATA_PATHS,
+    REQUIRES_CREDENTIAL,
+    parse_frontmatter,
+)
+
+
+def _load_keyless_drivers() -> frozenset[str]:
+    """Reuse ``_KEYLESS_DRIVERS`` from check-onboarding-binding.py (its home).
+
+    That module is hyphenated, so it can't be imported by name; load it by path.
+    Keeping one owner for the keyless set avoids the drift the doctrine warns about.
+    """
+    spec = importlib.util.spec_from_file_location(
+        "_check_onboarding_binding", _TOOLS_DIR / "check-onboarding-binding.py"
+    )
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod._KEYLESS_DRIVERS
+
+
+_KEYLESS_DRIVERS: frozenset[str] = _load_keyless_drivers()
+
+# Canonical driver-kind taxonomy (spec §4). A DRIVER dict's ``kind`` must be one of
+# these; anything else (or a missing kind) fails conformance.
+CANONICAL_KINDS: frozenset[str] = frozenset(
+    {"claude_mcp", "keyed_cli", "keyed_rest", "keyless_mcp", "local", "data_pack"}
+)
+
+# The connected kinds get the full structural checks (connect.md + card). The other
+# kinds do not connect, so connect.md / card are not required of them (spec §6).
+CONNECTED_KINDS: frozenset[str] = frozenset({"claude_mcp", "keyed_cli"})
 
 
 # --- The never-call / never-set surface (DATA — read from each driver's DRIVER dict) ---
@@ -70,12 +136,19 @@ SKILLS_DIR = REPO_ROOT / "skills"
 # here (spec §3b / §5).
 
 
-def _load_driver_dicts() -> dict:
+def _load_driver_dicts(root: Path | None = None) -> dict:
     """{driver_id: DRIVER dict} for every drivers/<id>/__init__.py declaring a
     top-level DRIVER dict. Skips underscore-prefixed dirs (templates/scaffolding).
-    Static ast.literal_eval - never imports driver code."""
+    Static ast.literal_eval - never imports driver code.
+
+    ``root`` defaults to the module-level REPO_ROOT, read live (not bound at def
+    time) so a test that reassigns ``cc.REPO_ROOT`` before calling with no argument
+    still scans its temp tree — the existing driver-discovery hardening tests rely
+    on this."""
+    if root is None:
+        root = REPO_ROOT
     out = {}
-    ddir = REPO_ROOT / "drivers"
+    ddir = root / "drivers"
     if not ddir.is_dir():
         return out
     for init in sorted(ddir.glob("*/__init__.py")):
@@ -128,11 +201,10 @@ def _name_forms(tool: str, driver_id: str) -> set:
     return forms
 
 
-def _forbidden_surface() -> tuple[set[str], dict[str, tuple[str, ...]]]:
+def _forbidden_surface(drivers: dict) -> tuple[set[str], dict[str, tuple[str, ...]]]:
     """Aggregate every connected driver's never_call / never_set into the forms to
     search for. Returns (never_call_forms, {never_set_form: (fields...)}), each tool
     expanded to BOTH its fully-qualified and bare name via _name_forms."""
-    drivers = _load_driver_dicts()
     never_call_forms: set[str] = set()
     never_set_forms: dict[str, tuple[str, ...]] = {}
     for drv_id, driver in drivers.items():
@@ -165,13 +237,19 @@ SKIP_DIRS = {".git", "node_modules", "__pycache__", "_staging", "graphify-out",
 MAX_BYTES = 2_000_000
 
 
-def _skill_bodies() -> list[tuple[Path, str]]:
-    """Every skills/*/SKILL.md as (relative-path, text). Skips build/vendor dirs."""
+def _skill_bodies(root: Path | None = None) -> list[tuple[Path, str]]:
+    """Every skills/*/SKILL.md as (relative-path, text). Skips build/vendor dirs.
+
+    ``root`` defaults to the module-level REPO_ROOT, read live (not bound at def
+    time) for the same reason as ``_load_driver_dicts``."""
+    if root is None:
+        root = REPO_ROOT
     bodies: list[tuple[Path, str]] = []
-    if not SKILLS_DIR.is_dir():
+    skills_dir = root / "skills"
+    if not skills_dir.is_dir():
         return bodies
-    for skill_md in sorted(SKILLS_DIR.glob("*/SKILL.md")):
-        rel = skill_md.relative_to(REPO_ROOT)
+    for skill_md in sorted(skills_dir.glob("*/SKILL.md")):
+        rel = skill_md.relative_to(root)
         if any(part in SKIP_DIRS for part in rel.parts):
             continue
         try:
@@ -184,9 +262,156 @@ def _skill_bodies() -> list[tuple[Path, str]]:
     return bodies
 
 
-def scan() -> int:
+# --- Conformance (spec §6) -----------------------------------------------
+
+
+def _connectors_headings(root: Path) -> list[str]:
+    """Every markdown heading (``#``-prefixed) in knowledge/connectors.md, heading
+    text only (markers + surrounding whitespace stripped). Empty if the file is
+    absent."""
+    card_file = root / "knowledge" / "connectors.md"
+    if not card_file.is_file():
+        return []
+    try:
+        text = card_file.read_text(encoding="utf-8", errors="ignore")
+    except OSError:
+        return []
+    headings: list[str] = []
+    for line in text.splitlines():
+        stripped = line.strip()
+        if stripped.startswith("#"):
+            headings.append(stripped.lstrip("#").strip())
+    return headings
+
+
+def _resolves_driver(driver_id, drivers: dict, root: Path) -> bool:
+    """Threefold requires_driver resolution (spec §6): valid if ``none``, OR a known
+    keyless driver id (folderless by design), OR a real drivers/<id>/ folder exists.
+
+    A DRIVER-dict driver id is a folder id, so the folder check covers it too; the
+    ``drivers`` map is accepted for symmetry / future use. A non-string or empty id
+    never resolves."""
+    if not isinstance(driver_id, str) or not driver_id.strip():
+        return False
+    if driver_id == "none" or driver_id in _KEYLESS_DRIVERS:
+        return True
+    return (root / "drivers" / driver_id).is_dir()
+
+
+def _driver_owns_tool(tool: str, driver_id: str) -> bool:
+    """True if ``tool`` belongs to ``driver_id``. Case-insensitive substring of the
+    driver id within the tool's fully-qualified name — the driver id appears as a
+    segment of its tools' names (``mcp__<id>__*``). Mirrors manifest.py /
+    lint-skill.py so the validators never disagree."""
+    if not isinstance(driver_id, str) or not driver_id or driver_id == "none":
+        return False
+    return driver_id.lower() in tool.lower()
+
+
+def _check_conformance(root: Path, drivers: dict) -> list[str]:
+    """Return conformance findings (empty == conformant). Merged into the same list
+    as the safety scan by ``scan``; one exit code, one report."""
     findings: list[str] = []
-    never_call_forms, never_set_forms = _forbidden_surface()
+
+    # 1. Every DRIVER dict declares a kind in the canonical taxonomy.
+    for drv_id, driver in sorted(drivers.items()):
+        kind = driver.get("kind")
+        if kind not in CANONICAL_KINDS:
+            allowed = ", ".join(sorted(CANONICAL_KINDS))
+            findings.append(
+                f"drivers/{drv_id}/__init__.py: DRIVER 'kind' is {kind!r}, not in the "
+                f"canonical taxonomy — set kind to one of: {allowed}."
+            )
+
+    # 2. requires_driver on EVERY skill manifest resolves (threefold).
+    #    Parsed once here and reused for the connected-frontmatter contract below.
+    parsed_manifests: list[tuple[Path, dict]] = []
+    for rel, text in _skill_bodies(root):
+        try:
+            meta = parse_frontmatter(text)
+        except ValueError:
+            # A structurally invalid manifest is lint-skill.py's job to report; skip
+            # it here rather than crash the connector gate.
+            continue
+        parsed_manifests.append((rel, meta))
+        rd = meta.get("requires_driver")
+        if rd is None:
+            continue  # absence is a manifest-validation concern, not resolution
+        if not _resolves_driver(rd, drivers, root):
+            findings.append(
+                f"{rel}: requires_driver {rd!r} does not resolve — it is not 'none', "
+                f"not a known keyless driver ({', '.join(sorted(_KEYLESS_DRIVERS))}), "
+                f"and there is no drivers/{rd}/ folder. Fix the id or add the driver."
+            )
+
+    # 3. Connected kinds: connect.md present + a connectors.md card whose heading
+    #    begins with display_name (prefix match).
+    headings = _connectors_headings(root)
+    for drv_id, driver in sorted(drivers.items()):
+        if driver.get("kind") not in CONNECTED_KINDS:
+            continue
+        if not (root / "drivers" / drv_id / "connect.md").is_file():
+            findings.append(
+                f"drivers/{drv_id}/: a connected driver (kind={driver.get('kind')!r}) "
+                f"is missing connect.md — a connected add-on needs a connect.md with "
+                f"the connect steps (spec §6)."
+            )
+        display_name = driver.get("display_name")
+        if isinstance(display_name, str) and display_name.strip():
+            if not any(h.startswith(display_name) for h in headings):
+                findings.append(
+                    f"drivers/{drv_id}/: no card in knowledge/connectors.md whose "
+                    f"heading begins with the display_name {display_name!r} — add a "
+                    f"'## {display_name} ...' card (prefix match; a parenthetical "
+                    f"suffix is fine)."
+                )
+        else:
+            findings.append(
+                f"drivers/{drv_id}/: connected driver has no display_name, so its "
+                f"connectors.md card cannot be matched — set display_name."
+            )
+
+    # 4. Connected frontmatter contract, for each skill whose requires_driver is an
+    #    opted-in DRIVER-dict driver id.
+    for rel, meta in parsed_manifests:
+        rd = meta.get("requires_driver")
+        if not isinstance(rd, str) or rd not in drivers:
+            continue  # only the connected (DRIVER-dict) half is enforced here
+        cred = meta.get("requires_credential")
+        if cred not in REQUIRES_CREDENTIAL or cred not in ("mcp", "key"):
+            findings.append(
+                f"{rel}: connected skill (requires_driver={rd!r}) has "
+                f"requires_credential={cred!r} — a connected add-on must be 'mcp' or "
+                f"'key'."
+            )
+        dp = meta.get("data_path")
+        if dp not in DATA_PATHS or dp not in ("mcp_tools", "local"):
+            findings.append(
+                f"{rel}: connected skill (requires_driver={rd!r}) has "
+                f"data_path={dp!r} — a connected add-on must be 'mcp_tools' or 'local'."
+            )
+        tools = meta.get("uses_tools")
+        if isinstance(tools, list):
+            for tool in tools:
+                if not isinstance(tool, str):
+                    continue
+                if not _driver_owns_tool(tool, rd):
+                    findings.append(
+                        f"{rel}: connected skill (requires_driver={rd!r}) lists a "
+                        f"uses_tools entry {tool!r} that is not driver-owned — every "
+                        f"tool must belong to the '{rd}' driver (contain its id)."
+                    )
+    return findings
+
+
+def scan(root: Path | None = None) -> int:
+    if root is None:
+        root = REPO_ROOT
+    findings: list[str] = []
+    drivers = _load_driver_dicts(root)
+
+    # --- Safety scan (preserved exactly; now root-parameterized) ---
+    never_call_forms, never_set_forms = _forbidden_surface(drivers)
     call_res = {tool: re.compile(re.escape(tool)) for tool in never_call_forms}
     set_res = {
         tool: [(field, _active_field_pattern(field)) for field in fields]
@@ -194,7 +419,7 @@ def scan() -> int:
     }
     tool_res = {tool: re.compile(re.escape(tool)) for tool in never_set_forms}
 
-    for rel, text in _skill_bodies():
+    for rel, text in _skill_bodies(root):
         lines = text.splitlines()
         # Path 1 — a never-call tool named anywhere in the body. Per-line so we can
         # report the exact line the tool name appears on.
@@ -229,23 +454,55 @@ def scan() -> int:
                         f"PAUSED; the owner activates it in Ads Manager."
                     )
 
-    if findings:
-        print(f"FAIL: {len(findings)} ads-safety violation(s) — BOS never activates:\n")
-        for fnd in findings:
-            print(f"  {fnd}")
-        print("\nBOS creates PAUSED shells and stops. It never calls "
-              "ads_activate_entity and never sets a status field to ACTIVE via "
-              "ads_update_entity (spec §8 Layer 3). The owner reviews in Ads Manager "
-              "and switches it on themselves. Remove the activation and re-run.")
+    # --- Conformance scan (spec §6), merged into the same findings list ---
+    conformance = _check_conformance(root, drivers)
+
+    if findings or conformance:
+        total = len(findings) + len(conformance)
+        print(f"FAIL: {total} connector issue(s):\n")
+        if findings:
+            print("Safety (BOS never activates):")
+            for fnd in findings:
+                print(f"  {fnd}")
+            print("\nBOS creates PAUSED shells and stops. It never calls "
+                  "ads_activate_entity and never sets a status field to ACTIVE via "
+                  "ads_update_entity (spec §8 Layer 3). The owner reviews in Ads "
+                  "Manager and switches it on themselves. Remove the activation and "
+                  "re-run.")
+        if conformance:
+            if findings:
+                print()
+            print("Conformance (spec §6 — kind / requires_driver / connect.md + card "
+                  "/ connected frontmatter):")
+            for fnd in conformance:
+                print(f"  {fnd}")
+            print("\nEvery driver that ships a DRIVER dict must declare a canonical "
+                  "kind, every skill's requires_driver must resolve, a connected "
+                  "driver needs connect.md and a connectors.md card, and its "
+                  "connected skills must honor the frontmatter contract. Fix the "
+                  "above and re-run.")
         return 2
 
     print("OK: no ads activation paths in any skill body "
-          "(no ads_activate_entity call, no status=ACTIVE via ads_update_entity).")
+          "(no ads_activate_entity call, no status=ACTIVE via ads_update_entity), "
+          "and every connector conforms (kind, requires_driver, connect.md + card, "
+          "connected frontmatter).")
     return 0
 
 
-def main() -> int:
-    return scan()
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(
+        description="Connector safety + conformance gate (spec §5/§6)."
+    )
+    parser.add_argument(
+        "--root",
+        type=Path,
+        default=REPO_ROOT,
+        help="Repo root to scan (defaults to the real repo; tests point it at a "
+             "self-contained fixture tree).",
+    )
+    args = parser.parse_args(argv)
+    return scan(args.root.resolve())
 
 
 if __name__ == "__main__":

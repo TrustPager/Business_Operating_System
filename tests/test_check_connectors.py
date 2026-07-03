@@ -80,5 +80,68 @@ class TestDriverDiscoveryHardening(unittest.TestCase):
         self.assertIn("good", drivers)  # the good driver alongside it is still read
 
 
+# --- Task 2: structural conformance over --root fixture trees ----------------
+#
+# The real gate scans the repo, so conformance is exercised against self-contained
+# fixture trees under tests/fixtures/connectors/ via the new --root flag. Each good
+# tree exits 0; each broken tree exits 2 and names the failing rule in its output.
+
+_FIX = REPO / "tests" / "fixtures" / "connectors"
+
+
+def _run(root):
+    """Run the checker over a fixture --root, capturing stdout/stderr + exit code."""
+    return subprocess.run(
+        [sys.executable, "tools/check-connectors.py", "--root", str(root)],
+        cwd=REPO, capture_output=True, text=True,
+    )
+
+
+class TestConformance(unittest.TestCase):
+    def test_good_claude_mcp_passes(self):
+        r = _run(_FIX / "good-claude-mcp")
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+
+    def test_good_keyed_cli_passes(self):
+        # The second connected kind, exercising the data_path: local contract branch.
+        r = _run(_FIX / "good-keyed-cli")
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+
+    def test_bad_kind_fails(self):
+        r = _run(_FIX / "bad-kind")
+        self.assertEqual(r.returncode, 2, r.stdout + r.stderr)
+        self.assertIn("kind", r.stdout)
+
+    def test_bad_requires_driver_fails(self):
+        r = _run(_FIX / "bad-requires-driver")
+        self.assertEqual(r.returncode, 2, r.stdout + r.stderr)
+        self.assertIn("requires_driver", r.stdout)
+
+    def test_missing_connect_md_fails(self):
+        r = _run(_FIX / "missing-connect-md")
+        self.assertEqual(r.returncode, 2, r.stdout + r.stderr)
+        self.assertIn("connect.md", r.stdout)
+
+    def test_missing_card_fails(self):
+        r = _run(_FIX / "missing-card")
+        self.assertEqual(r.returncode, 2, r.stdout + r.stderr)
+        self.assertIn("card", r.stdout)
+
+    def test_bad_frontmatter_fails(self):
+        r = _run(_FIX / "bad-frontmatter")
+        self.assertEqual(r.returncode, 2, r.stdout + r.stderr)
+        # The connected frontmatter contract covers credential/data_path/uses_tools;
+        # this fixture trips data_path and a foreign uses_tools entry.
+        self.assertIn("data_path", r.stdout)
+        self.assertIn("uses_tools", r.stdout)
+
+    def test_bad_credential_fails(self):
+        # Complements bad-frontmatter: isolates the requires_credential sub-rule of
+        # the connected frontmatter contract (data_path + uses_tools are valid here).
+        r = _run(_FIX / "bad-credential")
+        self.assertEqual(r.returncode, 2, r.stdout + r.stderr)
+        self.assertIn("requires_credential", r.stdout)
+
+
 if __name__ == "__main__":
     unittest.main()
