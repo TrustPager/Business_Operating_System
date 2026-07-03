@@ -203,11 +203,12 @@ is what the skill emits for the owner to drive Claude Design with.
 
 ### 5a. `design-my-site` (floor, keyless, studio-class)
 
-**Frontmatter (studio-class keyless, mirroring `make-social-post`/`make-thumbnail`):**
+**Frontmatter (studio-class keyless, matching `make-thumbnail` exactly):**
 ```yaml
-function_slot: create        # confirm against the make-* studios during build
+function_slot: creative      # the creative studio slot (make-thumbnail uses creative; make-social-post uses social)
 requires_driver: render      # studio-class local build; NOT a network/mcp skill
 requires_credential: none
+data_path: local
 status: active
 ```
 No `uses_tools` key naming any `mcp__` tool. Claude Design is used through its own
@@ -232,10 +233,12 @@ fallback; never fabricate copy, testimonials, numbers, or reviews (safeguards).
 
 ### 5b. `launch-my-site` (Tier-1 library shelf, connected)
 
-**Frontmatter:**
+**Frontmatter (connected; the three commented values are open, see §10):**
 ```yaml
-function_slot: publish
-requires_credential: vercel   # confirm the credential key against the vercel plugin
+function_slot: creative       # deploy has no clean slot in the enum; least-bad existing fit, see §10
+requires_driver: vercel       # no vercel driver exists yet; may need creating, see §10
+requires_credential: mcp      # the enum is none|mcp|key, so wrapping the Vercel MCP is 'mcp', not 'vercel'
+data_path: mcp_tools
 status: active
 ```
 A thin wrapper over the Vercel plugin (`vercel:deploy` / the Vercel MCP): confirm
@@ -291,9 +294,11 @@ Two layers, same doctrine as everything else:
 
 ## 8. Wiring + validation
 
-- **Register** both skills in `kernel/registry.json` via the generator; `design-my-site`
-  copies the studio-class keyless pattern (`make-social-post`), `launch-my-site`
-  declares the Vercel credential.
+- **Register** both skills in `kernel/registry.json` via the generator. A manifest
+  that fails validation is silently skipped by the generator (and then trips the
+  onboarding-binding phantom check), so the §5 frontmatter must pass
+  `tools/manifest.py` first. `design-my-site` copies the studio-class keyless
+  pattern from `make-thumbnail`; `launch-my-site` declares the connected credential.
 - **Onboarding surface:** add `design-my-site` to `knowledge/starter-projects.md`
   under the market/win-work relief group as a keyless (studio-heavier) win; do NOT
   hand-edit `whats-possible` (runtime registry reader). `launch-my-site` appears as
@@ -323,12 +328,19 @@ Two layers, same doctrine as everything else:
 
 ## 10. Open questions for the plan
 
-- Exact `function_slot` / `requires_driver` values for a studio-class skill —
-  confirm against the live `make-social-post` / `make-thumbnail` frontmatter and
-  `manifest-schema.md` during planning.
-- The Vercel credential key name and whether `launch-my-site` wraps the `vercel`
-  plugin skills or the Vercel MCP directly.
+- **`launch-my-site` has no clean `function_slot`.** The enum
+  (`crm, accounting, ads, social, creative, comms, documents, money, people,
+  strategy, research, floor`) has no deploy/publish value. Either accept the
+  least-bad existing slot (`creative`, shown) or add a new one, which is a schema
+  change touching `tools/manifest.py` + `manifest-schema.md`, not just a skill add.
+  (`design-my-site` is settled: `creative`, matching `make-thumbnail`.)
+- **`launch-my-site` driver + wrapping.** No `vercel` driver exists in `drivers/`
+  yet. Decide whether it wraps the Vercel MCP (`requires_credential: mcp`,
+  `data_path: mcp_tools`, plus a new `vercel` driver) or the `vercel` plugin's
+  CLI-style skills, and create/register the driver accordingly.
 - One method file vs the proposed two (`web-design-method.md` +
   `claude-design-method.md`) — lean two for reusability; confirm.
 - Whether the starter ships as a full committed Next.js app or a minimal generator
-  the skill fills in (weigh repo weight vs first-run speed).
+  the skill fills in (weigh repo weight vs first-run speed), and whether committing
+  a Next.js app tree under `templates/` clears the repo's hygiene/kernel-clean
+  gates (there is no `studio/`-style precedent for a committed full app).
