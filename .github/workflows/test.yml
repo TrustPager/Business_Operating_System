@@ -41,6 +41,9 @@ jobs:
       - name: Onboarding binding (surface must only offer real, keyless wins)
         run: python tools/check-onboarding-binding.py
 
+      - name: Ads spend-safety (no skill body may activate an ad, by any path)
+        run: python tools/check-ads-safety.py
+
       - name: Lint every skill
         run: |
           set -e
