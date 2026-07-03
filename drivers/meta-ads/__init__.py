@@ -15,7 +15,7 @@ Evelyn Weiss.
 
 DRIVER = {
     "id": "meta-ads",
-    "kind": "claude_mcp",              # keyed_rest | keyless_mcp | local | data_pack | claude_mcp
+    "kind": "claude_mcp",              # keyed_rest | keyed_cli | keyless_mcp | local | data_pack | claude_mcp
     "display_name": "Meta Ads",
     "server_url": "https://mcp.facebook.com/ads",
     "tool_prefix": "mcp__meta-ads__",
@@ -23,7 +23,7 @@ DRIVER = {
     "credential": "mcp",               # OAuth, no key paste
     "read_only_scope_first": True,     # grant the read-only scope tier first (§8)
     # Spend-safety hard lines (see §8). Documentation of intent; the live guard is
-    # the CI check in tools/check-ads-safety.py, not this dict.
+    # the CI check in tools/check-connectors.py, not this dict.
     "never_call": ["mcp__meta-ads__ads_activate_entity"],
     # All three interchangeable status fields Meta exposes on an entity —
     # setting any of them to ACTIVE un-pauses a shell just as an activate call would.
