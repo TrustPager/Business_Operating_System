@@ -6,6 +6,15 @@
 > ≤3, hard-stop) and the Task 2 marker (now `intake_depth=`, not `tier2=`) are updated inline
 > below. The rest of this plan (cold-start gate, keyless win, profile write, no-clobber) stands.
 
+> **⚠️ FURTHER SUPERSEDED — 2026-07-03 (the win model).** The Day-1 win is no
+> longer a built artifact "fired" after the reflection. It is the collaborative
+> consultation itself (reflection hook → goal+blocker hinge → think-alongside,
+> showing the reasoning), with any build deferred to a
+> recommendation-with-alternatives at the end; a terse owner still gets a fast
+> tangible win (the engagement gauge decides). Task 3 steps 6-7 below are
+> superseded accordingly. See `docs/architecture/2026-07-03-collaborative-consultation-design.md`;
+> the doctrine one-home is `knowledge/business-method.md` §2.
+
 > **For agentic workers:** Execute via superpowers:subagent-driven-development (fresh subagent per task + review). These are prose **skills**, so the gate per task is: (1) `python tools/lint-skill.py skills/<name>` clean + manifest valid, (2) faithful to the locked design, (3) full offline suite still green. There are no TDD failing-tests for prose skills unless a task adds a script. Run in a dedicated worktree.
 
 **Goal:** A brand-new owner with **zero accounts and zero files** reaches a real, keyless WIN and walks away with a written, resumable business-context profile — feeling that this is *their* powerful system. This is the cold-start that determines Skool retention.
@@ -38,8 +47,8 @@
 3. **Catch the dump** — typed / pasted / voice; one line is valid; thin-dump recovery per §1.
 4. **Keyless enrich** — Firecrawl scrape (owner's site) + search (business name) if given; cap effort, fall back silently, confirm scraped identity before trusting.
 5. **Infer** — match to `knowledge/industry-notes.md`; load the vertical's pipeline/products/lead-sources/gotchas/comms-style as **labelled guesses**.
-6. **Reflect + fire the win** — reflect the understood picture in their words, then run the win (default `build-brand-strategy` keyless mode; route per §5 table).
-7. **Consultative deepening loop + useful-now threshold** *(supersedes the old "Grill-lite — ≤3 follow-ups, hard-stop at spine")* — after the win, run `business-method.md` §2 as an engagement-adaptive loop (each question built on the last), keeping smart-default-then-confirm, the why-I'm-asking tag, and always-an-escape per question; cross the useful-now threshold (reflect the give, then offer the fork) when a candidate constraint is nameable or at the soft ceiling (~6-8 exchanges). See the 2026-07-02 consultative-intake spec.
+6. **Reflect + fire the win** — reflect the understood picture in their words, then run the win (default `build-brand-strategy` keyless mode; route per §5 table). *(SUPERSEDED 2026-07-03: the reflection of understanding is the hook; for an engaged owner the consultation itself is the win, and a built artifact is a later recommendation, not fired here. Only a terse owner gets the fast tangible build win. See the 2026-07-03 design.)*
+7. **Consultative deepening loop + useful-now threshold** *(supersedes the old "Grill-lite — ≤3 follow-ups, hard-stop at spine")* — after the win, run `business-method.md` §2 as an engagement-adaptive loop (each question built on the last), keeping smart-default-then-confirm, the why-I'm-asking tag, and always-an-escape per question; cross the useful-now threshold (reflect the give, then offer the fork) when a candidate constraint is nameable or at the soft ceiling (~6-8 exchanges). See the 2026-07-02 consultative-intake spec. **[SUPERSEDED 2026-07-03]:** the consultation IS the win (not a loop that follows a fired artifact win); the engagement gauge decides depth (there is no "put it to work" fork/threshold); the build is a later recommendation-with-alternatives. See `docs/architecture/2026-07-03-collaborative-consultation-design.md`.
 8. **Write the profile** — write/merge `./CLAUDE.md` (spine filled, inferred labelled, gaps as `<<< guesses >>>`, marker block); never clobber a hand-tuned file without showing the diff.
 9. **Binge-or-sip** offer (AFTER the win) + **close** (TrustPager mentioned once, gently, opt-in).
 Thread the **identity/ownership framing** (§4b) and the **comfort/trust** moves (§4); plain-language only (D3).

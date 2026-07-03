@@ -1,6 +1,6 @@
 ---
 name: Start Here
-description: First-run onboarding — gets your new AI assistant up to speed on your business in one short conversation (a 60-second brain-dump, no accounts or files needed), delivers a real win on the spot, then offers to build something useful with you. Writes it all into your business profile so it remembers, and resumes where you left off.
+description: First-run onboarding. Your new AI assistant gets up to speed on your business in one short conversation (a 60-second brain-dump, no accounts or files needed) and thinks alongside you toward your goal, then recommends a first thing to build together. Writes it into your business profile so it remembers, and resumes where you left off.
 triggers:
   - start here
   - get me started

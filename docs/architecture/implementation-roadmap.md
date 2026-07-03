@@ -27,7 +27,7 @@
 | **P0** | Foundation — split the engine into kernel + TrustPager driver | — | A no-op 2nd driver journals through the kernel without importing TrustPager; all 22 `fetch.py` still run green |
 | **P1** | The contract — manifests + generated registry + hardened lint | P0 | `registry.json` generates in CI; lint FAILs on bad manifest/undeclared tool/vendor-literal-in-kernel |
 | **P2** | Safety truth — fix the journal, rule the data path, write-approval gate | P0 | Every write (key + MCP) is journaled; stored key is `chmod 0600`; expensive writes gated |
-| **P3** | Kernel behavior — onboarding + catalog + connect-on-demand | P1, P2 | `start-here` runs info-dump→win→deepen at zero tools; `whats-possible` reads the registry; preflight remediates, never dead-ends |
+| **P3** | Kernel behavior — onboarding + catalog + connect-on-demand | P1, P2 | `start-here` runs reflect→consult→build at zero tools (win model per the 2026-07-03 design); `whats-possible` reads the registry; preflight remediates, never dead-ends |
 | **P4** | The floor — fix, adopt, build | P1, P3 | All default-on floor apps green under `BOS_OFFLINE`; the two adopted libs (firecrawl-keyless, doc-lib-set) wired |
 | **P5** | MONEY + people-ops floor | P4 | AU finance + people-ops apps run keyless off a versioned ATO/Fair-Work constants file |
 | **P6** | Creative engine — Remotion bridge | P4 | A brand-genericised RVS renders an on-brand MP4/GIF for a non-TrustPager business; `make-brand-video` works pin-on |
@@ -87,7 +87,7 @@ The original spine note still holds mechanically: P0→P3 are sequential; P4/P5/
 
 ## P3 — Kernel behavior: onboarding + catalog + connect-on-demand
 **Goal:** The self-actualizing partner — value before completeness, deepening over time.
-**Builds:** `skills/start-here/` (conversation-first onboarding: 60-sec info-dump → instant floor win → rewarded deepening, binge-or-sip, resumable); `skills/whats-possible/` (reads `registry.json` → grouped plain-language catalog + pinning); `skills/connect-a-tool/` + `tools/preflight.py` (driver check → connect tutorial: MCP › CLI › `.env`). Demote `learn-my-business` to a step `start-here` invokes; collapse the four "front door" claims to one.
+**Builds:** `skills/start-here/` (conversation-first onboarding: 60-sec info-dump → zero-question reflection of understanding → collaborative consultation that IS the win for an engaged owner, a fast tangible win for a terse one → build as a later recommendation; resumable; win model revised 2026-07-03, see `2026-07-03-collaborative-consultation-design.md`); `skills/whats-possible/` (reads `registry.json` → grouped plain-language catalog + pinning); `skills/connect-a-tool/` + `tools/preflight.py` (driver check → connect tutorial: MCP › CLI › `.env`). Demote `learn-my-business` to a step `start-here` invokes; collapse the four "front door" claims to one.
 **Implements:** review P0 #4/#5, P1 #10, founder D6, onboarding decisions (Q3).
 **Depends on:** P1, P2.
 **Done when:** a brand-new owner with nothing connected completes onboarding and gets a floor win; capability surfacing + connect-on-demand are registry-driven; the kernel is unchanged by adding a driver.

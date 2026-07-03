@@ -88,7 +88,7 @@ No account needed. No key. Just type one of these after setup:
 /start-here
 ```
 
-Your assistant introduces itself, learns your business from a 60-second brain-dump, and hands you a first real win: a priced quote, a proposal draft, a competitor read. One short conversation and you're operating.
+Your assistant introduces itself, learns your business from a 60-second brain-dump, and thinks alongside you toward your goal, then recommends a first thing to build with you (or moves straight to a tangible result if you're in a hurry). One short conversation and you're operating.
 
 Or go straight to a specific win:
 

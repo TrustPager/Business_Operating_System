@@ -346,7 +346,8 @@ _ONE_LINERS: dict[str, str] = {
     "onboard-team-member": "Set a new hire up with your team's standards baked "
     "in, so they follow the same process from day one.",
     "start-here": "Get your assistant up to speed on your business in one short "
-    "conversation, and hand you a real win on the spot.",
+    "conversation where it thinks alongside you toward your goal, then recommends "
+    "the first thing to build together.",
     "sync-team-standards": "Push a change to your team's standards out to "
     "everyone, with a per-person preview before it updates.",
     "whats-possible": "Show everything your system can already do for you, "

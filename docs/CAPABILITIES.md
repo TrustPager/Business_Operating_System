@@ -135,7 +135,7 @@ Stress-testing a decision, writing a sharp brief or prompt, hiring and onboardin
 - **Grill Me On This Decision**: Pressure-test a real decision before you commit: the assumptions, both cases at full strength, and a recommendation.
 - **Onboard Team Member**: Set a new hire up with your team's standards baked in, so they follow the same process from day one.
 - **Set Up Referrals**: Install a referral engine that actually brings work in, the ask designed as a warm introduction (not "got any names?"), timed to the moment a client is happiest, with a reward that works for both sides and a simple way to track it
-- **Start Here**: Get your assistant up to speed on your business in one short conversation, and hand you a real win on the spot.
+- **Start Here**: Get your assistant up to speed on your business in one short conversation where it thinks alongside you toward your goal, then recommends the first thing to build together.
 - **Sync Team Standards**: Push a change to your team's standards out to everyone, with a per-person preview before it updates.
 - **Tune My Setup**: Set up Claude Code with sensible working-style defaults and safe-read permissions, additive and reversible at any time.
 - **Update BOS**: Update your Business Operating System to the latest version, safely

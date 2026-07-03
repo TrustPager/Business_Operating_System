@@ -1,6 +1,6 @@
 # BOS Onboarding — Starter-Projects Library
 
-*The deduped, vertical-aware menu the "3 things we could build" moment draws from. Every project offered as buildable-now maps to a real registry skill (`kernel/registry.json`, `status: active`). Decided-but-unbuilt floor ideas live in the non-routable [Planned (coming soon)](#planned-coming-soon) section so the vision is preserved without offering it as a live win. No invented apps; the registry is the source of truth.*
+*The deduped, vertical-aware menu the earned build recommendation draws from (the "here's what I'd start with, and why" moment that follows the consultation, see §4). Every project offered as buildable-now maps to a real registry skill (`kernel/registry.json`, `status: active`). Decided-but-unbuilt floor ideas live in the non-routable [Planned (coming soon)](#planned-coming-soon) section so the vision is preserved without offering it as a live win. No invented apps; the registry is the source of truth.*
 
 **Build-status legend:** `[live]` = ships today (in registry, `status: active`); `[floor-new]` = decided keyless floor build, not yet built (Planned only — now only `make-brand-video`).
 

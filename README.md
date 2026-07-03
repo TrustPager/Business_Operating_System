@@ -8,19 +8,21 @@ A library of skills, slash commands, and templates that turn Claude Code into a 
 
 ## Start here
 
-**New? Type `/start-here`.** Your assistant introduces itself, learns your business from a 60-second brain-dump (no accounts, no files, nothing to install), and hands you a real win on the spot: a first proposal, a priced quote, a competitor read, or a brand brief. One short conversation and you're operating.
+**New? Type `/start-here`.** Your assistant introduces itself, reflects back what it already understands about your business from a 60-second brain-dump (no accounts, no files, nothing to install), then thinks alongside you toward your goal, like a sharp operator who started today. For an owner who wants to dig in, that back-and-forth is the win; if you're pressed for time it moves straight to a tangible result. Once it has earned the understanding, it recommends the first thing to build with you.
 
 ```
 You:    /start-here
 Claude: Right, I'm your new AI assistant. Tell me what you do, who it's for,
         and what eats most of your week. Got a website? Drop it in and I'll do
         my own homework.
-You:    "Solo sparky in Geelong. Quoting eats my week."
+You:    "Solo sparky in Geelong, flat out, but I want to grow."
 Claude: → here's your business as I now understand it
-        → and here's a finished, priced quote you can send today
+        → you're booked solid and closing nearly every quote, so the fastest
+          way to grow isn't more leads, it's your pricing. Here's why, and
+          the first thing I'd build with you.
 ```
 
-That's the keyless floor: real work, zero setup. From there `/whats-possible` shows everything your system can already do.
+That's the keyless floor: a sharp operator thinking alongside you from minute one, then real work when you're ready. From there `/whats-possible` shows everything your system can already do.
 
 ---
 

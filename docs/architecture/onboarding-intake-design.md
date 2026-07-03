@@ -266,6 +266,8 @@ The cold-start gate reads this; `pending=[…]` drives the "scope one more area"
 Every "ask" in the experience is **gated behind delivered value.** You never ask for deep/vulnerable info or pitch a tool cold — you *earn the right* by building something real first. The arc has tiers; each unlocks only after the prior value lands:
 
 > **[SUPERSEDED IN PART 2026-07-02]** Tiers 0 and 2 changed. Tier 0's `≤3 Qs` is now the engagement-adaptive intake loop + useful-now threshold, and Tier 2's "earned deeper interview" is now **continuous and owner-invited** (always available, never forced), not a trust gate. **Tier 1 (the 3 projects) and Tier 3 (TrustPager reactive-only) are unchanged.** See `docs/architecture/2026-07-02-consultative-intake-design.md`.
+>
+> **[FURTHER SUPERSEDED 2026-07-03 — the win model]** The "instant win" Tier 0 delivers and the Tier-1 "pivot from asking to building / 3 tailored projects" framing are both revised: the Day-1 win is now the **collaborative consultation itself** (not an artifact), and the build is a **later recommendation-with-alternatives**, not an early menu. So the Tier-1 pivot line below ("here are 3 things we could build") is historical. Tier 3 (TrustPager reactive-only) is still unchanged. See `docs/architecture/2026-07-03-collaborative-consultation-design.md`.
 
 | Tier | Trust state | What happens | What you may ask for |
 |---|---|---|---|
