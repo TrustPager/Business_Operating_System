@@ -106,9 +106,12 @@ def _load_keyless_drivers() -> frozenset[str]:
     That module is hyphenated, so it can't be imported by name; load it by path.
     Keeping one owner for the keyless set avoids the drift the doctrine warns about.
     """
-    spec = importlib.util.spec_from_file_location(
-        "_check_onboarding_binding", _TOOLS_DIR / "check-onboarding-binding.py"
-    )
+    path = _TOOLS_DIR / "check-onboarding-binding.py"
+    spec = importlib.util.spec_from_file_location("_check_onboarding_binding", path)
+    if spec is None or spec.loader is None:
+        # Co-located, so this never triggers today; guarding it makes the
+        # fail-closed behavior explicit instead of an opaque AttributeError on None.
+        raise ImportError(f"could not load _KEYLESS_DRIVERS from {path}")
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod._KEYLESS_DRIVERS
@@ -125,6 +128,23 @@ CANONICAL_KINDS: frozenset[str] = frozenset(
 # The connected kinds get the full structural checks (connect.md + card). The other
 # kinds do not connect, so connect.md / card are not required of them (spec §6).
 CONNECTED_KINDS: frozenset[str] = frozenset({"claude_mcp", "keyed_cli"})
+
+# The connected frontmatter contract (spec §6) allows a strict SUBSET of the shared
+# manifest enums: a connected add-on is never keyless, and it runs on a live data
+# path. Single-source both against manifest.py so the imported enums stay meaningful
+# (anti-drift) rather than being shadowed by hardcoded literals.
+#
+# credential: a clean subtraction (connected == every credential except 'none').
+CONNECTED_CREDENTIALS: frozenset[str] = REQUIRES_CREDENTIAL - {"none"}   # {mcp, key}
+# data_path: NOT a clean subtraction (reasoning_only AND fetch_rest are both excluded
+# for different reasons), so name the subset explicitly and assert it is a genuine
+# subset of the shared enum — the assert catches drift if manifest.py's DATA_PATHS
+# ever changes shape, keeping the import load-bearing.
+CONNECTED_DATA_PATHS: frozenset[str] = frozenset({"mcp_tools", "local"})
+assert CONNECTED_DATA_PATHS <= DATA_PATHS, (
+    "CONNECTED_DATA_PATHS drifted from manifest.py DATA_PATHS: "
+    f"{CONNECTED_DATA_PATHS - DATA_PATHS} not in the shared enum"
+)
 
 
 # --- The never-call / never-set surface (DATA — read from each driver's DRIVER dict) ---
@@ -378,14 +398,14 @@ def _check_conformance(root: Path, drivers: dict) -> list[str]:
         if not isinstance(rd, str) or rd not in drivers:
             continue  # only the connected (DRIVER-dict) half is enforced here
         cred = meta.get("requires_credential")
-        if cred not in REQUIRES_CREDENTIAL or cred not in ("mcp", "key"):
+        if cred not in CONNECTED_CREDENTIALS:
             findings.append(
                 f"{rel}: connected skill (requires_driver={rd!r}) has "
                 f"requires_credential={cred!r} — a connected add-on must be 'mcp' or "
                 f"'key'."
             )
         dp = meta.get("data_path")
-        if dp not in DATA_PATHS or dp not in ("mcp_tools", "local"):
+        if dp not in CONNECTED_DATA_PATHS:
             findings.append(
                 f"{rel}: connected skill (requires_driver={rd!r}) has "
                 f"data_path={dp!r} — a connected add-on must be 'mcp_tools' or 'local'."
