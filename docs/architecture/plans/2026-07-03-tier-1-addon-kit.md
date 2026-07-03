@@ -143,7 +143,7 @@ git commit -m "feat(addon-kit): generalize the safety gate to read each driver's
 - Modify: `tools/check-connectors.py`
 - Test: `tests/test_check_connectors.py`, `tests/fixtures/connectors/`
 
-- [ ] **Step 1: Write failing conformance fixtures + tests.** Under `tests/fixtures/connectors/` create a good `claude_mcp` add-on, a good `keyed_cli` add-on, and broken ones (bad kind; `requires_driver` typo; missing `connect.md`; card heading not matching `display_name` prefix; connected frontmatter violating credential/data_path/uses_tools). Because the real gate scans the repo, make the checker accept a `--root <dir>` argument so tests can point it at a fixture tree; assert exit 0 on the good fixtures and exit 2 (with the specific message) on each broken one.
+- [ ] **Step 1: Write failing conformance fixtures + tests.** Under `tests/fixtures/connectors/` create a good `claude_mcp` add-on (its connected skill using `data_path: mcp_tools`), a good `keyed_cli` add-on (its connected skill using `data_path: local`, so both connected-contract `data_path` branches are exercised), and broken ones (bad kind; `requires_driver` typo; missing `connect.md`; card heading not matching `display_name` prefix; connected frontmatter violating credential/data_path/uses_tools). Because the real gate scans the repo, make the checker accept a `--root <dir>` argument so tests can point it at a fixture tree; assert exit 0 on the good fixtures and exit 2 (with the specific message) on each broken one.
 ```python
 def _run(root):
     return subprocess.run([sys.executable, "tools/check-connectors.py", "--root", str(root)],
@@ -163,7 +163,7 @@ class TestConformance(unittest.TestCase):
 - [ ] **Step 2: Run, verify fail.** → FAIL (`--root` unsupported; conformance not implemented).
 
 - [ ] **Step 3: Implement conformance in `check-connectors.py`:**
-  - Add a `--root` arg (defaults to `REPO_ROOT`) so `_skill_bodies()`, `_load_driver_dicts()`, and the connectors-card/connect.md reads all resolve under it (enables fixture testing).
+  - Add a `--root` arg (defaults to `REPO_ROOT`) so `_skill_bodies()`, `_load_driver_dicts()`, and the connectors-card/connect.md reads all resolve under it (enables fixture testing). **This requires threading `root` through the module-level `REPO_ROOT`/`SKILLS_DIR` constants** (parameterize the helpers to take a `root`, or recompute those paths from the parsed `--root`). Adding the argparse flag alone would leave the helpers pointing at the real repo and silently ignore the fixture tree, so the fixture tests would pass against the wrong tree.
   - `CANONICAL_KINDS = {"claude_mcp","keyed_cli","keyed_rest","keyless_mcp","local","data_pack"}`; for each loaded `DRIVER` dict, FAIL if `kind` absent or not in the set.
   - **`requires_driver` resolution** across every skill manifest: valid if `none`, OR in `_KEYLESS_DRIVERS` (reuse the exact set from `check-onboarding-binding.py`: `{none, markitdown, render, firecrawl, doclib}` — import it or mirror with a one-line comment pointing at the source), OR `drivers/<id>/` exists. Else FAIL naming the skill.
   - For each loaded dict whose `kind` is connected (`claude_mcp`, `keyed_cli`): FAIL if `drivers/<id>/connect.md` missing, or if no heading in `knowledge/connectors.md` **begins with** `display_name` (prefix match, per spec §6).
