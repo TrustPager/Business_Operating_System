@@ -1,8 +1,8 @@
 # Site Builder — `design-my-site` (floor) + `launch-my-site` (shelf), driving Claude Design
 
-**Status:** Draft for review. Design direction founder-approved in brainstorming
-(2026-07-03). Pending the spec-review loop and a founder read of this written spec
-before any implementation planning.
+**Status:** Approved for planning. Design direction founder-approved in brainstorming
+(2026-07-03); spec-review loop passed; the four open decisions were founder-settled
+(2026-07-03, see §10). Ready for the writing-plans phase.
 
 **One-line:** BOS becomes the *conversion + uniqueness engine* that drives Claude
 Design: it supplies the structure that converts, the on-page SEO that ranks, and a
@@ -50,16 +50,14 @@ degenerate case.
 
 ## 3. The method (the IP) — three layers in `knowledge/`
 
-Two new method files, following the one-home rule and linking out rather than
-restating:
-
-- **`knowledge/web-design-method.md`** — the conversion skeleton, the site layer
-  (IA), and the on-page SEO wiring. Links to `seo-method.md`,
-  `business-method.md` §10.5, `marketing-strategy-method.md`, and
-  `communication-voice.md`.
-- **`knowledge/claude-design-method.md`** — the anti-sameness steering playbook.
-  Kept separate because it is reusable by any future Claude-Design-driven skill,
-  not just this one.
+One new method file, following the one-home rule and linking out rather than
+restating: **`knowledge/web-design-method.md`**, fully inclusive of the whole
+process in four parts: the conversion skeleton (§3a), the site layer / IA (§3b),
+the on-page SEO wiring (§7), and the Claude Design steering playbook (§3c). It links
+to `seo-method.md`, `business-method.md` §10.5, `marketing-strategy-method.md`, and
+`communication-voice.md` rather than restating them. (Founder-settled 2026-07-03:
+one inclusive file, not a split. If a second Claude-Design-driven skill ever appears,
+the steering section extracts then, not now.)
 
 ### 3a. Conversion + on-page-SEO skeleton (shared, proven, keyless)
 
@@ -125,7 +123,7 @@ job and one primary action.
   odds of qualifying drop ~80% after 5 minutes). The speed-to-lead constraint is
   where this hands to the CRM/automation tier post-launch.
 
-### 3c. Art-direction derivation + anti-sameness playbook (`claude-design-method.md`)
+### 3c. Art-direction derivation + anti-sameness playbook (in `web-design-method.md`)
 
 The layer that overpowers Claude Design's defaults. Founder-chosen mechanism:
 **design-system-first.** The strongest lever (per research) is attaching a real
@@ -233,25 +231,33 @@ fallback; never fabricate copy, testimonials, numbers, or reviews (safeguards).
 
 ### 5b. `launch-my-site` (Tier-1 library shelf, connected)
 
-**Frontmatter (connected; the three commented values are open, see §10):**
+**Frontmatter (connected; founder-settled 2026-07-03):**
 ```yaml
-function_slot: creative       # deploy has no clean slot in the enum; least-bad existing fit, see §10
-requires_driver: vercel       # no vercel driver exists yet; may need creating, see §10
-requires_credential: mcp      # the enum is none|mcp|key, so wrapping the Vercel MCP is 'mcp', not 'vercel'
-data_path: mcp_tools
+function_slot: deploy         # NEW enum value, added to tools/manifest.py + manifest-schema.md (see §8)
+requires_driver: vercel       # NEW driver wrapping the Vercel plugin/CLI (see §8)
+requires_credential: key      # a Vercel account/token, via the vercel plugin/CLI (NOT the MCP)
+data_path: local              # the vercel CLI acts on the owner's local project
 status: active
 ```
-A thin wrapper over the Vercel plugin (`vercel:deploy` / the Vercel MCP): confirm
-the local project builds, deploy a preview, then production on approval, report the
-URL. Honours the guard rails (never deploy without an explicit go; report the real
-outcome; nothing announced as live until the deploy is confirmed). Offers the
-post-launch loop: `get-found-online` live audit + the connected rank-tracking /
-AI-visibility doorway.
+A thin wrapper over the Vercel plugin/CLI (`vercel:deploy`): confirm the local
+project builds, deploy a preview, then production on approval, report the URL.
+Honours the guard rails (never deploy without an explicit go; report the real
+outcome; nothing announced as live until the deploy is confirmed).
+
+**The connect-story it tells** is the worked example of the reusable BOS doorway
+format. Concretely: *"You built your site with `design-my-site`, keyless. To put it
+live you need two things, a Vercel account and the Vercel plugin, and here is how to
+get both."* Generalised, every connected doorway in BOS speaks in one shape:
+**"Here is X you can do keyless; it becomes enhanced by Y, which you unlock with Z."**
+This articulation gets one home in a knowledge doc during implementation
+(`business-method.md` or `knowledge/connectors.md`), so `launch-my-site` references
+it rather than inventing its own pitch. It then offers the post-launch loop:
+`get-found-online` live audit + the connected rank-tracking / AI-visibility doorway.
 
 ## 6. The starter — `templates/site-starter/`
 
-A Next.js app BOS ships (committed to BOS) and instantiates into the owner's
-workspace (never committed into BOS). It carries:
+A **lean** Next.js app BOS ships (committed to BOS, not generated per run, see §10.4)
+and instantiates into the owner's workspace (never committed into BOS). It carries:
 
 - **Design tokens wired from `brand.json`** as CSS variables / Tailwind config, so
   the derived system is a real, attachable design system.
@@ -294,11 +300,17 @@ Two layers, same doctrine as everything else:
 
 ## 8. Wiring + validation
 
+- **Schema change first (for `launch-my-site`).** Add a `deploy` value to
+  `FUNCTION_SLOTS` in `tools/manifest.py` and mirror it in `manifest-schema.md`.
+  Create and register a `vercel` driver in `drivers/` wrapping the Vercel
+  plugin/CLI. Both must land before `launch-my-site` is generated: manifest
+  validation accepts any non-empty `requires_driver`, so a missing driver is not
+  caught at validation, only at generation/runtime.
 - **Register** both skills in `kernel/registry.json` via the generator. A manifest
   that fails validation is silently skipped by the generator (and then trips the
   onboarding-binding phantom check), so the §5 frontmatter must pass
   `tools/manifest.py` first. `design-my-site` copies the studio-class keyless
-  pattern from `make-thumbnail`; `launch-my-site` declares the connected credential.
+  pattern from `make-thumbnail`; `launch-my-site` declares the Vercel `key` credential.
 - **Onboarding surface:** add `design-my-site` to `knowledge/starter-projects.md`
   under the market/win-work relief group as a keyless (studio-heavier) win; do NOT
   hand-edit `whats-possible` (runtime registry reader). `launch-my-site` appears as
@@ -326,25 +338,21 @@ Two layers, same doctrine as everything else:
 - No new render studio in `studio/` (the site is the owner's project, not a shared
   render surface like og/social/thumbnails).
 
-## 10. Open questions for the plan
+## 10. Decisions settled (founder-ruled 2026-07-03)
 
-- **`launch-my-site` has no clean `function_slot`.** The enum
-  (`crm, accounting, ads, social, creative, comms, documents, money, people,
-  strategy, research, floor`) has no deploy/publish value. Either accept the
-  least-bad existing slot (`creative`, shown) or add a new one, which is a schema
-  change touching `tools/manifest.py` + `manifest-schema.md`, not just a skill add.
-  (`design-my-site` is settled: `creative`, matching `make-thumbnail`.)
-- **`launch-my-site` driver + wrapping.** No `vercel` driver exists in `drivers/`
-  yet. Decide whether it wraps the Vercel MCP (`requires_credential: mcp`,
-  `data_path: mcp_tools`, plus a new `vercel` driver) or the `vercel` plugin's
-  CLI-style skills, and create/register the driver accordingly. Note
-  `tools/manifest.py` accepts any non-empty `requires_driver` string, so it will
-  NOT catch a missing driver: the `vercel` driver must be created and registered
-  before `launch-my-site` is generated, or the gap surfaces only at
-  generation/runtime, not at manifest validation.
-- One method file vs the proposed two (`web-design-method.md` +
-  `claude-design-method.md`) — lean two for reusability; confirm.
-- Whether the starter ships as a full committed Next.js app or a minimal generator
-  the skill fills in (weigh repo weight vs first-run speed), and whether committing
-  a Next.js app tree under `templates/` clears the repo's hygiene/kernel-clean
-  gates (there is no `studio/`-style precedent for a committed full app).
+1. **`launch-my-site` slot = schema change.** Add a new `deploy` value to
+   `FUNCTION_SLOTS` (`tools/manifest.py` + `manifest-schema.md`) rather than borrow
+   an awkward existing slot. (`design-my-site` stays `creative`, matching
+   `make-thumbnail`.)
+2. **`launch-my-site` wraps the Vercel plugin/CLI, on the Tier-1 shelf.** Credential
+   is a Vercel account (`requires_credential: key`) via a new `vercel` driver, not
+   the Vercel MCP. It carries the reusable connect-doorway articulation (§5b),
+   which gets one home in a knowledge doc.
+3. **One method file.** `knowledge/web-design-method.md` is fully inclusive
+   (skeleton + IA + SEO wiring + steering playbook). No split.
+4. **Committed lean Next.js starter, not a generator.** Design-system-first needs a
+   real, attachable design system to exist at scaffold time (what `/design-sync`
+   and the Claude Design handoff attach to), and the studios set the committed-app
+   precedent. Ship only our IP + a thin app shell, `node_modules` gitignored, pin
+   versions. Remaining planning check: confirm `templates/site-starter/` clears the
+   repo hygiene/kernel-clean gates, else fall back to `studio/site-starter/`.
