@@ -76,6 +76,10 @@ rather than restating them (one home per fact):
 - **`connect.md`** = single home for connect steps (fixed shape). **The
   `connectors.md` card** (fixed schema). **The labelled `connect-a-tool`
   override** when the add-mechanism differs from the default in-app `/mcp` flow.
+- **Onboarding row tag:** a connected add-on's `starter-projects.md` row uses the
+  vendor-neutral `needs_connection` tag (already present in `_CONNECTED_TIER_TAGS`
+  in `tools/check-onboarding-binding.py`, landed via the meta-ads work, so the
+  recipe references it as done, not pending). Never `keyless`, never a CRM tag.
 - **The guided intake** (Source A/B/C/D): read `brand.json` (A) + `./CLAUDE.md`
   (B) silently, ask only the small add-on-specific bucket (C), auto-fill and
   confirm from one live read (D); write a `~/.claude/bos-cache/<addon>-profile.json`;
@@ -95,12 +99,18 @@ Every driver that opts into the kit declares a `kind` in its `DRIVER` dict:
 | `claude_mcp` | Owner-hosted OAuth MCP the Claude client hosts | `meta-ads` | Folderless docs-only; connect.md; no Python transport |
 | `keyed_cli` | A keyed local CLI invoked via Bash | Vercel (planned) | Docs-only `DRIVER` dict + `secret_pattern`; connect.md; no DriverConfig |
 | `keyed_rest` | Keyed REST API with a Python transport | `trustpager` | `DriverConfig` + auth/catalog (the CRM core; grandfathered, see §7) |
-| `keyless` | No account, runs locally or reads the open web | `firecrawl`, `render` | Grandfathered, see §7 |
+| `keyless_mcp` | Keyless hosted MCP, no account | `firecrawl` | Grandfathered, see §7 |
+| `local` | Runs locally, no account | `render`, `markitdown`, `doclib` | Grandfathered, see §7 |
 | `data_pack` | Region/data bundle, no connection | `regional/au` | Grandfathered, see §7 |
 
-The recipe documents all five so an author picks one. The gate (§5/§6) only
-enforces on drivers that ship a `DRIVER` dict; connected kinds (`claude_mcp`,
-`keyed_cli`) get the full structural checks.
+**Canonical `kind` set** (the gate's §6 "kind is in the taxonomy" check validates
+against exactly this): `claude_mcp`, `keyed_cli`, `keyed_rest`, `keyless_mcp`,
+`local`, `data_pack`. These six reconcile the informal enum already in
+`drivers/meta-ads/__init__.py`'s comment (`keyed_rest | keyless_mcp | local |
+data_pack | claude_mcp`) plus the new `keyed_cli`; the meta-ads retrofit (§5) adds
+`keyed_cli` to that comment so the driver, the recipe, and the gate agree on one
+set. The gate only enforces on drivers that ship a `DRIVER` dict; connected kinds
+(`claude_mcp`, `keyed_cli`) get the full structural checks.
 
 ## 5. The gate — `tools/check-connectors.py` (safety, generalized)
 
@@ -130,8 +140,11 @@ tool (renamed step: "Connector safety + conformance").
 - `requires_driver` on any skill resolves to a real `drivers/<id>/` (closes the
   typo-passes-silently hole). Reported per offending skill.
 - For **connected** kinds (`claude_mcp`, `keyed_cli`): a `connect.md` exists in
-  the driver folder, and a `## <display_name>` card exists in
-  `knowledge/connectors.md`.
+  the driver folder, and a card whose heading **begins with** `display_name`
+  exists in `knowledge/connectors.md`. Match by prefix, not exact string: the
+  house style appends a parenthetical (`## Meta Ads (Facebook & Instagram ads)`,
+  `## TrustPager (your CRM)`), so an exact `## <display_name>` match would wrongly
+  fail against the real, correct cards.
 - The floor/connected **frontmatter contracts** hold for the add-on's skill pair
   (floor is keyless-clean; connected declares its driver + an exhaustive
   `uses_tools`).
@@ -161,7 +174,11 @@ them to adopt a `DRIVER` dict. (A future full normalization is a non-goal, §10.
   `__init__.py` with a fully-commented `DRIVER` dict (id, kind, display_name,
   server_url/cli, tool_prefix, connect_doc, credential, read_only_scope_first,
   and optional `never_call`/`never_set`), plus `connect.md`, `OPERATING-CONTEXT.md`,
-  and `README.md` stubs following the meta-ads shapes.
+  and `README.md` stubs following the meta-ads shapes. The template's `never_set`
+  example must list **every interchangeable status field**, not a one-field
+  simplification: meta-ads forbids all three (`status`, `configured_status`,
+  `effective_status`) because any one of them un-pauses a shell, so the pattern an
+  author copies is the safe one, not the truncated example some prose shows.
 - The two skill-frontmatter contracts and the connectors-card snippet live in the
   recipe doc (one home), not as separate stub files.
 
@@ -173,7 +190,9 @@ them to adopt a `DRIVER` dict. (A future full normalization is a non-goal, §10.
   fixtures under `tests/fixtures/connectors/` for a good add-on (passes) and
   broken ones that each fail exactly one rule: invalid `kind`, unresolved
   `requires_driver`, missing `connect.md`, missing card, a `never_call` tool named
-  in a body, a `never_set` field set live. Assert the checker reports each.
+  in a body, a `never_set` field set live. Assert the checker reports each. Include
+  a good fixture for **both** connected kinds (`claude_mcp` and `keyed_cli`) so
+  both structural-check branches are exercised, not just `claude_mcp`.
 - **Dogfood:** `check-connectors.py` passes clean against the real `meta-ads`
   add-on, and fails against a deliberately-broken fixture with a clear message.
 - **Retrofit safety:** after deleting the checker's hard-coded lists, re-run
