@@ -137,17 +137,34 @@ tool (renamed step: "Connector safety + conformance").
 `check-connectors.py` also validates each driver that ships a `DRIVER` dict:
 
 - `kind` is present and in the taxonomy (§4).
-- `requires_driver` on any skill resolves to a real `drivers/<id>/` (closes the
-  typo-passes-silently hole). Reported per offending skill.
+- `requires_driver` on any skill **resolves** (closes the typo-passes-silently
+  hole), reported per offending skill. Resolution is threefold, because keyless
+  drivers are folderless: `requires_driver` is valid if it is `none`, OR a known
+  keyless driver id (the `_KEYLESS_DRIVERS` set reused from
+  `check-onboarding-binding.py`: none / markitdown / render / firecrawl / doclib,
+  which have no `drivers/<id>/` folder), OR a real `drivers/<id>/` folder exists.
+  A naive "the folder must exist" check would wrongly fail every firecrawl/render
+  skill, so the rule must be this threefold one.
 - For **connected** kinds (`claude_mcp`, `keyed_cli`): a `connect.md` exists in
   the driver folder, and a card whose heading **begins with** `display_name`
   exists in `knowledge/connectors.md`. Match by prefix, not exact string: the
   house style appends a parenthetical (`## Meta Ads (Facebook & Instagram ads)`,
   `## TrustPager (your CRM)`), so an exact `## <display_name>` match would wrongly
   fail against the real, correct cards.
-- The floor/connected **frontmatter contracts** hold for the add-on's skill pair
-  (floor is keyless-clean; connected declares its driver + an exhaustive
-  `uses_tools`).
+- The **connected frontmatter contract** holds for each skill whose
+  `requires_driver` is an opted-in DRIVER-dict driver: `requires_credential` in
+  `{mcp, key}`, `data_path` in `{mcp_tools, local}`, and every `uses_tools` entry
+  is driver-owned (`mcp__<id>__*`). The gate enforces only this connected half,
+  because a floor skill is `requires_driver: none` and is not mechanically linked
+  to the driver; the floor-skill keyless-clean contract stays a recipe checklist
+  item, already covered by the existing lint + onboarding-binding checks.
+
+Name-form note (parity): `never_call`/`never_set` tool names in the `DRIVER` dict
+are fully-qualified (`mcp__meta-ads__ads_activate_entity`), while the current
+`check-ads-safety.py` matches the bare name (`ads_activate_entity`). To preserve
+the existing belt-and-suspenders breadth, the generalized gate searches bodies for
+**both** the fully-qualified name and the bare name (strip the `mcp__<id>__`
+prefix). The §9 parity test guards this.
 
 A half-built connected add-on fails CI. Keyless/data-pack kinds that later adopt
 a `DRIVER` dict are validated for `kind` + docstring only (they do not connect,
