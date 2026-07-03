@@ -104,6 +104,32 @@ the catalog stays searchable:
   connected-tier checks light up), or ask for a pipeline summary. After
   connecting, run `/learn-my-business` so the profile fills from live data.
 
+## Meta Ads (Facebook & Instagram ads)
+
+- **What it is:** the owner's Facebook and Instagram ad account, so the system can
+  build campaigns to their plan, created paused and safe.
+- **Fits businesses that:** want more enquiries, sales, or bookings from paid ads;
+  have an offer to put in front of a cold or warm audience; already run, or want to
+  start running, Facebook and Instagram ads.
+- **Unlocks:** `run-my-ads`, which runs pre-flight checks and builds paused
+  campaign, ad-set, and ad shells to your ad plan, then hands them back with a
+  post-setup checklist and the 72-hour rule. (It hands off from your plan the way
+  TrustPager hands off to its connected tier.)
+- **Connect it:** the steps live in
+  [drivers/meta-ads/connect.md](../drivers/meta-ads/connect.md): a user-scope
+  `claude mcp add`, then `claude mcp login meta-ads`, granting the read-only tier
+  first, a restart, and a verify with one read. Fallback `--callback-port 8080` if
+  the sign-in callback stalls. (This connector uses the `claude mcp` CLI, a
+  labelled exception to the usual in-app `/mcp` connect flow. See connect.md.)
+- **Keep it lean:** connect it when the owner is ready to launch ads, not "just in
+  case." The tools stay tucked away (names only) until one is used, so it won't
+  slow other work.
+- **Heads-up:** ads spend real money, and the system only ever creates campaigns
+  **paused**, shows every setting first, and never turns anything on. The owner
+  reviews in Ads Manager and switches it on themselves. No cost to connect.
+- **Verify:** ask the system to list your ad accounts. If it can see them, the
+  connection is live, and it'll run the "make it yours" setup next.
+
 ---
 
 ## The growing library (add by asking)

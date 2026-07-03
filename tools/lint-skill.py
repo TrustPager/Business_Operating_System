@@ -49,9 +49,12 @@ from manifest import parse_frontmatter, validate_manifest  # noqa: E402
 REQUIRED_FRONTMATTER = {"name", "description", "triggers"}
 
 # Any mcp__<server>__<tool> reference in a SKILL.md body. Tool names are
-# [A-Za-z0-9_], and the server segment may itself be a uuid-with-hyphens, so we
-# match the whole token up to the last underscore-delimited run greedily.
-_MCP_TOOL_RE = re.compile(r"mcp__[A-Za-z0-9_]+")
+# [A-Za-z0-9_], and the server segment may itself carry hyphens (a kebab-case
+# driver id like ``meta-ads``, or a uuid-with-hyphens), so the character class
+# includes ``-`` — otherwise a token like ``mcp__meta-ads__ads_create_campaign``
+# would be truncated at the hyphen to ``mcp__meta`` and never match its declared
+# full name in uses_tools or its ``meta-ads`` driver owner.
+_MCP_TOOL_RE = re.compile(r"mcp__[A-Za-z0-9_-]+")
 
 
 def _driver_owns_tool(tool: str, driver: str | None) -> bool:

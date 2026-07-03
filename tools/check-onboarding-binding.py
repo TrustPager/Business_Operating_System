@@ -68,7 +68,9 @@ _KEYLESS_DRIVERS: frozenset[str] = frozenset({"none", "markitdown", "render", "f
 
 # Honest connected-tier / unbuilt tags that EXEMPT a reference from B (and, in a
 # Planned section, from A too). These say "this isn't a keyless instant-win" out loud.
-_CONNECTED_TIER_TAGS: frozenset[str] = frozenset({"better_with_crm", "needs_crm"})
+# `needs_connection` is the vendor-neutral form: any connected-driver app (Meta Ads,
+# a future Google Ads, etc.) can be flagged honestly without a CRM-specific word.
+_CONNECTED_TIER_TAGS: frozenset[str] = frozenset({"better_with_crm", "needs_crm", "needs_connection"})
 
 # Backticked tokens that look like app-ids but are external harness/driver commands,
 # not BOS registry apps — the keyless Firecrawl driver surfaces these. They are not

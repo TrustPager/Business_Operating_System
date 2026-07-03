@@ -72,6 +72,11 @@ steps from the catalog entry:
 - **Claude app / Desktop:** Settings, then Connectors, find the tool, Connect,
   sign in with the right account, approve the access.
 - **Claude Code:** run `/mcp`, choose add/connect, and follow the sign-in.
+  - **Exception, Meta Ads:** this one is added for the owner via the `claude mcp`
+    CLI, walked step by step in
+    [`drivers/meta-ads/connect.md`](../../drivers/meta-ads/connect.md). The owner
+    still does the sign-in themselves; see that file for the full steps (do not
+    repeat them here).
 
 Guide them to connect the RIGHT account (their work email / work calendar, not a
 personal one) and the leanest scopes that still deliver the win. If a step looks
@@ -111,6 +116,11 @@ interested in but did not connect so it can come up naturally later.
   / D4): connect only what is needed, leanest scopes, a dismissible credit note.
 - **Do the work for them, guide only the one step they must do themselves.** No
   "go run this" handoffs; you walk every click and you verify.
+  - **Exception, Meta Ads (labelled so the two don't silently diverge):** Meta Ads
+    is added via the `claude mcp` CLI, which you run for the owner on their machine;
+    they still do the one sign-in only they can. This differs from the usual
+    in-app `/mcp` flow, and the full steps live in
+    [`drivers/meta-ads/connect.md`](../../drivers/meta-ads/connect.md).
 - **Plain language.** They never hear "OAuth", "MCP", "scope token", or "driver".
   They hear "connect", "sign in", "what it can see", "what it unlocks".
 - **Positive and outcome-led, no em dashes** in anything they read.

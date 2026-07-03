@@ -478,6 +478,18 @@
       "mcp__describe_resource"
     ]
   },
+  "plan-my-ads": {
+    "data_path": "reasoning_only",
+    "function_slot": "ads",
+    "reads_for_profile": [
+      "offer",
+      "audience",
+      "budget_appetite"
+    ],
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
   "plan-my-content": {
     "data_path": "reasoning_only",
     "function_slot": "social",
@@ -565,6 +577,30 @@
     "uses_tools": [
       "get_opportunity",
       "get_contact"
+    ]
+  },
+  "run-my-ads": {
+    "data_path": "mcp_tools",
+    "function_slot": "ads",
+    "requires_credential": "mcp",
+    "requires_driver": "meta-ads",
+    "status": "active",
+    "uses_tools": [
+      "mcp__meta-ads__ads_get_ad_accounts",
+      "mcp__meta-ads__ads_get_ad_account_pages",
+      "mcp__meta-ads__ads_get_datasets",
+      "mcp__meta-ads__ads_get_dataset_stats",
+      "mcp__meta-ads__ads_get_dataset_quality",
+      "mcp__meta-ads__ads_get_ad_entities",
+      "mcp__meta-ads__ads_get_creatives",
+      "mcp__meta-ads__ads_get_field_context",
+      "mcp__meta-ads__ads_get_ig_accounts",
+      "mcp__meta-ads__ads_get_ad_preview",
+      "mcp__meta-ads__ads_insights_industry_benchmark",
+      "mcp__meta-ads__ads_create_campaign",
+      "mcp__meta-ads__ads_create_ad_set",
+      "mcp__meta-ads__ads_create_ad",
+      "mcp__meta-ads__ads_update_entity"
     ]
   },
   "send-email": {

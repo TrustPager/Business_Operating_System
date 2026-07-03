@@ -68,3 +68,9 @@ brand/favicon-32x32.png
 brand/favicon-192x192.png
 brand/favicon-512x512.png
 brand/favicon.ico
+
+# Local Claude Code state (session data, agent worktrees) — never commit.
+.claude/
+
+# Evelyn Weiss's source skill doc, kept locally as reference material only.
+Meta Ads Skill template.md

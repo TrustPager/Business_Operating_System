@@ -33,6 +33,8 @@ skill's fetch.py or tool script.
 
 from __future__ import annotations
 
+import argparse
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -114,6 +116,81 @@ def _dispatch_tool(argv: list[str]) -> int:
     return proc.returncode
 
 
+def _dispatch_journal_write(argv: list[str]) -> int:
+    """Handle the 'journal-write' subcommand: append one write to the audit trail.
+
+    A claude_mcp driver (e.g. meta-ads) has no Python transport, so its writes do
+    not auto-journal through the kernel the way keyed-REST writes do. This branch
+    lets the run-my-ads body record each confirmed create/update explicitly, so the
+    Meta Ads write surface keeps the same append-only audit trail CRM writes land in
+    (spec §8 Layer 2).
+
+    This is NOT an _ALLOWED_TOOLS entry: it dispatches no file in tools/ (there is
+    no tools/journal-write.py). It imports kernel.runtime.journal.record_write and
+    calls it directly. --body is parsed as a JSON object.
+
+    Usage:
+        python tools/run.py journal-write \\
+          --method mcp__meta-ads__ads_create_campaign \\
+          --path meta-ads/act_<id>/campaigns \\
+          --status ok --result-id <returned id> \\
+          --body '{"objective":"...","status":"PAUSED"}'
+    """
+    parser = argparse.ArgumentParser(
+        prog="run.py journal-write",
+        description="Append one write to the append-only BOS audit trail.",
+    )
+    parser.add_argument("--method", required=True,
+                        help="The write method (e.g. the mcp__meta-ads__* tool name).")
+    parser.add_argument("--path", required=True,
+                        help="A path/scope for the write (e.g. meta-ads/act_<id>/campaigns).")
+    parser.add_argument("--status", default="ok",
+                        help="Outcome status: ok | error | approval_pending (default: ok).")
+    parser.add_argument("--result-id", dest="result_id", default=None,
+                        help="The id the write returned (e.g. the created campaign id).")
+    parser.add_argument("--body", default=None,
+                        help="The write body as a JSON object string; summarised and redacted.")
+    try:
+        args = parser.parse_args(argv)
+    except SystemExit as exc:  # argparse exits 2 on a usage error; pass it back
+        return int(exc.code) if exc.code is not None else 2
+
+    body: dict | None = None
+    if args.body is not None:
+        try:
+            parsed = json.loads(args.body)
+        except json.JSONDecodeError as exc:
+            print(f"[err] --body must be valid JSON: {exc}", file=sys.stderr)
+            return 2
+        if not isinstance(parsed, dict):
+            print("[err] --body must be a JSON object (e.g. '{\"status\":\"PAUSED\"}').",
+                  file=sys.stderr)
+            return 2
+        body = parsed
+
+    # Imported here (not at module top) so --list / tool dispatch never pay the
+    # kernel import cost, and so a broken kernel path fails only this subcommand.
+    # The kernel package is rooted at BOS_HOME, so put that on sys.path first —
+    # run.py may be invoked from any working directory (see module docstring).
+    if str(BOS_HOME) not in sys.path:
+        sys.path.insert(0, str(BOS_HOME))
+    try:
+        from kernel.runtime.journal import record_write
+    except ImportError as exc:
+        print(f"[err] cannot import the journal ({exc}).", file=sys.stderr)
+        print(f"      looked from: {BOS_HOME}", file=sys.stderr)
+        return 2
+
+    record_write(
+        args.method,
+        args.path,
+        body,
+        status=args.status,
+        result_id=args.result_id,
+    )
+    return 0
+
+
 def main(argv: list[str]) -> int:
     if not argv or argv[0] in ("-h", "--help"):
         print(__doc__.strip())
@@ -125,6 +202,9 @@ def main(argv: list[str]) -> int:
 
     if argv[0] == "tool":
         return _dispatch_tool(argv[1:])
+
+    if argv[0] == "journal-write":
+        return _dispatch_journal_write(argv[1:])
 
     name = argv[0]
     fetch = SKILLS_DIR / name / "fetch.py"
