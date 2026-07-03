@@ -356,3 +356,14 @@ Two layers, same doctrine as everything else:
    precedent. Ship only our IP + a thin app shell, `node_modules` gitignored, pin
    versions. Remaining planning check: confirm `templates/site-starter/` clears the
    repo hygiene/kernel-clean gates, else fall back to `studio/site-starter/`.
+
+## 11. Pending alignment: shared intake pattern (founder note 2026-07-03)
+
+Execution is on hold pending a forthcoming Meta-ads skill that runs a guided
+per-user onboarding fill-out: each owner works through it with Claude to produce
+customized results from BOS templates. `design-my-site`'s elicitation step (§4
+step 1, §5a steps 1-2) is the same shape, an intake that yields a customized
+result from templates. Founder intent: once the Meta-ads skill ships and is
+pushed, reuse that same intake→customize-from-templates process here so the two
+share one intake pattern rather than each inventing its own. Reconcile before
+executing Task 1.4 of the plan.

@@ -26,6 +26,8 @@ BOS_OFFLINE=1 python -m unittest discover -s tests -v
 
 ---
 
+> **Execution status (2026-07-03): ON HOLD, founder-ruled.** Do not start executing yet. A forthcoming Meta-ads skill runs a guided per-user onboarding fill-out (each owner works through it with Claude to produce customized results from BOS templates). Once that ships and is pushed, `design-my-site`'s elicitation/intake (Task 1.4 body steps 1-4) is to be reconciled with that same intake→customize-from-templates process so the two share one pattern rather than diverging. Resume execution only after that reconciliation. Everything below is otherwise ready.
+
 ## File Structure
 
 **New files:**
