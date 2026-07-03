@@ -87,13 +87,32 @@ def _load_driver_dicts() -> dict:
         except (OSError, SyntaxError):
             continue
         for node in tree.body:
+            # Match both `DRIVER = {...}` (Assign) and `DRIVER: dict = {...}`
+            # (AnnAssign). A safety gate must not silently miss a driver's forbidden
+            # surface just because the assignment carries a type annotation — natural
+            # here since the files use `from __future__ import annotations`.
+            value = None
             if isinstance(node, ast.Assign) and any(
                 isinstance(t, ast.Name) and t.id == "DRIVER" for t in node.targets
             ):
-                try:
-                    out[drv_id] = ast.literal_eval(node.value)
-                except (ValueError, SyntaxError):
-                    pass
+                value = node.value
+            elif (
+                isinstance(node, ast.AnnAssign)
+                and isinstance(node.target, ast.Name)
+                and node.target.id == "DRIVER"
+                and node.value is not None  # `DRIVER: dict` with no value binds nothing
+            ):
+                value = node.value
+            if value is None:
+                continue
+            try:
+                parsed = ast.literal_eval(value)
+            except (ValueError, SyntaxError):
+                continue
+            # Fail safe: a non-dict DRIVER (e.g. a list) would crash the downstream
+            # .get(...) — skip it exactly like an unparseable value.
+            if isinstance(parsed, dict):
+                out[drv_id] = parsed
     return out
 
 
