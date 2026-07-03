@@ -252,6 +252,12 @@ them to `/tune-my-setup`.
 
 ## 4. The 3-options selection logic
 
+> **Presentation revised 2026-07-03:** this logic still picks the ~3, but they are
+> now delivered as a *recommendation with alternatives* AFTER the collaborative
+> consultation (or a terse owner's quick win), never as a cold opening menu. See
+> the framing note at the end of this section and
+> `docs/architecture/2026-07-03-collaborative-consultation-design.md`.
+
 **Inputs:** `vertical`, `named_relief` (the RELIEF field — what eats their week), `connected` (CRM yes/no), `already_built` (project names done this session).
 
 **The algorithm:**
@@ -283,15 +289,18 @@ them to `/tune-my-setup`.
 6. **Keep slot 1 + slot 2 keyless** at the cold open. Only let slot 3 carry a CRM-tagged option, and only phrase it as a "now, then auto-later" build.
 7. **Each option is phrased outcome-first**, in plain operator language, as "here's something we could build for you" — never jargon, never the app name.
 
-**The exact framing line (the pivot):**
+**The framing (a recommendation, not a menu — revised 2026-07-03).** Per
+`docs/architecture/2026-07-03-collaborative-consultation-design.md`, the build is
+reached AFTER the collaborative consultation (or a terse owner's quick win), never
+as a cold opening menu. Present it as a consultant's recommendation: reflect what
+you now understand (the goal + the real constraint, the *give*), then lead with
+the ONE build you'd recommend and *why*, offering the other two as alternatives so
+it stays their call. The selection still picks the same ~3 (constraint-aware,
+custom-first); only the presentation changed from "pick one of three" to "here's
+what I'd start with, and why". Worked example for a trades owner you diagnosed as
+quote-cycle leakage:
 
-> "Based on my current understanding of your operation, here are 3 things we could build to start your transition into an operator right now."
-
-Then each option as a one-line outcome the owner recognises, e.g. for a trades owner who named *quoting*:
-
-> 1. **Turn a photo of a job into a ready-to-send quote** — send me one now and watch.
-> 2. **Get your brand written down** so every quote, post and proposal sounds unmistakably like you.
-> 3. **Make you look like the most professional trade in your area** — your brand on every quote and post.
+> "You're winning plenty, but every quote's built from scratch and a few go cold before you get to chase them. Given that, the first thing I'd build with you is turning a job photo into a ready-to-send quote, because it takes the slowest part of winning work off your plate. If you'd rather start elsewhere, we could get your brand written down so every quote sounds unmistakably like you, or set up the stale-quote chase so fewer slip away. Your call, and we build it together."
 
 *Worked example — broker, relief = "staying on top of paperwork", nothing connected:* slot 1 *Fact-find pack read in seconds* (quick win, keyless, hits relief), slot 2 *Your brand & lender-file voice* (meatier, keyless, deepens profile), slot 3 *The outstanding-docs chaser* ("…I track asked-vs-arrived live once your workspace is connected" — aspirational + seeds the connect).
 

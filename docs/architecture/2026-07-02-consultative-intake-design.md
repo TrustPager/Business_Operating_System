@@ -5,6 +5,18 @@ spine cap in `onboarding-intake-design.md` §8 (`[FOUNDER-RULED]`) and every
 design-author `[RULED]` restatement of the `≤3` budget across that doc (§2, §6,
 §8.1) and its plan-of-record.
 
+> **⚠️ PARTIALLY SUPERSEDED — 2026-07-03 (the win model).** Revised by
+> `docs/architecture/2026-07-03-collaborative-consultation-design.md`
+> (founder-ruled): the Day-1 win is now the collaborative consultation itself,
+> not the artifact instant win, and there is no early build pivot. In §3 the
+> `REFLECT + INSTANT WIN` beat is now a zero-artifact *reflection of
+> understanding* (the hook), and the §5 useful-now threshold's "put it to work"
+> default is replaced by an engagement gauge that runs the consultation as the
+> win for an engaged owner and hands a terse owner a fast tangible win. Superseded
+> passages carry an inline **[SUPERSEDED 2026-07-03]** tag. Everything else here
+> (the engagement-adaptive loop, the trust moves, TrustPager reactivity, the
+> `intake_depth=` marker) still stands.
+
 **Ruling precision:** the `≤3` cap at `onboarding-intake-design.md` §2 Beat 4,
 §6 step 7, and §8.1 is tagged `[RULED]` (design-author level). Only the Tier-0
 spine cap under §8's `[FOUNDER-RULED]` table is founder-ruled. The new ruling
@@ -65,6 +77,12 @@ earned gate.
   guess posture, no-jargon contract.
 
 ## 3. The new flow shape
+
+**[SUPERSEDED 2026-07-03 — the win model]** `REFLECT + INSTANT WIN` is now a
+zero-artifact *reflection of understanding* (the hook), and the `USEFUL-NOW
+THRESHOLD` below is replaced by the engagement gauge (consultation-as-win for an
+engaged owner; fast tangible win for a terse one). The loop mechanics still hold.
+See `2026-07-03-collaborative-consultation-design.md`.
 
 ```
 DUMP
@@ -131,6 +149,12 @@ reveal more than more questions would). This is a backstop, not a target; most
 loops end far earlier on the §2 stop rules.
 
 ## 5. The useful-now threshold (the kicker)
+
+**[SUPERSEDED 2026-07-03.]** The "put it to work" default and the fork framing
+below are revised: the consultation IS the Day-1 win, so an engaged owner is not
+handed a build early; the build comes later as a reflected recommendation. The
+engagement gauge (§4) and the give-before-ask discipline survive intact. See
+`2026-07-03-collaborative-consultation-design.md`.
 
 **When it fires:** the moment the system has enough to *genuinely recommend* —
 roughly *vertical + what/who + a named relief OR one clearly-out-of-line signal*

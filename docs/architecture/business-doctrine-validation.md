@@ -38,3 +38,31 @@ Validates the consultative intake change (`docs/architecture/2026-07-02-consulta
 **Two skill fixes came out of the dogfoods (both applied to `start-here` Step 6b):**
 1. The capacity probe (§2 item 7, "what breaks if you doubled?") is now called out verbatim in Step 6b — the engaged run showed a lazier read could otherwise stop at the numbers and still default to a leads build.
 2. The "give" before the fork is now required to be *specific* (tied to what the owner said / the win), never generic filler praise — the terse run showed a thin give ("that tracks for a solo trade") risking the "bolt the fork onto a question" failure mode.
+
+---
+
+## The collaborative-consultation trap loop (2026-07-03)
+
+Validates the win-model change (`docs/architecture/2026-07-03-collaborative-consultation-design.md`): the Day-1 win is now the **consultation itself**, not an artifact, and there is no early build menu. Same multi-turn role-play harness as the 2026-07-02 loop: an agent reads the rewritten `skills/start-here/SKILL.md` (+ `business-method.md` §2-§3) and plays the assistant against a scripted owner on the **Sonnet target tier**; a judge scores the transcript.
+
+**Baseline (the RED):** before the rewrite, two Sonnet reproductions raced an *engaged* owner to a build after 2 and 4 questions (the win-first framing + an exit unbound from the engagement gauge). That is the failure this loop must show fixed.
+
+| # | Scenario | The trap it must catch | Sonnet |
+|---|---|---|---|
+| 1 | **Engaged owner, rich dump** (broker, "$40k→$80k, needs leads" but closes 9/10 and is full). | Racing to a build: must run the consultation as the win, show its reasoning, catch the leads-costume, and offer NO build until the constraint is reasoned. | ✅ 8 load-bearing exchanges, leads-costume caught out loud ("more leads is wearing the costume"), build only at the end as a recommendation |
+| 2 | **Terse owner, clipped opener** (sparky, "haven't got all day"). | Over-grilling: must read terse, skip the consultation, hand a fast tangible win, no interrogation. | ✅ fast win, ~4 short exchanges, one recommendation not a menu, no grilling |
+| 3 | **The hinge fires first.** | Must draw out the goal AND the owner's own theory of the blocker before offering any build. | ✅ both captured before any build in all three runs |
+| 4 | **Build is a recommendation, not a menu.** | Must reflect (the give) then lead with ONE build + why + alternatives, never a cold "pick 1 of 3". | ✅ (terse case partial — collapses to a single option with no alternatives, which is correct for terse) |
+| 5 | **Asks for the real asset** (ad-rewrite owner, "make my Facebook ad better"). | Must request the actual ad before rewriting; must not accept the self-diagnosis at face value. | ✅ asked for the ad text first; caught a distribution problem ("weekends prove the demand exists"), owner: "I hadn't thought about it that way" |
+| 6 | **Reflection taste comes first.** | Zero-question demonstrated understanding before the hinge or any build. | ✅ led every run, confirmed "spot on" |
+
+**Result:** 3/3 green on Sonnet (engaged broker, terse tradie, ad-rewrite owner); the old reflect→instant-artifact→build-menu pattern is gone, the consultation is the product, the build is earned. A follow-up re-test (2 more Sonnet runs) confirmed the **backstop degrades gracefully** for an evasive owner whose numbers never resolve (reflects where it got to, recommends a scoreboard/tracker, no endless loop) and the **terse-opener double-ask fix** holds (an opener that already states business + blocker is not re-asked).
+
+**Five skill fixes came out of these dogfoods:**
+1. Terse-opener no-double-ask branch (Step 3): if the opener already contains business + a time-sink, skip the cold-open question.
+2. One-ask-per-turn density note (Step 6b trust moves): prefer one ask; if stacking, lead hard with the insight.
+3. Positive-framing-at-the-build-offer guard (Step 7): the *why* lands on the win, never the pain.
+4. Owner-facing no-em-dash hard rule (hard rules): Sonnet drifted to an em dash in the reflection playback ("Got it — …"); the guard now covers all owner-facing text, not just the build offer.
+5. Backstop scoreboard-first polish (Step 6b): when no single constraint resolves, the first build is the one that turns future sessions into real diagnosis.
+
+**Harness note:** the em-dash slip was missed by the run's own self-report. A lint should scan the actual owner-facing strings rather than trust the transcript's self-check. (Opus not re-run this pass; Sonnet is the target run-tier and the 2026-07-02 loop showed Sonnet-Opus parity.)

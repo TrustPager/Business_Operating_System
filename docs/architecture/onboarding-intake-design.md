@@ -168,6 +168,14 @@ Make the owner *feel* this is THEIR system — powerful, in command, in possessi
 
 ## 5. The instant win
 
+> **[SUPERSEDED 2026-07-03 — the win model.]** The artifact **instant win** is no
+> longer the Day-1 centerpiece. Per `2026-07-03-collaborative-consultation-design.md`
+> (founder-ruled), the Day-1 win is the *collaborative consultation*; a
+> zero-artifact reflection of understanding is the hook, and any build (this
+> section's routing still applies to it) is a later, collaborative recommendation
+> — or, for a terse owner, the fast tangible win. The routing table below is still
+> the correct map for that build / quick win; only its position as "the win" changed.
+
 **[RULED] Default win = `build-brand-strategy`, re-pointed to run from the brain-dump (+ keyless Firecrawl enrichment), NOT from a TrustPager transcript synthesis.** Four of five lenses independently chose this and independently flagged the same blocker. In under 2 minutes it turns the messy dump into: a one-paragraph positioning statement, a one-sentence promise/tagline in THEIR words, the "only-we" claim, and 3 content angles — reflected back using the exact phrases they used.
 
 **Why it's the most universally impressive <2-min win for the ICP:**

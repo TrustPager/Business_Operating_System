@@ -114,39 +114,37 @@ Each day is a self-contained component. Run the apps named, in order. Every app
 below is keyless for Days 1 to 4.
 
 ### Day 1: Know your business, land your first win
-- **Mission:** get the system to understand your business, and hand them a real
-  first win that fits their business.
+- **Mission:** get the system to understand your business, think it through with
+  you, and land a real first win that fits.
 - **Run:** `start-here` — the brain-dump that sets up their profile and routes
-  them to the best-fit first win. It owns the flow; follow it exactly. Five beats
-  inside it that make or break Day 1:
+  them into a consultation and, once it's earned, a real first win. It owns the
+  flow; follow it exactly. The beats inside it that make or break Day 1:
   - **Research them silently first.** If they give a business name or URL,
     `start-here` scrapes their site and searches their name (keyless Firecrawl,
     built-in WebSearch/WebFetch as the fallback), then confirms what it found
     before trusting it. The "how did it already know that" moment is Day 1 magic.
-  - **Let the aiming question happen.** If they name two or more things eating
-    their week, `start-here` ASKS which to punch first. Never auto-pick for them;
-    the owner steering the aim is part of the win.
-  - **The win ships applied.** If the best vehicle is a strategy brief, deliver
-    it WITH the first thing written from it (a page opener, a first post, a
-    one-line pitch), so Day 1 ends with something usable this afternoon, never
-    only a framework.
-  - **Let the owner's business decide the win.** For many owners it is a
-    positioning brief (`build-brand-strategy`), often paired with
-    `research-a-competitor`; a product or creator business may steer elsewhere.
-    Never force a fixed output.
-  - **Then deepen consultatively, and hand them the wheel.** After the win,
-    `start-here` runs a real intake (Step 6b): it keeps asking sharp questions
-    that build on each answer, going as deep as the owner's engagement sustains,
-    then hits the "useful-now" moment: *"I've got enough to be genuinely useful
-    now, want to dig a bit more or should I get something working for you?"* An
-    engaged owner gets taken deep; a terse one gets the fast path. This is the
-    consultative-operator feel, not a fixed 3-question cap — do NOT rush past it.
+  - **The reflection is the hook, not the finish.** `start-here` plays the
+    business back in their words (zero questions, no artifact yet). That
+    demonstrated understanding earns the rest; it is not the win itself.
+  - **The consultation IS the win (Step 6b).** It draws out the hinge, their goal
+    and what THEY think is stopping them, then thinks alongside them like a sharp
+    operator, showing its reasoning (catching a "more leads" that is really
+    capacity or price, running the numbers with them). The Day 1 magic is the
+    owner feeling they are no longer working alone. Do NOT rush this toward a build.
+  - **Read the room.** An engaged owner gets that full consultation; a terse owner
+    who wants a thing now gets a fast tangible win instead, no grilling. The gauge
+    decides, never a fixed question count.
+  - **The build comes last, and together.** Only once the understanding has earned
+    it, `start-here` recommends the first build (aimed at the goal and the real
+    constraint, with a couple of alternatives, often a positioning brief via
+    `build-brand-strategy`), and asks for the real thing before improving anything
+    they already have. A recommendation, never a cold menu.
 - **Brand here means STRATEGY, not the visual look.** Day 1 is positioning and
   clarity, not logo/colours/fonts. The visual kit (`brand-my-workspace`) is a
   separate, contextual step that comes up on Day 2's doorway or when they ask,
   never a Day 1 default. Do not point a new owner at picking fonts today.
-- **Kept win:** their business understood, in a profile they keep, plus one real
-  first win in hand.
+- **Kept win:** their business understood and thought through with them, in a
+  profile they keep, plus a real first move underway.
 - **Operator move:** *context in, leverage out.* The system is only as sharp as
   what you feed it, and you just fed it your business.
 - **Tease:** "Tomorrow we make it sound exactly like you, and turn that into

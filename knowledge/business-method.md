@@ -96,33 +96,50 @@ are internal.
 - Missing numbers are a finding, not a blocker: "we don't know your churn" makes
   *measure it* the first prescription (a scoreboard beats a guess, §12).
 
-**How `/start-here` runs this intake (the consultative loop).** The intake above
-is not a form to fire off at once, nor a fixed question budget to spend and stop.
-`/start-here` runs it as an **engagement-adaptive loop**: after the instant win
-lands, keep resolving the four-part statement and the numbers ladder as a live
-conversation, each question visibly built on the last answer, going as deep as
-the owner's engagement sustains. This is the consultative-operator behaviour — the
-system gets sharper the more it is told, and depth is *earned by how the owner
-responds*, never capped by a number.
+**How `/start-here` runs this intake (the first-run consultation).**
+[FOUNDER-RULED 2026-07-03, revises the 2026-07-02 "useful-now threshold → put it
+to work" framing: the Day-1 win is the consultation itself, not an artifact; see
+`docs/architecture/2026-07-03-collaborative-consultation-design.md`.] The intake
+above is not a form to fire off at once, nor a budget to spend and stop. In
+`/start-here` it *is* the Day-1 win: after a zero-question reflection of
+understanding (the "how did it know" taste), the aim of the conversation is that
+the owner feels a sharp operator thinking *with* them about their business. The
+system gets sharper the more it is told, and the owner should feel that.
 
-- **Read engagement live.** Rich, expansive answers → keep deepening. Clipped
-  one-liners or low-patience signals ("just tell me what this does") → short-
-  circuit to the lean path and cross the threshold early. Ambiguous read → lean
-  to the threshold (the churn-safe tie-break).
-- **The useful-now threshold (hand the owner the wheel).** The moment there is
-  enough to genuinely recommend — vertical + what/who + a named relief OR one
-  clearly-out-of-line signal, i.e. enough to name a candidate constraint (§3) —
-  reflect that understanding back (the *give*), then offer the fork: keep digging
-  now, or put something to work. Both are valid; the default lean is "put it to
-  work." The offer always follows a give, never stacks on a question.
-- **The soft ceiling (the backstop).** The stop rules above are the primary exit;
-  the loop is adaptive, not infinite. If it passes roughly 6-8 exchanges without
-  a nameable candidate constraint, cross the threshold regardless — a dump too
-  thin to diagnose by interview is diagnosed faster by *building* (§4.7: the
-  output is 1-3 moves, not eight pages).
+- **The hinge (get it before prescribing anything bigger than the taste).** Draw
+  out the goal (§2 item 3) and the owner's own theory of the blocker (§2 item 4)
+  as the required anchor. Everything after fills the blanks *that goal* needs. The
+  stated blocker is data, not the diagnosis (§1.2) — earn the real one by
+  reasoning it through with them, never route straight off the relief word.
+- **Read engagement live (the gauge), and let it choose the whole shape.** Rich,
+  expansive answers → the consultation IS the win: run the loop in service of the
+  goal, each question built on the last, showing your working (the business-brain
+  logic that proves you grasp the nuances), as deep as engagement sustains.
+  Clipped one-liners / low-patience ("just tell me what this does") → do NOT
+  consult; hand them a fast tangible keyless win aimed at what they named, and
+  deepen later on their terms. Ambiguous → open the consultation lightly; if they
+  lean in, deepen; if they stay clipped, give the quick win (the churn-safe
+  tie-break).
+- **The stop rule is scoped to a focused diagnosis session, not this
+  consultation.** In a diagnosis you stop the moment one number is clearly out of
+  line (that IS the constraint). In the first-run consultation the aim is a felt
+  understanding of the whole picture in service of the goal, so keep co-exploring
+  the economics the goal needs (what the work makes, how full the week is, how
+  many they keep) rather than quitting at the first signal. Still 1-3 moves out,
+  never eight pages (§4.7).
+- **The build comes after, and as a recommendation.** Once the understanding has
+  earned it, reflect what you now grasp (the goal, the real constraint) and lead
+  with the one build you would recommend, plus a couple of alternatives — never a
+  cold "pick one of three." The recommendation always follows the give, never
+  stacks on a question.
+- **Backstop, not a target.** The gauge is the real control. As a backstop only,
+  if an engaged owner passes roughly 8-10 exchanges and the real constraint still
+  will not name itself, reflect where you have got to and move to a first build —
+  it will reveal more than more questions would.
 - **Deepening is continuous.** What the owner declines now stays available every
-  session (the profile marker tracks how far the intake got); diagnosis is a loop
-  (§4.3), so the intake resumes and compounds rather than being a one-shot gate.
+  session (the profile marker tracks how far the intake got, `intake_depth=`);
+  diagnosis is a loop (§4.3), so the intake resumes and compounds rather than
+  being a one-shot gate.
 
 ---
 
