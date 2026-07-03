@@ -337,7 +337,11 @@ Two layers, same doctrine as everything else:
 - **`launch-my-site` driver + wrapping.** No `vercel` driver exists in `drivers/`
   yet. Decide whether it wraps the Vercel MCP (`requires_credential: mcp`,
   `data_path: mcp_tools`, plus a new `vercel` driver) or the `vercel` plugin's
-  CLI-style skills, and create/register the driver accordingly.
+  CLI-style skills, and create/register the driver accordingly. Note
+  `tools/manifest.py` accepts any non-empty `requires_driver` string, so it will
+  NOT catch a missing driver: the `vercel` driver must be created and registered
+  before `launch-my-site` is generated, or the gap surfaces only at
+  generation/runtime, not at manifest validation.
 - One method file vs the proposed two (`web-design-method.md` +
   `claude-design-method.md`) — lean two for reusability; confirm.
 - Whether the starter ships as a full committed Next.js app or a minimal generator
