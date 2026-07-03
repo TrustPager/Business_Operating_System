@@ -84,7 +84,7 @@ Phase 1 delivers a complete win with zero dependency on Phase 2: the owner gets 
 - `templates/site-starter/next.config.js`, `tailwind.config.js`, `postcss.config.js`, `tsconfig.json` (or `jsconfig.json`).
 - `templates/site-starter/app/layout.tsx` — root layout: metadata API defaults, font `<link>` wiring (Task-1.1 rule: the font must actually load), the design-system `tokens.css` import, shared Nav + Footer for the site case.
 - `templates/site-starter/app/page.tsx` — the landing page composed of the section components in skeleton order.
-- `templates/site-starter/components/sections/` — the seven section components (`Hero`, `TrustBar`, `Benefits`, `HowItWorks`, `SocialProof`, `Faq`, `FinalCta`) + `Nav`, `Footer`. Each is a real, buildable component reading design tokens as CSS variables, and each carries a first-line `{/* @dsCard group="sections" */}` marker so Claude Design's Design System pane indexes it into `_ds_manifest.json`.
+- `templates/site-starter/components/sections/` — the seven section components (`Hero`, `TrustBar`, `Benefits`, `HowItWorks`, `SocialProof`, `Faq`, `FinalCta`) + `Nav`, `Footer`. Each is a real, buildable component reading design tokens as CSS variables, and each carries a first-line `{/* @dsCard group="sections" */}` marker so Claude Design's Design System pane indexes it into `_ds_manifest.json`. (The spec §6 shows this marker as an HTML comment `<!-- @dsCard ... -->`; inside a `.tsx` component use the JSX comment form shown here, never a raw HTML comment.)
 - `templates/site-starter/components/seo/` — JSON-LD components (`LocalBusinessJsonLd`, `ServiceJsonLd`, `FaqJsonLd`, `ReviewJsonLd`).
 - `templates/site-starter/styles/tokens.css` — the design-system tokens as CSS variables (the in-repo default reads from `brand/brand.json` via a generated file; see Task 1.4 helper). Ships with sensible neutral defaults so the app builds standalone.
 - `templates/site-starter/.gitignore` — `node_modules/`, `.next/`, `out/`.
@@ -99,9 +99,9 @@ Phase 1 delivers a complete win with zero dependency on Phase 2: the owner gets 
 - [ ] **Step 3: Verify hygiene.** Run `git status` in the repo root; confirm `templates/site-starter/node_modules/` and `.next/` are ignored (add to root or local `.gitignore` if they appear). Run:
   ```bash
   git ls-files | grep 'templates/site-starter/node_modules/' || echo "clean: node_modules not tracked"
-  BOS_OFFLINE=1 python tools/check-kernel-clean.py
+  BOS_OFFLINE=1 python tools/check-no-secrets.py
   ```
-  Expected: node_modules not tracked; kernel-clean passes.
+  Expected: node_modules not tracked; no-secrets passes. Note: `check-kernel-clean.py` scans only `kernel/**/*.py`, so it never inspects `templates/` and is not the relevant guard here. The real guard is `check-no-secrets.py`, which rglobs the repo (skipping `node_modules`): confirm the starter ships no example tokens/keys in tracked files (no placeholder `VERCEL_TOKEN=...` in a committed `.env`, use `.env.example` with empty values if needed).
 - [ ] **Step 4: Commit** (source only, not `node_modules`/`.next`).
   ```bash
   git add templates/site-starter/package.json templates/site-starter/*.js templates/site-starter/*.json templates/site-starter/app templates/site-starter/components templates/site-starter/styles templates/site-starter/.gitignore templates/site-starter/README.md templates/site-starter/CLAUDE.md
@@ -377,7 +377,7 @@ status: active
 - Modify: `knowledge/starter-projects.md`
 - Regenerate: `kernel/registry.json`, `docs/CAPABILITIES.md`
 
-- [ ] **Step 1: Add a connected-doorway row** to `knowledge/starter-projects.md` for `launch-my-site`. Because it is `requires_credential: key`, it must NOT be tagged `[live]`+keyless (assertion B); tag it as the connected/deepener step that follows `design-my-site`.
+- [ ] **Step 1: Add a connected-doorway row** to `knowledge/starter-projects.md` for `launch-my-site`. Because it is `requires_credential: key`, it must NOT be tagged `[live]`+keyless (assertion B). This is the first-ever `requires_credential: key` skill and the first non-CRM connected doorway on the surface, so do NOT reach for `better_with_crm`/`needs_crm` either: both are CRM-specific and would misdescribe a Vercel deploy. A plain connected/deepener row that follows `design-my-site`, with no `keyless` tag and no CRM tag, passes assertions A and B cleanly.
 - [ ] **Step 2: Regenerate + verify.**
   ```bash
   BOS_OFFLINE=1 python tools/registry-generator.py
