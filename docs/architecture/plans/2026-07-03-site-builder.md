@@ -27,6 +27,8 @@ BOS_OFFLINE=1 python -m unittest discover -s tests -v
 
 ---
 
+> **Execution status (2026-07-04): IMPLEMENTED.** Built on `feat/site-builder-reconcile` (`74146c6..1912136`), all tasks done, all gates green (379 tests, 0 failures), design-my-site dogfood 6/6, final review ready-to-merge. Residual live validations (owner/account needed): a multi-page dogfood + a live Vercel deploy dogfood. History of the hold below.
+>
 > **Execution status (2026-07-04): HOLD LIFTED, reconciliation folded.** The 2026-07-03 hold (waiting on a forthcoming Meta-ads skill so the two would share one intake pattern) is resolved. That skill shipped as the **Tier-1 Connected Add-on Kit** ([`../tier-1-addon-kit.md`](../tier-1-addon-kit.md)), with `plan-my-ads` + `run-my-ads` as its reference and the guided **Source A/B/C/D intake** as its fill-out. This plan has been reconciled with the shipped kit: `design-my-site` adopts the Source A/B/C/D intake (Task 1.4), and `launch-my-site` conforms to the kit (`keyed_cli` docs-only driver, one-home `connect.md` + `connectors.md` card + labelled `connect-a-tool` exception, OPERATING-CONTEXT fold-in, Hard-rules-first deploy safety with no CI grep). Execution may proceed.
 
 ## File Structure

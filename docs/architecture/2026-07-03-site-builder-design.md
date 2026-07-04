@@ -1,8 +1,16 @@
 # Site Builder — `design-my-site` (floor) + `launch-my-site` (shelf), driving Claude Design
 
-**Status:** Approved for planning. Design direction founder-approved in brainstorming
-(2026-07-03); spec-review loop passed; the four open decisions were founder-settled
-(2026-07-03, see §10). Ready for the writing-plans phase.
+**Status:** Implemented on branch `feat/site-builder-reconcile` (commits `74146c6..1912136`),
+2026-07-04. Both skills shipped: `design-my-site` (keyless floor: method file + committed
+Next.js starter + `inline_design_system` helper + skill + onboarding) and `launch-my-site`
+(Tier-1 shelf: `deploy` slot + `keyed_cli` vercel driver + skill + `needs_connection`
+onboarding), conforming to the tier-1 kit gate. Every task passed spec + code-quality
+review; the design-my-site Sonnet dogfood passed 6/6 (distinct art direction, positive-only
+SEO-correct copy, correct A/B/C/D intake, no fabricated proof, no deploy leak); the final
+integration review returned ready-to-merge. Full offline suite green (379 tests, 0 failures).
+Branch stacks off `feat/tier1-addon-kit` → `feat/meta-ads-addon`; merge in that order.
+**Residual live validations** (need an owner/account, not automatable here): a multi-page-path
+dogfood of `design-my-site`, and a live Vercel deploy dogfood of `launch-my-site`.
 
 **One-line:** BOS becomes the *conversion + uniqueness engine* that drives Claude
 Design: it supplies the structure that converts, the on-page SEO that ranks, and a
