@@ -19,7 +19,7 @@ wins.
 
 | Key | Required | Allowed values |
 |---|---|---|
-| `function_slot` | yes | `crm` `accounting` `ads` `social` `creative` `comms` `documents` `money` `people` `strategy` `research` `floor` |
+| `function_slot` | yes | `crm` `accounting` `ads` `social` `creative` `comms` `documents` `money` `people` `strategy` `research` `deploy` `floor` |
 | `requires_driver` | yes | a driver id (e.g. `trustpager`) or `none` |
 | `requires_credential` | yes | `none` \| `mcp` \| `key` |
 | `data_path` | yes | `reasoning_only` \| `mcp_tools` \| `fetch_rest` \| `local` |

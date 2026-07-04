@@ -95,6 +95,7 @@ FUNCTION_SLOTS: frozenset[str] = frozenset(
         "people",
         "strategy",
         "research",
+        "deploy",
         "floor",
     }
 )
