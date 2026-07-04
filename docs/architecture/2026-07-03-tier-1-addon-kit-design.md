@@ -1,9 +1,14 @@
 # Tier-1 Connected Add-on Kit — the reusable system for building connected add-ons
 
-**Status:** Draft for review. Design direction founder-approved in brainstorming
-(2026-07-03): full kit (recipe + generalized gate + conformance check +
-templates), structure enforced by a conformance check, pre-existing drivers
-grandfathered. Pending the spec-review loop and a founder read before planning.
+**Status:** Implemented on branch `feat/tier1-addon-kit` (commits `8df9631..e846b58`),
+2026-07-03. Full kit shipped: `tools/check-connectors.py` (safety + conformance,
+driver-dict-driven), the recipe `docs/architecture/tier-1-addon-kit.md`, and the
+docs-only `drivers/_template/`. Pre-existing drivers grandfathered. Every task passed
+a spec + code-quality review; the final integration review returned ready-to-merge.
+The full offline suite is green except one pre-existing, unrelated failure
+(`test_capabilities_fresh`, a `docs/CAPABILITIES.md` drift inherited from the
+meta-ads baseline, tracked as a meta-ads follow-up, not caused by this kit). Branch
+stacks off `feat/meta-ads-addon`; merge that first.
 
 **One-line:** Turn the shipped Meta Ads add-on from a one-off into a reusable,
 safe-by-construction system: a codified recipe, a driver-kind taxonomy, one
