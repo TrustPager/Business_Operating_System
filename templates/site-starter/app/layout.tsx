@@ -45,6 +45,12 @@ export default function RootLayout({
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
+        {/* Intentional: this <link> lives in the App Router ROOT layout <head>,
+            so it loads site-wide (the rule's "single page" concern applies to
+            the legacy pages/_document.js case, not here). The method wants a
+            visible, swappable <link> the owner can verify loads, so we keep this
+            pattern over next/font, which would hard-code the typeface. */}
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"

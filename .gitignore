@@ -38,6 +38,10 @@ venv/
 # Node — in case any installer wraps in npm
 node_modules/
 package-lock.json
+# The committed site-starter is a distributed template: it is copied into an
+# owner's workspace, npm-install'd, and deployed to production, so its lockfile
+# IS committed for reproducible transitive deps (negation, scoped to it only).
+!templates/site-starter/package-lock.json
 yarn.lock
 
 # Next.js build output (the committed site-starter builds here; never commit it).

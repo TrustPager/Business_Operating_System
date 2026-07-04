@@ -45,6 +45,9 @@ short AI-facing version.
 - **DON'T** fabricate testimonials, ratings, review counts, NAP, or hours. The
   placeholders are clearly marked; fill real data or leave the slot and say so.
 - **DON'T** commit `node_modules/` or `.next/`.
+- **DO** keep `package-lock.json` committed and in sync: if the skill or the
+  inliner ever bumps a dependency, run `npm install` to regenerate the lockfile
+  and recommit it, or `npm ci` (and the deploy) will fail on a mismatch.
 - **DON'T** add an external asset or runtime dependency to keep it lean. The
   starter is only our components + a thin app shell + pinned deps.
 - **DON'T** import `../../../brand` here. The instantiated copy must be
