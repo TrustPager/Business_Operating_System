@@ -16,6 +16,20 @@ every future turn. Keep it lean: connect only what the owner needs now, and wher
 the connector offers scopes, enable only the groups in use. A brand-new owner on
 a lighter plan should not have their context filled with tools they are not using.
 
+**The connect-doorway articulation (one home — every connected doorway references
+this shape, never restates it).** Every connected add-on in BOS follows the same
+honest three-part shape: *here is X you can do keyless today; it becomes enhanced
+by Y; which you unlock by connecting Z.* The keyless win is real and complete on
+its own; connecting is an upgrade the owner reaches for when the outcome is worth
+it, never a gate on the first win, never a cold pitch. Say the keyless win first,
+name the enhancement as an outcome, then name the one connection that unlocks it.
+Worked example: *`design-my-site` builds a bespoke, high-converting site on the
+owner's own machine, keyless (X); it becomes a live, shareable URL that ships
+every future update in a word (Y); which the owner unlocks by connecting a Vercel
+account (Z, via `launch-my-site`).* Any skill offering a connected doorway (for
+instance `launch-my-site`, or `get-found-online`'s SEO-tool doorway) points at
+this articulation rather than re-deriving it.
+
 ---
 
 ## How an entry is shaped (the schema)

@@ -154,6 +154,7 @@ Stress-testing a decision, writing a sharp brief or prompt, hiring and onboardin
 
 - **Delegate This Work**: Hand a piece of work to a specific team member, with a follow-up set so it does not fall through the cracks.
 - **Email Me A Report**: Deliver any report as a recurring email digest that lands in the right inboxes on a schedule.
+- **Launch My Site**: Take the site you built with design-my-site live on the internet
 - **Learn My Business**: Read your live workspace and write your business profile from real data: your pipeline, products, and brand.
 - **Show Me How**: Describe what you want to do and get a step-by-step walkthrough, with the right pages and the gotchas.
 - **Team Review**: Get a weekly rollup for managers: who shipped what, which deals moved, and where work is stuck.

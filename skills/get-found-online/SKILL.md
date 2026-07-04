@@ -122,6 +122,9 @@ Close by naming what gets sharper when an SEO tool is connected, as outcomes, no
 a pitch: real search volumes and difficulty (vs today's winnability read), a
 backlink profile, ongoing rank tracking over time, and AI-visibility at scale.
 Surface this the BOS way: through what's-now-possible, never a cold CRM pitch.
+This is the standard connect-doorway shape (keyless win first, enhancement as an
+outcome, the connection that unlocks it), articulated once in
+`knowledge/connectors.md`, referenced here, not re-derived.
 
 > Everything here works with zero accounts. When you're ready, connecting an SEO
 > tool lets me track your positions over time and see the real search demand, so
