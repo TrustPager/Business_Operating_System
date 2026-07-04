@@ -40,6 +40,12 @@ node_modules/
 package-lock.json
 yarn.lock
 
+# Next.js build output (the committed site-starter builds here; never commit it).
+# node_modules/ above already covers the starter's deps; these cover its build.
+.next/
+out/
+templates/site-starter/next-env.d.ts
+
 # Local install state
 .tp/
 ~/
