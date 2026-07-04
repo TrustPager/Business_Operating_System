@@ -40,7 +40,7 @@ connected* step as a deepener.
 | Skill | Tier | Job |
 |---|---|---|
 | **`design-my-site`** (new) | Floor, keyless, studio-class | Everything except deploy: elicit taste + goal, research the reference sites, derive a unique design system + art-direction brief + real copy, scaffold a local Next.js base carrying that system, walk the owner through Claude Design, land the build back into a running local host view. |
-| **`launch-my-site`** (new) | Tier-1 library shelf, connected | A thin wrapper over the Vercel plugin that takes the finished local project live. Declares a real credential (Vercel). |
+| **`launch-my-site`** (new) | Tier-1 library shelf, connected | A thin wrapper over the Vercel CLI that takes the finished local project live, built to the Tier-1 Connected Add-on Kit. Declares a real credential (Vercel). |
 | **`get-found-online`** (exists, reused) | Floor + connected | The SEO audit companion, run both before (target-term winnability) and after (live audit). Not rebuilt; delegated to. |
 
 Founder-ruled scope: **both landing pages and multi-page websites from day one.**
@@ -165,14 +165,30 @@ is what the skill emits for the owner to drive Claude Design with.
 
 ## 4. The pipeline (surface by surface)
 
-1. **Elicit taste + goal (BOS, keyless).** Pull the owner + brand from the profile
-   and `brand.json`. Ask for: the pages/site they want, the one action each page
-   drives, and 2-5 reference sites they admire (+ what they like about each).
-2. **Research the references (BOS, keyless, reuse).** Delegate to
+1. **Elicit taste + goal via the shared Source A/B/C/D intake (BOS, keyless).**
+   This step reuses the guided-intake pattern the Tier-1 Connected Add-on Kit
+   shipped (worked example: `run-my-ads` Step 1), so `design-my-site` and the ads
+   add-on share one intake shape rather than each inventing its own (§11 is
+   resolved by this). The four sources, asking the owner as little as possible:
+   - **Source A — read `brand/brand.json` silently:** business name, colours, logo,
+     voice, tagline. Read, never copied into the profile; brand's one home is
+     `brand/brand.json`.
+   - **Source B — read `./CLAUDE.md` silently:** business shape, offer, region (only
+     if a `Region:` line is explicitly set, never inferred), diagnosed constraint,
+     goal.
+   - **Source C — ask only the small site-specific bucket (the ONLY interview):**
+     landing page vs multi-page site and the one action each page drives; 2-5
+     reference sites they admire and what they like about each; taste and anti-taste.
+   - **Source D — no live account read (this add-on is keyless).** Source D is
+     the delegated reference-site research (step 2): auto-fill and CONFIRM in words,
+     don't ask the owner to retype what the research already found.
+   The intake writes to a profile JSON for resume (see §5a).
+2. **Research the references as Source D (BOS, keyless, reuse).** Delegate to
    `research-a-competitor` / Firecrawl `scrape`+`search` for copy, structure, and
    offer patterns (scope clamp per `research-method.md`: no crawl/map/agent/extract).
    Optionally run `get-found-online`'s SERP winnability spot-check to ground each
-   page's target term.
+   page's target term. This is the keyless stand-in for the kit's Source D (a live
+   account read): it auto-fills the profile to confirm, not to ask.
 3. **Derive the design system + brief + copy (BOS, keyless).** Synthesise a unique
    token set (colour beyond `brand.json`, type pairing, spacing rhythm, radius
    scale, motion, section treatments) + the art-direction brief + the real,
@@ -215,38 +231,97 @@ Claude plan), **not** the Claude Design MCP server (that would be an `mcp__`
 dependency and break the keyless binding check). Firecrawl reads are reached by
 delegating to `research-a-competitor` / `get-found-online`, not re-implemented here.
 
-**Gate-led flow:** (1) Anchor on owner + brand + goal, and confirm landing-page vs
-site. (2) Gather 2-5 reference sites + what they like. (3) Research references
-(delegate). (4) Derive design system + brief + positive-only copy against the
-skeleton; for a site, produce the IA first, then the home/primary page fully, rest
-iterative. (5) Scaffold the starter into the owner's workspace. (6) Hand the owner
-the Claude Design steps (paste brief, web-capture + layer-override, `/design-sync`).
-(7) Land the handoff and run the local host view. (8) Name `launch-my-site` and
-`get-found-online` as the next doors (reactive, outcome-only).
+**Gate-led flow:** (1) Anchor via the shared Source A/B/C/D intake (§4 step 1):
+read `brand/brand.json` (A) and `./CLAUDE.md` (B) silently; the ONLY interview is
+Source C, the site-specific bucket (landing page vs site + the one action per page;
+2-5 reference sites + what they like; taste/anti-taste). (2) Source D is the
+delegated reference-site research, not a fifth question set: it auto-fills to
+confirm. (3) Research references (delegate, this IS Source D). (4) Derive design
+system + brief + positive-only copy against the skeleton; for a site, produce the
+IA first, then the home/primary page fully, rest iterative. (5) Scaffold the
+starter into the owner's workspace. (6) Hand the owner the Claude Design steps
+(paste brief, web-capture + layer-override, `/design-sync`). (7) Land the handoff
+and run the local host view. (8) Name `launch-my-site` and `get-found-online` as
+the next doors (reactive, outcome-only).
+
+**Profile JSON (resume-where-you-left-off).** The intake writes a per-owner profile
+to `~/.claude/bos-cache/site-builder-profile.json` (outside the repo, so updates
+never touch it and no `.gitignore` entry is needed), exactly as `run-my-ads` writes
+`meta-ads-profile.json`. Brand fields are read from `brand/brand.json` and never
+copied in (brand's one home). `inline_design_system.py` reads the derived design
+overrides from this profile when it scaffolds. This gives the owner a resume: a
+returning session reads the profile and picks up mid-build.
 
 **Guardrails:** bounded (a first win is one page live locally, not a whole site in
 one sitting); token-frugal; studio setup (npm install + dev server) handled for the
 owner, never asked of them; if a reference fetch fails, offer the pasted-content
 fallback; never fabricate copy, testimonials, numbers, or reviews (safeguards).
+**Personalization is DATA, never a forked skill file** (kit §6): per-owner detail
+lives in the profile JSON; the skill file is never templated or copied per owner.
 
 ### 5b. `launch-my-site` (Tier-1 library shelf, connected)
+
+`launch-my-site` is a Tier-1 Connected Add-on built to the shipped recipe:
+[`docs/architecture/tier-1-addon-kit.md`](tier-1-addon-kit.md). It conforms to that
+kit's driver-kind taxonomy (`keyed_cli`), its connect surfaces (one-home `connect.md`
++ a `connectors.md` card + a labelled `connect-a-tool` exception), its guided intake,
+its OPERATING-CONTEXT fold-in, and its Hard-rules-first safety shape. The gate that
+proves conformance is `tools/check-connectors.py` (see §10.1).
 
 **Frontmatter (connected; founder-settled 2026-07-03):**
 ```yaml
 function_slot: deploy         # NEW enum value, added to tools/manifest.py + manifest-schema.md (see §8)
-requires_driver: vercel       # NEW driver wrapping the Vercel plugin/CLI (see §8)
-requires_credential: key      # a Vercel account/token, via the vercel plugin/CLI (NOT the MCP)
+requires_driver: vercel       # NEW driver wrapping the Vercel CLI (see §8)
+requires_credential: key      # a Vercel account/token, via the vercel CLI (NOT an MCP)
 data_path: local              # the vercel CLI acts on the owner's local project
 status: active
 ```
-A thin wrapper over the Vercel plugin/CLI (`vercel:deploy`): confirm the local
-project builds, deploy a preview, then production on approval, report the URL.
-Honours the guard rails (never deploy without an explicit go; report the real
-outcome; nothing announced as live until the deploy is confirmed).
+`uses_tools` is **empty / omitted**: `launch-my-site` shells the Vercel CLI via
+Bash rather than calling any `mcp__*` tool. `tools/check-connectors.py` allows an
+empty `uses_tools` for a connected skill (it only requires that any entry present
+is driver-owned), so an empty list is conformant for a `keyed_cli` add-on.
+
+**Credential rationale (why `key`, not `mcp`).** The two connected driver kinds in
+the kit split on the physical reality of the connection, and Vercel is the opposite
+of Meta Ads:
+- **meta-ads = `mcp`** because it is a hosted-OAuth MCP — the Claude client hosts it,
+  the owner OAuths in, and skills call `mcp__meta-ads__*` tools. That is the
+  `claude_mcp` pattern.
+- **vercel = `key`** because it is a **keyed local CLI** — the owner authorizes with
+  `vercel login` / a `VERCEL_TOKEN`, and the skill shells the `vercel` command. The
+  `claude_mcp` (hosted-OAuth-MCP) pattern does NOT apply. Vercel is the new
+  **`keyed_cli`** driver kind the kit's taxonomy names (the first of its kind).
+`data_path` is `local` because the CLI acts on the owner's local project.
+
+A thin wrapper over the Vercel CLI (`vercel:deploy`): confirm the local project
+builds, deploy a preview, then production on approval, report the URL.
+
+**Hard rules (top-of-body, Hard-rules-first like `run-my-ads`).** Deploy safety is
+carried as a "read first, override everything below" block at the very top of the
+skill body, not as a CI grep:
+1. Never deploy to production without an explicit yes.
+2. Preview first; production only on the owner's approval.
+3. Report the real CLI outcome, including failures; never claim the site is live
+   until `vercel` confirms the URL.
+Explicitly **no `check-*-safety.py` grep** for this add-on. The Meta Ads spend-scan
+in `check-connectors.py` exists because ads have a *quiet* live switch (a status
+field flipped via an update tool) that a body could set without an obvious "activate"
+call. A CLI deploy has no such dual-path activation risk: `vercel --prod` is the one
+explicit switch, already guarded by Hard rule 1. Adding a grep here would be
+cargo-culting the Meta pattern onto a surface that does not need it. (The Vercel
+driver ships no `never_call` / `never_set`, so the gate's safety scan is a no-op for
+it by construction — the conformance half is what applies.)
+
+**Step 1 init — fold the operating context into `./CLAUDE.md` (kit §6).** Mirroring
+`run-my-ads` Step 1, the skill's first move on connect is to fold
+`drivers/vercel/OPERATING-CONTEXT.md` into the owner's `./CLAUDE.md` with the skill's
+**own** no-clobber merge (read the source, read `./CLAUDE.md`, show the section or
+the diff, append or merge, never clobber hand-tuned content). It does **not** call
+`learn-my-business` (that is CRM-gated and never runs for an add-on-only owner).
 
 **The connect-story it tells** is the worked example of the reusable BOS doorway
 format. Concretely: *"You built your site with `design-my-site`, keyless. To put it
-live you need two things, a Vercel account and the Vercel plugin, and here is how to
+live you need two things, a Vercel account and the Vercel CLI, and here is how to
 get both."* Generalised, every connected doorway in BOS speaks in one shape:
 **"Here is X you can do keyless; it becomes enhanced by Y, which you unlock with Z."**
 This articulation gets one home in a knowledge doc during implementation
@@ -302,10 +377,16 @@ Two layers, same doctrine as everything else:
 
 - **Schema change first (for `launch-my-site`).** Add a `deploy` value to
   `FUNCTION_SLOTS` in `tools/manifest.py` and mirror it in `manifest-schema.md`.
-  Create and register a `vercel` driver in `drivers/` wrapping the Vercel
-  plugin/CLI. Both must land before `launch-my-site` is generated: manifest
-  validation accepts any non-empty `requires_driver`, so a missing driver is not
-  caught at validation, only at generation/runtime.
+  Create a `vercel` driver in `drivers/vercel/` as a **documentation-only
+  `keyed_cli` driver** (a top-level `DRIVER` dict + a "DOCUMENTATION ONLY"
+  docstring, mirroring `drivers/meta-ads/`), with `connect.md` and
+  `OPERATING-CONTEXT.md` alongside it — **no `DriverConfig`, no `auth.py`, no
+  `catalog.py`** (that transport shape belongs to keyed-REST drivers like
+  `trustpager`, not to a `keyed_cli` driver). Both must land before
+  `launch-my-site` is generated: manifest validation accepts any non-empty
+  `requires_driver`, so a missing driver is not caught at validation, only at
+  generation/runtime — but `tools/check-connectors.py` DOES catch it (the
+  requires_driver-resolves check).
 - **Register** both skills in `kernel/registry.json` via the generator. A manifest
   that fails validation is silently skipped by the generator (and then trips the
   onboarding-binding phantom check), so the §5 frontmatter must pass
@@ -317,7 +398,11 @@ Two layers, same doctrine as everything else:
   a connected doorway, not a cold pitch.
 - **Guard scripts green:** `tools/manifest.py` (no `mcp__` in a keyless skill's
   `uses_tools`), `tools/check-onboarding-binding.py` (no TrustPager/credential
-  coupling tokens in the `credential:none` body), `tools/lint-skill.py` clean.
+  coupling tokens in the `credential:none` body; `launch-my-site` tagged
+  `needs_connection`, which already lives in `_CONNECTED_TIER_TAGS`),
+  `tools/check-connectors.py` (the connected-add-on gate: valid `keyed_cli` kind,
+  `requires_driver` resolves, `connect.md` + `## Vercel` card present, connected
+  frontmatter contract), `tools/lint-skill.py` clean.
 - **Offline tests:** synthesis-tested on fixtures (a reference-site payload → a
   correct skeleton + brief + positive-only copy), never a live fetch or a live
   Claude Design call. Keep `BOS_OFFLINE` green.
@@ -340,14 +425,27 @@ Two layers, same doctrine as everything else:
 
 ## 10. Decisions settled (founder-ruled 2026-07-03)
 
-1. **`launch-my-site` slot = schema change.** Add a new `deploy` value to
-   `FUNCTION_SLOTS` (`tools/manifest.py` + `manifest-schema.md`) rather than borrow
-   an awkward existing slot. (`design-my-site` stays `creative`, matching
-   `make-thumbnail`.)
-2. **`launch-my-site` wraps the Vercel plugin/CLI, on the Tier-1 shelf.** Credential
-   is a Vercel account (`requires_credential: key`) via a new `vercel` driver, not
-   the Vercel MCP. It carries the reusable connect-doorway articulation (§5b),
-   which gets one home in a knowledge doc.
+1. **`launch-my-site` slot = schema change (a deliberate slot divergence).** Add a
+   new `deploy` value to `FUNCTION_SLOTS` (`tools/manifest.py` + `manifest-schema.md`)
+   rather than borrow an awkward existing slot. (`design-my-site` stays `creative`,
+   matching `make-thumbnail`.) This is a **deliberate divergence from the
+   shared-slot precedent**: the Meta Ads pair (`plan-my-ads` + `run-my-ads`) share
+   one `ads` slot because they are the same capability at two altitudes. The site
+   pair does not: `design-my-site` is a creative studio act (`creative`) and
+   `launch-my-site` is a genuinely different act (deploy), so they take *different*
+   slots. The `deploy` slot is added via the plan's unchanged Task 2.2 schema change.
+   **Gate-conformance acceptance criterion:** `launch-my-site` + `drivers/vercel`
+   must pass `tools/check-connectors.py` — a valid `keyed_cli` kind, `connect.md`
+   present, a `## Vercel` card in `connectors.md`, and the connected frontmatter
+   contract (`requires_credential: key`, `data_path: local`). `uses_tools` may be
+   empty because the skill shells the Vercel CLI, which the gate allows.
+2. **`launch-my-site` wraps the Vercel CLI, on the Tier-1 shelf.** Credential is a
+   Vercel account (`requires_credential: key`) via a new `vercel` driver, not a
+   Vercel MCP. **Rationale (see §5b):** meta-ads is `mcp` because it is a
+   hosted-OAuth MCP (the `claude_mcp` kind); vercel is `key` because it is a
+   keyed local CLI (the new `keyed_cli` kind) — the `claude_mcp` pattern does NOT
+   apply. `data_path: local`. It carries the reusable connect-doorway articulation
+   (§5b), which gets one home in a knowledge doc.
 3. **One method file.** `knowledge/web-design-method.md` is fully inclusive
    (skeleton + IA + SEO wiring + steering playbook). No split.
 4. **Committed lean Next.js starter, not a generator.** Design-system-first needs a
@@ -357,13 +455,25 @@ Two layers, same doctrine as everything else:
    versions. Remaining planning check: confirm `templates/site-starter/` clears the
    repo hygiene/kernel-clean gates, else fall back to `studio/site-starter/`.
 
-## 11. Pending alignment: shared intake pattern (founder note 2026-07-03)
+## 11. Shared intake alignment — RESOLVED 2026-07-04
 
-Execution is on hold pending a forthcoming Meta-ads skill that runs a guided
-per-user onboarding fill-out: each owner works through it with Claude to produce
-customized results from BOS templates. `design-my-site`'s elicitation step (§4
-step 1, §5a steps 1-2) is the same shape, an intake that yields a customized
-result from templates. Founder intent: once the Meta-ads skill ships and is
-pushed, reuse that same intake→customize-from-templates process here so the two
-share one intake pattern rather than each inventing its own. Reconcile before
-executing Task 1.4 of the plan.
+**Resolved 2026-07-04 — reconciled with the shipped kit + intake.** The hold is
+lifted. The forthcoming Meta-ads add-on has shipped as the Tier-1 Connected Add-on
+Kit (`docs/architecture/tier-1-addon-kit.md`), with `plan-my-ads` + `run-my-ads`
+as its reference and the guided **Source A/B/C/D intake** as its onboarding
+fill-out. This spec has been reconciled with it:
+
+- `design-my-site`'s elicitation (§4 step 1, §5a) now adopts the shared Source
+  A/B/C/D intake wholesale: read `brand/brand.json` (A) and `./CLAUDE.md` (B)
+  silently; the only interview is the site-specific bucket (C); the delegated
+  reference-site research is the keyless Source D (auto-fill to confirm, since this
+  add-on has no live account to read). The profile writes to
+  `~/.claude/bos-cache/site-builder-profile.json`, mirroring `meta-ads-profile.json`.
+- `launch-my-site` now conforms to the shipped kit (§5b): the `keyed_cli` driver
+  kind, the one-home `connect.md` + `connectors.md` card + labelled `connect-a-tool`
+  exception, the OPERATING-CONTEXT fold-in, and the Hard-rules-first deploy safety
+  (no CI grep).
+
+The original hold note (2026-07-03): execution was paused pending that forthcoming
+Meta-ads skill so the two would share one intake pattern rather than each inventing
+its own. That reconciliation is now done, and execution may proceed.

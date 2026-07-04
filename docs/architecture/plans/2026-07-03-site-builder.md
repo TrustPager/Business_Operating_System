@@ -17,6 +17,7 @@
 BOS_OFFLINE=1 python tools/check-no-secrets.py
 BOS_OFFLINE=1 python tools/check-kernel-clean.py
 BOS_OFFLINE=1 python tools/check-doctrine-voice.py
+BOS_OFFLINE=1 python tools/check-connectors.py           # connected-add-on gate (Phase 2: launch-my-site + drivers/vercel)
 BOS_OFFLINE=1 python tools/registry-generator.py --check
 BOS_OFFLINE=1 python tools/export-capabilities.py --check
 BOS_OFFLINE=1 python tools/check-onboarding-binding.py
@@ -26,7 +27,7 @@ BOS_OFFLINE=1 python -m unittest discover -s tests -v
 
 ---
 
-> **Execution status (2026-07-03): ON HOLD, founder-ruled.** Do not start executing yet. A forthcoming Meta-ads skill runs a guided per-user onboarding fill-out (each owner works through it with Claude to produce customized results from BOS templates). Once that ships and is pushed, `design-my-site`'s elicitation/intake (Task 1.4 body steps 1-4) is to be reconciled with that same intake→customize-from-templates process so the two share one pattern rather than diverging. Resume execution only after that reconciliation. Everything below is otherwise ready.
+> **Execution status (2026-07-04): HOLD LIFTED, reconciliation folded.** The 2026-07-03 hold (waiting on a forthcoming Meta-ads skill so the two would share one intake pattern) is resolved. That skill shipped as the **Tier-1 Connected Add-on Kit** ([`../tier-1-addon-kit.md`](../tier-1-addon-kit.md)), with `plan-my-ads` + `run-my-ads` as its reference and the guided **Source A/B/C/D intake** as its fill-out. This plan has been reconciled with the shipped kit: `design-my-site` adopts the Source A/B/C/D intake (Task 1.4), and `launch-my-site` conforms to the kit (`keyed_cli` docs-only driver, one-home `connect.md` + `connectors.md` card + labelled `connect-a-tool` exception, OPERATING-CONTEXT fold-in, Hard-rules-first deploy safety with no CI grep). Execution may proceed.
 
 ## File Structure
 
@@ -34,16 +35,20 @@ BOS_OFFLINE=1 python -m unittest discover -s tests -v
 - `knowledge/web-design-method.md` — the whole method: conversion skeleton, site IA, on-page SEO wiring, Claude Design steering playbook. Links out to `seo-method.md`, `business-method.md` §10.5, `marketing-strategy-method.md`, `communication-voice.md`.
 - `templates/site-starter/` — committed lean Next.js app (see Task 1.2 for its internal tree).
 - `skills/design-my-site/SKILL.md` — the floor skill (gate-led body).
-- `skills/design-my-site/inline_design_system.py` — scaffold helper: reads `brand/brand.json` + the derived token overrides, writes a self-contained `tokens.css` + `design-system.json` into an instantiated project copy (so it does not depend on the in-repo `../../../brand` path once copied out). Unit-tested.
+- `skills/design-my-site/inline_design_system.py` — scaffold helper: reads `brand/brand.json` + the derived token overrides (from `~/.claude/bos-cache/site-builder-profile.json`), writes a self-contained `tokens.css` + `design-system.json` into an instantiated project copy (so it does not depend on the in-repo `../../../brand` path once copied out). Unit-tested.
 - `skills/launch-my-site/SKILL.md` — the shelf skill (deploy).
-- `drivers/vercel/__init__.py` — minimal driver: `DriverConfig` declaring the Vercel vendor identity + token secret pattern for redaction. Imports only `kernel.runtime.*` + stdlib.
+- `drivers/vercel/__init__.py` — **documentation-only `keyed_cli` driver**, mirroring `drivers/meta-ads/__init__.py`: a top-level `DRIVER` dict + a "DOCUMENTATION ONLY" docstring, NOT a `DriverConfig`. No `auth.py`, no `catalog.py`, no key resolver, no import of `kernel.runtime.*`. The `DRIVER` dict: `{"id":"vercel", "kind":"keyed_cli", "display_name":"Vercel", "cli":"vercel", "connect_doc":"connect.md", "credential":"key", "secret_pattern":"<vercel token regex>"}`. No `never_call`/`never_set` (a CLI deploy has no quiet live-switch; the one explicit switch is guarded by the skill's Hard rules, see Task 2.4). This is the reference `keyed_cli` driver the kit's taxonomy names.
+- `drivers/vercel/connect.md` — the single home for the Vercel connect steps (meta-ads `connect.md` shape). See Task 2.3b.
+- `drivers/vercel/OPERATING-CONTEXT.md` — the operating context the skill folds into `./CLAUDE.md` on connect (meta-ads `OPERATING-CONTEXT.md` shape). See Task 2.4.
 - `tests/test_inline_design_system.py` — offline unit tests for the inlining helper.
-- `tests/test_vercel_driver.py` — offline test: driver imports clean, registers its secret pattern, pulls in no other vendor.
+- `tests/test_vercel_driver.py` — offline test: `drivers.vercel` imports clean, exposes a `DRIVER` dict with `kind=='keyed_cli'` and `credential=='key'`, and importing it pulls in no other vendor.
 
 **Modified files:**
 - `tools/manifest.py` — add `deploy` to `FUNCTION_SLOTS`.
 - `docs/architecture/manifest-schema.md` — mirror the new `deploy` slot (not CI-checked; manual sync).
-- `knowledge/starter-projects.md` — add `design-my-site` as a `[live]` + keyless row (market/win-work group); add `launch-my-site` as a connected doorway row (NOT keyless-tagged).
+- `knowledge/connectors.md` — add a `## Vercel (put your site live)` card (meta-ads card schema). Required for `check-connectors.py` conformance (the gate prefix-matches the driver's `display_name` to a card heading). See Task 2.5.
+- `skills/connect-a-tool/SKILL.md` — add a labelled "Exception, Vercel" in Step 3 and the Hard rules, parallel to the existing "Exception, Meta Ads", pointing at `drivers/vercel/connect.md` as the single home for the steps. See Task 2.3b.
+- `knowledge/starter-projects.md` — add `design-my-site` as a `[live]` + keyless row (market/win-work group); add `launch-my-site` as a connected doorway row tagged `needs_connection` (NOT keyless, NOT a CRM tag).
 - `knowledge/business-method.md` (or `knowledge/connectors.md`) — add the one-home statement of the reusable connect-doorway articulation ("Here is X you can do keyless; it becomes enhanced by Y, which you unlock with Z"). Decide the single home during Task 2.5.
 - `kernel/registry.json` — regenerated (never hand-edited).
 - `docs/CAPABILITIES.md` — regenerated by `export-capabilities.py`.
@@ -112,7 +117,7 @@ Phase 1 delivers a complete win with zero dependency on Phase 2: the owner gets 
 
 ### Task 1.3: The scaffold helper `inline_design_system.py` (TDD)
 
-This is the piece that makes the starter self-contained once copied into the owner's workspace: it reads `brand/brand.json` + the skill's derived token overrides and writes a standalone `styles/tokens.css` + `design-system.json` into the instantiated project, so nothing depends on the in-repo `../../../brand` path after copy-out.
+This is the piece that makes the starter self-contained once copied into the owner's workspace: it reads `brand/brand.json` + the skill's derived token overrides (which the skill persists to `~/.claude/bos-cache/site-builder-profile.json`, the intake profile from Task 1.4) and writes a standalone `styles/tokens.css` + `design-system.json` into the instantiated project, so nothing depends on the in-repo `../../../brand` path after copy-out. The helper stays a pure function taking `brand` + `overrides` as args (see the test); the skill body is what reads them from the profile before calling it.
 
 **Files:**
 - Create: `skills/design-my-site/inline_design_system.py`
@@ -185,16 +190,20 @@ data_path: local
 status: active
 ---
 ```
-- [ ] **Step 2: Write the gate-led body** against spec §5a, referencing `knowledge/web-design-method.md` throughout so the body stays lean:
-  1. *Anchor:* pull owner + brand from the profile and `brand/brand.json`; confirm landing page vs multi-page site; get the one action each page drives.
-  2. *Gather taste:* 2-5 reference sites + what they like about each.
-  3. *Research (delegate, keyless):* delegate the reference read to `research-a-competitor` and the target-term winnability read to `get-found-online`'s SERP spot-check. Do NOT call `mcp__`/firecrawl tools directly (keeps the manifest clean).
-  4. *Derive:* a unique design system (tokens + radius pinned + type pairing + section treatments) + the ten-part art-direction brief + the real, positive-only, on-page-SEO-correct copy for the seven-section skeleton (site: IA first, then home/primary page fully, rest iterative).
-  5. *Scaffold:* copy `templates/site-starter/` into the owner's workspace; run `inline_design_system.py` to write self-contained `tokens.css` + `design-system.json`.
-  6. *Steer Claude Design:* hand the owner the brief to paste, which sites to web-capture (+ the layer-override), and `/design-sync` to attach the inlined design system.
-  7. *Land + view:* Handoff to Claude Code into the copied project; `cd` there, `npm install` + `npm run dev` (port 3220), open `http://localhost:3220` for the owner. Install/run the studio for them; never ask them to.
-  8. *Close:* name `launch-my-site` (deploy) and `get-found-online` (live audit) as the next doors, reactive and outcome-only.
-  - Include a **Hard rules** section: keyless (no `mcp__`, no direct firecrawl), positive-only + no em dashes in emitted copy, never fabricate testimonials/numbers, bounded first win (one page live locally, not a whole site in one sitting).
+- [ ] **Step 2: Write the gate-led body** against spec §5a, referencing `knowledge/web-design-method.md` throughout so the body stays lean. Steps 1-2 adopt the shipped **Source A/B/C/D intake** (kit §6, worked example `run-my-ads` Step 1), so this skill and the ads add-on share one intake shape:
+  1. *Make it yours — the Source A/B/C/D intake.* Read the profile first (`~/.claude/bos-cache/site-builder-profile.json`); if it exists, load it and skip ahead. If absent, run the intake once:
+     - **Source A — read `brand/brand.json` silently:** business name, colours, logo, voice, tagline. Read, never copied into the profile (brand's one home is `brand/brand.json`).
+     - **Source B — read `./CLAUDE.md` silently:** business shape, offer, region (only if a `Region:` line is explicitly set, never inferred), diagnosed constraint, goal.
+     - **Source C — ask only the small site-specific bucket (the ONLY interview):** landing page vs multi-page site and the one action each page drives; 2-5 reference sites they admire and what they like about each; taste and anti-taste.
+     - **Source D — no live account read (this add-on is keyless).** Source D here is the delegated reference-site research in Step 2.3-below: it auto-fills the profile to CONFIRM in words, never a fifth question set.
+     - **Write the profile** to `~/.claude/bos-cache/site-builder-profile.json` (outside the repo, so updates never touch it; no `.gitignore` entry needed). Brand fields are read from `brand/brand.json`, never copied in.
+  2. *Source D — research the references (delegate, keyless).* Delegate the reference read to `research-a-competitor` and the target-term winnability read to `get-found-online`'s SERP spot-check. Auto-fill the profile from what comes back and confirm it in words. Do NOT call `mcp__`/firecrawl tools directly (keeps the manifest clean).
+  3. *Derive:* a unique design system (tokens + radius pinned + type pairing + section treatments) + the ten-part art-direction brief + the real, positive-only, on-page-SEO-correct copy for the seven-section skeleton (site: IA first, then home/primary page fully, rest iterative). Persist the derived design overrides into the profile JSON.
+  4. *Scaffold:* copy `templates/site-starter/` into the owner's workspace; run `inline_design_system.py`, which reads the derived overrides from the profile JSON, to write self-contained `tokens.css` + `design-system.json`.
+  5. *Steer Claude Design:* hand the owner the brief to paste, which sites to web-capture (+ the layer-override), and `/design-sync` to attach the inlined design system.
+  6. *Land + view:* Handoff to Claude Code into the copied project; `cd` there, `npm install` + `npm run dev` (port 3220), open `http://localhost:3220` for the owner. Install/run the studio for them; never ask them to.
+  7. *Close:* name `launch-my-site` (deploy) and `get-found-online` (live audit) as the next doors, reactive and outcome-only.
+  - Include a **Hard rules** section: keyless (no `mcp__`, no direct firecrawl), positive-only + no em dashes in emitted copy, never fabricate testimonials/numbers, bounded first win (one page live locally, not a whole site in one sitting), and **personalization is DATA, never a forked skill file** (kit §6): per-owner detail lives in the profile JSON; never template or copy this skill file per owner.
 - [ ] **Step 3: Lint.**
   ```bash
   python tools/lint-skill.py skills/design-my-site
@@ -250,9 +259,9 @@ status: active
 
 Phase 2 is only reached once Phase 1 is green. Its foundations (the `deploy` slot, the `vercel` driver) exist solely for this skill, which is why they live here, not before Phase 1.
 
-### Task 2.1: Choose the Vercel connection mechanism (decision gate)
+### Task 2.1: Vercel connection mechanism (settled — record the rationale)
 
-- [ ] **Step 1: Decide** between (recommended) the **Vercel CLI** invoked via Bash (`vercel deploy`, `vercel deploy --prod`), with the account auth handled by `vercel login` / a `VERCEL_TOKEN` (→ `requires_credential: key`, `data_path: local`); or the **Vercel MCP plugin** (`requires_credential: mcp`, `data_path: mcp_tools`). Recommendation: CLI, because it is the most robust and Vic named "plugin/CLI", and it keeps the deploy a simple local subprocess. Record the choice; the rest of Phase 2 assumes CLI + `key`. If MCP is chosen instead, adjust the frontmatter and driver accordingly.
+- [ ] **Step 1: Record the settled choice** (founder-settled, reconciled with the kit 2026-07-04): the **Vercel CLI** invoked via Bash (`vercel deploy`, `vercel deploy --prod`), with account auth via `vercel login` / a `VERCEL_TOKEN` → `requires_credential: key`, `data_path: local`, driver kind `keyed_cli`. The rationale, mirroring the kit's two connected kinds: **meta-ads = `mcp` because it is a hosted-OAuth MCP (the `claude_mcp` kind); vercel = `key` because it is a keyed local CLI (the `keyed_cli` kind) — the `claude_mcp` pattern does NOT apply, and vercel is the reference `keyed_cli` driver the taxonomy names.** No Vercel MCP. The rest of Phase 2 builds to CLI + `key` + `keyed_cli`.
 
 ### Task 2.2: Add the `deploy` function_slot (TDD)
 
@@ -288,7 +297,9 @@ class TestDeploySlot(unittest.TestCase):
   git commit -m "feat(site-builder): add 'deploy' function_slot (manifest.py + schema doc + test)"
   ```
 
-### Task 2.3: The `vercel` driver (TDD)
+### Task 2.3: The `vercel` driver — documentation-only `keyed_cli` (TDD)
+
+Mirror `drivers/meta-ads/__init__.py`'s declarative style, NOT a keyed-REST `DriverConfig`. Nothing in BOS imports or reads this module; the load-bearing artifacts are the `requires_driver: vercel` string on `launch-my-site`, `connect.md`, and the `connectors.md` card (kit §3). Clone the shape from `drivers/_template/__init__.py` (the `keyed_cli` branch: keep `cli`, drop `server_url`, add `secret_pattern`).
 
 **Files:**
 - Create: `drivers/vercel/__init__.py`
@@ -303,9 +314,11 @@ REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
 class TestVercelDriver(unittest.TestCase):
-    def test_imports_clean_and_registers_config(self):
+    def test_exposes_keyed_cli_driver_dict(self):
         mod = importlib.import_module("drivers.vercel")
-        self.assertTrue(hasattr(mod, "VERCEL_CFG"))
+        self.assertTrue(hasattr(mod, "DRIVER"))
+        self.assertEqual(mod.DRIVER["kind"], "keyed_cli")
+        self.assertEqual(mod.DRIVER["credential"], "key")
     def test_pulls_in_no_other_vendor(self):
         for m in [m for m in list(sys.modules) if m.startswith("drivers.")]:
             del sys.modules[m]
@@ -313,20 +326,58 @@ class TestVercelDriver(unittest.TestCase):
         self.assertNotIn("drivers.trustpager", sys.modules)  # boundary: no cross-vendor import
 ```
 - [ ] **Step 2: Run it, verify it fails.** → FAIL (module not found).
-- [ ] **Step 3: Implement `drivers/vercel/__init__.py`** — a minimal driver mirroring `drivers/_noop` / `drivers/trustpager` shape: construct `VERCEL_CFG = DriverConfig(...)` declaring the vendor identity + a `VERCEL_TOKEN` secret pattern for redaction; a `get_api_key()` resolver (env `VERCEL_TOKEN` → `~/.claude/bos.json` fallback). Import ONLY from `kernel.runtime.*` and stdlib. No REST helpers needed (the skill uses the CLI); the driver's job is registration + credential/secret declaration so `requires_driver: vercel` resolves.
+- [ ] **Step 3: Implement `drivers/vercel/__init__.py`** — a documentation-only driver mirroring `drivers/meta-ads/__init__.py`: a top-level `DRIVER` dict and a "DOCUMENTATION ONLY" docstring stating plainly that nothing reads this module. The dict:
+  ```python
+  DRIVER = {
+      "id": "vercel",
+      "kind": "keyed_cli",
+      "display_name": "Vercel",
+      "cli": "vercel",                 # the local CLI invoked via Bash (NOT a server_url)
+      "tool_prefix": "mcp__vercel__",  # unused (the skill shells the CLI); kept for shape parity
+      "connect_doc": "connect.md",
+      "credential": "key",
+      "read_only_scope_first": True,
+      "secret_pattern": r"<vercel token regex>",  # for redaction; a Vercel token is ~24 alnum chars
+  }
+  ```
+  **No `DriverConfig`, no `auth.py`, no `catalog.py`, no key resolver, no import of `kernel.runtime.*`** (that transport shape is for keyed-REST drivers like `trustpager`). **No `never_call`/`never_set`** — a CLI deploy has no quiet live-switch; the single explicit `vercel --prod` switch is guarded by the skill's Hard rules (Task 2.4), so the connector gate's safety scan is a no-op for this driver by construction.
 - [ ] **Step 4: Run it, verify it passes.** Also run the existing boundary test to be safe: `BOS_OFFLINE=1 python -m unittest tests.test_driver_boundary tests.test_vercel_driver -v` → PASS.
 - [ ] **Step 5: Commit.**
   ```bash
   git add drivers/vercel/__init__.py tests/test_vercel_driver.py
-  git commit -m "feat(site-builder): minimal vercel driver (DriverConfig + token redaction)"
+  git commit -m "feat(site-builder): documentation-only keyed_cli vercel driver (DRIVER dict + secret_pattern)"
   ```
 
-### Task 2.4: The `launch-my-site` skill body
+### Task 2.3b: `drivers/vercel/connect.md` + the labelled connect-a-tool exception
+
+The connect steps have exactly one home: `drivers/vercel/connect.md` (kit §4). Every other surface points at it, never restates it.
+
+**Files:**
+- Create: `drivers/vercel/connect.md`
+- Modify: `skills/connect-a-tool/SKILL.md`
+
+- [ ] **Step 1: Author `drivers/vercel/connect.md`** in the meta-ads `connect.md` shape (clone `drivers/_template/connect.md`, `keyed_cli` branch):
+  - **What this unlocks** — your site on a real, shareable URL.
+  - **The honest boundary** — one browser sign-in only the owner can do; the system does everything else; never asks for a password or code.
+  - **Step 1: add the Vercel CLI + `vercel login` (permission first)** — the system installs the CLI and runs `vercel login` for the owner on their machine.
+  - **Step 2: the owner signs in** — the browser opens Vercel's sign-in; the owner approves.
+  - **Step 3: verify** — one lightweight read, `vercel whoami`, proves it is live.
+  - **Step 4: deploy a preview** — `vercel` (preview) first; production only on approval (points at `launch-my-site`).
+- [ ] **Step 2: Add the labelled "Exception, Vercel"** to `skills/connect-a-tool/SKILL.md` in Step 3 and the Hard rules, parallel to the existing "Exception, Meta Ads": label it "this overrides the usual in-app `/mcp` flow because Vercel is a keyed CLI the system installs and runs `vercel login` for," and point at `drivers/vercel/connect.md` as the single home for the steps (do not repeat them).
+- [ ] **Step 3: Voice check + commit.**
+  ```bash
+  BOS_OFFLINE=1 python tools/check-doctrine-voice.py
+  git add drivers/vercel/connect.md skills/connect-a-tool/SKILL.md
+  git commit -m "feat(site-builder): vercel connect.md (single home) + labelled connect-a-tool exception"
+  ```
+
+### Task 2.4: The `launch-my-site` skill body + `drivers/vercel/OPERATING-CONTEXT.md`
 
 **Files:**
 - Create: `skills/launch-my-site/SKILL.md`
+- Create: `drivers/vercel/OPERATING-CONTEXT.md`
 
-- [ ] **Step 1: Write the frontmatter.**
+- [ ] **Step 1: Write the frontmatter.** `uses_tools` is deliberately omitted (the skill shells the Vercel CLI; the connector gate allows an empty/absent `uses_tools` for a `keyed_cli` add-on).
 ```yaml
 ---
 name: Launch My Site
@@ -345,32 +396,47 @@ data_path: local
 status: active
 ---
 ```
-- [ ] **Step 2: Write the gate-led body** against spec §5b:
-  1. Confirm the local project builds (`npm run build` in the instantiated project).
-  2. The connect-story (the worked example of the reusable doorway, see Task 2.5): explain the owner needs two things, a Vercel account and the plugin/CLI, and exactly how to get both.
-  3. Deploy a preview with the Vercel CLI; report the preview URL for review.
-  4. On an explicit go, deploy to production; report the URL. Never deploy without the go; never announce it live until the deploy is confirmed (safeguards).
-  5. Offer the post-launch loop: `get-found-online` live audit + the connected rank-tracking / AI-visibility doorway.
-  - **Hard rules:** never deploy without explicit approval; report the real outcome (including failures with the CLI output); do not claim live until confirmed.
-- [ ] **Step 3: Lint.** `python tools/lint-skill.py skills/launch-my-site` → exit 0.
-- [ ] **Step 4: Commit.**
+- [ ] **Step 2: Author `drivers/vercel/OPERATING-CONTEXT.md`** in the meta-ads `OPERATING-CONTEXT.md` shape (clone `drivers/_template/OPERATING-CONTEXT.md`): how the Vercel connection works (keyed CLI, `vercel whoami` verify, preview-first), what lives in the account (projects, deployments, domains), and the write-safety lines in plain language (preview first; production only on an explicit yes; report the real outcome). This is the source text Step 1 of the body folds into `./CLAUDE.md`.
+- [ ] **Step 3: Write the gate-led body** against spec §5b, **Hard-rules-first** (mirroring `run-my-ads`). Open the body with a "Hard rules (read first — these override everything below)" block:
+  1. Never deploy to production without an explicit yes.
+  2. Preview first; production only on the owner's approval.
+  3. Report the real CLI outcome, including failures; never claim the site is live until `vercel` confirms the URL.
+  Then the steps:
+  1. *Step 1 init — fold the operating context (kit §6, mirrors `run-my-ads` Step 1).* Fold `drivers/vercel/OPERATING-CONTEXT.md` into the owner's `./CLAUDE.md` with the skill's OWN no-clobber merge: read the source, read `./CLAUDE.md`, show the section or the diff, append or merge, never clobber hand-tuned content. Do **not** call `learn-my-business` (CRM-gated, never runs for an add-on-only owner).
+  2. Confirm the local project builds (`npm run build` in the instantiated project).
+  3. The connect-story (the worked example of the reusable doorway, see Task 2.5): explain the owner needs two things, a Vercel account and the Vercel CLI, and exactly how to get both (point at `drivers/vercel/connect.md`).
+  4. Deploy a preview with the Vercel CLI; report the preview URL for review.
+  5. On an explicit go, deploy to production (`vercel --prod`); report the URL. Never deploy without the go; never announce it live until `vercel` confirms it (Hard rules).
+  6. Offer the post-launch loop: `get-found-online` live audit + the connected rank-tracking / AI-visibility doorway.
+  - **Explicitly do NOT add a `check-*-safety.py` grep.** The Meta spend-scan in `check-connectors.py` exists to catch a *quiet* live switch (a status field flipped via an update tool). A CLI deploy has no such dual-path activation risk: `vercel --prod` is the single explicit switch, already guarded by Hard rule 1. A grep here would cargo-cult the Meta pattern onto a surface that does not need it — and the `vercel` driver ships no `never_call`/`never_set`, so the gate's safety scan is a no-op for it by construction.
+- [ ] **Step 4: Lint.** `python tools/lint-skill.py skills/launch-my-site` → exit 0.
+- [ ] **Step 5: Commit.**
   ```bash
-  git add skills/launch-my-site/SKILL.md
-  git commit -m "feat(site-builder): launch-my-site skill (Tier-1 shelf, Vercel CLI deploy)"
+  git add skills/launch-my-site/SKILL.md drivers/vercel/OPERATING-CONTEXT.md
+  git commit -m "feat(site-builder): launch-my-site skill (Hard-rules-first Vercel CLI deploy) + operating context"
   ```
 
-### Task 2.5: The reusable connect-doorway doctrine (one home)
+### Task 2.5: The `## Vercel` connectors card + the reusable connect-doorway doctrine
 
 **Files:**
-- Modify: `knowledge/business-method.md` OR `knowledge/connectors.md` (pick one home)
+- Modify: `knowledge/connectors.md` (the `## Vercel` card — required for gate conformance)
+- Modify: `knowledge/business-method.md` OR `knowledge/connectors.md` (the connect-doorway doctrine — pick one home)
 
-- [ ] **Step 1: Decide the home** (lean `connectors.md` if it owns connect-tier framing; else a labelled section in `business-method.md`).
-- [ ] **Step 2: Author the one-home statement:** the reusable articulation "Here is X you can do keyless; it becomes enhanced by Y, which you unlock with Z," with `design-my-site` → `launch-my-site` as the worked example. Have `launch-my-site` and `get-found-online`'s connected doorway reference this rather than restating it.
-- [ ] **Step 3: Voice check + commit.**
+- [ ] **Step 1: Add a `## Vercel (put your site live)` card** to `knowledge/connectors.md`, following the meta-ads card schema at the top of that file. This is **required for `check-connectors.py` conformance** (the gate prefix-matches the driver's `display_name` "Vercel" to a card heading). Fields:
+  - **What it is** — the owner's Vercel account, so the system can put their built site on a real URL.
+  - **Fits businesses that** — have built a site with `design-my-site` and want it live and shareable.
+  - **Unlocks** — `launch-my-site`.
+  - **Connect it** — a pointer to `drivers/vercel/connect.md` (not restated), plus the labelled `connect-a-tool` exception note (the keyed-CLI path).
+  - **Keep it lean** — connect it when ready to go live, not "just in case."
+  - **Heads-up** — Vercel's free tier is generous; the honest cost note said out loud first.
+  - **Verify** — `vercel whoami` proves it is live.
+- [ ] **Step 2: Decide the doctrine home** (lean `connectors.md` if it owns connect-tier framing; else a labelled section in `business-method.md`).
+- [ ] **Step 3: Author the one-home statement:** the reusable articulation "Here is X you can do keyless; it becomes enhanced by Y, which you unlock with Z," with `design-my-site` → `launch-my-site` as the worked example. Have `launch-my-site` and `get-found-online`'s connected doorway reference this rather than restating it.
+- [ ] **Step 4: Voice check + commit.**
   ```bash
   BOS_OFFLINE=1 python tools/check-doctrine-voice.py
   git add knowledge/business-method.md knowledge/connectors.md
-  git commit -m "docs(site-builder): one-home connect-doorway articulation (X keyless, enhanced by Y via Z)"
+  git commit -m "docs(site-builder): ## Vercel connectors card + one-home connect-doorway articulation (X keyless, enhanced by Y via Z)"
   ```
 
 ### Task 2.6: Register + onboard `launch-my-site`
@@ -379,7 +445,7 @@ status: active
 - Modify: `knowledge/starter-projects.md`
 - Regenerate: `kernel/registry.json`, `docs/CAPABILITIES.md`
 
-- [ ] **Step 1: Add a connected-doorway row** to `knowledge/starter-projects.md` for `launch-my-site`. Because it is `requires_credential: key`, it must NOT be tagged `[live]`+keyless (assertion B). This is the first-ever `requires_credential: key` skill and the first non-CRM connected doorway on the surface, so do NOT reach for `better_with_crm`/`needs_crm` either: both are CRM-specific and would misdescribe a Vercel deploy. A plain connected/deepener row that follows `design-my-site`, with no `keyless` tag and no CRM tag, passes assertions A and B cleanly.
+- [ ] **Step 1: Add a connected-doorway row** to `knowledge/starter-projects.md` for `launch-my-site`, tagged **`needs_connection`** — the vendor-neutral connected-tier tag that already lives in `_CONNECTED_TIER_TAGS` in `tools/check-onboarding-binding.py` (it landed with the meta-ads work). This exempts the row from assertion B's keyless-honesty check honestly. Because it is `requires_credential: key`, it must NOT be tagged `[live]`+keyless; and it is NOT the CRM, so do NOT reach for `better_with_crm`/`needs_crm` (both are CRM-specific and would misdescribe a Vercel deploy). A row that follows `design-my-site` tagged `needs_connection` passes assertions A and B cleanly.
 - [ ] **Step 2: Regenerate + verify.**
   ```bash
   BOS_OFFLINE=1 python tools/registry-generator.py
@@ -390,19 +456,20 @@ status: active
 - [ ] **Step 3: Gates.**
   ```bash
   BOS_OFFLINE=1 python tools/check-onboarding-binding.py
+  BOS_OFFLINE=1 python tools/check-connectors.py
   BOS_OFFLINE=1 python tools/registry-generator.py --check
   BOS_OFFLINE=1 python tools/export-capabilities.py --check
   ```
-  Expected: all exit 0.
+  Expected: all exit 0. `check-connectors.py` is the connected-add-on conformance gate: it proves `drivers/vercel` declares a valid `keyed_cli` kind, `requires_driver: vercel` resolves, `connect.md` + the `## Vercel` card are present, and `launch-my-site` honours the connected frontmatter contract.
 - [ ] **Step 4: Commit.**
   ```bash
   git add knowledge/starter-projects.md kernel/registry.json docs/CAPABILITIES.md
-  git commit -m "feat(site-builder): register + onboard launch-my-site (connected doorway)"
+  git commit -m "feat(site-builder): register + onboard launch-my-site (connected doorway, needs_connection)"
   ```
 
 ### Task 2.7: Phase-2 gates + deploy dogfood
 
-- [ ] **Step 1: Run the full CI-order gate block.** All exit 0.
+- [ ] **Step 1: Run the full CI-order gate block** (including `tools/check-connectors.py`). All exit 0. The gate-conformance acceptance criterion (spec §10.1) is met when `launch-my-site` + `drivers/vercel` pass `check-connectors.py`.
 - [ ] **Step 2: Deploy dogfood** (live, with a real Vercel account, done by Vic or with explicit go): take a Phase-1 built page, run `launch-my-site`, confirm a preview URL then a production URL, and confirm the skill never deployed without the go and reported the real outcome. Fold any fixes; re-run gates.
 
 ---
