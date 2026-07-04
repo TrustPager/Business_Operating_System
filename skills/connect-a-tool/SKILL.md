@@ -77,6 +77,12 @@ steps from the catalog entry:
     [`drivers/meta-ads/connect.md`](../../drivers/meta-ads/connect.md). The owner
     still does the sign-in themselves; see that file for the full steps (do not
     repeat them here).
+  - **Exception, Vercel:** this one is added via the `vercel` CLI, not the in-app
+    `/mcp` flow: the system installs the CLI and runs `vercel login` for the owner
+    on their machine, walked step by step in
+    [`drivers/vercel/connect.md`](../../drivers/vercel/connect.md). The owner still
+    does the one browser sign-in themselves; see that file for the full steps (do
+    not repeat them here).
 
 Guide them to connect the RIGHT account (their work email / work calendar, not a
 personal one) and the leanest scopes that still deliver the win. If a step looks
@@ -121,6 +127,11 @@ interested in but did not connect so it can come up naturally later.
     they still do the one sign-in only they can. This differs from the usual
     in-app `/mcp` flow, and the full steps live in
     [`drivers/meta-ads/connect.md`](../../drivers/meta-ads/connect.md).
+  - **Exception, Vercel (labelled so the two don't silently diverge):** Vercel is
+    added via the `vercel` CLI, which you install and run `vercel login` for the
+    owner on their machine; they still do the one browser sign-in only they can.
+    This differs from the usual in-app `/mcp` flow, and the full steps live in
+    [`drivers/vercel/connect.md`](../../drivers/vercel/connect.md).
 - **Plain language.** They never hear "OAuth", "MCP", "scope token", or "driver".
   They hear "connect", "sign in", "what it can see", "what it unlocks".
 - **Positive and outcome-led, no em dashes** in anything they read.

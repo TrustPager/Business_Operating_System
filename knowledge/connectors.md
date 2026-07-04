@@ -130,6 +130,29 @@ the catalog stays searchable:
 - **Verify:** ask the system to list your ad accounts. If it can see them, the
   connection is live, and it'll run the "make it yours" setup next.
 
+## Vercel (put your site live)
+
+- **What it is:** the owner's Vercel account, so the system can put the site they
+  built with `design-my-site` on a real, shareable URL.
+- **Fits businesses that:** have built a site or landing page with `design-my-site`
+  and want it live and shareable, with every future update shipped in a word.
+- **Unlocks:** `launch-my-site`, which deploys the built site to Vercel, a preview
+  first for review, then production on the owner's explicit go.
+- **Connect it:** the steps live in
+  [drivers/vercel/connect.md](../drivers/vercel/connect.md): the system installs
+  the Vercel CLI and runs `vercel login` for the owner, the owner completes the
+  one browser sign-in, then a verify with `vercel whoami` and a preview deploy.
+  (This connector uses the `vercel` CLI, a labelled exception to the usual in-app
+  `/mcp` connect flow. See connect.md.)
+- **Keep it lean:** connect it when the owner is ready to go live, not "just in
+  case." Nothing to load into every turn, the system just shells the CLI when it
+  deploys.
+- **Heads-up:** Vercel's free tier is generous and enough to get a site live; the
+  system says any cost out loud first, and only ever deploys a preview until the
+  owner approves production.
+- **Verify:** ask the system to run `vercel whoami` (or check the deployed URL).
+  If it shows the owner's username, the connection is live.
+
 ---
 
 ## The growing library (add by asking)
