@@ -112,9 +112,10 @@ round of questions. Do not ask the owner to retype what the research will find.
 
 Write `~/.claude/bos-cache/site-builder-profile.json` with the Source C answers
 (page-type, per-page action, reference sites + what they like, taste / anti-taste)
-plus a slot for the Step-2 research findings and the Step-3 derived design
-overrides. Brand fields stay in `brand/brand.json` and are never copied in. This
-profile is the resume point: a returning session reads it and picks up mid-build.
+plus a slot for the Step-2 research findings and, under a `design_overrides` key,
+the Step-3 derived design overrides. Brand fields stay in `brand/brand.json` and
+are never copied in. This profile is the resume point: a returning session reads
+it and picks up mid-build.
 
 ---
 
@@ -163,8 +164,8 @@ fully. The rest of the pages are iterative, after the first page is live (Hard
 rule 4). A landing page is the one-page case, done fully in one pass.
 
 Persist the derived design overrides (the token deltas, pinned radius, type
-pairing) into the profile JSON, so `inline_design_system.py` can read them in
-Step 4.
+pairing) into the profile JSON under the `design_overrides` key, so Step 4 can
+read them back and pass them to the inliner.
 
 ---
 
@@ -175,17 +176,30 @@ sensible folder name from the business name). It carries the seven-section
 skeleton as real components, the design-system token layer, and the SEO +
 performance defaults, so Claude Design continues from bespoke work, not from zero.
 
-Then run the inliner to write a self-contained design system into the copy:
+Then inline a self-contained design system into the copy. `inline()` is a pure
+function (it takes `brand` + `overrides` and writes the files; it reads nothing
+itself), so the skill loads `brand/brand.json` and the profile's `design_overrides`
+and passes them in. Run this, adjusting the project-dir path:
 
-```bash
-python skills/design-my-site/inline_design_system.py   # or import inline()
+```python
+# load brand + the profile's derived overrides, then inline into the copied project
+import json, pathlib, sys
+sys.path.insert(0, "skills/design-my-site")
+from inline_design_system import inline
+
+brand = json.loads(pathlib.Path("brand/brand.json").read_text(encoding="utf-8"))
+profile = json.loads(
+    pathlib.Path.home().joinpath(".claude/bos-cache/site-builder-profile.json").read_text(encoding="utf-8")
+)
+overrides = profile.get("design_overrides", {})
+
+inline(pathlib.Path("<the instantiated project dir>"), brand, overrides)  # writes styles/tokens.css + design-system.json
 ```
 
-`inline_design_system.py`'s `inline(project_dir, brand, overrides)` deep-merges
-the derived overrides (read from the profile JSON) over `brand/brand.json` and
-writes a standalone `styles/tokens.css` + `design-system.json` into the copied
-project. After it runs the copy depends on nothing in the BOS repo (no
-`../../../brand` path): it is portable and, later, deployable on its own.
+`inline(project_dir, brand, overrides)` deep-merges the derived overrides over
+`brand/brand.json` and writes a standalone `styles/tokens.css` + `design-system.json`
+into the copied project. After it runs the copy depends on nothing in the BOS repo
+(no `../../../brand` path): it is portable and, later, deployable on its own.
 
 ---
 
