@@ -218,6 +218,13 @@
     "requires_driver": "none",
     "status": "active"
   },
+  "design-my-site": {
+    "data_path": "local",
+    "function_slot": "creative",
+    "requires_credential": "none",
+    "requires_driver": "render",
+    "status": "active"
+  },
   "design-nurture-sequence": {
     "data_path": "mcp_tools",
     "function_slot": "comms",
