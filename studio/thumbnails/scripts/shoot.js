@@ -24,7 +24,10 @@ const PROJECT_ROOT = resolve(__dirname, '..');
 const OUTPUT_DIR = resolve(PROJECT_ROOT, 'output');
 const SAMPLES_PATH = resolve(PROJECT_ROOT, 'src/data/samples.json');
 const RENDER_SCRIPT = resolve(__dirname, 'render.js');
-const DEV_SERVER = 'http://localhost:3210';
+// Dev-server port defaults to 3210; override with BOS_THUMBNAIL_PORT (the same
+// var vite.config.js and render.js read) when 3210 is already in use.
+const DEV_PORT = Number(process.env.BOS_THUMBNAIL_PORT) || 3210;
+const DEV_SERVER = `http://localhost:${DEV_PORT}`;
 
 // Parse args
 const args = process.argv.slice(2);
@@ -83,6 +86,13 @@ const openPng = (key) => {
     console.error('Start it first in another terminal:');
     console.error('');
     console.error('  npm run dev');
+    console.error('');
+    console.error(`Port ${DEV_PORT} may be in use by another session or a leftover`);
+    console.error('dev server. If so, pick a free port with BOS_THUMBNAIL_PORT');
+    console.error('(then restart npm run dev), e.g.:');
+    console.error('');
+    console.error('  BOS_THUMBNAIL_PORT=3211 npm run dev      # in one terminal');
+    console.error('  BOS_THUMBNAIL_PORT=3211 npm run shoot     # in this one');
     console.error('');
     process.exit(1);
   }

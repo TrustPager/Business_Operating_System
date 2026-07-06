@@ -32,6 +32,10 @@ function remotionJsxPlugin() {
   };
 }
 
+// Dev-server port defaults to 3210; override with BOS_THUMBNAIL_PORT (render.js
+// and shoot.js read the same var) when 3210 is already in use.
+const DEV_PORT = Number(process.env.BOS_THUMBNAIL_PORT) || 3210;
+
 export default defineConfig({
   plugins: [
     remotionJsxPlugin(),

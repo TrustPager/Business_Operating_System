@@ -177,7 +177,7 @@ thumbnails/
 ├── YOUTUBE_TITLES.md                    ← title patterns + description template + lint rules
 ├── COMPOSITION_MAP.md                   ← auto-generated thumbnail ↔ comp mapping
 ├── package.json                         ← npm scripts (dev / make / shoot / publish / coverage)
-├── vite.config.js                       ← dev server on port 3210
+├── vite.config.js                       ← dev server on port 3210 (override: BOS_THUMBNAIL_PORT)
 ├── src/
 │   ├── main.jsx                         ← React entry
 │   ├── App.jsx                          ← studio UI (sidebar + preview)
@@ -216,3 +216,4 @@ thumbnails/
 - Stay on the brand palette in hero chrome.
 - Never break the thin-vertical-single-stack-bleeds rule.
 - If you hit something not covered by the rules, ask the user before guessing.
+- If port 3210 is busy, set `BOS_THUMBNAIL_PORT` (the shoot error message shows how) rather than editing source. When you stop a dev server, only stop the one you started this session; never kill a process by port number alone, since another session may hold it.

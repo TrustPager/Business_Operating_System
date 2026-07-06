@@ -20,7 +20,10 @@ import { outputFilenameFor } from './_filename.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_DIR = resolve(__dirname, '../output');
 const SAMPLES_PATH = resolve(__dirname, '../src/data/samples.json');
-const DEV_SERVER = 'http://localhost:3210';
+// Dev-server port defaults to 3210; override with BOS_THUMBNAIL_PORT (the same
+// var vite.config.js and shoot.js read) when 3210 is already in use.
+const DEV_PORT = Number(process.env.BOS_THUMBNAIL_PORT) || 3210;
+const DEV_SERVER = `http://localhost:${DEV_PORT}`;
 
 // Parse CLI args
 const args = process.argv.slice(2);
