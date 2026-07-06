@@ -142,8 +142,9 @@ the catalog stays searchable:
   post-setup checklist and the 72-hour rule. (It hands off from your plan the way
   TrustPager hands off to its connected tier.)
 - **Connect it:** the steps live in
-  [drivers/meta-ads/connect.md](../drivers/meta-ads/connect.md): a user-scope
-  `claude mcp add`, then `claude mcp login meta-ads`, granting the read-only tier
+  [drivers/meta-ads/connect.md](../drivers/meta-ads/connect.md): a project-scope
+  `claude mcp add` run from the owner's BOS workspace folder (see "Where it
+  connects" above), then `claude mcp login meta-ads`, granting the read-only tier
   first, a restart, and a verify with one read. Fallback `--callback-port 8080` if
   the sign-in callback stalls. (This connector uses the `claude mcp` CLI, a
   labelled exception to the usual in-app `/mcp` connect flow. See connect.md.)

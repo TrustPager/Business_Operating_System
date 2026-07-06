@@ -15,16 +15,20 @@ your other work.
 (For the builder: this connector is added via the `claude mcp` CLI, which is a
 deliberate, labelled exception to connect-a-tool's usual "/mcp in the app" flow.
 The owner still performs the sign-in themselves; BOS only runs the add/login
-commands. See spec §3d.)
+commands. See spec §3d. The registration is **project scope, run from the
+owner's BOS workspace folder** — that choice is owned by the Connection Scoping
+Doctrine in
+[docs/architecture/tier-1-addon-kit.md](../../docs/architecture/tier-1-addon-kit.md);
+this file follows it, never restates it.)
 
 ## Step 1: I add the connection for you (permission first)
 "To set up your ads I need to add the Meta Ads connection. It's a one-time,
 free sign-in with your Facebook account. Want me to get it ready?"
-On yes, I run (on your machine, so I do it, not you):
+On yes, I run (on your machine, from your workspace folder, so I do it, not you):
 
-    claude mcp add --transport http --scope user meta-ads https://mcp.facebook.com/ads
+    claude mcp add --transport http --scope project meta-ads https://mcp.facebook.com/ads
 
-It must be user scope so it's available everywhere, not just this folder.
+I connect it to this workspace, so your other projects stay nice and fast.
 
 ## Step 2: You sign in (the one step that's yours)
 I run:
@@ -38,7 +42,7 @@ that manages your ads and approve the access.
 - If the browser sign-in seems to hang (the little local page never returns), no
   problem, I re-add it on a fixed port and we try again:
 
-      claude mcp add --transport http --scope user meta-ads https://mcp.facebook.com/ads --callback-port 8080
+      claude mcp add --transport http --scope project meta-ads https://mcp.facebook.com/ads --callback-port 8080
 
 ## Step 3: Restart so it loads
 The connection only wakes up when Claude Code starts fresh. So: close and reopen

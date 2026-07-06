@@ -792,6 +792,14 @@ else is auto-filled and confirmed.
 
 ### 6e. `connect.md` content (the walkthrough — single home for the connect steps)
 
+> **Superseded on scope (labelled, 2026-07-05):** the drafts below (this section
+> and the §6f card) register meta-ads at `--scope user`; the shipped connector
+> now registers at **project scope in the owner's BOS workspace folder**, per
+> the Connection Scoping Doctrine in [tier-1-addon-kit.md](tier-1-addon-kit.md)
+> (user scope taxes every session on every project). The live file
+> [drivers/meta-ads/connect.md](../../drivers/meta-ads/connect.md) is the single
+> home; these sections are the dated design record, kept as written.
+
 ```markdown
 # Connect Meta Ads (Facebook & Instagram ads)
 

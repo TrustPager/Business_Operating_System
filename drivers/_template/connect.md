@@ -29,11 +29,16 @@ only runs the add/login commands.)
 ## Step 1: I add the connection for you (permission first)
 "To set up your <capability> I need to add the <Display Name> connection. It's a
 one-time, free sign-in with your <account> account. Want me to get it ready?"
-On yes, I run (on your machine, so I do it, not you):
+On yes, I run (on your machine, from your workspace folder, so I do it, not you):
 
-    <the add command, e.g. claude mcp add --transport http --scope user <id> <server_url>>
+    <the add command, e.g. claude mcp add --transport http --scope project <id> <server_url>>
 
-It must be user scope so it's available everywhere, not just this folder.
+I connect it to this workspace, so your other projects stay nice and fast.
+
+<!-- Scope is PROJECT by default, run from the owner's BOS workspace folder.
+     That rule is owned by the Connection Scoping Doctrine in
+     docs/architecture/tier-1-addon-kit.md (the keyless firecrawl server is the
+     one labelled user-scope exception). Follow it here; don't restate it. -->
 
 ## Step 2: You sign in (the one step that's yours)
 I run:
