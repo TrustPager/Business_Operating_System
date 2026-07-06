@@ -153,6 +153,9 @@ The card's fields:
 - **Unlocks** — the connected skill it switches on.
 - **Connect it** — a pointer to `drivers/<id>/connect.md` (not a restated
   procedure), plus the labelled `connect-a-tool` exception if one applies (§8).
+  A locally-registered MCP server connects at **project scope** by default (see
+  the Connection Scoping Doctrine below); the card names that scope, the doctrine
+  owns the rule.
 - **Keep it lean** — connect it when ready, not "just in case"; the tools stay
   deferred (names only) until used.
 - **Heads-up** — any cost, credit, or spend note said out loud first.
@@ -221,7 +224,9 @@ exception** in both [`skills/connect-a-tool/SKILL.md`](../../skills/connect-a-to
 and the driver's `connect.md`, so the two do not silently diverge. Label it as
 "this overrides the usual in-app `/mcp` flow because …" and point at `connect.md`
 as the single home for the steps. The owner still performs the one sign-in only
-they can.
+they can. Whichever add mechanism is used, a locally-registered MCP server
+registers at **project scope** in the owner's BOS workspace by default — that
+choice is owned by the Connection Scoping Doctrine above, not by the exception.
 
 ### 9. The `needs_connection` onboarding tag (DONE)
 
@@ -230,6 +235,75 @@ uses the vendor-neutral **`needs_connection`** tag. This tag already exists in
 `_CONNECTED_TIER_TAGS` in `tools/check-onboarding-binding.py` (landed with the
 meta-ads work), so treat it as done, not pending. **Never `keyless`** (the add-on
 needs an account) and **never a CRM-coupling tag** (it is not the CRM).
+
+---
+
+## The Connection Scoping Doctrine (the owning statement)
+
+This is the **single home** for two rules every driver author follows so an
+owner gets a fast, lean system without ever having to understand why. Every
+other surface that touches connections (the `connectors.md` cards, the
+`connect-a-tool` skill, a driver's `connect.md`) points here rather than
+restating these rules.
+
+**Why it matters, in one line:** a registered local MCP server loads its tool
+surface into every session that can see it, used or not, and it only attaches at
+session start (there is no hot-loading). So the only lever an author has is
+*scope* — which sessions ever see the server. Get the scope right at authoring
+time and the owner never pays for a tool they aren't using.
+
+### Primitive 1 — CLI-first drivers (the default)
+
+When a capability's outside service is **stateless** (a key goes in, JSON comes
+back), ship it as a **CLI the skill calls**, not as a registered MCP server. A
+CLI has **zero standing cost**: nothing loads into a session until the skill
+shells out to it. This is the native BOS pattern — BOS already installs
+`~/.claude/bos-run.py` as the signpost skills use to find their tools, so a
+CLI-first driver slots straight into it. The `keyed_cli` kind in the taxonomy
+below is exactly this shape (Vercel is the worked example).
+
+Reserve a registered MCP server for the cases where a CLI genuinely can't do the
+job: the tool needs an **OAuth sign-in flow**, a **persistent connection**, or
+**real-time subscriptions**. Those are the connected kinds (`claude_mcp`); Meta
+Ads is the worked example. If a stateless API is being wrapped as an MCP server
+"because it's easier", that is the wrong call — make it a CLI.
+
+### Primitive 2 — Scoped connections (never user scope for a driver)
+
+When a driver **must** be a locally-registered MCP server — via `claude mcp add`
+or a `.mcp.json` entry — it registers at **project scope in the owner's BOS
+workspace folder**, never user scope. Project scope means only sessions opened
+in that folder ever attach the server; the owner's other projects stay fast
+because they never see it. This is the default for every connected driver.
+
+- **The one labelled exception:** the keyless **firecrawl** server, which
+  `tools/setup.py` registers at **user scope on purpose** — it is a universal,
+  keyless web-research utility that every session legitimately benefits from, and
+  this is existing, deliberate behavior. It is labelled here so the divergence
+  reads as policy, not drift. No other driver gets user scope.
+- **The room escape hatch (optional, for very heavy servers):** if a single
+  server is heavy enough that even project scope is a burden on the owner's main
+  workspace, give it its **own subfolder ("room") with its own `.mcp.json`**, so
+  only sessions opened *in that room* pay for it. The skill's connect doorway then
+  tells the owner, in plain language, "open Claude Code in your `<X>` folder" —
+  they never hear the word "scope".
+- **Out of BOS's hands:** claude.ai **connectors** (the sign-in type, like
+  TrustPager, Gmail, or Calendar) are **account-level** and cannot be scoped by a
+  local config file. This doctrine governs **local MCP registrations only**
+  (`claude mcp add` / `.mcp.json`). For a claude.ai connector, the lever the owner
+  has is the same "keep it lean, connect only what you'll use now" guidance the
+  connector cards already carry.
+
+### The deferral note — keep Claude Code current
+
+Current Claude Code defers a server's tool schemas behind tool-search: only the
+tool **names** load until one is actually fetched, which softens the standing
+cost of a registered server considerably. Older versions load every full schema
+up front (tens of thousands of tokens for a large server). So the standing
+advice, everywhere it surfaces to an owner, is simply **keep Claude Code
+current** — newer versions load connected tools far more token-efficiently. This
+is a softener on Primitive 2, never a replacement for it: scope is still the real
+lever, because deferral shrinks the per-session cost but does not remove it.
 
 ---
 

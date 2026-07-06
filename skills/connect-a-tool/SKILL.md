@@ -72,6 +72,15 @@ steps from the catalog entry:
 - **Claude app / Desktop:** Settings, then Connectors, find the tool, Connect,
   sign in with the right account, approve the access.
 - **Claude Code:** run `/mcp`, choose add/connect, and follow the sign-in.
+  - **Where it connects (the friendly default):** when a tool is added right here
+    in Claude Code (rather than as a claude.ai connector), connect it **to this
+    workspace folder**, not everywhere. Say it in one warm line, for example:
+    "I'll connect this to your workspace, so your other projects stay nice and
+    fast." (Some tools genuinely need to be available everywhere — the catalog
+    entry says so when that's the case, like web research.) The full reasoning
+    lives in the Connection Scoping Doctrine in
+    [`docs/architecture/tier-1-addon-kit.md`](../../docs/architecture/tier-1-addon-kit.md);
+    the owner never needs to hear it, just the one reassuring line.
   - **Exception, Meta Ads:** this one is added for the owner via the `claude mcp`
     CLI, walked step by step in
     [`drivers/meta-ads/connect.md`](../../drivers/meta-ads/connect.md). The owner

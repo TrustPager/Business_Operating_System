@@ -185,6 +185,7 @@ def check_floor() -> int:
         _warn("skipping the write->read round-trip until the libraries above are installed")
 
     _check_web_research()
+    _check_claude_code_version()
     return failures
 
 
@@ -210,6 +211,35 @@ def _check_web_research() -> None:
     else:
         _warn("web research (firecrawl) not registered yet. setup.py adds it; "
               "until then the built-in web search is the fallback")
+
+
+def _check_claude_code_version() -> None:
+    """Soft, non-fatal nudge to keep Claude Code current.
+
+    Newer Claude Code defers connected tools' schemas (names only until used), so
+    a registered tool costs far less per session than on older versions. This is a
+    friendly reminder only: if the CLI isn't on PATH we stay quiet, and this check
+    NEVER affects the exit code.
+    """
+    import shutil
+
+    claude = shutil.which("claude")
+    if not claude:
+        # No CLI on PATH (e.g. running the doctor outside Claude Code). Say nothing
+        # rather than nag — this is not a health problem.
+        return
+    try:
+        r = subprocess.run([claude, "--version"], capture_output=True, text=True, timeout=10)
+    except (OSError, subprocess.SubprocessError):
+        return
+    version = (r.stdout or r.stderr or "").strip().splitlines()
+    version = version[0].strip() if version else ""
+    if r.returncode == 0 and version:
+        _ok(f"Claude Code detected ({version}). Keep it current: newer versions "
+            "load tool connections far more token-efficiently.")
+    else:
+        _warn("Keep Claude Code current: newer versions load tool connections "
+              "far more token-efficiently.")
 
 
 def _configured_key() -> str | None:

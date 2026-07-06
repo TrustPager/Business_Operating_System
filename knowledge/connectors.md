@@ -16,6 +16,18 @@ every future turn. Keep it lean: connect only what the owner needs now, and wher
 the connector offers scopes, enable only the groups in use. A brand-new owner on
 a lighter plan should not have their context filled with tools they are not using.
 
+**Where it connects (default: this workspace).** When a tool is added locally in
+Claude Code (a `claude mcp add` or `.mcp.json` entry, rather than a claude.ai
+connector), connect it **to the owner's BOS workspace folder**, not everywhere,
+so their other projects stay fast. Frame it warmly: "I'll connect this to your
+workspace, so your other projects stay nice and fast." The one deliberate
+exception is keyless web research (firecrawl), which is available everywhere on
+purpose because every session benefits from it. claude.ai connectors (the
+sign-in type below, like Gmail or a CRM) are account-level and can't be pinned to
+a folder — for those, leanness is the only lever. The full reasoning is the
+Connection Scoping Doctrine in
+[../docs/architecture/tier-1-addon-kit.md](../docs/architecture/tier-1-addon-kit.md).
+
 **The connect-doorway articulation (one home — every connected doorway references
 this shape, never restates it).** Every connected add-on in BOS follows the same
 honest three-part shape: *here is X you can do keyless today; it becomes enhanced
@@ -185,6 +197,8 @@ ones owners ask for, by need:
 
 When an owner wants one that is not written up here yet, treat it as a new catalog
 entry: find its Connectors listing, learn the connect steps and the scopes, and
-walk them through it with the same shape above. The point of this library is that
-adding a connector is always the same friendly, verified walkthrough, never a
+walk them through it with the same shape above. If the new tool is added locally
+in Claude Code rather than as a claude.ai connector, connect it to the workspace
+folder by default (see "Where it connects" above). The point of this library is
+that adding a connector is always the same friendly, verified walkthrough, never a
 technical chore handed to the owner.
