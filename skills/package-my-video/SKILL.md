@@ -144,22 +144,22 @@ span reaches 10 seconds, then start the next chapter at the next beat:
    `on_screen` text (fall back to a human phrasing of its `role`, for example
    "Introduction" for `hook`).
 2. Keep absorbing the next beat into the current chapter until the chapter's span
-   (from its start to the next beat's start) is at least 10 seconds AND at least
-   one beat still remains to open a following chapter.
-3. When both hold, close the current chapter and open the next one at the next
+   (from its start to the next beat's start) reaches at least 10 seconds.
+3. When it does, close the current chapter and open the next one at that next
    beat, taking that beat's label.
-4. The **final chapter absorbs whatever is left**, even if the remainder is under
-   10 seconds. A short tail folded into the last chapter is fine; a short chapter
-   in the middle is not.
+4. The **final beat opens the last chapter**, which runs to the end of the video
+   and is allowed to be under 10 seconds. A short tail as the last chapter is fine;
+   a short chapter never appears in the middle, because you only ever split once a
+   chapter has already reached 10 seconds.
 
 Format each chapter start as a timestamp: `M:SS` normally, and `H:MM:SS` once the
 video passes an hour. The list is one line per chapter, timestamp first, then the
 label, for example `0:00 Quote in under a minute`.
 
 **Worked example** (the sample fixture's `timing.json`, beats at 0.0, 4.4, 11.6,
-24.0, 30.8, 41.2, 50.4, 60.0, ending 68.8). Hook (4.4s) and reset (6.8s) and cta
-(8.8s) are each under 10 seconds, so they merge. Walking the rule above gives
-five valid chapters:
+24.0, 30.8, 41.2, 50.4, 60.0, ending 68.8). Walking the rule above (split each
+time the open chapter reaches 10 seconds, and let the final beat open the last
+chapter) gives five valid chapters:
 
 ```
 0:00 Quote in under a minute
