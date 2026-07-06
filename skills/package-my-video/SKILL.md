@@ -132,8 +132,9 @@ YouTube's chapter feature, so honour all three):
   than 3, do not emit a chapter list at all; instead write the description
   without chapters and note in the readme that the video was too short or had too
   few distinct beats for valid chapters.
-- Each chapter must be **at least 10 seconds long**. YouTube rejects the whole
-  list if any chapter is shorter.
+- **Consecutive chapter start times must be at least 10 seconds apart.** YouTube
+  rejects the whole list otherwise. The final chapter may reach the video end in
+  under 10 seconds; that is fine, because what matters is the spacing between starts.
 
 **Merging short beats into valid chapters.** Beats are often shorter than 10
 seconds (a hook, a reset, a call to action), so you cannot map one beat to one
@@ -143,23 +144,29 @@ span reaches 10 seconds, then start the next chapter at the next beat:
 1. Start the first chapter at the first beat. Its label is that beat's
    `on_screen` text (fall back to a human phrasing of its `role`, for example
    "Introduction" for `hook`).
-2. Keep absorbing the next beat into the current chapter until the chapter's span
-   (from its start to the next beat's start) reaches at least 10 seconds.
-3. When it does, close the current chapter and open the next one at that next
-   beat, taking that beat's label.
-4. The **final beat opens the last chapter**, which runs to the end of the video
-   and is allowed to be under 10 seconds. A short tail as the last chapter is fine;
-   a short chapter never appears in the middle, because you only ever split once a
-   chapter has already reached 10 seconds.
+2. For each following beat, measure the gap from the current chapter's start to
+   that beat's start. If the gap is under 10 seconds, absorb the beat into the
+   current chapter. If it is 10 seconds or more, close the current chapter and
+   open a new one at that beat, taking its label. Apply this same test to every
+   beat, the last one included, so a new chapter only ever opens 10 or more
+   seconds after the previous chapter's start.
+3. The final chapter runs to the end of the video. A beat that lands under 10
+   seconds after the current chapter's start (including a short closing call to
+   action) is absorbed rather than given its own chapter, so the last chapter
+   simply holds that tail. Only the final chapter may be under 10 seconds long.
+4. Before emitting, run a safety check: confirm every consecutive pair of chapter
+   starts is at least 10 seconds apart. If any pair is closer, merge the later
+   chapter into the one before it. Then apply the "at least 3 chapters or none"
+   rule above.
 
 Format each chapter start as a timestamp: `M:SS` normally, and `H:MM:SS` once the
 video passes an hour. The list is one line per chapter, timestamp first, then the
 label, for example `0:00 Quote in under a minute`.
 
 **Worked example** (the sample fixture's `timing.json`, beats at 0.0, 4.4, 11.6,
-24.0, 30.8, 41.2, 50.4, 60.0, ending 68.8). Walking the rule above (split each
-time the open chapter reaches 10 seconds, and let the final beat open the last
-chapter) gives five valid chapters:
+24.0, 30.8, 41.2, 50.4, 60.0, ending 68.8). Walking the rule above (open a new
+chapter at each beat that lands 10 or more seconds after the current chapter's
+start, absorb the rest) gives five valid chapters:
 
 ```
 0:00 Quote in under a minute
@@ -169,9 +176,9 @@ chapter) gives five valid chapters:
 1:00 Book your free quote call
 ```
 
-Every chapter is at least 10 seconds except the final one, which is allowed to
-hold the short tail. The first is `0:00`, and there are more than 3, so the list
-is valid. (Round each `start_s` to the nearest second for the timestamp, so
+Every consecutive pair of chapter starts is at least 10 seconds apart; only the
+final chapter is shorter, holding the tail to the video end, which is allowed.
+The first is `0:00`, and there are more than 3, so the list is valid. (Round each `start_s` to the nearest second for the timestamp, so
 `11.6` becomes `0:12`.)
 
 ## Step 6: Degrade gracefully when an input is missing
