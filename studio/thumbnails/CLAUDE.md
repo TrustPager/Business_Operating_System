@@ -1,6 +1,18 @@
 # Thumbnails Studio — Instructions for AI Assistants
 
-You're working in the TrustPager YouTube Thumbnail Studio. Before doing anything in this directory, follow the protocol below.
+You're working in the YouTube Thumbnail Studio. It renders 1280x720 thumbnails on the owner's own brand, read from the root `brand/brand.json`. Before doing anything in this directory, follow the protocol below.
+
+> **Framing note (supersedes the earlier TrustPager-tutorial framing).**
+> This studio was originally written for the TrustPager tutorial channel:
+> every title had to say "TrustPager" and every hero was a product-tutorial
+> surface. That framing is now genericised to the owner's brand and any kind
+> of video, per the YouTube Studio design doc Decision 9
+> (`docs/architecture/2026-07-05-youtube-studio-design.md`). The distilled
+> craft (headline rules, the squint test, the thin-vertical-bleed hero rule,
+> the banned-framing table) stays exactly as-is. Only the brand-specific
+> hard-rules and the tutorial-only assumption flip: titles carry the owner's
+> brand, packaging can come from `plan-my-youtube`, and any kind of video is
+> welcome (a story, a tips video, a walkthrough), not tutorials alone.
 
 ---
 
@@ -8,13 +20,13 @@ You're working in the TrustPager YouTube Thumbnail Studio. Before doing anything
 
 Three files hold the rules. Read them end-to-end before changing `samples.json`, before rendering, before answering "how do I…":
 
-1. **[`YOUTUBE_TITLES.md`](YOUTUBE_TITLES.md)** — YouTube title patterns + description template + hard rules (TrustPager always, no third-party vendor names). Read FIRST when adding a new tutorial.
+1. **[`YOUTUBE_TITLES.md`](YOUTUBE_TITLES.md)** — YouTube title patterns + description template + hard rules (the owner's brand, no unintended third-party vendor names). Read FIRST when adding a new video.
 2. **[`README.md`](README.md)** — the human-readable guide. On-thumbnail headline rules, hero UI rules, file layout, workflow.
 3. **[`src/templates/YouTubeThumbnail.jsx`](src/templates/YouTubeThumbnail.jsx)** — JSDoc header at the top (~200 lines). Mirrors the README rules in compact form so you encounter them when touching the canonical template.
 
-If you skip these you'll reintroduce things we've already corrected: titles that name third-party vendors (`Claude`, `Retell`, `Twilio`), titles without `TrustPager`, weak headlines (`Build Forms That…` instead of `Forms That…`), banned colours (red / orange / purple in the hero chrome), generic activity lists where a topic-specific hero belongs, initial-letter avatars where real portraits exist, multi-column hero layouts that break the thin-vertical-bleed rule.
+If you skip these you'll reintroduce things we've already corrected: titles that name a competitor or an unintended third-party product where the owner's own brand belongs, weak headlines (`Build Forms That…` instead of `Forms That…`), off-brand colours in the hero chrome, generic activity lists where a topic-specific hero belongs, initial-letter avatars where real portraits exist, multi-column hero layouts that break the thin-vertical-bleed rule.
 
-> **Title vs headline — these are different artefacts with different rules.** The on-thumbnail **headline** is the big left-side text ("Forms That Auto-Fill Your CRM"). The **YouTube title** is the video's name on the channel ("How to Build & Send Forms in TrustPager"). Headline rules: README + JSDoc. Title rules: YOUTUBE_TITLES.md. Don't apply one rule set to the other.
+> **Title vs headline — these are different artefacts with different rules.** The on-thumbnail **headline** is the big left-side text ("Forms That Auto-Fill Your CRM"). The **YouTube title** is the video's name on the channel ("How I Quote a Job in Under a Minute"). Headline rules: README + JSDoc. Title rules: YOUTUBE_TITLES.md. Don't apply one rule set to the other.
 
 ---
 
@@ -46,12 +58,12 @@ Spatial constants live in `SYS` at the top of `YouTubeThumbnail.jsx`. Change the
 
 ## 3. The 4 questions to ask before making a new thumbnail
 
-When the user says "make a thumbnail for X", gather these BEFORE editing `samples.json`:
+When the user says "make a thumbnail for X", gather these BEFORE editing `samples.json`. If a `plan-my-youtube` pipeline row or a `<slug>.script.json` packaging block exists for this video, the working title, angle, and thumbnail concept are already chosen there — read them first and execute the concept rather than reinventing it.
 
-1. **What's the tutorial's core promise?** One sentence — the outcome the viewer gets.
-2. **Which headline angle?** Show 3–5 options across angles. 4–7 words, one accent word. "AI" not "Claude". Cut leading verbs (`Build`, `Create`, `Ensure`, `Make Sure`) when the noun already implies the action. Steal punchy idioms (`Level Up`, `One Place`, `Inside Out`). Banned openings: `Let`, `How to`, `Just`, `Stop X-ing`, `Tips for`.
+1. **What's the video's core promise?** One sentence — the outcome the viewer gets.
+2. **Which headline angle?** Show 3–5 options across angles. 4–7 words, one accent word. Prefer the plain word over a vendor's product name. Cut leading verbs (`Build`, `Create`, `Ensure`, `Make Sure`) when the noun already implies the action. Steal punchy idioms (`Level Up`, `One Place`, `Inside Out`). Banned openings: `Let`, `How to`, `Just`, `Stop X-ing`, `Tips for`.
 3. **Which word gets the gradient accent?** Usually the verb or the noun being transformed. Can be a two-word phrase (e.g. `One Place`, `Level Up`) — the regex handles spaces inside `\b...\b`.
-4. **Which hero matches this topic?** Find the iconic product surface the video walks through (open the corresponding `Tutorial<X>Page.tsx` in your tutorials folder). Then either:
+4. **Which hero matches this topic?** Pick the iconic visual centrepiece that carries what the video is about. A walkthrough picks the product surface it covers; a story or a tips video picks the shape that best carries its idea — the hero is not tutorial-only. Then either:
    - **Reuse an existing hero** from [`src/templates/heroes/`](src/templates/heroes/) if one already fits, or
    - **Build a new one** following [`heroes/index.js`](src/templates/heroes/index.js) — single outer container, thin/tall/vertical stack, bleeds off the bottom, brand colours only.
 
@@ -65,18 +77,18 @@ npm run make                 # interactive: prompt for key + headline + accent +
 npm run shoot <key>          # render one PNG + auto-open (iteration loop)
 npm run shoot                # render all designs in samples.json
 npm run shoot -- --no-open   # render without auto-opening
-npm run publish <key>        # render + upload to FinalPiece > Tutorial Thumbnails
+npm run publish <key>        # render + upload to the owner's workspace Images folder (when connected)
 npm run publish -- --all     # publish every design
-npm run coverage             # check which Remotion comps are missing thumbnails
+npm run coverage             # check which linked comps are missing thumbnails
 ```
 
-### Composition linking (mandatory)
+### Composition linking (optional, when a video project is linked)
 
-Every thumbnail entry MUST carry a top-level `composition` field naming the Remotion comp it belongs to. If you skip it:
+If a thumbnail belongs to a linked video project, carry a top-level `composition` field naming the comp it maps to. When you use it:
 
-- `npm run coverage` flags the entry as broken
+- `npm run coverage` flags a linked entry that has drifted
 - The studio sidebar shows ⚠ no composition linked in orange
-- The thumbnail is impossible to find from the Remotion side
+- The thumbnail is easy to find from the video side
 
 Look up comp ids in [`COMPOSITION_MAP.md`](COMPOSITION_MAP.md) (auto-generated) or by grepping `src/compositions/` for `<Composition id="...">`. When asked "is there a thumbnail for this video?" or the inverse, **run `npm run coverage` first** — never grep around blindly.
 
@@ -90,12 +102,12 @@ Look up comp ids in [`COMPOSITION_MAP.md`](COMPOSITION_MAP.md) (auto-generated) 
 {
   "<key>": {
     "template":    "youtube-thumbnail",
-    "composition": "Tutorial-FormBuilder",
+    "composition": null,
     "data": {
       "headline":   "Forms That Auto-Fill Your CRM",
       "accentWord": "Auto-Fill",
       "hero":       "forms",
-      "title":      "How to Build & Send Forms in TrustPager"
+      "title":      "How I Quote a Job in Under a Minute"
     }
   }
 }
@@ -103,13 +115,13 @@ Look up comp ids in [`COMPOSITION_MAP.md`](COMPOSITION_MAP.md) (auto-generated) 
 
 | Field | Purpose |
 |---|---|
-| `composition` | **Mandatory.** Remotion comp id (e.g. `Tutorial-FormBuilder`). Lets `npm run coverage` show what's linked vs missing in both directions. |
+| `composition` | Optional comp id (e.g. `Quote-Walkthrough`), or `null`. When set, lets `npm run coverage` show what's linked vs missing in both directions. |
 | `headline`    | The big left-side text. 4–7 words, contains the `accentWord` verbatim. |
 | `accentWord`  | The one word (or two-word phrase) that gets the gradient fill. Matches case-insensitively. |
 | `hero`        | Key into [`src/templates/heroes/index.js`](src/templates/heroes/index.js). Drives which hero component renders on the right. |
 | `title`       | The actual YouTube video title. Used as the output PNG filename so it drag-drops onto YouTube without renaming. |
 
-The short `<key>` is what drives the studio sidebar and click-to-copy command chips (`npm run shoot forms`). The `title` is what ends up on disk and in TrustPager's Tutorial Thumbnails folder.
+The short `<key>` is what drives the studio sidebar and click-to-copy command chips (`npm run shoot forms`). The `title` is what ends up on disk and in the owner's workspace Images folder.
 
 ---
 
@@ -119,7 +131,7 @@ Two pools of real avatar images. **Always prefer real images over initial-letter
 
 ### People avatars — [`src/profiles.jsx`](src/profiles.jsx)
 
-Five real portraits from the FinalPiece CDN, name-hashed for stability (same name → same face every time).
+Five real portraits, name-hashed for stability (same name → same face every time).
 
 ```jsx
 import { Avatar } from '../../profiles.jsx';
@@ -135,7 +147,7 @@ Eight AI-agent portraits ship under `public/agents/`: Aria, Marty, Mira, Lyra, O
 <img src="/agents/Aria.png" alt="Aria" style={{ width: 46, height: 46, borderRadius: '50%' }} />
 ```
 
-Brand-rule note: keep the surrounding chrome (status pills, role tags, capability badges) on the TrustPager palette (teal / green / blue / light teal / slate) even though the FinalPiece site brands each agent with purple / orange / red.
+Brand-rule note: keep the surrounding chrome (status pills, role tags, capability badges) on the owner's brand palette read from the root `brand/brand.json`. If a source screenshot brands something in an off-palette colour (purple / orange / red), remap it to the owner's brand colours.
 
 ---
 
@@ -188,7 +200,7 @@ thumbnails/
 │   ├── render.js                        ← puppeteer renderer (shared by shoot + publish)
 │   └── coverage.js                      ← npm run coverage
 ├── public/
-│   ├── trustpager-logo.png              ← brand wordmark
+│   ├── logo.png                         ← the owner's brand wordmark (from brand/logo.png)
 │   └── agents/                          ← AI agent portraits (Aria, Marty, …)
 └── output/                              ← rendered PNGs, named by YouTube title (gitignored)
 ```

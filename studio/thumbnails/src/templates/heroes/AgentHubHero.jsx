@@ -6,8 +6,9 @@
 //
 // Brand-colour rule: the portraits are full-colour images (intentional —
 // they're the agent identity). Surrounding chrome (status dots, pills,
-// capability tags) stays on the TrustPager palette: teal / green / blue /
-// light teal / slate. No orange / purple / red in the chrome.
+// capability tags) stays on the studio brand palette from theme.js
+// (per-owner brand-token wiring via brand.js is a later fidelity task).
+// No off-palette orange / purple / red in the chrome.
 
 import React from 'react';
 import { colors } from '../../theme.js';
