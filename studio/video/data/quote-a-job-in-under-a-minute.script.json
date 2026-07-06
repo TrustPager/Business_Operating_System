@@ -1,0 +1,86 @@
+{
+  "_comment": "COMMITTED FIXTURE for the studio/video smoke render. This is a copy of skills/script-my-video/sample.script.json (the beat-schema producer's own sample), so the studio renders exactly the shape script-my-video emits. Not real owner content; the palette comes from the neutral brand/brand.json starter, so the render is fully keyless and offline.",
+  "slug": "quote-a-job-in-under-a-minute",
+  "working_title": "How I Quote a Job in Under a Minute",
+  "packaging": {
+    "title_options": [
+      "How I Quote a Job in Under a Minute",
+      "The 60-Second Quote That Wins the Job",
+      "Quote Faster, Win More Work"
+    ],
+    "thumbnail_concept": "Owner holding a phone with a stopwatch overlay reading 0:58, brand colours behind.",
+    "angle": "The quote is the sale, not the paperwork after it."
+  },
+  "meta": {
+    "duration_target_s": 75,
+    "aspect": "16:9",
+    "hook_window_s": 5
+  },
+  "beats": [
+    {
+      "id": "hook",
+      "role": "hook",
+      "spoken": "I quote most jobs in under a minute, on the spot.",
+      "on_screen": "Quote in under a minute",
+      "b_roll": "Close-up of the owner tapping out a quote on a phone at a job site.",
+      "duration_s": 4.4
+    },
+    {
+      "id": "promise",
+      "role": "promise",
+      "spoken": "Here is the exact way I do it, so you can win the job before you leave the driveway.",
+      "on_screen": "Win the job before you leave",
+      "b_roll": "Owner walking back to the van, giving a thumbs up.",
+      "duration_s": 7.2
+    },
+    {
+      "id": "point-1",
+      "role": "point",
+      "spoken": "First, I price the three things that matter most and I keep a short list of standard rates on my phone so the numbers are ready before I even arrive.",
+      "on_screen": "Standard rates, ready on your phone",
+      "b_roll": "Screen recording of a simple rate list.",
+      "duration_s": 12.4
+    },
+    {
+      "id": "reset-1",
+      "role": "reset",
+      "spoken": "Now here is the part most people miss, and it is the reason the fast quote actually lands.",
+      "on_screen": "The part most people miss",
+      "b_roll": "Owner turning to camera.",
+      "duration_s": 6.8
+    },
+    {
+      "id": "point-2",
+      "role": "point",
+      "spoken": "I say the price out loud, confidently, and then I stay quiet and let the customer respond, because the pause does the selling for me.",
+      "on_screen": "Say the price, then pause",
+      "b_roll": "Two-shot of the owner and a customer nodding.",
+      "duration_s": 10.4
+    },
+    {
+      "id": "proof-1",
+      "role": "proof",
+      "spoken": "One customer told me the fast, clear quote was the reason they picked us over two other plumbers who never called back.",
+      "on_screen": "Chosen over two others",
+      "b_roll": "Text overlay of a real review, used only where one exists.",
+      "evidence_ref": "cv-quote-014",
+      "duration_s": 9.2
+    },
+    {
+      "id": "point-3",
+      "role": "point",
+      "spoken": "Then I send the written version the same day, so the number they already agreed to is simply confirmed, not renegotiated.",
+      "on_screen": "Confirm it the same day",
+      "b_roll": "Phone showing a quote email being sent.",
+      "duration_s": 9.6
+    },
+    {
+      "id": "cta",
+      "role": "cta",
+      "spoken": "If you want a quote like that for your own job, book a free quote call and I will walk you through it.",
+      "on_screen": "Book your free quote call",
+      "b_roll": "End card with the booking link and brand logo.",
+      "duration_s": 8.8
+    }
+  ]
+}
