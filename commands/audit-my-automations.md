@@ -1,5 +1,5 @@
 ---
-description: Health-check every automation: which are firing, stale, erroring, missing safety dials, or overlapping. Problems first, each with a one-line fix.
+description: Health-check every automation: which are firing, stale, erroring, or overlapping, with a fix each.
 ---
 
 Run the **audit-my-automations** skill.

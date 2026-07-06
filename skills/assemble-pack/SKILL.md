@@ -1,6 +1,6 @@
 ---
 name: Assemble Pack
-description: Combine a record's filled forms and uploaded files into one ordered PDF pack, ready to send onward — a lender application bundle, an insurance underwriter pack, a council submission. Lists what's on the opportunity, lets the operator pick the files and the order, confirms, then produces one bundled PDF back on the record. The "gather it all into one document" step that sits after /extract-document, /update-pdf, and the portal uploads.
+description: Combine a record's filled forms and uploaded files into one ordered PDF pack, ready to send onward (a lender bundle, an underwriter pack, a council submission). Lists what's on the opportunity, lets you pick the files and order, confirms, then produces one bundled PDF back on the record. The "gather it all into one document" step after /extract-document and /update-pdf.
 triggers:
   - assemble the pack
   - build the lender pack

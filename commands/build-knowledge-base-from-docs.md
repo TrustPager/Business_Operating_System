@@ -1,5 +1,5 @@
 ---
-description: Turn your policy, FAQ, and product documents into answerable AI Knowledge. Converts your files to Markdown and loads them into TrustPager's AI Knowledge, so the in-app assistant and your voice agents answer from your real documents.
+description: Turn your policy, FAQ, and product docs into answerable AI Knowledge for the assistant.
 ---
 
 Run the **Build Knowledge Base From Docs** skill.

@@ -1,5 +1,5 @@
 ---
-description: Give me one name (a prospect, a partner, or a company) and I'll build a one-page pre-meeting brief covering who they are, what they do, and recent signals, plus three sharp questions, so you walk in as the most prepared person in the room. Keyless: built from live web research, no accounts or files needed.
+description: Walk into any meeting prepared, with a one-page brief plus three questions that open the room.
 ---
 
 Run the **Research Before Call** skill at `skills/research-before-call/SKILL.md`

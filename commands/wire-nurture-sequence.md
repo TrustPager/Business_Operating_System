@@ -1,5 +1,5 @@
 ---
-description: Push approved nurture-sequence drafts into a live TrustPager auto queue: updates existing actions, adds new ones for silent stage-movers, inserts new queue steps with the reverse-order step_order shuffle. Requires TrustPager connected.
+description: Push an approved set of follow-up drafts live in the right order so the sequence runs on its own.
 ---
 
 Run the **Wire Nurture Sequence** skill.

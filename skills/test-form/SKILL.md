@@ -1,6 +1,6 @@
 ---
 name: Test Form
-description: Safely test a form or client portal before any real customer sees it. Checks the form's CRM field mapping, sends a test to the operator (or a test contact, never a real client), walks through submitting it, and confirms the answers wrote back onto the record correctly. Answers the question "how do I check this works without going to a customer?". The verify-before-a-customer discipline applied to forms.
+description: Safely test a form or client portal before any real customer sees it. Checks the form's CRM field mapping, sends a test to you (or a test contact, never a real client), walks through submitting it, and confirms the answers wrote back onto the record correctly. The verify-before-a-customer discipline applied to forms.
 triggers:
   - test this form
   - check this form works

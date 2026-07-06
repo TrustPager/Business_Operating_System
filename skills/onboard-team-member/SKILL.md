@@ -1,6 +1,6 @@
 ---
 name: Onboard Team Member
-description: Set up a new team member to operate on Claude Code with the team's standards baked into THEIR setup. Reads the single team-standards file plus the live workspace, then generates the new person's CLAUDE.md + a small memory pack + a role-scoped command list into ./team/<name>/ for them to install. So the whole team sounds like one business and follows the same verify-first process, without anyone re-explaining it each time. Run once per new hire; re-run to refresh a person's pack when team-standards change.
+description: Set up a new team member on Claude Code with your team's standards baked into their setup. Reads the team-standards file plus the live workspace, then generates the new person's CLAUDE.md, a memory pack, and a role-scoped command list into ./team/<name>/ to install, so the whole team follows one process. Re-run to refresh when standards change.
 triggers:
   - onboard a team member
   - add someone to my team

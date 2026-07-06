@@ -1,6 +1,6 @@
 ---
 name: Write A Proposal
-description: Turn a priced scope and the owner's brand voice into the proposal that wins the job, an on-brand proposal or statement of work in the owner's voice, written out as a real .docx they can send. Consumes a priced breakdown (from price-my-work or typed in) plus their voice doc, and lays out cover, understanding of the need, scope and deliverables, the priced breakdown, timeline, terms, and the next step. Also has a tender / technical-section mode for technical-services firms: a methodology, technical-approach, or capability section (not a price-first proposal) answering a tender or RFP. Keyless, works from what you have day one. One proposal per run.
+description: Turn a priced scope and your brand voice into the proposal or statement of work that wins the job, written as a real .docx you can send: cover, scope, the priced breakdown, timeline, terms, next step. Also a tender mode for technical-services firms: a methodology or capability section answering an RFP. Keyless. One proposal per run.
 triggers:
   - write a proposal
   - write me a proposal

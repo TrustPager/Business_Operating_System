@@ -1,5 +1,5 @@
 ---
-description: Turn the words your customers actually use (from reviews, testimonials, and call notes you paste in, or local files) into a customer-voice doc. Works with zero accounts; deepens automatically when your workspace is connected.
+description: Turn the words your customers use into a customer-voice doc that grounds all your marketing.
 ---
 
 Run the **Build Customer Voice** skill.

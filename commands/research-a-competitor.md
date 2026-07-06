@@ -1,5 +1,5 @@
 ---
-description: Read one rival's page and get a sharp one-page operator's read: how they position, what they appear to charge, the offers they lead with, and where the openings are for your business. One competitor, one page-read, from the live web. No accounts needed.
+description: Read a rival's page and get a sharp one-page read: how they position, what they charge, and openings.
 ---
 
 Run the **Research A Competitor** skill.

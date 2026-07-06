@@ -1,5 +1,5 @@
 ---
-description: Per client, what supporting documents you asked for versus what's actually arrived, so you chase exactly what's missing, not "the form's incomplete". Most-overdue clients first, with a reminder ready to send.
+description: Per client, what you asked for versus what has arrived, so you chase exactly the right thing.
 ---
 
 Run the **Outstanding Documents** skill.

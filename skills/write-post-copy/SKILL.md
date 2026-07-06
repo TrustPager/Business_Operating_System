@@ -1,6 +1,6 @@
 ---
 name: Write Post Copy
-description: Draft the publish-ready words for a social post in the owner's own voice. This writes the caption or body that goes out with the graphic, built from a planned content idea or a one-line brief. Reads the brand voice if it has been set, and falls back to the owner's words if not. Optionally also drafts the paid-ad primary text and a headline variant. Pairs with make-social-post, which makes the picture. Keyless, positive-only, outcome-led.
+description: Draft the publish-ready words for a social post in your own voice: the caption or body that goes out with the graphic, built from a planned content idea or a one-line brief. Reads your brand voice if set, falls back to your words if not. Optionally drafts the paid-ad primary text and a headline variant. Pairs with make-social-post, which makes the picture. Keyless.
 triggers:
   - write post copy
   - draft a caption

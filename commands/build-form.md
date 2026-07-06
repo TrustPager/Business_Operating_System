@@ -1,5 +1,5 @@
 ---
-description: Design and create a form template with fields, types, and order. Plans the field list in chat for approval, then creates it via MCP. Wiring to CRM variables and connecting to an intake is the next step (wire-form).
+description: Design a form template with the fields, types, and order you need.
 ---
 
 Run the **Build Form** skill.

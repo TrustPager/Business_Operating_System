@@ -1,5 +1,5 @@
 ---
-description: Classify new inbound leads (last 24-48h), score by fit, and draft the right first response per lead: fast track, slow burn, or disqualify.
+description: Sort new leads by fit and draft the right first response for each: fast-track, slow burn, or pass.
 ---
 
 Run the **lead-triage** skill.

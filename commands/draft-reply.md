@@ -1,5 +1,5 @@
 ---
-description: Draft a reply to an email or SMS you received. Pulls the context, writes the response in your tone, shows it for your approval.
+description: Draft a reply to an email or text in your tone, with the context pulled in, for your approval.
 ---
 
 Run the **draft-reply** skill.

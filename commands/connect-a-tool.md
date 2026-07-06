@@ -1,5 +1,5 @@
 ---
-description: Connect one of your tools (Gmail, Google Calendar, and more) with a friendly, verified walkthrough, then put it to work. It explains what the tool unlocks, gives the exact steps for your Claude app, handles the privacy and setup thinking for you, checks it worked, and helps you find the connectors that fit your business.
+description: Connect a tool like Gmail or Google Calendar with a friendly, verified walkthrough, then use it.
 ---
 
 Run the **Connect A Tool** skill.

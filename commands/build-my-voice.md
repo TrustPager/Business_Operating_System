@@ -1,5 +1,5 @@
 ---
-description: Lock in how you sound so every content app writes as you. Point it at a file of your real emails or posts, answer a short "this, not that" session, and it writes your voice to the files the rest of your system already loads. Builds your company voice and, if you want, your personal voice. No accounts needed, works from your own words.
+description: Lock in how you sound so every content app writes as you, from your own words.
 ---
 
 Run the **Build My Voice** skill.

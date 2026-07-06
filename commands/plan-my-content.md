@@ -1,5 +1,5 @@
 ---
-description: Turn your brand's content pillars and voice into a dated, ready-to-post calendar for the next 1-2 weeks. Each slot names the date, channel, pillar, hook, and format, so you open it and know exactly what to post and when. No accounts or files needed: if you don't have pillars yet, it derives working ones from a short brief.
+description: Turn your content pillars and voice into a dated, ready-to-post calendar for the next week or two.
 ---
 
 Run the **Plan My Content** skill.

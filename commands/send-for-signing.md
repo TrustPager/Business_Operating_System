@@ -1,5 +1,5 @@
 ---
-description: Send a copy of a document template to one or more signers on an opportunity, with the safeguards (confirm signers, preview merges, one real send at a time). Creates a tracked signing envelope.
+description: Send a document to signers with the safeguards: confirm signers, preview the merge, track signs.
 ---
 
 Run the **Send For Signing** skill.

@@ -1,6 +1,6 @@
 ---
 name: Review Team Draft
-description: A manager reviews a team member's customer-facing draft before it ships — checks it's in the team voice and that what it claims has been verified working, then approves it or returns it with a specific note. The human half of the verify-before-customer gate; stops off-voice or unverified messages reaching customers. Use when a teammate's draft is waiting for manager approval (per the team's approval rules).
+description: A manager reviews a team member's customer-facing draft before it ships: checks it's in the team voice and that what it claims has been verified, then approves it or returns it with a specific note. The human half of the verify-before-customer gate. Use when a teammate's draft is waiting for manager approval.
 triggers:
   - review team drafts
   - any drafts waiting for me

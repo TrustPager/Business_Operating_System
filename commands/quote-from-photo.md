@@ -1,5 +1,5 @@
 ---
-description: Turn a site photo (plus a voice memo or a few notes) into a drafted proposal or quote, with scope read off the image, line items, and a written proposal the operator reviews before it goes anywhere.
+description: Turn a site photo and a few notes into a drafted quote or proposal, ready for you to review.
 ---
 
 Run the **Quote From Photo** skill.

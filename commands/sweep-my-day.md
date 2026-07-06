@@ -1,5 +1,5 @@
 ---
-description: Morning briefing: what needs attention today across opportunities, tasks, comms, and missed calls.
+description: Get a morning briefing of everything that needs your attention today across deals, tasks, and messages.
 ---
 
 Run the **Sweep My Day** skill.

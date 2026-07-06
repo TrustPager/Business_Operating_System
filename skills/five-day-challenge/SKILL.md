@@ -1,6 +1,6 @@
 ---
 name: Five Day Challenge
-description: The 5-Day Owner-to-Operator Challenge. Five short, genuinely fun sessions that take an owner from zero to running their business with AI, one real win a day. Day 1 gets the system to understand their business and lands a first win, Day 2 their voice and content, Day 3 pricing and a proposal, Day 4 their money and paperwork, Day 5 makes it run itself. Resumable across days. Keyless for the first four days; the finale connects their first tools.
+description: The 5-Day Owner-to-Operator Challenge. Five short, fun sessions that take you from zero to running your business with AI, one real win a day: Day 1 your business and a first win, Day 2 voice and content, Day 3 pricing and a proposal, Day 4 money and paperwork, Day 5 makes it run itself. Resumable. Keyless for the first four days; the finale connects your first tools.
 triggers:
   - start the 5 day challenge
   - five day challenge

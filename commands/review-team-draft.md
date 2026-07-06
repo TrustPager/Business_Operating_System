@@ -1,5 +1,5 @@
 ---
-description: Review a team member's customer-facing draft before it ships. Checks it's in the team voice and that what it claims has been verified, then you approve it or send it back with a note. The quality gate that keeps junior staff from sending off-voice or unverified messages.
+description: Review a teammate's customer-facing draft before it ships, then approve it or send it back.
 ---
 
 Run the **Review Team Draft** skill.

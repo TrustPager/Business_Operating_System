@@ -1,5 +1,5 @@
 ---
-description: Send an email via TrustPager: picks the right config, drafts the body in your tone, attaches anything relevant, and gets your approval before it goes. Requires TrustPager connected.
+description: Send an email that drafts the body in your tone, attaches what is relevant, and gets your approval.
 ---
 
 Run the **send-email** skill.

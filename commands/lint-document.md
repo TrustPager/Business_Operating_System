@@ -1,5 +1,5 @@
 ---
-description: Pre-flight a document/signing template before it goes to a client. Every signer has a signature input, no broken or always-blank merge fields, no leftover placeholders. Read-only; fails first, then warnings.
+description: Pre-flight a signing template before it goes out: signatures, merge fields, nothing missing.
 ---
 
 Run the **Lint Document** skill.

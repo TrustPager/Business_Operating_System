@@ -1,5 +1,5 @@
 ---
-description: Design and render a branded social post (Instagram square/portrait, LinkedIn, or X) using the bundled Social Studio. Browser preview, puppeteer-rendered PNG, and optional one-command publish to your TrustPager Files folder if connected.
+description: Design and render branded social posts for Instagram, LinkedIn, and X, ready to publish.
 ---
 
 Run the **Make Social Post** skill.

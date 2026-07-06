@@ -1,6 +1,6 @@
 ---
 name: Profit Per Job
-description: Find out what one job type actually makes you, not what it bills. Revenue in, true costs out (materials, labour, a fair share of overheads, and the real per-job cost of any financed or depreciating gear), and you get the profit per job with the margin shown openly as a dollar figure and the overhead-recovery method stated in plain words. Keyless, works from what you type in, with an optional reusable .xlsx model. Folds in margin, so no separate margin app is needed.
+description: Find out what one job type actually makes you, not what it bills. Revenue in, true costs out (materials, labour, a share of overheads, and the per-job cost of financed or depreciating gear), and you get the profit per job with the margin shown as a dollar figure. Keyless, with an optional reusable .xlsx model. Folds in margin.
 triggers:
   - profit per job
   - what does this job actually make me

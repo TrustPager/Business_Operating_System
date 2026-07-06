@@ -1,6 +1,6 @@
 ---
 name: Extract Document
-description: Pull the data out of any document and use it. Converts the file (PDF, Word, Excel, PowerPoint, image/scan, HTML, CSV) to Markdown with the standard MarkItDown tool, then extracts what the operator asked for — answer a question about it, summarise it, or map named fields onto a CRM opportunity/contact. The general "read a document and do something with it" skill; built on knowledge/document-tools-method.md.
+description: Pull the data out of any document and use it. Converts the file (PDF, Word, Excel, PowerPoint, image/scan, HTML, CSV) to Markdown, then does what you asked: answer a question about it, summarise it, or map named fields onto a CRM opportunity or contact. The general "read a document and do something with it" skill; built on knowledge/document-tools-method.md.
 triggers:
   - extract data from this pdf
   - extract document

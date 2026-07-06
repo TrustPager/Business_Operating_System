@@ -1,6 +1,6 @@
 ---
 name: Build Customer Voice
-description: Turn the words your customers actually use into a customer-voice doc — the verbatim phrases, the outcomes they want, the worries that stall them, all in their language. Works keylessly day one from reviews, testimonials, and call notes you paste in (or local files it reads for you); deepens into a full transcript-mined synthesis when your workspace is connected. Foundation for every marketing strategy artefact downstream.
+description: Turn the words your customers actually use into a customer-voice doc: the verbatim phrases, the outcomes they want, the worries that stall them, in their language. Keyless from reviews, testimonials, and call notes you paste in; deepens into a full transcript-mined synthesis when your workspace is connected. Foundation for every marketing strategy artefact.
 triggers:
   - build customer voice
   - extract customer language

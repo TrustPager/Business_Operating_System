@@ -1,5 +1,5 @@
 ---
-description: Pre-flight a form template before it ships. Every data field wired (no orphans), labels match their wiring, required fields set, no leftover placeholders. Read-only; fails first, then warnings.
+description: Pre-flight a form before it ships: every field wired, required fields set, no leftover placeholders.
 ---
 
 Run the **Lint Form** skill.

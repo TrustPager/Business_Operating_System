@@ -1,5 +1,5 @@
 ---
-description: Combine a record's filled forms and uploaded files into one ordered PDF pack, ready to send to a lender, insurer, underwriter, or council. Pick the files and the order, confirm, and get one bundled document back on the opportunity.
+description: Combine a record's filled forms and files into one ordered PDF pack, ready to send onward.
 ---
 
 Run the **Assemble Pack** skill.

@@ -1,6 +1,6 @@
 ---
 name: Write A Policy
-description: Turn how an owner actually handles something (deposits, cancellations, refunds, privacy, or a funding / eligibility explainer) into clean, on-brand policy or FAQ text ready for their website, emails, or staff. Works keylessly day one from the owner's own words plus any voice docs they paste. For anything compliance-sensitive (privacy, allied-health funding like NDIS or Medicare), confirms the specifics with the owner first and never invents a legal or compliance claim. One policy or FAQ topic per run.
+description: Turn how you actually handle something (deposits, cancellations, refunds, privacy, or a funding/eligibility explainer) into clean, on-brand policy or FAQ text ready for your website, emails, or staff. Keyless, works from your own words. For anything compliance-sensitive it confirms specifics first and never invents a legal claim. One topic per run.
 triggers:
   - write a policy
   - write our cancellation policy

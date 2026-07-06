@@ -1,5 +1,5 @@
 ---
-description: Once you connect TrustPager, read your live workspace and write your CLAUDE.md for you -- company, pipeline stages, products, lead sources. Beats hand-filling a template.
+description: Once a CRM is connected, read your live workspace and write your business profile from real data.
 ---
 
 Run the **Learn My Business** skill.

@@ -1,5 +1,5 @@
 ---
-description: Diagnose why a specific automation didn't do what you expected: disabled, never matched, conditions skipped it, an action failed, or it ran fine and the surprise is in the outcome. One reason, one fix.
+description: Find the one real reason an automation did not do what you expected, plus the fix.
 ---
 
 Run the **why-didnt-it-fire** skill.

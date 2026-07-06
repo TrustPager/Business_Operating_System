@@ -1,5 +1,5 @@
 ---
-description: Set up a new team member to run on Claude Code with your team's standards baked in. Generates their CLAUDE.md + a memory pack + a role-scoped command list from your team-standards file and live workspace, so they sound like the team and follow the same process from day one.
+description: Set up a new hire on Claude Code with your team's standards baked into their setup.
 ---
 
 Run the **Onboard Team Member** skill.

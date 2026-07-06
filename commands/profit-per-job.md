@@ -1,5 +1,5 @@
 ---
-description: Find out what one job type actually makes you, not what it bills. Revenue in, true costs out (materials, labour, a fair share of overheads, and the real per-job cost of any financed or depreciating gear), and you get the profit per job with the margin shown openly as a dollar figure and the overhead-recovery method stated. Keyless, works from what you type in, with an optional reusable .xlsx model.
+description: Find out what one job type actually earns you after every cost, with your margin as a dollar figure.
 ---
 
 Run the **Profit Per Job** skill.

@@ -1,5 +1,5 @@
 ---
-description: A live renewal tracker .xlsx where the days-until-renewal column is a live formula that recalculates every time the file is opened. Licenses, insurances, certifications, registrations, and memberships in, rows sorted soonest-first, status flags on what is inside the lead window. Keyless, works from what the owner types in.
+description: A live tracker .xlsx for licenses, insurances, and certifications, where days-until-renewal updates.
 ---
 
 Run the **Renewal Tracker** skill.

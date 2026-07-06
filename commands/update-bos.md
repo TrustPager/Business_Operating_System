@@ -1,5 +1,5 @@
 ---
-description: Update your Business Operating System to the latest version, safely. It finds your install, pulls the newest version from GitHub, refreshes your skills and commands, and protects your own brand and settings so nothing you set gets overwritten. Then it tells you what changed and reminds you to restart.
+description: Update your Business Operating System to the latest version, safely, protecting your own settings.
 ---
 
 Run the **Update BOS** skill.

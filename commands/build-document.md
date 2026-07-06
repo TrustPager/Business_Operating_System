@@ -1,5 +1,5 @@
 ---
-description: Design and create a reusable signing document template with sections, merge fields, and signer inputs. Plans the structure in chat for approval, then creates it via MCP. Does not send it.
+description: Design a reusable signing document template with sections, merge fields, and signer inputs.
 ---
 
 Run the **Build Document** skill.

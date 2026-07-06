@@ -1,6 +1,6 @@
 ---
 name: Build Social Strategy
-description: Turn a business owner's goal into a tailored social-media strategy: which platform(s) to focus on and why, a realistic posting cadence, 3-4 content pillars mapped to the goal, the content mix, the one metric to watch, and the first concrete move this week. Keyless and reasoning-only from the owner's words plus optional free web research. One account and one target per run. Sits above plan-my-content (the dated calendar) and write-post-copy (the posts).
+description: Turn your goal into a tailored social-media strategy: which platform(s) to focus on and why, a realistic posting cadence, 3-4 content pillars mapped to the goal, the content mix, the one metric to watch, and the first move this week. Keyless, from your words plus optional web research. Sits above plan-my-content and write-post-copy.
 triggers:
   - build social strategy
   - build a social media strategy

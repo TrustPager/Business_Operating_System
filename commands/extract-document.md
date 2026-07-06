@@ -1,5 +1,5 @@
 ---
-description: Pull the data out of any document (PDF, Word, Excel, a scan or photo of a paper form) and use it. Converts the file to Markdown with MarkItDown, then extracts what you asked for: answer a question, summarise it, or write the fields onto a CRM record.
+description: Pull the data out of any file and use it: answer a question, summarise it, or map it to a record.
 ---
 
 Run the **Extract Document** skill.

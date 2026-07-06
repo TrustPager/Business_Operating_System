@@ -1,5 +1,5 @@
 ---
-description: Turn an existing paper or PDF form into a TrustPager form template, or an existing agreement/contract into a signing template. Reads the old document and builds the digital version so you stop working off paper.
+description: Turn an existing paper or PDF form or contract into a reusable digital template.
 ---
 
 Run the **Template From Document** skill.

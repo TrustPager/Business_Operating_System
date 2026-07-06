@@ -1,5 +1,5 @@
 ---
-description: Surface silent opportunities and draft personalised re-engagement messages, one at a time, for operator approval.
+description: Surface the deals that have gone quiet and draft a re-engagement message for each, to approve.
 ---
 
 Run the **Follow-up Radar** skill at `skills/follow-up-radar/SKILL.md`.

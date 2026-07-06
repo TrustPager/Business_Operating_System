@@ -1,5 +1,5 @@
 ---
-description: Log the call you just had. Captures the recap, updates the opportunity, schedules the next step, and notifies anyone who needs to know.
+description: Log the call you just had: capture the recap, update the deal, and schedule the next step.
 ---
 
 Run the **log-this-call** skill.

@@ -1,5 +1,5 @@
 ---
-description: Sync customer, invoice, and payment data from Xero into TrustPager so your opportunities reflect what's actually been paid. Requires TrustPager connected.
+description: Pull your customer, invoice, and payment data from Xero so your deals reflect what has been paid.
 ---
 
 Run the **sync-from-xero** skill.

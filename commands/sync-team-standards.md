@@ -1,5 +1,5 @@
 ---
-description: Push an update to your team-standards out to everyone. After you edit team-standards.md, this regenerates each team member's pack (CLAUDE.md + memory) with a diff, so the whole team picks up the change instead of drifting.
+description: Push a change to your team's standards out to everyone, with a per-person preview before it updates.
 ---
 
 Run the **Sync Team Standards** skill.

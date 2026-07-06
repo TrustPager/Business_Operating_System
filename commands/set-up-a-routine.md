@@ -1,5 +1,5 @@
 ---
-description: Turn a recurring job into something your system runs on its own. Once you've connected a tool like Gmail or Google Calendar, this builds a real routine on top of it (like a morning brief that reads your day and drafts your follow-ups), schedules it for you, shows it working once, and gives you plain-language controls to pause or change it.
+description: Turn a recurring job into something your system runs on its own, on a schedule, with plain controls.
 ---
 
 Run the **Set Up A Routine** skill.

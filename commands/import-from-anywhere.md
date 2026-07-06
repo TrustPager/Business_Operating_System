@@ -1,5 +1,5 @@
 ---
-description: Turn a messy source (a photo of a notebook, a phone-contacts export, a screenshot, a half-broken spreadsheet, or a pasted list) into one tidy customer list you can open and use. Reads it with MarkItDown, normalises it, and writes a clean .csv/.xlsx. Works with nothing connected.
+description: Turn a messy source, like a screenshot or a broken export, into one tidy customer list.
 ---
 
 Run the **import-from-anywhere** skill.

@@ -1,5 +1,5 @@
 ---
-description: Design and render a 1280x720 YouTube thumbnail for a tutorial video using the bundled studio. Browser preview, puppeteer-rendered PNG, and optional one-command publish to your TrustPager Files folder if connected.
+description: Design and render a polished YouTube thumbnail for a tutorial video.
 ---
 
 Run the **Make Thumbnail** skill.

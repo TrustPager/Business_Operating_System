@@ -1,6 +1,6 @@
 ---
 name: Coach My Calls
-description: Paste a sales call, quote visit, or discovery conversation and I'll coach it like a sharp sales manager, against a proven discovery framework, what you did well, the one or two highest-leverage things to change next time, and a line to actually say on the next call. Sharpen how you (or a team member) sell, which is often the fastest way to win more of the work you already get in front of. No accounts or files needed; auto-pulling calls per team member and tracking improvement over time is the connect-time upgrade.
+description: Paste a sales call, quote visit, or discovery conversation and I'll coach it like a sharp sales manager, against a proven discovery framework, what you did well, the one or two highest-leverage things to change next time, and a line to actually say on the next call. Keyless; auto-pulling calls per team member is the connect-time upgrade.
 triggers:
   - coach my calls
   - coach me on this call

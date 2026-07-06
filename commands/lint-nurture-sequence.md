@@ -1,5 +1,5 @@
 ---
-description: Check a nurture sequence against the house style: CTA above image, consistent sign-off, positive subjects, and set-wide consistency. Works on a live queue or local drafts.
+description: Check a follow-up sequence against your house style before it ships, and catch drift.
 ---
 
 Run the **Lint Nurture Sequence** skill.

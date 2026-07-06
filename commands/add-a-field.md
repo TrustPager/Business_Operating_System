@@ -1,5 +1,5 @@
 ---
-description: Add or change a custom field on your records (a text field or a dropdown, e.g. broker name, settlement date, bank) and optionally surface it on the opportunity card and in your spreadsheets. Self-serve the field changes you'd otherwise wait on.
+description: Add a custom field to your records and surface it on the card and in your spreadsheets.
 ---
 
 Run the **Add a Field** skill.

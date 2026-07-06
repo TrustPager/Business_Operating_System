@@ -1,6 +1,6 @@
 ---
 name: Outstanding Documents
-description: Per client, what supporting documents you asked for versus what's actually arrived — so you chase exactly the right thing instead of "your form's incomplete". Reads the file-upload fields on the forms you sent plus the files on the record, builds a ✓ received / ✗ missing checklist per client, and ranks the chase by how overdue the missing docs are. Document-level (what each client still owes); /form-radar is form-level (which forms are unfinished).
+description: Per client, what supporting documents you asked for versus what's actually arrived, so you chase exactly the right thing. Reads the file-upload fields on the forms you sent plus the files on the record, builds a received/missing checklist per client, and ranks the chase by how overdue. Document-level; /form-radar is form-level.
 triggers:
   - outstanding documents
   - what documents am I still waiting on

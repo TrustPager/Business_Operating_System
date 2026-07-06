@@ -1,5 +1,5 @@
 ---
-description: Design a multi-step email nurture sequence in the operator's voice: pick the help-center video per stage, draft each email anchored to a verbatim customer pain. Drafts only, no live writes.
+description: Draft a multi-step email follow-up sequence in your voice, ready for you to review.
 ---
 
 Run the **Design Nurture Sequence** skill.

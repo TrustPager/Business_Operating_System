@@ -1,5 +1,5 @@
 ---
-description: Show the state of every job: count by status, which work orders have stalled in one status too long, and which completed recently (candidates for a completion update or review ask). Stalls first.
+description: Show the state of every job: what has stalled too long and what completed recently, stalls first.
 ---
 
 Run the **Work Order Radar** skill.

@@ -1,5 +1,5 @@
 ---
-description: For Australian businesses. Prepare your quarterly Simpler-BAS GST figures (G1 total sales, 1A GST on sales, 1B GST on purchases) from the quarter's sales and purchases, with the GST calc shown and the ATO source cited. Prepare-only: I lay the numbers out for you to enter into your own BAS, I never lodge. Keyless, with an optional .xlsx. Runs only when your profile confirms Region: AU.
+description: Prepare your quarterly Simpler-BAS GST figures with the ATO source cited. Australian businesses only.
 ---
 
 Run the **Estimate My BAS** skill.

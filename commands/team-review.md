@@ -1,5 +1,5 @@
 ---
-description: A team-aware weekly rollup for managers: what each person shipped, deals that moved and who moved them, and where work is stuck. The team version of /weekly-review.
+description: Get a weekly rollup for managers: who shipped what, which deals moved, and where work is stuck.
 ---
 
 Run the **Team Review** skill.

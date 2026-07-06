@@ -1,6 +1,6 @@
 ---
 name: Renewal Tracker
-description: A live renewal tracker .xlsx the owner keeps and updates, where a days-until-renewal column is a live formula that recalculates every time the file is opened. Licenses, insurances, certifications, registrations, and memberships in, with each item's renewal date and an optional lead-time, and the owner walks away with a real spreadsheet sorted soonest-renewal-first, flags showing what is inside the lead window, and a clear view of what is coming up. Keyless, works from what the owner types in. Connecting a CRM or calendar is what turns these into reminders that actually fire.
+description: A live renewal tracker .xlsx where a days-until-renewal column recalculates every time you open the file. Put in your licenses, insurances, certifications, registrations, and memberships with each renewal date, and get a spreadsheet sorted soonest-first with the lead window flagged. Keyless; connect a CRM or calendar for reminders that fire.
 triggers:
   - renewal tracker
   - track my renewals

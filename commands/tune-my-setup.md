@@ -1,5 +1,5 @@
 ---
-description: Set up Claude Code with sensible working-style defaults and safe-read permissions, written into your global config so every project benefits. Two modes: apply the recommended defaults in one step, or answer a few short questions to build a personalised version. Additive and reversible at any time.
+description: Set up Claude Code with sensible working-style defaults and safe-read permissions, reversible anytime.
 ---
 
 Run the **Tune My Setup** skill.

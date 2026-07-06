@@ -1,6 +1,6 @@
 ---
 name: Transcript Summary
-description: Turn a recorded call or meeting into a usable write-up — a clean summary, the decisions, and the action list — from a transcript you paste or a local recording/transcript file. Reads the file the standard way (MarkItDown via tools/markitdown_convert.py), works on the text, and hands you something you can act on. Works day one with no accounts; once your CRM is connected I can also drop it straight onto the customer's record.
+description: Turn a recorded call or meeting into a usable write-up: a clean summary, the decisions, and the action list, from a transcript you paste or a local recording or transcript file. Reads the file with MarkItDown and hands you something you can act on. Keyless; once your CRM is connected I can drop it straight onto the customer's record.
 triggers:
   - transcript summary
   - summarise my last call

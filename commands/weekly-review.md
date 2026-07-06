@@ -1,5 +1,5 @@
 ---
-description: The Friday rollup: what shipped this week (deals won, tasks done, new opportunities), what stalled (deals gone quiet, overdue carried over), and where the pipeline sits now. Ends with next week's focus.
+description: Get the Friday rollup: what shipped, what stalled, and where the pipeline sits now.
 ---
 
 Run the **Weekly Review** skill.

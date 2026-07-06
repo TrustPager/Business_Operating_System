@@ -1,5 +1,5 @@
 ---
-description: Turn the owner's goal into a tailored social-media strategy: platform focus + why, posting cadence, 3-4 goal-mapped content pillars, the content mix, the one metric to watch, and the first move this week. Keyless and reasoning-only. One account and one target per run.
+description: Turn your goal into a tailored social plan: platforms, cadence, content pillars, and the first move.
 ---
 
 Run the **Build Social Strategy** skill.

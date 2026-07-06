@@ -1,5 +1,5 @@
 ---
-description: Turn the costs of a common job into a priced breakdown you can stand behind: line items, your margin shown openly as its own number, the total, and the assumptions written down so the price holds up when a customer asks how you got there. Works from what you type in, no accounts or files needed.
+description: Turn the cost of a job into a priced breakdown you can stand behind, with your margin shown.
 ---
 
 Run the **Price My Work** skill.

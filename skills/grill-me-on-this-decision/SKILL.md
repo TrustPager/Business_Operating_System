@@ -1,6 +1,6 @@
 ---
 name: Grill Me On This Decision
-description: Pressure-test one real business decision before you commit to it (a hire, a price rise, dropping a service, a big purchase). Surfaces the assumptions you're leaning on, pokes the weak points, argues both the do-it and don't-do-it cases at full strength, names the one thing that would actually change the answer, and ends with a clear recommendation for you to weigh. Pure reasoning, no accounts or files needed. A real pressure-test, not a cheer squad.
+description: Pressure-test one real business decision before you commit (a hire, a price rise, dropping a service, a big purchase). Surfaces your assumptions, pokes the weak points, argues both the do-it and don't-do-it cases at full strength, names the one thing that would change the answer, and ends with a recommendation. Not a cheer squad. Keyless.
 triggers:
   - grill me on this decision
   - pressure-test this decision

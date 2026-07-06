@@ -1,5 +1,5 @@
 ---
-description: Hand a piece of work to a team member: create the task assigned to them, notify them with the link, and set yourself a follow-up to verify it's done. Delegation that doesn't fall through the cracks. Requires TrustPager connected.
+description: Hand a piece of work to a team member, with a follow-up set so it does not slip.
 ---
 
 Run the **Delegate This Work** skill.

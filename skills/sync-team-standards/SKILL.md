@@ -1,6 +1,6 @@
 ---
 name: Sync Team Standards
-description: Propagate an update to the team's standards out to everyone. After the owner edits templates/team-standards.md (voice, verify rule, roles, approval rules), this regenerates each existing team member's pack (their CLAUDE.md + memory) from the new standards, shows a per-person diff, and updates only on confirmation. Closes the loop so a standards change reaches the whole team instead of only new hires. Run whenever team-standards.md changes.
+description: Push an update to the team's standards out to everyone. After you edit templates/team-standards.md (voice, verify rule, roles, approval rules), this regenerates each existing member's pack (CLAUDE.md + memory) from the new standards, shows a per-person diff, and updates only on confirmation. So a standards change reaches the whole team, not just new hires.
 triggers:
   - sync team standards
   - push the standards update

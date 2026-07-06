@@ -1,5 +1,5 @@
 ---
-description: Turn a priced scope and your brand voice into the proposal that wins the job: an on-brand proposal or statement of work in your voice, written out as a real .docx you can send today. Cover, understanding of the need, scope and deliverables, the priced breakdown, timeline, terms, and the next step. Works from what you have, no accounts needed.
+description: Turn a priced scope and your voice into the proposal that wins the job, as a document you can send.
 ---
 
 Run the **Write A Proposal** skill.

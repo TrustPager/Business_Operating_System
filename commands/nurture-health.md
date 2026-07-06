@@ -1,5 +1,5 @@
 ---
-description: Health-check your live nurture sequences: funnel, the step that's leaking, open/click rates, and whether the un-enrol side is firing.
+description: See whether your live follow-up sequences are working: the funnel and per-step open and click rates.
 ---
 
 Run the **Nurture Health** skill.

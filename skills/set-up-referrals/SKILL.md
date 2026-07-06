@@ -1,6 +1,6 @@
 ---
 name: Set Up Referrals
-description: Install a referral engine that actually brings work in, the ask designed as a warm introduction (not "got any names?"), timed to the moment a client is happiest, with a reward that works for both sides and a simple way to track it. A healthy business gets a big share of new work from referrals; most never ask properly. I'll write the ask scripts for each moment, recommend a reward that fits your business, and build a tracking sheet. No accounts or files needed; live referral links and automatic reward tracking are the connect-time upgrade.
+description: Install a referral engine that actually brings work in, the ask designed as a warm introduction (not "got any names?"), timed to the moment a client is happiest, with a reward that works for both sides and a simple way to track it. Keyless; live referral links and automatic reward tracking are the connect-time upgrade.
 triggers:
   - set up referrals
   - get more referrals

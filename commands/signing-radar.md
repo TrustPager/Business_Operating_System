@@ -1,5 +1,5 @@
 ---
-description: Show where every document you sent for signing stands, covering the sent to opened to signed funnel, who opened but hasn't signed (follow up now), who never opened and is going stale, and who declined. Hottest follow-ups first.
+description: Show where every document you sent for signing stands, and who to follow up or chase, hottest first.
 ---
 
 Run the **Signing Radar** skill.

@@ -1,5 +1,5 @@
 ---
-description: Turn a rough ask into a complete, explicit prompt you can hand to a person or to Claude. Fills the gaps (goal, context, exact inputs, steps, output format, constraints, how to verify) and returns a ready-to-paste prompt with no vague placeholders.
+description: Turn a rough ask into a complete, explicit prompt ready to hand to a person or your assistant.
 ---
 
 Run the **Write Prompt** skill.

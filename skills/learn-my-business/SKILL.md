@@ -1,6 +1,6 @@
 ---
 name: Learn My Business
-description: Once a CRM is connected, read the operator's live TrustPager workspace and DEEPEN their CLAUDE.md profile from real data — company + brand, the real pipeline stages, products and prices, lead sources, opportunity types — folding in any industry gotchas from knowledge/industry-notes.md. This is the connected deepener, not the cold front door: brand-new or keyless owners start with /start-here (a 60-second brain-dump, no accounts needed); this runs once a workspace is connected, or re-runs when its shape changes.
+description: Once a CRM is connected, read your live workspace and deepen your CLAUDE.md profile from real data: company and brand, real pipeline stages, products and prices, lead sources, opportunity types. The connected deepener, not the cold front door (keyless owners start with /start-here). Re-runs when the workspace shape changes.
 triggers:
   - learn my business
   - set up my CLAUDE.md

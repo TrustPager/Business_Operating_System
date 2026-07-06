@@ -1,5 +1,5 @@
 ---
-description: Report a bug or request a feature to the TrustPager team without leaving Claude. Captures a clear, well-structured report (what you expected, what happened, where) and files it as a service request, so the team can fix it fast. Use for "this is broken" or "I wish it could do X".
+description: File a clean bug report or feature request to the platform team without leaving your assistant.
 ---
 
 Run the **Report an Issue** skill.

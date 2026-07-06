@@ -44,6 +44,9 @@ jobs:
       - name: Connector safety + conformance
         run: python tools/check-connectors.py
 
+      - name: Surface budget (session-start descriptions stay flat)
+        run: python tools/check-surface-budget.py
+
       - name: Lint every skill
         run: |
           set -e

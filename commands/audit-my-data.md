@@ -1,5 +1,5 @@
 ---
-description: Find the mess: missing fields, bad/missing emails, likely-duplicate contacts, dormant/orphan records, opportunities with no contact/value/owner, overdue and undated tasks. Read-only; fix checklist worst-first.
+description: Find the gaps in your records: missing fields, likely duplicates, and dormant records, worst-first.
 ---
 
 Run the **Audit My Data** skill.

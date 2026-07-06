@@ -1,6 +1,6 @@
 ---
 name: Estimate My BAS
-description: For Australian businesses. Prepare your quarterly Simpler-BAS GST figures (G1 total sales, 1A GST on sales, 1B GST on purchases) from the quarter's sales and purchases, with the GST calculation method shown and the ATO source for the rate cited. Prepare-only: I lay out the numbers for you to enter into your own BAS, I never lodge anything. Keyless, works from what you type in, with an optional .xlsx of the prepared figures. Switches on only once your profile confirms Region: AU.
+description: For Australian businesses. Prepare your quarterly Simpler-BAS GST figures (G1 total sales, 1A GST on sales, 1B GST on purchases), with the calculation shown and the ATO source cited. Prepare-only: I lay out the numbers to enter on your own BAS, never lodge. Keyless, with an optional .xlsx. Switches on once your profile confirms Region: AU.
 triggers:
   - estimate my bas
   - prepare my bas

@@ -1,5 +1,5 @@
 ---
-description: A week-by-week cash flow forecast with a live .xlsx where the running balance recalculates when you change a number. Opening balance in, expected inflows and outflows by week out, and you see the tightest week coming so you can plan ahead. Clamped to 4-13 weeks. Folds in basic budgeting (planned vs expected). Keyless, works from what you type in.
+description: A week-by-week cash flow forecast in a live .xlsx where the running balance recalculates.
 ---
 
 Run the **Cash Flow Forecast** skill.

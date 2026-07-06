@@ -1,5 +1,5 @@
 ---
-description: Find recent missed calls, identify the caller, and draft a recovery SMS or callback message, one per missed call, ready to send.
+description: Find recent missed calls and draft a recovery text or callback message for each, to send.
 ---
 
 Run the **missed-call-recovery** skill.

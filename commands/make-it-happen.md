@@ -1,5 +1,5 @@
 ---
-description: Describe what you want done in plain English. Once TrustPager is connected, the skill figures out which tools to call, in what order, and gets your approval at each destructive step.
+description: Describe what you want done in plain English and have it carried out, approving each key step.
 ---
 
 Run the **make-it-happen** skill.

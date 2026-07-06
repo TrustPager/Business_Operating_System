@@ -1,5 +1,5 @@
 ---
-description: Who owes you money. Outstanding invoices as an aged summary, with the option to email it daily.
+description: Show who owes you money as an aged summary, optionally emailed to you on a schedule.
 ---
 
 Run the **Outstanding Invoices** skill.

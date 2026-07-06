@@ -1,6 +1,6 @@
 ---
 name: Build My Proof
-description: Turn a client result into your strongest marketing asset, a measured before-and-after transformation story in the client's own voice. Set it up at the start of a job (capture the "before" so there's a story to tell later), capture the "after" when the result lands, and I'll produce a written case study and a short video testimonial script the client can read on camera ("before working with you I was X, we did Y, now Z"). Also does a quick 5-star review-ask when you just want volume. Far stronger than a written testimonial. No accounts or files needed; tracked sends and a public review page are the connect-time upgrade.
+description: Turn a client result into your strongest marketing asset, a measured before-and-after transformation story in the client's own voice. Capture the "before" at the start of a job and the "after" when it lands, and get a written case study plus a video testimonial script. Also a 5-star review-ask for volume. Keyless; tracked sends are the upgrade.
 triggers:
   - build my proof
   - get a testimonial

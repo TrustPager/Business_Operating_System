@@ -1,5 +1,5 @@
 ---
-description: Show where every form you sent stands, covering the sent to opened to completed funnel, who started but didn't finish (nudge), who never opened it and is going stale (chase), and what completed this week. Hottest follow-ups first.
+description: Show where every form you sent stands, and who to nudge or chase, hottest follow-ups first.
 ---
 
 Run the **Form Radar** skill.

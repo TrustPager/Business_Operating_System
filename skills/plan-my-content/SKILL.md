@@ -1,6 +1,6 @@
 ---
 name: Plan My Content
-description: Turn a brand's content pillars and voice into a dated, ready-to-post content calendar for the next 1-2 weeks. Reads content-pillars.yaml + voice.md when they exist (built by build-brand-strategy); if they're missing, derives a few working pillars from a short brief so you're never blocked. Every slot names the date, the channel, the pillar it serves, the hook, and the format — so the owner opens it and knows exactly what to post and when. Bounded to a 1-2 week horizon, never a 90-day firehose.
+description: Turn your content pillars and voice into a dated, ready-to-post content calendar for the next 1-2 weeks. Reads content-pillars.yaml and voice.md when they exist, or derives working pillars from a short brief so you're never blocked. Every slot names the date, channel, pillar, hook, and format. Bounded to a 1-2 week horizon, never a 90-day firehose.
 triggers:
   - plan my content
   - build a content calendar

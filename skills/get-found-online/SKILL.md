@@ -1,6 +1,6 @@
 ---
 name: Get Found Online
-description: A bounded "are you findable, and what to fix first" audit for a local or service business, ending in a prioritized fix list you can action this week. Reads a handful of your key pages and your local search presence from the live web, orders the fixes by what actually moves the needle (answer speed and reviews before keywords), and hands you the exact change to make, a rewritten title, the review-ask script, the one page to add. One sitting, no accounts or files needed. Real search volumes, backlinks, and rank tracking are the connected-tier upgrade.
+description: A bounded "are you findable, and what to fix first" audit for a local or service business, ending in a prioritized fix list you can action this week. Reads your key pages and local search presence, orders fixes by what moves the needle, and hands you the exact change to make. Keyless; rank tracking is the connected-tier upgrade.
 triggers:
   - get found online
   - seo audit

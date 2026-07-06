@@ -1,6 +1,6 @@
 ---
 name: Set Up A Routine
-description: Turn a recurring job into something your system runs on its own. Once you have connected a tool like Gmail or Google Calendar, this builds a real routine on top of it (for example a morning brief that reads your day and drafts your follow-ups), sets it to run on a schedule for you, shows it working once, and hands you plain-language controls to pause or change it. This is the "it runs the work, you operate" step.
+description: Turn a recurring job into something your system runs on its own. Once you've connected a tool like Gmail or Google Calendar, this builds a real routine on top of it (for example a morning brief that reads your day and drafts your follow-ups), sets it on a schedule, shows it working once, and hands you plain-language controls to pause or change it.
 triggers:
   - set up a routine
   - make it run itself

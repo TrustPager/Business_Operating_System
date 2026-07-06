@@ -1,6 +1,6 @@
 ---
 name: Update PDF
-description: Populate a PDF with data from a CRM record so the operator doesn't retype it — a lender application, an agreement, an onboarding form filled from an opportunity or contact. Reads the blank form first (via MarkItDown) to learn its fields, maps them to the record, fills a copy, and shows it for review. The write side of the document tools (the read side is /extract-document); built on knowledge/document-tools-method.md.
+description: Fill a PDF with data from a CRM record so you don't retype it (a lender application, an agreement, an onboarding form filled from an opportunity or contact). Reads the blank form first to learn its fields, maps them to the record, fills a copy, and shows it for review. The write side of the document tools; built on knowledge/document-tools-method.md.
 triggers:
   - update this pdf
   - fill this pdf

@@ -1,5 +1,5 @@
 ---
-description: Describe a repetitive task you'd like to stop doing manually. Once TrustPager is connected, the skill builds the automation that does it for you: trigger, conditions, actions, the lot.
+description: Describe a repetitive task and get a working automation built: triggers, conditions, and actions.
 ---
 
 Run the **automate-this** skill.

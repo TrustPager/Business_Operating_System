@@ -1,6 +1,6 @@
 ---
 name: Build Knowledge Base From Docs
-description: Turn the business's policy / FAQ / product / process documents into answerable AI Knowledge in TrustPager. Converts each file (PDF, Word, slides, etc.) to Markdown with the standard MarkItDown tool, splits it into clean knowledge entries, and loads them into TrustPager AI Knowledge so the in-app assistant and voice agents answer from the client's real documents. Built on knowledge/document-tools-method.md.
+description: Turn your policy, FAQ, product, and process documents into answerable AI Knowledge in TrustPager. Converts each file (PDF, Word, slides) to Markdown, splits it into clean knowledge entries, and loads them so the in-app assistant and voice agents answer from your real documents. Built on knowledge/document-tools-method.md.
 triggers:
   - build a knowledge base from these docs
   - load my policies into ai knowledge

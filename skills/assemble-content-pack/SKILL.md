@@ -1,6 +1,6 @@
 ---
 name: Assemble Content Pack
-description: Gather the pieces of one finished social post into a single clean, named, ready-to-publish folder. Takes the brief or planned idea, the caption you already wrote, and the rendered graphic, and collates them into one tidy folder with a short readme of what's inside, so the whole post is in one place when it's time to publish. No generation, no network: it just collects, names, and labels what you already have. Pairs with write-post-copy (the words) and make-social-post (the picture).
+description: Gather the pieces of one finished social post (the brief, the caption, the rendered graphic) into a single clean, named, ready-to-publish folder with a short readme of what's inside. No generation, no network: it just collects, names, and labels what you already have. Pairs with write-post-copy (the words) and make-social-post (the picture).
 triggers:
   - assemble the content pack
   - put this post together

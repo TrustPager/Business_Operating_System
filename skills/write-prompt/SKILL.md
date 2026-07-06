@@ -1,6 +1,6 @@
 ---
 name: Write Prompt
-description: Turn a rough ask into a complete, explicit prompt ready to hand to a person or to Claude. Loads the prompt-writing method, fills the gaps (goal, context, exact inputs, steps, output format + example, constraints, verification) by asking only what's genuinely missing, and returns one copy-paste prompt with no vague placeholders. Use whenever you're briefing a teammate, writing an instruction for someone's Claude, or drafting an AI step in an automation.
+description: Turn a rough ask into a complete, explicit prompt ready to hand to a person or to Claude. Fills the gaps (goal, context, inputs, steps, output format, constraints, verification) by asking only what's genuinely missing, and returns one copy-paste prompt with no vague placeholders. Use when briefing a teammate or drafting an AI step in an automation.
 triggers:
   - write a prompt
   - sharpen this prompt

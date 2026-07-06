@@ -73,6 +73,12 @@ above on every push/PR with `BOS_OFFLINE: "1"` and **no secrets referenced
 anywhere** in the workflow. Order: secret scan → lint every skill → offline
 fixture tests → unit tests → linter self-check.
 
+`python tools/check-surface-budget.py` runs in that CI list too: it caps the
+session-start surface (every skill + command description is injected into
+context on every turn), failing if any `skills/*/SKILL.md` description exceeds
+400 chars or any `commands/*.md` description exceeds 150. The descriptions are
+the router, so trims must keep trigger vocabulary and cut only marketing prose.
+
 ## The only place a real key is allowed: opt-in live smoke
 
 Sometimes you need to confirm a `fetch.py` works against the real API. That is

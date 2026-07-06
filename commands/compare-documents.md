@@ -1,5 +1,5 @@
 ---
-description: Compare two documents and show exactly what changed (contract v1 vs v2, a revised quote, updated terms). Converts both to Markdown and highlights the differences in plain language.
+description: Compare two documents and show what actually changed, in plain language.
 ---
 
 Run the **Compare Documents** skill.

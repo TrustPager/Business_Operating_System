@@ -1,5 +1,5 @@
 ---
-description: Wire a form's fields to their CRM variables (so answers land on the record) and connect the form to how it's used: sent to a contact, internal fill, or an intake automation.
+description: Connect a form's fields to the right record so answers land where they should, then hook it in.
 ---
 
 Run the **Wire Form** skill.

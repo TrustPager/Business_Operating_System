@@ -1,5 +1,5 @@
 ---
-description: Build the brief before a customer call: who they are, the deal, the full history, what was said last time, what's open, and the one outcome to drive. Everything to walk in ready, in one read.
+description: Build the brief before a customer call: who they are, the deal, the history, and the outcome to drive.
 ---
 
 Run the **Prep For Call** skill.

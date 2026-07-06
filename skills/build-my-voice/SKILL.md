@@ -1,6 +1,6 @@
 ---
 name: Build My Voice
-description: Lock in how YOU sound so every content app writes as you, forever. Reads a file of your real emails, posts, and messages, then runs a short "this, not that" session to make you consciously choose your voice, and writes it to the voice files the rest of your system already loads. Builds both your company voice (how the business speaks) and your personal voice (how you write as yourself), same process for each. Keyless, works from your own words.
+description: Lock in how YOU sound so every content app writes as you, forever. Reads a file of your real emails, posts, and messages, then runs a short "this, not that" session and writes it to the voice files the rest of your system already loads. Builds both your company voice and your personal voice, same process for each. Keyless, works from your own words.
 triggers:
   - build my voice
   - lock in my voice

@@ -1,5 +1,5 @@
 ---
-description: Safely test a form or client portal before a real customer sees it. Send it to yourself or a test contact, fill it, and confirm the answers landed on the CRM record and the mapping is right. Check it works without touching a real client.
+description: Safely test a form or client portal before any real customer sees it, confirming answers land.
 ---
 
 Run the **Test Form** skill.

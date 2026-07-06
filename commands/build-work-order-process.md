@@ -1,5 +1,5 @@
 ---
-description: Set up a work-order process: define the statuses jobs move through and the fields captured on each. Plans the board in chat for approval, then creates it via MCP. Raising individual work orders comes after.
+description: Set up the statuses your jobs move through and the details captured at each step.
 ---
 
 Run the **Build Work Order Process** skill.

@@ -1,5 +1,5 @@
 ---
-description: Describe what you want to do in plain English, get a step-by-step walkthrough using TrustPager: links to the right pages, the exact tool calls, the gotchas. Requires TrustPager connected.
+description: Describe what you want to do and get a step-by-step walkthrough, with the right pages and gotchas.
 ---
 
 Run the **show-me-how** skill.

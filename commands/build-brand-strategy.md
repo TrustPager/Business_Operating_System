@@ -1,5 +1,5 @@
 ---
-description: Author the five canonical brand strategy docs (positioning, ICP, voice, value-props, content-pillars) from a customer-voice synthesis. Every claim anchored in a verbatim quote.
+description: Turn how you talk about your work into a sharp brand brief: positioning, a promise, and angles.
 ---
 
 Run the **Build Brand Strategy** skill.
