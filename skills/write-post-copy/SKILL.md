@@ -17,6 +17,7 @@ requires_driver: none
 requires_credential: none
 data_path: reasoning_only
 status: active
+produces_customer_facing_copy: true
 ---
 
 # Write Post Copy
@@ -25,7 +26,7 @@ You write the words a post goes out with: the caption, the body, the line under
 the picture. The graphic studio handles the on-image headline (that's the job of
 `make-social-post`). This is the publish-ready text the owner copies straight
 into the platform. One post per run, or a small matched set for a single
-campaign idea. Always in the owner's own voice, always leading with the result.
+campaign idea. Always in the owner's own voice.
 
 This pairs with `make-social-post`. That one makes the picture, this one writes
 the words. They run happily together (a graphic plus its caption for the same
@@ -91,12 +92,10 @@ it's going:
 
 Across all of them:
 
-1. **Open with the outcome, not the wind-up.** The first line names the win the
-   reader cares about. No "So I wanted to share something..." preamble. The
-   full hook space (business-method.md §18): outcome-led or curiosity-led;
-   contrarian hooks frame the better way, never the reader's failure; ad
-   callouts are identity + outcome ("Brunswick landlords: ..."), never
-   "Tired of X?".
+1. **Open with a strong hook, not a wind-up.** The first line has to earn the
+   scroll-stop. No "So I wanted to share something..." preamble. Reach for the
+   angle that fits the owner's brand and their audience; ad callouts that name
+   the person land well ("Brunswick landlords: ...").
 2. **One idea per post.** If two ideas are fighting, that's two posts. Pick the
    stronger one for this run.
 3. **One clear next step.** Book, reply, read, visit: one ask, stated plainly,
@@ -111,16 +110,14 @@ If the owner wants this as a paid ad too, add a second block. Don't replace the
 organic caption, sit it alongside:
 
 - **Primary text**: the body that runs above the creative. Tighter and more
-  direct than the organic caption. Lead with the outcome in the first line
-  (assume it gets truncated), make the value plain fast, one call to action.
-  Structure it per the ad anatomy (business-method.md §10.6): call out the
-  person (identity + outcome), make the value vivid, one CTA with a real
-  reason to act now — urgency stated as gain-timing (§18).
+  direct than the organic caption. Lead with your strongest line first (assume
+  it gets truncated), make the value plain fast, one call to action. Structure
+  it per the ad anatomy (business-method.md §10.6): call out the person, make
+  the value vivid, one CTA with a real reason to act now.
 - **Headline variant**: a single short line (think 5 to 7 words) for the ad's
-  headline field, outcome-led, that complements the on-image headline rather
-  than repeating it word for word.
+  headline field that complements the on-image headline rather than repeating
+  it word for word.
 
-Keep the ad copy on the same positive, outcome-led footing as everything else.
 Label the two clearly so the owner knows which is the organic caption and which
 is the paid version.
 
@@ -150,32 +147,20 @@ for its platform. Stay bounded: one idea per run, not a month's calendar.
 
 ## Hard rules
 
-- **Before you output anything customer-facing: positive/outcome-led, and NO em
-  dashes** (use colons, commas, parentheses, or separate sentences). Every word
-  that ships names the win, never the pain or what's missing. A field test
-  shipped a quote with an em dash because nothing reminded the model; this is
-  the reminder, check the copy before handing it over.
+- **Content guardrails.** Customer-facing copy uses no em dashes, invents no
+  facts, quotes, or numbers, and names no third-party vendor. Write it in the
+  owner's brand voice; the framing and the marketing psychology are the owner's
+  choice. The rules are in `knowledge/content-rules.md`.
 - **Keyless and reasoning-only.** This needs no accounts and no files beyond
   what the owner gives you. The real, finished artifact is the publish-ready
   copy itself.
 - **The owner's voice wins.** When a brand voice doc exists, write to it. When
   the owner's actual phrasing differs from any guideline, the owner's phrasing
   wins. Reflect their words back so it reads as *"that's exactly how I'd say it."*
-- **Positive-only, outcome-led, always.** The copy names the win, never the pain
-  or what's missing. Not "stop losing leads", but "every enquiry answered the
-  same day". (Understanding the owner's frustration while you talk it through is
-  fine; the shipped post stays on the result.)
-- **No em dashes in the copy.** Use a comma, a colon, parentheses, or two
-  sentences. This holds for every word that ships.
 - **One idea per post, one clear next step.** If it needs two asks or two ideas,
   it's two posts. Write the stronger one.
 - **When the post's next step points at an offer or lead magnet**, use its
-  five-part name (business-method.md §7.5) and sell the gain of a diagnostic
-  magnet (§10.4, §18).
-- **No invented proof.** Don't put a fake stat, a made-up testimonial, or a
-  customer quote the owner didn't give you into a post. Anchor in what's real.
-- **No third-party vendor or tool names** anywhere a follower would see them.
-  The post is the owner's brand, full stop.
+  five-part name (business-method.md §7.5).
 - **Bounded scope.** One post, or one small matched set for a single campaign
   idea, per run. A whole content calendar is a different job (that's the
   `plan-my-content` app).
