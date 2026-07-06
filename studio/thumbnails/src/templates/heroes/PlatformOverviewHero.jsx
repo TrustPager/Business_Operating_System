@@ -1,4 +1,4 @@
-// Platform Overview hero — vertical stack of every TrustPager feature.
+// Platform Overview hero — vertical stack of every tool the owner runs.
 //
 // Used by the "20 Tools in 1" promo thumbnail (composition: Promo-Hero-Loop).
 // Family pattern: card stack — one row per feature with a brand-coloured icon
