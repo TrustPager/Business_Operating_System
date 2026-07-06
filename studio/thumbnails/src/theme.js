@@ -1,4 +1,4 @@
-// TrustPager Thumbnail Studio — local design tokens.
+// YouTube Thumbnail Studio — local design tokens.
 // Self-contained so the studio runs without depending on cross-folder aliases.
 // Mirrors the tokens in ../src/TrustPager-src/theme.ts — keep in sync when brand changes.
 
