@@ -11,16 +11,18 @@
 //      top-level "composition" field
 //   3. Cross-references both directions and prints:
 //        * Linked    -- composition has a thumbnail
-//        * Missing   -- composition is a published tutorial with NO thumbnail
+//        * Missing   -- composition is a published video with NO thumbnail
 //        * Orphan    -- thumbnail entry points at a composition that doesn't exist
 //   4. Regenerates COMPOSITION_MAP.md at the project root
 //
-// Required = composition id starts with Tutorial- or Email-. These are the
-// published YouTube tutorial videos that need YouTube thumbnails. Everything
-// else (Feature-, Promo-, Hybrid-, Claude-, SpecCheck-) is treated as
-// optional / internal and surfaced only at the bottom of the report.
+// Required = composition id starts with Tutorial- or Email-. Those literal
+// prefixes are the naming convention on the linked Remotion project's side
+// (kept verbatim so the cross-reference matches the real comp ids). They mark
+// the published videos that need YouTube thumbnails. Everything else (Feature-,
+// Promo-, Hybrid-, and so on) is treated as optional / internal and surfaced
+// only at the bottom of the report.
 
-import { readFileSync, writeFileSync, readdirSync, statSync } from 'fs';
+import { readFileSync, writeFileSync, readdirSync, statSync, existsSync } from 'fs';
 import { resolve, dirname, join, relative } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -30,6 +32,28 @@ const REMOTION_ROOT = resolve(PROJECT_ROOT, '..');
 const REMOTION_SRC = resolve(REMOTION_ROOT, 'src/compositions');
 const SAMPLES_PATH = resolve(PROJECT_ROOT, 'src/data/samples.json');
 const MAP_PATH = resolve(PROJECT_ROOT, 'COMPOSITION_MAP.md');
+const BRAND_PATH = resolve(PROJECT_ROOT, '../../brand/brand.json');
+
+// Read the owner's brand so the title/description lint checks THEIR brand name
+// and CTA, not a hardcoded vendor. Same readFileSync+JSON.parse pattern used
+// for samples.json (robust across Node versions). Degrade gracefully if the
+// file is missing: no brand-name requirement, no CTA requirement.
+function loadBrand() {
+  try {
+    const b = JSON.parse(readFileSync(BRAND_PATH, 'utf8'));
+    const name = typeof b?.name === 'string' ? b.name.trim() : '';
+    const ctaText = (b?.cta && String(b.cta).trim()) || '';
+    const ctaUrl = (b?.ctaUrl || b?.url || (b?.cta && b.cta.url) || '');
+    let cta = '';
+    if (ctaText && ctaUrl) cta = `${ctaText}: ${ctaUrl}`;
+    else if (ctaText) cta = ctaText;
+    else if (ctaUrl) cta = String(ctaUrl).trim();
+    return { name, cta };
+  } catch {
+    return { name: '', cta: '' };
+  }
+}
+const BRAND = loadBrand();
 
 const COMPOSITION_REGEX = /<Composition\s+id=["']([^"']+)["']/g;
 
@@ -51,10 +75,17 @@ const BANNED_TITLE_WORDS = [
   'Recall', 'Recall.ai',
   'Stripe', 'Cloudflare',
 ];
-const REQUIRED_TITLE_WORD = 'TrustPager';
+// The neutral starter brand.json ships name "Your Business" as a placeholder;
+// treat that as "no brand set yet" so the lint doesn't demand a placeholder
+// word appear in the title. Once /brand-my-workspace sets a real name, titles
+// are checked against THAT.
+const REQUIRED_TITLE_WORD =
+  BRAND.name && BRAND.name.toLowerCase() !== 'your business' ? BRAND.name : '';
 const TITLE_MIN_WORDS = 4;
 const TITLE_MAX_WORDS = 14;
-const REQUIRED_CTA = 'Try TrustPager free: https://trustpager.com';
+// Only enforce a description CTA if the owner's brand.json carries one. No
+// hardcoded vendor CTA is ever required or injected.
+const REQUIRED_CTA = BRAND.cta || '';
 
 function lintTitle(title) {
   const issues = [];
@@ -62,7 +93,7 @@ function lintTitle(title) {
     issues.push('Title missing or not a string');
     return issues;
   }
-  if (!title.toLowerCase().includes(REQUIRED_TITLE_WORD.toLowerCase())) {
+  if (REQUIRED_TITLE_WORD && !title.toLowerCase().includes(REQUIRED_TITLE_WORD.toLowerCase())) {
     issues.push(`Missing "${REQUIRED_TITLE_WORD}"`);
   }
   for (const banned of BANNED_TITLE_WORDS) {
@@ -80,7 +111,8 @@ function lintTitle(title) {
 function lintDescription(desc) {
   const issues = [];
   if (!desc) { issues.push('No description'); return issues; }
-  if (!desc.trimEnd().endsWith(REQUIRED_CTA)) {
+  // Only enforce the CTA-at-end rule when the owner has set a CTA in brand.json.
+  if (REQUIRED_CTA && !desc.trimEnd().endsWith(REQUIRED_CTA)) {
     issues.push(`Missing CTA line at end ("${REQUIRED_CTA}")`);
   }
   return issues;
@@ -127,6 +159,17 @@ function pad(s, n) {
 
 function main() {
   const samples = JSON.parse(readFileSync(SAMPLES_PATH, 'utf-8'));
+
+  // In this decoupled layout the thumbnails studio ships on its own — there is
+  // no linked Remotion project alongside it, so REMOTION_SRC (../src/compositions)
+  // does not exist. Coverage only cross-references thumbnails against Remotion
+  // compositions, so with nothing to cross-reference there is nothing to check.
+  // Note it plainly and exit clean rather than crashing on readdirSync(ENOENT).
+  if (!existsSync(REMOTION_SRC)) {
+    console.log('No linked Remotion compositions in this layout; coverage skipped.');
+    return;
+  }
+
   const comps = findAllCompositions(REMOTION_SRC);
 
   // Build maps from samples.json
@@ -176,8 +219,8 @@ function main() {
 
   // ---- Console output ----
   console.log('');
-  console.log('TrustPager Thumbnail Coverage');
-  console.log('=============================');
+  console.log('YouTube Thumbnail Coverage');
+  console.log('==========================');
   console.log('');
   console.log(`  Linked:  ${linked.length}`);
   console.log(`  Missing: ${missing.length}  ${missing.length > 0 ? '  <- compositions without thumbnails' : ''}`);
@@ -252,7 +295,7 @@ function main() {
   // ---- Write COMPOSITION_MAP.md ----
   const ts = new Date().toISOString();
   let md = '';
-  md += '# TrustPager Thumbnail <-> Composition Map\n\n';
+  md += '# Thumbnail <-> Composition Map\n\n';
   md += 'Auto-generated by `npm run coverage`. Do not edit by hand.\n\n';
   md += `**Last run:** ${ts}\n\n`;
   md += `**Coverage:** ${linked.length} linked · ${missing.length} missing · ${orphans.length} orphans\n\n`;
@@ -280,7 +323,7 @@ function main() {
   if (missing.length === 0) {
     md += '_None. Every required composition has a thumbnail._\n\n';
   } else {
-    md += 'These published tutorial compositions have no entry in `samples.json`. Run `npm run make` to add one.\n\n';
+    md += 'These published compositions have no entry in `samples.json`. Run `npm run make` to add one.\n\n';
     md += '| Composition | File |\n';
     md += '|---|---|\n';
     missing.sort((a, b) => a.id.localeCompare(b.id));

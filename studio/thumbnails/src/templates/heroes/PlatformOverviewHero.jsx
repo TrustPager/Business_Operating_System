@@ -1,18 +1,19 @@
-// Platform Overview hero — vertical stack of every TrustPager feature.
+// Platform Overview hero — vertical stack of every tool the owner runs.
 //
 // Used by the "20 Tools in 1" promo thumbnail (composition: Promo-Hero-Loop).
 // Family pattern: card stack — one row per feature with a brand-coloured icon
 // dot, feature name, and one-line outcome subtitle. 8-9 rows visible, the
 // rest bleed off the bottom to signal "this goes on and on".
 //
-// Brand-colour rule: cycle teal / green / blue / light teal / deep teal /
-// slate ONLY. No orange / pink / purple / red even though the inline CRM
-// section uses per-feature accents — those are website chrome; thumbnails
-// stay on the TrustPager palette.
+// Brand-colour rule: the tile-accent cycle + text now flow from the owner's
+// brand tokens in brand.js (PRIMARY / SUCCESS / ACCENT / PRIMARY_DEEP /
+// LIGHT / SLATE), so /brand-my-workspace reskins it. Neutral card / border /
+// shadow greys stay as literals. No off-palette orange / pink / purple / red
+// even though a source product's inline section may use per-feature accents —
+// those are website chrome; thumbnails stay on the owner's brand palette.
 
 import React from 'react';
-import { colors } from '../../theme.js';
-import { ACCENT, LIGHT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS } from '../../brand.js';
+import { ACCENT, LIGHT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS, TEXT, TEXT_MUTED } from '../../brand.js';
 
 // 6-colour brand cycle — order tuned so adjacent rows never share a hue
 const BRAND_CYCLE = [PRIMARY, SUCCESS, ACCENT, PRIMARY_DEEP, LIGHT, SLATE];
@@ -63,12 +64,12 @@ const FeatureRow = ({ name, outcome, color, glyph }) => (
     <IconDot color={color} glyph={glyph} />
     <div style={{ flex: 1, minWidth: 0 }}>
       <div style={{
-        fontSize: 15.5, fontWeight: 800, color: colors.foreground,
+        fontSize: 15.5, fontWeight: 800, color: TEXT,
         letterSpacing: '-0.015em',
         lineHeight: 1.15,
       }}>{name}</div>
       <div style={{
-        fontSize: 11.5, fontWeight: 600, color: colors.mutedForeground,
+        fontSize: 11.5, fontWeight: 600, color: TEXT_MUTED,
         marginTop: 2, letterSpacing: '-0.005em',
         whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
       }}>{outcome}</div>
@@ -101,16 +102,16 @@ export const PlatformOverviewHero = () => (
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
           background: SUCCESS,
-          boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
+          boxShadow: `0 0 0 5px ${SUCCESS}38`,
         }} />
-        <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
+        <span style={{ fontSize: 19, fontWeight: 800, color: TEXT, letterSpacing: '-0.015em' }}>
           Every Tool. One Login.
         </span>
       </div>
       <span style={{
         fontSize: 11, fontWeight: 800, letterSpacing: '0.12em',
-        color: colors.primary,
-        background: 'rgba(41,198,198,0.14)',
+        color: PRIMARY,
+        background: `${PRIMARY}24`,
         padding: '5px 10px', borderRadius: 999,
       }}>20 TOOLS · 1 PLATFORM</span>
     </div>

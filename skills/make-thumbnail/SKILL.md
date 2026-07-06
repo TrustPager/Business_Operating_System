@@ -1,10 +1,10 @@
 ---
 name: Make Thumbnail
-description: Design and render a 1280×720 YouTube thumbnail for a tutorial video using the bundled Thumbnail Studio. Headline-first layout with hero UI on the right, distilled from 22+ iterations of design corrections.
+description: Design and render a 1280x720 YouTube thumbnail for one of your videos, on your own brand, using the bundled Thumbnail Studio. Headline-first layout with a hero visual on the right, distilled from 22+ iterations of design corrections. Takes the packaging concept from your channel plan. No accounts needed for the render.
 triggers:
   - make a thumbnail
   - design a youtube thumbnail
-  - build a tutorial thumbnail
+  - build a video thumbnail
   - new thumbnail
   - publish thumbnail
   - render thumbnail
@@ -18,11 +18,25 @@ status: active
 
 # Make Thumbnail
 
-You're helping the operator design and render a YouTube thumbnail for one
-of their tutorial videos using the bundled studio at
-`studio/thumbnails/`. The studio is a Vite + React + Puppeteer pipeline
-producing 1280×720 PNGs that can either stay local or be uploaded to the
-operator's workspace (when connected).
+You're helping the owner design and render a YouTube thumbnail for one
+of their videos using the bundled studio at `studio/thumbnails/`. The
+studio is a Vite + React + Puppeteer pipeline producing 1280x720 PNGs
+that can either stay local or be uploaded to the owner's workspace (when
+connected). The thumbnail carries the owner's own brand, read from the
+root `brand/brand.json`, so every render is on their palette and their
+name.
+
+> **Framing note (supersedes the earlier TrustPager-tutorial framing).**
+> This skill and its studio were originally written for the TrustPager
+> tutorial channel: titles had to say "TrustPager", every hero was a
+> product-tutorial surface. That framing is now genericised to the
+> owner's brand and any kind of video, per the YouTube Studio design doc
+> Decision 9 ([docs/architecture/2026-07-05-youtube-studio-design.md](../../docs/architecture/2026-07-05-youtube-studio-design.md)).
+> The distilled craft stays exactly as-is; only the brand-specific
+> hard-rules and the tutorial-only assumption flip. When this skill runs
+> inside the YouTube factory, the packaging concept (title options,
+> angle, thumbnail concept) comes from `plan-my-youtube`'s pipeline row
+> for the video.
 
 The design rules + title patterns + banned framings live in **three**
 canonical files inside the studio (read them BEFORE designing anything,
@@ -39,16 +53,35 @@ The methodology distilled from those three is also summarised at
 
 ## Step 1 — Confirm the brief
 
-Ask the operator for:
+If a `plan-my-youtube` pipeline row or a `<slug>.script.json` packaging
+block exists for this video, read it first: the working title, the
+angle, and the thumbnail concept are already chosen there, so you're
+executing a concept, not inventing one. Otherwise, ask the owner for:
 
 1. **What's the video about?** One-sentence outcome the viewer gets.
-2. **Already-shipped help center article or YouTube title?** If yes,
-   reuse the title for SEO consistency. If no, you'll generate one
-   following the YOUTUBE_TITLES.md patterns.
-3. **Hero family** — what's the visual centrepiece going to be? Six
-   options in the registry: card stack, event row, field stack, roster,
-   checklist, document, flow. Pick the one whose shape matches what the
-   feature actually looks like in the product.
+2. **A working title already picked?** If yes (from the channel plan or
+   the owner), reuse it for SEO consistency. If no, you'll generate one
+   following the YOUTUBE_TITLES.md patterns, on the owner's brand.
+3. **Hero family** — what's the visual centrepiece going to be? This is
+   the step whose size varies, so be honest with the owner about which
+   path they're on:
+   - **A shipped hero fits, so reuse it (quick, JSON-only).** The registry
+     ([`heroes/index.js`](../../studio/thumbnails/src/templates/heroes/index.js))
+     ships two families. The CRM/workspace surfaces (pipeline, contacts,
+     forms, approvals, e-signing, reports, and so on) carry software topics.
+     And three topic-agnostic starter heroes carry trade and tutorial
+     videos: `step-checklist` (a numbered how-to stepper), `before-after`
+     (a starting-point to now transformation), and `big-number` (one bold
+     stat, cost, or result). So a plumbing how-to reuses `step-checklist`
+     and a "real cost of X" video reuses `big-number`: set `"hero": "<key>"`
+     in `samples.json` and you're on the fill-in-JSON path.
+   - **Nothing fits, so a new hero gets authored (the rare case now).** Only
+     when none of the stock heroes carry your topic. An unknown key falls
+     back to the generic activity card, which fails the squint test, so
+     author a genuinely new React hero component and register it (real React
+     work, following the "Adding a hero" steps in `heroes/index.js`), not a
+     JSON edit. Say so before you start. With the starter heroes in stock, a
+     trade or tutorial video usually reuses one, so this is the exception.
 
 ## Step 2 — Add the design to samples.json
 
@@ -68,13 +101,13 @@ non-interactively), edit `src/data/samples.json` directly. The minimum
 shape is:
 
 ```json
-"my-tutorial-key": {
+"my-video-key": {
   "composition": null,
   "template": "youtube-thumbnail",
   "data": {
     "headline": "Forms That Auto-Fill Your CRM",
     "accentWord": "Auto-Fill",
-    "hero": "field-stack",
+    "hero": "forms",
     "title": "How to Build & Send Forms in Your Workspace"
   }
 }
@@ -125,8 +158,8 @@ browser, the JSDoc has a "Common mistakes" section worth reading.
 ## Step 5 — Publish (optional, when connected)
 
 The keyless deliverable is the rendered PNG. If the operator has a connected
-workspace, you can also upload the PNG to their own
-`Files > Images > Tutorial Thumbnails` folder:
+workspace, you can also upload the PNG to their own workspace, in the
+`Files > Images` area under a `YouTube Thumbnails` folder:
 
 ```bash
 npm run publish <design-key>
@@ -156,7 +189,7 @@ npm run publish -- --all --replace    # wipe + re-upload
   Vite dev server can still misrender in puppeteer if it uses unusual
   CSS features. Run `npm run shoot` and look at the actual PNG.
 - **Examples ≠ inspiration to copy.** The 6 PNGs in
-  `studio/thumbnails/examples/` are FinalPiece's own thumbnails. They
+  `studio/thumbnails/examples/` are the studio's bundled example thumbnails. They
   show the design DNA but are not templates to clone verbatim.
 - **Publish is optional.** If the operator wants the PNG to stay local
   (post manually to YouTube studio), skip publish. The shoot output in

@@ -6,12 +6,13 @@
 //
 // Brand-colour rule: the portraits are full-colour images (intentional —
 // they're the agent identity). Surrounding chrome (status dots, pills,
-// capability tags) stays on the TrustPager palette: teal / green / blue /
-// light teal / slate. No orange / purple / red in the chrome.
+// capability tags, text) now flows from the owner's brand tokens in
+// brand.js, so /brand-my-workspace reskins it in one shot. Neutral card /
+// border / shadow greys stay as literals. No off-palette orange / purple /
+// red in the chrome.
 
 import React from 'react';
-import { colors } from '../../theme.js';
-import { ACCENT, LIGHT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS } from '../../brand.js';
+import { ACCENT, LIGHT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS, TEXT, TEXT_MUTED } from '../../brand.js';
 
 const AGENTS = [
   {
@@ -150,7 +151,7 @@ const AgentCard = ({ a }) => {
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
             <span style={{
-              fontSize: 16, fontWeight: 800, color: colors.foreground,
+              fontSize: 16, fontWeight: 800, color: TEXT,
               letterSpacing: '-0.015em',
             }}>{a.name}</span>
             <Pulse color={s.color} />
@@ -163,7 +164,7 @@ const AgentCard = ({ a }) => {
             }}>{a.role}</span>
           </div>
           <div style={{
-            fontSize: 11, fontWeight: 600, color: colors.mutedForeground,
+            fontSize: 11, fontWeight: 600, color: TEXT_MUTED,
             marginTop: 1, letterSpacing: '-0.005em',
           }}>
             {a.title} · ran {a.runsToday}× today · last {a.lastRun}
@@ -177,7 +178,7 @@ const AgentCard = ({ a }) => {
         borderRadius: 8,
         padding: '7px 10px',
         border: '1px solid rgba(226,232,240,0.5)',
-        fontSize: 11.5, fontWeight: 600, color: colors.foreground,
+        fontSize: 11.5, fontWeight: 600, color: TEXT,
         letterSpacing: '-0.005em',
         lineHeight: 1.35,
         display: 'flex', alignItems: 'center', gap: 7,
@@ -194,8 +195,8 @@ const AgentCard = ({ a }) => {
         {a.caps.map((c, i) => (
           <span key={i} style={{
             fontSize: 9.5, fontWeight: 800, letterSpacing: '0.06em',
-            color: colors.mutedForeground,
-            background: 'rgba(148,163,184,0.14)',
+            color: TEXT_MUTED,
+            background: `${SLATE}24`,
             padding: '2px 8px', borderRadius: 4,
             textTransform: 'uppercase',
           }}>{c}</span>
@@ -219,16 +220,16 @@ export const AgentHubHero = () => (
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
           background: SUCCESS,
-          boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
+          boxShadow: `0 0 0 5px ${SUCCESS}38`,
         }} />
-        <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
+        <span style={{ fontSize: 19, fontWeight: 800, color: TEXT, letterSpacing: '-0.015em' }}>
           Your AI Team
         </span>
       </div>
       <span style={{
         fontSize: 11, fontWeight: 800, letterSpacing: '0.12em',
-        color: colors.primary,
-        background: 'rgba(41,198,198,0.14)',
+        color: PRIMARY,
+        background: `${PRIMARY}24`,
         padding: '5px 10px', borderRadius: 999,
       }}>7 ACTIVE · 113 RUNS TODAY</span>
     </div>

@@ -1,15 +1,27 @@
-# TrustPager YouTube Thumbnail Studio
+# YouTube Thumbnail Studio
 
-Standalone 1280×720 thumbnail studio for any tutorial video you make on top
-of your TrustPager workspace. Browser-based design editor at
-`localhost:3210`, puppeteer-based PNG export, one-command upload to YOUR
-TrustPager workspace's `Files > Images > Tutorial Thumbnails` folder.
+Standalone 1280×720 thumbnail studio for any kind of video you make, on your
+own brand. Browser-based design editor at `localhost:3210`, puppeteer-based
+PNG export, one-command upload to your workspace's Images folder.
+
+The studio renders on the owner's brand, read from the root `brand/brand.json`,
+so every thumbnail comes out in your own colours and wordmark. A walkthrough,
+a story, a tips video — the studio serves any of them, not tutorials alone.
+
+> **Framing note (supersedes the earlier TrustPager-tutorial framing).** This
+> studio was originally built for the TrustPager tutorial channel: every
+> title said "TrustPager" and every hero was a product-tutorial surface. That
+> framing is now genericised to the owner's brand and any kind of video, per
+> the YouTube Studio design doc Decision 9
+> (`docs/architecture/2026-07-05-youtube-studio-design.md`). The distilled
+> craft below (headline rules, the squint test, the thin-vertical-bleed hero
+> rule, the banned-framing table) stays exactly as-is; only the
+> brand-specific hard-rules and the tutorial-only assumption flip.
 
 This studio ships as part of the [Business Operating System](../../README.md)
-pack. The included `examples/` folder shows 6 real thumbnails from
-FinalPiece's TrustPager tutorial series — keep them as design inspiration,
-or wipe `src/data/samples.json` and start fresh with your own designs via
-`npm run make`.
+pack. The bundled sample designs show real thumbnails as design inspiration —
+keep them, or wipe `src/data/samples.json` and start fresh with your own
+designs via `npm run make`.
 
 ## 📖 Read these BEFORE making changes
 
@@ -17,14 +29,14 @@ The design rules live in **four** places. If you only read this README you'll mi
 
 | File | What's in the header | When to open |
 |---|---|---|
-| **[`YOUTUBE_TITLES.md`](YOUTUBE_TITLES.md)** | YouTube title patterns (4 of them) + description template + hard rules (must say TrustPager, no third-party vendor names) + banned word table + lint rules. | Before writing or editing any YouTube title or description. |
+| **[`YOUTUBE_TITLES.md`](YOUTUBE_TITLES.md)** | YouTube title patterns (4 of them) + description template + hard rules (carry the owner's brand, no unintended third-party vendor names) + banned word table + lint rules. | Before writing or editing any YouTube title or description. |
 | **[`src/templates/YouTubeThumbnail.jsx`](src/templates/YouTubeThumbnail.jsx)** (lines 1–250 JSDoc) | The canonical layout. Layer order, full brand palette + banned colours, on-thumbnail headline writing guide with all the verb-cutting + punchy-idiom examples, hero UI master rule, common mistakes, editing workflow. | Before touching the template, samples.json, or anything that affects the left-side composition. |
 | **[`src/templates/heroes/index.js`](src/templates/heroes/index.js)** (header comment) | The six family patterns (card stack / event row / field stack / roster / checklist / document / flow), step-by-step "add a hero" instructions, master rules each hero must follow with exact shadow / radius / padding values, anti-patterns we already corrected. | Before building a NEW hero or touching the hero registry. |
 | **[`CLAUDE.md`](CLAUDE.md)** | AI-assistant entry point. 4-question framework before generating, common mistakes, file map. | If you're an AI/LLM coming in fresh. Open this FIRST. |
 
 The README below is the human-friendly walkthrough. The four files above are the source of truth.
 
-> **Title vs headline — don't confuse the two.** The on-thumbnail **headline** is the big left-side text ("Forms That Auto-Fill Your CRM"). The **YouTube title** is what appears on the channel ("How to Build & Send Forms in TrustPager"). They serve different jobs — punch vs. search — and have different rules. The headline rules are in this README + the JSDoc. The title rules are in [`YOUTUBE_TITLES.md`](YOUTUBE_TITLES.md).
+> **Title vs headline — don't confuse the two.** The on-thumbnail **headline** is the big left-side text ("Forms That Auto-Fill Your CRM"). The **YouTube title** is what appears on the channel ("How I Quote a Job in Under a Minute"). They serve different jobs — punch vs. search — and have different rules. The headline rules are in this README + the JSDoc. The title rules are in [`YOUTUBE_TITLES.md`](YOUTUBE_TITLES.md).
 
 ---
 
@@ -41,13 +53,13 @@ In another terminal:
 ```bash
 npm run make                 # interactive: add a new design
 npm run shoot <key>          # render PNG + open it
-npm run publish <key>        # render + upload to TrustPager
+npm run publish <key>        # render + upload to your workspace Images folder
 npm run coverage             # which compositions are missing thumbnails?
 ```
 
 ## Linking thumbnails to Remotion compositions
 
-Every thumbnail entry in `samples.json` carries a top-level **`composition`** field naming the Remotion composition it belongs to (e.g. `"composition": "Tutorial-Pipeline"`). That field is the single source of truth for the link.
+Every thumbnail entry in `samples.json` carries a top-level **`composition`** field naming the Remotion composition it belongs to (e.g. `"composition": "Quote-Walkthrough"`), or `null` when the thumbnail isn't linked to a video project. That field is the single source of truth for the link.
 
 Two ways to look it up:
 
@@ -64,11 +76,11 @@ Run it after adding a new Remotion composition, or after a thumbnail render, to 
 
 ## What it produces
 
-1280×720 PNGs in `output/`. Sample design `connect-claude` is included as a reference.
+1280×720 PNGs in `output/`. A sample design is included as a reference.
 
 The current canonical design:
 - Flat white background, symmetric 28px margins
-- TrustPager wordmark at top-left
+- The owner's wordmark at top-left (from `brand/brand.json`)
 - Headline vertically centered on the left, one word in a teal→mint→blue gradient
 - AI Activity hero card on the right (8–10 items, bleeds off the bottom edge)
 - Soft color halos behind the hero card (left side stays clean white)
@@ -79,13 +91,13 @@ The current canonical design:
 1. **Add a design** — `npm run make` walks you through it (key, headline, accent word).
 2. **Iterate** — keep the dev server running and tweak `src/data/samples.json` or the template. Live reload.
 3. **Render to PNG** — `npm run shoot <key>` runs puppeteer + real Chrome and opens the result.
-4. **Publish** — `npm run publish <key>` renders again then uploads to the FinalPiece workspace's `Files > Images > Tutorial Thumbnails` folder on TrustPager.
+4. **Publish** — `npm run publish <key>` renders again then uploads to the owner's workspace Images folder (when connected).
 
 The studio's UI has click-to-copy chips for the shoot and publish commands so you don't have to remember the keys.
 
 ## Writing great thumbnails — what we learned
 
-The two things that sink a thumbnail are a **weak title** or a **hero UI that screams "configurator"**. These rules are distilled from iterating on all 22 tutorial thumbnails (and many corrected drafts).
+The two things that sink a thumbnail are a **weak title** or a **hero UI that screams "configurator"**. These rules are distilled from iterating on a full set of thumbnails (and many corrected drafts).
 
 ### Titles
 
@@ -263,14 +275,14 @@ Each samples.json entry references its hero by key:
     "headline":   "Sales and Service in One Place",
     "accentWord": "One Place",
     "hero":       "pipeline",
-    "title":      "How to Manage Your Sales Pipeline in TrustPager"
+    "title":      "How I Run Sales and Service From One Place"
   }
 }
 ```
 
 ### The six family patterns
 
-When you add a new tutorial topic, pick the existing pattern that best fits its surface and copy from the closest existing hero:
+When you add a new video topic, pick the existing pattern that best fits what the video is about and copy from the closest existing hero:
 
 | Pattern | Examples | When to use |
 |---|---|---|
@@ -321,7 +333,7 @@ Two pools of real images. **Always prefer real avatars over initial-letter colou
 
 ### People avatars — `src/profiles.jsx`
 
-Five real portraits served from the TrustPager CDN, hashed by name so the same fictional person always wears the same face:
+Five real portraits served from a CDN you configure (`IMG_BASE` in `profiles.jsx`), hashed by name so the same fictional person always wears the same face:
 
 ```jsx
 import { Avatar } from '../../profiles.jsx';
@@ -339,9 +351,9 @@ Eight AI-agent portraits (Aria / Marty / Mira / Lyra / Orion / Sable / Echo / Cu
 <img src="/agents/Aria.png" alt="Aria" style={{ width: 46, height: 46, borderRadius: '50%' }} />
 ```
 
-If the FinalPiece site adds new agents, just `Copy-Item` the new PNG into [`public/agents/`](public/agents/).
+To add new agents, just `Copy-Item` the new PNG into [`public/agents/`](public/agents/).
 
-**Brand rule on agents:** keep the surrounding chrome (status pills, role tags, capability badges) on the TrustPager palette. The agent portraits themselves stay full-colour — they're the identity. The FinalPiece site brands each agent with purple / orange / red, but that's THEIR site; in thumbnails, the chrome stays teal / green / blue / slate.
+**Brand rule on agents:** keep the surrounding chrome (status pills, role tags, capability badges) on the owner's brand palette, read from the root `brand/brand.json`. The agent portraits themselves stay full-colour — they're the identity. If a source screenshot brands something in an off-palette colour (purple / orange / red), remap that chrome to the owner's brand colours in the thumbnail.
 
 ## Output filenames match YouTube titles
 
@@ -349,9 +361,9 @@ The `title` field in each samples.json entry is the exact YouTube video title. `
 
 ```
 output/
-├── How to Set Up Online Booking & Scheduling in TrustPager.png
-├── How to Submit a Service Request in TrustPager.png
-├── How to Sync Google Calendar with TrustPager CRM.png
+├── How I Quote a Job in Under a Minute.png
+├── The Fastest Way to Follow Up After a Site Visit.png
+├── What Changed When I Started Quoting on the Spot.png
 └── …
 ```
 
@@ -407,7 +419,7 @@ thumbnails/
 │   │       ├── CrmTemplatesHero.jsx
 │   │       └── AutomationsHero.jsx
 │   └── data/
-│       └── samples.json                 every thumbnail (22 + connect-claude legacy)
+│       └── samples.json                 every thumbnail — edit to add new
 ├── scripts/
 │   ├── make.js                          npm run make (interactive add)
 │   ├── shoot.js                         npm run shoot
@@ -415,7 +427,7 @@ thumbnails/
 │   ├── render.js                        puppeteer renderer
 │   └── coverage.js                      npm run coverage (composition ↔ thumbnail map)
 ├── public/
-│   ├── trustpager-logo.png              brand wordmark
+│   ├── logo.png                         the owner's brand wordmark (from brand/logo.png)
 │   └── agents/                          AI agent portraits
 │       ├── Aria.png · Marty.png · Mira.png · Lyra.png
 │       └── Orion.png · Sable.png · Echo.png · Custom.png
@@ -424,7 +436,7 @@ thumbnails/
 
 ## Adding a new design
 
-End-to-end walkthrough for adding a fresh tutorial thumbnail:
+End-to-end walkthrough for adding a fresh thumbnail:
 
 ### 1. Decide the headline + accent
 
@@ -432,7 +444,7 @@ Apply the title rules above. Cut leading verbs. Steal punchy idioms. Pick a sing
 
 ### 2. Pick or build the hero
 
-- Open the matching `Tutorial<X>Page.tsx` in your tutorials folder to see the iconic product surface the video uses.
+- Decide the iconic visual centrepiece that carries what the video is about. A walkthrough picks the product surface it covers; a story or a tips video picks the shape that best carries its idea.
 - Pick a [family pattern](#the-six-family-patterns) that fits.
 - If an existing hero is close enough, reuse its key. Otherwise build a new component in [`src/templates/heroes/`](src/templates/heroes/), register it in [`heroes/index.js`](src/templates/heroes/index.js).
 
@@ -441,17 +453,17 @@ Apply the title rules above. Cut leading verbs. Steal punchy idioms. Pick a sing
 ```json
 "my-topic": {
   "template":    "youtube-thumbnail",
-  "composition": "Tutorial-MyTopic",
+  "composition": null,
   "data": {
     "headline":   "Punchy 4-7 Word Title",
     "accentWord": "Word",
     "hero":       "my-topic",
-    "title":      "How to <Verb> <Thing> in TrustPager"
+    "title":      "How I <Verb> <Thing>"
   }
 }
 ```
 
-The `composition` field is the Remotion comp id from `src/compositions/*.tsx` (look for `<Composition id="...">`). It's what `npm run coverage` cross-references to flag missing thumbnails.
+The `composition` field is optional: set it to the Remotion comp id from `src/compositions/*.tsx` (look for `<Composition id="...">`) when the thumbnail belongs to a linked video project, or leave it `null`. When set, it's what `npm run coverage` cross-references to flag missing thumbnails.
 
 ### 4. Render and verify
 
@@ -468,7 +480,7 @@ npm run shoot my-topic         # renders + auto-opens the PNG
 npm run publish my-topic
 ```
 
-Uploads to `https://app.trustpager.com/content/images` → Tutorial Thumbnails folder, with the YouTube title as the filename.
+Uploads to your workspace Images folder → the "YouTube Thumbnails" folder, with the YouTube title as the filename.
 
 ## Publishing
 
@@ -479,16 +491,16 @@ npm run publish <key> --replace        # delete the existing file then re-upload
 npm run publish -- --all --replace     # wipe + re-upload everything
 ```
 
-**Default behavior is idempotent.** Before uploading, `publish.js` lists the existing files in the Tutorial Thumbnails folder and skips any whose name already exists. First run uploads everything; subsequent runs are no-ops unless you've added a new entry to `samples.json`.
+**Default behavior is idempotent.** Before uploading, `publish.js` lists the existing files in the "YouTube Thumbnails" folder and skips any whose name already exists. First run uploads everything; subsequent runs are no-ops unless you've added a new entry to `samples.json`.
 
 **`--replace`** is for genuine updates — when you've re-rendered a thumbnail and need the live version replaced. It deletes the existing file before uploading the new one.
 
 Targets:
-- **Workspace:** your TrustPager workspace
-- **Folder:** Tutorial Thumbnails (in the Images category)
+- **Workspace:** your own workspace (the publish driver targets a TrustPager workspace via its API)
+- **Folder:** "YouTube Thumbnails" (in the Images category)
 - **API key:** set `TRUSTPAGER_API_KEY` in your environment (or use the standard `~/.claude/bos.json` config that `tools/setup.py` writes)
 
-Files land at `https://app.trustpager.com/content/images` inside the Tutorial Thumbnails folder, named by their YouTube title (e.g. `How to Set Up Online Booking & Scheduling in TrustPager.png`).
+Files land in your workspace Images area inside the "YouTube Thumbnails" folder, named by their YouTube title (e.g. `How I Quote a Job in Under a Minute.png`).
 
 ## Troubleshooting
 

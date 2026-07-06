@@ -6,7 +6,7 @@ This folder is the **single source of truth for your brand** across every BOS st
 
 | File | What it is | Required |
 |---|---|---|
-| `brand.json` | Colours, fonts, business name, tagline | yes |
+| `brand.json` | Colours, fonts, business name, tagline, CTA line | yes |
 | `logo.png` | Wordmark logo. Used in studio outputs (top-left of thumbnails, CTAs, etc). | yes |
 | `icon.png` | Square icon, ≥512×512. Source for favicons. | for favicons |
 | `favicon.ico` | Browser tab icon | yes (auto from icon.png) |
@@ -27,7 +27,7 @@ Claude scrapes your site, picks up your colours, finds your logo, writes `brand.
 
 ### Option 2 — edit by hand
 
-1. Open `brand.json`. Swap colours under `colors:`. Plain hex codes.
+1. Open `brand.json`. Swap colours under `colors:` (plain hex codes). Set `name`, `tagline`, and `cta` — your standard call-to-action line (your site or booking link) that content studios close with. Leave `cta` blank to skip it.
 2. Replace `logo.png` with yours (ideally a wide wordmark; 400-1200px wide; transparent PNG).
 3. Run the sync:
    ```bash

@@ -1,63 +1,58 @@
-# YouTube Titles & Descriptions — TrustPager Tutorial Channel
+# YouTube Titles & Descriptions — the owner's channel
 
-The system for writing titles and descriptions that ship with every tutorial video. The thumbnail studio's `npm run coverage` command lints every entry in `samples.json` against these rules and fails the build on violations.
+The system for writing titles and descriptions that ship with every video. The thumbnail studio's `npm run coverage` command lints every entry in `samples.json` against these rules and flags violations.
+
+> **Framing note (supersedes the earlier TrustPager-tutorial framing).** This doc was originally written for the TrustPager tutorial channel: every title had to say "TrustPager" and close with a TrustPager CTA. That framing is now genericised to the owner's brand and any kind of video, per the YouTube Studio design doc Decision 9 (`docs/architecture/2026-07-05-youtube-studio-design.md`). The title-craft (the four patterns, the description shape, the length band, the outcome-led rule) is kept wholesale. What flips: the "must say TrustPager" hard-rule becomes "carry the owner's brand", the vendor CTA becomes the owner's own, and the vendor-name safeguard is kept in generic form (no unintended third-party names).
 
 This doc is the single source of truth. The headline rules in [README.md](README.md) and [CLAUDE.md](CLAUDE.md) are about the on-thumbnail text (the big left-side line); this doc is about the YouTube title (the video name on the channel) and description (what shows under the video on the watch page).
 
-> The two are not the same. The on-thumbnail headline is allowed to be punchy and stripped — "Forms That Auto-Fill Your CRM", "Broadcast Without Leaving the CRM". The YouTube title has to do search work and brand work — "How to Build & Send Forms in TrustPager", "How to Run Email Marketing in TrustPager".
+> The two are not the same. The on-thumbnail headline is allowed to be punchy and stripped — "Forms That Auto-Fill Your CRM", "Quote a Job in Under a Minute". The YouTube title has to do search work and brand work — "How I Quote a Job in Under a Minute", "The Fastest Way to Follow Up After a Site Visit".
 
 ---
 
-## Hard rules (must pass `npm run coverage` lint)
+## Hard rules (surfaced by `npm run coverage` lint)
 
-1. **Every title must contain the word "TrustPager".** No exceptions. The product name does brand work and search work. Variants like "TrustPager CRM" are fine.
-2. **No third-party vendor or product names.** Specifically banned in YouTube titles: `Claude`, `Retell`, `Twilio`, `Postmark`, `Resend`, `Stripe`, `Anthropic`, `OpenAI`, `Cloudflare`, `Recall`, `Recall.ai`. Use the TrustPager-branded language instead — `AI` for any Anthropic/OpenAI work, `TrustPager Voice` for Twilio/Retell, `TrustPager Mail` for Postmark, `TrustPager Notetaker` for Recall. Extends [the platform-wide rule 21](https://docs.trustpager.com).
+1. **Every title carries the owner's brand where it does search and brand work.** Lead with the owner's own name or the plain outcome, whichever reads more naturally. The owner's brand does the brand work; a competitor's name never appears where the owner's belongs.
+2. **No unintended third-party vendor or product names.** A title should not accidentally promote a competitor or a tool the owner does not want front-and-centre. Prefer the plain word or the owner's own brand over a vendor's product name — `AI` rather than a specific model name, the owner's product name rather than a platform they merely run on. If the video genuinely IS about a named third-party tool, that is the owner's call to make deliberately.
 3. **Title length: 4–14 words.** Shorter is better; under 7 is ideal. YouTube clips titles past ~70 characters on mobile.
 4. **Title shape: action-led, viewer-as-beneficiary.** Same spirit as the on-thumbnail headline rules — see the title patterns below.
-5. **Description must close with the CTA line, verbatim:**
-   ```
-   Try TrustPager free: https://trustpager.com
-   ```
-   Separated from the body by a blank line.
+5. **Description closes with the owner's own call to action** (their site, their booking link, their offer), separated from the body by a blank line. Read it from the root `brand/brand.json` or ask the owner; never hard-code a vendor's URL.
 
 ---
 
 ## Title patterns
 
-Use one of these. They cover ~95% of cases.
+Use one of these. They cover ~95% of cases. The examples show a service business (a tradie) as the owner; swap in the owner's own brand and outcomes.
 
-### Pattern A — Feature tutorial: `How to <Verb> <Object> in TrustPager`
+### Pattern A — How-to / walkthrough: `How to <Verb> <Object>`
 
-The default. Maps to almost every help-center article. Examples:
+The default. Leads with the outcome the viewer gets. Examples:
 
-- `How to Build & Send Forms in TrustPager`
-- `How to Manage Your Sales Pipeline in TrustPager`
-- `How to Send SMS Messages in TrustPager`
-- `How to Use CRM Templates in TrustPager`
-- `How to Set Up Event Queues in TrustPager`
-- `How to Run Email Marketing in TrustPager`
+- `How to Quote a Job Without a Site Visit`
+- `How I Follow Up After Every Quote Automatically`
+- `How to Price a Job So You Never Lose Money`
 
-### Pattern B — AI capability: `Use AI to <Verb> Your TrustPager <Object>`
+### Pattern B — First-person result: `How I <Verb> <Object> in <Time>`
 
-For features where the value prop IS "AI does it for you" and the AI angle should lead. Examples:
+For videos where the owner shows their own way of doing something. The personal angle earns trust. Examples:
 
-- `Use AI to Build Your TrustPager Automations`
-- `Use AI to Fill Your TrustPager Opportunities`  *(more brandful than "How to Auto-Fill...")*
-- `Use AI to Run Needs Analysis in TrustPager`  *(more brandful than "How to Run AI Needs Analysis...")*
+- `How I Quote a Job in Under a Minute`
+- `How I Book Two Extra Jobs a Week`
+- `How I Keep Every Lead From Slipping`
 
-### Pattern C — Cross-system integration: `How to <Verb> <External Thing> with TrustPager CRM`
+### Pattern C — Outcome / promise: `The <Adjective> Way to <Verb> <Object>`
 
-For tutorials that integrate an external system. The external thing comes first (helps search), TrustPager closes. Examples:
+For videos that lead with a bold, specific promise. Examples:
 
-- `How to Sync Google Calendar with TrustPager CRM`
-- `How to Connect Your Inbox to TrustPager CRM`  *(hypothetical)*
+- `The Fastest Way to Follow Up After a Site Visit`
+- `The Simple System That Keeps My Diary Full`
 
-### Pattern D — Event/trigger tutorial: `How to <Verb> When <Trigger> in TrustPager`
+### Pattern D — Story / behind-the-scenes: `What <Happened> When <Trigger>`
 
-For tutorials about a behaviour, not a feature. Examples:
+For videos about a moment or a change, not a feature. Examples:
 
-- `How to Send Automatic Emails When a Deal Changes Stage in TrustPager`
-- `How to Move a Deal When a Form Is Submitted in TrustPager`  *(hypothetical)*
+- `What Changed When I Started Quoting on the Spot`
+- `Why I Stopped Chasing Invoices by Hand`
 
 ---
 
@@ -66,57 +61,56 @@ For tutorials about a behaviour, not a feature. Examples:
 Three paragraphs, separated by blank lines:
 
 ```
-<HOOK — 1 sentence. The pain it kills or the outcome it delivers. Specific, not vague.>
+<HOOK — 1 sentence. The outcome the video delivers. Specific, not vague.>
 
-<BODY — 2-3 sentences. How TrustPager does it, what gets tracked / fed back. Always name "TrustPager" by feature ("TrustPager email marketing", "TrustPager email", "TrustPager Voice"). No third-party vendor names.>
+<BODY — 2-3 sentences. What the viewer will be able to do, in the owner's own words. Name the owner's own brand and offer; never a third-party vendor name the owner does not want promoted.>
 
-Try TrustPager free: https://trustpager.com
+<CTA — the owner's own call to action: their site, their booking link, or their offer.>
 ```
 
 ### Body rules
 
-- **Talk to the viewer's outcome, not the mechanics.** "Send campaigns to the right people without exporting lists" beats "Use the campaign builder with audience filters".
-- **Name the value, name what it replaces.** "without exporting lists or paying for a second tool" — concrete.
-- **Use TrustPager-branded feature names.** `TrustPager email marketing`, `TrustPager Voice agents`, `TrustPager Mail`, `TrustPager Notetaker`. Never `Postmark`, `Twilio`, `Recall`, `Retell`.
-- **Talk about CRM integration as the differentiator.** TrustPager's edge is "every send/call/touch feeds back into the contact record + pipeline". Lean on that.
-- **Don't oversell.** "AI builds the automation" is fine; "AI does everything for you" is bullshit and viewers bounce.
+- **Talk to the viewer's outcome, not the mechanics.** "Quote a job while you're still standing in the driveway" beats "Use the mobile quoting form with saved line items".
+- **Name the value, name what it replaces.** "without driving back to the office or waiting till Sunday night" — concrete.
+- **Use the owner's own brand and offer.** Read the brand name and CTA from the root `brand/brand.json`, or ask the owner. Never insert a vendor's product name where the owner's belongs.
+- **Lean on what makes the owner different.** Whatever the owner's real edge is (speed, local knowledge, a guarantee), lean on that.
+- **Don't oversell.** A concrete, believable promise earns the click; a wild claim makes viewers bounce.
 
 ### Worked examples
 
-**Title:** `How to Run Email Marketing in TrustPager`
+**Title:** `How I Quote a Job in Under a Minute`
 
 ```
-Send campaigns to the right people without exporting lists or paying for a second tool. TrustPager email marketing pulls audiences straight from your CRM, sends from your domain, and tracks opens, clicks, and replies against the contact record — so every send feeds back into your pipeline.
+Win more work by getting the quote in your customer's hands before you've left the driveway. In this video I show the exact way I price and send a quote on the spot, so the job is booked before a competitor even calls back.
 
-Try TrustPager free: https://trustpager.com
+Book a free chat: https://your-brand.example
 ```
 
-**Title:** `Use AI to Build Your TrustPager Automations`
+**Title:** `How I Follow Up After Every Quote Automatically`
 
 ```
-Skip the drag-and-drop. Describe the workflow you want — "when a deal moves to Won, send the welcome email and create an onboarding task" — and AI builds the automation inside TrustPager for you. Triggers, actions, conditions, all wired up from a sentence.
+Turn more quotes into booked jobs without lifting a finger. I walk through the simple follow-up I set up once, so every customer hears back at the right moment and nobody slips through the cracks.
 
-Try TrustPager free: https://trustpager.com
+Book a free chat: https://your-brand.example
 ```
+
+*(The CTA above is a placeholder — swap in the owner's real link.)*
 
 ---
 
-## Banned words and phrases
+## Avoid naming a vendor where the owner's brand belongs
 
-| Don't say | Use instead |
+Prefer the plain word, or the owner's own brand, over a vendor's product name. This keeps the owner's channel about the owner, not about a tool they merely run on.
+
+| Instead of naming | Prefer |
 |---|---|
-| `Claude` | `AI` |
-| `Anthropic` | `AI` |
-| `OpenAI` / `ChatGPT` | `AI` |
-| `Retell` | `TrustPager Voice` / `TrustPager voice agents` |
-| `Twilio` | `TrustPager Voice` (calls) / `TrustPager SMS` (texts) |
-| `Postmark` / `Resend` / `Sendgrid` | `TrustPager Mail` / `TrustPager email` |
-| `Recall.ai` / `Recall` | `TrustPager Notetaker` |
-| `Stripe` | `TrustPager billing` |
-| `Cloudflare` / `R2` | `TrustPager file storage` |
-| `Drag-and-drop builder` (in titles) | `Builder` or skip entirely (Pattern B handles this) |
+| A specific AI model (`Claude`, `ChatGPT`, `Anthropic`, `OpenAI`) | `AI` |
+| The plumbing behind a feature (a specific email / SMS / voice / payments / storage vendor) | The owner's own brand for that feature, or the plain word (`email`, `text`, `calls`, `payments`) |
+| `Drag-and-drop builder` (in titles) | `Builder` or skip entirely |
 
-Internal code, file paths, function names, and JSDoc are exempt from these rules — they're for developers, not customers (rule 21 in the parent CLAUDE.md).
+If a video genuinely IS about a named third-party tool, that is the owner's deliberate call. The safeguard is against a vendor name slipping in *unintentionally* where the owner's brand should be.
+
+Internal code, file paths, function names, and JSDoc are exempt — they're for developers, not viewers.
 
 ---
 
@@ -131,28 +125,28 @@ npm run make    # prompts for title + description (validates against this doc)
 
 After answering, `npm run coverage` will lint your new entry. The lint check is the final gate.
 
-When the lint check passes:
+When you're happy with the entry:
 
 ```bash
 npm run shoot <key>      # render the thumbnail PNG
-npm run publish <key>    # upload to FinalPiece > Tutorial Thumbnails
+npm run publish <key>    # upload to the owner's workspace Images folder (optional, when connected)
 ```
 
 The PNG output filename is `${order} - ${title}.png` — designed to drag-drop onto YouTube without renaming. The `description` field in `samples.json` is what you paste into YouTube's description box manually.
 
 ---
 
-## Lint rules currently enforced
+## Lint rules surfaced by `npm run coverage`
 
 `npm run coverage` runs these checks at the end of its report:
 
 | Check | What it flags |
 |---|---|
-| `[WARN] Missing TrustPager` | Title does not contain "TrustPager" |
-| `[WARN] Banned vendor name` | Title contains one of the words in the banned list |
+| `[WARN] Banned vendor name` | Title contains one of the vendor names in the avoid list above |
 | `[WARN] Title too long` | Title has more than 14 words |
 | `[WARN] Title too short` | Title has fewer than 4 words |
-| `[WARN] Missing CTA line` | Description doesn't end with `Try TrustPager free: https://trustpager.com` |
 | `[WARN] No description` | Entry has a title but no description |
 
-The coverage command exits non-zero ONLY on orphan thumbnails (broken state). Lint warnings are surfaced but non-blocking — you can ship a thumbnail with a warning. The warning is there so it doesn't get forgotten.
+All lint output is **non-blocking WARN** — you can ship a thumbnail with a warning; the coverage command exits non-zero ONLY on orphan thumbnails (a broken linked state). Warnings exist so a rough title does not get forgotten.
+
+> **How the two lint defaults resolve (genericised).** The `coverage.js` and `make.js` scripts read the owner's brand from `brand/brand.json`. The title check requires the owner's brand NAME to appear in the title, and the description check requires the description to end with the owner's CTA. Both are WARN-only and never block a render. When `brand.json` carries no brand name yet (the neutral "Your Business" starter) the brand-name warning is skipped; when it carries no CTA, the CTA warning is skipped and `make.js` appends nothing (it never injects a vendor URL). Set your brand with `/brand-my-workspace` (name, and optionally a `cta` / `url`) and both checks switch to yours automatically.

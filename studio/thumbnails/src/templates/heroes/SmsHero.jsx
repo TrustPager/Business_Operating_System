@@ -10,9 +10,8 @@
 // generic messaging app silhouette.
 
 import React from 'react';
-import { colors } from '../../theme.js';
 import { Avatar } from '../../profiles.jsx';
-import { CANVAS_BG, PRIMARY } from '../../brand.js';
+import { CANVAS_BG, PRIMARY, TEXT, TEXT_MUTED } from '../../brand.js';
 
 const BUBBLES = [
   { from: 'them', text: 'Hey — can you bump our discovery to 4pm Friday?' },
@@ -39,14 +38,14 @@ const Bubble = ({ b, last }) => {
       {fromAi && (
         <span style={{
           fontSize: 10, fontWeight: 800, color: PRIMARY,
-          background: 'rgba(41,198,198,0.14)',
+          background: `${PRIMARY}24`,
           padding: '2px 8px', borderRadius: 999,
           letterSpacing: '0.10em',
         }}>AI · SENT FOR YOU</span>
       )}
       <div style={{
         background: fromThem ? CANVAS_BG : PRIMARY,
-        color: fromThem ? colors.foreground : '#fff',
+        color: fromThem ? TEXT : '#fff',
         borderRadius: 18,
         borderBottomLeftRadius: fromThem ? 6 : 18,
         borderBottomRightRadius: fromThem ? 18 : 6,
@@ -54,7 +53,7 @@ const Bubble = ({ b, last }) => {
         fontSize: 16, fontWeight: 500, lineHeight: 1.35,
         maxWidth: '85%',
         boxShadow: fromAi
-          ? '0 2px 8px rgba(41,198,198,0.25), 0 0 0 1px rgba(41,198,198,0.18)'
+          ? `0 2px 8px ${PRIMARY}40, 0 0 0 1px ${PRIMARY}2e`
           : '0 1px 2px rgba(15,17,23,0.06)',
         letterSpacing: '-0.01em',
       }}>{b.text}</div>
@@ -79,17 +78,17 @@ export const SmsHero = () => (
     }}>
       <Avatar name="James Mitchell" size={38} style={{ boxShadow: '0 2px 6px rgba(15,17,23,0.20)' }} />
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontSize: 17, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.01em' }}>
+        <div style={{ fontSize: 17, fontWeight: 800, color: TEXT, letterSpacing: '-0.01em' }}>
           James Mitchell
         </div>
-        <div style={{ fontSize: 12, color: colors.mutedForeground, fontWeight: 600, marginTop: 1 }}>
+        <div style={{ fontSize: 12, color: TEXT_MUTED, fontWeight: 600, marginTop: 1 }}>
           +61 412 345 678 · linked to Coastal deal
         </div>
       </div>
       <span style={{
         fontSize: 10, fontWeight: 800, letterSpacing: '0.12em',
-        color: colors.primary,
-        background: 'rgba(41,198,198,0.14)',
+        color: PRIMARY,
+        background: `${PRIMARY}24`,
         padding: '5px 10px', borderRadius: 999,
       }}>LIVE</span>
     </div>

@@ -492,6 +492,13 @@
       "mcp__describe_resource"
     ]
   },
+  "package-my-video": {
+    "data_path": "local",
+    "function_slot": "creative",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
   "plan-my-ads": {
     "data_path": "reasoning_only",
     "function_slot": "ads",
@@ -507,6 +514,13 @@
   "plan-my-content": {
     "data_path": "reasoning_only",
     "function_slot": "social",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
+  "plan-my-youtube": {
+    "data_path": "reasoning_only",
+    "function_slot": "strategy",
     "requires_credential": "none",
     "requires_driver": "none",
     "status": "active"
@@ -582,6 +596,13 @@
     "requires_driver": "firecrawl",
     "status": "active"
   },
+  "research-my-channel": {
+    "data_path": "fetch_rest",
+    "function_slot": "research",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
   "review-team-draft": {
     "data_path": "mcp_tools",
     "function_slot": "comms",
@@ -616,6 +637,13 @@
       "mcp__meta-ads__ads_create_ad",
       "mcp__meta-ads__ads_update_entity"
     ]
+  },
+  "script-my-video": {
+    "data_path": "local",
+    "function_slot": "creative",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
   },
   "send-email": {
     "data_path": "mcp_tools",

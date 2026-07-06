@@ -12,9 +12,8 @@
 // email — you see WHO opened, not just an aggregate number.
 
 import React from 'react';
-import { colors } from '../../theme.js';
 import { Avatar } from '../../profiles.jsx';
-import { ACCENT, PRIMARY_DEEP, SLATE, SUCCESS } from '../../brand.js';
+import { ACCENT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS, TEXT, TEXT_MUTED } from '../../brand.js';
 
 const CAMPAIGN = {
   name: 'Q3 Product Launch',
@@ -41,7 +40,7 @@ const Stat = ({ label, value, sub, color }) => (
   }}>
     <span style={{
       fontSize: 9, fontWeight: 800, letterSpacing: '0.10em',
-      color: colors.mutedForeground,
+      color: TEXT_MUTED,
     }}>{label}</span>
     <span style={{
       fontSize: 20, fontWeight: 800, color,
@@ -49,7 +48,7 @@ const Stat = ({ label, value, sub, color }) => (
     }}>{value}</span>
     {sub && (
       <span style={{
-        fontSize: 9.5, fontWeight: 700, color: colors.mutedForeground,
+        fontSize: 9.5, fontWeight: 700, color: TEXT_MUTED,
         letterSpacing: '-0.005em', marginTop: 1,
       }}>{sub}</span>
     )}
@@ -58,11 +57,11 @@ const Stat = ({ label, value, sub, color }) => (
 
 const StatusPill = ({ state }) => {
   const map = {
-    opened:  { fg: PRIMARY_DEEP, bg: 'rgba(41,198,198,0.18)', label: 'OPENED' },
-    clicked: { fg: SUCCESS, bg: 'rgba(45,184,125,0.18)', label: 'CLICKED' },
-    delivered: { fg: ACCENT, bg: 'rgba(71,163,217,0.18)', label: 'DELIVERED' },
-    bounced: { fg: SLATE, bg: 'rgba(148,163,184,0.18)', label: 'BOUNCED' },
-    unsub:   { fg: SLATE, bg: 'rgba(148,163,184,0.18)', label: 'UNSUB' },
+    opened:  { fg: PRIMARY_DEEP, bg: `${PRIMARY}2e`, label: 'OPENED' },
+    clicked: { fg: SUCCESS, bg: `${SUCCESS}2e`, label: 'CLICKED' },
+    delivered: { fg: ACCENT, bg: `${ACCENT}2e`, label: 'DELIVERED' },
+    bounced: { fg: SLATE, bg: `${SLATE}2e`, label: 'BOUNCED' },
+    unsub:   { fg: SLATE, bg: `${SLATE}2e`, label: 'UNSUB' },
   };
   const s = map[state];
   return (
@@ -96,12 +95,12 @@ const RecipientRow = ({ r }) => (
     <Avatar name={r.name} size={30} />
     <div style={{ flex: 1, minWidth: 0 }}>
       <div style={{
-        fontSize: 13, fontWeight: 800, color: colors.foreground,
+        fontSize: 13, fontWeight: 800, color: TEXT,
         letterSpacing: '-0.01em', lineHeight: 1.1,
         overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
       }}>{r.name}</div>
       <div style={{
-        fontSize: 10.5, fontWeight: 700, color: colors.mutedForeground,
+        fontSize: 10.5, fontWeight: 700, color: TEXT_MUTED,
         letterSpacing: '-0.005em', marginTop: 2,
       }}>{r.time}</div>
     </div>
@@ -127,11 +126,11 @@ export const EmailCampaignsHero = () => {
           <span style={{
             width: 12, height: 12, borderRadius: '50%',
             background: SUCCESS,
-            boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
+            boxShadow: `0 0 0 5px ${SUCCESS}38`,
             flexShrink: 0,
           }} />
           <span style={{
-            fontSize: 19, fontWeight: 800, color: colors.foreground,
+            fontSize: 19, fontWeight: 800, color: TEXT,
             letterSpacing: '-0.015em',
             overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
           }}>{CAMPAIGN.name}</span>
@@ -139,7 +138,7 @@ export const EmailCampaignsHero = () => {
         <span style={{
           fontSize: 11, fontWeight: 800, letterSpacing: '0.12em',
           color: SUCCESS,
-          background: 'rgba(45,184,125,0.16)',
+          background: `${SUCCESS}29`,
           padding: '5px 10px', borderRadius: 999,
           flexShrink: 0,
         }}>SENT</span>
@@ -147,8 +146,8 @@ export const EmailCampaignsHero = () => {
 
       {/* Subject + audience line */}
       <div style={{
-        background: 'linear-gradient(135deg, rgba(41,198,198,0.08), rgba(71,163,217,0.08))',
-        border: '1px solid rgba(41,198,198,0.20)',
+        background: `linear-gradient(135deg, ${PRIMARY}14, ${ACCENT}14)`,
+        border: `1px solid ${PRIMARY}33`,
         borderRadius: 10,
         padding: '11px 13px',
       }}>
@@ -157,12 +156,12 @@ export const EmailCampaignsHero = () => {
           color: PRIMARY_DEEP,
         }}>SUBJECT</div>
         <div style={{
-          fontSize: 13, fontWeight: 800, color: colors.foreground,
+          fontSize: 13, fontWeight: 800, color: TEXT,
           letterSpacing: '-0.01em', marginTop: 2, lineHeight: 1.2,
           overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
         }}>{CAMPAIGN.subject}</div>
         <div style={{
-          fontSize: 10.5, fontWeight: 700, color: colors.mutedForeground,
+          fontSize: 10.5, fontWeight: 700, color: TEXT_MUTED,
           letterSpacing: '-0.005em', marginTop: 4,
         }}>{CAMPAIGN.audienceLabel}</div>
       </div>
@@ -184,12 +183,12 @@ export const EmailCampaignsHero = () => {
       }}>
         <span style={{
           fontSize: 11, fontWeight: 800, letterSpacing: '0.10em',
-          color: colors.mutedForeground,
+          color: TEXT_MUTED,
         }}>RECIPIENTS · LIVE TRACKING</span>
         <span style={{
           fontSize: 10, fontWeight: 800, letterSpacing: '0.08em',
           color: PRIMARY_DEEP,
-          background: 'rgba(41,198,198,0.14)',
+          background: `${PRIMARY}24`,
           padding: '2px 8px', borderRadius: 999,
         }}>● LIVE</span>
       </div>

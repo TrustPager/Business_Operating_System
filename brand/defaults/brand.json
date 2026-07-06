@@ -1,8 +1,9 @@
 {
   "name": "Your Business",
   "tagline": "",
+  "cta": "",
 
-  "_comment": "This is a neutral blank-canvas starter, not a real brand. It carries no company's identity on purpose, so a new owner's very first creative act (run /brand-my-workspace, or ask to build your brand) fills it in and every BOS studio becomes theirs in one shot. After it is set, run `python tools/sync-brand.py` to refresh logo + favicons in each studio's public/ folder. Studios import this JSON via src/brand.js, no other files need touching.",
+  "_comment": "This is a neutral blank-canvas starter, not a real brand. It carries no company's identity on purpose, so a new owner's very first creative act (run /brand-my-workspace, or ask to build your brand) fills it in and every BOS studio becomes theirs in one shot. After it is set, run `python tools/sync-brand.py` to refresh logo + favicons in each studio's public/ folder. Studios import this JSON via src/brand.js, no other files need touching. `cta` is the owner's standard call-to-action line (their site or booking link, e.g. \"Book a free chat: https://your-brand.example\"); it is optional and, while blank, brand-specific lint that would check for it stays quiet.",
 
   "colors": {
     "primary":     "#334155",

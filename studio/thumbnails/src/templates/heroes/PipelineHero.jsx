@@ -9,9 +9,8 @@
 // to show motion, all are real and worth money.
 
 import React from 'react';
-import { colors } from '../../theme.js';
 import { Avatar } from '../../profiles.jsx';
-import { ACCENT, LIGHT, PRIMARY, SUCCESS } from '../../brand.js';
+import { ACCENT, LIGHT, PRIMARY, SLATE, SUCCESS, TEXT, TEXT_MUTED } from '../../brand.js';
 
 const STAGE = {
   name: 'Proposal Sent',
@@ -33,7 +32,7 @@ const DEALS = [
 ];
 
 const CARD_SHADOW = '0 1px 2px rgba(15,17,23,0.05), 0 0 0 1px rgba(15,17,23,0.07)';
-const DRAG_SHADOW = '0 16px 36px rgba(41,198,198,0.30), 0 0 0 1.5px rgba(41,198,198,0.45)';
+const DRAG_SHADOW = `0 16px 36px ${PRIMARY}4d, 0 0 0 1.5px ${PRIMARY}73`;
 
 const DealCard = ({ d }) => (
   <div style={{
@@ -47,7 +46,7 @@ const DealCard = ({ d }) => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
       <Avatar name={d.account} size={32} style={{ borderRadius: 9 }} />
       <div style={{
-        fontSize: 15, fontWeight: 800, color: colors.foreground,
+        fontSize: 15, fontWeight: 800, color: TEXT,
         letterSpacing: '-0.01em', flex: 1, minWidth: 0,
         overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
       }}>{d.account}</div>
@@ -55,13 +54,13 @@ const DealCard = ({ d }) => (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
       <span style={{
         fontSize: 11, fontWeight: 800, letterSpacing: '0.08em',
-        color: colors.mutedForeground,
-        background: 'rgba(148,163,184,0.16)',
+        color: TEXT_MUTED,
+        background: `${SLATE}29`,
         padding: '4px 10px', borderRadius: 999,
         textTransform: 'uppercase',
       }}>{d.tag}</span>
       <span style={{
-        fontSize: 20, fontWeight: 800, color: colors.foreground,
+        fontSize: 20, fontWeight: 800, color: TEXT,
         letterSpacing: '-0.02em',
       }}>{d.value}</span>
     </div>
@@ -78,7 +77,7 @@ export const PipelineHero = () => (
   }}>
     {/* Stage header — the colour anchor */}
     <div style={{
-      background: `linear-gradient(135deg, ${STAGE.color}, #47a3d9)`,
+      background: `linear-gradient(135deg, ${STAGE.color}, ${ACCENT})`,
       borderRadius: 12,
       padding: '14px 18px',
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',

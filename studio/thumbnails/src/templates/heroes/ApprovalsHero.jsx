@@ -4,8 +4,7 @@
 // approved + executed; one is currently waiting on your call.
 
 import React from 'react';
-import { colors } from '../../theme.js';
-import { PRIMARY, SLATE, SUCCESS } from '../../brand.js';
+import { PRIMARY, SLATE, SUCCESS, TEXT, TEXT_MUTED } from '../../brand.js';
 
 const APPROVALS = [
   {
@@ -64,21 +63,21 @@ const ActionRow = ({ state }) => {
       <div style={{ display: 'flex', gap: 8, marginTop: 4 }}>
         <button style={{
           flex: 1,
-          background: `linear-gradient(135deg, #2db87d, #29c6c6)`,
+          background: `linear-gradient(135deg, ${SUCCESS}, ${PRIMARY})`,
           color: '#fff',
           fontSize: 12, fontWeight: 800,
           padding: '8px 0', borderRadius: 8,
           border: 'none',
           letterSpacing: '-0.005em',
-          boxShadow: '0 2px 6px rgba(45,184,125,0.30)',
+          boxShadow: `0 2px 6px ${SUCCESS}4d`,
         }}>✓ Approve</button>
         <button style={{
           flex: 1,
           background: '#fff',
-          color: colors.mutedForeground,
+          color: TEXT_MUTED,
           fontSize: 12, fontWeight: 700,
           padding: '8px 0', borderRadius: 8,
-          border: '1px solid rgba(148,163,184,0.3)',
+          border: `1px solid ${SLATE}4d`,
         }}>Reject</button>
       </div>
     );
@@ -89,7 +88,7 @@ const ActionRow = ({ state }) => {
         display: 'inline-flex', alignItems: 'center', gap: 6,
         fontSize: 10, fontWeight: 800, letterSpacing: '0.10em',
         color: SUCCESS,
-        background: 'rgba(45,184,125,0.14)',
+        background: `${SUCCESS}24`,
         padding: '4px 9px', borderRadius: 999,
         alignSelf: 'flex-start',
       }}>✓ APPROVED & EXECUTED</div>
@@ -99,8 +98,8 @@ const ActionRow = ({ state }) => {
     <div style={{
       display: 'inline-flex', alignItems: 'center', gap: 6,
       fontSize: 10, fontWeight: 800, letterSpacing: '0.10em',
-      color: colors.mutedForeground,
-      background: 'rgba(148,163,184,0.18)',
+      color: TEXT_MUTED,
+      background: `${SLATE}2e`,
       padding: '4px 9px', borderRadius: 999,
       alignSelf: 'flex-start',
     }}>✕ REJECTED</div>
@@ -113,10 +112,10 @@ const ApprovalCard = ({ a }) => (
     borderRadius: 12,
     padding: '12px 14px',
     border: a.state === 'pending'
-      ? '1.5px solid rgba(41,198,198,0.45)'
+      ? `1.5px solid ${PRIMARY}73`
       : '1px solid rgba(226,232,240,0.7)',
     boxShadow: a.state === 'pending'
-      ? '0 4px 14px rgba(41,198,198,0.18)'
+      ? `0 4px 14px ${PRIMARY}2e`
       : 'none',
     display: 'flex', flexDirection: 'column', gap: 8,
     opacity: a.state === 'rejected' ? 0.7 : 1,
@@ -133,12 +132,12 @@ const ApprovalCard = ({ a }) => (
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{
-          fontSize: 13.5, fontWeight: 800, color: colors.foreground,
+          fontSize: 13.5, fontWeight: 800, color: TEXT,
           letterSpacing: '-0.01em', lineHeight: 1.2,
           textDecoration: a.state === 'rejected' ? 'line-through' : 'none',
         }}>{a.title}</div>
         <div style={{
-          fontSize: 11, color: colors.mutedForeground, fontWeight: 600,
+          fontSize: 11, color: TEXT_MUTED, fontWeight: 600,
           marginTop: 2,
         }}>{a.detail} · {a.requested}</div>
       </div>
@@ -161,16 +160,16 @@ export const ApprovalsHero = () => (
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
           background: SUCCESS,
-          boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
+          boxShadow: `0 0 0 5px ${SUCCESS}38`,
         }} />
-        <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
+        <span style={{ fontSize: 19, fontWeight: 800, color: TEXT, letterSpacing: '-0.015em' }}>
           Pending Approvals
         </span>
       </div>
       <span style={{
         fontSize: 11, fontWeight: 800, letterSpacing: '0.12em',
-        color: colors.primary,
-        background: 'rgba(41,198,198,0.14)',
+        color: PRIMARY,
+        background: `${PRIMARY}24`,
         padding: '5px 10px', borderRadius: 999,
       }}>1 PENDING</span>
     </div>

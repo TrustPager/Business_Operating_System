@@ -4,8 +4,7 @@
 // itself. Each row is a "stage moved → email sent → delivered" beat.
 
 import React from 'react';
-import { colors } from '../../theme.js';
-import { ACCENT, PRIMARY, PRIMARY_DEEP, SUCCESS } from '../../brand.js';
+import { ACCENT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS, TEXT, TEXT_MUTED } from '../../brand.js';
 
 const EVENTS = [
   {
@@ -81,9 +80,9 @@ const EVENTS = [
 ];
 
 const STATUS = {
-  delivered: { fg: PRIMARY_DEEP, bg: 'rgba(41,198,198,0.16)', label: '✓ DELIVERED' },
-  opened:    { fg: SUCCESS, bg: 'rgba(45,184,125,0.16)', label: '✓ OPENED' },
-  replied:   { fg: SUCCESS, bg: 'rgba(45,184,125,0.22)', label: '✓ REPLIED' },
+  delivered: { fg: PRIMARY_DEEP, bg: `${PRIMARY}29`, label: '✓ DELIVERED' },
+  opened:    { fg: SUCCESS, bg: `${SUCCESS}29`, label: '✓ OPENED' },
+  replied:   { fg: SUCCESS, bg: `${SUCCESS}38`, label: '✓ REPLIED' },
 };
 
 const EventCard = ({ e }) => {
@@ -99,21 +98,21 @@ const EventCard = ({ e }) => {
       {/* Stage chip transition */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
         <span style={{
-          fontSize: 14, fontWeight: 800, color: colors.foreground,
+          fontSize: 14, fontWeight: 800, color: TEXT,
           letterSpacing: '-0.01em', flex: 1, minWidth: 0,
           overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
         }}>{e.deal}</span>
-        <span style={{ fontSize: 10, fontWeight: 600, color: colors.mutedForeground }}>{e.when}</span>
+        <span style={{ fontSize: 10, fontWeight: 600, color: TEXT_MUTED }}>{e.when}</span>
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
         <span style={{
           fontSize: 9, fontWeight: 800, letterSpacing: '0.08em',
-          color: colors.mutedForeground,
-          background: 'rgba(148,163,184,0.18)',
+          color: TEXT_MUTED,
+          background: `${SLATE}2e`,
           padding: '3px 7px', borderRadius: 4,
         }}>{e.from.toUpperCase()}</span>
-        <span style={{ fontSize: 11, color: colors.mutedForeground }}>→</span>
+        <span style={{ fontSize: 11, color: TEXT_MUTED }}>→</span>
         <span style={{
           fontSize: 9, fontWeight: 800, letterSpacing: '0.08em',
           color: e.toColor,
@@ -132,19 +131,19 @@ const EventCard = ({ e }) => {
       }}>
         <div style={{
           width: 24, height: 24, borderRadius: 6,
-          background: 'rgba(41,198,198,0.16)',
+          background: `${PRIMARY}29`,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           color: PRIMARY_DEEP, fontSize: 12, fontWeight: 800,
           flexShrink: 0,
         }}>✉</div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{
-            fontSize: 11.5, fontWeight: 800, color: colors.foreground,
+            fontSize: 11.5, fontWeight: 800, color: TEXT,
             letterSpacing: '-0.005em',
             overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
           }}>{e.template}</div>
           <div style={{
-            fontSize: 10, fontWeight: 600, color: colors.mutedForeground,
+            fontSize: 10, fontWeight: 600, color: TEXT_MUTED,
             marginTop: 1,
           }}>→ {e.recipient}</div>
         </div>
@@ -173,16 +172,16 @@ export const StageEmailsHero = () => (
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
           background: SUCCESS,
-          boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
+          boxShadow: `0 0 0 5px ${SUCCESS}38`,
         }} />
-        <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
+        <span style={{ fontSize: 19, fontWeight: 800, color: TEXT, letterSpacing: '-0.015em' }}>
           Auto-Sent Emails
         </span>
       </div>
       <span style={{
         fontSize: 11, fontWeight: 800, letterSpacing: '0.12em',
-        color: colors.primary,
-        background: 'rgba(41,198,198,0.14)',
+        color: PRIMARY,
+        background: `${PRIMARY}24`,
         padding: '5px 10px', borderRadius: 999,
       }}>SENT AUTOMATICALLY</span>
     </div>

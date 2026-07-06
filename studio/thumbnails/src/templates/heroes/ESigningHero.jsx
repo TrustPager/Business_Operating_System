@@ -4,9 +4,8 @@
 // card is mid-signing (live), the rest are signed and sealed.
 
 import React from 'react';
-import { colors } from '../../theme.js';
 import { Avatar } from '../../profiles.jsx';
-import { PRIMARY, PRIMARY_DEEP, SUCCESS } from '../../brand.js';
+import { PRIMARY, PRIMARY_DEEP, SUCCESS, TEXT, TEXT_MUTED } from '../../brand.js';
 
 const CONTRACTS = [
   {
@@ -89,8 +88,8 @@ const ContractCard = ({ c }) => {
           transform: 'rotate(12deg)',
           fontSize: 9, fontWeight: 800,
           color: SUCCESS,
-          background: 'rgba(45,184,125,0.16)',
-          border: '1.5px solid rgba(45,184,125,0.45)',
+          background: `${SUCCESS}29`,
+          border: `1.5px solid ${SUCCESS}73`,
           padding: '3px 22px', borderRadius: 4,
           letterSpacing: '0.18em',
         }}>SIGNED</div>
@@ -99,8 +98,8 @@ const ContractCard = ({ c }) => {
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <div style={{
           width: 30, height: 36, borderRadius: 4,
-          background: signed ? 'rgba(45,184,125,0.10)' : 'rgba(41,198,198,0.10)',
-          border: `1px solid ${signed ? 'rgba(45,184,125,0.30)' : 'rgba(41,198,198,0.30)'}`,
+          background: signed ? `${SUCCESS}1a` : `${PRIMARY}1a`,
+          border: signed ? `1px solid ${SUCCESS}4d` : `1px solid ${PRIMARY}4d`,
           display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
           flexShrink: 0,
           gap: 2,
@@ -111,11 +110,11 @@ const ContractCard = ({ c }) => {
         </div>
         <div style={{ flex: 1, minWidth: 0, paddingRight: signed ? 60 : 0 }}>
           <div style={{
-            fontSize: 14, fontWeight: 800, color: colors.foreground,
+            fontSize: 14, fontWeight: 800, color: TEXT,
             letterSpacing: '-0.01em', lineHeight: 1.2,
           }}>{c.title}</div>
           <div style={{
-            fontSize: 11, fontWeight: 600, color: colors.mutedForeground,
+            fontSize: 11, fontWeight: 600, color: TEXT_MUTED,
             marginTop: 2,
           }}>{c.client}{c.value ? ` · ${c.value}` : ''}</div>
         </div>
@@ -127,11 +126,11 @@ const ContractCard = ({ c }) => {
           <SignatureCurve />
           <div style={{ flex: 1 }}>
             <div style={{
-              fontSize: 11, fontWeight: 800, color: colors.foreground,
+              fontSize: 11, fontWeight: 800, color: TEXT,
               letterSpacing: '-0.005em',
             }}>{c.signedBy}</div>
             <div style={{
-              fontSize: 10, fontWeight: 600, color: colors.mutedForeground,
+              fontSize: 10, fontWeight: 600, color: TEXT_MUTED,
               marginTop: 1,
             }}>{c.when}</div>
           </div>
@@ -141,7 +140,7 @@ const ContractCard = ({ c }) => {
           display: 'inline-flex', alignItems: 'center', gap: 6,
           fontSize: 10, fontWeight: 800, letterSpacing: '0.10em',
           color: PRIMARY_DEEP,
-          background: 'rgba(41,198,198,0.16)',
+          background: `${PRIMARY}29`,
           padding: '4px 9px', borderRadius: 999,
           alignSelf: 'flex-start',
         }}>● AWAITING SIGNATURE · {c.when}</div>
@@ -164,16 +163,16 @@ export const ESigningHero = () => (
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
           background: SUCCESS,
-          boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
+          boxShadow: `0 0 0 5px ${SUCCESS}38`,
         }} />
-        <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
+        <span style={{ fontSize: 19, fontWeight: 800, color: TEXT, letterSpacing: '-0.015em' }}>
           Signatures
         </span>
       </div>
       <span style={{
         fontSize: 11, fontWeight: 800, letterSpacing: '0.12em',
-        color: colors.primary,
-        background: 'rgba(41,198,198,0.14)',
+        color: PRIMARY,
+        background: `${PRIMARY}24`,
         padding: '5px 10px', borderRadius: 999,
       }}>5 SIGNED · 1 OPEN</span>
     </div>

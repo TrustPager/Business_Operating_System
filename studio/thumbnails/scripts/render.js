@@ -9,7 +9,7 @@
 //   npm run render -- social-post-launch
 //   npm run render -- --all      # render all designs from samples.json
 //
-// Requires the dev server to be running on port 3200.
+// Requires the dev server to be running on port 3210 (or $BOS_THUMBNAIL_PORT).
 
 import puppeteer from 'puppeteer';
 import { readFileSync, mkdirSync } from 'fs';
@@ -20,7 +20,10 @@ import { outputFilenameFor } from './_filename.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_DIR = resolve(__dirname, '../output');
 const SAMPLES_PATH = resolve(__dirname, '../src/data/samples.json');
-const DEV_SERVER = 'http://localhost:3210';
+// Dev-server port defaults to 3210; override with BOS_THUMBNAIL_PORT (the same
+// var vite.config.js and shoot.js read) when 3210 is already in use.
+const DEV_PORT = Number(process.env.BOS_THUMBNAIL_PORT) || 3210;
+const DEV_SERVER = `http://localhost:${DEV_PORT}`;
 
 // Parse CLI args
 const args = process.argv.slice(2);
@@ -72,7 +75,10 @@ async function renderDesign(browser, key, sample) {
   }, key);
 
   if (!clicked) {
-    console.error(`  Could not find design "${key}" in sidebar`);
+    console.error(`  Could not find design "${key}" in the studio sidebar.`);
+    console.error(`  If "${key}" IS in src/data/samples.json, the dev server is`);
+    console.error(`  serving a stale copy: stop npm run dev and start it again so it`);
+    console.error(`  picks up your new entry, then re-run the shoot.`);
     await page.close();
     return;
   }

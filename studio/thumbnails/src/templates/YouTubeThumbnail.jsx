@@ -1,7 +1,15 @@
 // ============================================================================
-// YouTubeThumbnail - 1280x720 (16:9) thumbnail for TrustPager tutorial videos.
+// YouTubeThumbnail - 1280x720 (16:9) thumbnail for the owner's videos.
 // Canonical template. Edit ../data/samples.json to add new thumbnails;
 // edit SYS below to tune the design system.
+//
+// FRAMING NOTE (supersedes the earlier TrustPager-tutorial framing): this
+// template was originally written for the TrustPager tutorial channel. It is
+// now genericised to the owner's brand and any kind of video, per the YouTube
+// Studio design doc Decision 9. Brand colours and the wordmark flow through
+// ../brand.js (which reads the root brand/brand.json), so every render is on
+// the owner's palette. The distilled craft below (headline rules, squint test,
+// hero master rule) is kept wholesale; only brand-specific framing flips.
 // ============================================================================
 //
 // LAYOUT GRID (canvas is 1280 x 720, all measurements in CSS pixels)
@@ -36,14 +44,19 @@
 //   3. AccentStrip (z=2)     - thin diagonal teal->blue line across the bottom.
 //                              Cuts behind the AI Activity card.
 //   4. AIActivityHero (z=4)  - the right-side hero. Bleeds off bottom.
-//   5. LogoCard (z=9)        - TrustPager wordmark, bare img at top-left.
+//   5. LogoCard (z=9)        - the owner's brand wordmark, bare img at top-left.
 //   6. GlassCard (z=8)       - the headline text, vertically centered, left.
 //
 //
-// COLOR PALETTE - TrustPager brand only. NEVER deviate.
-// ----------------------------------------------------
+// COLOR PALETTE - the owner's brand only (from brand/brand.json). NEVER deviate.
+// -----------------------------------------------------------------------------
 //
-//   ALLOWED:
+//   The hex values below are the studio's default palette. When the owner has
+//   run /brand-my-workspace, ../brand.js resolves these to their brand.json
+//   colours instead. The DISCIPLINE is what matters: stay on the brand palette,
+//   never introduce off-brand red / orange / purple in the hero chrome.
+//
+//   ALLOWED (default palette):
 //     #29c6c6  primary teal       (main brand color)
 //     #2db87d  secondary green    (used for completed/success states)
 //     #47a3d9  accent blue        (used for in-progress and accents)
@@ -214,8 +227,9 @@
 // When a user says "make a thumbnail for <topic>", gather these BEFORE
 // touching samples.json or rendering:
 //
-//   1. What's the tutorial's core promise? (one sentence)
-//      Use this to drive headline brainstorming.
+//   1. What's the video's core promise? (one sentence)
+//      Use this to drive headline brainstorming. Any kind of video works
+//      here (a story, a tips video, a walkthrough), not tutorials alone.
 //
 //   2. Headline options - present 3-5 ANGLES (not 5 design variants of one
 //      headline). Example angles:
@@ -228,11 +242,11 @@
 //   3. Which word gets the gradient accent? Usually the strongest verb or
 //      the noun being transformed. Show the user the rendered preview.
 //
-//   4. What 8-10 AI Activity items show the tutorial topic? Mix of:
+//   4. What 8-10 hero items show the video's topic? Mix of:
 //        - 4-6 completed (past tense: Sent, Booked, Followed up, Generated)
 //        - 1 in-progress (continuous: Updating, Drafting, Scoring)
 //        - 2-4 pending   (future-tense or noun phrases: Queue, Open, Score)
-//      Items must be CRM-flavoured CONCRETE actions, not vague tasks.
+//      Items must be CONCRETE, topic-flavoured actions, not vague tasks.
 //      Use fictional but plausible names (Amir K., Sasha R., Jordan P., etc.).
 //
 //   5. Any colour palette changes needed? Default to NO - the brand palette
@@ -292,9 +306,9 @@
 //
 //   2. `npm run dev`            - live preview at http://localhost:3210
 //   3. `npm run shoot <key>`    - export PNG locally + auto-open it (iteration)
-//   4. `npm run publish <key>`  - render + upload to TrustPager's FinalPiece
-//                                  workspace under Files > Tutorial Thumbnails.
-//                                  This is the "finalize" step.
+//   4. `npm run publish <key>`  - render + upload to the owner's workspace
+//                                  under Files > Images (optional, when
+//                                  connected). This is the "finalize" step.
 //   5. To change AI Activity items, edit the `items` array in AIActivityCard.
 //   6. To change colors, layout, or sizing, edit the SYS constants block.
 //
@@ -303,9 +317,12 @@
 import React from 'react';
 import { colors, fonts, THUMBNAIL_SIZE } from '../theme.js';
 import { resolveHero } from './heroes/index.js';
-import { ACCENT, GRADIENT, LIGHT, PANEL, PRIMARY, SLATE, SUCCESS } from '../brand.js';
+import { ACCENT, GRADIENT, LIGHT, NAME, LOGO_URL, PANEL, PRIMARY, SLATE, SUCCESS } from '../brand.js';
 
-const TP_LOGO = '/trustpager-logo.png';
+// The owner's brand wordmark. brand.js resolves LOGO_URL to '/logo.png',
+// which sync-brand.py keeps in step with brand/logo.png after every
+// /brand-my-workspace run — so the thumbnail always carries the owner's logo.
+const BRAND_LOGO = LOGO_URL;
 
 // ============================================================
 // DESIGN SYSTEM CONSTANTS
@@ -328,7 +345,7 @@ const SYS = {
   titlePadY: 44,         // vertical inset inside the title card (snug!)
   logoPadX: 26,          // horizontal inset inside the logo card
   logoPadY: 16,          // vertical inset inside the logo card
-  logoHeight: 44,        // TrustPager wordmark height inside its card
+  logoHeight: 44,        // brand wordmark height inside its card
   headlineSize: 132,     // headline font-size in px
   titleRadius: 32,
   logoRadius: 20,
@@ -674,19 +691,19 @@ const HeroSlot = ({ data }) => {
 // Logo image element - used inside LogoCard below.
 const Logo = ({ height = 44 }) => (
   <img
-    src={TP_LOGO}
-    alt="TrustPager"
+    src={BRAND_LOGO}
+    alt={NAME}
     style={{ display: 'block', height, width: 'auto', objectFit: 'contain' }}
   />
 );
 
-// LogoCard - the TrustPager wordmark sitting directly on the flat white
+// LogoCard - the owner's brand wordmark sitting directly on the flat white
 // canvas at top-left. No card, no padding - the leftmost pixel of the logo
 // aligns with the leftmost pixel of the headline text below.
 const LogoCard = () => (
   <img
-    src={TP_LOGO}
-    alt="TrustPager"
+    src={BRAND_LOGO}
+    alt={NAME}
     style={{
       position: 'absolute',
       left: SYS.margin,
@@ -784,12 +801,31 @@ const GlassCardThumbnail = ({ d }) => (
 
 export const YouTubeThumbnail = ({ data = {} }) => {
   const d = { ...defaultData, ...data };
-  return <div className="template-canvas"><GlassCardThumbnail d={d} /></div>;
+  // The wrapper is pinned to the exact thumbnail dimensions. Without an
+  // explicit size a block div takes width:auto from its containing block —
+  // in the studio's scaled preview that container is narrower than 1280, so
+  // the inner GlassCardThumbnail (a hard 1280) overflowed and puppeteer's
+  // element-screenshot of .template-canvas clipped the right edge (rendered
+  // 1240x720 instead of 1280x720). Sizing the wrapper to THUMBNAIL_SIZE and
+  // keeping it from shrinking makes the screenshotted element exactly 1280x720.
+  return (
+    <div
+      className="template-canvas"
+      style={{
+        width: THUMBNAIL_SIZE.width,
+        height: THUMBNAIL_SIZE.height,
+        flexShrink: 0,
+        overflow: 'hidden',
+      }}
+    >
+      <GlassCardThumbnail d={d} />
+    </div>
+  );
 };
 
 YouTubeThumbnail.templateMeta = {
   id: 'youtube-thumbnail',
   name: 'YouTube Thumbnail',
   size: THUMBNAIL_SIZE,
-  description: 'TrustPager tutorial-video thumbnail. 1280x720, 16:9.',
+  description: "YouTube thumbnail on the owner's brand. 1280x720, 16:9.",
 };

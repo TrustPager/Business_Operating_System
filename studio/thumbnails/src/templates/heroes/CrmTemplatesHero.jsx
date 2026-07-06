@@ -6,13 +6,12 @@
 // tokens that get filled in automatically. "Never Type the Same Thing Twice".
 
 import React from 'react';
-import { colors } from '../../theme.js';
-import { ACCENT, LIGHT, PRIMARY, PRIMARY_DEEP, SUCCESS } from '../../brand.js';
+import { ACCENT, LIGHT, NAME, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS, TEXT, TEXT_MUTED } from '../../brand.js';
 
 const TEMPLATES = [
   {
     name: 'Welcome — New Client',
-    subject: 'Welcome to TrustPager, {{contact.first_name}} 👋',
+    subject: `Welcome to ${NAME}, {{contact.first_name}} 👋`,
     body: 'Hi {{contact.first_name}}, thanks for choosing us for {{deal.title}}. Your onboarding starts {{deal.start_date}} — here\'s what to expect…',
     tokens: ['{{contact.first_name}}', '{{deal.title}}', '{{deal.start_date}}'],
     uses: 47,
@@ -71,7 +70,7 @@ const renderBody = (text, tokens) => {
           display: 'inline-block',
           fontSize: 10, fontWeight: 800,
           color: PRIMARY_DEEP,
-          background: 'rgba(41,198,198,0.18)',
+          background: `${PRIMARY}2e`,
           padding: '1px 6px', borderRadius: 4,
           letterSpacing: '-0.005em',
           fontFamily: 'monospace',
@@ -101,28 +100,28 @@ const TemplateCard = ({ t }) => (
         flexShrink: 0,
       }}>✉</div>
       <span style={{
-        fontSize: 13, fontWeight: 800, color: colors.foreground,
+        fontSize: 13, fontWeight: 800, color: TEXT,
         letterSpacing: '-0.01em', flex: 1, minWidth: 0,
         overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
       }}>{t.name}</span>
       <span style={{
         fontSize: 9, fontWeight: 800, letterSpacing: '0.08em',
-        color: colors.mutedForeground,
-        background: 'rgba(148,163,184,0.14)',
+        color: TEXT_MUTED,
+        background: `${SLATE}24`,
         padding: '2px 7px', borderRadius: 999,
       }}>{t.uses}× USED</span>
     </div>
 
     <div style={{
-      fontSize: 11, color: colors.foreground, fontWeight: 700,
+      fontSize: 11, color: TEXT, fontWeight: 700,
       letterSpacing: '-0.005em', lineHeight: 1.4,
     }}>
-      <span style={{ color: colors.mutedForeground, fontWeight: 600 }}>Subject: </span>
+      <span style={{ color: TEXT_MUTED, fontWeight: 600 }}>Subject: </span>
       {renderBody(t.subject, t.tokens)}
     </div>
 
     <div style={{
-      fontSize: 10.5, color: colors.mutedForeground, fontWeight: 500,
+      fontSize: 10.5, color: TEXT_MUTED, fontWeight: 500,
       lineHeight: 1.5,
       overflow: 'hidden',
       display: '-webkit-box',
@@ -136,12 +135,12 @@ const TemplateCard = ({ t }) => (
       <span style={{
         fontSize: 9, fontWeight: 800, letterSpacing: '0.06em',
         color: PRIMARY_DEEP,
-        background: 'rgba(41,198,198,0.14)',
+        background: `${PRIMARY}24`,
         padding: '2px 7px', borderRadius: 4,
       }}>{t.tokens.length} MERGE FIELDS</span>
       <span style={{ flex: 1 }} />
       <span style={{
-        fontSize: 10, fontWeight: 600, color: colors.mutedForeground,
+        fontSize: 10, fontWeight: 600, color: TEXT_MUTED,
       }}>{t.lastUsed}</span>
     </div>
   </div>
@@ -161,16 +160,16 @@ export const CrmTemplatesHero = () => (
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
           background: SUCCESS,
-          boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
+          boxShadow: `0 0 0 5px ${SUCCESS}38`,
         }} />
-        <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
+        <span style={{ fontSize: 19, fontWeight: 800, color: TEXT, letterSpacing: '-0.015em' }}>
           Email Templates
         </span>
       </div>
       <span style={{
         fontSize: 11, fontWeight: 800, letterSpacing: '0.12em',
-        color: colors.primary,
-        background: 'rgba(41,198,198,0.14)',
+        color: PRIMARY,
+        background: `${PRIMARY}24`,
         padding: '5px 10px', borderRadius: 999,
       }}>310× SENT THIS MONTH</span>
     </div>

@@ -1,29 +1,28 @@
 // Google Calendar hero — vertical stream of calendar events mixed from
-// multiple sources (Google Calendar + TrustPager + Outlook), unified into
+// multiple sources (Google Calendar + your CRM + Outlook), unified into
 // a single timeline.
 //
 // Outcome framing: every meeting lives in one place. Each row shows the
 // source via a colored chip so the unification is visible.
 
 import React from 'react';
-import { colors } from '../../theme.js';
 import { Avatar } from '../../profiles.jsx';
-import { ACCENT, PRIMARY, SUCCESS } from '../../brand.js';
+import { ACCENT, PRIMARY, SLATE, SUCCESS, TEXT, TEXT_MUTED } from '../../brand.js';
 
 const EVENTS = [
   { day: 'Today',     time: '9:00',  duration: '30m', title: 'Discovery — Coastal Health',     attendees: ['Sarah Hartley','Simon [name]'],                       source: 'gcal',    sourceColor: PRIMARY },
-  { day: 'Today',     time: '11:00', duration: '45m', title: 'Workflow Audit — Otis Chen',     attendees: ['Otis Chen','Simon [name]'],                           source: 'tp',      sourceColor: SUCCESS },
+  { day: 'Today',     time: '11:00', duration: '45m', title: 'Workflow Audit — Otis Chen',     attendees: ['Otis Chen','Simon [name]'],                           source: 'crm',      sourceColor: SUCCESS },
   { day: 'Today',     time: '14:00', duration: '60m', title: 'Internal — Sprint Review',       attendees: ['Simon [name]','Jordan Park','Mira Suarez'],           source: 'outlook', sourceColor: ACCENT },
   { day: 'Tomorrow',  time: '8:30',  duration: '30m', title: 'Renewal call — Hugo Daniels',    attendees: ['Hugo Daniels','Simon [name]'],                        source: 'gcal',    sourceColor: PRIMARY },
-  { day: 'Tomorrow',  time: '10:00', duration: '15m', title: 'Quick chat — Asher Patterson',   attendees: ['Asher Patterson','Simon [name]'],                     source: 'tp',      sourceColor: SUCCESS },
+  { day: 'Tomorrow',  time: '10:00', duration: '15m', title: 'Quick chat — Asher Patterson',   attendees: ['Asher Patterson','Simon [name]'],                     source: 'crm',      sourceColor: SUCCESS },
   { day: 'Tomorrow',  time: '13:00', duration: '60m', title: 'Strategy — Camille Anders',      attendees: ['Camille Anders','Simon [name]'],                      source: 'gcal',    sourceColor: PRIMARY },
-  { day: 'Fri 11',    time: '9:00',  duration: '45m', title: 'Anya Faulkner — Audit',          attendees: ['Anya Faulkner','Simon [name]','Jordan Park'],         source: 'tp',      sourceColor: SUCCESS },
+  { day: 'Fri 11',    time: '9:00',  duration: '45m', title: 'Anya Faulkner — Audit',          attendees: ['Anya Faulkner','Simon [name]','Jordan Park'],         source: 'crm',      sourceColor: SUCCESS },
   { day: 'Fri 11',    time: '11:30', duration: '30m', title: 'Doctor appt',                    attendees: ['Simon [name]'],                                       source: 'gcal',    sourceColor: PRIMARY, personal: true },
 ];
 
 const SOURCE_LABELS = {
   gcal:    { label: 'GOOGLE',   abbr: 'G' },
-  tp:      { label: 'TRUSTPAGER', abbr: 'TP' },
+  crm:     { label: 'CRM', abbr: 'CRM' },
   outlook: { label: 'OUTLOOK',  abbr: 'O' },
 };
 
@@ -45,8 +44,8 @@ const Attendees = ({ list }) => (
     {list.length > 3 && (
       <div style={{
         width: 22, height: 22, borderRadius: '50%',
-        background: 'rgba(148,163,184,0.25)',
-        color: colors.foreground, fontSize: 9, fontWeight: 800,
+        background: `${SLATE}40`,
+        color: TEXT, fontSize: 9, fontWeight: 800,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         marginLeft: -7,
         border: '2px solid #fff',
@@ -68,12 +67,12 @@ const EventRow = ({ e }) => {
       opacity: e.personal ? 0.85 : 1,
     }}>
       <div style={{ minWidth: 48, flexShrink: 0 }}>
-        <div style={{ fontSize: 16, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.02em', lineHeight: 1 }}>{e.time}</div>
-        <div style={{ fontSize: 10, fontWeight: 700, color: colors.mutedForeground, marginTop: 3, letterSpacing: '0.04em' }}>{e.duration}</div>
+        <div style={{ fontSize: 16, fontWeight: 800, color: TEXT, letterSpacing: '-0.02em', lineHeight: 1 }}>{e.time}</div>
+        <div style={{ fontSize: 10, fontWeight: 700, color: TEXT_MUTED, marginTop: 3, letterSpacing: '0.04em' }}>{e.duration}</div>
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{
-          fontSize: 13, fontWeight: 800, color: colors.foreground,
+          fontSize: 13, fontWeight: 800, color: TEXT,
           letterSpacing: '-0.01em', lineHeight: 1.2,
           overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
         }}>{e.title}</div>
@@ -88,8 +87,8 @@ const EventRow = ({ e }) => {
           {e.personal && (
             <span style={{
               fontSize: 8.5, fontWeight: 800, letterSpacing: '0.10em',
-              color: colors.mutedForeground,
-              background: 'rgba(148,163,184,0.16)',
+              color: TEXT_MUTED,
+              background: `${SLATE}29`,
               padding: '2px 6px', borderRadius: 4,
             }}>PERSONAL</span>
           )}
@@ -103,13 +102,13 @@ const EventRow = ({ e }) => {
 const DayHeader = ({ label, count }) => (
   <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, padding: '4px 2px 2px 2px' }}>
     <span style={{
-      fontSize: 14, fontWeight: 800, color: colors.foreground,
+      fontSize: 14, fontWeight: 800, color: TEXT,
       letterSpacing: '-0.01em',
     }}>{label}</span>
     <span style={{ flex: 1, height: 1, background: 'rgba(226,232,240,0.6)' }} />
     <span style={{
       fontSize: 10, fontWeight: 800, letterSpacing: '0.10em',
-      color: colors.mutedForeground,
+      color: TEXT_MUTED,
     }}>{count}</span>
   </div>
 );
@@ -134,9 +133,9 @@ export const GoogleCalendarHero = () => {
           <span style={{
             width: 12, height: 12, borderRadius: '50%',
             background: SUCCESS,
-            boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
+            boxShadow: `0 0 0 5px ${SUCCESS}38`,
           }} />
-          <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
+          <span style={{ fontSize: 19, fontWeight: 800, color: TEXT, letterSpacing: '-0.015em' }}>
             Calendar
           </span>
         </div>
@@ -144,15 +143,15 @@ export const GoogleCalendarHero = () => {
           <span style={{
             fontSize: 9, fontWeight: 800, letterSpacing: '0.08em',
             color: PRIMARY,
-            background: 'rgba(41,198,198,0.16)',
+            background: `${PRIMARY}29`,
             padding: '3px 8px', borderRadius: 999,
           }}>● GOOGLE</span>
           <span style={{
             fontSize: 9, fontWeight: 800, letterSpacing: '0.08em',
             color: SUCCESS,
-            background: 'rgba(45,184,125,0.16)',
+            background: `${SUCCESS}29`,
             padding: '3px 8px', borderRadius: 999,
-          }}>● TRUSTPAGER</span>
+          }}>● CRM</span>
         </div>
       </div>
 

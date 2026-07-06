@@ -64,9 +64,12 @@
 //     the last one or two clip at the canvas edge. That bleed is what
 //     tells the viewer "this feature goes on and on".
 //
-//   ✓ Brand colours only — teal #29c6c6, green #2db87d, blue #47a3d9,
-//     light teal #7dd3d3, deep teal #1ea5a5, slate #94a3b8. NEVER orange /
-//     purple / red in hero chrome, even when the real product UI uses them.
+//   ✓ Brand colours only — hero chrome sources its palette from the owner's
+//     brand tokens in brand.js (PRIMARY / SUCCESS / ACCENT / LIGHT /
+//     PRIMARY_DEEP / SLATE, plus TEXT / TEXT_MUTED / BORDER), so
+//     /brand-my-workspace reskins every hero in one shot. Neutral card /
+//     border / shadow greys stay as literals. NEVER off-palette orange /
+//     purple / red in hero chrome, even when a source product UI uses them.
 //     (Photographic avatars are exempt — they're identity, not chrome.)
 //
 //   ✓ Inner panels use a light border, NOT their own shadow —
@@ -154,6 +157,9 @@ import { ClaudePipelineHero } from './ClaudePipelineHero.jsx';
 import { EmailCampaignsHero } from './EmailCampaignsHero.jsx';
 import { PlatformOverviewHero } from './PlatformOverviewHero.jsx';
 import { MigrationHero }      from './MigrationHero.jsx';
+import { StepChecklistHero } from './StepChecklistHero.jsx';
+import { BeforeAfterHero }   from './BeforeAfterHero.jsx';
+import { BigNumberHero }     from './BigNumberHero.jsx';
 
 export const HEROES = {
   'ai-activity':     AIActivityHero,    // legacy fallback — being retired
@@ -183,6 +189,13 @@ export const HEROES = {
   'email-campaigns': EmailCampaignsHero,
   'platform-overview': PlatformOverviewHero,
   'migration':       MigrationHero,
+
+  // Topic-agnostic starters — for owners with no product surface to mimic
+  // (trades, tutorials, how-to). Pick one of these by key instead of
+  // authoring a brand-new hero. They reskin with brand.json out of the box.
+  'step-checklist':  StepChecklistHero,   // numbered how-to / tutorial steps
+  'before-after':    BeforeAfterHero,     // transformation / result story
+  'big-number':      BigNumberHero,       // one bold stat / cost / result figure
 };
 
 export const resolveHero = (key) => HEROES[key] || HEROES['ai-activity'];

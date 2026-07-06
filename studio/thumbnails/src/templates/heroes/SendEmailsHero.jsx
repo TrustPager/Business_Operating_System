@@ -4,9 +4,8 @@
 // linked deal. Tracked badges show "opened / clicked / replied" status.
 
 import React from 'react';
-import { colors } from '../../theme.js';
 import { Avatar } from '../../profiles.jsx';
-import { ACCENT, LIGHT, PANEL, PRIMARY, PRIMARY_DEEP, SUCCESS } from '../../brand.js';
+import { ACCENT, LIGHT, PANEL, PRIMARY, PRIMARY_DEEP, SUCCESS, TEXT, TEXT_MUTED } from '../../brand.js';
 
 const EMAILS = [
   {
@@ -78,9 +77,9 @@ const EMAILS = [
 ];
 
 const TRACK_COLORS = {
-  Opened:    { bg: 'rgba(41,198,198,0.16)',  fg: PRIMARY_DEEP },
-  'Opened 3×': { bg: 'rgba(41,198,198,0.22)', fg: PRIMARY_DEEP },
-  Replied:   { bg: 'rgba(45,184,125,0.16)',  fg: SUCCESS },
+  Opened:    { bg: `${PRIMARY}29`,  fg: PRIMARY_DEEP },
+  'Opened 3×': { bg: `${PRIMARY}38`, fg: PRIMARY_DEEP },
+  Replied:   { bg: `${SUCCESS}29`,  fg: SUCCESS },
   NEW:       { bg: PRIMARY,                fg: PANEL },
 };
 
@@ -101,23 +100,23 @@ const EmailRow = ({ e }) => {
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
           <span style={{
-            fontSize: 12, fontWeight: 800, color: colors.foreground,
+            fontSize: 12, fontWeight: 800, color: TEXT,
             letterSpacing: '-0.01em',
             overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1,
           }}>{e.name}</span>
           <span style={{
-            fontSize: 9, fontWeight: 700, color: colors.mutedForeground,
+            fontSize: 9, fontWeight: 700, color: TEXT_MUTED,
             flexShrink: 0,
           }}>{out ? '↗ SENT' : '↙ INBOX'}</span>
         </div>
         <div style={{
-          fontSize: 12.5, fontWeight: 700, color: colors.foreground,
+          fontSize: 12.5, fontWeight: 700, color: TEXT,
           letterSpacing: '-0.01em',
           overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
           marginBottom: 2,
         }}>{e.subject}</div>
         <div style={{
-          fontSize: 11, color: colors.mutedForeground, fontWeight: 500,
+          fontSize: 11, color: TEXT_MUTED, fontWeight: 500,
           lineHeight: 1.35,
           overflow: 'hidden',
           display: '-webkit-box',
@@ -147,7 +146,7 @@ const EmailRow = ({ e }) => {
             {e.linkedDeal}
           </span>
           <span style={{ flex: 1 }} />
-          <span style={{ fontSize: 10, fontWeight: 600, color: colors.mutedForeground }}>{time}</span>
+          <span style={{ fontSize: 10, fontWeight: 600, color: TEXT_MUTED }}>{time}</span>
         </div>
       </div>
     </div>
@@ -168,16 +167,16 @@ export const SendEmailsHero = () => (
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
           background: SUCCESS,
-          boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
+          boxShadow: `0 0 0 5px ${SUCCESS}38`,
         }} />
-        <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
+        <span style={{ fontSize: 19, fontWeight: 800, color: TEXT, letterSpacing: '-0.015em' }}>
           Inbox
         </span>
       </div>
       <span style={{
         fontSize: 11, fontWeight: 800, letterSpacing: '0.12em',
-        color: colors.primary,
-        background: 'rgba(41,198,198,0.14)',
+        color: PRIMARY,
+        background: `${PRIMARY}24`,
         padding: '5px 10px', borderRadius: 999,
       }}>ALL LINKED · LIVE</span>
     </div>

@@ -5,8 +5,7 @@
 // generated document scrolling down the page.
 
 import React from 'react';
-import { colors } from '../../theme.js';
-import { ACCENT, PRIMARY, PRIMARY_DEEP, SUCCESS } from '../../brand.js';
+import { ACCENT, PRIMARY, PRIMARY_DEEP, SUCCESS, TEXT } from '../../brand.js';
 
 const SHIMMER_LINES = [
   { w: '100%' }, { w: '94%' }, { w: '88%' }, { w: '76%' },
@@ -35,7 +34,7 @@ const Section = ({ icon, iconColor, label, children }) => (
         display: 'inline-flex', alignItems: 'center', gap: 4,
         fontSize: 9, fontWeight: 800, letterSpacing: '0.08em',
         color: PRIMARY_DEEP,
-        background: 'rgba(41,198,198,0.14)',
+        background: `${PRIMARY}24`,
         padding: '2px 7px', borderRadius: 999,
       }}>✦ AI</span>
     </div>
@@ -45,7 +44,7 @@ const Section = ({ icon, iconColor, label, children }) => (
 
 const ParaBody = ({ children }) => (
   <div style={{
-    fontSize: 11.5, color: colors.foreground, fontWeight: 500,
+    fontSize: 11.5, color: TEXT, fontWeight: 500,
     lineHeight: 1.45, letterSpacing: '-0.005em',
   }}>{children}</div>
 );
@@ -58,7 +57,7 @@ const NeedItem = ({ n, sol }) => (
     marginBottom: 6,
     border: '1px solid rgba(226,232,240,0.5)',
   }}>
-    <div style={{ fontSize: 11.5, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.005em', lineHeight: 1.3 }}>{n}</div>
+    <div style={{ fontSize: 11.5, fontWeight: 800, color: TEXT, letterSpacing: '-0.005em', lineHeight: 1.3 }}>{n}</div>
     <div style={{ fontSize: 10.5, color: PRIMARY_DEEP, fontWeight: 700, marginTop: 3, letterSpacing: '-0.005em', lineHeight: 1.3 }}>→ {sol}</div>
   </div>
 );
@@ -70,11 +69,11 @@ const PriceLine = ({ name, price, last = false }) => (
     borderBottom: last ? 'none' : '1px dashed rgba(226,232,240,0.7)',
   }}>
     <span style={{
-      fontSize: 11.5, fontWeight: 700, color: colors.foreground,
+      fontSize: 11.5, fontWeight: 700, color: TEXT,
       letterSpacing: '-0.005em',
     }}>{name}</span>
     <span style={{
-      fontSize: 13, fontWeight: 800, color: colors.foreground,
+      fontSize: 13, fontWeight: 800, color: TEXT,
       letterSpacing: '-0.015em',
     }}>{price}</span>
   </div>
@@ -94,9 +93,9 @@ export const NeedsAnalysisHero = () => (
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
           background: SUCCESS,
-          boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
+          boxShadow: `0 0 0 5px ${SUCCESS}38`,
         }} />
-        <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
+        <span style={{ fontSize: 19, fontWeight: 800, color: TEXT, letterSpacing: '-0.015em' }}>
           Coastal Health · Proposal
         </span>
       </div>
@@ -104,9 +103,9 @@ export const NeedsAnalysisHero = () => (
         display: 'inline-flex', alignItems: 'center', gap: 4,
         fontSize: 11, fontWeight: 800, letterSpacing: '0.10em',
         color: '#fff',
-        background: 'linear-gradient(135deg, #29c6c6, #47a3d9)',
+        background: `linear-gradient(135deg, ${PRIMARY}, ${ACCENT})`,
         padding: '5px 10px', borderRadius: 999,
-        boxShadow: '0 2px 8px rgba(41,198,198,0.40)',
+        boxShadow: `0 2px 8px ${PRIMARY}66`,
       }}>✦ GENERATED</span>
     </div>
 
@@ -131,7 +130,7 @@ export const NeedsAnalysisHero = () => (
     </Section>
 
     <Section icon="◆" iconColor={ACCENT} label="STRATEGY NOTES">
-      <div style={{ fontSize: 11, color: colors.foreground, lineHeight: 1.5, fontWeight: 500 }}>
+      <div style={{ fontSize: 11, color: TEXT, lineHeight: 1.5, fontWeight: 500 }}>
         • Dr Mitchell needs board sign-off above $50k — frame as phased.<br />
         • Open the demo by asking what happens to a GP referral today.<br />
         • Warm via Dr Patel referral — lean on implementation speed.
