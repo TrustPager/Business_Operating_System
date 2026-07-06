@@ -132,7 +132,7 @@ A franchise is a title-and-format *template* with a swappable variable:
 
 - *"I Quoted a [Job Type] in Under a Minute"* → episode 2 is a different job type
 - *"The Real Cost of [Common Service]"* → a whole series, one service per video
-- *"[Number] Mistakes New [Trade] Make"* → refreshable every year
+- *"[Number] Things the Best [Trade]s Always Do"* → refreshable every year
 
 Why it works:
 - **The viewer knows what they're getting**, so a proven format earns the click faster each time.
