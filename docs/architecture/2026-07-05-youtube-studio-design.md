@@ -309,7 +309,8 @@ lands before the surfaces that read it).
   + full comment threads, offered as "want me to go deeper?", never required.
 - **Frontmatter:** `function_slot: research` (a confirmed valid `FUNCTION_SLOTS`
   value in `tools/manifest.py`),
-  `requires_driver: none`, `requires_credential: none`, `data_path: reasoning_only`.
+  `requires_driver: none`, `requires_credential: none`, `data_path: fetch_rest`
+  (it reads the live web, same as the sibling research skills; not `reasoning_only`).
   Firecrawl is reached by delegating to the research skills / keyless hosted MCP, not
   by naming an `mcp__*` tool in the body.
 - **DoD:** a niche + channel URL → a `youtube-research.md` with all three sections,
