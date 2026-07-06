@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // Render a thumbnail PNG and upload it to YOUR TrustPager workspace's
-// "Tutorial Thumbnails" folder.
+// "YouTube Thumbnails" folder.
 //
 // Auth resolves from the BOS install:
 //   1. $TRUSTPAGER_API_KEY environment variable
@@ -37,10 +37,10 @@
 // Flow:
 //   1. Render the PNG via puppeteer (same path as `npm run shoot`).
 //   2. Read the PNG file, encode to base64.
-//   3. List existing files in the Tutorial Thumbnails folder.
+//   3. List existing files in the YouTube Thumbnails folder.
 //   4. For each design: rename / skip / replace / upload per the logic above.
 //   5. POST to TrustPager /v1/files/upload with category=images, folder=
-//      "Tutorial Thumbnails". API key resolves from $TRUSTPAGER_API_KEY
+//      "YouTube Thumbnails". API key resolves from $TRUSTPAGER_API_KEY
 //      env var first, then ~/.claude/bos.json (the BOS install).
 //
 // This is the "finalize" step. `npm run shoot` stays local-only for iteration.
@@ -61,7 +61,7 @@ const RENDER_SCRIPT = resolve(__dirname, 'render.js');
 const DEV_SERVER = 'http://localhost:3210';
 const API_BASE = 'https://api.trustpager.com/functions/v1/api/v1';
 const BOS_CONFIG_PATH = resolve(homedir(), '.claude', 'bos.json');
-const TARGET_FOLDER = 'Tutorial Thumbnails';
+const TARGET_FOLDER = 'YouTube Thumbnails';
 // "image" puts the file in CDN-backed image storage so it surfaces in the
 // Content > Files > Images tab (and any image-picker UI). Folders are
 // referenced by NAME, so the existing "Tutorial Thumbnails" folder works

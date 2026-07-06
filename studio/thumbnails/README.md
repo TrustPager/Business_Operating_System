@@ -415,7 +415,7 @@ thumbnails/
 │   ├── render.js                        puppeteer renderer
 │   └── coverage.js                      npm run coverage (composition ↔ thumbnail map)
 ├── public/
-│   ├── trustpager-logo.png              brand wordmark
+│   ├── logo.png                         the owner's brand wordmark (from brand/logo.png)
 │   └── agents/                          AI agent portraits
 │       ├── Aria.png · Marty.png · Mira.png · Lyra.png
 │       └── Orion.png · Sable.png · Echo.png · Custom.png

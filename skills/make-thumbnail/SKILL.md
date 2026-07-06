@@ -144,8 +144,8 @@ browser, the JSDoc has a "Common mistakes" section worth reading.
 ## Step 5 — Publish (optional, when connected)
 
 The keyless deliverable is the rendered PNG. If the operator has a connected
-workspace, you can also upload the PNG to their own
-`Files > Images` thumbnails folder:
+workspace, you can also upload the PNG to their own workspace, in the
+`Files > Images` area under a `YouTube Thumbnails` folder:
 
 ```bash
 npm run publish <design-key>

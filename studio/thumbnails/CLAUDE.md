@@ -200,7 +200,7 @@ thumbnails/
 │   ├── render.js                        ← puppeteer renderer (shared by shoot + publish)
 │   └── coverage.js                      ← npm run coverage
 ├── public/
-│   ├── trustpager-logo.png              ← brand wordmark
+│   ├── logo.png                         ← the owner's brand wordmark (from brand/logo.png)
 │   └── agents/                          ← AI agent portraits (Aria, Marty, …)
 └── output/                              ← rendered PNGs, named by YouTube title (gitignored)
 ```
