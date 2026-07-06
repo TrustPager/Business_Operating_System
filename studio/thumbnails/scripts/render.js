@@ -9,7 +9,7 @@
 //   npm run render -- social-post-launch
 //   npm run render -- --all      # render all designs from samples.json
 //
-// Requires the dev server to be running on port 3200.
+// Requires the dev server to be running on port 3210 (or $BOS_THUMBNAIL_PORT).
 
 import puppeteer from 'puppeteer';
 import { readFileSync, mkdirSync } from 'fs';

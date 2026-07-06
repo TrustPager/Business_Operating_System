@@ -4,7 +4,7 @@ description: Design and render a 1280x720 YouTube thumbnail for one of your vide
 triggers:
   - make a thumbnail
   - design a youtube thumbnail
-  - build a tutorial thumbnail
+  - build a video thumbnail
   - new thumbnail
   - publish thumbnail
   - render thumbnail
@@ -101,13 +101,13 @@ non-interactively), edit `src/data/samples.json` directly. The minimum
 shape is:
 
 ```json
-"my-tutorial-key": {
+"my-video-key": {
   "composition": null,
   "template": "youtube-thumbnail",
   "data": {
     "headline": "Forms That Auto-Fill Your CRM",
     "accentWord": "Auto-Fill",
-    "hero": "field-stack",
+    "hero": "forms",
     "title": "How to Build & Send Forms in Your Workspace"
   }
 }
