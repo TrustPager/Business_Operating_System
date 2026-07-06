@@ -30,7 +30,7 @@
 //   README's ffmpeg note.
 //
 // Usage:
-//   npm run dev                                  # start the dev server (port 3218)
+//   npm run dev                                  # start the dev server (port 3218, or $BOS_VIDEO_PORT)
 //   npm run render -- <slug>                     # render data/<slug>.script.json
 //   npm run render -- --script path/to.script.json   # render an explicit script
 //   npm run render -- <slug> --no-gif            # skip the preview GIF
@@ -47,7 +47,10 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = resolve(__dirname, '..');
 const OUTPUT_DIR = resolve(PROJECT_ROOT, 'output');
 const DATA_DIR = resolve(PROJECT_ROOT, 'data');
-const DEV_SERVER = 'http://localhost:3218';
+// Dev-server port defaults to 3218; override with BOS_VIDEO_PORT (the same var
+// vite.config.js reads, so the server and the renderer stay on the same port).
+const DEV_PORT = Number(process.env.BOS_VIDEO_PORT) || 3218;
+const DEV_SERVER = `http://localhost:${DEV_PORT}`;
 
 const args = process.argv.slice(2);
 const noGif = args.includes('--no-gif');

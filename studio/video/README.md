@@ -117,6 +117,18 @@ npm run render -- --script path/to/my.script.json   # render an explicit script 
 Always **read/play the MP4** before declaring a render done — the browser preview
 can differ from Chromium's headless output.
 
+**Port override.** The dev server defaults to port 3218. If that port is already
+in use (a concurrent session or a leftover dev server), set `BOS_VIDEO_PORT` to a
+free port. The dev server (`vite.config.js`) and both render scripts read the
+same variable, so one setting keeps them together:
+
+```bash
+BOS_VIDEO_PORT=3219 npm run dev            # dev server on 3219
+BOS_VIDEO_PORT=3219 npm run shoot <slug>   # render against 3219
+```
+
+If `shoot` says the dev server is unreachable, this is the first thing to try.
+
 ---
 
 ## File map
