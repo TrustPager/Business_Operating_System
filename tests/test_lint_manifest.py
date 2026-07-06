@@ -177,5 +177,19 @@ class TestUndeclaredToolCheck(unittest.TestCase):
             self.assertNotIn("FAIL", _severities(issues), issues)
 
 
+class TestCustomerFacingCopyKeyAllowed(unittest.TestCase):
+    """produces_customer_facing_copy is an accepted passthrough key (content-doctrine layer)."""
+
+    def test_produces_customer_facing_copy_is_a_known_key(self):
+        fm = _VALID_FLOOR_FM + "produces_customer_facing_copy: true\n"
+        with tempfile.TemporaryDirectory() as tmp:
+            d = _write_skill(Path(tmp), fm)
+            issues = lint_skill.lint_skill(d)
+            self.assertFalse(
+                any("unknown key" in m for _, m in issues),
+                f"produces_customer_facing_copy must be an accepted key: {issues}",
+            )
+
+
 if __name__ == "__main__":
     unittest.main()
