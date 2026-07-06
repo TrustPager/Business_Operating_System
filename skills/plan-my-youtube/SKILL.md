@@ -157,6 +157,25 @@ no-em-dash rule the same way `build-social-strategy` and `plan-my-content` do:
 - **No em dashes** anywhere the owner or a viewer reads. Use commas, colons,
   parentheses, or separate sentences.
 
+**Pre-write gate (do this before you write any line to `youtube-plan.md`):**
+before you commit a single row or line to the plan file, replace every em dash
+with a period, a comma, a colon, or parentheses. This file is owner-facing and it
+runs long: the em-dash ban applies to every line of it, not just the titles. It is
+easy to hold the rule in a short title and lose it in the pipeline table and the
+strategy prose, so hold it everywhere.
+
+This, not that:
+
+- Write this: "Fix It Yourself, specific named-part repair tutorials". Not this:
+  "Fix It Yourself — specific named-part repair tutorials".
+- Write this: "231,773 views on a beginners guide". Not this: "... beginners
+  guide — 231,773 views".
+
+**Post-write self-check (before you declare this step done):** after you write
+`youtube-plan.md`, scan the whole file for the em-dash character and replace any
+that slipped in with a comma, colon, period, or parentheses. Do the same pass for
+any pain-framed line. Only then is the output done.
+
 ## Step 7: Hand it over + name the next step
 
 Show the strategy and the packaged pipeline, then make the next move obvious:
