@@ -7,12 +7,12 @@
 
 import React from 'react';
 import { colors } from '../../theme.js';
-import { ACCENT, LIGHT, PRIMARY, PRIMARY_DEEP, SUCCESS } from '../../brand.js';
+import { ACCENT, LIGHT, NAME, PRIMARY, PRIMARY_DEEP, SUCCESS } from '../../brand.js';
 
 const TEMPLATES = [
   {
     name: 'Welcome — New Client',
-    subject: 'Welcome to TrustPager, {{contact.first_name}} 👋',
+    subject: `Welcome to ${NAME}, {{contact.first_name}} 👋`,
     body: 'Hi {{contact.first_name}}, thanks for choosing us for {{deal.title}}. Your onboarding starts {{deal.start_date}} — here\'s what to expect…',
     tokens: ['{{contact.first_name}}', '{{deal.title}}', '{{deal.start_date}}'],
     uses: 47,

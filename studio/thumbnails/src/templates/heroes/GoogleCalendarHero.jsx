@@ -1,5 +1,5 @@
 // Google Calendar hero — vertical stream of calendar events mixed from
-// multiple sources (Google Calendar + TrustPager + Outlook), unified into
+// multiple sources (Google Calendar + your CRM + Outlook), unified into
 // a single timeline.
 //
 // Outcome framing: every meeting lives in one place. Each row shows the
@@ -12,18 +12,18 @@ import { ACCENT, PRIMARY, SUCCESS } from '../../brand.js';
 
 const EVENTS = [
   { day: 'Today',     time: '9:00',  duration: '30m', title: 'Discovery — Coastal Health',     attendees: ['Sarah Hartley','Simon [name]'],                       source: 'gcal',    sourceColor: PRIMARY },
-  { day: 'Today',     time: '11:00', duration: '45m', title: 'Workflow Audit — Otis Chen',     attendees: ['Otis Chen','Simon [name]'],                           source: 'tp',      sourceColor: SUCCESS },
+  { day: 'Today',     time: '11:00', duration: '45m', title: 'Workflow Audit — Otis Chen',     attendees: ['Otis Chen','Simon [name]'],                           source: 'crm',      sourceColor: SUCCESS },
   { day: 'Today',     time: '14:00', duration: '60m', title: 'Internal — Sprint Review',       attendees: ['Simon [name]','Jordan Park','Mira Suarez'],           source: 'outlook', sourceColor: ACCENT },
   { day: 'Tomorrow',  time: '8:30',  duration: '30m', title: 'Renewal call — Hugo Daniels',    attendees: ['Hugo Daniels','Simon [name]'],                        source: 'gcal',    sourceColor: PRIMARY },
-  { day: 'Tomorrow',  time: '10:00', duration: '15m', title: 'Quick chat — Asher Patterson',   attendees: ['Asher Patterson','Simon [name]'],                     source: 'tp',      sourceColor: SUCCESS },
+  { day: 'Tomorrow',  time: '10:00', duration: '15m', title: 'Quick chat — Asher Patterson',   attendees: ['Asher Patterson','Simon [name]'],                     source: 'crm',      sourceColor: SUCCESS },
   { day: 'Tomorrow',  time: '13:00', duration: '60m', title: 'Strategy — Camille Anders',      attendees: ['Camille Anders','Simon [name]'],                      source: 'gcal',    sourceColor: PRIMARY },
-  { day: 'Fri 11',    time: '9:00',  duration: '45m', title: 'Anya Faulkner — Audit',          attendees: ['Anya Faulkner','Simon [name]','Jordan Park'],         source: 'tp',      sourceColor: SUCCESS },
+  { day: 'Fri 11',    time: '9:00',  duration: '45m', title: 'Anya Faulkner — Audit',          attendees: ['Anya Faulkner','Simon [name]','Jordan Park'],         source: 'crm',      sourceColor: SUCCESS },
   { day: 'Fri 11',    time: '11:30', duration: '30m', title: 'Doctor appt',                    attendees: ['Simon [name]'],                                       source: 'gcal',    sourceColor: PRIMARY, personal: true },
 ];
 
 const SOURCE_LABELS = {
   gcal:    { label: 'GOOGLE',   abbr: 'G' },
-  tp:      { label: 'TRUSTPAGER', abbr: 'TP' },
+  crm:     { label: 'CRM', abbr: 'CRM' },
   outlook: { label: 'OUTLOOK',  abbr: 'O' },
 };
 
@@ -152,7 +152,7 @@ export const GoogleCalendarHero = () => {
             color: SUCCESS,
             background: 'rgba(45,184,125,0.16)',
             padding: '3px 8px', borderRadius: 999,
-          }}>● TRUSTPAGER</span>
+          }}>● CRM</span>
         </div>
       </div>
 

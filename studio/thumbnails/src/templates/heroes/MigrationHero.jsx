@@ -1,4 +1,4 @@
-// Migration hero — for "Use AI to Migrate Your Data into TrustPager"
+// Migration hero — for a "use AI to migrate all your data in" video
 // (composition: Tutorial-MigrateData).
 //
 // Master rule (see ../YouTubeThumbnail.jsx HERO UI SELECTION): thin, tall,

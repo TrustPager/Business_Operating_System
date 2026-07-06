@@ -1,5 +1,5 @@
-// Permissions hero — the scope grid that is iconic to TrustPager's
-// permissions system. Resources down the left, action columns across the
+// Permissions hero — the scope grid iconic to a role-based permissions
+// system. Resources down the left, action columns across the
 // top (Read / Write / Send / Delete), filled checkboxes per intersection.
 //
 // Reference: ../../../../src/scenes/features/RoleDetailPage.tsx +

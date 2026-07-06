@@ -41,7 +41,7 @@ const REQUESTS = [
   },
   {
     title: 'Calendar sync filter',
-    desc: 'Only sync events tagged "Client" to TrustPager — keep personal blocks private.',
+    desc: 'Only sync events tagged "Client" to your CRM. Keep personal blocks private.',
     state: 'shipped',
     when: 'Live · 3 weeks ago',
   },
