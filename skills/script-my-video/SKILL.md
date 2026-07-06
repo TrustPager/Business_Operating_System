@@ -74,7 +74,8 @@ Build the beat list per `knowledge/youtube-script-method.md`. Every script needs
 at minimum, these roles, in this order:
 
 - **`hook`**: the opening line that earns the next ten seconds. It must land
-  inside `meta.hook_window_s` (default 5 seconds). This is the single most
+  inside `meta.hook_window_s` (default 5 seconds), and Step 4 fits it to that
+  window by word count before its timing is written. This is the single most
   important beat.
 - **`promise`**: what the viewer walks away with if they stay.
 - **`point`**: one or more teaching or story beats that deliver the promise.
@@ -85,7 +86,40 @@ at minimum, these roles, in this order:
 Each beat carries the fields in the schema below. The `role` is one of:
 `hook`, `promise`, `point`, `reset`, `proof`, `cta`.
 
-## Step 4: Emit the script artifacts
+## Step 4: Fit the hook to its window before you write it
+
+The hook is the one beat with a hard time limit: it has to land inside
+`meta.hook_window_s` (default 5 seconds). A hook that reads fine on the page can
+still run long once it is spoken, so fit it by the numbers before you lock it in,
+not by eye.
+
+Do this before you write the hook's `duration_s`:
+
+1. **Count** the spoken words in the hook line.
+2. **Convert to seconds** at the pace you will use for every beat, 150 words per
+   minute by default: `seconds = words / 150 * 60`, which is just `words * 0.4`
+   at 150 wpm. (The pace and why it is 150 live in
+   [`knowledge/youtube-script-method.md`](../../knowledge/youtube-script-method.md),
+   the one home for the method.)
+3. **Compare** the result to `meta.hook_window_s`. If it fits, the hook is ready.
+   If it runs over, **tighten the line** (cut words, split the idea, drop the
+   runway) and count again, until it fits.
+4. **Then**, and only then, write the fitted seconds as the hook's `duration_s`.
+
+Worked example, a 5-second window at 150 wpm:
+
+- A first-draft hook of 16 spoken words comes to `16 * 0.4 = 6.4s`. That is past
+  a 5-second window, so it does not ship as written.
+- Tightened to *"I quote most jobs in under a minute, on the spot."* it is 11
+  words, `11 * 0.4 = 4.4s`, inside the 5-second window. That is the one you write.
+
+Quick rule: at 150 wpm a 5-second window holds about 12 spoken words, so a hook
+much longer than that will miss it. The schema check in
+`tests/test_script_schema.py` rejects a hook whose `duration_s` is past
+`meta.hook_window_s`, so a hook that skips this gate is caught later anyway. Fit
+it here and it lands the first time.
+
+## Step 5: Emit the script artifacts
 
 Write two files into the owner's working directory:
 
@@ -122,7 +156,7 @@ owner of the schema is spec §3, `docs/architecture/2026-07-05-youtube-studio-de
       "on_screen": "…",           // the text/graphic callout (drives studio/video)
       "b_roll": "…",              // visual note: owner's own footage or stock guidance
       "evidence_ref": "…",        // optional: a customer-voice quote id the claim rests on
-      "duration_s": 6              // optional: PLANNED duration (see Step 5)
+      "duration_s": 4              // optional: PLANNED duration (see Step 6)
     }
     // …promise, points, resets, proof, cta
   ]
@@ -131,16 +165,18 @@ owner of the schema is spec §3, `docs/architecture/2026-07-05-youtube-studio-de
 
 Every beat carries `id`, `role`, `spoken`, `on_screen`, and `b_roll`. Add
 `evidence_ref` where a claim rests on a real customer quote. Add `duration_s`
-per Step 5.
+per Step 6.
 
-## Step 5: Fill the planned timing
+## Step 6: Fill the planned timing
 
-Fill each beat's optional `duration_s` from its `spoken` word count at a stated
-words-per-minute rate. **Use 150 words per minute** as the default speaking pace
-(the rationale is in `knowledge/youtube-script-method.md`). So a beat with 30
-spoken words plans to about `30 / 150 * 60 = 12` seconds. State in the
-`<slug>.script.md` that you used 150 wpm, so the owner knows what the planned
-times assume.
+You already fitted the hook to its window in Step 4, so keep that `duration_s`
+and apply the same maths to every other beat. Fill each beat's optional
+`duration_s` from its `spoken` word count at a stated words-per-minute rate.
+**Use 150 words per minute** as the default speaking pace (the rationale is in
+`knowledge/youtube-script-method.md`). So a beat with 30 spoken words plans to
+about `30 / 150 * 60 = 12` seconds. State in the `<slug>.script.md` that you used
+150 wpm, so the owner knows what the planned times assume. If you revised the
+hook line after Step 4, run its window check once more.
 
 This is the *planned* timing, the author half of the timing contract (spec §3).
 The video studio writes the *actual* per-beat times to `<slug>.timing.json` after
@@ -152,7 +188,7 @@ Sanity-check the sum of the planned `duration_s` against
 `meta.duration_target_s`. If they are far apart, tighten or expand the beats so
 the script fits the target, and note the fit in one line.
 
-## Step 6: Anchor claims in real evidence
+## Step 7: Anchor claims in real evidence
 
 Where the script makes a claim about results, numbers, or what customers say,
 anchor it. If a `build-customer-voice` synthesis exists, point the beat's
