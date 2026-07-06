@@ -43,7 +43,8 @@ anything else they might have changed:
   their work silently.
 
 If git says already up to date, tell them they are on the latest version and
-stop. Nothing else to do.
+skip Step 3. Still run the Step 4 connection check before finishing: an install
+can be on the latest version and still carry an old-style connection.
 
 ## Step 3: Refresh the installed pieces
 
@@ -58,12 +59,44 @@ setup is idempotent and safe to run every time. It refreshes the BOS skills and
 commands in `~/.claude/`, and never touches their key or any skill they added
 themselves.
 
-## Step 4: Report, then restart
+## Step 4: Move an old-style Meta Ads connection home
+
+Earlier versions of BOS connected Meta Ads at user scope, which loads the ad
+tools into every project on the machine. The current home is this workspace
+only. Check for the old form and offer the move. Gates, in order:
+
+1. Read `~/.claude.json`. The old form is a `meta-ads` entry in the top-level
+   `mcpServers` (user scope). The current form lives under this workspace's
+   entry in `projects` instead.
+2. No top-level `meta-ads` entry? Skip this step silently and move on. Nothing
+   to say, nothing to fix.
+3. Found one? Offer it in plain words before touching anything: "Your Meta Ads
+   connection is set up the older way, where every project loads it. Want me to
+   move it so it's connected to this workspace only? Your other projects stay
+   fast, and your ads work here doesn't change. You may be asked to redo the
+   quick Facebook sign-in once."
+4. On yes, run from the BOS folder (the same folder as Step 1):
+   `claude mcp remove --scope user meta-ads`, then re-add and (if asked)
+   re-sign-in by following `drivers/meta-ads/connect.md` from Step 1. That file
+   owns the connect steps and already carries the right scope.
+5. Verify by re-reading `~/.claude.json`: the top-level `meta-ads` entry is
+   gone and this workspace's `projects` entry now has one. If either check
+   fails, say so plainly and finish the move rather than leaving it half done:
+   re-run whichever piece is missing (the remove, or the connect.md steps)
+   until both checks pass.
+6. **Leave `firecrawl` alone.** It sits at user scope on purpose (see the
+   Connection Scoping Doctrine in `docs/architecture/tier-1-addon-kit.md`).
+   Only `meta-ads` moves; never sweep other user-scope servers.
+
+## Step 5: Report, then restart
 
 Tell them plainly what updated: the new or improved things they can now do, in
 outcome language, not filenames. Reassure them their brand and settings are
-untouched. Then remind them to restart Claude Code so the new skills load (skills
-load at startup, not mid-session).
+untouched. If Step 4 moved their Meta Ads connection, say so in the same warm
+terms: it's now connected to this workspace so their other projects stay fast.
+If Step 4 found nothing, don't bring connections up at all, not even to reassure.
+Then remind them to restart Claude Code so the new skills load, and the moved
+connection too (both load at startup, not mid-session).
 
 ## Hard rules
 
