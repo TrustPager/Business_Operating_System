@@ -71,7 +71,7 @@ before any intro, channel branding, or "hey everyone welcome back".
 | Pattern | Shape | Example |
 |---|---|---|
 | **Restate the promise** | Say the title's promise out loud, immediately | *"I'm going to quote a real job, start to finish, in under a minute."* |
-| **The bold claim** | A specific, true, slightly surprising statement | *"Most quotes lose the job before the price even matters."* |
+| **The bold claim** | A specific, true, slightly surprising statement | *"The quote itself wins the job, long before the price is read."* |
 | **The open loop** | Pose the question the video answers, don't answer it yet | *"There's one question that wins me nearly every job. Here it is."* |
 | **The result first** | Show the outcome up front, then earn it | *"This is the quote that won a $12,000 job. Let me show you how it was built."* |
 | **The relatable moment** | Name the exact situation the viewer is in | *"You're standing in someone's kitchen and they ask what it'll cost. Here's what I say."* |
