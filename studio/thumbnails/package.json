@@ -1,5 +1,5 @@
 {
-  "name": "trustpager-youtube-thumbnails",
+  "name": "youtube-thumbnail-studio",
   "version": "1.0.0",
   "description": "Code-driven YouTube thumbnail studio on the owner's brand, for any kind of video. Browser editor at localhost:3210, headless PNG export at 1280x720.",
   "type": "module",

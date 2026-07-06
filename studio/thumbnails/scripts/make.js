@@ -11,7 +11,7 @@
 //   - Accent word (must appear in headline)
 //   - Composition id (Remotion comp this thumbnail belongs to)
 //   - YouTube title (validated against YOUTUBE_TITLES.md rules)
-//   - YouTube description hook (auto-wraps with the standard CTA close)
+//   - YouTube description hook (appends the owner's CTA from brand.json when set)
 //
 // Auto-assigns the next available `order` (max + 1). After adding, prints
 // the next commands to render and ship.
@@ -26,12 +26,42 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SAMPLES_PATH = resolve(__dirname, '../src/data/samples.json');
+const BRAND_PATH = resolve(__dirname, '../../../brand/brand.json');
+
+// Read the owner's brand so the lint checks THEIR brand name and CTA, not a
+// hardcoded vendor. Same readFileSync+JSON.parse pattern used for samples.json
+// (robust across Node versions, no import-assertion syntax). If brand.json is
+// missing or unreadable, degrade gracefully: no brand-name requirement, no CTA
+// auto-append (never inject a hardcoded vendor URL).
+function loadBrand() {
+  try {
+    const b = JSON.parse(readFileSync(BRAND_PATH, 'utf8'));
+    const name = typeof b?.name === 'string' ? b.name.trim() : '';
+    // Accept a few likely field shapes for a call-to-action line.
+    const ctaText = (b?.cta && String(b.cta).trim()) || '';
+    const ctaUrl = (b?.ctaUrl || b?.url || (b?.cta && b.cta.url) || '');
+    let cta = '';
+    if (ctaText && ctaUrl) cta = `${ctaText}: ${ctaUrl}`;
+    else if (ctaText) cta = ctaText;
+    else if (ctaUrl) cta = String(ctaUrl).trim();
+    return { name, cta };
+  } catch {
+    return { name: '', cta: '' };
+  }
+}
+const BRAND = loadBrand();
+// The neutral starter brand.json ships name "Your Business" as a placeholder;
+// treat that as "no brand set yet" so the lint doesn't demand a placeholder
+// word appear in the title.
+const REQUIRED_BRAND_WORD =
+  BRAND.name && BRAND.name.toLowerCase() !== 'your business' ? BRAND.name : '';
+// No CTA is auto-appended unless the owner's brand.json carries one.
+const REQUIRED_CTA = BRAND.cta || '';
 
 const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
 const ask = (q) => new Promise((r) => rl.question(q, r));
 
 const KEBAB = /^[a-z0-9]+(-[a-z0-9]+)*$/;
-const REQUIRED_CTA = 'Try TrustPager free: https://trustpager.com';
 const BANNED_TITLE_WORDS = [
   'Claude', 'Anthropic', 'OpenAI', 'ChatGPT',
   'Retell', 'Twilio', 'Postmark', 'Resend', 'Sendgrid',
@@ -41,8 +71,8 @@ const BANNED_TITLE_WORDS = [
 
 function lintTitle(title) {
   const issues = [];
-  if (!title.toLowerCase().includes('trustpager')) {
-    issues.push('Must include "TrustPager"');
+  if (REQUIRED_BRAND_WORD && !title.toLowerCase().includes(REQUIRED_BRAND_WORD.toLowerCase())) {
+    issues.push(`Must include "${REQUIRED_BRAND_WORD}"`);
   }
   for (const banned of BANNED_TITLE_WORDS) {
     const re = new RegExp(`\\b${banned.replace(/\./g, '\\.')}\\b`, 'i');
@@ -101,7 +131,7 @@ function lintTitle(title) {
   }
 
   // 4. Composition id
-  const composition = (await ask('Remotion composition id (e.g. "Tutorial-EmailMarketing"): ')).trim();
+  const composition = (await ask('Remotion composition id (e.g. "MyVideo-EmailMarketing"), or blank: ')).trim();
   if (!composition) {
     console.log('  Warning: no composition linked. `npm run coverage` will flag this.');
   }
@@ -109,7 +139,7 @@ function lintTitle(title) {
   // 5. YouTube title (validated against YOUTUBE_TITLES.md)
   let title;
   while (true) {
-    title = (await ask('YouTube title (e.g. "How to ... in TrustPager"): ')).trim();
+    title = (await ask('YouTube title (e.g. "How I Quote a Job in Under a Minute"): ')).trim();
     if (!title) { console.log('  Required.'); continue; }
     const issues = lintTitle(title);
     if (issues.length > 0) {
@@ -122,13 +152,17 @@ function lintTitle(title) {
     break;
   }
 
-  // 6. YouTube description hook (single paragraph; CTA is auto-appended)
+  // 6. YouTube description hook (single paragraph). The owner's CTA (from
+  // brand.json) is appended when one is set; otherwise the body is used as-is
+  // and no vendor URL is ever injected.
   console.log('');
-  console.log('YouTube description body (one paragraph, then the CTA is auto-appended).');
+  console.log(REQUIRED_CTA
+    ? 'YouTube description body (one paragraph, then your brand CTA is auto-appended).'
+    : 'YouTube description body (one paragraph). No CTA set in brand.json, so none is appended.');
   console.log('  Hook should lead with the outcome the viewer gets.');
   console.log('  See YOUTUBE_TITLES.md > "Description template" for examples.');
   const hook = (await ask('Description body: ')).trim();
-  const description = hook ? `${hook}\n\n${REQUIRED_CTA}` : '';
+  const description = hook ? (REQUIRED_CTA ? `${hook}\n\n${REQUIRED_CTA}` : hook) : '';
   if (!description) {
     console.log('  Warning: empty description. `npm run coverage` will flag this.');
   }
@@ -171,6 +205,6 @@ function lintTitle(title) {
   console.log(`  npm run dev               # live preview at http://localhost:3210`);
   console.log(`  npm run shoot ${key}      # render PNG`);
   console.log(`  npm run coverage          # lint the entry`);
-  console.log(`  npm run publish ${key}    # upload to FinalPiece > Tutorial Thumbnails`);
+  console.log(`  npm run publish ${key}    # upload to your workspace Images folder`);
   console.log('');
 })();

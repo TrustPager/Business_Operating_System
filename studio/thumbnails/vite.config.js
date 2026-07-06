@@ -58,6 +58,6 @@ export default defineConfig({
     port: 3210,
     open: false,
     host: '0.0.0.0',
-    allowedHosts: ['thumbnail-studio.trustpager.net', 'localhost'],
+    allowedHosts: ['localhost'],
   },
 });

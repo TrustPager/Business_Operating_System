@@ -1,5 +1,5 @@
-// TrustPager YouTube Thumbnail Studio
-// Browser-based editor for previewing tutorial-video thumbnails.
+// YouTube Thumbnail Studio
+// Browser-based editor for previewing thumbnails on the owner's brand.
 // Run: npm run dev → opens at http://localhost:3210
 //
 // Left sidebar: design gallery + JSON data editor
@@ -129,7 +129,7 @@ export const App = () => {
         flexDirection: 'column',
         overflow: 'hidden',
       }}>
-        {/* Branded header — TrustPager logo + product label */}
+        {/* Branded header — the owner's logo + studio label */}
         <div style={{
           padding: '20px 22px',
           borderBottom: `1px solid ${BORDER}`,
@@ -284,7 +284,7 @@ export const App = () => {
                 <CommandChip
                   label="publish"
                   command={publishCommand}
-                  tooltip="Click to copy. Paste in terminal to render + upload to your TrustPager > Files > Tutorial Thumbnails folder (finalize)."
+                  tooltip="Click to copy. Paste in terminal to render + upload to your workspace Images folder (finalize)."
                   active={recentlyCopied && copiedKind === 'publish'}
                   accent={PRIMARY}
                   onCopy={() => copy('publish', publishCommand)}

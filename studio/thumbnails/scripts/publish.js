@@ -64,9 +64,9 @@ const BOS_CONFIG_PATH = resolve(homedir(), '.claude', 'bos.json');
 const TARGET_FOLDER = 'YouTube Thumbnails';
 // "image" puts the file in CDN-backed image storage so it surfaces in the
 // Content > Files > Images tab (and any image-picker UI). Folders are
-// referenced by NAME, so the existing "Tutorial Thumbnails" folder works
-// across types - the API auto-creates the folder for the image category
-// on first upload if it doesn't already exist there.
+// referenced by NAME, so the TARGET_FOLDER works across types - the API
+// auto-creates the folder for the image category on first upload if it
+// doesn't already exist there.
 const TARGET_CATEGORY = 'image';
 
 // --- Args ---
@@ -164,7 +164,7 @@ function formatApiError(payload, fallbackText) {
   return payload.error || payload.message || payload.detail || fallbackText || JSON.stringify(payload);
 }
 
-// --- List existing files in Tutorial Thumbnails ---
+// --- List existing files in the target folder ---
 // Returns { byName, byDescription } maps of { key -> file_id } for every
 // file in the target folder. The two maps power the rename-detection logic
 // in the main loop: filename is the unstable identity (changes when the
@@ -247,7 +247,7 @@ async function deleteFile(id) {
     throw new Error(`Delete failed (${res.status}): ${formatApiError(payload, text)}`);
   }
   // If the delete needs approval (e.g. secure-category files), the API returns
-  // 202 + an approval_id. For images in the Tutorial Thumbnails folder this
+  // 202 + an approval_id. For images in the target folder this
   // should be a straight 200 — flag the approval case so the user knows.
   if (payload.approval_id) {
     throw new Error(`Delete queued for approval (id: ${payload.approval_id}). Approve at https://app.trustpager.com/settings/api?tab=approvals then re-run with --replace.`);
@@ -314,7 +314,7 @@ async function uploadOne(key) {
   }
 
   console.log('');
-  console.log(`Publishing ${keysToPublish.length} design(s) to FinalPiece > Tutorial Thumbnails`);
+  console.log(`Publishing ${keysToPublish.length} design(s) to your workspace > Files > ${TARGET_FOLDER}`);
   console.log('');
 
   try {
