@@ -65,7 +65,10 @@ Before you fetch anything, know:
 
 If a fetch is slow, blocked, or empty, say so and offer the fallback: "paste me
 what is on that page and I will read it the same way." Never guess at what is on a
-page you could not read.
+page you could not read. If it is not one page but both public routes failing at
+once, that is a locked-down network: work the "When both public sources are
+unreachable" branch below, which owns the trigger and the recovery order, instead
+of forcing a thin read.
 
 ## Step 1: Competitor content scan
 
@@ -168,6 +171,92 @@ the relevant section, always with verbatim evidence. Default to the web read for
 the first pass; `yt-dlp` is the "go deeper?" option that unlocks true comment
 mining, never the gate to a first result.
 
+## When both public sources are unreachable (an occasional, expected environment)
+
+Most runs reach the live web fine: the keyless web read renders live pages, so the
+channel scan and the search signals come back with real titles, view counts, and
+phrasings. Once in a while a run lands somewhere locked down instead: a corporate
+firewall, an air-gapped site, or a web read that returns a page's bare shell rather
+than its rendered content. This is uncommon, and it is a normal environment to
+meet, so here is how the read still moves forward on real evidence.
+
+You are in this branch when **both** public routes come back empty, not one page:
+the channel and video reads *and* the search and public-discussion reads. Give it
+the same patience you would before offering Step 0's paste fallback on a single
+page: retry once, and confirm that at least a couple of different channel or video
+reads *and* a couple of different search queries all come back empty or as bare
+shells before you conclude the network is locked down. One flaky page is Step 0's
+paste fallback. Both routes failing across a few reads each is this branch. When in
+doubt, assume the web read is fine and keep going: this branch is the exception,
+not the reflex.
+
+**Primary recovery: reach for the local `yt-dlp` deepener (Step 4) first.** It runs
+on the owner's machine and reaches YouTube by a different route than the page read
+(the video's own data feed, not the rendered page), so it can still pull real
+titles, full transcripts, and real comment threads even when the page read only saw
+a shell. That is the way back to real observed evidence, so offer it first here, not
+last:
+
+> The live web read is not getting through on this network. The free local yt-dlp
+> tool reaches YouTube a different way and can still pull real titles, transcripts,
+> and viewer comments, no account needed. Want me to run it so your read is built
+> on real data?
+
+`yt-dlp` works a video at a time, so point it at the two or three videos that matter
+most. Anchoring even a few real transcripts and comment threads keeps the
+demand-signal and packaging sections standing on real evidence.
+
+**Second recovery: pasted page content is real data too.** If `yt-dlp` is not an
+option (the owner declines, or the network blocks it as well), the owner's own
+screen still is: "paste me what is on the channel or video page and I will read it
+the same way." Pasted content is real observed evidence and needs no network or
+local tool, so try it before dropping to an illustrative read.
+
+**Last resort: a clearly-labelled illustrative read.** Only when neither `yt-dlp`
+nor pasted content yields real data, ship the illustrative template rather than a
+thin guess dressed as findings. Do not reinvent the framing each run: fill the
+template below. This is the one place the read may carry lines you did not observe,
+and it is allowed only because every line is loudly labelled illustrative. It shows
+the owner the exact shape their real research will take and the fastest route to
+fill it with live evidence, framed as what is coming, not what is missing.
+
+```markdown
+# YouTube research (illustrative worked example)
+
+Quick note: this run could not reach the live web, so the read below is an
+illustrative worked example built from general knowledge of your niche. It shows
+the exact shape your real research will take, section by section. It is a preview,
+not observed data, so treat every line as an example to confirm live. The fastest
+routes to your real read are at the bottom.
+
+## 1. Competitor content scan (illustrative)
+Two or three example channels typical of this niche, with the formats they run and
+the kind of outlier video that tends to break out. Every line here is an example to
+confirm against your live read.
+
+## 2. Video ideas from viewer demand (illustrative)
+Two or three example video ideas the niche tends to reward. Each carries an
+"evidence to capture live:" line in place of a real quote, so you can see exactly
+what a finished idea looks like once the real search signal fills it in.
+
+## 3. Novel-packaging gap-and-angle map (illustrative)
+One or two example angles and a standout title or thumbnail concept, marked
+illustrative. The real map earns its confidence from the observed outliers in
+section 1.
+
+## Get your live read
+- Re-run on a connected network and I will replace every line above with real
+  observed evidence.
+- Or let me run the free local yt-dlp tool now: it reaches YouTube a different way
+  and can pull real titles, transcripts, and comments even when the page read
+  cannot.
+- Or paste what is on a channel or video page and I will read it the same way.
+```
+
+Keep the illustrative read short. Its whole job is to show the shape and point at
+the real version, never to stand in for it. The illustrative read is owner-facing
+too, so run the same em-dash sweep on it (see Output shape) before you send it.
+
 ## Output shape — positive-only, no em dashes
 
 `youtube-research.md` is the deliverable, with all three sections: the competitor
@@ -233,3 +322,12 @@ and fix it. Only then is the output done.
 - ✅ **Bound it.** Roughly 3 to 5 channels and their top videos, finishable in one
   sitting.
 - ✅ If a fetch fails, say so and offer to read pasted content instead.
+- ✅ **Both public sources down is an expected environment, not a dead end.** When
+  the channel reads and the search reads both come back empty, name it plainly,
+  reach for the `yt-dlp` deepener first (it takes a different route to real data),
+  and only then fall to a labelled illustrative read. See "When both public sources
+  are unreachable."
+- ❌ **Never pass an illustrative read as observed.** If you must ship the
+  illustrative template, label it illustrative in the title and every section, and
+  give the routes to the real version. Illustrative is a preview of the shape, never
+  a finding.
