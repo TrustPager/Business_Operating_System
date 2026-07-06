@@ -97,7 +97,7 @@ Your brand and voice, branded posts, content plans, and a workspace that looks l
 **Keyless, heavier setup (optional studios)**
 
 - **Make Social Post**: Design and render branded social posts for Instagram, LinkedIn, and X, ready to publish.
-- **Make Thumbnail**: Design and render a polished YouTube thumbnail for a tutorial video.
+- **Make Thumbnail**: Design and render a polished, on-brand YouTube thumbnail for any video.
 
 **Switches on when you connect a tool**
 

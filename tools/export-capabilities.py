@@ -301,8 +301,8 @@ _ONE_LINERS: dict[str, str] = {
     "platforms, a realistic cadence, content pillars, and the first move.",
     "make-social-post": "Design and render branded social posts for Instagram, "
     "LinkedIn, and X, ready to publish.",
-    "make-thumbnail": "Design and render a polished YouTube thumbnail for a "
-    "tutorial video.",
+    "make-thumbnail": "Design and render a polished, on-brand YouTube thumbnail "
+    "for any video.",
     "plan-my-content": "Turn your content pillars and voice into a dated, "
     "ready-to-post calendar for the next week or two.",
     "write-post-copy": "Draft the publish-ready words for a social post in your "
