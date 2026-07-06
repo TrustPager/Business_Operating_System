@@ -56,7 +56,15 @@ owner's voice and grounded in their business and their research:
   owner-facing in the plan (titles, angles, the channel positioning) uses this
   voice.
 - **`./CLAUDE.md`:** the business shape, the offer, and the region **only if** a
-  `Region:` line is explicitly set. Do not infer a region that is not stated.
+  `Region:` line is explicitly set (that `Region:` line is the country-level
+  signal the rest of the factory keys on, and it is never inferred).
+- **A service town or suburb, if one is already known:** a location or
+  service-area field in `brand/brand.json` when the brand carries one, or a place
+  the owner has stated in `./CLAUDE.md`. This is the local packaging locale, a
+  separate thing from the country-level `Region:` line, and it is what a local
+  channel's strongest angle is built on. If none is on the machine, note it as
+  not-yet-known and let Step 2 decide whether to ask. Never invent a town the
+  owner has not given you.
 - **If present, `youtube-research.md`** (from `research-my-channel`): this is the
   primary input when it exists. It carries the competitor content scan, the
   comment-mined ideas with their verbatim evidence, and the novel-packaging
@@ -82,6 +90,27 @@ If the research artifact and the owner's words together are too thin to plan
 something genuinely theirs, ask ONE targeted question that unlocks it (who the
 channel is for and what one action a viewer should take), then build from the
 answer. A sharp plan from one good answer beats a generic one from nothing.
+
+**Ask for the service town up front when the local angle is the play (here, not
+after the plan is written).** For a local-service business the local-town angle is
+usually the single strongest packaging play: the big generic channels in the niche
+can't be local for you, so "[trade] for [Town]" is a lane a new channel can own
+from zero (this is the untaken-angle move in `youtube-packaging-method.md`). When
+that is the play and no town is known from Step 1, ask one short question before
+you build, so the first row can carry the local angle while the owner is most
+engaged, instead of landing as a half-formed slot after the plan is written:
+
+> Quick one so I can package your strongest angle: what town or area do you serve?
+> Putting your town front and centre is a lane you can own from day one, so it is
+> often a local channel's best first move.
+
+The owner naming their town is not inferring a region, it is the sanctioned way to
+learn it, the same way `get-found-online` works from "[service] [suburb]." Keep it
+to one light question (fold it in with confirming the goal so the owner is not
+peppered), and never put a place in their mouth. If they would rather not say,
+carry on and leave the local angle as an open slot they can fill later (Step 5).
+Skip this ask entirely when the channel is not local (a national product, a
+software channel): there is no town to own.
 
 ## Step 3: Set the channel strategy (delegate to `build-social-strategy`)
 
@@ -132,7 +161,12 @@ them the same way:
 2. **Angle** — the differentiated take. Not the topic everyone covers, but the
    specific angle that stands out, drawn from the untaken-angles map in the
    research. This is the packaging craft's core move: differentiate, do not
-   duplicate.
+   duplicate. For a local-service channel the local-town angle is often the
+   strongest row here: when the owner gave you their town in Step 2, name it in
+   the angle and the working title (the "[Trade] for [Town] Homeowners" shape from
+   `youtube-packaging-method.md`). When they chose not to share it, leave that
+   row's local angle as a clearly marked open slot ("[your town] here") the owner
+   can drop their town into later, never a place you made up.
 3. **Working title** — a strong candidate title in the owner's brand voice,
    outcome-led and positive. This seeds `script-my-video`'s `working_title` and
    `packaging.title_options`.
@@ -205,6 +239,11 @@ Keep it an offer, not homework.
   present, pipeline ideas and angles trace back to its observed demand and its
   verbatim evidence. Never invent audience demand, competitor outliers, or
   results to fill a row.
+- ✅ **Never invent a place, but do ask for one.** Read the region and the service
+  town from the machine, or ask the owner for their town when the local angle is
+  the play: both are fine. Making up a town, suburb, or region the owner never
+  gave you is not. On a decline, the local angle stays a clearly marked open slot,
+  never a guess.
 - ✅ **One channel, one goal per run.** A plan is aimed. Two goals or two brands
   is two runs.
 - ✅ **Positive-only, outcome-led owner-facing copy, no em dashes.** Titles,

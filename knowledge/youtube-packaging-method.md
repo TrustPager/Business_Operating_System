@@ -159,9 +159,12 @@ entering a crowded shape competes on size and loses.
 
 **2. Find the untaken angles.** For each proven idea, ask what angle nobody in the
 cluster is taking: a different audience ("for solo operators", "for someone doing
-this the first time"), a contrarian take, a real-result story, a specific
-timeframe or number, the owner's own hard-won lesson. An untaken angle on a proven
-idea is the single best packaging opportunity a small channel has.
+this the first time"), the local town or area the big generic channels can't own
+("[Trade] for [Town] Homeowners", usually a local-service channel's single
+strongest lane, because a national channel can't be local for you), a contrarian
+take, a real-result story, a specific timeframe or number, the owner's own
+hard-won lesson. An untaken angle on a proven idea is the single best packaging
+opportunity a small channel has.
 
 **3. Mine the comments for demand in the audience's own words.** The comments on
 top videos are a free demand signal. Look for:
