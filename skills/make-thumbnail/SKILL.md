@@ -175,7 +175,7 @@ npm run publish -- --all --replace    # wipe + re-upload
   Vite dev server can still misrender in puppeteer if it uses unusual
   CSS features. Run `npm run shoot` and look at the actual PNG.
 - **Examples ≠ inspiration to copy.** The 6 PNGs in
-  `studio/thumbnails/examples/` are FinalPiece's own thumbnails. They
+  `studio/thumbnails/examples/` are the studio's bundled example thumbnails. They
   show the design DNA but are not templates to clone verbatim.
 - **Publish is optional.** If the operator wants the PNG to stay local
   (post manually to YouTube studio), skip publish. The shoot output in

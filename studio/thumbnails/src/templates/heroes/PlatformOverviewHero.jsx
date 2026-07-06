@@ -5,11 +5,11 @@
 // dot, feature name, and one-line outcome subtitle. 8-9 rows visible, the
 // rest bleed off the bottom to signal "this goes on and on".
 //
-// Brand-colour rule: cycle the owner's brand palette ONLY (imported from
-// brand.js: primary / accent / deep-blue / light / deep / slate). No off-
-// palette orange / pink / purple / red even though a source product's inline
-// section may use per-feature accents — those are website chrome; thumbnails
-// stay on the owner's brand palette.
+// Brand-colour rule: cycle the studio brand palette from theme.js ONLY
+// (per-owner brand-token wiring via brand.js is a later fidelity task). No
+// off-palette orange / pink / purple / red even though a source product's
+// inline section may use per-feature accents — those are website chrome;
+// thumbnails stay on the brand palette.
 
 import React from 'react';
 import { colors } from '../../theme.js';
