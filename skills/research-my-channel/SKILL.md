@@ -299,11 +299,14 @@ and fix it. Only then is the output done.
 - ❌ **No `crawl` / `map` / `agent` / `extract`.** Per-page read plus search only,
   capped at roughly 3 to 5 channels and their top videos. Those paid ops are not
   keyless and not on the floor.
-- ❌ **Never fabricate.** Every demand-signal idea carries a real evidence quote
-  (the exact search query, thread title, or public phrasing you saw), exact as
-  written. Every outlier and view count is one you actually saw. No invented
-  quotes, no invented numbers, no made-up outliers. "No clear demand signal found
-  for this" is a real finding.
+- ❌ **Never fabricate, and your own knowledge is not evidence.** Every
+  demand-signal idea carries a real evidence quote (the exact search query, thread
+  title, or public phrasing you saw), exact as written. Every outlier and view
+  count is one you actually saw. What you already know about the niche, however
+  confident it sounds, is NOT evidence: if you did not see it on a page or a search
+  result this run, it does not go in the file. No invented quotes, no invented
+  numbers, no made-up outliers. "No clear demand signal found for this" is a real
+  finding.
 - ❌ **The keyless read does not reach YouTube comment threads.** Never present
   invented viewer comments. Real comment mining in a viewer's own words needs the
   optional `yt-dlp` deepener (Step 4); until the owner opts in, source demand from

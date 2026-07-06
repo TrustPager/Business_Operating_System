@@ -75,7 +75,10 @@ async function renderDesign(browser, key, sample) {
   }, key);
 
   if (!clicked) {
-    console.error(`  Could not find design "${key}" in sidebar`);
+    console.error(`  Could not find design "${key}" in the studio sidebar.`);
+    console.error(`  If "${key}" IS in src/data/samples.json, the dev server is`);
+    console.error(`  serving a stale copy: stop npm run dev and start it again so it`);
+    console.error(`  picks up your new entry, then re-run the shoot.`);
     await page.close();
     return;
   }
