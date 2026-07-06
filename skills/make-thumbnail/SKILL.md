@@ -65,23 +65,23 @@ executing a concept, not inventing one. Otherwise, ask the owner for:
 3. **Hero family** — what's the visual centrepiece going to be? This is
    the step whose size varies, so be honest with the owner about which
    path they're on:
-   - **A shipped hero fits, so reuse it (quick).** The registry
+   - **A shipped hero fits, so reuse it (quick, JSON-only).** The registry
      ([`heroes/index.js`](../../studio/thumbnails/src/templates/heroes/index.js))
-     ships shapes across six families: card stack, event row, field
-     stack, roster, checklist, document, flow. Every shipped hero today
-     is a CRM/workspace surface (pipeline, contacts, forms, approvals,
-     e-signing, reports, and so on). If the video is about one of those,
-     set `"hero": "<key>"` in `samples.json` and you're on the fill-in-
-     JSON path.
-   - **Nothing fits, so a new hero gets authored (a bigger step).** For a
-     trade or general tutorial (a roofing walkthrough, "3 tools every
-     sparky needs"), there's likely no hero yet, and an unknown key just
-     falls back to the generic activity card, which fails the squint
-     test. Getting it right means writing a genuinely new React hero
-     component and registering it (real React work, following the "Adding
-     a hero" steps in `heroes/index.js`), not a JSON edit. Say so before
-     you start, so the owner isn't surprised the "answer a few questions
-     and run `npm run make`" flow turned into building a component.
+     ships two families. The CRM/workspace surfaces (pipeline, contacts,
+     forms, approvals, e-signing, reports, and so on) carry software topics.
+     And three topic-agnostic starter heroes carry trade and tutorial
+     videos: `step-checklist` (a numbered how-to stepper), `before-after`
+     (a starting-point to now transformation), and `big-number` (one bold
+     stat, cost, or result). So a plumbing how-to reuses `step-checklist`
+     and a "real cost of X" video reuses `big-number`: set `"hero": "<key>"`
+     in `samples.json` and you're on the fill-in-JSON path.
+   - **Nothing fits, so a new hero gets authored (the rare case now).** Only
+     when none of the stock heroes carry your topic. An unknown key falls
+     back to the generic activity card, which fails the squint test, so
+     author a genuinely new React hero component and register it (real React
+     work, following the "Adding a hero" steps in `heroes/index.js`), not a
+     JSON edit. Say so before you start. With the starter heroes in stock, a
+     trade or tutorial video usually reuses one, so this is the exception.
 
 ## Step 2 — Add the design to samples.json
 
