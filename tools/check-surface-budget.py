@@ -14,9 +14,8 @@ This gate stops the surface creeping back up as the catalog grows. It fails if:
   * any ``skills/*/SKILL.md`` frontmatter ``description`` exceeds 400 chars, or
   * any ``commands/*.md`` frontmatter ``description`` exceeds 150 chars.
 
-The caps are deliberately looser than the working targets (skills trimmed to
-<=350, command shims to <=120) so the gate catches genuine regressions without
-nagging over a few characters. A command shim only labels the slash-command
+The caps are deliberately looser than the working targets authors trim to, so
+the gate catches genuine regressions without nagging over a few characters. A command shim only labels the slash-command
 menu; the full trigger surface lives on the skill, so its cap is much tighter.
 
 Exit codes:
@@ -47,7 +46,14 @@ def _description(md_path: Path) -> str:
         text = md_path.read_text(encoding="utf-8")
     except OSError:
         return ""
-    meta = parse_frontmatter(text)
+    try:
+        meta = parse_frontmatter(text)
+    except ValueError as exc:
+        rel = str(md_path.relative_to(REPO_ROOT)).replace("\\", "/")
+        raise SystemExit(
+            f"FAIL: {rel}: unparseable frontmatter ({exc}). Descriptions must "
+            f"be a single unwrapped line — rewrite it, then re-run."
+        ) from exc
     desc = meta.get("description", "")
     return desc if isinstance(desc, str) else ""
 
@@ -85,8 +91,8 @@ def scan() -> int:
     for rel, n in command_over:
         print(f"  {rel}: description {n} chars > {COMMAND_CAP} cap")
     print("\nTrim to keep trigger vocabulary (what it does, when to use it, the "
-          "phrases an owner would say) and cut benefit-marketing prose. Skills "
-          f"aim <= 350, command shims <= 120. Re-run when done.")
+          "phrases an owner would say) and cut benefit-marketing prose, keeping "
+          "well under the cap. Re-run when done.")
     return 2
 
 
