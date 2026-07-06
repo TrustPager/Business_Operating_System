@@ -1,0 +1,12 @@
+{
+  "_comment": "INPUT fixture for script-my-video: a saved topic payload the skill scripts from, fully offline (no key, no network). The skill reads brand/CLAUDE.md silently, then this video-specific bucket (Step 2). The expected OUTPUT shape is skills/script-my-video/sample.script.json, validated by tests/test_script_schema.py.",
+  "topic": "How I quote a plumbing job in under a minute",
+  "one_action": "Book a free quote call",
+  "target_length_s": 75,
+  "aspect": "16:9",
+  "packaging": {
+    "angle": "The quote is the sale, not the paperwork after it",
+    "thumbnail_concept": "Owner holding a phone with a stopwatch overlay reading 0:58",
+    "working_title": "How I Quote a Job in Under a Minute"
+  }
+}
