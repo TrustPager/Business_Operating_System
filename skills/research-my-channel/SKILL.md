@@ -10,7 +10,7 @@ triggers:
 function_slot: research
 requires_driver: none
 requires_credential: none
-data_path: reasoning_only
+data_path: fetch_rest
 status: active
 ---
 
