@@ -54,6 +54,9 @@ templates/site-starter/next-env.d.ts
 # own, never committed). The studios' own file-maps document this.
 studio/*/output/
 
+# Vite dev-server dependency cache (regenerated on demand; never committed).
+studio/*/.vite/
+
 # Local install state
 .tp/
 ~/
