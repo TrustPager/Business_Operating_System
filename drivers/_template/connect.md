@@ -31,11 +31,13 @@ only runs the add/login commands.)
 one-time, free sign-in with your <account> account. Want me to get it ready?"
 On yes, I run (on your machine, from your workspace folder, so I do it, not you):
 
-    <the add command, e.g. claude mcp add --transport http --scope project <id> <server_url>>
+    <the add command, e.g. claude mcp add --transport http --scope local <id> <server_url>>
 
 I connect it to this workspace, so your other projects stay nice and fast.
 
-<!-- Scope is PROJECT by default, run from the owner's BOS workspace folder.
+<!-- Scope is LOCAL (this-folder) by default — the CLI default, kept explicit so
+     it's self-documenting — run from the owner's BOS workspace folder. Local
+     scope is private to the owner (~/.claude.json), never a git-tracked file.
      That rule is owned by the Connection Scoping Doctrine in
      docs/architecture/tier-1-addon-kit.md (the keyless firecrawl server is the
      one labelled user-scope exception). Follow it here; don't restate it. -->

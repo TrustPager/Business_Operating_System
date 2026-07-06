@@ -153,9 +153,9 @@ The card's fields:
 - **Unlocks** — the connected skill it switches on.
 - **Connect it** — a pointer to `drivers/<id>/connect.md` (not a restated
   procedure), plus the labelled `connect-a-tool` exception if one applies (§8).
-  A locally-registered MCP server connects at **project scope** by default (see
-  the Connection Scoping Doctrine below); the card names that scope, the doctrine
-  owns the rule.
+  A locally-registered MCP server connects at **local (this-folder) scope** by
+  default (see the Connection Scoping Doctrine below); the card names that scope,
+  the doctrine owns the rule.
 - **Keep it lean** — connect it when ready, not "just in case"; the tools stay
   deferred (names only) until used.
 - **Heads-up** — any cost, credit, or spend note said out loud first.
@@ -225,8 +225,9 @@ and the driver's `connect.md`, so the two do not silently diverge. Label it as
 "this overrides the usual in-app `/mcp` flow because …" and point at `connect.md`
 as the single home for the steps. The owner still performs the one sign-in only
 they can. Whichever add mechanism is used, a locally-registered MCP server
-registers at **project scope** in the owner's BOS workspace by default — that
-choice is owned by the Connection Scoping Doctrine above, not by the exception.
+registers at **local (this-folder) scope** in the owner's BOS workspace by
+default — that choice is owned by the Connection Scoping Doctrine above, not by
+the exception.
 
 ### 9. The `needs_connection` onboarding tag (DONE)
 
@@ -270,23 +271,33 @@ Ads is the worked example. If a stateless API is being wrapped as an MCP server
 
 ### Primitive 2 — Scoped connections (never user scope for a driver)
 
-When a driver **must** be a locally-registered MCP server — via `claude mcp add`
-or a `.mcp.json` entry — it registers at **project scope in the owner's BOS
-workspace folder**, never user scope. Project scope means only sessions opened
-in that folder ever attach the server; the owner's other projects stay fast
-because they never see it. This is the default for every connected driver.
+When a driver **must** be a locally-registered MCP server, it registers at
+**local (this-folder) scope in the owner's BOS workspace folder** — that is
+`claude mcp add --scope local` (the CLI default), run from the workspace folder
+— never user scope. Local scope is directory-scoped and **private to the
+owner**: only sessions opened in that folder ever attach the server, so their
+other projects stay fast, and the registration lives in the owner's own
+`~/.claude.json`, never in a git-tracked file — so it cannot be accidentally
+committed, pushed, or tangled up in an `update-bos` pull. This is the default
+for every connected driver.
 
+- **Why not `--scope project` (labelled, so the distinction reads as policy):**
+  project scope writes a shared `.mcp.json` at the repo root — a git-tracked
+  file in a BOS workspace, which is a clone of the public repo. That form is
+  reserved for teams that *deliberately* want to share a connection via version
+  control; it is never the BOS default, because an owner's connection must not
+  land in `git status` or a push.
 - **The one labelled exception:** the keyless **firecrawl** server, which
   `tools/setup.py` registers at **user scope on purpose** — it is a universal,
   keyless web-research utility that every session legitimately benefits from, and
   this is existing, deliberate behavior. It is labelled here so the divergence
   reads as policy, not drift. No other driver gets user scope.
 - **The room escape hatch (optional, for very heavy servers):** if a single
-  server is heavy enough that even project scope is a burden on the owner's main
-  workspace, give it its **own subfolder ("room") with its own `.mcp.json`**, so
-  only sessions opened *in that room* pay for it. The skill's connect doorway then
-  tells the owner, in plain language, "open Claude Code in your `<X>` folder" —
-  they never hear the word "scope".
+  server is heavy enough that even the main workspace shouldn't pay for it, give
+  it its **own subfolder ("room") and register it at local scope from inside
+  that room**, so only sessions opened *in that room* pay for it. The skill's
+  connect doorway then tells the owner, in plain language, "open Claude Code in
+  your `<X>` folder" — they never hear the word "scope".
 - **Out of BOS's hands:** claude.ai **connectors** (the sign-in type, like
   TrustPager, Gmail, or Calendar) are **account-level** and cannot be scoped by a
   local config file. This doctrine governs **local MCP registrations only**

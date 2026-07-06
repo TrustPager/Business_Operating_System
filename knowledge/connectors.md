@@ -17,15 +17,15 @@ the connector offers scopes, enable only the groups in use. A brand-new owner on
 a lighter plan should not have their context filled with tools they are not using.
 
 **Where it connects (default: this workspace).** When a tool is added locally in
-Claude Code (a `claude mcp add` or `.mcp.json` entry, rather than a claude.ai
-connector), connect it **to the owner's BOS workspace folder**, not everywhere,
-so their other projects stay fast. Frame it warmly: "I'll connect this to your
-workspace, so your other projects stay nice and fast." The one deliberate
-exception is keyless web research (firecrawl), which is available everywhere on
-purpose because every session benefits from it. claude.ai connectors (the
-sign-in type below, like Gmail or a CRM) are account-level and can't be pinned to
-a folder — for those, leanness is the only lever. The full reasoning is the
-Connection Scoping Doctrine in
+Claude Code (a `claude mcp add`, rather than a claude.ai connector), connect it
+at **local (this-folder) scope, run from the owner's BOS workspace folder**, not
+everywhere — it stays private to the owner and their other projects stay fast.
+Frame it warmly: "I'll connect this to your workspace, so your other projects
+stay nice and fast." The one deliberate exception is keyless web research
+(firecrawl), which is available everywhere on purpose because every session
+benefits from it. claude.ai connectors (the sign-in type below, like Gmail or a
+CRM) are account-level and can't be pinned to a folder — for those, leanness is
+the only lever. The full reasoning is the Connection Scoping Doctrine in
 [../docs/architecture/tier-1-addon-kit.md](../docs/architecture/tier-1-addon-kit.md).
 
 **The connect-doorway articulation (one home — every connected doorway references
@@ -142,7 +142,7 @@ the catalog stays searchable:
   post-setup checklist and the 72-hour rule. (It hands off from your plan the way
   TrustPager hands off to its connected tier.)
 - **Connect it:** the steps live in
-  [drivers/meta-ads/connect.md](../drivers/meta-ads/connect.md): a project-scope
+  [drivers/meta-ads/connect.md](../drivers/meta-ads/connect.md): a local-scope
   `claude mcp add` run from the owner's BOS workspace folder (see "Where it
   connects" above), then `claude mcp login meta-ads`, granting the read-only tier
   first, a restart, and a verify with one read. Fallback `--callback-port 8080` if
