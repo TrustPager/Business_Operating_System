@@ -101,6 +101,12 @@ The floor's power comes from naming capabilities that already exist in the repo 
 
 ## 4. Remotion creative-engine packaging (priority)
 
+> **Superseded on YouTube scope (labelled, 2026-07-05):** YouTube-scope video is
+> superseded by
+> [2026-07-05-youtube-studio-design.md](2026-07-05-youtube-studio-design.md)
+> (in-repo `studio/video` frame-capture, not an RVS bridge); the `make-brand-video`
+> RVS bridge below is unaffected.
+
 This is the founder's named priority. The two creative lenses converged on the same design; I adopt it and sequence it.
 
 ### The bridge — what BOS ships vs. what it calls

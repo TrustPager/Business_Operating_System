@@ -99,12 +99,24 @@ motion generalisation of it, and it is why the connected rungs need no rework.
       "spoken": "…",                  // the owner's-voice line (drives VO on Phase 2)
       "on_screen": "…",               // the text/graphic callout (drives studio/video)
       "b_roll": "…",                  // visual note (drives owner's own footage / stock guidance)
-      "evidence_ref": "…"             // optional: a customer-voice quote id the claim rests on
+      "evidence_ref": "…",            // optional: a customer-voice quote id the claim rests on
+      "duration_s": 6                 // optional: planned duration, estimated by script-my-video
+                                      // from spoken-word count at a stated words-per-minute
+                                      // default (the skill states the wpm it used)
     }
     // …promise, retention resets, points, proof, CTA
   ]
 }
 ```
+
+**The timing contract (planned vs actual — one explicit contract, two halves):**
+(a) `script-my-video` writes the optional per-beat `duration_s` above (the *planned*
+timing, word-count × a stated words-per-minute default). (b) `studio/video` writes a
+`<slug>.timing.json` sidecar after render with the *actual* rendered per-beat
+start/end times. `package-my-video` consumes `<slug>.timing.json` when present (real
+chapter timestamps) and falls back to the planned per-beat `duration_s` otherwise.
+This contract is referenced from Tasks 1.1, 1.4, and 1.6 so three different
+implementers cannot drift on it.
 
 - **`on_screen`** drives `studio/video` (branded text-on-screen motion graphics) on
   the floor, keyless.
@@ -147,28 +159,30 @@ rejected-for-now alternative (§9).
 proposes states its kind and scope per the doctrine in
 [tier-1-addon-kit.md](tier-1-addon-kit.md) (linked, never restated):
 
-| Driver | Kind | Scope | Why |
+| Driver | Kind | Scope | Why (per the doctrine — see it for the rule) |
 |---|---|---|---|
-| `yt-dlp` (optional floor deepener) | `local` | n/a (local CLI, no account) | Keyless local binary; stateless; zero standing cost. |
-| voice / music / image (Phase 2) | `keyed_cli` | n/a (keyed CLI, no registered server) | Stateless key-in / JSON-out services → keyed CLIs invoked via Bash, **zero standing token cost**. Doctrine Primitive 1: a stateless API is a CLI, never a registered MCP. |
+| `yt-dlp` (optional floor deepener) | `local` | n/a (local CLI, no account) | Keyless local binary, stateless. |
+| voice / music / image (Phase 2) | `keyed_cli` | n/a (keyed CLI, no registered server) | Stateless key-in / JSON-out services → the doctrine's CLI-first shape. |
 | avatar (Phase 3) | `keyed_cli` | n/a | Same: stateless render-job API, key-in / file-out. |
-| `youtube` (Phase 4) | `claude_mcp` | **local (this-folder) scope** | OAuth sign-in + persistent connection → the one genuinely MCP-shaped candidate (doctrine Primitive 1's escape valve). Local scope per Primitive 2: never user scope for a driver. |
+| `youtube` (Phase 4) | `claude_mcp` | **local (this-folder) scope** | OAuth sign-in + persistent connection → the one genuinely MCP-shaped candidate; scope per the doctrine's scoped-connections rule. |
 
-Rationale: the doctrine's whole point is that scope is the only lever against
-standing token cost, and a stateless service wrapped as a registered MCP is the wrong
-call. Voice/music/image/avatar are stateless → `keyed_cli`, zero standing cost.
-Only YouTube's OAuth + upload session justifies a `claude_mcp` server, and it takes
-local scope.
+Rationale: the kind and scope assignments above follow directly from the Connection
+Scoping Doctrine in [tier-1-addon-kit.md](tier-1-addon-kit.md); that section owns the
+reasoning, and this spec only applies it. Voice/music/image/avatar are stateless →
+`keyed_cli`. Only YouTube's OAuth + upload session justifies a `claude_mcp` server,
+and it takes local scope.
 
 **4. Render mechanism — Puppeteer frame-capture inside `studio/video`, NOT a
 Remotion dependency in the studio folder.** `studio/video` is the fifth studio in the
 existing family and copies its proven stack exactly: Vite + React, `brand.json` via
 an `src/brand.js` identical to `studio/social/src/brand.js`, Puppeteer + the
 npm-bundled Chromium, `npm run shoot`/`dev`/`render` scripts. It renders motion by
-frame-capturing a React timeline (drive a frame counter, capture N frames with
-Puppeteer, stitch to MP4/GIF with the npm-bundled `ffmpeg-static`) — the motion
-generalisation of the still studios, reusing `remotion-shim.jsx`'s "resolve
-animations at a frame" idea. Rationale considered and rejected: adding Remotion
+frame-capturing a React timeline (the template reads its frame from a `?frame=N`
+URL query param; the renderer iterates `0..duration*fps` deterministically, never
+realtime capture; stitch to MP4/GIF with the npm-bundled `ffmpeg-static`) — the
+motion generalisation of the still studios, reusing `remotion-shim.jsx`'s "resolve
+animations at a frame" idea. The floor MP4 carries a **silent stereo audio track**,
+so the Phase-2 voice rung is a track replacement/remux, not a container change. Rationale considered and rejected: adding Remotion
 *inside* `studio/video` would (a) duplicate the render engine the workspace hard-rule
 reserves for the separate `Remotion-VideoStudio` repo, and (b) break the "five
 studios, one pattern" symmetry a builder relies on. Keeping frame-capture keeps the
@@ -193,7 +207,7 @@ prerequisite. It is a `local` driver (no account, keyless), so it stays on the f
 
 **6. Shim policy — no new command shims for the new skills (labelled decision).** The
 new floor skills (`research-my-channel`, `plan-my-youtube`, `script-my-video`,
-`package-my-video`) get **no `.claude/commands/*` slash-command shim**. Rationale: the
+`package-my-video`) get **no `commands/*` slash-command shim**. Rationale: the
 8 most recent skills shipped without shims, and the floor-completion-plan §5
 anti-bloat ruling flags the 1:1 command↔skill wrappers as rot at scale; skills
 trigger via their frontmatter `triggers`, and `whats-possible` reads the registry.
@@ -269,7 +283,9 @@ lands before the surfaces that read it).
   `brand/brand.json` (A) and `./CLAUDE.md` (B) silently; the interview is the video-
   specific bucket (topic, the one action the video drives, target length, aspect).
   Consumes `youtube-research.md` + the `plan-my-youtube` pipeline row if present.
-  Emits `<slug>.script.json` (the §3 schema) + `<slug>.script.md`. Anchors claims in
+  Emits `<slug>.script.json` (the §3 schema) + `<slug>.script.md`. Fills each beat's
+  optional `duration_s` (planned timing) from spoken-word count at a stated
+  words-per-minute default, per the §3 timing contract. Anchors claims in
   customer-voice evidence where a synthesis exists; never fabricates quotes, numbers,
   or testimonials.
 - **Frontmatter:** `function_slot: creative`, `requires_driver: none`,
@@ -291,7 +307,8 @@ lands before the surfaces that read it).
   angles nobody takes, title/thumbnail/franchise concepts that stand out. Optional
   deepener: the `drivers/yt-dlp/` `local`-kind blueprint (Decision 5) for transcripts
   + full comment threads, offered as "want me to go deeper?", never required.
-- **Frontmatter:** `function_slot: research` (or the existing research slot),
+- **Frontmatter:** `function_slot: research` (a confirmed valid `FUNCTION_SLOTS`
+  value in `tools/manifest.py`),
   `requires_driver: none`, `requires_credential: none`, `data_path: reasoning_only`.
   Firecrawl is reached by delegating to the research skills / keyless hosted MCP, not
   by naming an `mcp__*` tool in the body.
@@ -323,9 +340,18 @@ lands before the surfaces that read it).
   text-on-screen motion graphics, a Puppeteer frame-capture `render.js` +
   `ffmpeg-static` stitch to MP4/GIF (Decision 4). Plus `studio/video/CLAUDE.md` +
   `README.md` in the four-studios documentation pattern.
+- **Frame-drive interface (concrete):** the video template reads its frame from a URL
+  query param (`?frame=N`); `render.js` iterates `0..duration*fps`, loading/setting
+  each frame and capturing it — deterministic stepping, never realtime capture.
+- **Timing sidecar (§3 timing contract):** after render, `render.js` writes
+  `<slug>.timing.json` with the actual rendered per-beat start/end times, which
+  `package-my-video` consumes for chapter timestamps.
+- **Audio track:** the floor MP4 carries a silent stereo audio track, so the Phase-2
+  voice rung is a track replacement/remux, not a container change (Decision 4).
 - **DoD:** `npm install && npm run shoot <slug>` on a fixture script produces a
-  branded MP4 whose on-screen text matches the beats, colours from `brand.json`, no
-  TrustPager literals; runs on the npm-bundled Chromium with no account.
+  branded MP4 (silent stereo track present) whose on-screen text matches the beats,
+  colours from `brand.json`, no TrustPager literals, plus the `<slug>.timing.json`
+  sidecar; runs on the npm-bundled Chromium with no account.
 - **Test gate:** the studio's own smoke render on a committed fixture script; the
   repo-hygiene / kernel-clean gates pass for the new studio folder (resolve the
   `ffmpeg-static` sub-decision here, Decision 4); `node_modules` gitignored.
@@ -344,8 +370,11 @@ lands before the surfaces that read it).
 ### Task 1.6 — `package-my-video` skill
 - **Build:** `skills/package-my-video/SKILL.md`, extending the `assemble-content-pack`
   pattern. Collates one publish-ready folder: the rendered video, the thumbnail, title
-  options (from packaging), a description with chapters (from beat timings), tags, and
-  a publish checklist. Manual upload is the honest floor ending (Phase 4 automates it).
+  options (from packaging), a description with chapters, tags, and a publish
+  checklist. Chapter timestamps follow the §3 timing contract: consume
+  `<slug>.timing.json` when present (actual rendered per-beat start/end), fall back
+  to the script's planned per-beat `duration_s` otherwise. Manual upload is the
+  honest floor ending (Phase 4 automates it).
 - **Frontmatter:** keyless floor (`data_path: local`).
 - **DoD:** a script + rendered video + thumbnail → one named folder with all six
   artifacts + a short readme; every owner-facing line positive-only, no em dashes.
@@ -377,8 +406,9 @@ lands before the surfaces that read it).
 - **Guard scripts green:** `tools/manifest.py` (no `mcp__*` in any keyless body),
   `tools/check-onboarding-binding.py` (no credential-coupling tokens in the
   `credential:none` bodies; the floor skills are keyless, not `needs_connection`),
-  `tools/lint-skill.py` clean. `tools/check-connectors.py` is a no-op for Phase 1 (no
-  driver ships a `DRIVER` dict yet).
+  `tools/lint-skill.py` clean. `tools/check-connectors.py` passes with the `yt-dlp`
+  driver validated (`kind: local`) — `drivers/yt-dlp/` ships its docs + `DRIVER` dict
+  (no transport) in Phase 1, so the gate validates it from day one.
 - **Descriptions within the surface budget** (skill description ≤400 chars, well
   under). **No new command shims** (Decision 6).
 - **DoD:** registry regenerates clean, all guard scripts green, CAPABILITIES current.
@@ -494,8 +524,9 @@ folderless docs) — each with `connect.md` + `connectors.md` card when it ships
 `youtube-voice-profile.json` and later rung profiles — DATA, never forked skill files.
 
 **New artifacts the add-on produces (owner's working dir):** `youtube-research.md`,
-`<slug>.script.json`, `<slug>.script.md`, the rendered video (MP4/GIF), the thumbnail
-PNG, the `package-my-video` publish-ready folder.
+`<slug>.script.json`, `<slug>.script.md`, `<slug>.timing.json` (the actual per-beat
+render timing sidecar, §3 timing contract), the rendered video (MP4/GIF), the
+thumbnail PNG, the `package-my-video` publish-ready folder.
 
 **Existing files touched:** `skills/make-thumbnail/SKILL.md` +
 `studio/thumbnails/*` (genericised, Decision 9); `kernel/registry.json` (regenerated);

@@ -69,6 +69,10 @@ partner with the least possible friction.
 - **Remotion (brand video)** — local rendering, no account, but lives in the separate
   `Remotion-VideoStudio` repo (hard rule: video work only happens there). The BOS video capability
   is a **bridge** to that studio, not a drop-in. **Pin-on** (heavier, not universal).
+  *(Superseded on YouTube scope, labelled 2026-07-05: YouTube-scope video is superseded by
+  [2026-07-05-youtube-studio-design.md](2026-07-05-youtube-studio-design.md) — in-repo
+  `studio/video` frame-capture, not an RVS bridge; the `make-brand-video` RVS bridge is
+  unaffected.)*
 
 **Process frameworks = invisible infrastructure, never user toggles:**
 - **Superpowers** — bake the useful framing into the kernel/apps; the partner just works
