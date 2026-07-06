@@ -50,6 +50,10 @@ yarn.lock
 out/
 templates/site-starter/next-env.d.ts
 
+# Studio render outputs (PNGs from `npm run shoot`; each owner renders their
+# own, never committed). The studios' own file-maps document this.
+studio/*/output/
+
 # Local install state
 .tp/
 ~/
