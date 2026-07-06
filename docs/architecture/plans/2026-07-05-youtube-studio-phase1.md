@@ -26,7 +26,6 @@ Reasoning-heavy skills (`research-my-channel`, `plan-my-youtube`, `script-my-vid
 BOS_OFFLINE=1 python tools/check-no-secrets.py
 BOS_OFFLINE=1 python tools/check-kernel-clean.py
 BOS_OFFLINE=1 python tools/check-doctrine-voice.py
-BOS_OFFLINE=1 python tools/manifest.py                    # all new frontmatter validates
 BOS_OFFLINE=1 python tools/check-connectors.py            # yt-dlp (kind: local) resolves; no activation paths
 BOS_OFFLINE=1 python tools/check-onboarding-binding.py    # floor skills are keyless-clean, not needs_connection
 BOS_OFFLINE=1 python tools/check-surface-budget.py        # every description <= 400 chars
@@ -36,7 +35,7 @@ for d in skills/research-my-channel skills/plan-my-youtube skills/script-my-vide
 BOS_OFFLINE=1 python -m unittest discover -s tests -v
 ```
 
-(Run `tools/manifest.py` with no arg to validate every manifest; if it takes a path arg in this tree, run it per-skill. Confirm the invocation at Task 1.1 Step 3 and reuse it.)
+(Invocation note, settled in code: `tools/manifest.py` takes exactly one PATH argument — its `__main__` block exits 2 with usage when run bare. CI never calls it directly; manifests are validated tree-wide via `registry-generator.py --check`, `export-capabilities.py --check`, and `lint-skill.py`, all of which import the shared `validate_manifest`. Per-task, check a single skill with `python tools/manifest.py skills/<name>/SKILL.md`.)
 
 ---
 
@@ -179,7 +178,7 @@ The timing contract's *author half* lives here: `script-my-video` fills each bea
 ```yaml
 ---
 name: Script My Video
-description: Turn a topic into a beat-by-beat video script in your own voice — hook, promise, the points, and a clear call to action — written so it can be filmed and rendered straight away. Every claim rests on real evidence, never invented. Writes a script file your studio and thumbnail both read. No accounts needed.
+description: Turn a topic into a beat-by-beat video script in your own voice, written so it can be filmed and rendered straight away. Covers the hook, the promise, the points, and a clear call to action. Every claim rests on real evidence, never invented. Writes a script file your studio and thumbnail both read. No accounts needed.
 triggers:
   - script my video
   - write a video script
@@ -193,7 +192,7 @@ data_path: local
 status: active
 ---
 ```
-(Description is 312 chars — under the 400 cap. No em dashes.)
+(Well under the 400 cap. No em dashes.)
 
 - [ ] **Step 1: Write the gate-led body** (numbered gates before defaults, for Sonnet — see memory `bos-target-model-is-sonnet`), against spec §5 Task 1.1 and referencing `knowledge/youtube-script-method.md` (Task 1.7) throughout so the body stays lean:
   - *Read silently:* Source A `brand/brand.json` (name, voice, tagline); Source B `./CLAUDE.md` (business shape, offer, region only if a `Region:` line is explicitly set). Consume `youtube-research.md` + the `plan-my-youtube` pipeline row **if present**.
@@ -209,9 +208,9 @@ status: active
   Expected: exit 0 (no `[FAIL]`; a triggers-count WARN is acceptable — 5 triggers).
 - [ ] **Step 3: Validate frontmatter.**
   ```bash
-  BOS_OFFLINE=1 python tools/manifest.py
+  python tools/manifest.py skills/script-my-video/SKILL.md
   ```
-  Expected: OK; the new manifest validates (`function_slot: creative`, `requires_credential: none`, `data_path: local`). (Confirm the exact invocation here and reuse it in later tasks.)
+  Expected: OK; the new manifest validates (`function_slot: creative`, `requires_credential: none`, `data_path: local`).
 - [ ] **Step 4: Offline schema fixture check.** Feed the skill a saved topic payload (a small committed fixture, e.g. `skills/script-my-video/test-fixture.json`) and confirm the produced JSON conforms: all required beat roles reachable (`hook`, `promise`, `point`, `cta` at minimum), `meta.hook_window_s` respected, `beats` a non-empty array, each beat carrying `id`/`role`/`spoken`/`on_screen`. No network. If a validator helper is written, add `tests/test_script_schema.py` (TDD: failing test → run → implement → run → commit).
 - [ ] **Step 5: Commit.**
   ```bash
@@ -264,7 +263,7 @@ DRIVER = {
 ```yaml
 ---
 name: Research My Channel
-description: Study your niche on YouTube and come back with video ideas that will actually land — what the top channels cover, what viewers keep asking for in the comments, and the angles nobody is taking yet. Every idea backed by what real viewers said, in their own words. No accounts needed.
+description: Study your niche on YouTube and come back with video ideas that will actually land: what the top channels cover, what viewers keep asking for in the comments, and the angles nobody is taking yet. Every idea backed by what real viewers said, in their own words. No accounts needed.
 triggers:
   - research my channel
   - research my youtube niche
@@ -278,7 +277,7 @@ data_path: reasoning_only
 status: active
 ---
 ```
-(`research` is a confirmed valid `FUNCTION_SLOTS` value in `tools/manifest.py`. Description 306 chars.)
+(`research` is a confirmed valid `FUNCTION_SLOTS` value in `tools/manifest.py`. Description well under the 400 cap; no em dashes.)
 
 - [ ] **Step 1: Write the driver blueprint** `drivers/yt-dlp/__init__.py` (the dict above) + `drivers/yt-dlp/README.md` carrying the honest boundary from spec Decision 5: Firecrawl alone suffices for channel/video *surface* facts (titles, descriptions, view counts, cadence, visible top comments — the packaging signal); `yt-dlp` is worth its local-binary install only for deep transcript analysis or exhaustive comment mining. Default to Firecrawl; offer `yt-dlp` as "want me to go deeper?", never a prerequisite.
 - [ ] **Step 2: Write the skill body** against spec §5 Task 1.2, referencing `knowledge/youtube-packaging-method.md` (Task 1.7). Firecrawl-powered by default, **delegating** to the research skills / keyless hosted Firecrawl read, scope-clamped per `knowledge/research-method.md` (no crawl/map/agent/extract). Do NOT name an `mcp__*` / firecrawl tool in the body (keeps the manifest clean). Three outputs into `youtube-research.md`: (a) competitor content scan (topics, formats, cadence, outliers vs the channel baseline); (b) comment mining (questions, "nobody explains X" gaps, each an idea WITH verbatim audience evidence); (c) novel-packaging gap-and-angle map (identically-packaged topics, untaken angles, standout title/thumbnail/franchise concepts). Name the `yt-dlp` deepener as an optional "go deeper?" offer.
@@ -286,7 +285,7 @@ status: active
 - [ ] **Step 3: Lint + validate + connector gate.**
   ```bash
   python tools/lint-skill.py skills/research-my-channel
-  BOS_OFFLINE=1 python tools/manifest.py
+  python tools/manifest.py skills/research-my-channel/SKILL.md
   BOS_OFFLINE=1 python tools/check-connectors.py
   ```
   Expected: lint exit 0; manifest OK; `check-connectors.py` OK (the new `yt-dlp` `DRIVER` dict declares a canonical `kind: local`, requires neither connect.md nor a card, and every `requires_driver` still resolves).
@@ -312,7 +311,7 @@ Runs in parallel with 1.2/1.4/1.5 after 1.1.
 ```yaml
 ---
 name: Plan My YouTube
-description: Turn your channel research into a real plan — a clear channel strategy and a pipeline of videos, each with an idea, an angle, a working title, and a thumbnail concept ready to script. Builds on your social strategy and content plan so it all fits together. No accounts needed.
+description: Turn your channel research into a real plan: a clear channel strategy and a pipeline of videos, each with an idea, an angle, a working title, and a thumbnail concept ready to script. Builds on your social strategy and content plan so it all fits together. No accounts needed.
 triggers:
   - plan my youtube
   - plan my channel
@@ -326,14 +325,14 @@ data_path: reasoning_only
 status: active
 ---
 ```
-(`strategy` is a valid `FUNCTION_SLOTS` value. Description 292 chars. If the executor prefers `creative` to match the family, either is valid; `strategy` fits "channel strategy" best.)
+(`strategy` is a valid `FUNCTION_SLOTS` value. Description well under the 400 cap; no em dashes. If the executor prefers `creative` to match the family, either is valid; `strategy` fits "channel strategy" best.)
 
 - [ ] **Step 1: Write the skill body** against spec §5 Task 1.3. It **COMPOSES** `build-social-strategy` + `plan-my-content` — delegates to them by reference, never copies or forks their bodies — consuming `youtube-research.md`. Produces channel strategy + a video pipeline: per video an idea → angle → working title → thumbnail concept (the four packaging fields that `script-my-video`'s `packaging` block and `make-thumbnail` both read).
   - **Hard rules block:** keyless, delegation is by-reference (no duplicated strategy logic), positive-only + no em dashes.
 - [ ] **Step 2: Lint + validate.**
   ```bash
   python tools/lint-skill.py skills/plan-my-youtube
-  BOS_OFFLINE=1 python tools/manifest.py
+  python tools/manifest.py skills/plan-my-youtube/SKILL.md
   ```
   Expected: lint exit 0; manifest OK.
 - [ ] **Step 3: Composition check** (spec §5 Task 1.3 test gate). Confirm the body **references** (does not restate) `build-social-strategy` + `plan-my-content` — a grep for the two skill ids in the body, and a read confirming no strategy prose is copied wholesale.
@@ -354,7 +353,7 @@ status: active
 
 Runs in parallel with 1.2/1.3/1.5 after 1.1. This is the one code artifact; it gets a real offline smoke render.
 
-**Files:** the `studio/video/` tree in the file map above. Mirror `studio/social/` exactly (package.json scripts, `vite.config.js`, `src/brand.js` identical single-root import, `src/main.jsx`, `src/App.jsx`, a template, `scripts/render.js` + `scripts/shoot.js` + `scripts/_filename.js`, `.gitignore`, `CLAUDE.md`, `README.md`, a `data/` fixture, `output/` gitignored).
+**Files:** the `studio/video/` tree in the file map above. The SCAFFOLD mirrors `studio/social/` (package.json scripts, `vite.config.js`, `src/brand.js` identical single-root import, `src/main.jsx`, `src/App.jsx`, a template, `scripts/shoot.js` + `scripts/_filename.js`, `.gitignore`, `CLAUDE.md`, `README.md`, a `data/` fixture, `output/` gitignored) — but `scripts/render.js` is **net-new**: social's `render.js` is a still-PNG screenshotter with no motion pipeline to copy, while this one implements the frame loop (`?frame=N`, deterministic `0..duration*fps` stepping per the frame-drive interface below), the `ffmpeg-static` stitch to MP4/GIF, the silent stereo audio track, and the `<slug>.timing.json` writer.
 
 **The frame-drive interface (concrete — spec §5 Task 1.4 + Decision 4 is the owner; reproduced so the implementer never drifts):**
 - The video template (`src/templates/VideoBeats.jsx`) reads its frame from a **URL query param `?frame=N`**.
@@ -420,7 +419,7 @@ Runs in parallel with 1.2/1.3/1.4 after 1.1. LABELLED supersession (spec Decisio
 - [ ] **Step 2: Lint + validate + no-new-TrustPager grep** (spec §5 Task 1.5 test gate).
   ```bash
   python tools/lint-skill.py skills/make-thumbnail
-  BOS_OFFLINE=1 python tools/manifest.py
+  python tools/manifest.py skills/make-thumbnail/SKILL.md
   BOS_OFFLINE=1 python tools/check-doctrine-voice.py
   git diff studio/thumbnails skills/make-thumbnail | grep -i "trustpager" || echo "clean: no new TrustPager literals introduced"
   ```
@@ -449,7 +448,7 @@ Depends on 1.4 (the `<slug>.timing.json` shape) and the packaging fields from 1.
 ```yaml
 ---
 name: Package My Video
-description: Turn your rendered video into one publish-ready folder — the video, the thumbnail, title options, a full description with chapters, tags, and a short upload checklist — so all you do is upload it to YouTube yourself. Everything gathered in one place, ready to go. No accounts needed.
+description: Turn your rendered video into one publish-ready folder (the video, the thumbnail, title options, a full description with chapters, tags, and a short upload checklist), so all you do is upload it to YouTube yourself. Everything gathered in one place, ready to go. No accounts needed.
 triggers:
   - package my video
   - get my video ready to publish
@@ -463,14 +462,14 @@ data_path: local
 status: active
 ---
 ```
-(Description 300 chars.)
+(Description well under the 400 cap; no em dashes.)
 
 - [ ] **Step 1: Write the skill body** against spec §5 Task 1.6, extending the `assemble-content-pack` pattern (reference it, do not fork it). Collate one named publish-ready folder: the rendered video, the thumbnail, title options (from `packaging.title_options`), a description with chapters (timing contract above), tags, and a short publish checklist + readme. Manual upload is the honest floor ending (spec: Phase 4 automates it — out of scope here).
   - **Hard rules block:** keyless (`data_path: local`), every owner-facing line positive-only, no em dashes, never fabricate.
 - [ ] **Step 2: Lint + validate.**
   ```bash
   python tools/lint-skill.py skills/package-my-video
-  BOS_OFFLINE=1 python tools/manifest.py
+  python tools/manifest.py skills/package-my-video/SKILL.md
   ```
   Expected: lint exit 0; manifest OK.
 - [ ] **Step 3: Offline assembly fixture check** (spec §5 Task 1.6 test gate). From local fixtures (a script + a rendered video + a thumbnail + a `<slug>.timing.json`), confirm the folder assembles with all six artifacts + a short readme, chapters read from `timing.json`, every owner-facing line positive-only with no em dashes. Then confirm the fallback: with `timing.json` absent, chapters derive from planned `duration_s`.
@@ -528,7 +527,6 @@ Needs every skill folder + the studio present. Single worktree (regenerates `ker
   Expected: all four new skills present with `requires_credential: none` and the frontmatter slots from their tasks. (A manifest that fails `tools/manifest.py` validation is silently skipped by the generator — so if a skill is missing here, its frontmatter failed validation; fix it first.)
 - [ ] **Step 3: Run every guard script** (spec §5 Task 1.8 test gate).
   ```bash
-  BOS_OFFLINE=1 python tools/manifest.py                  # no mcp__* in any keyless body
   BOS_OFFLINE=1 python tools/check-onboarding-binding.py  # floor skills keyless-clean, not needs_connection
   BOS_OFFLINE=1 python tools/check-connectors.py          # yt-dlp kind:local validated; no activation paths
   BOS_OFFLINE=1 python tools/check-surface-budget.py      # every description <= 400 chars
@@ -536,7 +534,7 @@ Needs every skill folder + the studio present. Single worktree (regenerates `ker
   BOS_OFFLINE=1 python tools/export-capabilities.py --check
   for d in skills/research-my-channel skills/plan-my-youtube skills/script-my-video skills/package-my-video skills/make-thumbnail; do python tools/lint-skill.py "$d"; done
   ```
-  Expected: all exit 0. `registry-generator.py --check` reports not STALE. `check-surface-budget.py` confirms all four new descriptions (and the updated `make-thumbnail`) are within the 400-char cap. No new command shims exist (Decision 6 — the four new skills get **no `commands/*` shim**; verify none were added).
+  Expected: all exit 0. (Tree-wide manifest validation happens through the `registry-generator.py --check` + `export-capabilities.py --check` + `lint-skill.py` trio, which all import the shared `validate_manifest` — there is no bare tree-wide `manifest.py` call; per-skill checks used its one-PATH form in earlier tasks.) `registry-generator.py --check` reports not STALE. `check-surface-budget.py` confirms all four new descriptions (and the updated `make-thumbnail`) are within the 400-char cap. No new command shims exist (Decision 6 — the four new skills get **no `commands/*` shim**; verify none were added).
 - [ ] **Step 4: Full offline suite.**
   ```bash
   BOS_OFFLINE=1 python -m unittest discover -s tests -v
@@ -576,7 +574,7 @@ Everything above green first. Dogfood on **Sonnet** (the client run-tier — mem
 
 - **Every spec §5 gate met** — Tasks 1.1-1.8 each pass their stated DoD + test gate (listed per task above).
 - **Full suite green** — the CI-order gate block at the top of this plan all exits 0:
-  - `check-no-secrets`, `check-kernel-clean`, `check-doctrine-voice`, `manifest`, `check-connectors` (yt-dlp `kind: local` resolves, no activation paths), `check-onboarding-binding` (the four floor skills are keyless-clean, not `needs_connection`), `check-surface-budget` (all descriptions ≤400), `registry-generator --check` (not STALE), `export-capabilities --check`, `lint-skill` on all five skills, `unittest discover -s tests`.
+  - `check-no-secrets`, `check-kernel-clean`, `check-doctrine-voice`, `check-connectors` (yt-dlp `kind: local` resolves, no activation paths), `check-onboarding-binding` (the four floor skills are keyless-clean, not `needs_connection`), `check-surface-budget` (all descriptions ≤400), `registry-generator --check` (not STALE), `export-capabilities --check`, `lint-skill` on all five skills, `unittest discover -s tests`. (Manifest validation rides in the generator/lint trio, which import the shared `validate_manifest`.)
   - **No `mcp__*` token** in any of the four floor skill bodies or the genericised `make-thumbnail` (spec §7).
   - **No new command shims** (Decision 6).
   - **No `kernel/*` edit** (spec §7 — Phase 1 adds skills + one studio + knowledge + one `local` driver blueprint only).
