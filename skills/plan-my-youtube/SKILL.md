@@ -172,9 +172,11 @@ This, not that:
   guide — 231,773 views".
 
 **Post-write self-check (before you declare this step done):** after you write
-`youtube-plan.md`, scan the whole file for the em-dash character and replace any
-that slipped in with a comma, colon, period, or parentheses. Do the same pass for
-any pain-framed line. Only then is the output done.
+`youtube-plan.md`, do a literal find-and-replace of the em-dash character across
+the WHOLE file (a replace-all, not a visual read: em dashes hide easily in the
+pipeline table and strategy prose, so sweep them mechanically), swapping each for
+a comma, colon, period, or parentheses. Then re-read for any pain-framed line and
+fix it. Only then is the output done.
 
 ## Step 7: Hand it over + name the next step
 
