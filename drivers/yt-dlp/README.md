@@ -7,8 +7,8 @@ wants one, and so `tools/check-connectors.py` can validate the kind from day one
 
 `yt-dlp` is a keyless local command-line tool. There is no account, no API key,
 no OAuth, and no hosted server. The owner (or the assistant, via Bash) invokes the
-`yt-dlp` binary directly on their own machine to pull a video's transcript or its
-full comment thread when Firecrawl's page-scrape does not reach that far.
+`yt-dlp` binary directly on their own machine to pull a video's full transcript
+or its comment thread, which the keyless web read does not reach.
 
 ## Why it is `kind: local` (and what that means for its files)
 
@@ -44,19 +44,23 @@ signal:**
 
 - Video and channel titles, descriptions, and tags as shown on the page.
 - Visible view counts, upload dates, and posting cadence.
-- The top visible comments on a page.
+- On-page transcript text, where the page shows it.
 
 Those surface facts are what the packaging read is built on: what the top channels
-cover, how they title and thumbnail it, how often they post, and what the loudest
-comments say. That is the whole first pass.
+cover, how they title and thumbnail it, and how often they post, plus the demand
+signals `research-my-channel` gathers from search results and public discussion.
+That is the whole first pass. The keyless web read does not reach a video's comment
+threads (they load through a separate client-side call), so real viewer comments
+are the deepener's job below, never invented from the page.
 
 **`yt-dlp` (the optional deepener) is worth its local install only for the deep
 read Firecrawl's page-scrape cannot reach:**
 
 - A video's **full transcript**, for close analysis of how a topic is actually
   taught beat by beat.
-- A video's **complete comment thread**, for exhaustive comment mining past the
-  handful the page shows.
+- A video's **comment thread**, for real viewer-comment mining. The keyless web
+  read reaches no comments at all, so this is the only keyless way to quote what
+  viewers actually said, in their own words.
 
 ## How the skill offers it
 
