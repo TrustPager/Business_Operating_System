@@ -6,8 +6,7 @@
 // page populating itself.
 
 import React from 'react';
-import { colors } from '../../theme.js';
-import { PRIMARY, PRIMARY_DEEP, SUCCESS } from '../../brand.js';
+import { ACCENT, PRIMARY, PRIMARY_DEEP, SUCCESS, TEXT, TEXT_MUTED } from '../../brand.js';
 
 const SECTIONS = [
   {
@@ -35,14 +34,14 @@ const Sparkle = ({ filling = false }) => (
   <span style={{
     width: 18, height: 18, borderRadius: 6,
     background: filling
-      ? 'linear-gradient(135deg, #29c6c6, #47a3d9)'
-      : 'linear-gradient(135deg, #2db87d, #29c6c6)',
+      ? `linear-gradient(135deg, ${PRIMARY}, ${ACCENT})`
+      : `linear-gradient(135deg, ${SUCCESS}, ${PRIMARY})`,
     display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
     color: '#fff', fontSize: 10, fontWeight: 800,
     flexShrink: 0,
     boxShadow: filling
-      ? '0 2px 8px rgba(41,198,198,0.40)'
-      : '0 2px 6px rgba(45,184,125,0.30)',
+      ? `0 2px 8px ${PRIMARY}66`
+      : `0 2px 6px ${SUCCESS}4d`,
   }}>✦</span>
 );
 
@@ -50,7 +49,7 @@ const SectionLabel = ({ label }) => (
   <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '2px 4px' }}>
     <span style={{
       fontSize: 10, fontWeight: 800, letterSpacing: '0.12em',
-      color: colors.mutedForeground,
+      color: TEXT_MUTED,
     }}>{label}</span>
     <span style={{ flex: 1, height: 1, background: 'rgba(226,232,240,0.6)' }} />
   </div>
@@ -61,8 +60,8 @@ const NoteRow = ({ row }) => (
     background: '#fff',
     borderRadius: 11,
     padding: '12px 14px',
-    border: '1px solid rgba(41,198,198,0.25)',
-    background: 'rgba(41,198,198,0.04)',
+    border: `1px solid ${PRIMARY}40`,
+    background: `${PRIMARY}0a`,
     display: 'flex', gap: 11,
   }}>
     <Sparkle />
@@ -72,7 +71,7 @@ const NoteRow = ({ row }) => (
         color: PRIMARY_DEEP, marginBottom: 5,
       }}>✦ TRANSCRIBED FROM DICTATION</div>
       <div style={{
-        fontSize: 12.5, fontWeight: 500, color: colors.foreground,
+        fontSize: 12.5, fontWeight: 500, color: TEXT,
         lineHeight: 1.45, letterSpacing: '-0.005em',
       }}>{row.body}</div>
     </div>
@@ -81,25 +80,25 @@ const NoteRow = ({ row }) => (
 
 const QARow = ({ row }) => (
   <div style={{
-    background: row.filling ? 'rgba(41,198,198,0.05)' : '#fff',
+    background: row.filling ? `${PRIMARY}0d` : '#fff',
     borderRadius: 11,
     padding: '11px 14px',
     border: row.filling
-      ? '1.5px solid rgba(41,198,198,0.50)'
+      ? `1.5px solid ${PRIMARY}80`
       : '1px solid rgba(226,232,240,0.7)',
-    boxShadow: row.filling ? '0 4px 14px rgba(41,198,198,0.18)' : 'none',
+    boxShadow: row.filling ? `0 4px 14px ${PRIMARY}2e` : 'none',
     display: 'flex', flexDirection: 'column', gap: 6,
   }}>
     <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
       <span style={{
-        fontSize: 11, fontWeight: 700, color: colors.mutedForeground,
+        fontSize: 11, fontWeight: 700, color: TEXT_MUTED,
         letterSpacing: '-0.005em', flex: 1, lineHeight: 1.3,
       }}>{row.q}</span>
       {row.filling && (
         <span style={{
           fontSize: 9, fontWeight: 800, letterSpacing: '0.10em',
           color: PRIMARY_DEEP,
-          background: 'rgba(41,198,198,0.22)',
+          background: `${PRIMARY}38`,
           padding: '2px 7px', borderRadius: 999,
         }}>● WRITING</span>
       )}
@@ -107,7 +106,7 @@ const QARow = ({ row }) => (
     <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
       <Sparkle filling={row.filling} />
       <div style={{
-        fontSize: 12.5, fontWeight: 700, color: colors.foreground,
+        fontSize: 12.5, fontWeight: 700, color: TEXT,
         lineHeight: 1.35, letterSpacing: '-0.005em',
         flex: 1, minHeight: 16,
       }}>
@@ -139,9 +138,9 @@ export const FillWithAIHero = () => (
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
           background: SUCCESS,
-          boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
+          boxShadow: `0 0 0 5px ${SUCCESS}38`,
         }} />
-        <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
+        <span style={{ fontSize: 19, fontWeight: 800, color: TEXT, letterSpacing: '-0.015em' }}>
           Coastal Health · Deal
         </span>
       </div>
@@ -149,9 +148,9 @@ export const FillWithAIHero = () => (
         display: 'inline-flex', alignItems: 'center', gap: 4,
         fontSize: 11, fontWeight: 800, letterSpacing: '0.10em',
         color: '#fff',
-        background: 'linear-gradient(135deg, #29c6c6, #47a3d9)',
+        background: `linear-gradient(135deg, ${PRIMARY}, ${ACCENT})`,
         padding: '5px 10px', borderRadius: 999,
-        boxShadow: '0 2px 8px rgba(41,198,198,0.40)',
+        boxShadow: `0 2px 8px ${PRIMARY}66`,
       }}>✦ FILLING WITH AI</span>
     </div>
 

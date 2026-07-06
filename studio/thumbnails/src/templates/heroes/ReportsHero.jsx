@@ -8,8 +8,7 @@
 // Outcome framing: a portrait performance dashboard you scroll through.
 
 import React from 'react';
-import { colors } from '../../theme.js';
-import { ACCENT, LIGHT, PRIMARY, SUCCESS } from '../../brand.js';
+import { ACCENT, LIGHT, PRIMARY, SLATE, SUCCESS, TEXT, TEXT_MUTED } from '../../brand.js';
 
 const TREND_POINTS = [22, 28, 26, 34, 32, 40, 44, 42, 52, 58, 56, 64, 70, 76];
 const BAR_DATA = [
@@ -40,17 +39,17 @@ const StatHero = () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
       <span style={{
         fontSize: 11, fontWeight: 800, letterSpacing: '0.12em',
-        color: colors.mutedForeground,
+        color: TEXT_MUTED,
       }}>REVENUE · Q3</span>
       <span style={{
-        fontSize: 38, fontWeight: 800, color: colors.foreground,
+        fontSize: 38, fontWeight: 800, color: TEXT,
         letterSpacing: '-0.03em', lineHeight: 1,
       }}>$312k</span>
     </div>
     <div style={{
       fontSize: 14, fontWeight: 800,
       color: SUCCESS,
-      background: 'rgba(45,184,125,0.15)',
+      background: `${SUCCESS}26`,
       padding: '8px 14px', borderRadius: 999,
       display: 'flex', alignItems: 'center', gap: 4,
     }}>↗ +18%</div>
@@ -83,11 +82,11 @@ const Donut = ({ slices, size = 86 }) => {
         boxShadow: '0 1px 2px rgba(15,17,23,0.05)',
       }}>
         <div style={{
-          fontSize: 17, fontWeight: 800, color: colors.foreground,
+          fontSize: 17, fontWeight: 800, color: TEXT,
           letterSpacing: '-0.02em', lineHeight: 1,
         }}>{total}</div>
         <div style={{
-          fontSize: 8, fontWeight: 800, color: colors.mutedForeground,
+          fontSize: 8, fontWeight: 800, color: TEXT_MUTED,
           letterSpacing: '0.10em', marginTop: 2,
         }}>LEADS</div>
       </div>
@@ -97,7 +96,7 @@ const Donut = ({ slices, size = 86 }) => {
 
 const DonutCard = () => (
   <Card>
-    <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.10em', color: colors.mutedForeground, marginBottom: 14 }}>
+    <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.10em', color: TEXT_MUTED, marginBottom: 14 }}>
       LEADS BY SOURCE
     </div>
     <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
@@ -108,8 +107,8 @@ const DonutCard = () => (
           return (
             <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13 }}>
               <span style={{ width: 10, height: 10, borderRadius: 3, background: s.color, flexShrink: 0 }} />
-              <span style={{ color: colors.foreground, fontWeight: 700, flex: 1, letterSpacing: '-0.01em' }}>{s.label}</span>
-              <span style={{ color: colors.foreground, fontWeight: 800, letterSpacing: '-0.01em' }}>
+              <span style={{ color: TEXT, fontWeight: 700, flex: 1, letterSpacing: '-0.01em' }}>{s.label}</span>
+              <span style={{ color: TEXT, fontWeight: 800, letterSpacing: '-0.01em' }}>
                 {Math.round((s.value / total) * 100)}%
               </span>
             </div>
@@ -153,7 +152,7 @@ const TOP_PERFORMERS = [
 
 const TopPerformersCard = () => (
   <Card>
-    <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.10em', color: colors.mutedForeground, marginBottom: 14 }}>
+    <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.10em', color: TEXT_MUTED, marginBottom: 14 }}>
       TOP PERFORMERS · Q3
     </div>
     <div style={{ display: 'flex', flexDirection: 'column', gap: 11 }}>
@@ -167,11 +166,11 @@ const TopPerformersCard = () => (
             flexShrink: 0,
           }}>{p.avatar}</div>
           <span style={{
-            fontSize: 13, fontWeight: 700, color: colors.foreground,
+            fontSize: 13, fontWeight: 700, color: TEXT,
             letterSpacing: '-0.01em',
             width: 80, flexShrink: 0,
           }}>{p.name}</span>
-          <div style={{ flex: 1, height: 10, background: 'rgba(148,163,184,0.14)', borderRadius: 5, overflow: 'hidden' }}>
+          <div style={{ flex: 1, height: 10, background: `${SLATE}24`, borderRadius: 5, overflow: 'hidden' }}>
             <div style={{
               width: `${p.bar}%`,
               height: '100%',
@@ -180,7 +179,7 @@ const TopPerformersCard = () => (
             }} />
           </div>
           <span style={{
-            fontSize: 13, fontWeight: 800, color: colors.foreground,
+            fontSize: 13, fontWeight: 800, color: TEXT,
             letterSpacing: '-0.015em',
             width: 40, textAlign: 'right',
           }}>{p.value}</span>
@@ -193,7 +192,7 @@ const TopPerformersCard = () => (
 const TrendCard = () => (
   <Card>
     <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 8 }}>
-      <span style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.10em', color: colors.mutedForeground }}>
+      <span style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.10em', color: TEXT_MUTED }}>
         WEEKLY WON DEALS
       </span>
       <span style={{ fontSize: 14, fontWeight: 800, color: SUCCESS }}>+187% YoY</span>
@@ -206,18 +205,18 @@ const BarCard = () => {
   const max = Math.max(...BAR_DATA.map(b => b.value));
   return (
     <Card>
-      <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.10em', color: colors.mutedForeground, marginBottom: 14 }}>
+      <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.10em', color: TEXT_MUTED, marginBottom: 14 }}>
         FUNNEL DROP-OFF
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         {BAR_DATA.map((b, i) => (
           <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <span style={{
-              fontSize: 12, fontWeight: 700, color: colors.foreground,
+              fontSize: 12, fontWeight: 700, color: TEXT,
               letterSpacing: '-0.005em',
               width: 78, flexShrink: 0,
             }}>{b.label}</span>
-            <div style={{ flex: 1, height: 14, background: 'rgba(148,163,184,0.14)', borderRadius: 7, overflow: 'hidden' }}>
+            <div style={{ flex: 1, height: 14, background: `${SLATE}24`, borderRadius: 7, overflow: 'hidden' }}>
               <div style={{
                 width: `${(b.value / max) * 100}%`,
                 height: '100%',
@@ -226,7 +225,7 @@ const BarCard = () => {
               }} />
             </div>
             <span style={{
-              fontSize: 14, fontWeight: 800, color: colors.foreground,
+              fontSize: 14, fontWeight: 800, color: TEXT,
               letterSpacing: '-0.015em',
               width: 32, textAlign: 'right',
             }}>{b.value}</span>
@@ -251,16 +250,16 @@ export const ReportsHero = () => (
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
           background: SUCCESS,
-          boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
+          boxShadow: `0 0 0 5px ${SUCCESS}38`,
         }} />
-        <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
+        <span style={{ fontSize: 19, fontWeight: 800, color: TEXT, letterSpacing: '-0.015em' }}>
           Performance Dashboard
         </span>
       </div>
       <span style={{
         fontSize: 11, fontWeight: 800, letterSpacing: '0.12em',
-        color: colors.primary,
-        background: 'rgba(41,198,198,0.14)',
+        color: PRIMARY,
+        background: `${PRIMARY}24`,
         padding: '5px 10px', borderRadius: 999,
       }}>Q3 · LIVE</span>
     </div>

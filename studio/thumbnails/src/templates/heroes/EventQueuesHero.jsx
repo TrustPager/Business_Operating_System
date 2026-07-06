@@ -5,8 +5,7 @@
 // reads as time flowing downward forever.
 
 import React from 'react';
-import { colors } from '../../theme.js';
-import { ACCENT, LIGHT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS } from '../../brand.js';
+import { ACCENT, LIGHT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS, TEXT, TEXT_MUTED } from '../../brand.js';
 
 const STEPS = [
   { day: 'Day 0',  state: 'fired',   action: 'email',   title: 'Welcome — Thanks for signing up',     fired: '12 contacts',   when: '3 weeks ago' },
@@ -20,16 +19,16 @@ const STEPS = [
 ];
 
 const ACTION_ICON = {
-  email: { icon: '✉', color: PRIMARY, bg: 'rgba(41,198,198,0.16)' },
-  sms:   { icon: '💬', color: ACCENT, bg: 'rgba(71,163,217,0.16)' },
-  task:  { icon: '◐', color: LIGHT, bg: 'rgba(125,211,211,0.20)' },
-  exit:  { icon: '↗', color: SLATE, bg: 'rgba(148,163,184,0.20)' },
+  email: { icon: '✉', color: PRIMARY, bg: `${PRIMARY}29` },
+  sms:   { icon: '💬', color: ACCENT, bg: `${ACCENT}29` },
+  task:  { icon: '◐', color: LIGHT, bg: `${LIGHT}33` },
+  exit:  { icon: '↗', color: SLATE, bg: `${SLATE}33` },
 };
 
 const STATE_PILL = {
-  fired:   { fg: SUCCESS, bg: 'rgba(45,184,125,0.16)',  label: '✓ FIRED' },
-  running: { fg: PRIMARY_DEEP, bg: 'rgba(41,198,198,0.20)',  label: '● RUNNING NOW' },
-  queued:  { fg: colors.mutedForeground, bg: 'rgba(148,163,184,0.16)', label: '◷ QUEUED' },
+  fired:   { fg: SUCCESS, bg: `${SUCCESS}29`,  label: '✓ FIRED' },
+  running: { fg: PRIMARY_DEEP, bg: `${PRIMARY}33`,  label: '● RUNNING NOW' },
+  queued:  { fg: TEXT_MUTED, bg: `${SLATE}29`, label: '◷ QUEUED' },
 };
 
 const StepRow = ({ step, isFirst, isLast }) => {
@@ -44,21 +43,21 @@ const StepRow = ({ step, isFirst, isLast }) => {
         {!isFirst && (
           <div style={{
             width: 2, height: 8,
-            background: isFired || isRunning ? SUCCESS : 'rgba(148,163,184,0.30)',
+            background: isFired || isRunning ? SUCCESS : `${SLATE}4d`,
           }} />
         )}
         <div style={{
           minWidth: 50, padding: '5px 8px',
           borderRadius: 999,
           background: isRunning
-            ? 'linear-gradient(135deg, #29c6c6, #47a3d9)'
+            ? `linear-gradient(135deg, ${PRIMARY}, ${ACCENT})`
             : (isFired ? SUCCESS : '#fff'),
-          color: (isRunning || isFired) ? '#fff' : colors.foreground,
+          color: (isRunning || isFired) ? '#fff' : TEXT,
           fontSize: 11, fontWeight: 800,
           letterSpacing: '-0.005em',
           textAlign: 'center',
-          border: !isRunning && !isFired ? '1.5px solid rgba(148,163,184,0.4)' : 'none',
-          boxShadow: isRunning ? '0 4px 10px rgba(41,198,198,0.35)' : 'none',
+          border: !isRunning && !isFired ? `1.5px solid ${SLATE}66` : 'none',
+          boxShadow: isRunning ? `0 4px 10px ${PRIMARY}59` : 'none',
           flexShrink: 0,
         }}>{step.day}</div>
         {!isLast && (
@@ -67,7 +66,7 @@ const StepRow = ({ step, isFirst, isLast }) => {
             width: 2, minHeight: 16,
             background: isFired
               ? SUCCESS
-              : (isRunning ? 'linear-gradient(180deg, #29c6c6, rgba(148,163,184,0.30))' : 'rgba(148,163,184,0.30)'),
+              : (isRunning ? `linear-gradient(180deg, ${PRIMARY}, ${SLATE}4d)` : `${SLATE}4d`),
             marginTop: 6,
           }} />
         )}
@@ -80,9 +79,9 @@ const StepRow = ({ step, isFirst, isLast }) => {
         borderRadius: 10,
         padding: '10px 12px',
         border: isRunning
-          ? '1.5px solid rgba(41,198,198,0.45)'
+          ? `1.5px solid ${PRIMARY}73`
           : '1px solid rgba(226,232,240,0.7)',
-        boxShadow: isRunning ? '0 4px 14px rgba(41,198,198,0.18)' : 'none',
+        boxShadow: isRunning ? `0 4px 14px ${PRIMARY}2e` : 'none',
         marginBottom: 4,
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -94,7 +93,7 @@ const StepRow = ({ step, isFirst, isLast }) => {
             flexShrink: 0,
           }}>{icon.icon}</div>
           <div style={{
-            fontSize: 12.5, fontWeight: 800, color: colors.foreground,
+            fontSize: 12.5, fontWeight: 800, color: TEXT,
             letterSpacing: '-0.01em', lineHeight: 1.2,
             flex: 1, minWidth: 0,
             overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
@@ -107,10 +106,10 @@ const StepRow = ({ step, isFirst, isLast }) => {
             padding: '2px 7px', borderRadius: 999,
           }}>{pill.label}</span>
           {step.fired && (
-            <span style={{ fontSize: 10, fontWeight: 700, color: colors.mutedForeground }}>{step.fired}</span>
+            <span style={{ fontSize: 10, fontWeight: 700, color: TEXT_MUTED }}>{step.fired}</span>
           )}
           <span style={{ flex: 1 }} />
-          <span style={{ fontSize: 10, fontWeight: 600, color: colors.mutedForeground }}>{step.when}</span>
+          <span style={{ fontSize: 10, fontWeight: 600, color: TEXT_MUTED }}>{step.when}</span>
         </div>
       </div>
     </div>
@@ -131,16 +130,16 @@ export const EventQueuesHero = () => (
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
           background: SUCCESS,
-          boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
+          boxShadow: `0 0 0 5px ${SUCCESS}38`,
         }} />
-        <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
+        <span style={{ fontSize: 19, fontWeight: 800, color: TEXT, letterSpacing: '-0.015em' }}>
           Lead Nurture Campaign
         </span>
       </div>
       <span style={{
         fontSize: 11, fontWeight: 800, letterSpacing: '0.12em',
-        color: colors.primary,
-        background: 'rgba(41,198,198,0.14)',
+        color: PRIMARY,
+        background: `${PRIMARY}24`,
         padding: '5px 10px', borderRadius: 999,
       }}>12 ENROLLED</span>
     </div>

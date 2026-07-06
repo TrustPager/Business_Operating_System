@@ -9,8 +9,7 @@
 // for Reports, etc. See heroes/index.js for the registry.
 
 import React from 'react';
-import { colors } from '../../theme.js';
-import { PRIMARY, SUCCESS } from '../../brand.js';
+import { BORDER, PRIMARY, SUCCESS, TEXT } from '../../brand.js';
 
 const DEFAULT_ITEMS = [
   { state: 'done',     text: 'Sent quote to Amir K.' },
@@ -41,16 +40,16 @@ export const AIActivityHero = ({ data = {} }) => {
           <span style={{
             width: 12, height: 12, borderRadius: '50%',
             background: SUCCESS,
-            boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
+            boxShadow: `0 0 0 5px ${SUCCESS}38`,
           }} />
-          <span style={{ fontSize: 22, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
+          <span style={{ fontSize: 22, fontWeight: 800, color: TEXT, letterSpacing: '-0.015em' }}>
             AI Activity
           </span>
         </div>
         <span style={{
           fontSize: 12, fontWeight: 800, letterSpacing: '0.14em',
-          color: colors.primary,
-          background: 'rgba(41,198,198,0.14)',
+          color: PRIMARY,
+          background: `${PRIMARY}24`,
           padding: '6px 12px', borderRadius: 999,
         }}>
           LIVE
@@ -75,20 +74,20 @@ export const AIActivityHero = ({ data = {} }) => {
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   color: '#fff', fontSize: 18, fontWeight: 800,
                   flexShrink: 0,
-                  boxShadow: '0 2px 6px rgba(45,184,125,0.30)',
+                  boxShadow: `0 2px 6px ${SUCCESS}4d`,
                 }}>✓</div>
               )}
               {progress && (
                 <div style={{
                   width: 32, height: 32, borderRadius: '50%',
-                  background: 'rgba(41,198,198,0.14)',
+                  background: `${PRIMARY}24`,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   flexShrink: 0,
                   position: 'relative',
                 }}>
                   <div style={{
                     width: 22, height: 22, borderRadius: '50%',
-                    border: '3px solid #29c6c6',
+                    border: `3px solid ${PRIMARY}`,
                     borderTopColor: 'transparent',
                     transform: 'rotate(45deg)',
                   }} />
@@ -97,14 +96,14 @@ export const AIActivityHero = ({ data = {} }) => {
               {item.state === 'pending' && (
                 <div style={{
                   width: 32, height: 32, borderRadius: '50%',
-                  border: `2px solid ${colors.border}`,
+                  border: `2px solid ${BORDER}`,
                   flexShrink: 0,
                 }} />
               )}
               <div style={{
                 fontSize: 19,
                 fontWeight: progress ? 800 : 600,
-                color: done ? 'rgba(15,17,23,0.50)' : (progress ? colors.foreground : 'rgba(15,17,23,0.75)'),
+                color: done ? 'rgba(15,17,23,0.50)' : (progress ? TEXT : 'rgba(15,17,23,0.75)'),
                 textDecoration: done ? 'line-through' : 'none',
                 lineHeight: 1.3, flex: 1,
                 letterSpacing: '-0.01em',
@@ -112,7 +111,7 @@ export const AIActivityHero = ({ data = {} }) => {
               {progress && (
                 <span style={{
                   fontSize: 12, fontWeight: 800, color: PRIMARY, letterSpacing: '0.10em',
-                  background: 'rgba(41,198,198,0.14)',
+                  background: `${PRIMARY}24`,
                   padding: '4px 9px', borderRadius: 6,
                 }}>
                   NOW

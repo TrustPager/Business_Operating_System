@@ -12,8 +12,7 @@
 // silhouette so it survives the squint test at thumbnail scale.
 
 import React from 'react';
-import { colors } from '../../theme.js';
-import { ACCENT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS } from '../../brand.js';
+import { ACCENT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS, TEXT, TEXT_MUTED } from '../../brand.js';
 
 const ROWS = [
   {
@@ -49,8 +48,8 @@ const ROWS = [
 ];
 
 const STATE = {
-  done:   { fg: SUCCESS, bg: 'rgba(45,184,125,0.18)',  label: '✓ DONE' },
-  review: { fg: PRIMARY_DEEP, bg: 'rgba(41,198,198,0.18)',  label: '◷ REVIEW' },
+  done:   { fg: SUCCESS, bg: `${SUCCESS}2e`,  label: '✓ DONE' },
+  review: { fg: PRIMARY_DEEP, bg: `${PRIMARY}2e`,  label: '◷ REVIEW' },
 };
 
 const CheckIcon = ({ color }) => (
@@ -93,12 +92,12 @@ const MigrationRow = ({ r }) => {
       {/* Step name + detail */}
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{
-          fontSize: 15, fontWeight: 800, color: colors.foreground,
+          fontSize: 15, fontWeight: 800, color: TEXT,
           letterSpacing: '-0.01em', lineHeight: 1.1,
           overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
         }}>{r.name}</div>
         <div style={{
-          fontSize: 11.5, fontWeight: 700, color: colors.mutedForeground,
+          fontSize: 11.5, fontWeight: 700, color: TEXT_MUTED,
           letterSpacing: '-0.005em', marginTop: 3,
           overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
         }}>{r.detail}</div>
@@ -129,16 +128,16 @@ export const MigrationHero = () => (
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
           background: SUCCESS,
-          boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
+          boxShadow: `0 0 0 5px ${SUCCESS}38`,
         }} />
-        <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
+        <span style={{ fontSize: 19, fontWeight: 800, color: TEXT, letterSpacing: '-0.015em' }}>
           Data Migration
         </span>
       </div>
       <span style={{
         fontSize: 11, fontWeight: 800, letterSpacing: '0.10em',
         color: PRIMARY_DEEP,
-        background: 'rgba(41,198,198,0.14)',
+        background: `${PRIMARY}24`,
         padding: '5px 10px', borderRadius: 999,
       }}>174 RECORDS · BY AI</span>
     </div>

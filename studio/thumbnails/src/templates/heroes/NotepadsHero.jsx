@@ -5,13 +5,12 @@
 // "Detailed Notepads for Every Deal".
 
 import React from 'react';
-import { colors } from '../../theme.js';
-import { ACCENT, PRIMARY, PRIMARY_DEEP, SUCCESS } from '../../brand.js';
+import { ACCENT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS, TEXT, TEXT_MUTED } from '../../brand.js';
 
 // ── Inline primitives for rich-text rendering ─────────────────────────────
 const H = ({ children }) => (
   <div style={{
-    fontSize: 17, fontWeight: 800, color: colors.foreground,
+    fontSize: 17, fontWeight: 800, color: TEXT,
     letterSpacing: '-0.02em', lineHeight: 1.2,
     marginTop: 14, marginBottom: 8,
   }}>{children}</div>
@@ -26,23 +25,23 @@ const H2 = ({ children, color = PRIMARY_DEEP }) => (
 
 const P = ({ children }) => (
   <div style={{
-    fontSize: 12.5, fontWeight: 500, color: colors.foreground,
+    fontSize: 12.5, fontWeight: 500, color: TEXT,
     lineHeight: 1.55, letterSpacing: '-0.005em',
     marginBottom: 8,
   }}>{children}</div>
 );
 
 const B = ({ children }) => (
-  <span style={{ fontWeight: 800, color: colors.foreground }}>{children}</span>
+  <span style={{ fontWeight: 800, color: TEXT }}>{children}</span>
 );
 
 const I = ({ children }) => (
-  <span style={{ fontStyle: 'italic', color: colors.foreground }}>{children}</span>
+  <span style={{ fontStyle: 'italic', color: TEXT }}>{children}</span>
 );
 
 const Mark = ({ children }) => (
   <span style={{
-    background: 'rgba(41,198,198,0.18)',
+    background: `${PRIMARY}2e`,
     color: PRIMARY_DEEP,
     fontWeight: 800,
     padding: '1px 4px',
@@ -68,7 +67,7 @@ const Callout = ({ children, icon, color = PRIMARY }) => (
       flexShrink: 0,
     }}>{icon}</div>
     <div style={{
-      fontSize: 12, fontWeight: 600, color: colors.foreground,
+      fontSize: 12, fontWeight: 600, color: TEXT,
       letterSpacing: '-0.005em', lineHeight: 1.45,
     }}>{children}</div>
   </div>
@@ -77,7 +76,7 @@ const Callout = ({ children, icon, color = PRIMARY }) => (
 const Bullet = ({ children, color = PRIMARY }) => (
   <div style={{
     display: 'flex', alignItems: 'flex-start', gap: 9,
-    fontSize: 12.5, fontWeight: 500, color: colors.foreground,
+    fontSize: 12.5, fontWeight: 500, color: TEXT,
     lineHeight: 1.5, letterSpacing: '-0.005em',
     marginBottom: 5,
   }}>
@@ -94,7 +93,7 @@ const CheckItem = ({ done, children }) => (
   <div style={{
     display: 'flex', alignItems: 'flex-start', gap: 9,
     fontSize: 12.5, fontWeight: 500,
-    color: done ? colors.mutedForeground : colors.foreground,
+    color: done ? TEXT_MUTED : TEXT,
     lineHeight: 1.5, letterSpacing: '-0.005em',
     marginBottom: 6,
     textDecoration: done ? 'line-through' : 'none',
@@ -107,13 +106,13 @@ const CheckItem = ({ done, children }) => (
         color: '#fff', fontSize: 10, fontWeight: 800,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         flexShrink: 0, marginTop: 1,
-        boxShadow: '0 1px 2px rgba(45,184,125,0.30)',
+        boxShadow: `0 1px 2px ${SUCCESS}4d`,
       }}>✓</div>
     ) : (
       <div style={{
         width: 18, height: 18, borderRadius: 5,
         background: '#fff',
-        border: '2px solid rgba(148,163,184,0.40)',
+        border: `2px solid ${SLATE}66`,
         flexShrink: 0, marginTop: 1,
       }} />
     )}
@@ -140,11 +139,11 @@ export const NotepadsHero = () => (
     }}>
       <div style={{
         width: 28, height: 28, borderRadius: 8,
-        background: 'linear-gradient(135deg, #29c6c6, #47a3d9)',
+        background: `linear-gradient(135deg, ${PRIMARY}, ${ACCENT})`,
         color: '#fff', fontSize: 15, fontWeight: 800,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         flexShrink: 0,
-        boxShadow: '0 2px 6px rgba(41,198,198,0.30)',
+        boxShadow: `0 2px 6px ${PRIMARY}4d`,
       }}>📓</div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 4, flex: 1 }}>
         {['B', 'I', 'U'].map((c, i) => (
@@ -152,7 +151,7 @@ export const NotepadsHero = () => (
             width: 26, height: 26, borderRadius: 6,
             background: 'transparent',
             border: '1px solid rgba(226,232,240,0.6)',
-            color: colors.foreground,
+            color: TEXT,
             fontSize: 12, fontWeight: c === 'B' ? 800 : 600,
             fontStyle: c === 'I' ? 'italic' : 'normal',
             textDecoration: c === 'U' ? 'underline' : 'none',
@@ -165,7 +164,7 @@ export const NotepadsHero = () => (
             height: 26, padding: '0 7px', borderRadius: 6,
             background: 'transparent',
             border: '1px solid rgba(226,232,240,0.6)',
-            color: colors.mutedForeground,
+            color: TEXT_MUTED,
             fontSize: 11, fontWeight: 700,
             cursor: 'pointer',
           }}>{c}</button>
@@ -175,7 +174,7 @@ export const NotepadsHero = () => (
         display: 'inline-flex', alignItems: 'center', gap: 4,
         fontSize: 10, fontWeight: 800, letterSpacing: '0.10em',
         color: PRIMARY_DEEP,
-        background: 'rgba(41,198,198,0.14)',
+        background: `${PRIMARY}24`,
         padding: '4px 9px', borderRadius: 999,
         flexShrink: 0,
       }}>✦ AI POLISHED</span>
@@ -185,7 +184,7 @@ export const NotepadsHero = () => (
     <div style={{ padding: '16px 22px 22px', fontFamily: 'inherit' }}>
       {/* Title */}
       <div style={{
-        fontSize: 21, fontWeight: 800, color: colors.foreground,
+        fontSize: 21, fontWeight: 800, color: TEXT,
         letterSpacing: '-0.02em', lineHeight: 1.15,
         marginBottom: 6,
       }}>Discovery Call — Coastal Health Group</div>
@@ -195,13 +194,13 @@ export const NotepadsHero = () => (
           display: 'inline-flex', alignItems: 'center', gap: 5,
           fontSize: 10, fontWeight: 800, letterSpacing: '0.08em',
           color: PRIMARY,
-          background: 'rgba(41,198,198,0.14)',
+          background: `${PRIMARY}24`,
           padding: '3px 8px', borderRadius: 4,
         }}>
           <span style={{ width: 5, height: 5, borderRadius: '50%', background: PRIMARY }} />
           SALES · Q3 ROLLOUT
         </span>
-        <span style={{ fontSize: 10.5, fontWeight: 600, color: colors.mutedForeground }}>
+        <span style={{ fontSize: 10.5, fontWeight: 600, color: TEXT_MUTED }}>
           Linked to deal · Last edited just now
         </span>
       </div>

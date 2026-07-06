@@ -17,8 +17,7 @@
 // create the "rainbow with sparks" silhouette that survives the squint test.
 
 import React from 'react';
-import { colors } from '../../theme.js';
-import { ACCENT, LIGHT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS, TEXT_MUTED } from '../../brand.js';
+import { ACCENT, LIGHT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS, TEXT, TEXT_MUTED } from '../../brand.js';
 
 const STAGES = [
   {
@@ -72,9 +71,9 @@ const STAGES = [
 ];
 
 const STATE = {
-  built:    { fg: SUCCESS, bg: 'rgba(45,184,125,0.18)', label: '✓ BUILT' },
-  building: { fg: PRIMARY_DEEP, bg: 'rgba(41,198,198,0.22)', label: '● BUILDING' },
-  queued:   { fg: TEXT_MUTED, bg: 'rgba(148,163,184,0.16)', label: '◷ QUEUED' },
+  built:    { fg: SUCCESS, bg: `${SUCCESS}2e`, label: '✓ BUILT' },
+  building: { fg: PRIMARY_DEEP, bg: `${PRIMARY}38`, label: '● BUILDING' },
+  queued:   { fg: TEXT_MUTED, bg: `${SLATE}29`, label: '◷ QUEUED' },
 };
 
 const BoltIcon = ({ color }) => (
@@ -103,7 +102,7 @@ const StageAutomationCard = ({ s }) => {
             width: 32, height: 32, borderRadius: 9,
             background: isBuilt
               ? `linear-gradient(135deg, ${s.color}, ${s.color}cc)`
-              : 'rgba(148,163,184,0.16)',
+              : `${SLATE}29`,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             boxShadow: isBuilt ? `0 4px 10px ${s.color}40` : 'none',
             flexShrink: 0,
@@ -113,10 +112,10 @@ const StageAutomationCard = ({ s }) => {
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{
               fontSize: 9, fontWeight: 800, letterSpacing: '0.10em',
-              color: colors.mutedForeground,
+              color: TEXT_MUTED,
             }}>STAGE</div>
             <div style={{
-              fontSize: 15, fontWeight: 800, color: colors.foreground,
+              fontSize: 15, fontWeight: 800, color: TEXT,
               letterSpacing: '-0.01em', lineHeight: 1.1, marginTop: 1,
               overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
             }}>{s.name}</div>
@@ -142,7 +141,7 @@ const StageAutomationCard = ({ s }) => {
       {/* Row 3: Trigger + Action lines */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <div style={{
-          fontSize: 10.5, fontWeight: 700, color: colors.mutedForeground,
+          fontSize: 10.5, fontWeight: 700, color: TEXT_MUTED,
           letterSpacing: '-0.005em',
           overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
         }}>
@@ -150,7 +149,7 @@ const StageAutomationCard = ({ s }) => {
           {s.trigger}
         </div>
         <div style={{
-          fontSize: 10.5, fontWeight: 700, color: colors.foreground,
+          fontSize: 10.5, fontWeight: 700, color: TEXT,
           letterSpacing: '-0.005em',
           overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
         }}>
@@ -176,16 +175,16 @@ export const ClaudePipelineHero = () => (
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
           background: SUCCESS,
-          boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
+          boxShadow: `0 0 0 5px ${SUCCESS}38`,
         }} />
-        <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
+        <span style={{ fontSize: 19, fontWeight: 800, color: TEXT, letterSpacing: '-0.015em' }}>
           Leads Pipeline
         </span>
       </div>
       <span style={{
         fontSize: 11, fontWeight: 800, letterSpacing: '0.10em',
         color: PRIMARY_DEEP,
-        background: 'rgba(41,198,198,0.14)',
+        background: `${PRIMARY}24`,
         padding: '5px 10px', borderRadius: 999,
       }}>BUILT BY AI · 90s</span>
     </div>

@@ -4,9 +4,8 @@
 // who they work for, recent activity, deal value, contact freshness.
 
 import React from 'react';
-import { colors } from '../../theme.js';
 import { Avatar } from '../../profiles.jsx';
-import { ACCENT, LIGHT, PRIMARY, PRIMARY_DEEP, SUCCESS } from '../../brand.js';
+import { ACCENT, LIGHT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS, TEXT, TEXT_MUTED } from '../../brand.js';
 
 const CONTACTS = [
   {
@@ -83,11 +82,11 @@ const ContactCard = ({ c }) => (
       <Avatar name={c.name} size={42} style={{ boxShadow: '0 2px 6px rgba(15,17,23,0.15)' }} />
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{
-          fontSize: 15, fontWeight: 800, color: colors.foreground,
+          fontSize: 15, fontWeight: 800, color: TEXT,
           letterSpacing: '-0.01em',
         }}>{c.name}</div>
         <div style={{
-          fontSize: 11, fontWeight: 600, color: colors.mutedForeground,
+          fontSize: 11, fontWeight: 600, color: TEXT_MUTED,
           marginTop: 1,
         }}>{c.role}</div>
       </div>
@@ -97,7 +96,7 @@ const ContactCard = ({ c }) => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
       <span style={{
         display: 'inline-flex', alignItems: 'center', gap: 5,
-        fontSize: 11, fontWeight: 700, color: colors.foreground,
+        fontSize: 11, fontWeight: 700, color: TEXT,
         background: 'rgba(248,250,252,0.9)',
         border: `1px solid ${c.companyColor}40`,
         padding: '3px 8px', borderRadius: 6,
@@ -109,8 +108,8 @@ const ContactCard = ({ c }) => (
       {c.tags.map((t, i) => (
         <span key={i} style={{
           fontSize: 9, fontWeight: 800, letterSpacing: '0.08em',
-          color: colors.mutedForeground,
-          background: 'rgba(148,163,184,0.18)',
+          color: TEXT_MUTED,
+          background: `${SLATE}2e`,
           padding: '3px 7px', borderRadius: 999,
           textTransform: 'uppercase',
         }}>{t}</span>
@@ -124,7 +123,7 @@ const ContactCard = ({ c }) => (
         background: c.activityColor, flexShrink: 0,
       }} />
       <span style={{
-        fontSize: 11, fontWeight: 600, color: colors.mutedForeground,
+        fontSize: 11, fontWeight: 600, color: TEXT_MUTED,
         letterSpacing: '-0.005em',
       }}>{c.activity}</span>
     </div>
@@ -145,16 +144,16 @@ export const ContactsHero = () => (
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
           background: SUCCESS,
-          boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
+          boxShadow: `0 0 0 5px ${SUCCESS}38`,
         }} />
-        <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
+        <span style={{ fontSize: 19, fontWeight: 800, color: TEXT, letterSpacing: '-0.015em' }}>
           Contacts
         </span>
       </div>
       <span style={{
         fontSize: 11, fontWeight: 800, letterSpacing: '0.12em',
-        color: colors.primary,
-        background: 'rgba(41,198,198,0.14)',
+        color: PRIMARY,
+        background: `${PRIMARY}24`,
         padding: '5px 10px', borderRadius: 999,
       }}>1,247 LOGGED</span>
     </div>

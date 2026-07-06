@@ -7,8 +7,7 @@
 // Not the form builder.
 
 import React from 'react';
-import { colors } from '../../theme.js';
-import { PRIMARY_DEEP, SUCCESS } from '../../brand.js';
+import { ACCENT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS, TEXT, TEXT_MUTED } from '../../brand.js';
 
 const FIELDS = [
   { label: 'Company Name',     value: 'Coastal Health Group',           type: 'text',   autoFilled: true },
@@ -27,11 +26,11 @@ const FIELDS = [
 const Sparkle = () => (
   <span style={{
     width: 18, height: 18, borderRadius: 6,
-    background: 'linear-gradient(135deg, #29c6c6, #47a3d9)',
+    background: `linear-gradient(135deg, ${PRIMARY}, ${ACCENT})`,
     display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
     color: '#fff', fontSize: 10, fontWeight: 800,
     flexShrink: 0,
-    boxShadow: '0 2px 6px rgba(41,198,198,0.30)',
+    boxShadow: `0 2px 6px ${PRIMARY}4d`,
   }}>✦</span>
 );
 
@@ -45,15 +44,15 @@ const FieldRow = ({ f }) => {
       borderRadius: 10,
       padding: '10px 12px',
       border: filling
-        ? '1.5px solid rgba(41,198,198,0.50)'
-        : (empty ? '1px dashed rgba(148,163,184,0.40)' : '1px solid rgba(226,232,240,0.7)'),
-      boxShadow: filling ? '0 4px 14px rgba(41,198,198,0.18)' : 'none',
+        ? `1.5px solid ${PRIMARY}80`
+        : (empty ? `1px dashed ${SLATE}66` : '1px solid rgba(226,232,240,0.7)'),
+      boxShadow: filling ? `0 4px 14px ${PRIMARY}2e` : 'none',
       display: 'flex', flexDirection: 'column', gap: 5,
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
         <span style={{
           fontSize: 10, fontWeight: 800, letterSpacing: '0.08em',
-          color: colors.mutedForeground,
+          color: TEXT_MUTED,
           textTransform: 'uppercase',
         }}>{f.label}</span>
         <span style={{ flex: 1 }} />
@@ -62,7 +61,7 @@ const FieldRow = ({ f }) => {
             display: 'inline-flex', alignItems: 'center', gap: 4,
             fontSize: 9, fontWeight: 800, letterSpacing: '0.08em',
             color: PRIMARY_DEEP,
-            background: 'rgba(41,198,198,0.14)',
+            background: `${PRIMARY}24`,
             padding: '2px 7px', borderRadius: 999,
           }}>✦ AUTO-FILLED</span>
         )}
@@ -71,7 +70,7 @@ const FieldRow = ({ f }) => {
             display: 'inline-flex', alignItems: 'center', gap: 4,
             fontSize: 9, fontWeight: 800, letterSpacing: '0.08em',
             color: PRIMARY_DEEP,
-            background: 'rgba(41,198,198,0.22)',
+            background: `${PRIMARY}38`,
             padding: '2px 7px', borderRadius: 999,
           }}>● FILLING NOW</span>
         )}
@@ -82,9 +81,9 @@ const FieldRow = ({ f }) => {
           <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap', flex: 1 }}>
             {f.value.map((v, i) => (
               <span key={i} style={{
-                fontSize: 11, fontWeight: 700, color: colors.foreground,
-                background: 'rgba(41,198,198,0.10)',
-                border: '1px solid rgba(41,198,198,0.30)',
+                fontSize: 11, fontWeight: 700, color: TEXT,
+                background: `${PRIMARY}1a`,
+                border: `1px solid ${PRIMARY}4d`,
                 padding: '2px 9px', borderRadius: 999,
                 letterSpacing: '-0.005em',
               }}>{v}</span>
@@ -93,7 +92,7 @@ const FieldRow = ({ f }) => {
         ) : (
           <div style={{
             fontSize: 13.5, fontWeight: empty ? 600 : 700,
-            color: empty ? colors.mutedForeground : colors.foreground,
+            color: empty ? TEXT_MUTED : TEXT,
             letterSpacing: '-0.01em',
             fontStyle: empty ? 'italic' : 'normal',
             flex: 1,
@@ -123,30 +122,30 @@ export const FormsHero = () => {
           <span style={{
             width: 12, height: 12, borderRadius: '50%',
             background: SUCCESS,
-            boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
+            boxShadow: `0 0 0 5px ${SUCCESS}38`,
           }} />
-          <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
+          <span style={{ fontSize: 19, fontWeight: 800, color: TEXT, letterSpacing: '-0.015em' }}>
             Client Intake
           </span>
         </div>
         <span style={{
           fontSize: 11, fontWeight: 800, letterSpacing: '0.12em',
-          color: colors.primary,
-          background: 'rgba(41,198,198,0.14)',
+          color: PRIMARY,
+          background: `${PRIMARY}24`,
           padding: '5px 10px', borderRadius: 999,
         }}>{filled}/{total} FIELDS</span>
       </div>
 
       {/* Progress bar */}
       <div style={{
-        height: 8, background: 'rgba(148,163,184,0.16)', borderRadius: 999,
+        height: 8, background: `${SLATE}29`, borderRadius: 999,
         overflow: 'hidden',
       }}>
         <div style={{
           width: `${pct}%`, height: '100%',
-          background: 'linear-gradient(90deg, #29c6c6, #47a3d9)',
+          background: `linear-gradient(90deg, ${PRIMARY}, ${ACCENT})`,
           borderRadius: 999,
-          boxShadow: '0 1px 4px rgba(41,198,198,0.40)',
+          boxShadow: `0 1px 4px ${PRIMARY}66`,
         }} />
       </div>
 

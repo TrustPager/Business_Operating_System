@@ -5,8 +5,7 @@
 // the loop is still open (you can submit more anytime).
 
 import React from 'react';
-import { colors } from '../../theme.js';
-import { PRIMARY_DEEP, SUCCESS } from '../../brand.js';
+import { PRIMARY, PRIMARY_DEEP, SUCCESS, TEXT, TEXT_MUTED } from '../../brand.js';
 
 const REQUESTS = [
   {
@@ -54,11 +53,11 @@ const StateBadge = ({ state, when, eta }) => {
         <span style={{
           fontSize: 10, fontWeight: 800, letterSpacing: '0.10em',
           color: SUCCESS,
-          background: 'rgba(45,184,125,0.16)',
+          background: `${SUCCESS}29`,
           padding: '3px 9px', borderRadius: 999,
           display: 'flex', alignItems: 'center', gap: 4,
         }}>✓ SHIPPED</span>
-        <span style={{ fontSize: 11, fontWeight: 600, color: colors.mutedForeground }}>{when}</span>
+        <span style={{ fontSize: 11, fontWeight: 600, color: TEXT_MUTED }}>{when}</span>
       </div>
     );
   }
@@ -67,10 +66,10 @@ const StateBadge = ({ state, when, eta }) => {
       <span style={{
         fontSize: 10, fontWeight: 800, letterSpacing: '0.10em',
         color: PRIMARY_DEEP,
-        background: 'rgba(41,198,198,0.16)',
+        background: `${PRIMARY}29`,
         padding: '3px 9px', borderRadius: 999,
       }}>● BUILDING</span>
-      <span style={{ fontSize: 11, fontWeight: 600, color: colors.mutedForeground }}>{eta}</span>
+      <span style={{ fontSize: 11, fontWeight: 600, color: TEXT_MUTED }}>{eta}</span>
     </div>
   );
 };
@@ -82,15 +81,15 @@ const RequestCard = ({ r }) => (
     padding: '14px 16px',
     border: '1px solid rgba(226,232,240,0.7)',
     display: 'flex', flexDirection: 'column', gap: 8,
-    borderLeft: r.state === 'shipped' ? '4px solid #2db87d' : '4px solid #29c6c6',
+    borderLeft: r.state === 'shipped' ? `4px solid ${SUCCESS}` : `4px solid ${PRIMARY}`,
   }}>
     <StateBadge state={r.state} when={r.when} eta={r.eta} />
     <div style={{
-      fontSize: 15, fontWeight: 800, color: colors.foreground,
+      fontSize: 15, fontWeight: 800, color: TEXT,
       letterSpacing: '-0.015em', lineHeight: 1.2,
     }}>{r.title}</div>
     <div style={{
-      fontSize: 12, color: colors.mutedForeground, fontWeight: 500,
+      fontSize: 12, color: TEXT_MUTED, fontWeight: 500,
       lineHeight: 1.4,
     }}>{r.desc}</div>
   </div>
@@ -110,16 +109,16 @@ export const ServiceRequestHero = () => (
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
           background: SUCCESS,
-          boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
+          boxShadow: `0 0 0 5px ${SUCCESS}38`,
         }} />
-        <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
+        <span style={{ fontSize: 19, fontWeight: 800, color: TEXT, letterSpacing: '-0.015em' }}>
           Your Requests
         </span>
       </div>
       <span style={{
         fontSize: 11, fontWeight: 800, letterSpacing: '0.12em',
-        color: colors.primary,
-        background: 'rgba(41,198,198,0.14)',
+        color: PRIMARY,
+        background: `${PRIMARY}24`,
         padding: '5px 10px', borderRadius: 999,
       }}>5 SHIPPED</span>
     </div>

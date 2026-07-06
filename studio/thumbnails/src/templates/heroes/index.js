@@ -64,9 +64,12 @@
 //     the last one or two clip at the canvas edge. That bleed is what
 //     tells the viewer "this feature goes on and on".
 //
-//   ✓ Brand colours only — teal #29c6c6, green #2db87d, blue #47a3d9,
-//     light teal #7dd3d3, deep teal #1ea5a5, slate #94a3b8. NEVER orange /
-//     purple / red in hero chrome, even when the real product UI uses them.
+//   ✓ Brand colours only — hero chrome sources its palette from the owner's
+//     brand tokens in brand.js (PRIMARY / SUCCESS / ACCENT / LIGHT /
+//     PRIMARY_DEEP / SLATE, plus TEXT / TEXT_MUTED / BORDER), so
+//     /brand-my-workspace reskins every hero in one shot. Neutral card /
+//     border / shadow greys stay as literals. NEVER off-palette orange /
+//     purple / red in hero chrome, even when a source product UI uses them.
 //     (Photographic avatars are exempt — they're identity, not chrome.)
 //
 //   ✓ Inner panels use a light border, NOT their own shadow —

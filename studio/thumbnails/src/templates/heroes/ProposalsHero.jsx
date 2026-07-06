@@ -5,13 +5,12 @@
 // Outcome framing: a polished, send-ready document. Not the editor.
 
 import React from 'react';
-import { colors } from '../../theme.js';
-import { ACCENT, PRIMARY_DEEP, SUCCESS } from '../../brand.js';
+import { ACCENT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS, TEXT, TEXT_MUTED } from '../../brand.js';
 
 const DocLine = ({ w = '100%', dim = false }) => (
   <div style={{
     width: w, height: 6,
-    background: dim ? 'rgba(148,163,184,0.20)' : 'rgba(148,163,184,0.35)',
+    background: dim ? `${SLATE}33` : `${SLATE}59`,
     borderRadius: 3,
     marginBottom: 5,
   }} />
@@ -32,10 +31,10 @@ const PriceRow = ({ name, qty, total, last = false }) => (
     borderBottom: last ? 'none' : '1px solid rgba(226,232,240,0.6)',
   }}>
     <div style={{ flex: 1, minWidth: 0 }}>
-      <div style={{ fontSize: 11, fontWeight: 700, color: colors.foreground, letterSpacing: '-0.005em' }}>{name}</div>
-      <div style={{ fontSize: 9, fontWeight: 600, color: colors.mutedForeground, marginTop: 1 }}>{qty}</div>
+      <div style={{ fontSize: 11, fontWeight: 700, color: TEXT, letterSpacing: '-0.005em' }}>{name}</div>
+      <div style={{ fontSize: 9, fontWeight: 600, color: TEXT_MUTED, marginTop: 1 }}>{qty}</div>
     </div>
-    <div style={{ fontSize: 12, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>{total}</div>
+    <div style={{ fontSize: 12, fontWeight: 800, color: TEXT, letterSpacing: '-0.015em' }}>{total}</div>
   </div>
 );
 
@@ -51,7 +50,7 @@ const PaperPage = ({ children, label }) => (
     <span style={{
       position: 'absolute', top: 10, right: 10,
       fontSize: 8, fontWeight: 800, letterSpacing: '0.12em',
-      color: colors.mutedForeground,
+      color: TEXT_MUTED,
       background: 'rgba(248,250,252,0.9)',
       padding: '2px 6px', borderRadius: 3,
     }}>{label}</span>
@@ -83,16 +82,16 @@ export const ProposalsHero = () => (
         <span style={{
           width: 12, height: 12, borderRadius: '50%',
           background: SUCCESS,
-          boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
+          boxShadow: `0 0 0 5px ${SUCCESS}38`,
         }} />
-        <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
+        <span style={{ fontSize: 19, fontWeight: 800, color: TEXT, letterSpacing: '-0.015em' }}>
           Business Proposal
         </span>
       </div>
       <span style={{
         fontSize: 11, fontWeight: 800, letterSpacing: '0.12em',
-        color: colors.primary,
-        background: 'rgba(41,198,198,0.14)',
+        color: PRIMARY,
+        background: `${PRIMARY}24`,
         padding: '5px 10px', borderRadius: 999,
       }}>READY · 1 OF 1</span>
     </div>
@@ -100,7 +99,7 @@ export const ProposalsHero = () => (
     {/* Cover page */}
     <PaperPage label="PAGE 1">
       <div style={{
-        background: 'linear-gradient(135deg, rgba(41,198,198,0.10), rgba(71,163,217,0.10))',
+        background: `linear-gradient(135deg, ${PRIMARY}1a, ${ACCENT}1a)`,
         borderRadius: 8,
         padding: '14px 14px',
         marginBottom: 10,
@@ -108,10 +107,10 @@ export const ProposalsHero = () => (
         <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.12em', color: PRIMARY_DEEP, marginBottom: 4 }}>
           PROPOSAL · Q3 2026
         </div>
-        <div style={{ fontSize: 18, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+        <div style={{ fontSize: 18, fontWeight: 800, color: TEXT, letterSpacing: '-0.02em', lineHeight: 1.1 }}>
           Coastal Health Group
         </div>
-        <div style={{ fontSize: 11, fontWeight: 600, color: colors.mutedForeground, marginTop: 4 }}>
+        <div style={{ fontSize: 11, fontWeight: 600, color: TEXT_MUTED, marginTop: 4 }}>
           Workflow Audit + CRM Build + Training
         </div>
       </div>
@@ -147,9 +146,9 @@ export const ProposalsHero = () => (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 6 }}>
         <div>
           <SignatureSquiggle />
-          <div style={{ borderTop: '1px solid rgba(148,163,184,0.30)', marginTop: 2, paddingTop: 4 }}>
-            <div style={{ fontSize: 11, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.005em' }}>Dr Sarah Mitchell</div>
-            <div style={{ fontSize: 9, fontWeight: 600, color: colors.mutedForeground, marginTop: 1 }}>CFO · Coastal Health Group</div>
+          <div style={{ borderTop: `1px solid ${SLATE}4d`, marginTop: 2, paddingTop: 4 }}>
+            <div style={{ fontSize: 11, fontWeight: 800, color: TEXT, letterSpacing: '-0.005em' }}>Dr Sarah Mitchell</div>
+            <div style={{ fontSize: 9, fontWeight: 600, color: TEXT_MUTED, marginTop: 1 }}>CFO · Coastal Health Group</div>
           </div>
         </div>
       </div>

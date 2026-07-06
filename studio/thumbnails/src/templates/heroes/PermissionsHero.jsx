@@ -9,8 +9,7 @@
 // what's allowed. Reads as "your data is locked down by role".
 
 import React from 'react';
-import { colors } from '../../theme.js';
-import { ACCENT, PRIMARY, PRIMARY_DEEP, SUCCESS } from '../../brand.js';
+import { ACCENT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS, TEXT, TEXT_MUTED } from '../../brand.js';
 
 const ACTIONS = ['Read', 'Write', 'Send', 'Delete'];
 
@@ -48,16 +47,16 @@ const SECTIONS = [
 const Check = ({ on, off }) => {
   if (off) {
     // Capability not available — render a dash
-    return <span style={{ color: 'rgba(148,163,184,0.40)', fontSize: 14, fontWeight: 700 }}>—</span>;
+    return <span style={{ color: `${SLATE}66`, fontSize: 14, fontWeight: 700 }}>—</span>;
   }
   if (on) {
     return (
       <div style={{
         width: 20, height: 20, borderRadius: 5,
-        background: 'linear-gradient(135deg, #29c6c6, #47a3d9)',
+        background: `linear-gradient(135deg, ${PRIMARY}, ${ACCENT})`,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         color: '#fff', fontSize: 11, fontWeight: 800,
-        boxShadow: '0 2px 5px rgba(41,198,198,0.35)',
+        boxShadow: `0 2px 5px ${PRIMARY}59`,
       }}>✓</div>
     );
   }
@@ -65,7 +64,7 @@ const Check = ({ on, off }) => {
     <div style={{
       width: 20, height: 20, borderRadius: 5,
       background: '#fff',
-      border: '1.5px solid rgba(148,163,184,0.40)',
+      border: `1.5px solid ${SLATE}66`,
     }} />
   );
 };
@@ -80,7 +79,7 @@ const SectionLabel = ({ label, color, count }) => (
     <span style={{ flex: 1, height: 1, background: `${color}22` }} />
     <span style={{
       fontSize: 10, fontWeight: 800, letterSpacing: '0.08em',
-      color: colors.mutedForeground,
+      color: TEXT_MUTED,
     }}>{count}</span>
   </div>
 );
@@ -97,13 +96,13 @@ const ColumnHeader = () => (
   }}>
     <span style={{
       fontSize: 10, fontWeight: 800, letterSpacing: '0.10em',
-      color: colors.mutedForeground,
+      color: TEXT_MUTED,
     }}>RESOURCE</span>
     {ACTIONS.map(a => (
       <div key={a} style={{ textAlign: 'center' }}>
         <span style={{
           fontSize: 10, fontWeight: 800, letterSpacing: '0.08em',
-          color: colors.mutedForeground,
+          color: TEXT_MUTED,
         }}>{a.toUpperCase()}</span>
       </div>
     ))}
@@ -119,7 +118,7 @@ const ResourceRow = ({ r, last }) => (
     borderBottom: last ? 'none' : '1px solid rgba(226,232,240,0.55)',
   }}>
     <span style={{
-      fontSize: 13, fontWeight: 700, color: colors.foreground,
+      fontSize: 13, fontWeight: 700, color: TEXT,
       letterSpacing: '-0.005em',
     }}>{r.name}</span>
     {ACTIONS.map(a => {
@@ -154,10 +153,10 @@ const Section = ({ section }) => (
 const ShieldIcon = () => (
   <div style={{
     width: 42, height: 42, borderRadius: 12,
-    background: 'linear-gradient(135deg, #29c6c6, #47a3d9)',
+    background: `linear-gradient(135deg, ${PRIMARY}, ${ACCENT})`,
     display: 'flex', alignItems: 'center', justifyContent: 'center',
     flexShrink: 0,
-    boxShadow: '0 4px 10px rgba(41,198,198,0.30)',
+    boxShadow: `0 4px 10px ${PRIMARY}4d`,
   }}>
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
       <path d="M12 2L4 5v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V5l-8-3z" fill="#fff" />
@@ -176,10 +175,10 @@ export const PermissionsHero = () => (
   }}>
     {/* Role header */}
     <div style={{
-      background: 'linear-gradient(135deg, rgba(41,198,198,0.10), rgba(71,163,217,0.10))',
+      background: `linear-gradient(135deg, ${PRIMARY}1a, ${ACCENT}1a)`,
       borderRadius: 12,
       padding: '12px 14px',
-      border: '1px solid rgba(41,198,198,0.20)',
+      border: `1px solid ${PRIMARY}33`,
       display: 'flex', alignItems: 'center', gap: 12,
     }}>
       <ShieldIcon />
@@ -189,11 +188,11 @@ export const PermissionsHero = () => (
           color: PRIMARY_DEEP,
         }}>ROLE · 6 USERS</div>
         <div style={{
-          fontSize: 17, fontWeight: 800, color: colors.foreground,
+          fontSize: 17, fontWeight: 800, color: TEXT,
           letterSpacing: '-0.015em', marginTop: 2,
         }}>Sales Rep</div>
         <div style={{
-          fontSize: 11.5, fontWeight: 600, color: colors.mutedForeground,
+          fontSize: 11.5, fontWeight: 600, color: TEXT_MUTED,
           marginTop: 1, letterSpacing: '-0.005em',
         }}>Own deals, send communications, no destructive actions</div>
       </div>
@@ -201,9 +200,9 @@ export const PermissionsHero = () => (
         display: 'inline-flex', alignItems: 'center', gap: 4,
         fontSize: 10, fontWeight: 800, letterSpacing: '0.10em',
         color: '#fff',
-        background: 'linear-gradient(135deg, #2db87d, #29c6c6)',
+        background: `linear-gradient(135deg, ${SUCCESS}, ${PRIMARY})`,
         padding: '4px 10px', borderRadius: 999,
-        boxShadow: '0 2px 6px rgba(45,184,125,0.30)',
+        boxShadow: `0 2px 6px ${SUCCESS}4d`,
         flexShrink: 0,
       }}>18 SCOPES ON</span>
     </div>

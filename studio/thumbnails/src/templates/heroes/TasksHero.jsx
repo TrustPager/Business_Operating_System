@@ -5,9 +5,8 @@
 // today/this week. Reads as "Manage Tasks with Ease".
 
 import React from 'react';
-import { colors } from '../../theme.js';
 import { Avatar } from '../../profiles.jsx';
-import { ACCENT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS } from '../../brand.js';
+import { ACCENT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS, TEXT, TEXT_MUTED } from '../../brand.js';
 
 const TASKS = [
   { state: 'done',        priority: 'high',   title: 'Send proposal to Dr Mitchell',          due: 'Today',     who: 'Simon [name]' },
@@ -36,7 +35,7 @@ const Checkbox = ({ state }) => {
         color: '#fff', fontSize: 13, fontWeight: 800,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         flexShrink: 0,
-        boxShadow: '0 2px 5px rgba(45,184,125,0.30)',
+        boxShadow: `0 2px 5px ${SUCCESS}4d`,
       }}>✓</div>
     );
   }
@@ -44,8 +43,8 @@ const Checkbox = ({ state }) => {
     return (
       <div style={{
         width: 22, height: 22, borderRadius: 7,
-        background: 'rgba(41,198,198,0.18)',
-        border: '2px solid #29c6c6',
+        background: `${PRIMARY}2e`,
+        border: `2px solid ${PRIMARY}`,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         flexShrink: 0,
         position: 'relative',
@@ -60,7 +59,7 @@ const Checkbox = ({ state }) => {
   return (
     <div style={{
       width: 22, height: 22, borderRadius: 7,
-      border: '2px solid rgba(148,163,184,0.40)',
+      border: `2px solid ${SLATE}66`,
       flexShrink: 0,
       background: '#fff',
     }} />
@@ -73,13 +72,13 @@ const TaskRow = ({ t }) => {
   const p = PRIORITY[t.priority];
   return (
     <div style={{
-      background: inProg ? 'rgba(41,198,198,0.05)' : '#fff',
+      background: inProg ? `${PRIMARY}0d` : '#fff',
       borderRadius: 10,
       padding: '10px 12px',
       border: inProg
-        ? '1.5px solid rgba(41,198,198,0.40)'
+        ? `1.5px solid ${PRIMARY}66`
         : '1px solid rgba(226,232,240,0.7)',
-      boxShadow: inProg ? '0 4px 12px rgba(41,198,198,0.14)' : 'none',
+      boxShadow: inProg ? `0 4px 12px ${PRIMARY}24` : 'none',
       display: 'flex', alignItems: 'center', gap: 11,
       opacity: done ? 0.7 : 1,
     }}>
@@ -87,7 +86,7 @@ const TaskRow = ({ t }) => {
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{
           fontSize: 13.5, fontWeight: 800,
-          color: done ? colors.mutedForeground : colors.foreground,
+          color: done ? TEXT_MUTED : TEXT,
           letterSpacing: '-0.01em', lineHeight: 1.25,
           textDecoration: done ? 'line-through' : 'none',
           overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
@@ -100,13 +99,13 @@ const TaskRow = ({ t }) => {
             padding: '2px 7px', borderRadius: 4,
           }}>{p.label}</span>
           <span style={{
-            fontSize: 10.5, fontWeight: 600, color: colors.mutedForeground,
+            fontSize: 10.5, fontWeight: 600, color: TEXT_MUTED,
           }}>{t.due}</span>
           {inProg && (
             <span style={{
               fontSize: 9, fontWeight: 800, letterSpacing: '0.10em',
               color: PRIMARY_DEEP,
-              background: 'rgba(41,198,198,0.16)',
+              background: `${PRIMARY}29`,
               padding: '2px 7px', borderRadius: 999,
             }}>● IN PROGRESS</span>
           )}
@@ -133,16 +132,16 @@ export const TasksHero = () => {
           <span style={{
             width: 12, height: 12, borderRadius: '50%',
             background: SUCCESS,
-            boxShadow: '0 0 0 5px rgba(45,184,125,0.22)',
+            boxShadow: `0 0 0 5px ${SUCCESS}38`,
           }} />
-          <span style={{ fontSize: 19, fontWeight: 800, color: colors.foreground, letterSpacing: '-0.015em' }}>
+          <span style={{ fontSize: 19, fontWeight: 800, color: TEXT, letterSpacing: '-0.015em' }}>
             Tasks · This Week
           </span>
         </div>
         <span style={{
           fontSize: 11, fontWeight: 800, letterSpacing: '0.12em',
-          color: colors.primary,
-          background: 'rgba(41,198,198,0.14)',
+          color: PRIMARY,
+          background: `${PRIMARY}24`,
           padding: '5px 10px', borderRadius: 999,
         }}>{done}/{TASKS.length} DONE</span>
       </div>
