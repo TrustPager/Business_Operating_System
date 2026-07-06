@@ -801,7 +801,26 @@ const GlassCardThumbnail = ({ d }) => (
 
 export const YouTubeThumbnail = ({ data = {} }) => {
   const d = { ...defaultData, ...data };
-  return <div className="template-canvas"><GlassCardThumbnail d={d} /></div>;
+  // The wrapper is pinned to the exact thumbnail dimensions. Without an
+  // explicit size a block div takes width:auto from its containing block —
+  // in the studio's scaled preview that container is narrower than 1280, so
+  // the inner GlassCardThumbnail (a hard 1280) overflowed and puppeteer's
+  // element-screenshot of .template-canvas clipped the right edge (rendered
+  // 1240x720 instead of 1280x720). Sizing the wrapper to THUMBNAIL_SIZE and
+  // keeping it from shrinking makes the screenshotted element exactly 1280x720.
+  return (
+    <div
+      className="template-canvas"
+      style={{
+        width: THUMBNAIL_SIZE.width,
+        height: THUMBNAIL_SIZE.height,
+        flexShrink: 0,
+        overflow: 'hidden',
+      }}
+    >
+      <GlassCardThumbnail d={d} />
+    </div>
+  );
 };
 
 YouTubeThumbnail.templateMeta = {
