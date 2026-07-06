@@ -21,6 +21,7 @@ Quoting, proposals, positioning, sizing up a competitor, researching a prospect 
 - **Quote From Photo**: Turn a site photo and a few notes into a drafted quote or proposal in about a minute, ready for you to review.
 - **Research A Competitor**: Read a rival's page and turn it into a sharp one-page read: how they position, what they charge, and your openings.
 - **Research Before Call**: Walk into any meeting prepared, with a one-page brief on the person or company plus three questions that open the room.
+- **Research My Channel**: Study your niche on YouTube and come back with video ideas that will actually land: what the top channels cover, what viewers keep asking for in the comments, and the angles nobody is taking yet
 - **Write A Proposal**: Turn a priced scope and your voice into the proposal that wins the job, written out as a document you can send.
 
 ## 💰 Get paid
@@ -87,8 +88,10 @@ Your brand and voice, branded posts, content plans, and a workspace that looks l
 - **Build Customer Voice**: Turn the words your customers actually use into a customer-voice doc that grounds all your marketing.
 - **Build Social Strategy**: Turn your goal into a tailored social plan: the platforms, a realistic cadence, content pillars, and the first move.
 - **Design My Site**: A bespoke, high-converting landing page or website built from the sites you admire and your own taste, running on your machine in a sitting
+- **Package My Video**: Turn your rendered video into one publish-ready folder (the video, the thumbnail, title options, a full description with chapters, tags, and a short upload checklist), so all you do is upload it to YouTube yourself
 - **Plan My Ads**: Turn what you sell into a clear, ready-to-run ad plan: the one result to optimize for, the offer ad that proves demand, the creative brief, the copy, the budget and the numbers to watch
 - **Plan My Content**: Turn your content pillars and voice into a dated, ready-to-post calendar for the next week or two.
+- **Script My Video**: Turn a topic into a beat-by-beat video script in your own voice, written so it can be filmed and rendered straight away
 - **Write Post Copy**: Draft the publish-ready words for a social post in your own voice, ready to go out with the graphic.
 
 **Keyless, heavier setup (optional studios)**
@@ -140,6 +143,7 @@ Stress-testing a decision, writing a sharp brief or prompt, hiring and onboardin
 - **Five Day Challenge**: The 5-Day Owner-to-Operator Challenge
 - **Grill Me On This Decision**: Pressure-test a real decision before you commit: the assumptions, both cases at full strength, and a recommendation.
 - **Onboard Team Member**: Set a new hire up with your team's standards baked in, so they follow the same process from day one.
+- **Plan My YouTube**: Turn your channel research into a real plan: a clear channel strategy and a pipeline of videos, each with an idea, an angle, a working title, and a thumbnail concept ready to script
 - **Set Up Referrals**: Install a referral engine that actually brings work in, the ask designed as a warm introduction (not "got any names?"), timed to the moment a client is happiest, with a reward that works for both sides and a simple way to track it
 - **Start Here**: Get your assistant up to speed on your business in one short conversation where it thinks alongside you toward your goal, then recommends the first thing to build together.
 - **Sync Team Standards**: Push a change to your team's standards out to everyone, with a per-person preview before it updates.
