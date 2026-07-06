@@ -36,7 +36,7 @@
 //   npm run render -- <slug> --no-gif            # skip the preview GIF
 
 import puppeteer from 'puppeteer';
-import { readFileSync, mkdirSync, writeFileSync, rmSync, existsSync } from 'fs';
+import { readFileSync, mkdirSync, writeFileSync, rmSync, renameSync, existsSync } from 'fs';
 import { resolve, dirname, isAbsolute } from 'path';
 import { fileURLToPath } from 'url';
 import { spawnSync } from 'child_process';
@@ -147,6 +147,18 @@ async function main() {
   // documented ?frame=N interface exposed as a function so the capture loop does
   // not pay a full page reload each step.
   const startUrl = `${DEV_SERVER}/?frame=0&slug=${encodeURIComponent(slug)}`;
+  // Watch the logo request so a missing /logo.png can never fail silently: if it
+  // 404s, the frames still render (the <img> just shows nothing) but we WARN so
+  // the owner knows to run `python tools/sync-brand.py`. Never fails the render.
+  page.on('response', (res) => {
+    const url = res.url();
+    if (url.endsWith('/logo.png') && res.status() === 404) {
+      console.warn(
+        `  WARNING: ${url} returned 404 — the brand logo will not paint. ` +
+        'Run `python tools/sync-brand.py` from the BOS root to populate studio/video/public/.'
+      );
+    }
+  });
   await page.goto(startUrl, { waitUntil: 'networkidle0', timeout: 20000 });
   await page.waitForSelector('.video-canvas', { timeout: 10000 });
   await page.waitForFunction('typeof window.__setFrame === "function"', { timeout: 10000 });
@@ -228,30 +240,51 @@ async function main() {
   // MP4: H.264 video from the frame sequence + a silent STEREO audio track
   // (anullsrc, 2 channels). The -shortest flag trims the generated silence to the
   // video length. yuv420p keeps it broadly playable.
-  runFfmpeg(bin, [
-    '-y',
-    '-framerate', String(fps),
-    '-i', framePattern,
-    '-f', 'lavfi',
-    '-i', 'anullsrc=channel_layout=stereo:sample_rate=48000',
-    '-c:v', 'libx264',
-    '-pix_fmt', 'yuv420p',
-    '-c:a', 'aac',
-    '-shortest',
-    mp4Path,
-  ]);
-  console.log(`  video: ${mp4Path}  (silent stereo audio track)`);
-
-  if (!noGif) {
-    // A lightweight preview GIF at a reduced rate/scale.
+  //
+  // ATOMIC WRITE: stitch to <slug>.part.mp4, then rename to <slug>.mp4 only after
+  // ffmpeg returns 0. A mid-stitch failure therefore never leaves a truncated MP4
+  // beside the valid timing.json — on error we unlink the partial and rethrow.
+  // The temp name keeps the .mp4 extension (not <slug>.mp4.part) because ffmpeg
+  // infers the output container from the extension; a .part suffix has no muxer.
+  const mp4PartPath = resolve(outDir, `${slug}.part.mp4`);
+  try {
     runFfmpeg(bin, [
       '-y',
       '-framerate', String(fps),
       '-i', framePattern,
-      '-vf', 'fps=15,scale=640:-1:flags=lanczos',
-      gifPath,
+      '-f', 'lavfi',
+      '-i', 'anullsrc=channel_layout=stereo:sample_rate=48000',
+      '-c:v', 'libx264',
+      '-pix_fmt', 'yuv420p',
+      '-c:a', 'aac',
+      '-shortest',
+      mp4PartPath,
     ]);
-    console.log(`  gif:   ${gifPath}`);
+  } catch (err) {
+    // Clean up the partial so no corrupt MP4 is ever left behind, then rethrow
+    // (a failed MP4 IS a failed render; only the GIF is best-effort below).
+    rmSync(mp4PartPath, { force: true });
+    throw err;
+  }
+  renameSync(mp4PartPath, mp4Path);
+  console.log(`  video: ${mp4Path}  (silent stereo audio track)`);
+
+  if (!noGif) {
+    // A lightweight preview GIF at a reduced rate/scale. The GIF is a PREVIEW
+    // extra: the MP4 + timing.json are already complete, so a GIF-stitch failure
+    // must NOT fail the whole run. Isolate it in its own try/catch and stay green.
+    try {
+      runFfmpeg(bin, [
+        '-y',
+        '-framerate', String(fps),
+        '-i', framePattern,
+        '-vf', 'fps=15,scale=640:-1:flags=lanczos',
+        gifPath,
+      ]);
+      console.log(`  gif:   ${gifPath}`);
+    } catch (err) {
+      console.log(`  The MP4 and timing.json are ready; the preview GIF could not be generated (${err.message}).`);
+    }
   }
 
   console.log('Done.');

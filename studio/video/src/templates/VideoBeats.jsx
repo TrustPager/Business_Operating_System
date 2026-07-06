@@ -19,7 +19,7 @@
 // TrustPager (or any owner-specific) literals — the copy is the script's, the
 // palette is the owner's.
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { buildTimeline, beatAtFrame, FPS } from '../timing.js';
 import {
   NAME, GRADIENT, HERO_GRADIENT,
@@ -66,7 +66,10 @@ const ROLE_LABEL = {
 export function VideoBeats({ script, frame = 0, fps = FPS }) {
   const aspect = script?.meta?.aspect || '16:9';
   const size = sizeForAspect(aspect);
-  const timeline = buildTimeline(script, fps);
+  // Memoise the timeline on [script, fps] (mirrors App.jsx) so it isn't rebuilt on
+  // every frame during a render. The timing math + single source of truth stays in
+  // timing.js — this only caches the result, it does not change it.
+  const timeline = useMemo(() => buildTimeline(script, fps), [script, fps]);
   const active = beatAtFrame(timeline, frame);
 
   const framesIntoBeat = active ? Math.max(0, frame - active.startFrame) : 0;
