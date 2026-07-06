@@ -22,7 +22,7 @@
 // Promo-, Hybrid-, and so on) is treated as optional / internal and surfaced
 // only at the bottom of the report.
 
-import { readFileSync, writeFileSync, readdirSync, statSync } from 'fs';
+import { readFileSync, writeFileSync, readdirSync, statSync, existsSync } from 'fs';
 import { resolve, dirname, join, relative } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -159,6 +159,17 @@ function pad(s, n) {
 
 function main() {
   const samples = JSON.parse(readFileSync(SAMPLES_PATH, 'utf-8'));
+
+  // In this decoupled layout the thumbnails studio ships on its own — there is
+  // no linked Remotion project alongside it, so REMOTION_SRC (../src/compositions)
+  // does not exist. Coverage only cross-references thumbnails against Remotion
+  // compositions, so with nothing to cross-reference there is nothing to check.
+  // Note it plainly and exit clean rather than crashing on readdirSync(ENOENT).
+  if (!existsSync(REMOTION_SRC)) {
+    console.log('No linked Remotion compositions in this layout; coverage skipped.');
+    return;
+  }
+
   const comps = findAllCompositions(REMOTION_SRC);
 
   // Build maps from samples.json
