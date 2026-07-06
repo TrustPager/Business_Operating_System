@@ -5,7 +5,7 @@
 // for the video studio's output layout).
 //
 // Usage:
-//   npm run dev                       # start the dev server first (port 3218)
+//   npm run dev                       # start the dev server first (port 3218, or $BOS_VIDEO_PORT)
 //   npm run shoot <slug>              # render data/<slug>.script.json
 //   npm run shoot <slug> --no-open    # render without auto-opening the MP4
 
@@ -20,7 +20,10 @@ const PROJECT_ROOT = resolve(__dirname, '..');
 const OUTPUT_DIR = resolve(PROJECT_ROOT, 'output');
 const DATA_DIR = resolve(PROJECT_ROOT, 'data');
 const RENDER_SCRIPT = resolve(__dirname, 'render.js');
-const DEV_SERVER = 'http://localhost:3218';
+// Dev-server port defaults to 3218; override with BOS_VIDEO_PORT (the same var
+// vite.config.js and render.js read, so the server and both scripts stay in sync).
+const DEV_PORT = Number(process.env.BOS_VIDEO_PORT) || 3218;
+const DEV_SERVER = `http://localhost:${DEV_PORT}`;
 
 const args = process.argv.slice(2);
 const skipOpen = args.includes('--no-open');
@@ -64,6 +67,13 @@ const openFile = (file) => {
     console.error('Start it first in another terminal:');
     console.error('');
     console.error('  npm run dev');
+    console.error('');
+    console.error(`Already running npm run dev? Port ${DEV_PORT} may be in use by another`);
+    console.error('session or a leftover dev server. Point both the server and this render at');
+    console.error('a free port by setting BOS_VIDEO_PORT (then restart npm run dev), e.g.:');
+    console.error('');
+    console.error(`  BOS_VIDEO_PORT=3219 npm run dev      # in one terminal`);
+    console.error(`  BOS_VIDEO_PORT=3219 npm run shoot ${slugArg}   # in this one`);
     console.error('');
     process.exit(1);
   }

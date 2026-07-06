@@ -21,6 +21,7 @@ spec.** One `<slug>.script.json` drives this video, the thumbnail concept in
 `make-thumbnail`, and the publish folder in `package-my-video`.
 
 - Browser preview + frame scrubber: `npm run dev` → http://localhost:3218
+  (override the port with `BOS_VIDEO_PORT` if 3218 is taken — see §6)
 - Canonical render: `npm run shoot <slug>` (Puppeteer + real Chromium + ffmpeg)
 
 ---
@@ -108,6 +109,19 @@ npm run render -- --script <path>  # render an explicit script file
 **Rule:** `shoot` needs the dev server running (`npm run dev` in another
 terminal). Always **read/play the MP4** before declaring a render done — the
 browser preview can differ from Chromium's headless output.
+
+**Port override (`BOS_VIDEO_PORT`).** The dev server defaults to port 3218. If
+3218 is already in use (a concurrent session or a leftover dev server), set
+`BOS_VIDEO_PORT` to a free port. `vite.config.js`, `render.js`, and `shoot.js`
+all read the SAME variable, so setting it once moves the server and both render
+scripts together:
+
+```bash
+BOS_VIDEO_PORT=3219 npm run dev            # dev server on 3219
+BOS_VIDEO_PORT=3219 npm run shoot <slug>   # render against 3219
+```
+
+If `shoot` reports the dev server is unreachable, this is the first thing to try.
 
 ---
 
