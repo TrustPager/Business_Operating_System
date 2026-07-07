@@ -12,6 +12,7 @@ requires_driver: none
 requires_credential: none
 data_path: fetch_rest
 status: active
+produces_customer_facing_copy: true
 ---
 
 # Research My Channel
@@ -255,41 +256,14 @@ section 1.
 
 Keep the illustrative read short. Its whole job is to show the shape and point at
 the real version, never to stand in for it. The illustrative read is owner-facing
-too, so run the same em-dash sweep on it (see Output shape) before you send it.
+too, so hold it to the same content guardrails (see Hard rules) before you send it.
 
-## Output shape — positive-only, no em dashes
+## Output shape
 
 `youtube-research.md` is the deliverable, with all three sections: the competitor
 content scan, the demand-signal video ideas (each with its real evidence quote),
 and the novel-packaging gap-and-angle map. Show the highlights inline and save the
 full read to `youtube-research.md` so `plan-my-youtube` can pick it up.
-
-The read is customer-facing output: positive-only, no em dashes (use commas,
-colons, parentheses, or separate sentences). Frame every idea as a video worth
-making and the attention it can win, never as what the owner is missing. Naming a
-rival's gap is a fair, sharp observation; framing the owner's own position by what
-they lack is not.
-
-**Pre-write gate (do this before you write any line to `youtube-research.md`):**
-before you commit a single line to the file, replace every em dash with a period,
-a comma, a colon, or parentheses. This file is owner-facing and it runs long: the
-em-dash ban applies to every line of it, not just the short titles and idea names.
-It is easy to hold the rule in a title and lose it across the scan prose, the idea
-list, and the gap-and-angle map, so hold it everywhere.
-
-This, not that:
-
-- Write this: "Fix It Yourself, specific named-part repair tutorials". Not this:
-  "Fix It Yourself — specific named-part repair tutorials".
-- Write this: "231,773 views on a beginners guide". Not this: "... beginners
-  guide — 231,773 views".
-
-**Post-write self-check (before you declare this step done):** after you write
-`youtube-research.md`, do a literal find-and-replace of the em-dash character
-across the WHOLE file (a replace-all, not a visual read: em dashes hide easily in
-long prose, so sweep them mechanically), swapping each for a comma, colon, period,
-or parentheses. Then re-read for any line that frames the owner by what they lack
-and fix it. Only then is the output done.
 
 ## Hard rules
 
@@ -313,11 +287,10 @@ and fix it. Only then is the output done.
   search and public discussion instead.
 - ❌ **The packaging map cites real observed outliers**, never invented ones. Its
   confidence comes from the evidence in Steps 1 and 2.
-- ❌ **No em dashes** anywhere in the owner-facing read, not just titles. Run the
-  pre-write gate and the post-write self-check in Output shape. Commas, colons,
-  parentheses, or separate sentences.
-- ✅ **Positive-only, outcome-led.** Every idea is a video worth making and the
-  attention it can win.
+- ✅ **Content guardrails.** Customer-facing copy uses no em dashes, invents no
+  facts, quotes, or numbers, and names no third-party vendor. Write it in the
+  owner's brand voice; the framing and the marketing psychology are the owner's
+  choice. The rules are in `knowledge/content-rules.md`.
 - ✅ **`yt-dlp` is optional.** Offer the deeper read as a choice, never a
   prerequisite; the web read always produces a complete first result. It is the
   one path to real viewer comments in their own words, so offer it whenever the

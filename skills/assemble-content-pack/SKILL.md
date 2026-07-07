@@ -149,10 +149,9 @@ ships with zero accounts connected.
   nothing the owner already has gets disturbed.
 - **Preserve the approved copy word for word.** The caption goes in exactly as
   the owner signed off on it. This step does not edit, trim, or re-voice it.
-- **Positive-only, outcome-led** in anything the owner reads (the readme, the
-  hand-off): name what's ready and how to use it, never what was missing or
-  wrong. No em dashes in that copy — use commas, colons, parentheses, or two
-  sentences.
+- **Clear, plain hand-off.** The readme and the hand-off say what's in the pack
+  and how to use it, in plain language. This is operator-facing status text:
+  keep it factual and easy to scan.
 - **One pack per run.** One post, one folder. A batch of posts is a series of
   runs, not one giant folder.
 - **Don't publish.** Assembling is not posting. The pack is ready for the owner

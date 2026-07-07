@@ -100,8 +100,9 @@ never a cold pitch):
 
 ## Output rule
 
-Everything the owner reads (the audit, the fix list, topic suggestions) follows
-the positive-only rule and uses no em dashes (commas, colons, parentheses, or
-separate sentences). Name a fix as a forward move and the result it unlocks,
-never as a deficiency the owner "lacks". A rival's gap is fair as a sharp
-observation; the owner's own position is always framed by what they can go win.
+The audit, the fix list, and topic suggestions are operator-facing analysis the
+owner reads to decide what to do. Where a fix ships as published web copy (a
+title tag, meta description, H1, or CTA), that copy is customer-facing output and
+follows [`knowledge/content-rules.md`](content-rules.md) (no em dashes, no
+invented evidence, no third-party vendor). The owner's marketing framing is their
+own choice.

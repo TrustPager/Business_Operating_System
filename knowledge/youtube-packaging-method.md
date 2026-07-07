@@ -193,8 +193,6 @@ a real observed video, back every claim.
   voice, not a tool's name, unless the video is genuinely about that tool.
 - **Vague, everyone-else titles** — "Tips and Tricks", "My Thoughts On…",
   "Update Video". They make no promise, so they earn no click.
-- **Negative or fear-led framing in owner-facing titles** — lead with the win the
-  viewer gets, not the pain they're in.
 
 ---
 
@@ -215,9 +213,6 @@ a real observed video, back every claim.
 
 ## Output rule
 
-Everything the owner reads (the research map, the pipeline, the title options)
-follows the positive-only rule and uses no em dashes (use commas, colons,
-parentheses, or separate sentences). Frame the owner's own opportunity by what
-they can go win, never by what their channel "lacks". A rival's crowded packaging
-or an unanswered comment is fair as a sharp observation about the gap; the owner's
-position is always the fresh angle they're about to take.
+Customer-facing output follows knowledge/content-rules.md (no em dashes, no
+invented evidence, no third-party vendor). The owner's marketing framing is their
+own choice.

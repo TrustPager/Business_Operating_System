@@ -17,6 +17,7 @@ requires_driver: none
 requires_credential: none
 data_path: reasoning_only
 status: active
+produces_customer_facing_copy: true
 ---
 
 # Build My Proof
@@ -75,7 +76,7 @@ again and say 'wrap' and I'll build the story").
 3. **Compute the delta** — before→after, with the real numbers. That's the proof.
 4. **Produce the two assets** (per the method file):
    - **Written case study** — `problem → solution → outcome` with the measurable
-     `key_metrics`, a one-line summary on top. Positive, outcome-led.
+     `key_metrics`, a one-line summary on top.
    - **Video testimonial script** — a short (~60-90s spoken) script the client
      reads on camera in their own voice: *"I'm [name] from [company], before
      working with [owner] I was [before], we did [X, Y, Z], now [result with the
@@ -120,19 +121,20 @@ Close by naming what deepens when connected, as outcomes not a pitch: review
 requests sent and tracked automatically, live rating stats, case studies published
 on your public reputation page, and hosting for the video. Never a cold pitch.
 
-## Output shape — positive-only, no em dashes
+## Output shape
 
-The case study, video script, and review-ask are customer-facing: positive-only,
-no em dashes (commas, colons, parentheses, separate sentences). Everything is
-framed as the result the client got and the win the next buyer can get. Coaching
-the owner on *how* to run the play can name gaps plainly (internal voice).
+The case study, video script, and review-ask are customer-facing. Coaching the
+owner on *how* to run the play can name gaps plainly (internal voice).
 
 ## Hard rules
 
 - ❌ Never invent a client quote, metric, or result. Placeholders for unknowns.
 - ❌ No outcome testimonials / before-afters / result guarantees for regulated
   shapes (clinic, finance) in owned channels — redirect to service-level proof.
-- ❌ No em dashes and nothing pain-led in the customer-facing assets.
+- **Content guardrails.** Customer-facing copy uses no em dashes, invents no
+  facts, quotes, or numbers, and names no third-party vendor. Write it in the
+  owner's brand voice; the framing and the marketing psychology are the owner's
+  choice. The rules are in `knowledge/content-rules.md`.
 - ✅ Capture the baseline at kickoff — without a "before" there is no story.
 - ✅ Store the baseline so wrap can find it; handle a missing baseline gracefully.
 - ✅ Hand the win moment to `set-up-referrals`.

@@ -15,6 +15,7 @@ requires_driver: markitdown
 requires_credential: none
 data_path: local
 status: active
+produces_customer_facing_copy: true
 ---
 
 # Build My Voice
@@ -116,16 +117,14 @@ Contrasts worth locking (pick the ones the samples make live):
   by channel)
 - Short and punchy **vs** fuller, more explanatory
 - Contractions on **vs** off; emoji on **vs** off
-- How you open a post: outcome-first **vs** question/curiosity-first (both
-  allowed, business-method.md §18; pain-led is not)
+- How you open a post: outcome-first **vs** question/curiosity-first
 - Preferred greeting and sign-off
 - Signature phrases they own **vs** phrases they never want put in their mouth
 - Jargon tolerance: what's welcome, what's banned
 
 Keep it tight: aim for the fewest contrasts that pin the voice down. Every sample
-you write during this session obeys the house rules: **no em dashes** (use
-commas, colons, parentheses, or separate sentences) and, for anything
-customer-facing, **positive and outcome-led** language.
+you write during this session follows the content guardrails in the Hard rules
+below.
 
 ---
 
@@ -148,14 +147,10 @@ reads it cleanly:
 - **Vocabulary to reach for**, phrases lifted verbatim from the samples, in a
   table with a source tag. Available, never mandatory.
 - **Watch out for**, the registers and words the owner chose to avoid in Step 2,
-  framed as defaults not absolute bans. Pain-led hooks are a default-avoid
-  register in every customer-facing surface regardless of personal style, per
-  the content-rules bridge (business-method.md §18): the voice file records it
-  once, and every downstream app inherits it.
+  framed as defaults not absolute bans.
 - **Words that are fine**, normal words the owner uses, listed so nothing gets
   over-restricted.
-- **Mechanical preferences**, greeting, sign-off, emoji, punctuation; state the
-  no-em-dash rule explicitly.
+- **Mechanical preferences**, greeting, sign-off, emoji, punctuation.
 - **Canonical examples**, at least one real sample the owner approved, with a
   short "why this works" note.
 - **Change log**, dated entries whenever the owner corrects the voice later.
@@ -191,10 +186,11 @@ Keep your spoken report short: the voice files are the deliverable.
   something, leave it out rather than guessing.
 - **The owner always wins over the doc**, and their correction updates the file
   (with a change-log entry).
-- **No em dashes in any output**, commas, colons, parentheses, or separate
-  sentences instead.
-- **Customer-facing samples are positive and outcome-led** (name the result, not
-  the pain). The voice files themselves are internal reference.
+- **Content guardrails.** Customer-facing copy uses no em dashes, invents no
+  facts, quotes, or numbers, and names no third-party vendor. Write it in the
+  owner's brand voice; the framing and the marketing psychology are the owner's
+  choice. The rules are in `knowledge/content-rules.md`. The voice files
+  themselves are internal reference.
 - **Private content stays internal.** Real names, private email content, and
   anything sensitive from the samples belong only in the owner's own files, never
   carried into public copy.

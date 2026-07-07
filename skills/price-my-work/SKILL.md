@@ -15,6 +15,7 @@ requires_driver: none
 requires_credential: none
 data_path: reasoning_only
 status: active
+produces_customer_facing_copy: true
 ---
 
 # Price My Work
@@ -119,8 +120,8 @@ how they quote) and say you rounded.
 
 ## Step 3 — Lay out the breakdown
 
-Present it as a clean breakdown the owner could read straight to a customer.
-Outcome-led and plain — this is what the owner stands behind:
+Present it as a clean breakdown the owner could read straight to a customer,
+plain and clear. This is what the owner stands behind:
 
 ```
 ## Priced breakdown: <job, in their words>
@@ -181,10 +182,10 @@ should I price the next job?"*
 - **Never a same-scope discount.** If the owner wants a cheaper number, change
   the scope or the payment shape (per `knowledge/business-method.md` §8.5 and
   §9.4), never the same job for less.
-- **Customer-facing output stays positive and outcome-led.** The breakdown and
-  the stand-behind lines describe what the price covers and why it's fair, never
-  pain or what's missing. (Naming a missing cost figure to the owner while
-  gathering inputs is fine — that's discovery, not the shipped number.)
+- **Content guardrails.** Customer-facing copy uses no em dashes, invents no
+  facts, quotes, or numbers, and names no third-party vendor. Write it in the
+  owner's brand voice; the framing and the marketing psychology are the owner's
+  choice. The rules are in `knowledge/content-rules.md`.
 - **No accounts, no files needed.** This runs on typed inputs alone. The
   spreadsheet is an optional add-on, never a dependency for the win.
 

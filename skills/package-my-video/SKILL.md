@@ -12,6 +12,7 @@ requires_driver: none
 requires_credential: none
 data_path: local
 status: active
+produces_customer_facing_copy: true
 ---
 
 # Package My Video
@@ -95,7 +96,7 @@ rather than referencing a file that is not there.
 ## Step 4: Build the metadata
 
 Write `metadata.md` with four sections, all from the script, all in the owner's
-brand voice and positive-only:
+brand voice:
 
 1. **Title options** — the entries from `packaging.title_options`, as a list the
    owner picks one from. Do not invent new titles; if `title_options` is thin,
@@ -248,10 +249,10 @@ ships with zero accounts connected.
   block and note why.
 - ✅ **Prefer `timing.json`, fall back to planned `duration_s`.** Real render
   times when they exist; the script's planned timing otherwise, stated as such.
-- ✅ **Positive-only, outcome-led** in everything the owner or a viewer reads
-  (the description, the readme, the checklist): name the win and the result,
-  never the pain or what is missing. **No em dashes** in that copy: use commas,
-  colons, parentheses, or two sentences.
+- ✅ **Content guardrails.** Customer-facing copy uses no em dashes, invents no
+  facts, quotes, or numbers, and names no third-party vendor. Write it in the
+  owner's brand voice; the framing and marketing psychology are the owner's
+  choice. The rules are in `knowledge/content-rules.md`.
 - ✅ **Manual upload is the ending.** The pack is ready for the owner to upload by
   hand. Uploading is a separate, later step, not part of this skill.
 
@@ -259,7 +260,6 @@ ships with zero accounts connected.
 
 One clean, named, publish-ready folder holding the video, the thumbnail, and a
 `metadata.md` (title options, a full YouTube description with a valid chapter
-list, tags, and a manual-upload checklist), plus a short `README.md`. Every
-owner-facing line is positive-only with no em dashes. The chapters come from
+list, tags, and a manual-upload checklist), plus a short `README.md`. The chapters come from
 `<slug>.timing.json` when present and from the script's planned `duration_s`
 otherwise, and any missing input is noted plainly rather than crashing the run.

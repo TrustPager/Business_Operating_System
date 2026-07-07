@@ -56,6 +56,23 @@ REQUIRED_FRONTMATTER = {"name", "description", "triggers"}
 # full name in uses_tools or its ``meta-ads`` driver owner.
 _MCP_TOOL_RE = re.compile(r"mcp__[A-Za-z0-9_-]+")
 
+# Content-doctrine checks (flag-gated). See docs/architecture/content-doctrine-layer.md.
+# positive-only is FinalPiece house style, stripped from the client's PUBLISHED marketing;
+# it is intentionally kept in the assistant's own voice and operator-facing analysis, so
+# these checks fire ONLY on skills flagged produces_customer_facing_copy. Precise mandate
+# phrasings only, so ordinary prose does not trip.
+_POSITIVE_ONLY_RE = re.compile(
+    r"positive[- ]only|outcome-led, always|names? the win, never the pain|"
+    r"never define value by absence|never pain-led",
+    re.IGNORECASE,
+)
+# KEPT-rule em-dash-recipe boilerplate that belongs in content-rules.md, not restated inline.
+_KEPT_RULE_PASTE_RE = re.compile(
+    r"use (?:a )?comma[s]?,?\s*(?:a )?colon[s]?,?\s*(?:or )?parentheses",
+    re.IGNORECASE,
+)
+_CONTENT_RULES_HOME = "knowledge/content-rules.md"
+
 
 def _driver_owns_tool(tool: str, driver: str | None) -> bool:
     """True if ``tool`` belongs to the skill's declared ``requires_driver``.
@@ -136,6 +153,29 @@ def lint_skill(skill_dir: Path) -> list[tuple[str, str]]:
                     f"uses_tools nor owned by requires_driver "
                     f"('{driver or 'none'}') — add it to uses_tools or remove the reference",
                 ))
+
+            # Content-doctrine checks: gated on produces_customer_facing_copy, so they
+            # police only the client's PUBLISHED marketing. The assistant's own voice and
+            # operator-facing analysis are intentionally exempt (founder ruling 2026-07-07).
+            if fm.get("produces_customer_facing_copy"):
+                if _CONTENT_RULES_HOME not in body:
+                    issues.append((
+                        "FAIL",
+                        f"skill declares produces_customer_facing_copy but does not reference "
+                        f"{_CONTENT_RULES_HOME} — add the standard content-guardrails anchor line",
+                    ))
+                if _POSITIVE_ONLY_RE.search(body):
+                    issues.append((
+                        "FAIL",
+                        "customer-facing skill enforces positive-only framing — that is FinalPiece "
+                        "house style, not a client rule; remove it (the owner chooses their framing)",
+                    ))
+                if _KEPT_RULE_PASTE_RE.search(body):
+                    issues.append((
+                        "FAIL",
+                        f"customer-facing skill pastes content-rule boilerplate that lives in "
+                        f"{_CONTENT_RULES_HOME} — replace it with the anchor + pointer",
+                    ))
 
     fetch_py = skill_dir / "fetch.py"
     if fetch_py.exists():

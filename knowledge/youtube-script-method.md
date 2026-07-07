@@ -172,7 +172,7 @@ the viewer got what they came for — the ask feels earned, not tacked on. And t
 strongest CTA on YouTube is usually "watch this next", because another view is
 what tells the platform to keep suggesting the channel.
 
-Keep the CTA positive and specific: name the action and the thing they get for
+Keep the CTA specific: name the action and the thing they get for
 taking it.
 
 ---
@@ -188,8 +188,6 @@ taking it.
 - **A promise the body doesn't keep** — the title and the promise beat set a
   contract; the script keeps it or it isn't shipped.
 - **Five-ask CTAs** — one clear action, tied to the value delivered.
-- **Fear-led or negative owner-facing lines** — script CTAs, titles, and callouts
-  lead with the win, not the pain.
 
 ---
 
@@ -210,9 +208,7 @@ taking it.
 
 ## Output rule
 
-Everything the owner (and their viewers) reads or hears — the spoken lines,
-on-screen callouts, titles, and the CTA — follows the positive-only rule and uses
-no em dashes (use commas, colons, parentheses, or separate sentences). Lead every
-line with the win the viewer gets, never the problem they're in. The script's
-craft notes here are dev-facing; the copy the script *produces* is what the rule
-governs.
+Customer-facing output follows knowledge/content-rules.md (no em dashes, no
+invented evidence, no third-party vendor). The owner's marketing framing is their
+own choice. The script's craft notes here are dev-facing; the copy the script
+*produces* is what the rules govern.

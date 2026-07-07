@@ -18,6 +18,7 @@ uses_tools:
   - mcp__trustpager__send_sms
   - mcp__trustpager__send_email
 status: active
+produces_customer_facing_copy: true
 ---
 
 # /missed-call-recovery
@@ -66,6 +67,7 @@ For each drafted message:
 
 ## Important behaviours
 
+- **Content guardrails.** Customer-facing copy uses no em dashes, invents no facts, quotes, or numbers, and names no third-party vendor. Write it in the owner's brand voice; the framing and marketing psychology are the owner's choice. The rules are in `knowledge/content-rules.md`.
 - **No fabrications.** If a missed call doesn't have a name attached, the draft must say "the number that called" — never invent a name.
 - **No batching.** Each send is its own approval.
 - **Quiet hours.** If the current time is before 7am or after 8pm in the recipient's timezone (or unknown), draft an email instead of SMS.

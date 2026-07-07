@@ -15,6 +15,7 @@ requires_driver: none
 requires_credential: none
 data_path: reasoning_only
 status: active
+produces_customer_facing_copy: true
 ---
 
 # Write A Job Ad
@@ -61,10 +62,9 @@ message if the owner didn't already supply them:
   carries the number the owner lands on.
 
 It's fine for the owner to name their frustration with hiring or the gap they're
-filling. That's discovery, and it helps you understand the role. The **ad
-itself** stays positive and outcome-led (Step 4). If a must-have or two is
-genuinely missing and the ad would be hollow without it, ask one targeted
-question rather than padding (see Step 3's thin-input guard).
+filling. That's discovery, and it helps you understand the role. If a must-have
+or two is genuinely missing and the ad would be hollow without it, ask one
+targeted question rather than padding (see Step 3's thin-input guard).
 
 ## Step 2: Pick up the owner's voice (keyless, optional)
 
@@ -108,12 +108,12 @@ A sharp ad built from one good answer beats a vague one built from nothing.
 Produce two things in one response (Markdown is fine; offer to save to
 `hiring/<role-slug>/job-ad.md`).
 
-### a) The job ad, in the owner's voice, positive and outcome-led
+### a) The job ad, in the owner's voice
 
 A ready-to-post ad with these parts:
 
 1. **Title + one-line hook.** The role and a single forward-looking line on what
-   someone gets to do or be part of here. Lead with the appeal, not the gap.
+   someone gets to do or be part of here. Lead with your strongest line.
 2. **About the role.** A short paragraph on what this person does and why it
    matters to the business, in plain language.
 3. **What you'll do.** 4-6 bullets of the actual day-to-day work, framed as the
@@ -126,16 +126,6 @@ A ready-to-post ad with these parts:
    material and the owner's voice.
 6. **How to apply.** A simple, clear instruction, and a nudge to answer the
    screening questions below so the answers arrive with the application.
-
-**Positive-only, outcome-led (hard requirement).** The ad is customer-facing
-output. Describe what the person gets to do, build, and be part of; never define
-the role by what's broken, missing, or what the owner is tired of. No em dashes
-anywhere: use commas, colons, parentheses, or separate sentences.
-
-- Don't write: "we're drowning and need help", "tired of doing everything
-  yourself? join us", "the role nobody else wants".
-- Do write: "own the front desk and keep every patient's day running smoothly",
-  "join a small team where your work is seen", "grow into running the section".
 
 ### b) Screening questions, a short filter (3-5)
 
@@ -174,11 +164,10 @@ Then name the natural next step without doing it:
 - ❌ Never invent brand claims, pay figures, or testimonials. If a value is
   unknown (for example pay range), leave a clearly labelled placeholder for the
   owner, don't guess a number.
-- ❌ The ad is positive-only and outcome-led: it names what the person gets to do
-  and be part of, never the pain or what's missing. (Understanding the owner's
-  hiring pain in discovery is fine; the shipped ad stays positive.)
-- ❌ No em dashes anywhere in the ad or questions. Use commas, colons,
-  parentheses, or separate sentences.
+- **Content guardrails.** Customer-facing copy uses no em dashes, invents no
+  facts, quotes, or numbers, and names no third-party vendor. Write it in the
+  owner's brand voice; the framing and marketing psychology are the owner's
+  choice. The rules are in `knowledge/content-rules.md`.
 - ✅ Reflect the owner's voice back: lift their phrasing and, if voice docs
   exist, match them. The ad should sound like their business.
 - ✅ Every screening question maps to a real must-have or to fit. No filler

@@ -32,9 +32,8 @@ The canonical service-business stack, in order:
 - **Why it converts:** it communicates the value proposition inside the roughly
   ten-second window a visitor gives a page (NN/G dwell study across 205,873 pages).
   Say what you do, for whom, and the next step, above the fold.
-- **Copy guidance (positive-only):** name the win and who it's for. "Emergency
-  electrician in Geelong, on the phone in minutes." Lead with the outcome the
-  visitor wants, never their frustration.
+- **Copy guidance:** say what you offer and who it's for, in the owner's framing.
+  "Emergency electrician in Geelong, on the phone in minutes."
 - **On-page SEO role:** holds the single **H1**, written as the primary keyword
   in human-benefit form ("Emergency electrician in Geelong"), mirrored in the
   title tag and meta description so the SERP listing message-matches the page.
@@ -44,8 +43,9 @@ The canonical service-business stack, in order:
   logos, high on the page.
 - **Why it converts:** trust is the gate for a service business (BrightLocal: 97%
   of people read local reviews before choosing). Earn it before you ask for anything.
-- **Copy guidance (positive-only):** state the credentials plainly and proudly.
-  "Fully licensed and insured. 4.9 stars from 200+ local jobs."
+- **Copy guidance:** state the credentials plainly. "Fully licensed and insured.
+  4.9 stars from 200+ local jobs." Use only real figures the owner supplied, never
+  a fabricated rating or count.
 - **On-page SEO role:** carries E-E-A-T signals and `Review` / `AggregateRating`
   schema near the top of the page.
 
@@ -53,9 +53,9 @@ The canonical service-business stack, in order:
 - **Job:** benefit-led, feature-supported, 3-4 scannable items.
 - **Why it converts:** visitors scan in an F-pattern; concise, objective,
   benefit-first copy raises usability (NN/G). Each item earns its line.
-- **Copy guidance (positive-only):** lead each item with what the customer gets,
-  then the feature that delivers it. "Back up and running the same day, because we
-  carry the common parts on the van."
+- **Copy guidance:** lead each item with what the customer gets, then the feature
+  that delivers it. "Back up and running the same day, because we carry the common
+  parts on the van."
 - **On-page SEO role:** home for H2s carrying secondary and long-tail service
   keywords.
 
@@ -63,17 +63,17 @@ The canonical service-business stack, in order:
 - **Job:** 3-4 plain steps showing what happens after the customer acts.
 - **Why it converts:** it lowers perceived risk by making the process known and
   simple. Certainty moves people forward.
-- **Copy guidance (positive-only):** frame each step as smooth and handled. "You
-  call, we confirm a time that suits you, we arrive on time and sort it."
+- **Copy guidance:** make each step plain and concrete so the process is easy to
+  follow. "You call, we confirm a time that suits you, we arrive on time and sort it."
 - **On-page SEO role:** `HowTo` / step content; captures "how does X work" intent.
 
 ### 5. Social proof
 - **Job:** named testimonials, before/after, short case studies.
 - **Why it converts:** placed where doubt peaks, real proof from real people is
   the strongest reassurance a page can carry.
-- **Copy guidance (positive-only):** use genuine customer words that describe the
-  result they got. Never fabricate a testimonial, a name, or a number: if the
-  evidence isn't there yet, leave the slot for real proof and say so to the owner.
+- **Copy guidance:** use genuine customer words. Never fabricate a testimonial, a
+  name, or a number: if the evidence isn't there yet, leave the slot for real proof
+  and say so to the owner.
 - **On-page SEO role:** verbatim customer language adds long-tail coverage; review
   schema reinforces the trust signals.
 
@@ -81,8 +81,7 @@ The canonical service-business stack, in order:
 - **Job:** answer the last few hesitations at the decision point.
 - **Why it converts:** it clears the specific doubts that otherwise stall a ready
   buyer, right where they arise.
-- **Copy guidance (positive-only):** answer the real question directly and
-  confidently, framing the answer as a reason to go ahead.
+- **Copy guidance:** answer the real question directly and plainly.
 - **On-page SEO role:** the single richest section for question keywords, `FAQPage`
   schema, and "near me" voice-search intent.
 
@@ -91,8 +90,8 @@ The canonical service-business stack, in order:
 - **Why it converts:** a single goal at a 1:1 attention ratio, with the smallest
   possible ask, converts best. Baymard shows form fields can be cut 20-60% with no
   data lost, and every removed field lifts completion.
-- **Copy guidance (positive-only):** restate the win and make the next step
-  effortless. "Get your free quote today, we usually reply within the hour."
+- **Copy guidance:** make the next step clear and easy. "Get your free quote today,
+  we usually reply within the hour."
 - **On-page SEO role:** the conversion endpoint; keep it fast and semantic so it
   never drags Core Web Vitals.
 
@@ -111,9 +110,8 @@ These drive the section sequence:
 9. Speed is a structural prerequisite (bounce rises roughly 32% as load goes from
    1s to 3s), so treat performance as part of the skeleton, not a later fix.
 
-**Copy rule (hard):** positive-only, per the global content rule. Every section
-names the win and what success looks like, never the visitor's pain or lack. No em
-dashes in any customer-facing copy the skill emits.
+**Copy rule (hard):** customer-facing copy follows knowledge/content-rules.md. The
+marketing framing is the owner's choice.
 
 ---
 
@@ -275,9 +273,6 @@ in this order:
 
 ## Output rule
 
-Everything the owner reads, and every line of customer-facing copy the skill
-emits for the page, follows the positive-only rule and uses no em dashes (use
-commas, colons, parentheses, or separate sentences). Name every section by the
-win it delivers and what success looks like, never by the visitor's pain or lack.
-A reference site's gap is fair as a sharp observation; the owner's own page is
-always framed by what it goes and wins.
+Customer-facing output follows knowledge/content-rules.md (no em dashes, no
+invented evidence, no third-party vendor). The owner's marketing framing is their
+own choice.

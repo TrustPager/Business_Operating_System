@@ -235,7 +235,7 @@ bulk) is documented in the "Layer 2" section of
 [`knowledge/marketing-strategy-method.md`](../../knowledge/marketing-strategy-method.md).
 Follow that when, and only when, the workspace is connected. Everything about
 the output is identical to Mode A: the same 10 sections, the same verbatim
-discipline, the same positive-only rule for any downstream copy. The only
+discipline. The only
 difference is the size and richness of the evidence.
 
 ---
@@ -254,11 +254,10 @@ difference is the size and richness of the evidence.
 - **Real names stay in this internal file.** This doc is the owner's own
   evidence. Don't carry real customer names into anything customer-facing
   (marketing copy, public posts) — generic placeholders at that boundary.
-- **This doc is internal evidence, but downstream copy is positive-only.**
-  Naming pain and worries here is fine (§2, §4) — it's for the owner. The
-  brand strategy and copy authored FROM this doc name the result, never the
-  pain. (No em dashes in any customer-facing output: use commas, colons,
-  parentheses, or separate sentences.)
+- **This doc is internal evidence; downstream copy is the owner's brand.**
+  Naming pain and worries here is fine (§2, §4), it's for the owner. The brand
+  strategy and copy authored FROM this doc are written in the owner's brand
+  voice; the framing and marketing psychology are the owner's choice.
 - **Don't editorialise.** If the evidence suggests the owner's current
   positioning is off, surface that as a finding — don't rewrite the strategy
   inside this file. That's the next skill's job (`build-brand-strategy`).

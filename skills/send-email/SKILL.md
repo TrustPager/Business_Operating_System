@@ -20,6 +20,7 @@ uses_tools:
   - mcp__trustpager__list_opportunity_files
   - mcp__trustpager__schedule_communication
 status: active
+produces_customer_facing_copy: true
 ---
 
 # /send-email
@@ -75,7 +76,7 @@ Wait for explicit yes/no. On yes, `mcp__trustpager__send_email`. On no, ask what
 
 ## Important behaviours
 
-- **Customer-facing copy: NO em dashes, outcome-led.** The email is customer-facing output: no em dashes anywhere (use commas, colons, parentheses, or separate sentences), and frame around what the recipient gets, not the problem. Check the draft before showing it.
+- **Content guardrails.** Customer-facing copy uses no em dashes, invents no facts, quotes, or numbers, and names no third-party vendor. Write it in the owner's brand voice; the framing and the marketing psychology are the owner's choice. The rules are in `knowledge/content-rules.md`. Check the draft before showing it.
 - **One email per /send-email invocation.** Don't queue up a batch.
 - **Internal CCs are not implicit.** If the opp has other assigned users, ASK before CCing them.
 - **Attachments.** If the user mentions an attachment ("send the quote"), look for opportunity files first — `mcp__trustpager__list_opportunity_files`. If found, include the right one. If not found, ASK before drafting.

@@ -17,6 +17,7 @@ requires_driver: none
 requires_credential: none
 data_path: reasoning_only
 status: active
+produces_customer_facing_copy: true
 ---
 
 # Build Social Strategy
@@ -192,24 +193,7 @@ working to build on, what to park), then the six parts, in order:
 different shapes get different platform calls, pillars, and metrics. If you find
 yourself writing advice that would fit any business, it's not a strategy yet.
 
-## Step 4 — Positive-only, outcome-led output (hard requirement)
-
-The strategy is **customer-facing output** (the owner reads it; pieces of it
-become their public posts), so it obeys the positive-only language rule and the
-no-em-dash rule:
-
-- **Before you output anything: positive/outcome-led, and NO em dashes** (use a
-  comma, a colon, parentheses, or two sentences).
-- Frame pillars, hooks, and the metric around the **result** the owner and their
-  audience get, never the pain or what's missing. Don't write "stop being
-  invisible online"; write "become the name your area thinks of first". Don't
-  write "you're not posting enough"; write "a steady rhythm that keeps you
-  front of mind".
-- It's fine to *understand* the owner's frustration from the conversation
-  (discovery can name pain) — but every line of the shipped strategy names the
-  win.
-
-## Step 5 — Thin-context guard
+## Step 4 — Thin-context guard
 
 If the brain-dump plus any research are too thin to tailor something genuinely
 useful — you'd be writing generic social advice — **don't ship a hollow
@@ -222,7 +206,7 @@ build from the answer. For example:
 A sharp strategy built from one good answer beats a vague one built from
 nothing.
 
-## Step 6 — Walk the owner through it + name the execution follow-ons
+## Step 5 — Walk the owner through it + name the execution follow-ons
 
 Show the strategy, then make the next moves obvious — the strategy is the
 *direction*; the execution layer turns it into posts:
@@ -252,17 +236,13 @@ at it by outcome when they want the picture made.
 - **Tailored, never generic.** The platform call, pillars, mix, and metric fit
   *this* business shape and *this* goal. Advice that would fit any business
   isn't a strategy.
-- **Customer-facing output is positive-only / outcome-led, no em dashes.** Every
-  pillar, hook, and metric names the result. (Understanding the owner's
-  frustration in conversation is fine; the shipped strategy stays positive.)
+- **Content guardrails.** Customer-facing copy uses no em dashes, invents no
+  facts, quotes, or numbers, and names no third-party vendor. Write it in the
+  owner's brand voice; the framing and the marketing psychology are the owner's
+  choice. The rules are in `knowledge/content-rules.md`.
 - **The owner's voice and brand win.** When a brand brief / voice doc exists,
   the strategy echoes it. Reflect the owner's phrasing back so it reads as
   *"that's exactly the business I'm building."*
-- **No invented proof.** Don't put fake follower counts, made-up benchmarks, or
-  invented testimonials into the strategy. Anchor in what's real or frame as a
-  realistic target.
-- **No third-party vendor or tool names** in anything the owner's audience would
-  see. The strategy is the owner's brand.
 - **This is the strategy, not the calendar or the posts.** Stop at the
   direction. The dated calendar is `plan-my-content`; the post copy is
   `write-post-copy`; the branded graphic is `make-social-post`. Point at them by

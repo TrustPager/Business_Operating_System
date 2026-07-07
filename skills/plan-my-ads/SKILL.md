@@ -13,6 +13,7 @@ requires_driver: none
 requires_credential: none
 data_path: reasoning_only
 status: active
+produces_customer_facing_copy: true
 reads_for_profile:
   - offer
   - audience
@@ -146,13 +147,12 @@ thing about production: raw and relatable often beats polished. A phone photo ca
 be the winning ad; over-polished creative can convert worse. A high-quality ad is
 not the same as a highly-produced one.
 
-### Gate 5: Ad copy draft (the six-part formula, positive-only)
+### Gate 5: Ad copy draft (the six-part formula)
 
 Keep the copy simple. Its job is to make "what you get is what you see"
 unmistakable, so don't get persuasive. Fill in the six parts for this business:
 
-1. **Hook that names the result** the audience wants, outcome-led. Name the win
-   they're after, never a pain hook like "Tired of X?".
+1. **Hook that names the result** the audience wants.
 2. **Who you are / relevant truthful background**: the facts that make the owner
    credible and the offer desirable, stated so they imply no specific results for
    anyone else.
@@ -170,12 +170,6 @@ Then run the draft through the compliance rails and list any flags in the plan:
 - Truthful, substantiable claims only.
 - No implied-earnings claims.
 - No false scarcity.
-- Positive and outcome-led throughout, describe the win, the result, the version
-  of the work that succeeds; never define the offer by a problem or a lack.
-
-If you use an "even if" line, use it only to reassure ("gets you a real result even
-if today is day one"), never to name what the reader lacks. Every line the audience
-would read stays positive.
 
 ### Gate 6: Budget and KPIs
 
@@ -232,10 +226,9 @@ stranger.
   heavy traffic.
 - **Creative:** an image ad pointing to the exact offer-page URL, reusing the
   offer-page elements so the ad and page match.
-- **Copy:** the offer-page copy re-angled for a return visitor, with a positive
-  opener: *"You looked at [X] and it stayed with you. Here's why now's a good
-  time."* Build five variations and compliance-check them all, keeping only the
-  lines that pass.
+- **Copy:** the offer-page copy re-angled for a return visitor: *"You looked at
+  [X] and it stayed with you. Here's why now's a good time."* Build five
+  variations and compliance-check them all, keeping only the lines that pass.
 - **Run many creatives at high overall frequency** for the "illusion of
   omnipresence": many different visuals hitting the same warm audience aggregate
   over time into "I want to be part of this." Let it run and compound.
@@ -255,8 +248,8 @@ Save the written ad plan (the shape is below) and close with the handoff to
 ## The written ad-plan artifact
 
 Write one plain-language markdown document to the owner's working directory. It's
-customer-facing, so it's positive-only, outcome-led, with no em dashes, and it
-attributes the method to Evelyn Weiss up top. The sections, in order:
+customer-facing, and it attributes the method to Evelyn Weiss up top. The
+sections, in order:
 
 1. **Goal and objective**: the one conversion event to optimize for, named in
    plain language.
@@ -291,11 +284,10 @@ belongs to a site or offer skill, not here.
   to it: diagnostic ad first, image-first creative, the six-part copy formula,
   small honest test budget, scale by economics, retargeting as the highest-return
   ad.
-- **Customer-facing output is positive-only, outcome-led, no em dashes.** Every
-  hook, benefit, and line names the win. Understanding the owner's frustration in
-  the conversation is fine; the shipped plan and every line of ad copy stay
-  positive. Use a comma, a colon, parentheses, or two sentences in place of an em
-  dash.
+- **Content guardrails.** Customer-facing copy uses no em dashes, invents no
+  facts, quotes, or numbers, and names no third-party vendor. Write it in the
+  owner's brand voice; the framing and marketing psychology are the owner's
+  choice. The rules are in `knowledge/content-rules.md`.
 - **Truthful claims only.** No implied earnings, no false scarcity, no invented
   results or made-up benchmarks. Benchmarks are illustrative and market-dependent,
   framed as rough guides.

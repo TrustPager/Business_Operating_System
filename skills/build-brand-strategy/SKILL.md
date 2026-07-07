@@ -17,6 +17,7 @@ requires_driver: none
 requires_credential: none
 data_path: local
 status: active
+produces_customer_facing_copy: true
 ---
 
 # Build Brand Strategy
@@ -145,21 +146,6 @@ point — it should feel like *"that's exactly how I'd put it."*
 points to its source — the owner's words, a scraped line, a real review.
 **Never invent a customer quote or a testimonial.** If you don't have a
 real quote, anchor in the owner's own words instead; don't fabricate one.
-
-## A3 — Positive-only, outcome-led output (hard requirement)
-
-The brief is **customer-facing output**, so it obeys the positive-only
-language rule: describe what works, what gets achieved, what success looks
-like. Never define the value by pain, absence, or what's missing.
-
-- Don't write: "stop being the bottleneck", "no more lost leads", "tired
-  of chasing invoices", "your team is frustrated".
-- Do write: outcome-led lines — "your best work, in front of the right
-  people", "every enquiry handled the same day", "quotes out the door
-  while you're still on site".
-- It's fine to *understand* the owner's pain from what they told you (the
-  discovery conversation can name pain) — but the brief's positioning,
-  promise, only-we, and angles all name the **result**, never the problem.
 
 ## A4 — Thin-evidence guard
 
@@ -434,10 +420,10 @@ That's the `design-nurture-sequence` skill."*
   §14):** named against real alternatives including do-nothing, provable
   in one sentence, an identifiable segment cares disproportionately,
   stated in the customer's category language. Fail any → back up one rung.
-- **Customer-facing output is positive-only / outcome-led.** Positioning,
-  promises, taglines, and angles name the result, never the pain or what's
-  missing. (Understanding the owner's pain in conversation is fine — the
-  shipped copy stays positive.)
+- **Content guardrails.** Customer-facing copy uses no em dashes, invents
+  no facts, quotes, or numbers, and names no third-party vendor. Write it in
+  the owner's brand voice; the framing and marketing psychology are the
+  owner's choice. The rules are in `knowledge/content-rules.md`.
 - **The founder's voice is the brand.** When in doubt, ask before
   diverging from copy they've already approved. Reflect their phrasing back.
 - **Don't echo customer recoil into our voice.** The audience recoiling

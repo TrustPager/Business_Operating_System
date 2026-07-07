@@ -13,6 +13,7 @@ requires_driver: trustpager
 requires_credential: mcp
 data_path: mcp_tools
 status: active
+produces_customer_facing_copy: true
 ---
 
 # Design Nurture Sequence
@@ -59,8 +60,7 @@ Ask the operator:
      touch inside 48 hours (directional) — which may be a task for the
      operator rather than an email.
    - **Conversion** → the next-win timing (§9.4): each email sells the
-     solution to the problem the previous win just revealed; the line
-     the reader sees names the next win.
+     solution to the problem the previous win just revealed.
    - **Retention** → the retention cadence (§11.4): personal and
      specific, never a newsletter blast — a mass sequence may be the
      wrong tool here; say so.
@@ -112,7 +112,7 @@ Subject: <forward-looking, action-oriented verb the reader can agree to>
 
 <warm human opener — "Hi {{contact.first_name}}" or "Great to meet you ..." for Day 0>
 
-<one paragraph: the core idea — the anchor (ONE verbatim pain or outcome from synthesis) informs it; the copy states the outcome>
+<one paragraph: the core idea — the anchor (ONE verbatim pain or outcome from synthesis) informs it; the copy states the idea>
 
 <one paragraph: what the video shows, why it matters>
 
@@ -172,13 +172,12 @@ queue via MCP."*
 
 ## Hard rules
 
-- **NO em dashes in any email copy.** The emails are customer-facing output: em
-  dashes never appear (use commas, colons, parentheses, or separate sentences).
-  Check every draft before presenting it.
+- **Content guardrails.** Customer-facing copy uses no em dashes, invents no
+  facts, quotes, or numbers, and names no third-party vendor. Write it in the
+  owner's brand voice; the framing and the marketing psychology are the owner's
+  choice. The rules are in `knowledge/content-rules.md`.
 - **The pain anchor is internal rationale** (it picks the video and the
-  idea); the shipped sentence leads and closes on the outcome
-  (business-method.md §18). The anchor citation under each draft names the
-  pain; the email body names the win.
+  idea). The anchor citation under each draft names the pain it's grounded in.
 - **Don't write to the auto queue from this skill.** That's the next
   skill (`wire-nurture-sequence`). Stay in design mode.
 - **Iterate in chat, not in MCP.** Voice corrections take 2-3 rounds.

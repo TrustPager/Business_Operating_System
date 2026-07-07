@@ -16,6 +16,7 @@ requires_driver: none
 requires_credential: none
 data_path: reasoning_only
 status: active
+produces_customer_facing_copy: true
 ---
 
 # Write A Policy
@@ -64,9 +65,8 @@ discovery questions, matched to the topic:
   and what they need to bring or provide. (Compliance-sensitive, see Step 2.)
 
 It is fine to name the friction in *this discovery chat*. "Tell me about the
-no-shows that cost you" is a normal question. The shipped policy stays
-positive (Step 4). Capture their exact phrasing for the numbers, windows, and
-conditions: those are the load-bearing facts.
+no-shows that cost you" is a normal question. Capture their exact phrasing for
+the numbers, windows, and conditions: those are the load-bearing facts.
 
 ## Step 2 — Confirm the specifics for compliance-sensitive topics
 
@@ -117,25 +117,6 @@ walking through a real run of it), expect it to get a competent person to ~80%
 of the owner's outcome (directional) rather than scripting every judgment call,
 and note that it gets updated whenever reality beats the checklist.
 
-## Step 4 — Positive-only, outcome-led (hard requirement)
-
-The policy is **customer-facing output**, so it obeys the positive-only rule:
-frame the policy around what the customer gets and what good looks like, not
-around the owner's frustration or the customer's failure.
-
-- Don't write: "Cancellations cost us money, so if you fail to give notice
-  you'll be penalised", "no-shows are unfair to our staff", "we're tired of
-  late changes".
-- Do write: "To keep your spot held and our schedule running smoothly, let us
-  know at least 24 hours ahead and we'll happily move your booking", "Your
-  deposit secures your date and comes straight off your final invoice."
-- A fee or condition can still be stated plainly and positively: name the
-  rule as the path to a good outcome, not as a punishment. The customer
-  should finish reading feeling informed and looked after.
-
-NO EM DASHES in the output. Use commas, colons, parentheses, or separate
-sentences.
-
 ## Step 5 — Hand it over + offer the next step
 
 Show the finished policy / FAQ, point out one or two phrases you kept in their
@@ -164,11 +145,10 @@ Then offer where it can go next, without making any of it a requirement:
 > the text stands on its own today.
 
 ## Hard rules
-- **Before you output anything customer-facing: positive/outcome-led, and NO em
-  dashes** (use colons, commas, parentheses, or separate sentences). The policy
-  or FAQ names what the customer gets and what good looks like, never the
-  owner's frustration. A field test shipped a quote with an em dash because
-  nothing reminded the model; this is the reminder, check the output.
+- **Content guardrails.** Customer-facing copy uses no em dashes, invents no
+  facts, quotes, or numbers, and names no third-party vendor. Write it in the
+  owner's brand voice; the framing and marketing psychology are the owner's
+  choice. The rules are in `knowledge/content-rules.md`.
 - Never invent a rule, number, window, or condition the owner didn't state.
 - Never invent a legal or compliance claim: no guessed privacy-law citations,
   no assumed NDIS / Medicare figures or eligibility criteria.
@@ -180,7 +160,6 @@ Then offer where it can go next, without making any of it a requirement:
 - Don't write more than one policy / FAQ topic in a single run.
 - Keep the owner's exact phrasing for the load-bearing facts; reflect their
   voice.
-- Customer-facing output is positive-only and outcome-led; no em dashes.
 - Flag genuine gaps as `[confirm: …]` placeholders rather than guessing.
 
 ## Output shape

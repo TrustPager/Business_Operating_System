@@ -16,6 +16,7 @@ requires_driver: render
 requires_credential: none
 data_path: local
 status: active
+produces_customer_facing_copy: true
 ---
 
 # Make Social Post
@@ -93,12 +94,11 @@ the right pane renders it at native pixel size. Tweak samples.json or
 
 **Quality checks before shipping:**
 
-1. **Headline** — 3–8 words, positive framing, exactly one `accentWord` that
+1. **Headline** — 3–8 words, exactly one `accentWord` that
    appears verbatim, at most one `emphasisWord`.
 2. **Palette** — any visual card chrome stays on the brand palette (teal /
    green / blue / slate). No red / orange / purple.
-3. **No vendor names** anywhere a follower would see them.
-4. **Fits the frame** — nothing clipped at the edges (especially LinkedIn's
+3. **Fits the frame** — nothing clipped at the edges (especially LinkedIn's
    short 627px height).
 
 ## Step 4 — Render to PNG
@@ -127,10 +127,10 @@ skip-if-exists by default, `--replace` to overwrite.
 
 ## Hard rules
 
-- **Customer-facing copy: positive/outcome-led, and NO em dashes.** The post is
-  customer-facing output — headlines and body name the win, never the pain or
-  what's missing, and em dashes never appear (use commas, colons, parentheses,
-  or separate sentences). Check the copy before rendering.
+- **Content guardrails.** Customer-facing copy uses no em dashes, invents no
+  facts, quotes, or numbers, and names no third-party vendor. Write it in the
+  owner's brand voice; the framing and the marketing psychology are the owner's
+  choice. The rules are in `knowledge/content-rules.md`.
 - **Don't invent design rules.** The two canonical files in the studio
   (CLAUDE.md + the SocialPost.jsx JSDoc) are the source of truth. Read them.
 - **The operator owns the copy.** Draft headlines if asked, but don't ship

@@ -13,6 +13,7 @@ requires_driver: render
 requires_credential: none
 data_path: local
 status: active
+produces_customer_facing_copy: true
 ---
 
 # Design My Site
@@ -46,12 +47,10 @@ any of that here (see Hard rules).
    Web reads happen by delegating to the sibling skills (`research-a-competitor`,
    `get-found-online`), never by calling a tool here. This keeps the manifest
    keyless-clean.
-2. **Positive-only, no em dashes** in every line of copy the page carries and
-   everything the owner reads. Name the win and what success looks like, never the
-   visitor's pain or lack. Use a comma, a colon, parentheses, or two sentences in
-   place of an em dash. Understanding the owner's frustration in the conversation
-   is fine; the shipped page stays positive (per the global content rule and the
-   method file's output rule).
+2. **Content guardrails.** Customer-facing copy uses no em dashes, invents no
+   facts, quotes, or numbers, and names no third-party vendor. Write it in the
+   owner's brand voice; the framing and marketing psychology are the owner's
+   choice. The rules are in `knowledge/content-rules.md`.
 3. **Never fabricate proof.** No invented testimonials, names, ratings, review
    counts, NAP, hours, or numbers. If real evidence is not there yet, leave the
    slot marked for real proof and say so to the owner plainly.
@@ -153,7 +152,7 @@ system distinctive enough that Claude Design is forced off its defaults:
   typography, spacing / radius / shadow, component rules, layout / grid, negative
   constraints (each default paired with its replacement), iconography / imagery.
 - **The real copy for the seven-section skeleton** (Part 1: Hero, Trust bar,
-  Benefits, How it works, Social proof, FAQ, Final CTA), positive-only and
+  Benefits, How it works, Social proof, FAQ, Final CTA),
   on-page-SEO-correct (single H1 as the benefit-keyword, H2 hierarchy, title +
   meta, FAQ block, JSON-LD), honouring the §10.5 local gravity-stack gate (answer
   speed and reviews before keyword-chasing). Never fabricate proof (Hard rule 3).
@@ -266,7 +265,7 @@ next page off the same art direction when the owner wants it (Hard rule 4).
 ## Output shape
 
 The customer-facing deliverables (the art-direction brief and every line of page
-copy) are positive-only, no em dashes, and never fabricate proof. The intake asks
+copy) never fabricate proof (Hard rule 3). The intake asks
 one small bucket of questions (Source C) and reads or researches everything else.
 The win is one page running at `http://localhost:3220`, built off a design system
 distinctive enough to be unmistakably the owner's, with `launch-my-site` and

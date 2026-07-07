@@ -17,6 +17,7 @@ requires_driver: none
 requires_credential: none
 data_path: reasoning_only
 status: active
+produces_customer_facing_copy: true
 ---
 
 # Write A Letter
@@ -70,8 +71,7 @@ The shipped letter stays firm and factual (Step 3), not heated.
 
 ## Step 2 — A firm letter is firm AND factual (the register)
 
-A dispute or variation letter is the one place this floor's positive-only
-rule meets its match: the letter can, and should, hold the line. Firm does
+A dispute or variation letter can, and should, hold the line. Firm does
 not mean angry, and factual does not mean cold. The register is:
 
 - **Calm, specific, and grounded in fact.** State what happened, what was
@@ -88,24 +88,19 @@ Hold the line on the facts; keep the tone the owner could stand behind if the
 letter were read back to them in a room. Never invent a legal threat, a
 penalty, a clause, or a consequence the owner did not state.
 
-## Step 3 — Before you output anything customer-facing: positive/outcome-led, and NO em dashes
+## Step 3 — Before you output anything customer-facing: hold the line, stay factual
 
 This letter goes to a real recipient, so the customer-facing content rule
-applies, adapted for a firm letter:
+applies (`knowledge/content-rules.md`), adapted for a firm letter:
 
-- **Lead toward the outcome.** Even a dispute response names the resolution
-  it is reaching for: the variation agreed and the job moving, the account
-  cleared and the relationship continuing, the matter closed cleanly. The
-  letter is firm about the facts and positive about the destination, never a
-  list of grievances.
-- A firm letter MAY state a fact plainly that names a shortfall (an unpaid
-  invoice, work outside the agreed scope), because that is the factual spine
-  of the letter. State it as the path to the resolution you want, not as an
-  attack. This is the labelled exception to the pure positive-only rule: the
-  facts are stated, the framing still points at a good outcome.
-- **NO em dashes anywhere in the letter.** Use commas, colons, parentheses,
-  or separate sentences. (This is a hard rule a field test caught being
-  missed; check the output before handing it over.)
+- A firm letter is firm about the facts and positive about the destination.
+  It MAY state a fact plainly that names a shortfall (an unpaid invoice, work
+  outside the agreed scope), because that is the factual spine of the letter.
+  State it as the path to the resolution you want, not as an attack. This is
+  the labelled domain exception: the facts are stated plainly, even where
+  that names a shortfall.
+- Check the output for em dashes before handing it over. A field test caught
+  this one being missed.
 
 ## Step 4 — Draft the letter
 
@@ -165,10 +160,12 @@ Never hand the owner a command.
   verbatim; flag genuine gaps as `[confirm: …]` placeholders.
 - **Firm AND factual.** The letter holds the line on the facts and stays
   measured and professional: no insults, sarcasm, or unauthorised threats.
-- **Before you output anything customer-facing: outcome-led where you can be,
-  and NO em dashes** (use commas, colons, parentheses, or separate
-  sentences). A firm letter may state a shortfall as a plain fact (the
-  labelled exception), but the framing still points at the resolution.
+- **Content guardrails.** Customer-facing copy uses no em dashes, invents no
+  facts, quotes, or numbers, and names no third-party vendor. Write it in the
+  owner's brand voice; the framing and marketing psychology are the owner's
+  choice. The rules are in `knowledge/content-rules.md`. A firm letter may
+  state a shortfall as a plain fact (the labelled domain exception); check the
+  output for em dashes before handing it over.
 - **Reflect the owner's voice.** If they have a voice doc, match it;
   otherwise keep their own phrasing for the load-bearing lines.
 - **The .docx is optional.** Hand back text by default; write the file only
@@ -176,7 +173,7 @@ Never hand the owner a command.
 
 ## Output shape
 
-The finished letter in the owner's register (firm, factual, outcome-led, no em
-dashes), then a short hand-over: the one or two phrases kept in their own
+The finished letter in the owner's register (firm, factual, in the owner's
+voice), then a short hand-over: the one or two phrases kept in their own
 words, any `[confirm: …]` placeholders still open, and the offer to write it
 out as a real `.docx` if they want a sendable file.

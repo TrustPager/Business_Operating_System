@@ -74,7 +74,9 @@ OPTIONAL_SCALAR_KEYS: tuple[str, ...] = ("status", "requires_region")
 
 # Pre-existing non-manifest frontmatter keys skills legitimately carry. These
 # are allowed and are NOT validated as manifest fields (lint-skill.py owns them).
-PASSTHROUGH_KEYS: tuple[str, ...] = ("name", "description", "triggers")
+PASSTHROUGH_KEYS: tuple[str, ...] = (
+    "name", "description", "triggers", "produces_customer_facing_copy",
+)
 
 # Every key validate_manifest() recognises (manifest + passthrough).
 KNOWN_KEYS: frozenset[str] = frozenset(

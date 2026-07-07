@@ -348,9 +348,9 @@ price RISE announced with a deadline. Fake caps and fake countdowns destroy the
 Belief variable and, for some shapes, are traps outright (§15).
 
 **7.5 Naming (the five parts) and the refresh order.** Name offers with 3-5
-of: a reason-why hook, who it's for, the result (outcome-led, per the content
-rules §18), the timeframe, and a container word (Challenge, Blueprint, Sprint,
-System). When response
+of: a reason-why hook, who it's for, the result, the timeframe, and a container
+word (Challenge, Blueprint, Sprint, System). The result is stated in the owner's
+own framing (§18). When response
 decays, refresh in cost order: creative → body copy → headline/name → duration
 → enhancer → structure. The same offer renamed is new to the market; renaming
 is a near-free lead-flow reset.
@@ -539,9 +539,8 @@ priority; don't advance a tier until the one above holds:
 enquiries are answered inside 5 minutes in business hours and (b) a review ask
 fires on every completed job. Both are cheap; both usually ARE the constraint.
 
-**10.6 Paid ads (when reached).** Anatomy: call out the person (identity +
-outcome, never pain-led, §18) → make the value vivid → one CTA with a real
-reason to act now. Three phases: track the money first (know cost/lead,
+**10.6 Paid ads (when reached).** Anatomy: call out the person (who it's for,
+§18) → make the value vivid → one CTA with a real reason to act now. Three phases: track the money first (know cost/lead,
 cost/customer, LTGP before spending), budget the losing phase (expect to spend
 ~1-2x one customer's 30-day profit per test before judging; zero leads at ~1x
 → kill), then scale in 10-20% steps. **Scaling gate:** LTGP:CAC at 3:1 is the
@@ -912,31 +911,24 @@ owner, visibly:
 
 ---
 
-## §18. The content-rules bridge (how this doctrine coexists with
-positive-only copy)
+## §18. Pain as a diagnostic input (and the boundary with shipped copy)
 
-The BOS ships a hard rule: customer-facing copy is outcome-led, never
-pain-led. This doctrine uses pain as an ANALYTICAL input. The bridge:
+This doctrine uses pain as an ANALYTICAL input: the constraint rubric (§3), the
+problem lists (7.1.2), and the value equation (§6) all read the customer's pain
+to find the leverage. That analysis is internal. The boundary:
 
-**Pain is a diagnostic input and a discovery-conversation tool; it never ships
-in generated customer-facing copy. Where a mechanism structurally names a
-problem (diagnostic lead magnets, guarantee conditions), state the condition
-once, factually, and lead and close with the outcome.**
+**Pain is a diagnostic input and a discovery-conversation tool. How the owner
+frames the copy they SHIP to their customers (positive, pain-led, or any angle)
+is the owner's choice, written in their own brand voice.** The guardrails that
+DO bind any shipped copy (no em dashes, never invent evidence, no third-party
+vendor) live in `knowledge/content-rules.md`; positive-only is not imposed on a
+client's marketing.
 
-Applications: problem lists (7.1.2) live in internal worksheets — the copy
-they produce states benefits; every bonus names the benefit it delivers, not
-the fear it kills; the naming "result" part (7.5) is outcome-led; hooks are outcome-
-or curiosity-led (the contrarian format frames the better way, never the
-reader's failure); ad callouts are identity + outcome ("Brunswick landlords:
-switchboard certified in 48 hours"), never "Tired of X?"; diagnostic magnets
-sell the gain ("Get your borrowing-power score"); upsell "deprivation timing"
-is internal — the line the customer hears names the next win; urgency is
-gain-timing ("start this week to have it by December"); guarantees may state
-the failure condition once as the mechanism of the promise, led and closed on
-the outcome ("Back on the field by week 12, or we work with you free until
-you are"). Live 1:1 discovery conversations MAY name pain in the customer's
-own words (that is the existing discovery-voice boundary) — don't
-over-sanitize discovery-arc scripts into vagueness.
+Applications: problem lists (7.1.2) live in internal worksheets; the offer's
+five naming parts (7.5), hooks, ad callouts, diagnostic magnets, urgency, and
+guarantees are all built from this analysis, then written in the owner's voice
+and framing. Live 1:1 discovery conversations name pain in the customer's own
+words (the discovery-arc boundary, 12.5).
 
 ---
 

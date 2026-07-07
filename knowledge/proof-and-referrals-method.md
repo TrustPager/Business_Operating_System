@@ -61,9 +61,8 @@ didn't record the start, so the play runs in two moments.
 ### Asset 1 — the written case study
 
 Structure it `problem → solution → outcome`, with measurable `key_metrics` (the
-same spine as a real case study asset). One-line summary at the top. Positive and
-outcome-led. Use only real numbers the owner supplied and real customer words,
-never invented quotes or metrics.
+same spine as a real case study asset). One-line summary at the top. Use only real
+numbers the owner supplied and real customer words, never invented quotes or metrics.
 
 ### Asset 2 — the video testimonial script
 
@@ -137,9 +136,5 @@ introduced, status, reward paid).
 
 ## Output rule
 
-Everything the customer or their audience reads (the case study, the video script,
-the review-ask, the referral ask) follows the positive-only rule and uses no em
-dashes (commas, colons, parentheses, or separate sentences). Frame everything as
-the result the customer got and the win the next person can get. The owner-facing
-coaching about *how* to run the play can name what's missing plainly (internal
-voice); the customer-facing assets stay strictly outcome-led.
+Customer-facing output follows knowledge/content-rules.md (no em dashes, no invented
+evidence, no third-party vendor). The owner's marketing framing is their own choice.
