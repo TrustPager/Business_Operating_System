@@ -117,7 +117,7 @@ walking through a real run of it), expect it to get a competent person to ~80%
 of the owner's outcome (directional) rather than scripting every judgment call,
 and note that it gets updated whenever reality beats the checklist.
 
-## Step 5 — Hand it over + offer the next step
+## Step 4 — Hand it over + offer the next step
 
 Show the finished policy / FAQ, point out one or two phrases you kept in their
 own words, and list any flagged placeholders still needing a real specific.
@@ -155,7 +155,7 @@ Then offer where it can go next, without making any of it a requirement:
 - Don't ship a compliance-sensitive policy (privacy, funding/eligibility)
   without reading the specifics back and getting an explicit confirmation.
 - Hand every policy over as a **starting draft with a plain "give it a read
-  before you publish" line** (Step 5); for privacy and funding / eligibility
+  before you publish" line** (Step 4); for privacy and funding / eligibility
   topics that review line is mandatory.
 - Don't write more than one policy / FAQ topic in a single run.
 - Keep the owner's exact phrasing for the load-bearing facts; reflect their
