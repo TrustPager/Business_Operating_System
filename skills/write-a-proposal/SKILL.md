@@ -22,6 +22,7 @@ requires_driver: doclib
 requires_credential: none
 data_path: local
 status: active
+produces_customer_facing_copy: true
 ---
 
 # Write A Proposal
@@ -97,8 +98,8 @@ what is included and excluded). Ask one plain question for anything missing
 rather than guessing it.
 
 It is fine to name the prospect's problem in *this discovery chat*: "what is
-the pain that has them looking for this?" is a normal question. The shipped
-proposal stays positive and outcome-led (Step 4).
+the pain that has them looking for this?" is a normal question. That is
+discovery, not the shipped document (Step 4).
 
 ## Step 2 — Lay out the proposal in chat first
 
@@ -124,7 +125,7 @@ they can correct it cheaply. Use these seven sections, in this order:
 6. **Terms** — deposit, payment schedule, what is included and excluded,
    validity window, and anything else the owner stated. Never invent a legal or
    payment term the owner did not give you.
-7. **Next step** — one clear, positive call to action: how the prospect says
+7. **Next step** — one clear call to action: how the prospect says
    yes and what happens the moment they do.
 
 **Offer lift (one offer, drop it on a no).** With the outline on the table,
@@ -178,7 +179,7 @@ python ~/.claude/bos-run.py tool write_docx --out "Proposal - <Prospect> - <job>
   {"type":"heading","text":"Terms","level":2},
   {"type":"paragraph","text":"<deposit, payment, inclusions, validity>"},
   {"type":"heading","text":"The next step","level":2},
-  {"type":"paragraph","text":"<one clear positive call to action>"}
+  {"type":"paragraph","text":"<one clear call to action>"}
 ]'
 ```
 
@@ -194,30 +195,16 @@ then retry. Never hand the owner a command. If the write fails, show the error
 plainly rather than pretending a file exists. Use a clear file name that names
 the prospect and the job so the owner can find it later.
 
-## Step 4 — Before you output anything customer-facing: positive/outcome-led, and NO em dashes (hard requirement)
+## Step 4 — Before you output anything customer-facing: run the content check
 
-The proposal is **customer-facing output**, so it obeys the positive-only
-rule: every section names what the prospect gets, what success looks like, and
-the result they are buying. The value is the outcome, never the pain or what is
-missing.
+The proposal is **customer-facing output**, so before you hand it over, check
+it against the content guardrails in
+[`knowledge/content-rules.md`](../../knowledge/content-rules.md). Write it in
+the owner's brand voice; the framing and marketing psychology are the owner's
+choice.
 
-**Before you output anything customer-facing: positive/outcome-led, and NO em
-dashes (use colons, commas, parentheses, or separate sentences).** A field test
-shipped a quote with an em dash because nothing reminded the model; this is your
-reminder. Check the proposal before handing it over.
-
-- Don't write: "stop losing time to the wrong contractor", "no more unfinished
-  jobs", "you are frustrated with your current setup", "tired of overruns".
-- Do write: outcome-led lines, "your kitchen finished on time and on budget,
-  ready to use the week you planned", "one team, one number, one clear date
-  for done", "the result you pictured, signed off and standing".
-- A term, a price, or an exclusion is still stated plainly: name it as the path
-  to a good outcome (clear scope, a smooth start, a date they can count on),
-  not as a warning. The prospect should finish reading feeling looked after and
-  ready to say yes.
-
-NO EM DASHES anywhere in the proposal. Use commas, colons, parentheses, or
-separate sentences.
+- A term, a price, or an exclusion is stated plainly, as part of a clear scope
+  and a smooth start, so the prospect knows exactly what they are agreeing to.
 
 ## Step 5 — Hand it over + name the connected upgrade
 
@@ -231,7 +218,8 @@ over a three-touch follow-up plan with the file: roughly day 2, day 7, and day
 14, each touch carrying one new piece of information (a relevant proof point,
 an answer to a likely question, a real date from the timeline), never a bare
 "just checking in". Draft the touches on request; they are customer-facing, so
-they obey the content rules (§18: outcome-led, no em dashes). Note that
+they follow the content guardrails in
+[`knowledge/content-rules.md`](../../knowledge/content-rules.md). Note that
 `follow-up-radar` runs this chase automatically once the owner's system is
 connected.
 
@@ -345,20 +333,20 @@ outstanding when you hand it over. If the document writer reports it is missing
 a piece, offer the one-time setup in plain language and run it on a yes, then
 retry; never hand the owner a command.
 
-## B4 — Before you output anything customer-facing: positive/outcome-led, and NO em dashes
+## B4 — Before you output anything customer-facing: run the content check
 
-A tender section is read by an evaluator, so the content rule applies, in its
-technical register:
+A tender section is read by an evaluator, so check it against the content
+guardrails in
+[`knowledge/content-rules.md`](../../knowledge/content-rules.md) before you hand
+it over, in its technical register:
 
-- **Lead with capability and approach, framed as what the client gets.** A
-  tender section is credible and confident: it names how the firm delivers and
-  the outcome the client receives, never the rival's weakness or the firm's own
-  gaps. State the method and the proof, not a complaint about the brief.
+- **Lead with the firm's method and proof.** A tender section is credible and
+  confident: name how the firm delivers, stated in the owner's voice, and
+  anchor every claim in real capability.
 - **Never invent a credential, standard, accreditation, or past project.**
   Anchor every capability claim in what the owner confirmed. A fabricated claim
-  in a tender is a disqualifier.
-- **NO em dashes anywhere in the section.** Use colons, commas, parentheses, or
-  separate sentences. (A field test caught this being missed; check the output.)
+  in a tender is a disqualifier. (This is load-bearing here; see
+  `knowledge/content-rules.md`.)
 
 ## B5 — Hand it over
 
@@ -396,11 +384,12 @@ response.
   (Mode A) and for the deliverables / criteria grids (Mode B), so line items and
   criteria render as a real grid rather than bullets with `$____`. The file is
   the win; do not stop at a chat draft when the owner wants the document.
-- **Before you output anything customer-facing: positive-only, outcome-led, and
-  no em dashes** (use colons, commas, parentheses, or separate sentences). Every
-  section names the result the client is buying (Mode A) or how the firm
-  delivers (Mode B). Naming the prospect's problem while gathering inputs is
-  fine; that is discovery, not the shipped document.
+- **Content guardrails.** Customer-facing copy uses no em dashes, invents no
+  facts, quotes, or numbers, and names no third-party vendor. Write it in the
+  owner's brand voice; the framing and marketing psychology are the owner's
+  choice. The rules are in `knowledge/content-rules.md`. Naming the prospect's
+  problem while gathering inputs is fine; that is discovery, not the shipped
+  document.
 - **(Mode A) If the prospect later pushes on price, never the same scope
   cheaper** (per `knowledge/business-method.md` §8.5). Change what they get or
   how they pay (§9.4).

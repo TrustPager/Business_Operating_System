@@ -15,6 +15,7 @@ requires_driver: none
 requires_credential: none
 data_path: reasoning_only
 status: active
+produces_customer_facing_copy: true
 ---
 
 # Set Up Referrals
@@ -80,11 +81,11 @@ want). Then name what deepens when connected, as outcomes: live referral links
 that track themselves, automatic reward/commission tracking, and a referral
 leaderboard. Reactive, never a cold pitch.
 
-## Output shape — positive-only, no em dashes
+## Output shape
 
-The ask scripts are customer-facing: positive-only, no em dashes (commas, colons,
-parentheses, separate sentences). Frame the ask around the result the client got
-and the help their contact could get, never around what the owner needs.
+The ask scripts are customer-facing. Frame the ask around the result the client got
+and the help their contact could get, never around what the owner needs, and write
+it in the owner's voice.
 
 ## Hard rules
 
@@ -94,7 +95,10 @@ and the help their contact could get, never around what the owner needs.
   alternative.
 - ❌ No multi-tier affiliate machinery for a small owner (§10.9) — a list and a
   simple reward.
-- ❌ No em dashes, nothing pain-led, in the customer-facing scripts.
+- **Content guardrails.** Customer-facing copy uses no em dashes, invents no facts,
+  quotes, or numbers, and names no third-party vendor. Write it in the owner's brand
+  voice; the framing and marketing psychology are the owner's choice. The rules are in
+  knowledge/content-rules.md.
 - ✅ Time the ask to a real high-emotion moment; hand off from `build-my-proof`'s
   captured win where there is one.
 - ✅ Make the reward mutual and fast-paid; keep the tracking sheet small.

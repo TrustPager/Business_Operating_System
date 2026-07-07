@@ -12,6 +12,7 @@ requires_driver: none
 requires_credential: none
 data_path: reasoning_only
 status: active
+produces_customer_facing_copy: true
 ---
 
 # Plan My YouTube
@@ -167,9 +168,8 @@ them the same way:
    `youtube-packaging-method.md`). When they chose not to share it, leave that
    row's local angle as a clearly marked open slot ("[your town] here") the owner
    can drop their town into later, never a place you made up.
-3. **Working title** — a strong candidate title in the owner's brand voice,
-   outcome-led and positive. This seeds `script-my-video`'s `working_title` and
-   `packaging.title_options`.
+3. **Working title** — a strong candidate title in the owner's brand voice. This
+   seeds `script-my-video`'s `working_title` and `packaging.title_options`.
 4. **Thumbnail concept** — the visual idea for the thumbnail, in one line. This
    seeds both `packaging.thumbnail_concept` in the script and the concept
    `make-thumbnail` renders.
@@ -179,40 +179,7 @@ angle, its working title, and its thumbnail concept, tied back to the pillar it
 serves. That table is the handoff: an owner picks any row and runs
 `script-my-video` on it.
 
-## Step 6: Positive-only, outcome-led output (hard requirement)
-
-The plan is **customer-facing output**: the owner reads it, and the titles and
-angles become their public packaging. So it obeys the positive-only rule and the
-no-em-dash rule the same way `build-social-strategy` and `plan-my-content` do:
-
-- Every title, angle, and pillar names the **result** the viewer gets, never the
-  pain or what is missing. Understanding the owner's frustration in the planning
-  conversation is fine; every shipped line names the win.
-- **No em dashes** anywhere the owner or a viewer reads. Use commas, colons,
-  parentheses, or separate sentences.
-
-**Pre-write gate (do this before you write any line to `youtube-plan.md`):**
-before you commit a single row or line to the plan file, replace every em dash
-with a period, a comma, a colon, or parentheses. This file is owner-facing and it
-runs long: the em-dash ban applies to every line of it, not just the titles. It is
-easy to hold the rule in a short title and lose it in the pipeline table and the
-strategy prose, so hold it everywhere.
-
-This, not that:
-
-- Write this: "Fix It Yourself, specific named-part repair tutorials". Not this:
-  "Fix It Yourself — specific named-part repair tutorials".
-- Write this: "231,773 views on a beginners guide". Not this: "... beginners
-  guide — 231,773 views".
-
-**Post-write self-check (before you declare this step done):** after you write
-`youtube-plan.md`, do a literal find-and-replace of the em-dash character across
-the WHOLE file (a replace-all, not a visual read: em dashes hide easily in the
-pipeline table and strategy prose, so sweep them mechanically), swapping each for
-a comma, colon, period, or parentheses. Then re-read for any pain-framed line and
-fix it. Only then is the output done.
-
-## Step 7: Hand it over + name the next step
+## Step 6: Hand it over + name the next step
 
 Show the strategy and the packaged pipeline, then make the next move obvious:
 
@@ -246,8 +213,10 @@ Keep it an offer, not homework.
   never a guess.
 - ✅ **One channel, one goal per run.** A plan is aimed. Two goals or two brands
   is two runs.
-- ✅ **Positive-only, outcome-led owner-facing copy, no em dashes.** Titles,
-  angles, and pillars name the win.
+- ✅ **Content guardrails.** Customer-facing copy uses no em dashes, invents no
+  facts, quotes, or numbers, and names no third-party vendor. Write it in the
+  owner's brand voice; the framing and the marketing psychology are the owner's
+  choice. The rules are in `knowledge/content-rules.md`.
 - ✅ **This is the plan, not the scripts.** Stop at the strategy and the packaged
   pipeline. Beat-by-beat scripting is `script-my-video`; the rendered thumbnail
   is `make-thumbnail`. Point at them by outcome, do not do their job here.

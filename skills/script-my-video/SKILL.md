@@ -12,6 +12,7 @@ requires_driver: none
 requires_credential: none
 data_path: local
 status: active
+produces_customer_facing_copy: true
 ---
 
 # Script My Video
@@ -202,14 +203,10 @@ invented impressive one.
 
 - ❌ **Keyless. No accounts, no MCP tools.** This skill reads local files and the
   owner's words only. It names no connected tool.
-- ❌ **Never fabricate evidence.** No invented customer quotes, numbers, or
-  testimonials. Anchor real claims via `evidence_ref` or write what the owner can
-  genuinely stand behind.
-- ❌ **No em dashes** in anything the owner or a viewer reads (titles, on-screen
-  text, spoken lines, the call to action). Use commas, colons, or separate
-  sentences.
-- ✅ **Positive-only, outcome-led** owner-facing copy. Titles and calls to action
-  name the win and the result, never the pain or what is missing.
+- **Content guardrails.** Customer-facing copy uses no em dashes, invents no
+  facts, quotes, or numbers, and names no third-party vendor. Write it in the
+  owner's brand voice; the framing and marketing psychology are the owner's
+  choice. The rules are in `knowledge/content-rules.md`.
 - ✅ **The hook lands inside `meta.hook_window_s`.** The opening beat earns the
   next ten seconds within the window.
 - ✅ **One call to action.** One `cta` beat driving the single action from Step 2.
@@ -222,6 +219,5 @@ Two files in the owner's working directory: a machine-renderable
 `<slug>.script.json` (the beat schema above, with planned `duration_s` on each
 beat) and a human-readable `<slug>.script.md` teleprompter and shot-list view
 that states the words-per-minute pace used. The hook lands inside the hook
-window, there is exactly one call to action, every owner-facing line is
-positive-only with no em dashes, and every claim is anchored in real evidence or
-left as something the owner can stand behind.
+window, there is exactly one call to action, and every claim is anchored in real
+evidence or left as something the owner can stand behind.

@@ -16,6 +16,7 @@ requires_driver: none
 requires_credential: none
 data_path: reasoning_only
 status: active
+produces_customer_facing_copy: true
 ---
 
 # Plan My Content
@@ -103,11 +104,9 @@ For EVERY slot, fill all five fields:
 - **Channel** — where it posts.
 - **Pillar** — which content pillar this slot serves (ties every post back to
   strategy, so the plan is never random).
-- **Hook / angle** — the specific outcome-led opening line or idea for THIS
+- **Hook / angle** — the specific opening line or idea for THIS
   post, written in the brand's voice. Not a vague topic ("talk about speed") —
-  an actual angle the owner could open with. Outcome- or curiosity-led; the
-  contrarian format frames the better way, never the reader's failure
-  (business-method.md §18).
+  an actual angle the owner could open with.
 - **Format** — what kind of post it is (e.g. carousel, single image, short
   video, customer story, tip, behind-the-scenes, plain-text post, weekly
   email).
@@ -138,13 +137,10 @@ Show the calendar, then:
 - **Built on the brand's real pillars and voice.** When `content-pillars.yaml`
   and `voice.md` exist, use them. When they don't, derive working pillars from
   a brief and say so — never invent a strategy and present it as the owner's.
-- **The calendar is customer-facing output: positive-only, outcome-led.** Every
-  hook names the result the audience gets, never the pain or what's missing.
-  Don't write "stop losing leads"; write "every enquiry answered the same day".
-  (Understanding the owner's pain in the brief conversation is fine — the
-  shipped hooks stay positive.)
-- **No em dashes anywhere in the plan.** Use commas, colons, parentheses, or
-  separate sentences.
+- **Content guardrails.** Customer-facing copy uses no em dashes, invents no
+  facts, quotes, or numbers, and names no third-party vendor. Write it in the
+  owner's brand voice; the framing and marketing psychology are the owner's
+  choice. The rules are in `knowledge/content-rules.md`.
 - **One idea per slot.** Each post is a single hook. If a slot is carrying two
   angles, split it into two slots (or two weeks).
 - **Don't over-plan the cadence.** A sustainable rhythm the owner keeps beats a

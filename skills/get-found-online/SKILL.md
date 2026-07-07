@@ -16,6 +16,7 @@ requires_driver: firecrawl
 requires_credential: none
 data_path: fetch_rest
 status: active
+produces_customer_facing_copy: true
 ---
 
 # Get Found Online
@@ -130,23 +131,23 @@ outcome, the connection that unlocks it), articulated once in
 > tool lets me track your positions over time and see the real search demand, so
 > we'd know exactly which terms are worth the effort. Totally your call.
 
-## Output shape — positive-only, no em dashes
+## Output shape
 
-The audit and fix list are customer-facing output: positive-only, no em dashes
-(commas, colons, parentheses, separate sentences). Frame each fix as a forward
-move and the result it unlocks, never as what the owner lacks. A rival's gap is a
-fair sharp observation; the owner's own position is always framed by what they
-can go win.
+The audit and fix list are the customer-facing deliverable. Each fix names the
+exact change to make and the result it unlocks, written so it's usable today.
 
 ## Hard rules
 
+- **Content guardrails.** Customer-facing copy uses no em dashes, invents no
+  facts, quotes, or numbers, and names no third-party vendor. Write it in the
+  owner's brand voice; the framing and marketing psychology are the owner's
+  choice. The rules are in `knowledge/content-rules.md`.
 - ❌ No `crawl` / `map` / `agent` / `extract`. Per-page `scrape` + `search` only,
   capped at ~5-8 pages. Those paid ops are not keyless and not on the floor.
 - ❌ Don't invent data. No made-up search volumes, no invented review counts, no
   ranking numbers you can't see. "No public reviews found" is a real finding.
 - ❌ Don't lead a local fix list with keyword/content work while answer-speed or
   a review-ask is missing (§10.5 hard gate).
-- ❌ Don't frame the owner by what they lack. Fixes are forward moves.
 - ✅ Confirm the site/business is the right one before leaning on the read.
 - ✅ Bound it: ~5-8 pages, 1 competitor (invited), 1-3 terms. Finishable in one
   sitting.

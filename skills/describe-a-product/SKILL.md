@@ -1,6 +1,6 @@
 ---
 name: Describe A Product
-description: Turn one product (a photo, or a few notes) into an on-brand product description ready for an online store, a listing, or a catalogue, in the owner's voice, leading with what the buyer gets. Reads the brand voice if it has been set, falls back to the owner's words if not. Keyless, positive-only, outcome-led. One product per run.
+description: Turn one product (a photo, or a few notes) into an on-brand product description ready for an online store, a listing, or a catalogue, in the owner's voice, leading with what the buyer gets. Reads the brand voice if it has been set, falls back to the owner's words if not. Keyless. One product per run.
 triggers:
   - describe a product
   - write a product description
@@ -17,6 +17,7 @@ requires_driver: none
 requires_credential: none
 data_path: reasoning_only
 status: active
+produces_customer_facing_copy: true
 ---
 
 # Describe A Product
@@ -78,8 +79,7 @@ The shared reference for how customer-facing copy should sound is
 [`knowledge/communication-voice.md`](../../knowledge/communication-voice.md).
 
 **When the "product" is a service package, a bundle, or a lead magnet:**
-name it with 3-5 of the five naming parts (business-method.md §7.5), the
-result part outcome-led (§18); a diagnostic magnet sells the gain (§10.4).
+name it with 3-5 of the five naming parts (business-method.md §7.5).
 And when a listing stops pulling, rename before rebuilding — the refresh
 order starts with the cheap changes (§7.5).
 
@@ -119,20 +119,10 @@ questions:
 
 Faster-and-easier is the higher-leverage half (§6).
 
-## Step 4 — Before you output anything customer-facing: positive/outcome-led, and NO em dashes
+## Step 4 — Before you output anything customer-facing
 
-The description is **customer-facing output**, so it obeys the content rule:
-
-- **Positive-only, outcome-led, always.** Name what the buyer gets, what it
-  lets them do, how it makes their day better. Describe the win, never the
-  absence. Not "stop settling for flimsy ones", but "built to last the season
-  and the one after it".
-- **No invented proof.** Don't put a fake review, a made-up "bestseller" claim,
-  a fabricated material, or a spec the owner didn't confirm into the copy.
-  Anchor in what's real about the product.
-- **NO em dashes anywhere in the copy.** Use a comma, a colon, parentheses, or
-  two sentences. This holds for every word that ships. (A field test caught
-  this being missed; check the output before handing it over.)
+The description is **customer-facing output**. Before handing it over, hold it
+to the content guardrails in the Hard rules below.
 
 ## Step 5 — Hand it over, ready to publish
 
@@ -163,9 +153,10 @@ each a clean, finished description.
   a price the owner didn't confirm. Flag gaps as `[confirm: …]` placeholders.
 - **The owner's voice wins.** Write to the brand voice doc if it exists;
   otherwise reflect the owner's own phrasing.
-- **Before you output anything customer-facing: positive-only, outcome-led,
-  and NO em dashes** (use commas, colons, parentheses, or separate
-  sentences). The copy names the win, never the absence; no invented proof.
+- **Content guardrails.** Customer-facing copy uses no em dashes, invents no
+  facts, quotes, or numbers, and names no third-party vendor. Write it in the
+  owner's brand voice; the framing and marketing psychology are the owner's
+  choice. The rules are in `knowledge/content-rules.md`.
 
 ## Output shape
 
