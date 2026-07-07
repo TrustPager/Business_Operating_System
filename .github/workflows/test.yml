@@ -59,7 +59,11 @@ jobs:
           set -e
           for d in skills/*/; do
             name="$(basename "$d")"
-            if [ -f "$d/test-fixture.json" ]; then
+            # test-fixture.json alone isn't enough: some keyless skills (e.g.
+            # script-my-video) use that filename for their own schema-only
+            # unittest fixture, not for tools/test-skill.py's fetch.py harness.
+            # Only run the harness where fetch.py actually exists to drive.
+            if [ -f "$d/test-fixture.json" ] && [ -f "$d/fetch.py" ]; then
               echo "== $name =="
               python tools/test-skill.py "$name"
             fi
