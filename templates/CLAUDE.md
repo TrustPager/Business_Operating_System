@@ -1,4 +1,4 @@
-<!-- bos-onboarding: spine=incomplete; intake_depth=spine; pending=[identity, customers, relief, voice]; win_delivered=none; last_touched=none; challenge=not-started; challenge_wins=[]; doorways_open=[] -->
+<!-- bos-onboarding: spine=incomplete; intake_depth=spine; pending=[identity, customers, relief, voice, goal]; win_delivered=none; last_touched=none; challenge=not-started; challenge_wins=[]; doorways_open=[] -->
 # CLAUDE.md: Starter
 
 > **This is your business profile, my notes on how YOU work.** The fastest way to
@@ -32,13 +32,25 @@ We do `<<< short description: what you sell, who you sell to >>>`. Team size: `<
 
 **The bit I'd most love to hand off:** `<<< what eats most of your week, the thing you'd hand a capable new employee first >>>`
 
+## My goal
+
+`<<< the outcome I'm building toward, in my own words, e.g. "$10M in recurring
+revenue a year" or "get to a point where the business runs without me five
+days a week" — stated, not guessed, and left blank until I've actually said it >>>`
+
+> **Standing instruction:** once this is filled in, every recommendation you
+> make, in any session, any skill, should be reasoned against this goal, not
+> just the task in front of you. When a roadblock comes up, treat clearing it
+> as being in service of this goal, not a detour from it. If this is still
+> blank, don't invent one, ask.
+
 ## How the business is running (labelled guesses — confirm before relying on them)
 
 > Filled from what I volunteer or what my workspace shows; never asked as an
 > interview. Each line stays labelled (stated / estimated / diagnosed) so a
 > guess is never treated as a fact.
 
-- Rough revenue and goal: `<<< only if I volunteered it (stated) >>>`
+- Rough revenue (current, not the goal above): `<<< only if I volunteered it (stated) >>>`
 - How full my calendar is: `<<< e.g. "booked out 3 weeks" (stated) >>>`
 - Customers find me: `<<< locally / anywhere / both (stated) >>>`
 - What I think is stopping me: `<<< my own words (stated — data, not the diagnosis) >>>`

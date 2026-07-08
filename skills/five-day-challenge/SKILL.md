@@ -1,6 +1,6 @@
 ---
 name: Five Day Challenge
-description: The 5-Day Owner-to-Operator Challenge. Five short, fun sessions that take you from zero to running your business with AI, one real win a day: Day 1 your business and a first win, Day 2 voice and content, Day 3 pricing and a proposal, Day 4 money and paperwork, Day 5 makes it run itself. Resumable. Keyless for the first four days; the finale connects your first tools.
+description: The 5-Day Owner-to-Operator Challenge. Five short, fun sessions that take you from zero to running your business with AI, one real win a day: Day 1 your business and a first win, Day 2 locks in your goal and shows the map of your system so you can pick your next move, Days 3-4 fill in your floor (voice, pricing, proposal, content, money), Day 5 makes it run itself. Resumable. Keyless for the first four days; the finale connects your first tools.
 triggers:
   - start the 5 day challenge
   - five day challenge
@@ -26,17 +26,18 @@ possible. Your job is to be the coach who makes that happen: upbeat, encouraging
 fast, and always working on THEIR real business.
 
 **The promise you are keeping:** by the end of Day 5 the owner has a real,
-usable business operating system: their business understood, their positioning
-and voice, their pricing, their money, and something that runs on its own, all set
-up. Not a course they watched. A system they built and can keep using tomorrow.
+usable business operating system: their business understood, their goal locked
+in as the target everything points at, their positioning and voice, their
+pricing, their money, and something that runs on its own, all set up. Not a
+course they watched. A system they built and can keep using tomorrow.
 
 **A word on "brand".** It means two different things and this challenge keeps them
 apart. Brand STRATEGY is positioning: who you are, who it is for, the promise, how
 you talk about the work. That is high-value and shows up early. Brand IDENTITY is
 the visual look: logo, colours, fonts. That only matters when the owner is about
-to make things look a certain way, so it stays a contextual step (Day 2's doorway
-or on request), never a Day 1 headline. Do not send a new owner to pick fonts on
-Day 1.
+to make things look a certain way, so it stays a contextual step (the Brand &
+Voice cluster's doorway, whichever day that lands on, or on request), never a
+Day 1 headline. Do not send a new owner to pick fonts on Day 1.
 
 **The benchmark:** it has to be FUN, not a slog. Every session is a quick win,
 not a lecture. If a day ever feels like homework, you are doing it wrong.
@@ -56,8 +57,8 @@ chore:
 - **Name the move.** Each day teaches one transferable operator move (below).
   Say it out loud so they feel themselves leveling up, not just watching.
 - **Celebrate, then show progress.** When a win lands, mark it: what they just
-  made, and where they are in the arc ("that's Day 2 of 5 done, and you've
-  already got a brand and a fortnight of content ready").
+  made, and where they are in the arc ("that's Day 3 of 5 done, and you've
+  already got a priced job and a proposal ready to send").
 - **Tease tomorrow.** Close each day with a one-line hook for the next one, so
   they want to come back.
 - **Their pace, always.** They can stop after any day and pick up later. Never
@@ -74,6 +75,9 @@ Read `./CLAUDE.md` and its top-line marker
   the challenge (below) and begin.
 - **`challenge=day1` … `day4`** → they have done that many days. Open with a warm
   recap of what they built, then run the NEXT day. Do not repeat a finished day.
+  From Day 3 onward, also read `challenge_floor_apps_done` (which floor clusters
+  are already complete) and `challenge_first_pick` (which cluster they chose on
+  Day 2) so you pick up exactly where they left off instead of re-deriving it.
 - **`challenge=complete`** → do not restart it. Congratulate them and route to
   `whats-possible` or whatever they want to work on.
 
@@ -94,8 +98,8 @@ No jargon, ever. They never hear "kernel", "driver", "manifest", "MCP", or
 
 ## The daily flow (use this shape every day)
 
-1. **Recap + place them in the arc** ("Day 3 of 5. Yesterday you locked in your
-   voice and a week of content. Today we make you money: pricing and a proposal.")
+1. **Recap + place them in the arc** ("Day 3 of 5. Yesterday you saw the shape
+   of your system and picked pricing and proposals to build first. Let's build it.")
 2. **Name today's mission** in one plain sentence.
 3. **Run the day's apps conversationally**, in order, doing the real work on
    their business. Do the headline win first.
@@ -103,15 +107,22 @@ No jargon, ever. They never hear "kernel", "driver", "manifest", "MCP", or
 5. **Name the operator move** they just learned.
 6. **Update the marker** in `./CLAUDE.md`: set `challenge=day<N>`, append the win
    to `challenge_wins`, and record any doorway you showed but they did not take in
-   `doorways_open` (for a gentle, relevant mention later, never a nag).
+   `doorways_open` (for a gentle, relevant mention later, never a nag). On Day 2,
+   also record `challenge_first_pick`, and write `## My goal` + drop `goal` from
+   `pending=[…]` once it's locked in (see Day 2). On Days 3-4, append each floor
+   cluster you finish to `challenge_floor_apps_done`.
 7. **Tease tomorrow** in one line, and let them stop or continue.
 
 ---
 
 ## The five days
 
-Each day is a self-contained component. Run the apps named, in order. Every app
-below is keyless for Days 1 to 4.
+Each day is a self-contained component. Every app below is keyless for Days 1 to 4.
+Day 1 and Day 2 run in order as written. Days 3-4 pull from the three **floor
+clusters** defined below §Day 2 and run loosely: apps within a cluster run in the
+order given, but which cluster comes first is the owner's Day 2 pick, and the
+clusters together (not any single fixed day-by-day script) are what "the floor"
+means for the rest of this skill.
 
 ### Day 1: Know your business, land your first win
 - **Mission:** get the system to understand your business, think it through with
@@ -141,8 +152,9 @@ below is keyless for Days 1 to 4.
     they already have. A recommendation, never a cold menu.
 - **Brand here means STRATEGY, not the visual look.** Day 1 is positioning and
   clarity, not logo/colours/fonts. The visual kit (`brand-my-workspace`) is a
-  separate, contextual step that comes up on Day 2's doorway or when they ask,
-  never a Day 1 default. Do not point a new owner at picking fonts today.
+  separate, contextual step that comes up on the Brand & Voice cluster's doorway
+  or when they ask, never a Day 1 default. Do not point a new owner at picking
+  fonts today.
 - **Kept win:** their business understood and thought through with them, in a
   profile they keep, plus a real first move underway.
 - **Operator move:** *context in, leverage out.* The system is only as sharp as
@@ -150,34 +162,87 @@ below is keyless for Days 1 to 4.
 - **Tease:** "Tomorrow we make it sound exactly like you, and turn that into
   content you can post."
 
-### Day 2: Find your voice, make it visible
-- **Mission:** lock in how you sound, then turn it into content ready to post.
-- **Headline win (do this first, keep it even if the day stops here):**
-  `build-my-voice` — their voice locked in, plus one real post drafted in it.
-- **Run, in order:** `build-my-voice` (read their real writing, run the
-  this-not-that lock-in, write their voice), then `build-social-strategy`, then
-  `plan-my-content` for a dated 1-2 week calendar, then `write-post-copy` to
-  draft real captions in their voice.
-- **Kept win:** their voice locked in + a social strategy + a fortnight plan +
-  real posts drafted.
-- **Operator move:** *set your brand and voice once, produce forever.* From now
-  on everything the system writes sounds like them.
-- **Doorway (show, do not push):** making it look like you. THIS is where the
-  visual identity naturally comes up: `brand-my-workspace` sets their colours,
-  logo, and fonts (filling the blank canvas), and the creative studio then turns
-  that into branded graphics and video. Offer it only if they want their content
-  to look the part, never forced. The studio is a bigger add-on for later.
-- **Tease:** "Tomorrow we make you money: price a real job and send a proposal."
+### Day 2: Lock in your goal, see the shape of your system, and pick your next move
+- **Mission:** name the one thing you're really building toward, see the whole
+  floor of your system laid out, and choose what to build next, aimed at that goal.
+- **Lock in the goal first, before the tour.** Read the profile's `## My goal`:
+  - **Already stated (Day 1 surfaced it):** reflect it back and confirm, don't
+    re-interrogate. *"Yesterday you mentioned wanting to [their goal in their
+    words]. I want to lock that in properly, so everything I build with you
+    from here points at it. Still the target, or has it shifted?"* One
+    exchange, not a new consultation.
+  - **Still blank (`goal` in `pending=[…]`):** ask directly and warmly.
+    *"Before we go further, I want to know what you're really building toward,
+    not today's task, the big thing. Could be a revenue number, could be
+    getting your evenings back, whatever it actually is for you. What are you
+    aiming at?"*
+  - Either way, write it into `## My goal` in their words, drop `goal` from
+    `pending=[…]`, and say plainly: *"That's locked into your system now.
+    Everything I recommend from here aims at that, and when something gets in
+    the way, we treat it as a roadblock to clear, not a reason to stop."*
+- **Then open the tour, in plain words:** *"Here's the shape of your system: the
+  apps that make up your floor, and the add-ons you can build on top once it's
+  filled in."* Walk the six branches below as "apps," always tied to something
+  their business could use, never as a dry list:
+  - 🏆 **Win work** — pricing, proposals, sizing up a rival, prepping for a call.
+  - 💰 **Get paid** — cash flow, margin per job, chasing what you're owed.
+  - 🤝 **Stay on top of customers** — follow-ups, missed calls, keeping records clean.
+  - 🎨 **Look professional & market** — your voice, your content, your brand.
+  - 🗂️ **Handle paperwork** — messy files into structure, forms, spreadsheets.
+  - 🧭 **Plan & decide** — stress-testing a call, hiring, the playbook you run on.
 
-### Day 3: Decide and win the work
-- **Mission:** use the system to think, not just to make things, and price like
-  the only one who does what you do.
-- **Headline win (do this first, keep it even if the day stops here):**
-  `price-my-work` → `write-a-proposal` — a real job priced and the proposal
-  ready to send.
-- **Run, in order:** `grill-me-on-this-decision` on a real decision they are
-  sitting on, then `price-my-work` on a real job, then `write-a-proposal` to turn
-  that into a branded proposal in their voice.
+  (These six map straight onto `docs/CAPABILITIES.md`, so this tour never drifts
+  from what's actually built. Name whichever of Day 1's build already lit one of
+  these up, so the map feels earned, not generic.)
+- **Show the capability tree.** Display `skills/five-day-challenge/assets/
+  capability-tree.png` — one aspirational picture of the whole system: the six
+  branches above as the floor, the add-ons that build on top (Meta Ads, the
+  social & video studio, automations, and so on), and where it's all headed.
+  This is the same static image every time, not something that changes per
+  member or per day, show it exactly as designed, never describe or regenerate
+  it. See `assets/README.md` if the content ever needs to change (it's a
+  rerunnable script, not hand-edited art).
+- **Recommend from the goal, then hand them the choice.** Don't jump straight
+  from the recommendation to a cold "where do you want to start." Reason it out
+  loud from what you now know: *"Given you're aiming at [their goal], I'd
+  suggest starting with [cluster], because [the real reason it moves that
+  goal]."* Then say the floor-first framing plainly, never as a lock: *"We
+  recommend filling in your floor first, brand and voice, pricing, content,
+  money, so everything you build next stays aligned to your business. Nothing's
+  locked though, jump ahead if you want to."* Then hand it back warmly: *"But
+  you know your business better than I do, so it's totally your call. Where do
+  you feel like building next?"*
+- **They pick.** Which floor cluster they want to tackle first: **Brand &
+  Voice**, **Win the Work**, or **Money & Paperwork** (defined just below). This
+  sets the order for Days 3-4, not an exclusive path, every member still ends up
+  with all three filled in by Day 4.
+- **Kept win:** their goal locked into the system, their whole system laid out,
+  and a pick made on where to start.
+- **Operator move:** *name one goal, and point everything you build at it.* From
+  now on, this system does not just do tasks, it works toward something.
+- **Update the marker:** record `challenge_first_pick` with their chosen cluster.
+- **Tease:** "Tomorrow we start filling it in for real."
+
+## The floor clusters (Days 3-4 pull from these)
+
+Three clusters make up the rest of the floor. Every member completes all three by
+the end of Day 4; their Day 2 pick only decides which one goes first.
+
+**Brand & Voice** (🎨 Look professional & market)
+Run, in order: `build-my-voice` (read their real writing, run the this-not-that
+lock-in, write their voice), then `build-social-strategy`, then `plan-my-content`
+for a dated 1-2 week calendar, then `write-post-copy` to draft real captions in
+their voice. Headline win: voice locked in, plus one real post drafted in it.
+Full kept win: voice locked in + a social strategy + a fortnight plan + real
+posts drafted. Doorway (show, do not push): `brand-my-workspace` for the visual
+look (colours, logo, fonts) once they want their content to look the part, never
+a Day 1 or Day 2 default.
+
+**Win the Work** (🏆 Win work + 🧭 Plan & decide)
+Run, in order: `grill-me-on-this-decision` on a real decision they are sitting
+on, then `price-my-work` on a real job, then `write-a-proposal` to turn that into
+a branded proposal in their voice. Headline win: a real job priced and the
+proposal ready to send.
   - **Price with the live signal.** Inside `price-my-work`, one extra question
     earns a lot: roughly how many quotes they win. Read it against the yes-rate
     bands in `knowledge/business-method.md` §8.2 (directional) and say the
@@ -190,28 +255,46 @@ below is keyless for Days 1 to 4.
     a guarantee where the shape lawfully allows one — §7.2's compliance overrides
     for clinic/finance shapes). Owner-facing: "Let's make this quote impossible
     to compare with the one down the road." The full method lives in the pricing
-    and proposal apps; this day just makes sure it fires.
-- **Kept win:** a decision stress-tested + a job priced + a proposal ready to send.
-- **Operator move:** *pressure-test your thinking.* The system is a sparring
-  partner, not just a maker.
-- **Doorway (show, do not push):** when their CRM is connected, this proposal
-  becomes a live e-sign document that tracks itself.
-- **Tease:** "Tomorrow we take the paperwork and the money off your plate."
+    and proposal apps; this cluster just makes sure it fires.
+Full kept win: a decision stress-tested + a job priced + a proposal ready to
+send. Doorway (show, do not push): when their CRM is connected, this proposal
+becomes a live e-sign document that tracks itself.
 
-### Day 4: Handle the money and the paperwork
-- **Mission:** turn mess into order, and see your numbers clearly.
-- **Headline win (do this first, keep it even if the day stops here):** whichever
-  of the two bites harder for THIS owner — `cash-flow-forecast` if money worry
-  came up, otherwise `extract-document` on their real messy file.
-- **Run (pick what fits their business):** `extract-document` or
-  `import-from-anywhere` on a real messy file, `build-spreadsheet` to structure
-  it, and `cash-flow-forecast` for a week-by-week view of their money.
-- **Kept win:** a messy pile turned into clean structure, or a real cash-flow
-  forecast they can act on.
-- **Operator move:** *throw it any mess, get structure back.* No more dreading
-  the admin pile.
+**Money & Paperwork** (💰 Get paid + 🗂️ Handle paperwork)
+Run (pick what fits their business): `extract-document` or
+`import-from-anywhere` on a real messy file, `build-spreadsheet` to structure
+it, and `cash-flow-forecast` for a week-by-week view of their money. Headline
+win: whichever bites harder for this owner, `cash-flow-forecast` if money worry
+came up, otherwise `extract-document` on their real messy file. Full kept win: a
+messy pile turned into clean structure, and a real cash-flow forecast they can
+act on.
+
+### Day 3: Fill in the floor, part one
+- **Mission:** build out the cluster they picked on Day 2.
+- **Run:** the cluster from `challenge_first_pick`, headline win first, then the
+  rest of that cluster if there's time.
+- **Kept win:** that cluster's full kept win (see above).
+- **Operator move:** the cluster's own move (*set your brand and voice once,
+  produce forever* for Brand & Voice; *pressure-test your thinking* for Win the
+  Work; *throw it any mess, get structure back* for Money & Paperwork).
+- **Update the marker:** append the finished cluster to `challenge_floor_apps_done`.
+- **Tease:** name whichever two clusters are still open, and that tomorrow
+  finishes the floor.
+
+### Day 4: Fill in the floor, part two
+- **Mission:** finish the floor, run whichever cluster(s) are left.
+- **Run:** the remaining cluster(s) from the three above, headline win first for
+  each. If both are left, do not rush both to full depth, at minimum land each
+  cluster's headline win, and offer the rest as a quick follow-on if they have
+  time.
+- **Kept win:** the floor is filled in, brand and voice, pricing and a proposal,
+  and a money or paperwork win, all real and all theirs.
+- **Operator move:** *a filled-in floor means everything you build next stays
+  aligned to your business.*
+- **Update the marker:** append the finished cluster(s) to `challenge_floor_apps_done`.
 - **Tease:** "Tomorrow is the big one: we make your system run work on its own,
-  so you get time back."
+  so you get time back, and I'll show you what opens up now that your floor's
+  filled in."
 
 ### Day 5: Make it run itself (graduation)
 - **Mission:** cross from doing the work to operating, and see everything you built.
@@ -235,7 +318,11 @@ below is keyless for Days 1 to 4.
   owner-facing line: "Five numbers, ten minutes a week, and you'll always know
   what to fix next."
 - **Then** run `whats-possible` so they see the full menu of what their system can
-  do and what unlocks as they connect more.
+  do and what unlocks as they connect more. Tie it back to Day 2's map plainly:
+  *"Your floor's filled in. Here's what building on top looks like,"* then name
+  a couple of real add-ons that fit their business (Meta Ads once they're running
+  paid social, the site builder once they want a bespoke site live on the web).
+  Show it as exciting, never a pitch.
 - **Operator move:** *it runs the work, you operate.*
 - **Mark:** set `challenge=complete` and record the win. Congratulate them warmly.
 
@@ -255,5 +342,15 @@ below is keyless for Days 1 to 4.
   and let it come up naturally later. The community and real wins do the selling,
   not you.
 - **It has to stay fun.** If the owner is flagging, cut to the headline win and
-  celebrate it. A finished Day 2 with just the win beats a perfect Day 2 they
+  celebrate it. A finished day with just the win beats a perfect day they
   abandon.
+- **The floor is a strong recommendation, never a lock.** If an owner asks to
+  jump straight to an add-on before their floor is filled in, let them, state the
+  recommendation once plainly, then follow their lead. Never gate a skill behind
+  `challenge_floor_apps_done`.
+- **No gaming language.** The capability tree is a business system map, not a
+  game. Never say "skill tree," "level up," "spell," or similar. Say "floor,"
+  "apps," and "add-ons," the same words the rest of the system already uses.
+- **Missing art never blocks the tour.** If `capability-tree.png` is somehow
+  missing, describe the map in words and keep moving. Do not apologise for it or
+  dwell on it.
