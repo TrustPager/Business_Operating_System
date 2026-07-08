@@ -1,9 +1,12 @@
 # BOS-recommended global Claude Code guidance
 
-> This block was added by the Business Operating System setup module. You can edit
-> anything below, or remove the whole block, at any time. It applies to ALL your
-> Claude Code work across every project. Your project-level CLAUDE.md (in each
-> project folder) takes priority over this file for that project's specific rules.
+> This block was added by the Business Operating System setup module, and it is
+> refreshed each time you tune your setup. Keep your own edits OUTSIDE these BOS
+> markers (above or below the block); anything you change inside the block is
+> replaced on the next refresh. You can remove the whole block at any time. It
+> applies to ALL your Claude Code work across every project. Your project-level
+> CLAUDE.md (in each project folder) takes priority over this file for that
+> project's specific rules.
 
 ## How I like to work
 
