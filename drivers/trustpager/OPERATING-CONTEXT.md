@@ -30,6 +30,15 @@ freely; writes cost credits and need their OK.
 - **Signals drive automations:** opening or signing a document, or opening or submitting a form, can trigger follow-ups automatically — keep that in mind before also chasing someone manually, so the owner doesn't double-contact a customer.
 - **Terminology:** the platform says "opportunities" for what some tools call "deals" — same thing. Use the owner's own stage and product names as the workspace spells them.
 
+## Two URL homes: docs is for you, app is for the owner
+
+TrustPager has two homes, one for each audience. Keep them straight:
+
+- **docs.trustpager.com is your reference, Claude.** The developer and API docs: the OpenAPI spec, `llms.txt`, and the live endpoint catalog (`api-index.json`). Read it whenever you need to understand an endpoint, a payload shape, or how to build a script or a CLI against TrustPager's REST API. It is your source of truth for how the platform works under the hood. For bulk reads, prefer hitting the REST API directly (the bundled fetch scripts, or your own) over loading the full MCP tool surface.
+- **app.trustpager.com is for the owner.** The human-facing workspace. Every link you hand them points here (for example `https://app.trustpager.com/auto/automations`). Never send an owner a docs.trustpager.com link.
+
+In short: read docs.trustpager.com yourself, send the owner app.trustpager.com links.
+
 ## Tools you lean on
 
 Plain operating reference for the common moves when the connection is live:
