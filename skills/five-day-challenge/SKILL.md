@@ -111,7 +111,12 @@ No jargon, ever. They never hear "kernel", "driver", "manifest", "MCP", or
    also record `challenge_first_pick`, and write `## My goal` + drop `goal` from
    `pending=[…]` once it's locked in (see Day 2). On Days 3-4, append each floor
    cluster you finish to `challenge_floor_apps_done`.
-7. **Tease tomorrow** in one line, and let them stop or continue.
+7. **Close by pointing forward from their goal.** Once the goal is locked in
+   (Day 2 on), don't just tease the next day generically: wrap what today gave
+   them, then point at next session as a recommendation aimed at their goal,
+   held loosely ("based on where you're headed, next I'd have us [X], but we'll
+   take it as it comes"). Day 2's close is the fullest worked example. Then let
+   them stop or continue.
 
 ---
 
@@ -229,8 +234,20 @@ means for the rest of this skill.
   pick] while we're here, or pick it up next time?"* If they continue, run
   straight into that cluster's headline win (Day 3's content, below) in the same
   sitting, and when you update the marker, set `challenge=day3` since that work
-  is now done, not `day2`. If they stop, close normally.
-- **Tease:** "Next time we start turning [their pick] into something real."
+  is now done, not `day2`. If they stop, run the close below.
+- **Close the sitting (when they stop): wrap, then point forward from the goal.**
+  Three quick beats, not a lecture:
+  1. **Wrap what today gave them:** their goal locked in, their whole system
+     mapped, and a clear pick for what's next. Name it as real ground covered.
+  2. **What it leads to, what's still on the table:** the rest of the floor
+     filling in over the next couple of sessions, and above it the add-ons and
+     scaling tier they saw on the map, open to them once the floor is solid.
+  3. **Point at next session from the goal, held loosely:** *"So next time,
+     based on where you're headed ([their goal]), I'd have us start turning
+     [their pick] into [the concrete artifact], because [why it moves the goal].
+     We'll take it as it comes though, you might feel like something else by
+     then, and that's fine."* A recommendation aimed at the goal, never a fixed
+     timetable.
 - **Update the marker:** record `challenge_first_pick` with their chosen cluster.
 - **Tease:** "Tomorrow we start filling it in for real."
 

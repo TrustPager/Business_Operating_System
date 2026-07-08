@@ -237,9 +237,20 @@ The goal-lock rewrite in §10 accidentally dropped Day 2's closing beat, no
 "tease tomorrow" line, breaking the daily-flow template every other day
 follows. Also surfaced: Day 2 no longer ends on a built artifact (it locks a
 goal, shows the tree, gets a pick), so unlike other days a member is often
-primed to keep going rather than stop. Fixed by adding an explicit fork after
-the pick: ask plainly whether to jump straight into the picked cluster's Day 3
-content in the same sitting, or stop and pick it up next time. If they
-continue, the marker is set to `challenge=day3` (not `day2`), since that work
-is genuinely done. Never assumed either way, always asked, consistent with the
-"one day at a time is the default... unless they ask for more" hard rule.
+primed to keep going rather than stop. Fixed in two parts:
+
+1. **Continue-or-stop fork after the pick:** ask plainly whether to jump
+   straight into the picked cluster's Day 3 content in the same sitting, or
+   stop and pick it up next time. If they continue, the marker is set to
+   `challenge=day3` (not `day2`), since that work is genuinely done. Never
+   assumed either way, always asked, consistent with the "one day at a time is
+   the default... unless they ask for more" hard rule.
+2. **A goal-anchored close (when they stop), founder-directed:** a three-beat
+   wrap rather than a one-line tease, (a) wrap what today gave them (goal
+   locked, system mapped, pick made), (b) name what it leads to and what's still
+   on the table (the rest of the floor, then the add-ons/scaling tier above it),
+   (c) point at next session as a recommendation aimed at their goal, held
+   loosely ("based on where you're headed, I'd have us [X] next, but we'll take
+   it as it comes"). The general daily-flow step 7 was also lightly updated so
+   every day from Day 2 on inherits this goal-anchored close, with Day 2 as the
+   fullest worked example (one home for the pattern).
