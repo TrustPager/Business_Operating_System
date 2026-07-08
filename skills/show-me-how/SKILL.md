@@ -27,6 +27,15 @@ status: active
 
 Customers want to learn by doing, not by reading documentation. This skill turns "how do I X?" into a hands-on walkthrough — searches the TrustPager help center, summarizes the answer, links to the specific page in their workspace, and offers to drive the steps if they want.
 
+## Two URL homes (read this first)
+
+TrustPager has two homes, one for each audience. Use the right one every time:
+
+- **docs.trustpager.com is for you, Claude.** It is the developer and API reference: the OpenAPI spec, `llms.txt`, and the endpoint catalog (`api-index.json`). Read it whenever you need to understand the API, an endpoint, a payload shape, or how to build a script or a CLI against TrustPager. This is your source of truth for how the platform works under the hood.
+- **app.trustpager.com is for the user.** It is the human-facing workspace. Every link you hand the customer points here (for example `https://app.trustpager.com/settings/crm`). Never give a customer a docs.trustpager.com link.
+
+In short: read docs.trustpager.com yourself, send the user app.trustpager.com links.
+
 ## Step 1 — Pre-fetch + search the help center
 
 First, run:
@@ -79,7 +88,7 @@ NEVER drive without explicit yes. The offer is the offer — the user opts in.
 ## Important behaviours
 
 - **One URL per answer.** If you mention "/settings/crm" twice, both must be live links to the same workspace path.
-- **Workspace URLs only.** Not docs.trustpager.com URLs (those are for developers). Customer-facing links go to `app.trustpager.com/...`.
+- **User links go to app.trustpager.com; docs.trustpager.com is your reference, never a user link.** See "Two URL homes" at the top. Every customer-facing link points at `app.trustpager.com/...`. Read docs.trustpager.com yourself when you need to understand the API or build something, but do not paste it to the user.
 - **No code blocks.** This skill is for non-developers. Show steps as bulleted prose.
 - **Acknowledge what you DON'T know.** If a question is outside TrustPager ("how do I export to QuickBooks?" but only Xero is integrated), say so plainly. Don't pretend.
 - **Recency.** The help center is the source of truth — if your knowledge contradicts the help center, the help center wins.
