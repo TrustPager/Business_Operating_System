@@ -80,7 +80,7 @@ all shipped today):
   Market), E-Signing & Document Workflows (off Handle Paperwork), Team &
   Reporting (off Plan & Decide).
 - **Scaling** (deeper still, only this one branch goes here for now): Advanced
-  Money Models (off Value Equation/Offer Tune-Up) — the $100M Money Models-style
+  Money Models (off Value Equation/Offer Tune-Up) — the advanced
   upsell/downsell/continuity systems, once the base offer is priced right via the
   Value Equation.
 - **Summit**: a single highlight-box node, "Operate Your Business and Watch It

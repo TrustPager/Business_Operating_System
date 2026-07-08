@@ -53,6 +53,7 @@ docs/architecture/2026-07-03-site-builder-design.md
 docs/architecture/plans/2026-07-03-site-builder.md
 drivers/vercel/
 knowledge/web-design-method.md
+tests/test_inline_design_system.py
 
 # Studio render outputs (PNGs from `npm run shoot`; each owner renders their
 # own, never committed). The studios' own file-maps document this.
