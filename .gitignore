@@ -38,17 +38,21 @@ venv/
 # Node — in case any installer wraps in npm
 node_modules/
 package-lock.json
-# The committed site-starter is a distributed template: it is copied into an
-# owner's workspace, npm-install'd, and deployed to production, so its lockfile
-# IS committed for reproducible transitive deps (negation, scoped to it only).
-!templates/site-starter/package-lock.json
 yarn.lock
 
-# Next.js build output (the committed site-starter builds here; never commit it).
-# node_modules/ above already covers the starter's deps; these cover its build.
+# Next.js build output.
 .next/
 out/
-templates/site-starter/next-env.d.ts
+
+# Webdev capability — held back from the public repo for now (2026-07-07).
+# Kept locally to slot back in later; untracked with `git rm --cached`, not deleted.
+skills/design-my-site/
+skills/launch-my-site/
+templates/site-starter/
+docs/architecture/2026-07-03-site-builder-design.md
+docs/architecture/plans/2026-07-03-site-builder.md
+drivers/vercel/
+knowledge/web-design-method.md
 
 # Studio render outputs (PNGs from `npm run shoot`; each owner renders their
 # own, never committed). The studios' own file-maps document this.

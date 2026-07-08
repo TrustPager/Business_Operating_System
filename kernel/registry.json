@@ -218,13 +218,6 @@
     "requires_driver": "none",
     "status": "active"
   },
-  "design-my-site": {
-    "data_path": "local",
-    "function_slot": "creative",
-    "requires_credential": "none",
-    "requires_driver": "render",
-    "status": "active"
-  },
   "design-nurture-sequence": {
     "data_path": "mcp_tools",
     "function_slot": "comms",
@@ -323,13 +316,6 @@
     "function_slot": "documents",
     "requires_credential": "none",
     "requires_driver": "markitdown",
-    "status": "active"
-  },
-  "launch-my-site": {
-    "data_path": "local",
-    "function_slot": "deploy",
-    "requires_credential": "key",
-    "requires_driver": "vercel",
     "status": "active"
   },
   "lead-triage": {

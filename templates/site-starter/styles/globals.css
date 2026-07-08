@@ -1,6 +1,0 @@
-/* Tailwind entry. tokens.css (imported before this in app/layout.tsx) defines
-   the CSS variables; these directives pull in Tailwind's base/components/
-   utilities that read them through the theme map. */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
