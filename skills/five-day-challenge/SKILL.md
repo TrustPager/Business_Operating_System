@@ -217,9 +217,20 @@ means for the rest of this skill.
   sets the order for Days 3-4, not an exclusive path, every member still ends up
   with all three filled in by Day 4.
 - **Kept win:** their goal locked into the system, their whole system laid out,
-  and a pick made on where to start.
+  and a pick made on where to start. Celebrate it plainly before moving on:
+  *"That's your goal locked in, and you can see exactly how [their pick] plugs
+  into where you're headed. That's real ground covered before we've even built
+  anything today."*
 - **Operator move:** *name one goal, and point everything you build at it.* From
   now on, this system does not just do tasks, it works toward something.
+- **Offer to keep going, don't just stop.** Day 2 doesn't end on a built artifact
+  the way other days do, so a member is often primed to keep moving. Ask
+  plainly rather than assuming either way: *"Want to jump straight into [their
+  pick] while we're here, or pick it up next time?"* If they continue, run
+  straight into that cluster's headline win (Day 3's content, below) in the same
+  sitting, and when you update the marker, set `challenge=day3` since that work
+  is now done, not `day2`. If they stop, close normally.
+- **Tease:** "Next time we start turning [their pick] into something real."
 - **Update the marker:** record `challenge_first_pick` with their chosen cluster.
 - **Tease:** "Tomorrow we start filling it in for real."
 

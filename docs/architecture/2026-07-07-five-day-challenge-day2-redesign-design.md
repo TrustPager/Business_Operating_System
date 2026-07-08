@@ -230,3 +230,16 @@ This also fixed a related dogfood note: the original recommendation-then-pick
 transition read as an abrupt cold menu. Reasoning from the goal first, then
 explicitly handing the choice back ("you know your business better than I do,
 it's your call"), fixed both problems in the same edit.
+
+## 11. Addendum — Day 2's closing beat (fixed same day)
+
+The goal-lock rewrite in §10 accidentally dropped Day 2's closing beat, no
+"tease tomorrow" line, breaking the daily-flow template every other day
+follows. Also surfaced: Day 2 no longer ends on a built artifact (it locks a
+goal, shows the tree, gets a pick), so unlike other days a member is often
+primed to keep going rather than stop. Fixed by adding an explicit fork after
+the pick: ask plainly whether to jump straight into the picked cluster's Day 3
+content in the same sitting, or stop and pick it up next time. If they
+continue, the marker is set to `challenge=day3` (not `day2`), since that work
+is genuinely done. Never assumed either way, always asked, consistent with the
+"one day at a time is the default... unless they ask for more" hard rule.
