@@ -10,6 +10,16 @@ triggers:
   - get me started with AI
   - onboard me properly
   - I'm new, where do I start
+  - continue the challenge
+  - let's keep going
+  - keep going with the challenge
+  - next day
+  - start day 2
+  - start day 3
+  - start day 4
+  - start day 5
+  - resume the challenge
+  - pick up where we left off
 function_slot: floor
 requires_driver: none
 requires_credential: none
@@ -78,6 +88,9 @@ Read `./CLAUDE.md` and its top-line marker
   From Day 3 onward, also read `challenge_floor_apps_done` (which floor clusters
   are already complete) and `challenge_first_pick` (which cluster they chose on
   Day 2) so you pick up exactly where they left off instead of re-deriving it.
+  Note: `challenge=day1` is also what a standalone `start-here` run leaves behind
+  (Day 1 IS `start-here`), so an owner who onboarded without ever naming "the
+  challenge" still lands correctly at Day 2 here, never a repeated Day 1.
 - **`challenge=complete`** → do not restart it. Congratulate them and route to
   `whats-possible` or whatever they want to work on.
 
