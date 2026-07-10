@@ -1,7 +1,7 @@
 # Content Creation Studio — Design Spec
 
 **Status:** Design approved by founder 2026-07-09. Ready for implementation planning.
-**Supersedes/extends:** [`2026-07-05-youtube-studio-design.md`](2026-07-05-youtube-studio-design.md) (Decision 8, reversed below).
+**Supersedes/extends:** realizes founder-decisions **D13** (genericised Remotion studio as a library module); revises one line of [`2026-07-05-youtube-studio-design.md`](2026-07-05-youtube-studio-design.md) Decision 8 (labelled). One home for the ruling: founder-decisions.md **D14**.
 **Origin:** Packaging the TrustPager-coupled `Remotion-VideoStudio` (RVS) repo as a brand-agnostic, keyless, guided BOS add-on. Design produced by a 15-agent mapping + feasibility pass and three adversarial reviews (keyless integrity, decoupling completeness, guided-process realism); this spec folds in every review fix.
 
 ---
@@ -34,7 +34,7 @@
 
 The prior ruling built `studio/video` on Puppeteer frame-capture specifically to avoid a Remotion dependency, and reserved Remotion for the separate RVS repo. The founder's product is **not achievable** on frame-capture: Puppeteer-screenshot-per-frame cannot composite a user's recording with its own audio into one mixed MP4, cannot export ProRes 4444 alpha, and cannot run `spring()`/`@remotion/media`. This is a capability gap, not a preference.
 
-**Ruling:** Remotion is permitted inside the BOS in **one** contained module (`studio/motion/`) under the Content Creation Studio hub. This is a deliberate, labelled exception to Decision 8, accepting one render-engine "duplication" (frame-capture floor + Remotion premium) because the two are different rungs on the floor/shelf ladder, not a reskin of each other. The keyless `studio/video` floor is unchanged and remains the YouTube factory.
+**Ruling (logged as D14):** Remotion is permitted inside the BOS in **one** contained module (`studio/motion/`) under the Content Creation Studio hub. This is not a wholesale reversal: it **realizes founder-decisions D13** (the genericised Remotion studio was already blessed as a future library module) and **revises one line of Decision 8** (labelled) that had reserved the heavyweight engine to RVS only. It accepts one render-engine "duplication" (frame-capture floor + Remotion premium) because the two are different rungs on the floor/shelf ladder, not a reskin of each other. The keyless `studio/video` floor is unchanged and remains the YouTube factory.
 
 ---
 
