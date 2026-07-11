@@ -10,7 +10,10 @@
     "forceConsistentCasingInFileNames": true,
     "allowJs": true,
     "resolveJsonModule": true,
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "paths": {
+      "@ui/*": ["ui/*"]
+    }
   },
   "include": ["src/**/*"]
 }
