@@ -27,7 +27,7 @@ import {
   rmSync,
   mkdtempSync,
 } from "node:fs";
-import { spawnSync } from "node:child_process";
+import { spawnSync, execSync } from "node:child_process";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -37,8 +37,38 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.join(__dirname, "..");
 const RECORDINGS_DIR = path.join(PROJECT_ROOT, "public", "recordings");
 const DATA_DIR = path.join(PROJECT_ROOT, "data");
-const WHISPER_DIR = path.join(PROJECT_ROOT, "whisper");
-const WHISPER_VERSION = "1.5.5"; // whisper.cpp release installWhisperCpp knows how to build
+const WHISPER_VERSION = "1.5.5"; // whisper.cpp release installWhisperCpp fetches
+
+// installWhisperCpp downloads its binary zip to the CURRENT WORKING DIRECTORY and
+// extracts it with an UNQUOTED PowerShell `Expand-Archive`, so any working dir with
+// a space (this studio lives under "Final Piece Docs"; or a Windows username with a
+// space) breaks the install. Resolve a guaranteed space-free directory to run the
+// whole whisper step from. Owner override: BOS_WHISPER_DIR.
+function spaceFreeBase() {
+  const override = process.env.BOS_WHISPER_DIR;
+  if (override && !/\s/.test(override)) return override;
+  const t = tmpdir();
+  if (!/\s/.test(t)) return t;
+  if (process.platform === "win32") {
+    try {
+      // The Windows 8.3 short path never contains spaces.
+      const short = execSync(`for %I in ("${t}") do @echo %~sfI`, {
+        shell: "cmd.exe",
+        encoding: "utf8",
+      })
+        .trim()
+        .split(/\r?\n/)
+        .pop()
+        .trim();
+      if (short && !/\s/.test(short)) return short;
+    } catch {
+      /* fall through to the drive-root last resort */
+    }
+  }
+  return path.join(process.env.SystemDrive || "C:", path.sep);
+}
+const WHISPER_BASE = spaceFreeBase();
+const WHISPER_DIR = path.join(WHISPER_BASE, "bos-whisper");
 
 function line(s = "") {
   console.log(s);
@@ -171,11 +201,13 @@ async function transcribeLocally() {
   const { installWhisperCpp, downloadWhisperModel, transcribe, toCaptions } =
     await import("@remotion/install-whisper-cpp");
 
-  // Keep the temp WAV OUT of WHISPER_DIR so installWhisperCpp's "already
-  // installed" check (it keys off the target folder) is not tricked into
-  // skipping the real clone + compile.
-  const wavDir = mkdtempSync(path.join(tmpdir(), "bos-caption-"));
-  const tmpWav = path.join(wavDir, `${slug}.16k.wav`);
+  // Run the whole whisper step from a SPACE-FREE working dir: installWhisperCpp
+  // downloads its binary zip to CWD and extracts with an unquoted Expand-Archive,
+  // so a spacey CWD (this studio lives under "Final Piece Docs") breaks it. Keep
+  // the WAV space-free too (whisper's CLI is invoked on its path), and OUT of
+  // WHISPER_DIR so the installer's "already installed" folder check isn't tricked.
+  process.chdir(WHISPER_BASE);
+  const tmpWav = path.join(WHISPER_BASE, `bos-cap-${slug}.16k.wav`);
   line("Preparing audio for transcription (16kHz mono WAV)...");
   const wav = spawnSync(
     bin,
@@ -187,11 +219,11 @@ async function transcribeLocally() {
     return;
   }
 
-  // The fragile step: compile whisper.cpp locally (needs a C/C++ toolchain).
+  // Fetch + set up whisper.cpp locally (a prebuilt binary + a model download).
+  // Fully keyless, no API key.
   line("");
   line("Setting up local speech-to-text (whisper.cpp). The first time, this");
-  line("compiles a small program and downloads a model — it needs a C/C++ build");
-  line("toolchain and can take a few minutes. No account, no API key.");
+  line("downloads a small program + model — a few minutes, no account, no API key.");
   line("");
   await installWhisperCpp({ to: WHISPER_DIR, version: WHISPER_VERSION, printOutput: true });
   await downloadWhisperModel({ model, folder: WHISPER_DIR, printOutput: true });
@@ -208,7 +240,7 @@ async function transcribeLocally() {
   });
 
   const { captions } = toCaptions({ whisperCppOutput: result });
-  rmSync(wavDir, { recursive: true, force: true });
+  try { rmSync(tmpWav, { force: true }); } catch { /* best-effort */ }
 
   if (!captions || captions.length === 0) {
     degrade("Whisper ran but produced no words (the recording may be silent).");

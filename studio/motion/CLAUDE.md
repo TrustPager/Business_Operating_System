@@ -90,11 +90,14 @@ The load-bearing rules:
 - **Audio:** the recording's track flows through `<Video>`; a `music` bed is ducked
   under it via a per-frame `volume` callback (a low constant bed with short fades).
 - **Captions are keyless and degrade.** `scripts/caption.js` transcribes the real
-  speech with local whisper.cpp; if the whisper fetch/compile is unavailable (a
-  known-fragile step — it failed on this dev machine because Remotion's Windows
-  `Expand-Archive` does not quote a path containing spaces), it falls back to
-  script/label-derived captions and says which path it took. Never claim whisper
-  ran if the fallback fired.
+  speech with local whisper.cpp (verified working). The whole step runs from a
+  SPACE-FREE working dir: `installWhisperCpp` downloads its binary zip to CWD and
+  extracts it with an unquoted `Expand-Archive`, so a path with a space (this studio
+  is under "Final Piece Docs"; or a Windows username with a space) would break it.
+  `spaceFreeBase()` picks `tmpdir` when clean, else the Windows 8.3 short path, else
+  the drive root; `BOS_WHISPER_DIR` overrides. If whisper is still unavailable it
+  degrades to script/label-derived captions and says which path it took. Never claim
+  whisper ran if the fallback fired.
 
 `render.js` routes on the plan shape: a `scenes[]` plan is faceless, a `recording`
 plan is Overlay. Both write the same `<slug>.timing.json`.
