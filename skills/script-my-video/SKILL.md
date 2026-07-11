@@ -23,11 +23,14 @@ the spec: it writes one machine-renderable `<slug>.script.json` that the video
 studio, the thumbnail, and the packaging step all read, plus a human-readable
 `<slug>.script.md` the owner can film from. Nothing here needs an account.
 
-This is the load-bearing skill of the YouTube factory floor. The craft it draws
-on lives in [`knowledge/youtube-script-method.md`](../../knowledge/youtube-script-method.md):
-hook patterns, retention structure, per-beat discipline, and the words-per-minute
-default this skill uses. Read it before scripting so the body stays lean and the
-method has one home.
+This is the load-bearing skill of the YouTube factory floor. The craft it draws on
+lives in two method files; read both before scripting so the body stays lean.
+[`knowledge/youtube-script-method.md`](../../knowledge/youtube-script-method.md) owns
+the YouTube-specific application: hook window, per-beat discipline, retention
+structure, and the words-per-minute default this skill uses.
+[`knowledge/storytelling-method.md`](../../knowledge/storytelling-method.md) owns the
+attention craft it rests on: the three-step hook formula, the four-step addiction
+loop, the dance (but/therefore), rhythm, and the last dab.
 
 It runs on reasoning and the owner's own words alone. Work the gates in order.
 Only fall back to defaults where a gate says so.
@@ -77,11 +80,15 @@ at minimum, these roles, in this order:
 - **`hook`**: the opening line that earns the next ten seconds. It must land
   inside `meta.hook_window_s` (default 5 seconds), and Step 4 fits it to that
   window by word count before its timing is written. This is the single most
-  important beat.
+  important beat. Build it with the three-step hook formula in
+  `knowledge/storytelling-method.md` (context lean-in → scroll-stop → contrarian
+  snapback), and open a clear curiosity loop.
 - **`promise`**: what the viewer walks away with if they stay.
 - **`point`**: one or more teaching or story beats that deliver the promise.
   Most videos have several. Use `reset` beats between points on longer videos to
-  re-earn attention, and `proof` beats where a claim needs backing.
+  re-earn attention, and `proof` beats where a claim needs backing. A `reset` is a
+  re-hook (`knowledge/storytelling-method.md`): close one loop and open the next in
+  the same breath, don't leave a flat seam.
 - **`cta`**: the one clear call to action from Step 2.
 
 Each beat carries the fields in the schema below. The `role` is one of:

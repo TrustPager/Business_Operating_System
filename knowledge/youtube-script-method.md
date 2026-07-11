@@ -9,6 +9,11 @@ that uses it stays lean and references this file:
 - [`youtube-packaging-method.md`](youtube-packaging-method.md) owns the title +
   thumbnail *promise*. This file owns *keeping* it. The script's whole job is to
   deliver on the packaging, so read the packaging first, then script to it.
+- [`storytelling-method.md`](storytelling-method.md) owns the cross-cutting
+  attention craft — hooks, curiosity loops, the dance, rhythm, the last dab. This
+  file is that craft *applied to a beat-structured YouTube video*. When a move here
+  (the hook, a retention reset) has a general form, storytelling-method is its home;
+  read it alongside this file.
 
 **The script is the spec.** One beat-structured script drives everything
 downstream: `studio/video` renders each beat's on-screen text as motion graphics,
@@ -76,6 +81,12 @@ before any intro, channel branding, or "hey everyone welcome back".
 | **The result first** | Show the outcome up front, then earn it | *"This is the quote that won a $12,000 job. Let me show you how it was built."* |
 | **The relatable moment** | Name the exact situation the viewer is in | *"You're standing in someone's kitchen and they ask what it'll cost. Here's what I say."* |
 
+**The deeper hook craft** — the three-step formula (context lean-in → scroll-stop
+interjection → contrarian snapback), the six hook power words, and why a visual hook
+beats an audio-only one — lives in [`storytelling-method.md`](storytelling-method.md).
+The patterns above are the YouTube-specific shapes; reach for the formula when a hook
+won't land.
+
 **Cut the runway.** The single most common hook mistake is starting with a slow
 intro before the hook. There is no "warming up" — the hook is beat one. Branding,
 context, and the channel intro come *after* the viewer has a reason to stay, if at
@@ -112,8 +123,12 @@ The script's job is to keep giving them a reason. The structure:
 6. **CTA** — one clear next action.
 
 **A retention reset is a deliberate re-hook mid-video.** It is a small pattern
-change that stops the video feeling like one long flat stretch. Use one whenever a
-section runs long or the energy would otherwise sag:
+change that stops the video feeling like one long flat stretch. The attention engine
+underneath it — the four-step addiction loop (stakes → big question → head fake →
+re-hook) and the loop-opener cadence (a re-hook roughly every 60–90 seconds on a long
+video) — is in [`storytelling-method.md`](storytelling-method.md). A reset closes one
+loop and opens the next in the same breath. Use one whenever a section runs long or
+the energy would otherwise sag:
 
 - **Open a new loop** — *"But there's a catch, and it's the part everyone gets wrong."*
 - **Change the visual** — move from talking-head to a demo, a screen, or b-roll.

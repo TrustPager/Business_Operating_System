@@ -104,6 +104,13 @@ Across all of them:
 4. **Sound like a person.** Short sentences. Their words. No jargon, no
    system-internals, no hype register.
 
+**The craft under the hook** — the contrast word that creates the curiosity gap
+(*most people think X, but…*), naming an idea so it sticks (term branding), and
+condensing the point so a reader can retell it in one line (atomic sharability) —
+lives in [`knowledge/storytelling-method.md`](../../knowledge/storytelling-method.md).
+Reach for it when a post reads flat or the first line won't earn the scroll-stop.
+Framing stays the owner's choice; the file supplies the mechanics, not the register.
+
 ## Step 4: Optional, the ad variant (only if they ask)
 
 If the owner wants this as a paid ad too, add a second block. Don't replace the

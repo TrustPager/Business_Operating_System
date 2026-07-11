@@ -56,6 +56,12 @@ is already tight.
 **Short beats clever.** 3–8 words. Use `\n` to control the line break so the
 shape reads well.
 
+**Open a curiosity gap where you can.** The strongest headlines carry a contrast —
+the distance between what the reader expects and what you say is true. The craft for
+this (contrast words, naming an idea so it sticks) is in
+[`storytelling-method.md`](storytelling-method.md). It's the mechanic; the framing
+below is the house choice.
+
 **Positive framing only.** State the outcome, not the failure you're avoiding.
 - ✅ *"Every lead followed up, automatically"*
 - ❌ *"Stop letting leads slip away"*

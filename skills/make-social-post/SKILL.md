@@ -35,7 +35,10 @@ canonical files inside the studio (read them BEFORE designing, not after):
 | `studio/social/src/templates/SocialPost.jsx` (JSDoc header) | Canonical layout, the `FORMATS` scale table, the full data shape, brand rules in compact form |
 
 The methodology is summarised at
-[`knowledge/social-post-method.md`](../../knowledge/social-post-method.md).
+[`knowledge/social-post-method.md`](../../knowledge/social-post-method.md). The
+headline's attention craft — the contrast that opens a curiosity gap, and naming one
+idea so it sticks — draws on
+[`knowledge/storytelling-method.md`](../../knowledge/storytelling-method.md).
 
 ## Step 1 — Confirm the brief
 
