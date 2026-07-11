@@ -8,6 +8,8 @@
     "render": "node scripts/render.js",
     "render:raw": "remotion render src/index.ts",
     "still": "remotion still src/index.ts",
+    "ingest": "node scripts/ingest.js",
+    "caption": "node scripts/caption.js",
     "preflight": "node scripts/preflight.js"
   },
   "author": "FinalPiece AI",
@@ -15,6 +17,8 @@
   "dependencies": {
     "@remotion/cli": "4.0.443",
     "@remotion/google-fonts": "4.0.443",
+    "@remotion/install-whisper-cpp": "4.0.443",
+    "@remotion/media": "4.0.443",
     "@remotion/motion-blur": "4.0.443",
     "@remotion/noise": "4.0.443",
     "@remotion/paths": "4.0.443",
