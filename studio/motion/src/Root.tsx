@@ -8,6 +8,18 @@ import {
   FACELESS_DIMS,
   FACELESS_DURATION_IN_FRAMES,
 } from "./compositions/Faceless";
+import {
+  FacelessBlueprint,
+  BLUEPRINT_FPS,
+  BLUEPRINT_DIMS,
+  BLUEPRINT_DURATION_IN_FRAMES,
+} from "./compositions/FacelessBlueprint";
+import {
+  FacelessPop,
+  POP_FPS,
+  POP_DIMS,
+  POP_DURATION_IN_FRAMES,
+} from "./compositions/FacelessPop";
 
 // Phase 1: a single brand-driven scaffold composition, to prove the engine + brand
 // bridge render on the owner's brand.json with zero baked product tokens.
@@ -40,6 +52,24 @@ export const RemotionRoot: React.FC = () => {
         fps={FACELESS_FPS}
         width={FACELESS_DIMS.width}
         height={FACELESS_DIMS.height}
+      />
+      {/* Same content + engine, alternate scene styles selected by the plan's
+          direction.style — directly comparable to Faceless. */}
+      <Composition
+        id="FacelessBlueprint"
+        component={FacelessBlueprint}
+        durationInFrames={BLUEPRINT_DURATION_IN_FRAMES}
+        fps={BLUEPRINT_FPS}
+        width={BLUEPRINT_DIMS.width}
+        height={BLUEPRINT_DIMS.height}
+      />
+      <Composition
+        id="FacelessPop"
+        component={FacelessPop}
+        durationInFrames={POP_DURATION_IN_FRAMES}
+        fps={POP_FPS}
+        width={POP_DIMS.width}
+        height={POP_DIMS.height}
       />
     </>
   );
