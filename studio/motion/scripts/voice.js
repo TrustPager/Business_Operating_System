@@ -349,7 +349,8 @@ async function run() {
     voice_id: voiceId,
     model_id: modelId,
     dir: `audio/${slug}`,
-    timing_source: manifestBeats.length ? manifestBeats[0] && (provider.name === "elevenlabs" ? "elevenlabs_alignment" : "whisper_pending") : "none",
+    timing_source:
+      provider.name === "elevenlabs" ? "elevenlabs_alignment" : "whisper_pending",
     text_source: source,
     total_duration_s: +cursorS.toFixed(3),
     beats: manifestBeats,
