@@ -30,8 +30,14 @@ import {
   computeOverlayMeta,
   type OverlayPlan,
 } from "./compositions/Overlay";
+import {
+  ProductDemo,
+  computeProductDemoMeta,
+  type ProductDemoPlan,
+} from "./compositions/ProductDemo";
 import samplePlan from "../data/sample.scenes.json";
 import sampleOverlay from "../data/sample.overlay.json";
+import sampleProductDemo from "../data/sample.product-demo.json";
 
 // Phase 1: a single brand-driven scaffold composition, to prove the engine + brand
 // bridge render on the owner's brand.json with zero baked product tokens.
@@ -123,6 +129,29 @@ export const RemotionRoot: React.FC = () => {
         defaultProps={sampleOverlay as unknown as OverlayPlan}
         calculateMetadata={({ props }) => {
           const meta = computeOverlayMeta(props);
+          return {
+            durationInFrames: meta.durationInFrames,
+            fps: meta.fps,
+            width: meta.dims.width,
+            height: meta.dims.height,
+          };
+        }}
+      />
+      {/*
+        ProductDemo — the "watch it get built" composition (Mode C). FOUNDER/SAAS
+        ADD-ON, off the default owner flow: registered so the add-on skill
+        `make-product-demo` can drive it, but `make-my-video` never routes here.
+        Props-driven like Video/Overlay: the plan arrives as input props and
+        `computeProductDemoMeta` derives fps + dimensions + duration. Set
+        `transparent: true` in the plan for the alpha "hand to my editor" export
+        (scripts/render.js --alpha), so no solid background kills the alpha.
+      */}
+      <Composition
+        id="ProductDemo"
+        component={ProductDemo}
+        defaultProps={sampleProductDemo as unknown as ProductDemoPlan}
+        calculateMetadata={({ props }) => {
+          const meta = computeProductDemoMeta(props);
           return {
             durationInFrames: meta.durationInFrames,
             fps: meta.fps,

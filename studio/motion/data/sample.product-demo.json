@@ -1,0 +1,52 @@
+{
+  "slug": "sample-product-demo",
+  "aspect": "16:9",
+  "fps": 30,
+  "transparent": false,
+  "progress": {
+    "title": "Progress",
+    "tasks": [
+      { "id": "understand", "label": "Read the request" },
+      { "id": "plan", "label": "Plan the change" },
+      { "id": "apply", "label": "Apply it in your product" },
+      { "id": "confirm", "label": "Confirm it landed" }
+    ],
+    "appearFrame": 20,
+    "checkoffFrames": [45, 150, 235, 300],
+    "disappearFrame": 330
+  },
+  "beats": [
+    {
+      "id": "ask",
+      "kind": "chat",
+      "duration_s": 6,
+      "build": true,
+      "sidebarProgress": 0,
+      "user": { "initial": "Y", "name": "You", "workspace": "Your workspace" },
+      "composer": { "placeholder": "Reply...", "model": "Assistant", "modelMode": "Adaptive" },
+      "messages": [
+        { "role": "user", "text": "Move every qualified lead to Won for this quarter.", "appearAtOffset": 0 },
+        { "role": "assistant", "text": "On it. Let me take a look first.", "showWordmark": false, "showActions": false, "appearAtOffset": 30 },
+        { "role": "assistant-thinking", "thinkingLabel": "Reviewing your pipeline...", "appearAtOffset": 70 },
+        { "role": "assistant-tool", "toolVerb": "List qualified leads", "toolActive": true, "appearAtOffset": 110 },
+        { "role": "assistant-tool", "toolVerb": "Update 12 lead stages", "toolActive": true, "appearAtOffset": 140 },
+        { "role": "assistant", "text": "Done. 12 qualified leads are now marked Won for this quarter.", "showWordmark": true, "showActions": true, "appearAtOffset": 165 }
+      ]
+    },
+    {
+      "id": "show-result",
+      "kind": "screen",
+      "duration_s": 5,
+      "screen": null,
+      "clicks": [
+        { "x": 0.62, "y": 0.42, "w": 0.18, "h": 0.1, "startOffset": 12, "color": "assistant" }
+      ],
+      "composerOverlay": {
+        "prompt": "Move every qualified lead to Won for this quarter.",
+        "targetPoint": { "x": 0.62, "y": 0.47 },
+        "position": { "x": 0.5, "y": 0.14, "width": 672 },
+        "timing": { "appearAt": 6, "typeStart": 18, "pointAt": 70, "fadeAt": 130 }
+      }
+    }
+  ]
+}

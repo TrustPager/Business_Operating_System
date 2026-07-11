@@ -50,6 +50,7 @@ function fail(msg) {
 const argv = process.argv.slice(2);
 const positionals = [];
 let propsRaw = null;
+let alphaMode = null; // null | "prores" | "vp9" — the ADVANCED transparent-export door
 const passthrough = [];
 for (const arg of argv) {
   if (arg.startsWith("--props=")) {
@@ -58,6 +59,16 @@ for (const arg of argv) {
     // `--props <value>` (space-separated) is not supported by our wrapper; the
     // Remotion convention we use is `--props=<value>`. Guide the caller.
     fail("use --props=<json-or-path>, not a space-separated --props value.");
+  } else if (arg === "--alpha" || arg.startsWith("--alpha=")) {
+    // The "hand this to my video editor" escape hatch (design spec §5.4). NOT on
+    // the default path — it swaps to a transparent-canvas render. `--alpha` (or
+    // `--alpha=prores`) => ProRes 4444 .mov; `--alpha=vp9`/`--alpha=webm` => WebM
+    // VP9. We intercept it here so Remotion never sees an unknown flag; the real
+    // codec/pixel-format flags are injected below.
+    const v = arg.includes("=") ? arg.slice("--alpha=".length).toLowerCase() : "prores";
+    if (v === "" || v === "prores" || v === "mov") alphaMode = "prores";
+    else if (v === "vp9" || v === "webm") alphaMode = "vp9";
+    else fail(`--alpha value must be prores or vp9 (got "${v}")`);
   } else if (arg.startsWith("--")) {
     passthrough.push(arg);
   } else {
@@ -108,15 +119,22 @@ function resolvePlan(raw) {
 
 const plan = resolvePlan(propsRaw);
 
-// Two plan shapes travel through this one wrapper:
+// Three plan shapes travel through this one wrapper:
 //   * a FACELESS plan carries scenes[] (Mode A, the scenes.json renderer);
-//   * an OVERLAY plan carries a `recording` (Mode B, talking-head compositing).
-// A plan with neither is a mistake; guide the caller.
+//   * an OVERLAY plan carries a `recording` (Mode B, talking-head compositing);
+//   * a PRODUCT-DEMO plan carries beats[] (Mode C add-on, "watch it get built").
+// A plan with none of these is a mistake; guide the caller.
 const isOverlay = !!(plan && plan.recording);
-if (propsRaw && !isOverlay && (!plan || !Array.isArray(plan.scenes) || plan.scenes.length === 0)) {
+const isProductDemo = !!(plan && Array.isArray(plan.beats));
+if (
+  propsRaw &&
+  !isOverlay &&
+  !isProductDemo &&
+  (!plan || !Array.isArray(plan.scenes) || plan.scenes.length === 0)
+) {
   fail(
-    "resolved plan has neither scenes[] (faceless) nor a recording (talking-head). " +
-      "Point --props at a <slug>.scenes.json or an overlay plan."
+    "resolved plan has none of scenes[] (faceless), a recording (talking-head), " +
+      "or beats[] (product-demo). Point --props at a valid plan."
   );
 }
 
@@ -198,6 +216,42 @@ if (!isOverlay && plan && Array.isArray(plan.scenes) && plan.voice) {
   }
 }
 
+// --- Alpha / transparent-overlay export (ADVANCED door, design spec §5.4) -----
+// Off the default path. When --alpha is set we (a) mark the plan `transparent`
+// so the composition drops its solid background (a solid background-color kills
+// alpha), and (b) inject the codec + pixel-format flags that carry an alpha plane.
+// These override the h264/yuv420p defaults from remotion.config.ts.
+if (alphaMode) {
+  if (plan && typeof plan === "object") {
+    plan.transparent = true;
+  }
+  const outExt = path.extname(outputPath).toLowerCase();
+  if (alphaMode === "prores") {
+    passthrough.push(
+      "--codec=prores",
+      "--prores-profile=4444",
+      "--pixel-format=yuva444p10le",
+      "--image-format=png"
+    );
+    if (outExt !== ".mov") {
+      console.warn(
+        `[render] --alpha (ProRes 4444) writes a QuickTime stream; name the output .mov (got ${outExt || "no extension"}).`
+      );
+    }
+  } else {
+    passthrough.push("--codec=vp9", "--pixel-format=yuva420p");
+    if (outExt !== ".webm") {
+      console.warn(
+        `[render] --alpha=vp9 writes a WebM stream; name the output .webm (got ${outExt || "no extension"}).`
+      );
+    }
+  }
+  console.log(
+    `[render] ALPHA export (${alphaMode}): transparent canvas, alpha-carrying codec. ` +
+      "This is the hand-to-your-editor path, not the default render."
+  );
+}
+
 // --- Build child args + a temp props file ------------------------------------
 let tmpDir = null;
 let tmpProps = null;
@@ -252,6 +306,36 @@ function writeTiming() {
     return;
   }
 
+  // Product-demo (Mode C): beats laid end to end, no transition overlap. Emit the
+  // same {slug, fps, beats[]} sidecar so package-my-video still gets chapters.
+  if (isProductDemo) {
+    const slugP = plan.slug || path.basename(outputPath, path.extname(outputPath));
+    const outAbsP = path.isAbsolute(outputPath)
+      ? outputPath
+      : path.join(PROJECT_ROOT, outputPath);
+    const timingPathP = path.join(path.dirname(outAbsP), `${slugP}.timing.json`);
+    let cursorP = 0;
+    const beatsP = [];
+    for (const b of plan.beats) {
+      const frames = Math.max(Math.round((b.duration_s ?? 0) * fps), 1);
+      const startFrame = cursorP;
+      const endFrame = cursorP + frames;
+      beatsP.push({
+        id: b.id || `beat-${beatsP.length}`,
+        start_s: +(startFrame / fps).toFixed(3),
+        end_s: +(endFrame / fps).toFixed(3),
+      });
+      cursorP = endFrame;
+    }
+    writeFileSync(
+      timingPathP,
+      JSON.stringify({ slug: slugP, fps, beats: beatsP }, null, 2) + "\n",
+      "utf8"
+    );
+    console.log(`[render] wrote ${path.relative(PROJECT_ROOT, timingPathP)}`);
+    return;
+  }
+
   const transitionFrames =
     plan.transition && typeof plan.transition.duration_frames === "number"
       ? plan.transition.duration_frames
@@ -301,6 +385,9 @@ function cleanup() {
 const child = spawn(process.execPath, childArgs, {
   cwd: PROJECT_ROOT,
   stdio: "inherit",
+  // Signal remotion.config.ts to skip the h264-only CRF setting on the alpha
+  // path (ProRes rejects --crf); the alpha render carries quality via its profile.
+  env: alphaMode ? { ...process.env, BOS_ALPHA_EXPORT: alphaMode } : process.env,
 });
 
 child.on("close", (code) => {

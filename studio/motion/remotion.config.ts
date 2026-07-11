@@ -40,7 +40,13 @@ Config.setConcurrency(2);
 Config.setCodec("h264");
 
 // Owner-reasonable quality (premium cuts override to a lower CRF + slower preset).
-Config.setCrf(18);
+// CRF is invalid for the ProRes codec used by the alpha export door
+// (scripts/render.js --alpha), so it is skipped when that path sets
+// BOS_ALPHA_EXPORT. The alpha render carries its quality via --prores-profile
+// (or the VP9 defaults) instead.
+if (!process.env.BOS_ALPHA_EXPORT) {
+  Config.setCrf(18);
+}
 
 // Lossless frame screenshots into the encoder.
 Config.setVideoImageFormat("png");
