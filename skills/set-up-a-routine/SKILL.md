@@ -40,10 +40,21 @@ you just schedule that instead.
 
 ## Step 1: Pick the job to automate
 
-Start from what actually eats their week. Read their profile for the "what would
-you most love to hand off" note, or ask in one line. Then match it to a routine
-shape (below). Pick ONE to start. A single routine that runs beats three they
-never trust.
+Start from what actually eats their week. Pick ONE to start; a single routine that
+runs beats three they never trust.
+
+**Suggest a candidate first (diagnose, don't just ask).** Before asking them to
+name a task, read `./CLAUDE.md`: the "what would you most love to hand off" note,
+the diagnosed constraint, and anything about how they spend their week. Look for a
+**repeatable by-hand task they do the same way every time** (chasing quiet leads,
+the morning follow-ups, a weekly numbers check, the same recap sent again and
+again) and propose the single best one in plain words, matched to a routine shape
+below: *"You mentioned you chase quotes by hand every week. That's exactly the
+kind of thing I can run for you. Want me to set that up?"* Proposing a concrete
+candidate beats a blank "what do you want to automate?", the owner often cannot
+name it cold. If the profile gives you nothing to go on, then ask in one line.
+This is the diagnose-then-build path Day 5 of the challenge uses; it works the
+same standalone.
 
 ## Step 2: Design it concretely, and safely
 

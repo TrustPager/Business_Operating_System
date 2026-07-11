@@ -265,6 +265,13 @@
     "requires_driver": "markitdown",
     "status": "active"
   },
+  "find-my-next-move": {
+    "data_path": "reasoning_only",
+    "function_slot": "strategy",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
   "five-day-challenge": {
     "data_path": "reasoning_only",
     "function_slot": "floor",
@@ -500,6 +507,13 @@
   "plan-my-content": {
     "data_path": "reasoning_only",
     "function_slot": "social",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
+  "plan-my-roadmap": {
+    "data_path": "reasoning_only",
+    "function_slot": "strategy",
     "requires_credential": "none",
     "requires_driver": "none",
     "status": "active"
