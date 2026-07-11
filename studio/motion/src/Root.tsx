@@ -3,7 +3,7 @@ import { Composition } from "remotion";
 import { Scaffold } from "./compositions/Scaffold";
 
 // Phase 1: a single brand-driven scaffold composition, to prove the engine + brand
-// bridge render on the owner's brand.json with zero TrustPager tokens.
+// bridge render on the owner's brand.json with zero baked product tokens.
 // Faceless / Overlay / ProductDemo compositions arrive in later phases.
 export const RemotionRoot: React.FC = () => {
   return (

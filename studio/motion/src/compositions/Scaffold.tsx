@@ -6,15 +6,9 @@ import {
   spring,
   interpolate,
 } from "remotion";
-import {
-  NAME,
-  TAGLINE,
-  PRIMARY,
-  PRIMARY_DEEP,
-  PANEL,
-  ACCENT,
-  FONT_BODY,
-} from "../brand.js";
+import { NAME, TAGLINE } from "../brand.js";
+import { primary, primaryDeep, panel, accent } from "../tokens";
+import { FONT_BODY } from "../fonts";
 
 // Phase-1 scaffold: proves the engine renders on the owner's brand.json.
 // Every colour + the font come from brand.js -> brand/brand.json. No hex literals.
@@ -29,7 +23,7 @@ export const Scaffold: React.FC = () => {
   return (
     <AbsoluteFill
       style={{
-        background: `linear-gradient(135deg, ${PRIMARY_DEEP} 0%, ${PRIMARY} 100%)`,
+        background: `linear-gradient(135deg, ${primaryDeep} 0%, ${primary} 100%)`,
         alignItems: "center",
         justifyContent: "center",
         fontFamily: FONT_BODY,
@@ -40,7 +34,7 @@ export const Scaffold: React.FC = () => {
           opacity,
           transform: `translateY(${lift}px)`,
           textAlign: "center",
-          color: PANEL,
+          color: panel,
           padding: 80,
         }}
       >
@@ -48,7 +42,7 @@ export const Scaffold: React.FC = () => {
           {NAME}
         </div>
         {TAGLINE ? (
-          <div style={{ fontSize: 36, marginTop: 16, color: ACCENT, fontWeight: 600 }}>
+          <div style={{ fontSize: 36, marginTop: 16, color: accent, fontWeight: 600 }}>
             {TAGLINE}
           </div>
         ) : null}
