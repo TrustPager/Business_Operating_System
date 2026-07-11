@@ -153,6 +153,51 @@ if (isOverlay) {
   }
 }
 
+// --- Faceless: inline the per-beat voice manifest (spec §6, the VOICE rung) ----
+// A faceless plan opts into voiceover by carrying `voice` (a dir hint like
+// "audio/<slug>", written by voice-my-video). The composition runs in a headless
+// browser and cannot read a file off disk, so — exactly like the overlay duration
+// probe above — we read data/<slug>.voice.json HERE in Node and inline it as
+// { dir, beats } on the plan. Silent-by-default: no `voice` key, or a missing
+// manifest, renders exactly as before (the keyless floor), never a hard-fail.
+if (!isOverlay && plan && Array.isArray(plan.scenes) && plan.voice) {
+  const slugV =
+    plan.slug || path.basename(outputPath, path.extname(outputPath));
+  const already =
+    typeof plan.voice === "object" && Array.isArray(plan.voice.beats);
+  if (!already) {
+    const voicePath = path.join(PROJECT_ROOT, "data", `${slugV}.voice.json`);
+    if (existsSync(voicePath)) {
+      try {
+        const manifest = JSON.parse(readFileSync(voicePath, "utf8"));
+        const dir =
+          (typeof plan.voice === "string" ? plan.voice : manifest.dir) ||
+          `audio/${slugV}`;
+        const beats = Array.isArray(manifest.beats) ? manifest.beats : [];
+        plan.voice = { dir, beats };
+        console.log(
+          `[render] voiceover: layering ${beats.length} beat MP3s from ${dir}/ ` +
+            `(${manifest.provider || "unknown provider"})`
+        );
+      } catch (e) {
+        plan.voice = null;
+        console.warn(
+          `[render] could not read the voice manifest (${e.message}); ` +
+            "rendering silent + captions."
+        );
+      }
+    } else {
+      plan.voice = null;
+      console.warn(
+        `[render] no voice manifest at data/${slugV}.voice.json; ` +
+          "rendering silent + captions. Run `npm run voice -- " +
+          slugV +
+          "` to add a voiceover."
+      );
+    }
+  }
+}
+
 // --- Build child args + a temp props file ------------------------------------
 let tmpDir = null;
 let tmpProps = null;

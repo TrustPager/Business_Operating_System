@@ -5,7 +5,7 @@
 // aesthetic; nothing is hardcoded per-video — swap the JSON, get a new video in a
 // new style. Faceless / FacelessBlueprint / FacelessPop each bind one plan here.
 import React from "react";
-import { AbsoluteFill } from "remotion";
+import { AbsoluteFill, Audio, staticFile } from "remotion";
 import { TransitionSeries, linearTiming } from "@remotion/transitions";
 import { fade } from "@remotion/transitions/fade";
 import { bg, text } from "../tokens";
@@ -15,18 +15,54 @@ import { resolveScene, DEFAULT_STYLE } from "../scenes/library/registry";
 // ---- Types (loose — the JSON is the linted contract) ----
 export interface SceneEntry {
   id: string;
+  beat_ref?: string;
   visual_device: string;
   duration_s: number;
   visual: Record<string, unknown>;
   on_screen_label?: string;
 }
+
+// The per-beat voice manifest (data/<slug>.voice.json), inlined into the plan by
+// scripts/render.js when the plan opts into voice. Each entry names a beat's MP3
+// (under public/<dir>/) so the engine can layer it on that beat's scene. Silent by
+// default — a plan with no `voice` renders exactly as before (spec §6, keyless floor).
+export interface VoiceBeat {
+  beat_ref: string;
+  file: string;
+  start_s?: number;
+  duration_s?: number;
+}
+export interface VoiceManifest {
+  dir: string; // path under public/ (e.g. "audio/<slug>")
+  beats: VoiceBeat[];
+}
+
 export interface ScenesPlan {
   fps?: number;
   aspect?: string;
   direction?: { style?: string };
   transition?: { type?: string; duration_frames?: number };
+  voice?: VoiceManifest | string | null;
   scenes: SceneEntry[];
 }
+
+// Build a beat_ref -> audio staticFile src lookup from the (inlined) voice manifest.
+// A bare string `voice` is a dir hint that was never resolved to a manifest (render.js
+// inlines it); treat that as silent rather than guessing filenames.
+const buildVoiceLookup = (
+  voice: ScenesPlan["voice"]
+): Record<string, string> => {
+  const lookup: Record<string, string> = {};
+  if (!voice || typeof voice === "string") return lookup;
+  const dir = (voice.dir || "").replace(/\/+$/, "");
+  const beats = Array.isArray(voice.beats) ? voice.beats : [];
+  for (const b of beats) {
+    if (b && b.beat_ref && b.file) {
+      lookup[b.beat_ref] = dir ? `${dir}/${b.file}` : b.file;
+    }
+  }
+  return lookup;
+};
 
 export interface FacelessBuild {
   Faceless: React.FC;
@@ -96,6 +132,14 @@ export const buildFaceless = (rawPlan: unknown): FacelessBuild => {
   const frames = (s: SceneEntry): number =>
     sceneFrames(s.duration_s, fps, transitionFrames);
 
+  // Silent by default. When the plan carries a resolved voice manifest, each beat's
+  // MP3 is layered INSIDE that beat's scene Sequence, so it starts at the scene's
+  // own start on the existing beat/scene timeline (no new timing maths — the
+  // Sequence context is the beat's start). Audio longer than its scene is clipped by
+  // the Sequence, so a too-long VO never bleeds into the next scene (voice.js warns
+  // when that happens so the scene can be lengthened). Visual duration is unchanged.
+  const voiceLookup = buildVoiceLookup(plan.voice);
+
   const RenderedScene: React.FC<{ scene: SceneEntry }> = ({ scene }) => {
     const Component = resolveScene(scene.visual_device, style);
     if (!Component) {
@@ -140,12 +184,14 @@ export const buildFaceless = (rawPlan: unknown): FacelessBuild => {
     // flattened), so build a flat element array.
     const children: React.ReactNode[] = [];
     plan.scenes.forEach((scene, i) => {
+      const voiceSrc = voiceLookup[scene.beat_ref ?? ""] ?? voiceLookup[scene.id];
       children.push(
         <TransitionSeries.Sequence
           key={scene.id}
           durationInFrames={frames(scene)}
         >
           <RenderedScene scene={scene} />
+          {voiceSrc ? <Audio src={staticFile(voiceSrc)} /> : null}
         </TransitionSeries.Sequence>
       );
       if (i < plan.scenes.length - 1) {
