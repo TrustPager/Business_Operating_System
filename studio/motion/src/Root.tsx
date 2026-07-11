@@ -25,7 +25,13 @@ import {
   computeFacelessMeta,
   type ScenesPlan,
 } from "./compositions/facelessFactory";
+import {
+  Overlay,
+  computeOverlayMeta,
+  type OverlayPlan,
+} from "./compositions/Overlay";
 import samplePlan from "../data/sample.scenes.json";
+import sampleOverlay from "../data/sample.overlay.json";
 
 // Phase 1: a single brand-driven scaffold composition, to prove the engine + brand
 // bridge render on the owner's brand.json with zero baked product tokens.
@@ -93,6 +99,30 @@ export const RemotionRoot: React.FC = () => {
         calculateMetadata={({ props }) => {
           // `props` IS the scenes plan (input props merged over defaultProps).
           const meta = computeFacelessMeta(props);
+          return {
+            durationInFrames: meta.durationInFrames,
+            fps: meta.fps,
+            width: meta.dims.width,
+            height: meta.dims.height,
+          };
+        }}
+      />
+      {/*
+        Overlay — the ONE talking-head composition (Mode B). Like Video, it
+        renders an ARBITRARY overlay plan handed in as input props:
+        `make-my-video` (via scripts/render.js) ingests the owner recording,
+        probes its real length, injects `durationInFrames`, and hands the whole
+        plan in. `calculateMetadata` derives fps + dimensions + duration from the
+        plan; the recording carries its own audio, graphics + captions layer over
+        it, and any music bed is ducked underneath. No props => the bundled sample
+        (placeholder until a recording is ingested).
+      */}
+      <Composition
+        id="Overlay"
+        component={Overlay}
+        defaultProps={sampleOverlay as unknown as OverlayPlan}
+        calculateMetadata={({ props }) => {
+          const meta = computeOverlayMeta(props);
           return {
             durationInFrames: meta.durationInFrames,
             fps: meta.fps,

@@ -22,13 +22,15 @@
 // spaces survive.
 
 import { spawn } from "node:child_process";
-import { readFileSync, writeFileSync, unlinkSync, mkdtempSync } from "node:fs";
+import { readFileSync, writeFileSync, unlinkSync, mkdtempSync, existsSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { resolveFfmpeg, probeDurationSeconds } from "./ffmpeg.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.join(__dirname, "..");
+const PUBLIC_DIR = path.join(PROJECT_ROOT, "public");
 const ENTRY = "src/index.ts";
 const CLI_JS = path.join(
   PROJECT_ROOT,
@@ -105,10 +107,50 @@ function resolvePlan(raw) {
 }
 
 const plan = resolvePlan(propsRaw);
-if (propsRaw && (!plan || !Array.isArray(plan.scenes) || plan.scenes.length === 0)) {
+
+// Two plan shapes travel through this one wrapper:
+//   * a FACELESS plan carries scenes[] (Mode A, the scenes.json renderer);
+//   * an OVERLAY plan carries a `recording` (Mode B, talking-head compositing).
+// A plan with neither is a mistake; guide the caller.
+const isOverlay = !!(plan && plan.recording);
+if (propsRaw && !isOverlay && (!plan || !Array.isArray(plan.scenes) || plan.scenes.length === 0)) {
   fail(
-    "resolved plan has no scenes[]. Point --props at a <slug>.scenes.json (or an object with scenesPath)."
+    "resolved plan has neither scenes[] (faceless) nor a recording (talking-head). " +
+      "Point --props at a <slug>.scenes.json or an overlay plan."
   );
+}
+
+// --- Overlay: probe the recording's real length in Node, inject durationInFrames.
+// `calculateMetadata` runs in a headless browser and cannot read the file off
+// disk, so the duration must be resolved HERE and handed in as a prop (design
+// spec §5.2). The recording path is relative to public/ (it is loaded via
+// staticFile in the composition).
+if (isOverlay) {
+  const fps = typeof plan.fps === "number" ? plan.fps : 30;
+  const recAbs = path.isAbsolute(plan.recording)
+    ? plan.recording
+    : path.join(PUBLIC_DIR, plan.recording);
+  if (!existsSync(recAbs)) {
+    fail(
+      `overlay recording not found at ${recAbs}. ` +
+        `Run \`npm run ingest -- <input> ${plan.slug || "<slug>"}\` first.`
+    );
+  }
+  const { bin } = await resolveFfmpeg();
+  const durS = bin ? probeDurationSeconds(bin, recAbs) : null;
+  if (durS && durS > 0) {
+    plan.durationInFrames = Math.round(durS * fps);
+    console.log(
+      `[render] recording is ${durS.toFixed(1)}s → ${plan.durationInFrames} frames @ ${fps}fps`
+    );
+  } else if (typeof plan.durationInFrames !== "number" || plan.durationInFrames <= 0) {
+    // Never crash: fall back to a sane default so the render still completes.
+    plan.durationInFrames = fps * 5;
+    console.warn(
+      "[render] could not probe the recording length; using a 5s fallback. " +
+        "Install ffmpeg (npm install) so the clip length is exact."
+    );
+  }
 }
 
 // --- Build child args + a temp props file ------------------------------------
@@ -132,6 +174,39 @@ if (plan) {
 function writeTiming() {
   if (!plan) return;
   const fps = typeof plan.fps === "number" ? plan.fps : 30;
+
+  // Overlay (talking-head): the timeline is the recording's real length. Emit a
+  // single beat spanning the clip (the same {slug, fps, beats[]} shape as faceless
+  // + studio/video), so package-my-video still gets a valid sidecar.
+  if (isOverlay) {
+    const durationInFrames =
+      typeof plan.durationInFrames === "number" && plan.durationInFrames > 0
+        ? plan.durationInFrames
+        : fps * 5;
+    const slugO = plan.slug || path.basename(outputPath, path.extname(outputPath));
+    const outAbsO = path.isAbsolute(outputPath)
+      ? outputPath
+      : path.join(PROJECT_ROOT, outputPath);
+    const timingPathO = path.join(path.dirname(outAbsO), `${slugO}.timing.json`);
+    writeFileSync(
+      timingPathO,
+      JSON.stringify(
+        {
+          slug: slugO,
+          fps,
+          beats: [
+            { id: "recording", start_s: 0, end_s: +(durationInFrames / fps).toFixed(3) },
+          ],
+        },
+        null,
+        2
+      ) + "\n",
+      "utf8"
+    );
+    console.log(`[render] wrote ${path.relative(PROJECT_ROOT, timingPathO)}`);
+    return;
+  }
+
   const transitionFrames =
     plan.transition && typeof plan.transition.duration_frames === "number"
       ? plan.transition.duration_frames
