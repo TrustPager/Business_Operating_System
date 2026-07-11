@@ -150,3 +150,31 @@ export const shadows = {
   composerFocus:
     "0 0.25rem 1.25rem rgba(0,0,0,0.075), 0 0 0 0.5px rgba(100,116,139,0.30)",
 } as const;
+
+// ------------------------------------------------------------------
+// 6. Layout `sizing` + `motion` shapes — pure geometry / timing, no brand
+//    colour. The ported chat kit (the product-demo add-on) imports these from
+//    the token bridge the same way it imports `colors`/`fonts`, so the whole
+//    kit reads ONE module. These are UI-chrome constants, not owner brand.
+// ------------------------------------------------------------------
+export const sizing = {
+  sidebarCollapsedWidth: 49,
+  sidebarExpandedWidth: 280,
+  composerMaxWidth: 672,
+  composerRadius: 20,
+  cardRadius: 12,
+  buttonRadius: 8,
+  chipRadius: 8,
+  pillRadius: 9999,
+  iconSize: 20,
+  iconSmall: 16,
+  avatarSize: 36,
+  avatarSmall: 24,
+} as const;
+
+export const motion = {
+  ease: "cubic-bezier(0.165, 0.85, 0.45, 1)",
+  durationFast: 150,
+  durationBase: 300,
+  durationSlow: 500,
+} as const;

@@ -1,6 +1,12 @@
 // Compositor primitives — top-level video stitching tools that work with any
 // scene component. Brand-agnostic: colour flows from the token bridge, never a
-// baked product colour. (ComposerOverlay is deferred to the product-demo add-on.)
+// baked product colour.
+export {ComposerOverlay} from './ComposerOverlay';
+export type {
+  ComposerOverlayProps,
+  ComposerOverlayTiming,
+  ComposerOverlayPosition,
+} from './ComposerOverlay';
 export {PictureInPicture} from './PictureInPicture';
 export {ConnectorLine} from './ConnectorLine';
 export {CrossHighlight} from './CrossHighlight';
