@@ -42,6 +42,16 @@ const ASPECT_DIMS: Record<string, { width: number; height: number }> = {
   "1:1": { width: 1080, height: 1080 },
 };
 
+// A scene must be strictly longer than the transition that overlaps it, or
+// TransitionSeries throws. Clamp so a too-short duration can never crash a render,
+// and use this everywhere scene frames are computed (metadata, render, timing) so
+// the three never drift.
+const sceneFrames = (
+  durationS: number,
+  fps: number,
+  transitionFrames: number
+): number => Math.max(Math.round((durationS ?? 0) * fps), transitionFrames + 1);
+
 export interface FacelessMeta {
   fps: number;
   transitionFrames: number;
@@ -67,7 +77,7 @@ export const computeFacelessMeta = (rawPlan: unknown): FacelessMeta => {
   // TransitionSeries consumes `transitionFrames` of overlap per transition, so
   // the timeline length is Σ(scene frames) − Σ(transition frames).
   const total = scenes.reduce(
-    (acc, s) => acc + Math.round((s.duration_s ?? 0) * fps),
+    (acc, s) => acc + sceneFrames(s.duration_s ?? 0, fps, transitionFrames),
     0
   );
   const transitions = Math.max(scenes.length - 1, 0);
@@ -83,8 +93,8 @@ export const buildFaceless = (rawPlan: unknown): FacelessBuild => {
   const meta = computeFacelessMeta(plan);
   const { fps, transitionFrames, dims, durationInFrames, style } = meta;
 
-  const sceneFrames = (s: SceneEntry): number =>
-    Math.round(s.duration_s * fps);
+  const frames = (s: SceneEntry): number =>
+    sceneFrames(s.duration_s, fps, transitionFrames);
 
   const RenderedScene: React.FC<{ scene: SceneEntry }> = ({ scene }) => {
     const Component = resolveScene(scene.visual_device, style);
@@ -109,6 +119,23 @@ export const buildFaceless = (rawPlan: unknown): FacelessBuild => {
   };
 
   const Faceless: React.FC = () => {
+    // Fail soft on an empty plan rather than mounting an empty TransitionSeries.
+    if (!plan.scenes || plan.scenes.length === 0) {
+      return (
+        <AbsoluteFill
+          style={{
+            background: bg,
+            fontFamily: FONT_BODY,
+            alignItems: "center",
+            justifyContent: "center",
+            color: text,
+            fontSize: 28,
+          }}
+        >
+          No scenes yet
+        </AbsoluteFill>
+      );
+    }
     // TransitionSeries requires its children to be direct (fragments are not
     // flattened), so build a flat element array.
     const children: React.ReactNode[] = [];
@@ -116,7 +143,7 @@ export const buildFaceless = (rawPlan: unknown): FacelessBuild => {
       children.push(
         <TransitionSeries.Sequence
           key={scene.id}
-          durationInFrames={sceneFrames(scene)}
+          durationInFrames={frames(scene)}
         >
           <RenderedScene scene={scene} />
         </TransitionSeries.Sequence>

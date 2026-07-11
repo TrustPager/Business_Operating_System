@@ -7,7 +7,7 @@
 // intentionally NOT ported — scenes pass their own coordinates.
 import React from 'react';
 import {useCurrentFrame, useVideoConfig, interpolate, AbsoluteFill} from 'remotion';
-import {primary, accent, primaryRgb} from '../tokens';
+import {primary, accent, primaryRgb, text} from '../tokens';
 import {FONT_BODY} from '../fonts';
 import {gradients} from '../tokens';
 
@@ -42,13 +42,13 @@ const Headline = ({x, y, text, style = 'emphasis', opacity, frame, startFrame, f
     },
     subtle: {
       background: 'rgba(255,255,255,0.95)',
-      color: '#020817',
+      color: text,
       borderColor: 'rgba(226, 232, 240, 0.5)',
       shadow: '0 4px 24px rgba(0,0,0,0.08)',
     },
     glass: {
       background: 'rgba(255,255,255,0.85)',
-      color: '#020817',
+      color: text,
       borderColor: `rgba(${primaryRgb}, 0.3)`,
       shadow: `0 8px 32px rgba(${primaryRgb}, 0.12), 0 2px 8px rgba(0,0,0,0.06)`,
     },

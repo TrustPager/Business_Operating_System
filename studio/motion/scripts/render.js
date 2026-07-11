@@ -125,16 +125,25 @@ if (plan) {
 // --- <slug>.timing.json (written on success) ---------------------------------
 // Same shape as studio/video (spec §3): { slug, fps, beats:[{id,start_s,end_s}] }.
 // Keyed by each scene's script beat (beat_ref, falling back to the scene id) so
-// package-my-video maps chapters to the script. Cumulative scene durations, the
-// natural beat timeline (transition overlap is a render-time nicety, not a beat
-// boundary), mirroring studio/video's non-overlapping timeline.
+// package-my-video maps chapters to the script. Times are on the SAME compressed
+// timeline the render uses: TransitionSeries overlaps each cut by transitionFrames,
+// so the final beat's end_s equals the video's real duration (computeFacelessMeta),
+// never past the end. The per-scene clamp mirrors facelessFactory's sceneFrames.
 function writeTiming() {
   if (!plan) return;
   const fps = typeof plan.fps === "number" ? plan.fps : 30;
-  let cursor = 0;
+  const transitionFrames =
+    plan.transition && typeof plan.transition.duration_frames === "number"
+      ? plan.transition.duration_frames
+      : 12;
+  const n = plan.scenes.length;
+  let cursor = 0; // start frame of the current scene on the compressed timeline
   const beats = [];
-  for (const scene of plan.scenes) {
-    const frames = Math.max(1, Math.round((scene.duration_s ?? 0) * fps));
+  plan.scenes.forEach((scene, i) => {
+    const frames = Math.max(
+      Math.round((scene.duration_s ?? 0) * fps),
+      transitionFrames + 1
+    );
     const startFrame = cursor;
     const endFrame = cursor + frames;
     beats.push({
@@ -142,8 +151,10 @@ function writeTiming() {
       start_s: +(startFrame / fps).toFixed(3),
       end_s: +(endFrame / fps).toFixed(3),
     });
-    cursor = endFrame;
-  }
+    // The next scene overlaps this one by transitionFrames (TransitionSeries),
+    // so it begins transitionFrames earlier than a naive cursor.
+    cursor = endFrame - (i < n - 1 ? transitionFrames : 0);
+  });
   const slug =
     plan.slug || path.basename(outputPath, path.extname(outputPath));
   const outAbs = path.isAbsolute(outputPath)
