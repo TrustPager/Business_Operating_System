@@ -429,6 +429,13 @@
     "requires_driver": "render",
     "status": "active"
   },
+  "make-product-demo": {
+    "data_path": "local",
+    "function_slot": "creative",
+    "requires_credential": "none",
+    "requires_driver": "render",
+    "status": "active"
+  },
   "make-social-post": {
     "data_path": "local",
     "function_slot": "social",

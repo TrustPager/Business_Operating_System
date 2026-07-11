@@ -90,6 +90,7 @@ Your brand and voice, branded posts, content plans, and a workspace that looks l
 - **Design My Scenes**: Turn a video script or a topic into a beat-by-beat visual plan the motion studio renders, each beat shown as one clear visual (a before-and-after, a flow, one big number, a bold line), never a wall of subtitles
 - **Design My Site**: A bespoke, high-converting landing page or website built from the sites you admire and your own taste, running on your machine in a sitting
 - **Make My Video**: Make a professional, on-brand video on your own machine, start to finish
+- **Make Product Demo**: FOUNDER / SAAS ADD-ON
 - **Package My Video**: Turn your rendered video into one publish-ready folder (the video, the thumbnail, title options, a full description with chapters, tags, and a short upload checklist), so all you do is upload it to YouTube yourself
 - **Plan My Ads**: Turn what you sell into a clear, ready-to-run ad plan: the one result to optimize for, the offer ad that proves demand, the creative brief, the copy, the budget and the numbers to watch
 - **Plan My Content**: Turn your content pillars and voice into a dated, ready-to-post calendar for the next week or two.
