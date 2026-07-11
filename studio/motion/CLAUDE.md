@@ -23,6 +23,7 @@ video in a new style — no per-video component code.
 
 - Studio preview: `npm run studio` (the Remotion Studio, live reload)
 - Faceless render: `npm run render -- Video output/<slug>.mp4 --props=data/<slug>.scenes.json`
+- Faceless voiceover (BYO key): `npm run voice -- <slug>` (ElevenLabs/OpenAI, degrades to silent)
 - Talking-head ingest: `npm run ingest -- "<clip>" <slug> --aspect=9:16`
 - Talking-head captions: `npm run caption -- <slug>` (local whisper.cpp, degrades gracefully)
 - Talking-head render: `npm run render -- Overlay output/<slug>.mp4 --props=data/<slug>.overlay.json`
@@ -101,6 +102,34 @@ The load-bearing rules:
 
 `render.js` routes on the plan shape: a `scenes[]` plan is faceless, a `recording`
 plan is Overlay. Both write the same `<slug>.timing.json`.
+
+---
+
+## 2c. Faceless voiceover (the VOICE rung) — the `voice` contract
+
+Faceless videos are **silent by default** (on-strategy for muted social autoplay).
+An optional synthetic voiceover is the one keyed subsystem in the whole studio; the
+guided rung is the `voice-my-video` skill. The load-bearing rules:
+
+- **`scripts/voice.js` is the connected step.** It reads the per-beat spoken text
+  from `data/<slug>.script.json` (falling back to the scenes' `on_screen_label` /
+  `intent`), generates **one MP3 per beat, never concatenated** at
+  `public/audio/<slug>/beat<N>.mp3`, and writes `data/<slug>.voice.json` (per-beat
+  file + start + duration + word/char timings). Primary provider: **ElevenLabs**
+  (`ELEVENLABS_API_KEY`, `/with-timestamps` — char-level alignment, captions
+  self-sync). Secondary: **OpenAI** (`OPENAI_API_KEY`, audio only; caption timing
+  via the local whisper path in `caption.js`).
+- **No key => graceful degrade, exit 0.** With no provider key set, voice.js prints
+  a plain note that the video stays silent + captions and exits cleanly. A missing
+  key is never a failure. Keys are read from the environment, never handled in files
+  (`public/audio/` + `data/*.voice.json` are gitignored).
+- **A plan opts into voice with `"voice": "audio/<slug>"`.** `render.js` reads
+  `data/<slug>.voice.json` in Node and inlines it as `{ dir, beats }` on the plan
+  (the composition runs headless and cannot read a file). `facelessFactory` layers
+  each beat's `<Audio>` INSIDE that beat's scene Sequence, so it starts at the
+  scene's start on the existing timeline and is clipped to the scene (no bleed).
+  **`computeFacelessMeta`'s visual duration is unchanged;** voice.js warns when a
+  beat's VO overruns its scene so the scene's `duration_s` can be lengthened.
 
 ---
 
@@ -250,6 +279,7 @@ motion/
 │   ├── ffmpeg.js             ← shared 3-arm ffmpeg resolver + duration/dimension probe
 │   ├── ingest.js             ← normalise a recording → public/recordings/<slug>.mp4 (CFR/H.264/AAC)
 │   ├── caption.js            ← local whisper.cpp captions → data/<slug>.captions.json (degrades)
+│   ├── voice.js              ← BYO-key TTS: per-beat MP3s → public/audio/<slug>/ + data/<slug>.voice.json (degrades to silent)
 │   ├── render.js             ← the props seam: faceless OR overlay plan → remotion render → timing.json
 │   └── preflight.js          ← "check my setup" gate
 ├── src/

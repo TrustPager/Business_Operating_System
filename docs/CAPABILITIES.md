@@ -104,6 +104,7 @@ Your brand and voice, branded posts, content plans, and a workspace that looks l
 **Switches on when you connect a tool**
 
 - **Run My Ads**: Once your Meta Ads account is connected, turn your ad plan into ready-to-launch Facebook and Instagram campaigns built to Evelyn Weiss's method, created paused and safe, checked over first, and handed back with a clear checklist and the 72-hour rule
+- **Voice My Video**: Give your faceless video a real voiceover
 
 ## 🗂️ Handle paperwork
 

@@ -827,6 +827,13 @@
     "requires_driver": "trustpager",
     "status": "active"
   },
+  "voice-my-video": {
+    "data_path": "local",
+    "function_slot": "creative",
+    "requires_credential": "key",
+    "requires_driver": "render",
+    "status": "active"
+  },
   "weekly-review": {
     "data_path": "mcp_tools",
     "function_slot": "strategy",
