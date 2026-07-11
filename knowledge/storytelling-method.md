@@ -205,8 +205,10 @@ the engine under all six.
 Give your concept a *name*, don't just explain it. The labelling effect: the moment a
 thing has a name it feels more important, and an unfamiliar name creates instant
 anticipation ("wait, what's that?") that acts like mental quicksand — they can't leave
-until it's explained. Hormozi's "value equation," Kevin Kelly's "1,000 true fans."
-Before you publish, ask: can I package this idea and name it?
+until it's explained. An electrician who calls their process "the ten-minute safety
+sweep" makes it land where "I check a few things" never would; a named framework feels
+like a thing you can own, not just advice. Before you publish, ask: can I package this
+idea and give it a name?
 
 ### 2. Embedded truths
 

@@ -43,7 +43,10 @@ The packaging craft this plan leans on (outlier analysis, angle and title and
 thumbnail differentiation, franchise thinking) lives in
 [`knowledge/youtube-packaging-method.md`](../../knowledge/youtube-packaging-method.md).
 Read it before you package the pipeline so the method has one home and this body
-stays lean.
+stays lean. Why a channel holds one avatar and one topic band (audience matching), and
+why you don't cross-post a video's link from a faster platform, live in
+[`knowledge/distribution-method.md`](../../knowledge/distribution-method.md) — the
+strategy step leans on it.
 
 It runs on reasoning and the owner's own words alone. Work the gates in order.
 Only fall back to defaults where a gate says so.
@@ -116,8 +119,11 @@ software channel): there is no town to own.
 ## Step 3: Set the channel strategy (delegate to `build-social-strategy`)
 
 Run the `build-social-strategy` method for this one channel. Do not copy its
-prose or re-derive its framework here: apply it, aimed at YouTube. The channel
-strategy names, tailored to this owner and this goal:
+prose or re-derive its framework here: apply it, aimed at YouTube. Keep the pillars
+tight to one avatar: a channel that holds one audience and one topic band is what lets
+the algorithm learn who to push to (audience matching, `knowledge/distribution-method.md`),
+so resist spreading the channel across audiences even when an off-avatar idea looks
+tempting. The channel strategy names, tailored to this owner and this goal:
 
 - **What the channel is about** and why it fits this business, in the owner's
   voice (the YouTube read of the platform-focus and current-state parts of the

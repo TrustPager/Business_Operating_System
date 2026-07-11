@@ -35,6 +35,10 @@ multi-channel posting plan you can act on by hand today — no accounts, no
 queue, no connection required. (The auto-queue and CRM scheduling layers of
 that method are the connected-tier upgrade, NOT a dependency of this calendar.)
 
+Why a calendar held to one avatar out-reaches a scattered one, and the levers that
+drive engagement, live in
+[`knowledge/distribution-method.md`](../../knowledge/distribution-method.md).
+
 ## Step 1 — Find the brand's pillars and voice
 
 Look for the strategy artifacts the owner already has, in this order:
@@ -97,6 +101,12 @@ owner has run `get-found-online`, use the winnability read it produced to steer
 topic choice. **This skill is reasoning-only: do not run a web search yourself**
 — reason from the pillars, the owner's terms, or a spot-check they bring;
 `get-found-online` is where live SERP reads happen.
+
+**Hold the calendar to one avatar** (`knowledge/distribution-method.md`): posting for
+the same audience across the two weeks is what lets each platform learn who to show the
+account to, so vary the format freely but resist scattering across different audiences.
+Where a slot's job is engagement, the comment-driving levers (a clear stance, a genuine
+question, real emotion) live in that same file.
 
 For EVERY slot, fill all five fields:
 

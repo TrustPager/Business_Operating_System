@@ -129,6 +129,24 @@ top-left, accent strip bottom.
 
 ---
 
+## Reading at a glance — the three-item rule, the face, and CTR reality
+
+**The three-item rule.** A thumbnail is read in a fraction of a second at a tiny size,
+so it holds **at most three things**: usually a face or hero, a few words of text, and
+one graphic. Anything smaller than that won't be seen; anything more complex won't be
+read. When a thumbnail feels busy, count the elements and cut back to three.
+
+**Emotion on the face matters a lot.** When a person is in the thumbnail, the
+expression does real work: a clear, readable emotion (surprise, delight, focus) pulls
+the eye and sets the tone before a word is read. A flat or neutral face wastes the
+strongest element on the frame.
+
+**CTR reality — packaging is a game you mostly lose, by design.** Even best-in-class
+click-through rates sit around 10-12%, so roughly 9 in 10 people who see the thumbnail
+don't click. That's normal. It's why the title and thumbnail are decided as a pair and
+sweated over: small lifts in a number that starts low are what compound. Don't read a
+sub-10% CTR as failure; read it as the surface to keep improving.
+
 ## Common mistakes (already corrected once — don't re-walk)
 
 | Mistake | Fix |

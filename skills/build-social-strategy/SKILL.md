@@ -47,6 +47,11 @@ The shared reference for how customer-facing output should sound is
 [`knowledge/communication-voice.md`](../../knowledge/communication-voice.md).
 Business-shape context (which platform and rhythm tends to fit which kind of
 business) lives in [`knowledge/industry-notes.md`](../../knowledge/industry-notes.md).
+How the algorithm actually distributes content — audience matching (why a narrow,
+consistent avatar wins), the two games (awareness vs conversion), and the engagement
+drivers behind the metric — lives in
+[`knowledge/distribution-method.md`](../../knowledge/distribution-method.md). It is the
+mechanics under this strategy; read it before you pin the goal.
 
 ## Gate 0 — Two pass/fail checks before any strategy
 
@@ -79,6 +84,13 @@ this strategy serves. The usual targets, and what each one optimises for:
 | **Local authority / being the obvious choice** | Showing the expertise and the work; consistency in one place over spreading thin |
 | **A bigger audience / reach** | Shareable, save-able, format-native content; cadence and hooks that travel |
 | **More sales** (product sellers) | Product in context, social proof, launch/promo rhythm tied to what's in stock |
+
+**Each target is really a choice between two games** (`knowledge/distribution-method.md`):
+*more bookings/leads* and *more sales* play the **conversion game** (on-target views
+from buyers, filter the rest out); *bigger audience/reach* plays the **awareness game**
+(shareable, large-addressable-market content); *local authority* usually plays
+conversion. One channel plays one game, so pinning the target here also pins the game
+the whole strategy optimises for.
 
 If they haven't named one, ask ONE question: *"What would make this worth it for
 you: more enquiries coming in, being the name people in your area think of

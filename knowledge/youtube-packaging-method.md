@@ -122,6 +122,26 @@ specificity matter more than search-match.
 
 ---
 
+## Click confirmation — the first 10-20 seconds validate the click
+
+Packaging earns the click; the opening seconds decide whether it was worth it. The
+first 10-20 seconds after a click are when the viewer's urgency to get what the
+thumbnail promised is highest, so the intro's job is to *confirm the click* fast: yes,
+you're in the right place, and here's the payoff coming. The strongest way to do it is
+to name a common belief the viewer holds and set your contrarian, honest take against
+it, so the promise the packaging made is immediately paid off with a reason to stay.
+
+This is the handoff from packaging to script. The craft of that opening lives in
+[`storytelling-method.md`](storytelling-method.md) (the hook, the curiosity gap) and
+[`youtube-script-method.md`](youtube-script-method.md) (the hook window and the promise
+beat). Packaging's part is to make a promise specific enough that the intro *can*
+confirm it. A title that promises something vague gives the intro nothing to pay off.
+
+**CTR reality.** YouTube is largely a packaging game: even best-in-class click-through
+rates sit around 10-12%, so most people who see a title and thumbnail don't click.
+That's why packaging is decided first and iterated on. A modest CTR isn't failure;
+it's the surface where small, compounding lifts come from.
+
 ## Franchise thinking — a repeatable format beats a lucky hit
 
 A single viral video is a spike. A **franchise** is a repeatable format the
