@@ -1,4 +1,24 @@
 import { Config } from "@remotion/cli/config";
+import path from "path";
+
+// Remotion runs its CLI from the studio/motion project root, so cwd is the
+// project dir. (The config file is loaded via eval, where import.meta.url is
+// unavailable, so cwd is the reliable anchor.)
+const projectDir = process.cwd();
+
+// Mirror the tsconfig `@ui/*` path alias into Remotion's webpack resolver.
+// tsconfig `paths` are honoured by tsc but NOT by Remotion's bundler, so without
+// this the render bundle fails to resolve `@ui/*` even though typecheck passes.
+Config.overrideWebpackConfig((currentConfig) => ({
+  ...currentConfig,
+  resolve: {
+    ...currentConfig.resolve,
+    alias: {
+      ...(currentConfig.resolve?.alias ?? {}),
+      "@ui": path.join(projectDir, "src", "ui"),
+    },
+  },
+}));
 
 // =============================================================================
 // Content Creation Studio — render defaults
