@@ -32,8 +32,9 @@ video in a new style — no per-video component code.
 Three modes (spec §5): **Mode A faceless** (shipping — the scenes.json registry),
 **Mode B talking-head overlay** (shipping — the `Overlay` composition composites an
 ingested recording with graphics + captions; see §2b), and **Mode C product/demo**
-(a founder/SaaS add-on, off the default owner flow — not built). Build only what a
-mode needs; do not scaffold Mode C ahead of time.
+(shipping as a LABELLED FOUNDER/SAAS ADD-ON, off the default owner flow — the
+`ProductDemo` composition; see §2d). `make-my-video` never routes to Mode C; the
+separate `make-product-demo` skill drives it. Build only what a mode needs.
 
 ---
 
@@ -132,6 +133,44 @@ guided rung is the `voice-my-video` skill. The load-bearing rules:
   beat's VO overruns its scene so the scene's `duration_s` can be lengthened.
 
 ---
+
+## 2d. Product-demo (Mode C) — the `ProductDemo` contract (FOUNDER/SAAS ADD-ON)
+
+`ProductDemo` (`src/compositions/ProductDemo.tsx`) is a **labelled founder/SaaS
+add-on, off the default owner flow**. `make-my-video` never routes here; the
+separate `make-product-demo` skill drives it. A service-business owner has no
+software to demo — this serves a founder or SaaS client showing their own product.
+
+It is props-driven exactly like `Video`/`Overlay`: a product-demo plan (`beats[]`)
+arrives as input props and `computeProductDemoMeta(plan)` owns its fps/dimensions/
+duration. The plan is a list of timed **beats** over the owner's OWN screenshots:
+
+- **`chat` beat** — the ported chat kit (`ClaudeShell` + `ActiveChatScreen`), with
+  messages revealed IN ORDER over the beat. The chat kit lives in `src/components/`
+  and is brand-neutral (every colour flows from `tokens.ts`; no vendor logo or
+  model name ships). Message roles are `user` / `assistant` / `assistant-thinking`
+  / `assistant-tool`.
+- **`screen` beat** — one of the owner's screenshots (`staticFile` under
+  `public/screens/`, gitignored), with optional cursor/click (`clicks`, each a
+  proportional element box wrapped in `ClickTarget` so the ring lands on the real
+  element, never a guessed x/y) and an optional `ComposerOverlay` typing a prompt
+  over the screen.
+- **`progress`** — a `PersistentProgressPanel` ticking tasks across the whole clip.
+
+**The baked hard rule — "never cut from submit straight to done."** A beat flagged
+`build: true` is validated to show a thinking row AND at least one tool row before
+the RESULT (its last assistant answer); an early acknowledgement is fine. A build
+beat that skips the working sequence renders a loud in-studio warning frame rather
+than a misleading cut — the rule is enforced in the engine, not left to the plan.
+
+**Alpha / transparent export (advanced door, spec §5.4).** `npm run render --
+ProductDemo output/<slug>.mov --props=... --alpha` marks the plan `transparent`
+(so no solid background kills the alpha) and switches to ProRes 4444
+(`yuva444p*`); `--alpha=vp9` writes WebM VP9 instead. This is the "hand it to my
+video editor" escape hatch — never on the default MP4 path. `render.js` sets
+`BOS_ALPHA_EXPORT` so `remotion.config.ts` skips the h264-only CRF (ProRes rejects
+it). `render.js` routes on plan shape: `scenes[]` → faceless, `recording` →
+Overlay, `beats[]` → ProductDemo; all three write the same `<slug>.timing.json`.
 
 ## 3. The timing sidecar (`<slug>.timing.json`)
 
@@ -291,17 +330,25 @@ motion/
 │   ├── compositions/
 │   │   ├── facelessFactory.tsx  ← the faceless engine + computeFacelessMeta (metadata owner)
 │   │   ├── Overlay.tsx          ← the talking-head compositor + computeOverlayMeta (Mode B)
+│   │   ├── ProductDemo.tsx      ← the "watch it get built" add-on + computeProductDemoMeta (Mode C)
 │   │   ├── Faceless*.tsx        ← fixed style samples (static plan imports)
 │   │   └── Scaffold/Showcase.tsx ← engine demos on the owner's brand
+│   ├── components/           ← ported brand-neutral chat kit (Mode C add-on): ClaudeShell, Sidebar,
+│   │                            Composer, NewChatScreen, ActiveChatScreen, ClaudeMessage, ClaudeThinking,
+│   │                            UserMessageBubble, ClaudeMcpToolUse, ApprovalPrompt, ProgressPanel,
+│   │                            chat-primitives, chat-icons (neutral; AssistantMark spark)
 │   ├── scenes/library/       ← the scene vocabulary (registry + per-style devices)
-│   ├── overlays/             ← Annotations (graphics engine) + CaptionTrack (caption renderer)
-│   ├── compositor/ primitives/ ui/  ← ported motion + UI primitives (PictureInPicture = webcam bubble)
+│   ├── overlays/             ← Annotations (graphics engine) + CaptionTrack + PersistentProgressPanel
+│   ├── compositor/ primitives/ ui/  ← ported motion + UI primitives (PictureInPicture = webcam bubble;
+│   │                            ComposerOverlay = prompt-over-screen, Mode C)
 │   └── data/                 ← neutral starter-cast.json
 ├── data/
 │   ├── <slug>.scenes.json    ← faceless visual plans (committed samples + owner videos)
 │   ├── sample.overlay.json   ← talking-head plan shape (schema example)
+│   ├── sample.product-demo.json ← product-demo (Mode C) plan shape (schema example)
 │   └── <slug>.captions.json  ← per-recording caption tracks (gitignored, owner-specific)
 ├── public/recordings/        ← ingested owner footage (gitignored)
+├── public/screens/           ← owner product screenshots for Mode C (gitignored)
 └── output/                   ← rendered MP4 + timing.json (gitignored)
 ```
 
