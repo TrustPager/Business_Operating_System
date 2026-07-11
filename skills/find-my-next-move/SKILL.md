@@ -63,6 +63,12 @@ some numbers are missing, that is itself a finding (see Step 3).
   colon, or full stop, never an em dash.
 - **Do not re-run `start-here`'s light diagnosis.** Resume from the profile and go
   deep. Re-interrogating what is already known reads as not-listening.
+- **Understand before you prescribe (`knowledge/business-method.md` §2.1).** You
+  need the goal in the owner's words AND a real read of where things sit before you
+  name a move. A filled floor gives you the numbers (the gate's item 2); if
+  `## My goal` is somehow empty, lock it with them first. Never diagnose toward a
+  goal you have not heard, and if the numbers to name a constraint are not there,
+  the honest move is measure-first (Step 3), not a guess dressed as a read.
 - **Complexity guardrail.** The first step is finishable, bounded, and
   token-frugal. No open-ended epics.
 
