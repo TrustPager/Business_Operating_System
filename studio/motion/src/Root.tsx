@@ -20,6 +20,12 @@ import {
   POP_DIMS,
   POP_DURATION_IN_FRAMES,
 } from "./compositions/FacelessPop";
+import {
+  FacelessFromPlan,
+  computeFacelessMeta,
+  type ScenesPlan,
+} from "./compositions/facelessFactory";
+import samplePlan from "../data/sample.scenes.json";
 
 // Phase 1: a single brand-driven scaffold composition, to prove the engine + brand
 // bridge render on the owner's brand.json with zero baked product tokens.
@@ -70,6 +76,30 @@ export const RemotionRoot: React.FC = () => {
         fps={POP_FPS}
         width={POP_DIMS.width}
         height={POP_DIMS.height}
+      />
+      {/*
+        Video — the ONE owner-facing composition. It renders an ARBITRARY
+        <slug>.scenes.json chosen at render time: `make-my-video` (via
+        scripts/render.js) hands the whole plan in as Remotion input props, and
+        `calculateMetadata` derives fps + dimensions + duration from that plan.
+        With no props it falls back to defaultProps (the bundled sample) so the
+        Remotion Studio always has something to show. This is the composition the
+        skill drives; the four above are fixed style samples.
+      */}
+      <Composition
+        id="Video"
+        component={FacelessFromPlan}
+        defaultProps={samplePlan as unknown as ScenesPlan}
+        calculateMetadata={({ props }) => {
+          // `props` IS the scenes plan (input props merged over defaultProps).
+          const meta = computeFacelessMeta(props);
+          return {
+            durationInFrames: meta.durationInFrames,
+            fps: meta.fps,
+            width: meta.dims.width,
+            height: meta.dims.height,
+          };
+        }}
       />
     </>
   );

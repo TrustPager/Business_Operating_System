@@ -42,25 +42,49 @@ const ASPECT_DIMS: Record<string, { width: number; height: number }> = {
   "1:1": { width: 1080, height: 1080 },
 };
 
-/** Build a faceless composition + its render metadata from a scenes plan. */
-export const buildFaceless = (rawPlan: unknown): FacelessBuild => {
-  const plan = rawPlan as ScenesPlan;
+export interface FacelessMeta {
+  fps: number;
+  transitionFrames: number;
+  dims: { width: number; height: number };
+  durationInFrames: number;
+  style: string;
+}
 
+/**
+ * Pure metadata from a scenes plan — no React, no rendering. This is the ONE
+ * place the timeline maths live, so `calculateMetadata` (for the props-driven
+ * composition) and `buildFaceless` (for the static sample comps) can never
+ * drift on how a plan maps to fps / dimensions / duration.
+ */
+export const computeFacelessMeta = (rawPlan: unknown): FacelessMeta => {
+  const plan = (rawPlan ?? {}) as ScenesPlan;
   const fps = plan.fps ?? 30;
   const transitionFrames = plan.transition?.duration_frames ?? 12;
   const dims = ASPECT_DIMS[plan.aspect ?? "16:9"] ?? ASPECT_DIMS["16:9"];
   const style = plan.direction?.style ?? DEFAULT_STYLE;
-
-  const sceneFrames = (s: SceneEntry): number =>
-    Math.round(s.duration_s * fps);
+  const scenes = Array.isArray(plan.scenes) ? plan.scenes : [];
 
   // TransitionSeries consumes `transitionFrames` of overlap per transition, so
   // the timeline length is Σ(scene frames) − Σ(transition frames).
-  const durationInFrames: number = (() => {
-    const total = plan.scenes.reduce((acc, s) => acc + sceneFrames(s), 0);
-    const transitions = Math.max(plan.scenes.length - 1, 0);
-    return Math.max(total - transitions * transitionFrames, 1);
-  })();
+  const total = scenes.reduce(
+    (acc, s) => acc + Math.round((s.duration_s ?? 0) * fps),
+    0
+  );
+  const transitions = Math.max(scenes.length - 1, 0);
+  const durationInFrames = Math.max(total - transitions * transitionFrames, 1);
+
+  return { fps, transitionFrames, dims, durationInFrames, style };
+};
+
+/** Build a faceless composition + its render metadata from a scenes plan. */
+export const buildFaceless = (rawPlan: unknown): FacelessBuild => {
+  const plan = rawPlan as ScenesPlan;
+
+  const meta = computeFacelessMeta(plan);
+  const { fps, transitionFrames, dims, durationInFrames, style } = meta;
+
+  const sceneFrames = (s: SceneEntry): number =>
+    Math.round(s.duration_s * fps);
 
   const RenderedScene: React.FC<{ scene: SceneEntry }> = ({ scene }) => {
     const Component = resolveScene(scene.visual_device, style);
@@ -116,4 +140,18 @@ export const buildFaceless = (rawPlan: unknown): FacelessBuild => {
   };
 
   return { Faceless, fps, transitionFrames, dims, durationInFrames };
+};
+
+/**
+ * Plan-driven faceless component. Where `buildFaceless` closes over a plan known
+ * at module scope (the static sample comps), this one takes the plan as its
+ * React props — so a single registered composition can render ANY plan handed to
+ * it at render time via Remotion input props (`--props`). The composition's
+ * `calculateMetadata` uses `computeFacelessMeta` to set fps / dimensions /
+ * duration from the same plan, so the timeline and the render always agree.
+ */
+export const FacelessFromPlan: React.FC<ScenesPlan> = (plan) => {
+  const built = React.useMemo(() => buildFaceless(plan), [plan]);
+  const Comp = built.Faceless;
+  return <Comp />;
 };

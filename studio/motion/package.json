@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "studio": "remotion studio src/index.ts",
-    "render": "remotion render src/index.ts",
+    "render": "node scripts/render.js",
+    "render:raw": "remotion render src/index.ts",
     "still": "remotion still src/index.ts",
     "preflight": "node scripts/preflight.js"
   },
