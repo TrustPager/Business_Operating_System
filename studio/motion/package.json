@@ -10,6 +10,7 @@
     "still": "remotion still src/index.ts",
     "ingest": "node scripts/ingest.js",
     "caption": "node scripts/caption.js",
+    "voice": "node scripts/voice.js",
     "preflight": "node scripts/preflight.js"
   },
   "author": "FinalPiece AI",
