@@ -14,7 +14,7 @@
 
 **Leak-check grep (the Phase-1 definition of done)** — run from `studio/motion/src`, must return zero hits:
 ```
-rg -n -i "c96442|29c6c6|hsl\(15,\s*63|hsl\(174,\s*64|trustpager|@tp/|TRUSTPAGER_STAGES|professional-services|Plus Jakarta Sans|Coastal Consulting|Sarah Chen|Jimbo|ai_generate_speech" .
+rg -n -i "c96442|29c6c6|47a3d9|rgba?\(\s*201[,\s]|rgba?\(\s*41,\s*198|rgba?\(\s*71,\s*163|hsl\(\s*15[,\s]\s*63|hsl\(\s*174[,\s]\s*64|trustpager|@tp/|@claude/|TRUSTPAGER_STAGES|professional-services|Plus Jakarta Sans|Coastal Consulting|Sarah Chen|\bEvie\b|Jessica|Jimbo|ai_generate_speech" .
 ```
 
 ---
@@ -47,7 +47,7 @@ rg -n -i "c96442|29c6c6|hsl\(15,\s*63|hsl\(174,\s*64|trustpager|@tp/|TRUSTPAGER_
 - Create: `studio/motion/src/tokens.ts`, `src/fonts.ts`
 - Modify: `src/compositions/Scaffold.tsx` (read from `tokens.ts`)
 
-- [ ] **Step 1: Write `tokens.ts`** — import from `brand.js`; export the token names the RVS components will need, mapped from `brand.colors.*` (e.g. `primary`, `accent`, `text`, `panel`, `border`, `bg`, plus role aliases `app`/`assistant` → `primary`/`accent`). No hex literals; every value traces to `brand.json`.
+- [ ] **Step 1: Write `tokens.ts`** — import from `brand.js`; export the token names the RVS components will need, mapped from `brand.colors.*` (e.g. `primary`, `accent`, `text`, `panel`, `border`, `bg`, plus role aliases `app`/`assistant` → `primary`/`accent`). **Also export `colors`, `fonts`, and `shadows` objects matching the shape RVS's `@claude/theme` exposes** — 5 KEEP compositor files import `{colors, fonts, shadows}` from it, so the Task 4 rewire becomes a one-line import swap. No hex literals; every value traces to `brand.json`.
 - [ ] **Step 2: Write `fonts.ts`** — resolve the render font: if `brand.fonts.primary` is a system stack (default), use it as a CSS `fontFamily` (no load needed); if a Google family is named, `loadFont()` via `@remotion/google-fonts`; else fall back to the CSS stack. Export `FONT_BODY`, `FONT_SERIF`, `FONT_MONO`. Document the family map inline.
 - [ ] **Step 3: Point `Scaffold.tsx` at `tokens.ts` + `fonts.ts`** (no inline hex/font).
 - [ ] **Step 4: Verify.** Re-render the still; confirm identical output on the neutral brand. Temporarily edit `brand/brand.json` `colors.primary` to `#7c3aed`, re-render, confirm the scaffold recolours, then revert `brand.json`.
@@ -73,7 +73,7 @@ rg -n -i "c96442|29c6c6|hsl\(15,\s*63|hsl\(174,\s*64|trustpager|@tp/|TRUSTPAGER_
 ### Task 4: Port the compositor primitives (the motion engine) + colour sweep
 
 **Files:**
-- Create: `studio/motion/src/compositor/*` (CursorClick, ClickPulseRing, CursorHover, CursorPath, AutomationBuildSequence, AutomationLightningStrike, ConnectorLine, CrossHighlight, PictureInPicture, Callout, PipelineRewireGlow, NoAutomationsCard, ComposerOverlay, DebugOverlay, animations.ts, composition-helpers.tsx, ActOffsetWrapper, index.ts)
+- Create: `studio/motion/src/compositor/*` (CursorClick, ClickPulseRing, CursorHover, CursorPath, AutomationBuildSequence, AutomationLightningStrike, ConnectorLine, CrossHighlight, PictureInPicture, Callout, PipelineRewireGlow, NoAutomationsCard, DebugOverlay, animations.ts, composition-helpers.tsx, ActOffsetWrapper, index.ts). **EXCLUDE `ComposerOverlay`** — it imports the Phase-5 `@claude` Composer; defer to Phase 5.
 
 - [ ] **Step 1: Copy** the compositor files from RVS; DROP `trustpager-positions.ts` and its re-exports from `index.ts`.
 - [ ] **Step 2: Colour sweep** — replace every baked `#c96442`/clay and `#29c6c6`/teal default with a `tokens.ts` value; make colour a prop where it already is, defaulting to a token.
