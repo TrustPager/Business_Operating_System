@@ -72,13 +72,15 @@ export const ClaudeMcpToolUse: React.FC<ClaudeMcpToolUseProps> = ({
             transform: `rotate(${(frame * 6) % 360}deg)`,
           }} />
         )}
-        <img
-          src={logoSrc}
-          width={16}
-          height={16}
-          alt=""
-          style={{ objectFit: "contain", display: "block", borderRadius: 3 }}
-        />
+        {logoSrc ? (
+          <img
+            src={logoSrc}
+            width={16}
+            height={16}
+            alt=""
+            style={{ objectFit: "contain", display: "block", borderRadius: 3 }}
+          />
+        ) : null}
       </div>
       <div style={{
         flex: 1,
