@@ -166,6 +166,8 @@ _GROUP_OVERRIDES: dict[str, str] = {
     # Brand strategy is the "look professional & market" foundation.
     "build-brand-strategy": "look_professional",
     "build-customer-voice": "look_professional",
+    # Voice lock-in is brand/marketing, not planning, despite its strategy slot.
+    "build-my-voice": "look_professional",
 }
 
 
@@ -297,6 +299,9 @@ _ONE_LINERS: dict[str, str] = {
     "brand brief: positioning, a promise, and content angles, in your words.",
     "build-customer-voice": "Turn the words your customers actually use into a "
     "customer-voice doc that grounds all your marketing.",
+    "build-my-voice": "Lock in how you sound so every content app writes as you, "
+    "from a file of your own emails and posts: your company voice and your "
+    "personal voice, both from your own words.",
     "build-social-strategy": "Turn your goal into a tailored social plan: the "
     "platforms, a realistic cadence, content pillars, and the first move.",
     "make-social-post": "Design and render branded social posts for Instagram, "
@@ -343,6 +348,12 @@ _ONE_LINERS: dict[str, str] = {
     # 🧭 Plan & decide
     "grill-me-on-this-decision": "Pressure-test a real decision before you "
     "commit: the assumptions, both cases at full strength, and a recommendation.",
+    "find-my-next-move": "Get the straight operator's read of your business: the "
+    "one thing most in your way, the highest-leverage move to clear it shown from "
+    "your own numbers, and a kept one-page plan.",
+    "plan-my-roadmap": "See what to connect next: the tools and add-ons that "
+    "would move you fastest toward your goal, in priority order, as a kept "
+    "one-page roadmap.",
     "onboard-team-member": "Set a new hire up with your team's standards baked "
     "in, so they follow the same process from day one.",
     "start-here": "Get your assistant up to speed on your business in one short "

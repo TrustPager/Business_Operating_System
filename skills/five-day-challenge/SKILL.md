@@ -1,6 +1,6 @@
 ---
 name: Five Day Challenge
-description: The 5-Day Owner-to-Operator Challenge. Five short sessions from zero to running your business with AI, one real win a day: Day 1 your business and a first win, Day 2 locks in your goal and maps your system, Days 3-4 fill in your floor (voice, pricing, proposal, content, money), Day 5 makes it run itself. Resumable. Keyless for the first four days; the finale connects your first tools.
+description: The 5-Day Owner-to-Operator Challenge. Five short sessions, one win a day: Day 1 your business and a first win, Day 2 your goal and system map, Day 3 fills your floor (voice, pricing, proposals, content, money), Day 4 the operator's read of your highest-leverage move, Day 5 a first routine plus your roadmap. Resumable, keyless until the finale connects your first tools.
 triggers:
   - start the 5 day challenge
   - five day challenge
@@ -135,12 +135,17 @@ No jargon, ever. They never hear "kernel", "driver", "manifest", "MCP", or
 
 ## The five days
 
-Each day is a self-contained component. Every app below is keyless for Days 1 to 4.
-Day 1 and Day 2 run in order as written. Days 3-4 pull from the three **floor
-clusters** defined below §Day 2 and run loosely: apps within a cluster run in the
-order given, but which cluster comes first is the owner's Day 2 pick, and the
-clusters together (not any single fixed day-by-day script) are what "the floor"
-means for the rest of this skill.
+Each day is a self-contained component. Every app is keyless for Days 1 to 4;
+only Day 5's finale crosses into connecting tools. Day 1 and Day 2 run in order as
+written. **Day 3 fills in the whole floor** (all three **floor clusters** defined
+below §Day 2, headline win each), starting with the owner's Day 2 pick, and runs
+loosely: apps within a cluster run in the order given, and the clusters together
+(not any fixed day-by-day script) are what "the floor" means for the rest of this
+skill. **Day 4 is the operator's read** (`find-my-next-move`): the floor is now
+rich with real numbers, so the system names the one highest-leverage move toward
+the goal. If any floor is still open when Day 4 opens, finishing it is the first
+thing Day 4 does, because the read needs those numbers. **Day 5 makes it run
+itself:** a first routine, then the forward roadmap.
 
 ### Day 1: Know your business, land your first win
 - **Mission:** get the system to understand your business, think it through with
@@ -252,9 +257,9 @@ means for the rest of this skill.
   Three quick beats, not a lecture:
   1. **Wrap what today gave them:** their goal locked in, their whole system
      mapped, and a clear pick for what's next. Name it as real ground covered.
-  2. **What it leads to, what's still on the table:** the rest of the floor
-     filling in over the next couple of sessions, and above it the add-ons and
-     scaling tier they saw on the map, open to them once the floor is solid.
+  2. **What it leads to, what's still on the table:** their floor filling in next
+     session, and above it the add-ons they saw building on top of the map, open
+     to them once the floor is solid.
   3. **Point at next session from the goal, held loosely:** *"So next time,
      based on where you're headed ([their goal]), I'd have us start turning
      [their pick] into [the concrete artifact], because [why it moves the goal].
@@ -264,10 +269,12 @@ means for the rest of this skill.
 - **Update the marker:** record `challenge_first_pick` with their chosen cluster.
 - **Tease:** "Tomorrow we start filling it in for real."
 
-## The floor clusters (Days 3-4 pull from these)
+## The floor clusters (Day 3 fills these; Day 4 finishes any remainder)
 
-Three clusters make up the rest of the floor. Every member completes all three by
-the end of Day 4; their Day 2 pick only decides which one goes first.
+Three clusters make up the rest of the floor. Day 3 aims to land all three
+(headline win each), starting with the owner's Day 2 pick; a cluster still open at
+the end of Day 3 is the first thing Day 4 finishes before the read. Their Day 2
+pick only decides the order.
 
 **Brand & Voice** (🎨 Look professional & market)
 Run, in order: `build-my-voice` (read their real writing, run the this-not-that
@@ -310,62 +317,87 @@ came up, otherwise `extract-document` on their real messy file. Full kept win: a
 messy pile turned into clean structure, and a real cash-flow forecast they can
 act on.
 
-### Day 3: Fill in the floor, part one
-- **Mission:** build out the cluster they picked on Day 2.
-- **Run:** the cluster from `challenge_first_pick`, headline win first, then the
-  rest of that cluster if there's time.
-- **Kept win:** that cluster's full kept win (see above).
-- **Operator move:** the cluster's own move (*set your brand and voice once,
-  produce forever* for Brand & Voice; *pressure-test your thinking* for Win the
-  Work; *throw it any mess, get structure back* for Money & Paperwork).
-- **Update the marker:** append the finished cluster to `challenge_floor_apps_done`.
-- **Tease:** name whichever two clusters are still open, and that tomorrow
-  finishes the floor.
+### Day 3: Fill in your floor
+- **Mission:** fill in the whole floor, all three clusters, headline win each,
+  starting with the cluster they picked on Day 2.
+- **Run:** all three floor clusters (above), headline win first for each, in the
+  order set by `challenge_first_pick`. Land each cluster's headline win at
+  minimum; go to a cluster's full kept win where there's time and appetite. Do not
+  force all three to full depth in one sitting: headline wins across the whole
+  floor beat one perfect cluster and an abandoned day.
+- **Kept win:** a floor with real pieces in every branch, brand and voice, a
+  priced job and a proposal, and a money or paperwork win, all real and theirs.
+- **Operator move:** *set it up once, use it forever.* (Each cluster also carries
+  its own move: *set your brand and voice once, produce forever*; *pressure-test
+  your thinking*; *throw it any mess, get structure back*.)
+- **Update the marker:** append each finished cluster to `challenge_floor_apps_done`.
+- **Tease:** "Tomorrow I come to your side of the table and give you the straight
+  read: the one thing most in your way, and the move I'd make to clear it."
+- **If a cluster is still open at day's end:** name which, and that Day 4 finishes
+  it before the read. That is expected, not a failure.
 
-### Day 4: Fill in the floor, part two
-- **Mission:** finish the floor, run whichever cluster(s) are left.
-- **Run:** the remaining cluster(s) from the three above, headline win first for
-  each. If both are left, do not rush both to full depth, at minimum land each
-  cluster's headline win, and offer the rest as a quick follow-on if they have
-  time.
-- **Kept win:** the floor is filled in, brand and voice, pricing and a proposal,
-  and a money or paperwork win, all real and all theirs.
-- **Operator move:** *a filled-in floor means everything you build next stays
-  aligned to your business.*
-- **Update the marker:** append the finished cluster(s) to `challenge_floor_apps_done`.
-- **Tease:** "Tomorrow is the big one: we make your system run work on its own,
-  so you get time back, and I'll show you what opens up now that your floor's
-  filled in."
+### Day 4: Find your next move
+- **Mission:** get the operator's read, the one highest-leverage move toward the
+  goal, now that the floor has surfaced real numbers.
+- **Branch on floor completeness first.** Read `challenge_floor_apps_done`. If a
+  floor cluster is still open, finish it first (headline win), because the read
+  needs those numbers, and that is still Day 4 work. Once the floor is filled, run
+  the read.
+- **Run:** `find-my-next-move` — it runs the full business diagnosis on the
+  now-rich profile, names the single binding constraint with the working shown
+  from the owner's own numbers, prescribes the one highest-leverage move, argues it
+  with conviction, concedes gracefully if they decline and pivots to the path they
+  DO want, and locks a kept "Your Next Move" one-pager. It owns the flow; follow it
+  exactly.
+- **Kept win:** the "Your Next Move" page, one clear move aimed at the goal.
+- **Operator move:** *work the one constraint, not the whole list.*
+- **The marker is set by `find-my-next-move`** (`challenge=day4`, and the chosen
+  move recorded so Day 5's roadmap can rank against it). Nothing extra to set here.
+- **Tease:** "Tomorrow is the big one: we make the parts of that move that repeat
+  start running on their own, and I'll show you the road from here."
 
 ### Day 5: Make it run itself (graduation)
-- **Mission:** cross from doing the work to operating, and see everything you built.
+- **Mission:** cross from doing the work to operating it, and leave with a map for
+  what comes next.
 - **The graduation moment:** walk them back through the whole week. Show the stack
   they now own: their profile, their positioning, their voice, their content, their
-  pricing and proposal, their money. Then say it plainly: *"Five days ago you had
-  none of this. Now you have a business operating system, and you built it. You're
-  an operator."*
-- **The finale (make it run itself):** the most powerful step is connecting their
-  first real tools and building a routine on them. Run `connect-a-tool` to connect
-  Gmail and Google Calendar (the friendly, verified walkthrough), then
-  `set-up-a-routine` to build a morning brief that reads their day and drafts
-  their follow-ups, and run it once so they see it work. This is also the on-ramp
-  to plugging in more of their tools later. If they would rather not connect
-  anything today, do not force it: set up a keyless routine (their one-page
-  weekly scoreboard: `build-spreadsheet` builds it — leads in, conversations,
-  jobs won, cash collected, plus the one number this quarter turns on — and the
-  routine is the weekly ten minutes that fills it; the shape is
-  `knowledge/business-method.md` §12.6) so they still leave with something
-  running, and leave the connectors as an open, exciting next step. The
-  owner-facing line: "Five numbers, ten minutes a week, and you'll always know
-  what to fix next."
-- **Then** run `whats-possible` so they see the full menu of what their system can
-  do and what unlocks as they connect more. Tie it back to Day 2's map plainly:
-  *"Your floor's filled in. Here's what building on top looks like,"* then name
-  a couple of real add-ons that fit their business (Meta Ads once they're running
-  paid social, the site builder once they want a bespoke site live on the web).
-  Show it as exciting, never a pitch.
+  pricing and proposal, their money, and the move they locked in yesterday. Then
+  say it plainly: *"Five days ago you had none of this. Now you have a business
+  operating system, and you built it. You're an operator."*
+
+- **Beat 1, build a first routine (diagnose, then build).** The best way to feel
+  "it runs itself" is to watch it happen once.
+  - **Diagnose a candidate first.** Look across the profile and the week for a
+    repeatable by-hand task the owner does the same way every time (chasing quiet
+    leads, the morning follow-ups, a weekly numbers check, the same recap sent
+    again and again). Propose the single best one in plain words: *"You mentioned
+    you chase quotes by hand every week. That's exactly the kind of thing your
+    system can run for you. Want me to set that up so it just happens?"*
+  - **Then build it and run it once.** Hand to `set-up-a-routine` to build the
+    proposed routine, set its cadence, and run it a single time so they see the
+    real output. If it needs their inbox or calendar, this is where `connect-a-tool`
+    does the friendly, verified connect (Gmail + Google Calendar).
+  - **Keyless stays on the table.** If they would rather not connect anything
+    today, set up a keyless routine instead: their one-page weekly scoreboard
+    (`build-spreadsheet` builds it, five numbers, and the routine is the weekly ten
+    minutes that fills it, the shape is `knowledge/business-method.md` §12.6). They
+    still leave with something running. Owner-facing: "Five numbers, ten minutes a
+    week, and you'll always know what to fix next."
+  - **Kept win:** one real task now running on its own.
+
+- **Beat 2, your roadmap for what's next.** The challenge ends open, on purpose.
+  - **Run:** `plan-my-roadmap` — it ranks the connectors and connected-tier add-ons
+    that would move THIS owner fastest, against their goal and the Day 4 constraint,
+    and locks a kept "Your Roadmap" one-pager: connect this first and what it
+    unlocks, then the next two, mapped onto the floor → add-ons picture from Day 2.
+    It owns the flow and sets `challenge=complete`; follow it exactly. This is the
+    richer, personalized replacement for the old generic `whats-possible` finale (a
+    member can still ask for the full `whats-possible` menu any time).
+  - **Kept win:** the "Your Roadmap" page, a clear, prioritized path forward.
+
 - **Operator move:** *it runs the work, you operate.*
-- **Mark:** set `challenge=complete` and record the win. Congratulate them warmly.
+- **The marker is set by `plan-my-roadmap`** (`challenge=complete`, the roadmap
+  recorded as the win). Congratulate them warmly.
 
 ---
 
