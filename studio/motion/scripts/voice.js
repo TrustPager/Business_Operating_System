@@ -17,9 +17,10 @@
 //      Returns audio + CHAR-LEVEL alignment in one call, so captions auto-sync with
 //      no extra transcription. This is the primary path.
 //   2. OpenAI TTS (OPENAI_API_KEY) — POST /v1/audio/speech. Audio only; per-beat
-//      duration is probed with ffmpeg, and word-level caption timing comes from the
-//      LOCAL whisper path in scripts/caption.js (run `npm run caption` after). The
-//      manifest marks timing_source: "whisper_pending" so the skill knows to sync.
+//      duration is probed with ffmpeg. It returns no timing metadata, so a faceless
+//      video's captions stay on its script-derived scene labels (the whisper path in
+//      caption.js is for talking-head recordings, not faceless voiceover). The
+//      manifest marks timing_source: "whisper_pending" to flag the absent word-sync.
 //
 // Graceful degrade: NO key set -> this does NOT fail. It prints a plain-English note
 // that the video stays silent with on-screen captions (on-strategy for muted social
@@ -364,10 +365,9 @@ async function run() {
 
   if (provider.name === "openai") {
     line("");
-    line("OpenAI voices are audio-only, so caption timing is not baked in. Run");
-    line(`  npm run caption -- ${slug}`);
-    line("to caption the voiceover locally with whisper (keyless). ElevenLabs");
-    line("voices caption themselves; OpenAI voices get captioned by transcribing them.");
+    line("OpenAI voices are audio-only (no word timing). Your on-screen captions");
+    line("stay on the script's scene labels. For word-level caption sync, prefer");
+    line("ElevenLabs, which hands back char-level timing in the same call.");
   }
 
   if (overruns.length) {

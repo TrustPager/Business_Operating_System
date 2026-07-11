@@ -83,11 +83,12 @@ their own key; you never handle it in plain text and never put it in a file.
 - **ElevenLabs (`ELEVENLABS_API_KEY`) — primary, recommended.** One call returns the
   audio **and** char-level timing, so the captions sync to the voice automatically,
   no extra step.
-- **OpenAI (`OPENAI_API_KEY`) — secondary.** Cheaper, audio only. The captions are
-  synced afterward by transcribing the voiceover locally with whisper (`npm run
-  caption`). State the tradeoff plainly: *"ElevenLabs voices caption themselves;
-  OpenAI voices get captioned by transcribing them back, so their timing can drift a
-  little."*
+- **OpenAI (`OPENAI_API_KEY`) — secondary.** Cheaper, audio only, no timing metadata.
+  A faceless video's on-screen captions are its scene labels (script-derived), so
+  they still read fine, but the voice carries no word-level timing to sync them to.
+  State the tradeoff plainly: *"ElevenLabs hands back word-level timing so the
+  captions can lock to the voice; OpenAI is audio-only, so the captions stay on your
+  script's on-screen labels."* If tight word-sync matters, prefer ElevenLabs.
 - **No key set — silent.** Do not treat this as an error. Tell the owner the video
   stays silent with on-screen captions (on-strategy for muted autoplay), and that
   they can add a voiceover any time by setting a key. Then stop.
@@ -119,8 +120,10 @@ npm run voice -- <slug>            # ElevenLabs if its key is set, else OpenAI
 
 If it reports that a beat's voiceover runs longer than its scene's window, lengthen
 that scene's `duration_s` in `data/<slug>.scenes.json` so the audio is not clipped,
-then move on. For the OpenAI path, run `npm run caption -- <slug>` afterward to sync
-the captions to the generated speech.
+then move on. The ElevenLabs path records word/char timings in the manifest for
+finer caption sync; the OpenAI path is audio-only, so the on-screen captions stay on
+the script's scene labels (the `npm run caption` whisper path is for talking-head
+recordings, not faceless voiceover, so do not point it here).
 
 ## Step 5: Play the voice and re-render
 
