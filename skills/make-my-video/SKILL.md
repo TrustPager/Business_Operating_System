@@ -53,13 +53,74 @@ render never looks like a hung one (`studio/motion/CLAUDE.md` §6).
 
 ## Step 2: Choose the mode
 
-Ask which kind of video, and default to the one that ships:
+Ask which kind of video, and default to the one most owners want:
 
-- **Faceless (motion graphics)** — the default and what ships today. Graphics only,
-  on the owner's brand. Choose this unless the owner asks otherwise.
-- **Talking-head overlay** and **product/demo** are **later phases** — name them as
-  coming, do not attempt them here. If the owner wants to record themselves, say
-  talking-head is on the way and offer a faceless version now.
+- **Faceless (motion graphics)** — the default. Graphics only, on the owner's
+  brand. Choose this unless the owner asks otherwise. Follow Steps 3-8 below.
+- **Talking-head overlay** — the owner records themselves on their phone and the
+  studio composites graphics and captions over the recording, all on their brand.
+  This ships now: follow the **Mode B flow** below instead of Steps 3-8.
+- **Product/demo** ("watch it get built") is a **founder/SaaS add-on**, off the
+  default owner flow — do not attempt it here.
+
+## Mode B: Talking-head overlay (footage-first)
+
+For talking-head, the flow inverts around the owner's recording. Keep it
+draft-first and owner-simple; the owner never types a render flag or a timecode.
+
+**B1. Footage intake — the explicit first gate.** Before anything else, get the
+recording off the owner's phone and into the studio. Ask for the file path (or
+walk them through AirDrop / Google Drive / a USB copy to get the clip onto this
+machine). Then normalise it once — this fixes the variable-frame-rate, rotation,
+and iPhone-HEVC traps that would otherwise drift the graphics out of sync:
+
+```bash
+cd studio/motion
+npm run ingest -- "<path-to-their-clip>" <slug> --aspect=9:16
+```
+
+`ingest.js` writes `public/recordings/<slug>.mp4` (constant 30fps, upright, scaled
+to fit, H.264/AAC) and reports in one plain sentence ("got your 47-second clip,
+portrait, fixed and ready"). Relay that sentence. **Do not proceed until a clip is
+ingested** — Mode B has nothing to composite without it.
+
+**B2. Captions (optional, keyless).** Offer captions — social autoplays muted, so
+they earn their place. Transcribe the owner's actual speech locally:
+
+```bash
+cd studio/motion
+npm run caption -- <slug>            # local whisper.cpp; add --model=base.en for accuracy
+```
+
+`caption.js` writes `data/<slug>.captions.json`. If local speech-to-text is not
+available on the machine (it needs to fetch/build whisper.cpp — a known-fragile
+step, especially on Windows or a path with spaces), it **degrades gracefully** to
+captions derived from the script or a `--label` you pass, and says which path it
+took. Never claim whisper ran if the script reports the fallback. If captions are
+not wanted, skip this.
+
+**B3. Build the overlay plan.** Write `data/<slug>.overlay.json`: the `recording`
+(`recordings/<slug>.mp4`), the `aspect`, any `graphics` (a headline lower-third,
+a callout) as Annotations items, `captions` pointing at the transcript from B2,
+and an optional ducked `music` bed. A `pip` box turns the recording into a webcam
+bubble over a brand background. See `data/sample.overlay.json` for the shape.
+
+**B4. Draft render — the first thing the owner sees.**
+
+```bash
+cd studio/motion
+npm run render -- Overlay output/<slug>.mp4 --props=data/<slug>.overlay.json --scale=0.5
+```
+
+`render.js` probes the recording's real length, so the video is exactly as long as
+the clip (never hardcoded). The recording's own audio flows through; any music bed
+is ducked underneath. **Read the MP4 (and a still) to confirm** the recording,
+graphics, and captions composited on-brand before showing it off.
+
+**B5. React and iterate — one change at a time.** Same as faceless: translate each
+plain request into a single edit to `data/<slug>.overlay.json` (move a headline,
+retime a caption, add a webcam bubble) and re-render. Then render once at
+`--scale=1` for the final and hand off to `package-my-video` (Step 8).
 
 ## Step 3: Get or write the script
 
@@ -158,8 +219,9 @@ upload is the honest ending — the owner uploads it themselves.
   manage timings; the owner never types a render flag or a Sequence.
 - ✅ **Verify by watching.** Read the MP4 (and a still) before declaring any render
   done — the Studio preview can differ from the headless output.
-- ✅ **Faceless ships; other modes are later phases.** Name talking-head and
-  product-demo as coming; do not attempt them here.
+- ✅ **Faceless and talking-head both ship.** Faceless is the default (Steps 3-8);
+  talking-head is the footage-first Mode B flow (ingest → optional captions →
+  Overlay render). Product-demo is a founder/SaaS add-on — do not attempt it here.
 - ✅ **Content guardrails.** On-screen copy uses no em dashes, invents no facts or
   numbers, and names no third-party vendor. Brand voice, from `brand.json`
   ([`knowledge/content-rules.md`](../../knowledge/content-rules.md)).

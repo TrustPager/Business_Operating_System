@@ -22,13 +22,17 @@ and plays them in order through a `TransitionSeries`. Swap the JSON, get a new
 video in a new style — no per-video component code.
 
 - Studio preview: `npm run studio` (the Remotion Studio, live reload)
-- Canonical render: `npm run render -- Video output/<slug>.mp4 --props=data/<slug>.scenes.json`
+- Faceless render: `npm run render -- Video output/<slug>.mp4 --props=data/<slug>.scenes.json`
+- Talking-head ingest: `npm run ingest -- "<clip>" <slug> --aspect=9:16`
+- Talking-head captions: `npm run caption -- <slug>` (local whisper.cpp, degrades gracefully)
+- Talking-head render: `npm run render -- Overlay output/<slug>.mp4 --props=data/<slug>.overlay.json`
 - Setup check: `npm run preflight`
 
-Three modes are planned (spec §5): **Mode A faceless** (shipping — this is what
-the registry renders today), **Mode B talking-head overlay**, and **Mode C
-product/demo** (a founder/SaaS add-on, off the default owner flow). Build only
-what a mode needs; do not scaffold the later modes ahead of time.
+Three modes (spec §5): **Mode A faceless** (shipping — the scenes.json registry),
+**Mode B talking-head overlay** (shipping — the `Overlay` composition composites an
+ingested recording with graphics + captions; see §2b), and **Mode C product/demo**
+(a founder/SaaS add-on, off the default owner flow — not built). Build only what a
+mode needs; do not scaffold Mode C ahead of time.
 
 ---
 
@@ -57,6 +61,43 @@ This is the load-bearing seam that makes the studio data-driven.
 The one metadata owner is `computeFacelessMeta(plan)` in
 `src/compositions/facelessFactory.tsx`. Never compute fps/duration/dims a second
 way.
+
+---
+
+## 2b. Talking-head (Mode B) — the Overlay compositing contract
+
+`Overlay` is the second owner-facing composition (`src/compositions/Overlay.tsx`).
+It is props-driven exactly like `Video`: an **overlay plan** arrives as input props
+and `computeOverlayMeta(plan)` owns its fps/dimensions/duration. The plan carries a
+`recording` (path under `public/`, loaded via `staticFile`), a `graphics` list
+(Annotations items), a `captions` array, an optional ducked `music` bed, and an
+optional `pip` box (webcam-bubble mode). See `data/sample.overlay.json`.
+
+The load-bearing rules:
+
+- **The recording is normalised on the way in.** Raw phone/OBS footage is often
+  VFR, rotated, or HEVC — all of which drift out of sync. `scripts/ingest.js`
+  re-encodes every recording to constant 30fps, upright, scaled-to-fit,
+  H.264/AAC → `public/recordings/<slug>.mp4` before it is ever composited. Never
+  point a plan at a raw, un-ingested file.
+- **The recording renders through `<Video>` from `@remotion/media`** (frame-perfect,
+  carries its own audio). Graphics layer over it by AbsoluteFill DOM/paint order;
+  `PictureInPicture` gives the webcam bubble.
+- **Duration comes from the recording, never hardcoded.** `calculateMetadata` runs
+  in a headless browser and cannot read the file, so `scripts/render.js` probes the
+  recording's real length in Node (via the shared ffmpeg resolver) and injects
+  `durationInFrames` into the plan before handing it to Remotion.
+- **Audio:** the recording's track flows through `<Video>`; a `music` bed is ducked
+  under it via a per-frame `volume` callback (a low constant bed with short fades).
+- **Captions are keyless and degrade.** `scripts/caption.js` transcribes the real
+  speech with local whisper.cpp; if the whisper fetch/compile is unavailable (a
+  known-fragile step — it failed on this dev machine because Remotion's Windows
+  `Expand-Archive` does not quote a path containing spaces), it falls back to
+  script/label-derived captions and says which path it took. Never claim whisper
+  ran if the fallback fired.
+
+`render.js` routes on the plan shape: a `scenes[]` plan is faceless, a `recording`
+plan is Overlay. Both write the same `<slug>.timing.json`.
 
 ---
 
@@ -203,23 +244,31 @@ motion/
 ├── package.json              ← npm scripts (studio / render / still / preflight)
 ├── remotion.config.ts        ← render defaults: swangle, concurrency 2, h264/CRF
 ├── scripts/
-│   ├── render.js             ← the props seam: resolve plan → remotion render → timing.json
+│   ├── ffmpeg.js             ← shared 3-arm ffmpeg resolver + duration/dimension probe
+│   ├── ingest.js             ← normalise a recording → public/recordings/<slug>.mp4 (CFR/H.264/AAC)
+│   ├── caption.js            ← local whisper.cpp captions → data/<slug>.captions.json (degrades)
+│   ├── render.js             ← the props seam: faceless OR overlay plan → remotion render → timing.json
 │   └── preflight.js          ← "check my setup" gate
 ├── src/
 │   ├── index.ts              ← registerRoot(RemotionRoot) — called ONCE
-│   ├── Root.tsx              ← registers Video (props-driven) + the style samples
+│   ├── Root.tsx              ← registers Video + Overlay (props-driven) + the style samples
 │   ├── brand.js              ← brand tokens from BOS/brand/brand.json
 │   ├── tokens.ts             ← THE brand bridge (one source of token values)
 │   ├── fonts.ts              ← render-time font resolution
 │   ├── compositions/
-│   │   ├── facelessFactory.tsx  ← the engine + computeFacelessMeta (metadata owner)
+│   │   ├── facelessFactory.tsx  ← the faceless engine + computeFacelessMeta (metadata owner)
+│   │   ├── Overlay.tsx          ← the talking-head compositor + computeOverlayMeta (Mode B)
 │   │   ├── Faceless*.tsx        ← fixed style samples (static plan imports)
 │   │   └── Scaffold/Showcase.tsx ← engine demos on the owner's brand
 │   ├── scenes/library/       ← the scene vocabulary (registry + per-style devices)
-│   ├── compositor/ overlays/ primitives/ ui/  ← ported motion + UI primitives
+│   ├── overlays/             ← Annotations (graphics engine) + CaptionTrack (caption renderer)
+│   ├── compositor/ primitives/ ui/  ← ported motion + UI primitives (PictureInPicture = webcam bubble)
 │   └── data/                 ← neutral starter-cast.json
 ├── data/
-│   └── <slug>.scenes.json    ← the visual plans (committed samples + owner videos)
+│   ├── <slug>.scenes.json    ← faceless visual plans (committed samples + owner videos)
+│   ├── sample.overlay.json   ← talking-head plan shape (schema example)
+│   └── <slug>.captions.json  ← per-recording caption tracks (gitignored, owner-specific)
+├── public/recordings/        ← ingested owner footage (gitignored)
 └── output/                   ← rendered MP4 + timing.json (gitignored)
 ```
 
