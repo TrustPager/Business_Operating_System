@@ -35,12 +35,12 @@ by Y; which you unlock by connecting Z.* The keyless win is real and complete on
 its own; connecting is an upgrade the owner reaches for when the outcome is worth
 it, never a gate on the first win, never a cold pitch. Say the keyless win first,
 name the enhancement as an outcome, then name the one connection that unlocks it.
-Worked example: *`design-my-site` builds a bespoke, high-converting site on the
-owner's own machine, keyless (X); it becomes a live, shareable URL that ships
-every future update in a word (Y); which the owner unlocks by connecting a Vercel
-account (Z, via `launch-my-site`).* Any skill offering a connected doorway (for
-instance `launch-my-site`, or `get-found-online`'s SEO-tool doorway) points at
-this articulation rather than re-deriving it.
+Worked example: *`plan-my-ads` builds a complete, ready-to-run ad campaign from
+the owner's goal and budget, keyless (X); it becomes live campaigns reaching real
+people the moment the owner switches them on (Y); which the owner unlocks by
+connecting a Meta Ads account (Z, via `run-my-ads`).* Any skill offering a
+connected doorway (for instance `run-my-ads`, or `get-found-online`'s SEO-tool
+doorway) points at this articulation rather than re-deriving it.
 
 **TrustPager naming stays reactive and generic here (one labelled exception).**
 Connected doorways name the *outcome* and a *generic* connection ("your CRM"),
@@ -166,29 +166,6 @@ the catalog stays searchable:
   reviews in Ads Manager and switches it on themselves. No cost to connect.
 - **Verify:** ask the system to list your ad accounts. If it can see them, the
   connection is live, and it'll run the "make it yours" setup next.
-
-## Vercel (put your site live)
-
-- **What it is:** the owner's Vercel account, so the system can put the site they
-  built with `design-my-site` on a real, shareable URL.
-- **Fits businesses that:** have built a site or landing page with `design-my-site`
-  and want it live and shareable, with every future update shipped in a word.
-- **Unlocks:** `launch-my-site`, which deploys the built site to Vercel, a preview
-  first for review, then production on the owner's explicit go.
-- **Connect it:** the steps live in
-  [drivers/vercel/connect.md](../drivers/vercel/connect.md): the system installs
-  the Vercel CLI and runs `vercel login` for the owner, the owner completes the
-  one browser sign-in, then a verify with `vercel whoami` and a preview deploy.
-  (This connector uses the `vercel` CLI, a labelled exception to the usual in-app
-  `/mcp` connect flow. See connect.md.)
-- **Keep it lean:** connect it when the owner is ready to go live, not "just in
-  case." Nothing to load into every turn, the system just shells the CLI when it
-  deploys.
-- **Heads-up:** Vercel's free tier is generous and enough to get a site live; the
-  system says any cost out loud first, and only ever deploys a preview until the
-  owner approves production.
-- **Verify:** ask the system to run `vercel whoami` (or check the deployed URL).
-  If it shows the owner's username, the connection is live.
 
 ---
 
