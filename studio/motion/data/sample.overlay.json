@@ -1,0 +1,23 @@
+{
+  "slug": "talking-head-demo",
+  "mode": "talking-head",
+  "aspect": "9:16",
+  "fps": 30,
+  "recording": "recordings/talking-head-demo.mp4",
+  "durationInFrames": 180,
+  "music": null,
+  "pip": null,
+  "graphics": [
+    {
+      "type": "headline",
+      "target": { "x": 0.5, "y": 0.14 },
+      "text": "Your best answer, on camera",
+      "style": "emphasis",
+      "timing": { "start_offset_seconds": 0.5, "duration_seconds": 3 }
+    }
+  ],
+  "captions": [
+    { "text": "Here is how we do it", "startMs": 0, "endMs": 2500 },
+    { "text": "one simple step at a time", "startMs": 2500, "endMs": 5500 }
+  ]
+}

@@ -242,6 +242,16 @@ promo via RVS), not the YouTube factory. This supersession is labelled so the tw
 video designs do not silently diverge; the one home for the YouTube video render
 decision is this doc.
 
+> **[REVISED 2026-07-09, Content Creation Studio — LABELLED]** Point (b) above said
+> "the heavyweight Remotion render engine stays *only* in `Remotion-VideoStudio`." That
+> line is now revised: a *genericised* Remotion engine also lives in-repo at
+> `studio/motion` (the premium Content Creation Studio, realizing founder-decisions D13).
+> This does NOT change Decision 8 for `studio/video` — the floor stays keyless Puppeteer
+> frame-capture, untouched. BOS now knowingly carries two render engines (keyless floor +
+> Remotion premium module); they are different rungs. One home for this call:
+> founder-decisions.md D14 and
+> [2026-07-09-content-creation-studio-design.md](2026-07-09-content-creation-studio-design.md).
+
 **9. SUPERSEDES `make-thumbnail`'s TrustPager-tutorial framing (LABELLED).**
 `make-thumbnail` and its studio
 ([studio/thumbnails](../../studio/thumbnails/CLAUDE.md)) are today steeped in

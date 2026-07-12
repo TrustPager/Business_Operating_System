@@ -218,6 +218,20 @@
     "requires_driver": "none",
     "status": "active"
   },
+  "design-my-scenes": {
+    "data_path": "local",
+    "function_slot": "creative",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
+  "design-my-site": {
+    "data_path": "local",
+    "function_slot": "creative",
+    "requires_credential": "none",
+    "requires_driver": "render",
+    "status": "active"
+  },
   "design-nurture-sequence": {
     "data_path": "mcp_tools",
     "function_slot": "comms",
@@ -325,6 +339,13 @@
     "requires_driver": "markitdown",
     "status": "active"
   },
+  "launch-my-site": {
+    "data_path": "local",
+    "function_slot": "deploy",
+    "requires_credential": "key",
+    "requires_driver": "vercel",
+    "status": "active"
+  },
   "lead-triage": {
     "data_path": "mcp_tools",
     "function_slot": "crm",
@@ -407,6 +428,20 @@
       "mcp__trustpager__get_trigger_schema",
       "mcp__trustpager__list_action_types"
     ]
+  },
+  "make-my-video": {
+    "data_path": "local",
+    "function_slot": "creative",
+    "requires_credential": "none",
+    "requires_driver": "render",
+    "status": "active"
+  },
+  "make-product-demo": {
+    "data_path": "local",
+    "function_slot": "creative",
+    "requires_credential": "none",
+    "requires_driver": "render",
+    "status": "active"
   },
   "make-social-post": {
     "data_path": "local",
@@ -811,6 +846,13 @@
     "function_slot": "documents",
     "requires_credential": "mcp",
     "requires_driver": "trustpager",
+    "status": "active"
+  },
+  "voice-my-video": {
+    "data_path": "local",
+    "function_slot": "creative",
+    "requires_credential": "key",
+    "requires_driver": "render",
     "status": "active"
   },
   "weekly-review": {

@@ -1,0 +1,87 @@
+{
+  "slug": "dog-groomer-booked-while-you-sleep",
+  "mode": "faceless",
+  "aspect": "16:9",
+  "fps": 30,
+  "direction": {
+    "style": "clean_editorial",
+    "palette_source": "brand/brand.json",
+    "type_source": "brand/brand.json",
+    "motion": "restrained_spring",
+    "texture": "flat",
+    "mood": "confident"
+  },
+  "rules": {
+    "on_screen_max_words": 4,
+    "visualize_not_transcribe": true,
+    "one_device_per_scene": true
+  },
+  "transition": { "type": "fade", "duration_frames": 12 },
+  "scenes": [
+    {
+      "id": "s1",
+      "beat_ref": "hook",
+      "role": "hook",
+      "intent": "Promise the outcome mobile groomers most want, in their words.",
+      "visual_device": "typographic_statement",
+      "on_screen_label": "Booked while you sleep",
+      "motion": "word_stagger",
+      "duration_s": 3,
+      "visual": {
+        "index": "01",
+        "kicker": "For mobile groomers",
+        "statement": "Booked while you sleep"
+      }
+    },
+    {
+      "id": "s2",
+      "beat_ref": "problem-to-win",
+      "role": "contrast",
+      "intent": "Show the booking day transformed, no sentence needed.",
+      "visual_device": "before_after",
+      "on_screen_label": "Daytime to overnight",
+      "motion": "panels_then_arrow",
+      "duration_s": 4,
+      "visual": {
+        "subject": "Your bookings",
+        "before": { "tag": "Was", "value": "Daytime only" },
+        "after": { "tag": "Now", "value": "Books overnight" }
+      }
+    },
+    {
+      "id": "s3",
+      "beat_ref": "how",
+      "role": "process",
+      "intent": "Prove it fills the run in three simple steps.",
+      "visual_device": "process_flow",
+      "on_screen_label": "How it fills",
+      "motion": "nodes_then_connectors",
+      "duration_s": 4.5,
+      "visual": {
+        "kicker": "Three steps",
+        "steps": [
+          { "label": "They book online" },
+          { "label": "You get the run" },
+          { "label": "Van's booked out" }
+        ]
+      }
+    },
+    {
+      "id": "s4",
+      "beat_ref": "payoff",
+      "role": "stat_cta",
+      "intent": "Land the overnight number and point to the next step.",
+      "visual_device": "big_stat",
+      "on_screen_label": "Seven booked overnight",
+      "motion": "count_up",
+      "duration_s": 3.5,
+      "visual": {
+        "kicker": "Overnight",
+        "value": 7,
+        "suffix": "bookings",
+        "label": "While you slept",
+        "cta": "Wake up booked"
+      }
+    }
+  ]
+}

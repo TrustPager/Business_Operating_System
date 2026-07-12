@@ -33,7 +33,10 @@ draws on lives in
 [`knowledge/youtube-packaging-method.md`](../../knowledge/youtube-packaging-method.md):
 outlier analysis, angle and title and thumbnail differentiation, franchise
 thinking. Read it before you build the gap-and-angle map so the body stays lean
-and the method has one home.
+and the method has one home. The distribution logic behind idea selection — the
+virality formula (uncommon idea + normal lens, or common idea + unique lens), reading
+the addressable audience, and remixing validated outliers — lives in
+[`knowledge/distribution-method.md`](../../knowledge/distribution-method.md).
 
 **This skill reads the live web.** It needs a connection to study the niche. No
 accounts, no key: it works on day one. Keyless does not mean offline. It is
@@ -135,6 +138,11 @@ Now step back and read the niche for packaging, per
   in the niche is using yet.
 - **Standout concepts** — the title, thumbnail, and franchise (a repeatable
   series shape) ideas that would break the pattern.
+
+Weigh each angle with the virality formula (`knowledge/distribution-method.md`): an
+uncommon idea can run with a plain lens, while a common idea needs a unique lens to
+stand out, and the strongest opportunities are validated ones (a proven outlier you
+can remix with the owner's own angle), not untested guesses.
 
 Write this as the third section of `youtube-research.md`: a gap-and-angle map that
 names, for the strongest opportunities, the untaken angle and a standout

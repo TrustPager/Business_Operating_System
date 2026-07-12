@@ -88,6 +88,10 @@ Your brand and voice, branded posts, content plans, and a workspace that looks l
 - **Build Customer Voice**: Turn the words your customers actually use into a customer-voice doc that grounds all your marketing.
 - **Build My Voice**: Lock in how you sound so every content app writes as you, from a file of your own emails and posts: your company voice and your personal voice, both from your own words.
 - **Build Social Strategy**: Turn your goal into a tailored social plan: the platforms, a realistic cadence, content pillars, and the first move.
+- **Design My Scenes**: Turn a video script or a topic into a beat-by-beat visual plan the motion studio renders, each beat shown as one clear visual (a before-and-after, a flow, one big number, a bold line), never a wall of subtitles
+- **Design My Site**: A bespoke, high-converting landing page or website built from the sites you admire and your own taste, running on your machine in a sitting
+- **Make My Video**: Make a professional, on-brand video on your own machine, start to finish
+- **Make Product Demo**: FOUNDER / SAAS ADD-ON
 - **Package My Video**: Turn your rendered video into one publish-ready folder (the video, the thumbnail, title options, a full description with chapters, tags, and a short upload checklist), so all you do is upload it to YouTube yourself
 - **Plan My Ads**: Turn what you sell into a clear, ready-to-run ad plan: the one result to optimize for, the offer ad that proves demand, the creative brief, the copy, the budget and the numbers to watch
 - **Plan My Content**: Turn your content pillars and voice into a dated, ready-to-post calendar for the next week or two.
@@ -102,6 +106,7 @@ Your brand and voice, branded posts, content plans, and a workspace that looks l
 **Switches on when you connect a tool**
 
 - **Run My Ads**: Once your Meta Ads account is connected, turn your ad plan into ready-to-launch Facebook and Instagram campaigns built to Evelyn Weiss's method, created paused and safe, checked over first, and handed back with a clear checklist and the 72-hour rule
+- **Voice My Video**: Give your faceless video a real voiceover
 
 ## 🗂️ Handle paperwork
 
@@ -159,6 +164,7 @@ Stress-testing a decision, writing a sharp brief or prompt, hiring and onboardin
 
 - **Delegate This Work**: Hand a piece of work to a specific team member, with a follow-up set so it does not fall through the cracks.
 - **Email Me A Report**: Deliver any report as a recurring email digest that lands in the right inboxes on a schedule.
+- **Launch My Site**: Take the site you built with design-my-site live on the internet
 - **Learn My Business**: Read your live workspace and write your business profile from real data: your pipeline, products, and brand.
 - **Show Me How**: Describe what you want to do and get a step-by-step walkthrough, with the right pages and the gotchas.
 - **Team Review**: Get a weekly rollup for managers: who shipped what, which deals moved, and where work is stuck.

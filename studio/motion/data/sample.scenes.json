@@ -1,0 +1,87 @@
+{
+  "slug": "quote-in-60-seconds",
+  "mode": "faceless",
+  "aspect": "16:9",
+  "fps": 30,
+  "direction": {
+    "style": "clean_editorial",
+    "palette_source": "brand/brand.json",
+    "type_source": "brand/brand.json",
+    "motion": "restrained_spring",
+    "texture": "flat",
+    "mood": "confident"
+  },
+  "rules": {
+    "on_screen_max_words": 4,
+    "visualize_not_transcribe": true,
+    "one_device_per_scene": true
+  },
+  "transition": { "type": "fade", "duration_frames": 12 },
+  "scenes": [
+    {
+      "id": "s1",
+      "beat_ref": "hook",
+      "role": "hook",
+      "intent": "Promise the outcome in the owner's own trade language.",
+      "visual_device": "typographic_statement",
+      "on_screen_label": "Quote in 60 seconds",
+      "motion": "word_stagger",
+      "duration_s": 3,
+      "visual": {
+        "index": "01",
+        "kicker": "For tradies",
+        "statement": "Quote in 60 seconds"
+      }
+    },
+    {
+      "id": "s2",
+      "beat_ref": "problem-to-win",
+      "role": "contrast",
+      "intent": "Show the same job's turnaround transformed, no sentence needed.",
+      "visual_device": "before_after",
+      "on_screen_label": "3 days to 60 seconds",
+      "motion": "panels_then_arrow",
+      "duration_s": 4,
+      "visual": {
+        "subject": "Your quote",
+        "before": { "tag": "Was", "value": "3 days" },
+        "after": { "tag": "Now", "value": "60 seconds" }
+      }
+    },
+    {
+      "id": "s3",
+      "beat_ref": "how",
+      "role": "process",
+      "intent": "Prove it's genuinely three taps on site.",
+      "visual_device": "process_flow",
+      "on_screen_label": "Snap, send, done",
+      "motion": "nodes_then_connectors",
+      "duration_s": 4.5,
+      "visual": {
+        "kicker": "Three taps",
+        "steps": [
+          { "label": "Snap the job" },
+          { "label": "Tap send" },
+          { "label": "Quote's out" }
+        ]
+      }
+    },
+    {
+      "id": "s4",
+      "beat_ref": "payoff",
+      "role": "stat_cta",
+      "intent": "Land the single number and point to the next step.",
+      "visual_device": "big_stat",
+      "on_screen_label": "60 seconds",
+      "motion": "count_up",
+      "duration_s": 3.5,
+      "visual": {
+        "kicker": "Start to sent",
+        "value": 60,
+        "suffix": "seconds",
+        "label": "Every quote, sorted",
+        "cta": "Win the job first"
+      }
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "name": "bos-motion-studio",
+  "version": "1.0.0",
+  "description": "Content Creation Studio — module one: the keyless, brand-agnostic Remotion video engine. Brand identity flows from BOS/brand/brand.json. Renders faceless, talking-head, and (add-on) product-demo video to MP4.",
+  "type": "module",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render": "node scripts/render.js",
+    "render:raw": "remotion render src/index.ts",
+    "still": "remotion still src/index.ts",
+    "ingest": "node scripts/ingest.js",
+    "caption": "node scripts/caption.js",
+    "voice": "node scripts/voice.js",
+    "preflight": "node scripts/preflight.js"
+  },
+  "author": "FinalPiece AI",
+  "license": "ISC",
+  "dependencies": {
+    "@remotion/cli": "4.0.443",
+    "@remotion/google-fonts": "4.0.443",
+    "@remotion/install-whisper-cpp": "4.0.443",
+    "@remotion/media": "4.0.443",
+    "@remotion/motion-blur": "4.0.443",
+    "@remotion/noise": "4.0.443",
+    "@remotion/paths": "4.0.443",
+    "@remotion/shapes": "4.0.443",
+    "@remotion/transitions": "4.0.443",
+    "lucide-react": "^0.462.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "remotion": "4.0.443"
+  },
+  "devDependencies": {
+    "@remotion/renderer": "4.0.443",
+    "ffmpeg-static": "^5.2.0",
+    "typescript": "^5.6.0"
+  }
+}
