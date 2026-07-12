@@ -35,6 +35,17 @@ class TestParse(unittest.TestCase):
             {"entries": [{"playlist_index": 1, "title": "a", "view_count": 100}]})
         self.assertEqual(len(vids), 1)
 
+    def test_load_entries_handles_jsonl(self):
+        # yt-dlp --dump-json emits one JSON object per line; each starts with '{'
+        jsonl = '{"playlist_index": 1, "title": "a", "view_count": 5}\n' \
+                '{"playlist_index": 2, "title": "b", "view_count": 6}'
+        entries = channel_breakdown._load_entries(jsonl)
+        self.assertEqual(len(entries), 2)
+
+    def test_load_entries_handles_single_array(self):
+        entries = channel_breakdown._load_entries('[{"view_count": 1}, {"view_count": 2}]')
+        self.assertEqual(len(entries), 2)
+
 
 class TestRollingOutlier(unittest.TestCase):
     def test_steady_channel_reads_near_1x(self):

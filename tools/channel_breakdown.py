@@ -31,6 +31,22 @@ import math
 from statistics import median
 
 
+def _load_entries(text):
+    """Accept the three shapes yt-dlp can emit: JSONL (one object per line, from
+    --dump-json), a single JSON array, or a single object with an 'entries'/
+    'videos' list (from --dump-single-json). JSONL is the default and is tried
+    first because each line starts with '{', which a naive whole-file json.loads
+    would choke on at line 2."""
+    text = text.strip()
+    lines = [l for l in text.splitlines() if l.strip()]
+    if len(lines) > 1:
+        try:
+            return [json.loads(l) for l in lines]
+        except json.JSONDecodeError:
+            pass
+    return json.loads(text)
+
+
 def parse_flat_dump(entries):
     """entries: list of yt-dlp flat-playlist JSON objects (or {'entries': [...]}).
     Returns videos oldest->newest, dropping any with null view_count."""
@@ -137,8 +153,7 @@ def main(argv=None):
     a = ap.parse_args(argv)
     with open(a.dump, encoding="utf-8") as f:
         text = f.read().strip()
-    entries = (json.loads(text) if text.startswith(("[", "{"))
-               else [json.loads(l) for l in text.splitlines() if l.strip()])
+    entries = _load_entries(text)
     vids = parse_flat_dump(entries)
     scored = rolling_outlier(vids, window=a.window)
     report = {
