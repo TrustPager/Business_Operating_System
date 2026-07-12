@@ -75,6 +75,13 @@
     "requires_driver": "none",
     "status": "active"
   },
+  "break-down-a-channel": {
+    "data_path": "local",
+    "function_slot": "research",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
+  },
   "build-brand-strategy": {
     "data_path": "local",
     "function_slot": "strategy",
