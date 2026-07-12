@@ -8,6 +8,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Version
 
 ## [Unreleased]
 
+### Added
+
+- **`tools/api.py` — one command to call any TrustPager API endpoint.** A fixed, catalog-backed surface over the full REST API (by resource id or raw path, GET/POST/PATCH). Reads are free; writes require `--confirm`, are journaled, and surface a queued-for-approval (HTTP 202) response cleanly. This is the escape hatch for anything the named tools/skills don't wrap, and it sidesteps the MCP tool-manifest ranking limit entirely: a fixed command can never be "ranked out" of a chat client the way a deferred MCP tool can.
+- **`tools/find-capability.py` — "can TrustPager do X?" search.** Ranks every endpoint in the public catalog against a plain-English goal and prints the matches with a ready-to-run `api.py` command for each. Turns endpoint discovery from "scan 60+ resources" into "ask, get the command." Read-only (reads only the public catalog).
+
 ### Changed
 
 - **Onboarding (`/start-here`) redirected to consultation-first (founder-ruled 2026-07-03).** The Day-1 win is now the collaborative consultative conversation (reflect understanding, draw out the goal and the owner's own theory of the blocker, then think alongside them with the reasoning shown), decided by an engagement gauge, rather than a built artifact handed over on the spot. Any build is deferred to a recommendation-with-alternatives at the end; a terse owner still gets a fast tangible win. The assistant now mirrors the owner's register. See `docs/architecture/2026-07-03-collaborative-consultation-design.md`.
