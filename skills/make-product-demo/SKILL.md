@@ -1,6 +1,6 @@
 ---
 name: Make Product Demo
-description: FOUNDER / SAAS ADD-ON. Make a "watch it get built" product demo — a fake-assistant chat surface driving a cursor, clicks, and a build sequence over your OWN product screenshots, with a task panel ticking off as it goes. For a founder or software business showing their product in motion. Not part of the everyday video flow; a service business has no software to demo. Keyless, renders on your machine.
+description: FOUNDER / SAAS ADD-ON. Make a "watch it get built" product demo, a fake-assistant chat driving a cursor, clicks, and a build sequence over your OWN product screenshots, with a task panel ticking off. For a founder or software business demoing their product. Not part of the everyday video flow; a service business has no software to demo. Keyless, renders on your machine.
 triggers:
   - make a product demo
   - watch it get built video
