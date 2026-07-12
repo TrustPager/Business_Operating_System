@@ -68,7 +68,7 @@ invent a video or a number.
 Run the deterministic engine on the dump:
 
 ```bash
-python tools/channel_breakdown.py <slug>-dump.jsonl --window 10 --min-segment 5 --out <slug>-breakdown.json
+python ~/.claude/bos-run.py tool channel_breakdown <slug>-dump.jsonl --window 10 --min-segment 5 --out <slug>-breakdown.json
 ```
 
 It returns a `timeline` (each video's rounded views and its **outlier multiple** =
