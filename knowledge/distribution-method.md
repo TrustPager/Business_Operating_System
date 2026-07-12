@@ -17,7 +17,8 @@ Consumers that reference this file:
 - [`research-my-channel`](../skills/research-my-channel/SKILL.md) — the virality
   formula and addressable-audience read behind idea selection.
 - [`plan-my-content`](../skills/plan-my-content/SKILL.md) — consistency to one
-  avatar across the calendar, and the comment-driving levers.
+  avatar across the calendar, the comment-driving levers, and the 3/1/1 audience spread
+  across a batch (each post carries both a content-type tag and a ring tag).
 
 **Framing is the owner's choice.** Some tactics here (the comment-driving levers)
 lean on taking a hard or contrarian stance. They are documented at full fidelity
@@ -30,8 +31,9 @@ audience is, then give that audience a reason to engage" — reach is earned by 
 the matchmaker, not by hoping.
 
 > Source note (dev-facing): synthesises the social-algorithm and game-theory
-> frameworks taught by Kallaway. Named frameworks preserved; examples rewritten for a
-> service-business audience.
+> frameworks taught by Kallaway, including the Bullseye method (the ring ladder, the
+> 3/1/1 audience spread, and the topics-from-centre / craft-from-anywhere sourcing rule).
+> Named frameworks preserved; examples rewritten for a service-business audience.
 
 ---
 
@@ -107,6 +109,53 @@ The hard discipline that follows:
 This is the single highest-leverage distribution principle. It is *why*
 [`build-social-strategy`](../skills/build-social-strategy/SKILL.md) pins one target and
 a narrow set of pillars, and why a channel plan holds one avatar.
+
+---
+
+## The audience bullseye — the ring ladder and the audience spread
+
+Lever 1 says hold one avatar. The bullseye is *how you operate that* without going so
+narrow you starve for reach. Picture your audience as a dartboard: the exact person you
+serve is the centre, and each ring outward is a broader audience, one step less specific.
+
+**The ring ladder — five levels, one constraint relaxed per ring.** Start at the centre
+(your exact ideal viewer, named at person-level) and build four rings out, each relaxing a
+single constraint so the audience widens by a real, nameable step. For "high-ticket B2B tech
+sales" the ladder is: centre = high-ticket B2B **tech** sales, Ring 1 = high-ticket B2B sales
+(drop the industry), Ring 2 = B2B sales (drop deal size), Ring 3 = sales of any kind (drop
+the model), Ring 4 = business (drop the profession). Each ring out is roughly 5-10x larger,
+and the further out you go the weaker the intent: the centre converts, the outer rings only
+reach. A ring is only a ring if you can name the audience in it; a vague blur is not a ring.
+
+**The 3/1/1 audience spread.** This is the second axis of a content plan, and it is *not*
+the content mix (that axis is what a post is *about*: teach, prove, promote). The audience
+spread is who a post is *aimed at*. For every batch of five videos:
+
+- **3 at the centre** — deep conversion. So specific the ideal viewer thinks "this was made
+  for me." Lower ceiling on raw views, highest ceiling on trust and enquiries.
+- **1 at Ring 1** — reach with conversion. Still close enough that the right people
+  self-identify.
+- **1 at Ring 2** — pure reach. Teaches the algorithm there is a larger adjacent pool and
+  feeds new viewers in.
+
+Never aim past Ring 2 in the first phase. The outer rings are where the algorithm carries
+you *after* you have earned a confident fit score, not where you aim. Aim narrow and the
+matchmaker expands you outward for you; that is the whole trick, and it is why precision
+comes before reach, never the other way around.
+
+**Calibrate, do not guess.** Run the 3/1/1 spread for the first two or three batches, then
+look at which ring actually drove the outcome that matters (follows, DMs, enquiries, sales)
+and bias later batches toward it. Some businesses convert hardest at the dead centre, others
+one ring out. The data decides the spread, not instinct.
+
+**The sourcing rule — topics from the centre, craft from anywhere.** When an owner says
+"nobody makes content in my exact niche, who do I even study?", this is the answer.
+*Topics* must come from the centre or Ring 1 only (borrow a topic from the outer rings and
+you drift broad and muddle the fit score). *Craft* — hooks, formats, editing, pacing,
+structure, thumbnails — can be studied from the best executors in any niche on earth. A
+cooking channel's format can carry a pricing topic. And if the centre is genuinely empty of
+creators, that is not a problem, it is the opening: take a Ring 1 topic and re-aim it at your
+centre ("their video for all of B2B sales, remade specifically for $1M+ tech deals").
 
 ---
 
