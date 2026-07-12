@@ -100,13 +100,31 @@ was tagged, e.g., "proof × centre"), never collapsing into it. ✅
 
 ---
 
+## 4. Sonnet target-model dogfood (the BOS bar)
+
+Ran a harsh Sonnet reader over all five touched surfaces to check the anchors actually
+fire on the target model (the shared-rules field-incident risk: referenced-only rules get
+missed on Sonnet). First pass: 3 PASS, 1 WEAK, 1 FAIL — and the failure was exactly the
+field-incident pattern. The prose anchors were correct, but the *enumerated checklists*
+Sonnet weights higher omitted the new item:
+- `plan-my-content` (FAIL): the "fill all five fields" list and its Hard-rule restatement
+  did not include the ring, so Sonnet would build the five-column table and silently drop
+  the ring tag. Fixed: Ring is now a named sixth field in the checklist, the Hard rule, and
+  the description.
+- `build-social-strategy` (WEAK): the Output-shape deliverable list omitted the audience
+  spread, so it stayed an unread Step-3 aside. Fixed: Output shape now names the spread
+  beside the content mix.
+
+Re-check after the fixes: **both now PASS**; the other three (distribution-method,
+plan-my-youtube, research-my-channel, break-down-a-channel) were PASS throughout.
+
 ## Verdict
 
-All three workstreams produce genuine, correct, non-generic output on fresh live data.
-The engine is honest (no invented breakout), the outlier read is numeric and evidence-
-bound, and the bullseye produced a real AI BOS content plan that even *used* the teardown
-as its craft source — the two enrichments composing as intended.
+All three workstreams produce genuine, correct, non-generic output on fresh live data, and
+all five touched surfaces pass the Sonnet target-model bar after the two checklist fixes.
+The engine is honest (no invented breakout), the outlier read is numeric and evidence-bound,
+and the bullseye produced a real AI BOS content plan that even *used* the teardown as its
+craft source — the two enrichments composing as intended.
 
-**Remaining before merge:** a Sonnet target-model replay of the five touched surfaces
-(the standard BOS bar; this run was on the session model). Everything else — CI gates,
-404 offline tests, live end-to-end — is green.
+**Green across the board:** CI gates, 404 offline tests, live end-to-end on real data, and
+the Sonnet replay. Ready for the merge decision. Push remains the founder's call (public repo).
