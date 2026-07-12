@@ -174,10 +174,18 @@ channel dump is this skill's **mandatory** core data path, not an optional deepe
 ## yt-dlp driver expansion
 
 `drivers/yt-dlp/README.md` today documents a **single-video** transcript/comments deepener.
-This adds a **channel-history** use: `--flat-playlist`-style dump of a channel's videos with
-publish dates and view counts, for the breakout timeline. Update the README to document the
-new use and keep the honest boundary (still `kind: local`, keyless, read-only; Firecrawl
-remains the default surface read). No new driver kind; no activation path.
+This adds a **channel-history** use: a `--flat-playlist` dump of a channel's videos returning
+**view counts and reverse-chronological order (no dates in flat mode)**, for the breakout
+timeline. Update the README to document the new use, state the no-dates boundary plainly (so
+it never claims a capability the tool lacks), and keep the honest boundary (still
+`kind: local`, keyless, read-only; Firecrawl remains the default surface read). No new driver
+kind; no activation path.
+
+**Manifest verification (plan-time, not blocking):** confirm at lint time that
+`tools/manifest.py` accepts `data_path: fetch_rest` for a `kind: local`-driver skill; if
+`local` is the truer value for a skill whose data comes from a local binary invocation rather
+than a hosted REST read, use that instead. Decide against the linter, not by copying
+`research-my-channel` blindly.
 
 ---
 
