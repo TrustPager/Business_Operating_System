@@ -48,19 +48,24 @@ New section content:
   fit score muddles); craft (hooks, formats, editing, pacing) can be studied from anywhere.
   If the centre is empty of creators, that is the opening: pull a Ring 1 topic and re-aim it.
 
-**Anti-collision note (critical):** `build-social-strategy` Step 3 part 4 already owns a
-**content mix** on the *content-type* axis (educational / proof / promo / behind-the-scenes).
-The 3/1/1 is a **different axis — audience proximity**. Every anchor must present them as
-two orthogonal axes ("what the post is *about*" vs "who the post is *aimed at*"), never
-overwrite or blur the existing type-mix.
+**Anti-collision note (critical):** `build-social-strategy` Step 3 **part 4** already owns a
+**content mix** on the *content-type* axis (educational / social-proof / promotional /
+behind-the-scenes). The 3/1/1 is a **different axis — audience proximity**. Two things both
+named "mix" in the same Step 3 is itself the drift risk, so **do not reuse the word "mix"
+for the ring axis** — name it **"audience spread"** (or "reach allocation"). Every anchor
+presents them as two orthogonal axes that *compose*: a planned post carries **both** tags at
+once, e.g. "proof × centre" or "educational × Ring 2" (what it's *about* × who it's *aimed
+at*). This makes orthogonality structural, not merely asserted, and never overwrites the
+existing type-mix.
 
 **Inline anchors (tight, per the shared-rules doctrine — referenced-only rules get missed
 on Sonnet):**
 - `skills/build-social-strategy/SKILL.md` — Step 3, alongside the existing content mix:
-  a short anchor introducing the audience-ring mix as the second axis, pointing to the
-  distribution-method section as the owner.
+  a short anchor introducing the **audience spread** as the second axis (never a second
+  "mix"), pointing to the distribution-method section as the owner.
 - `skills/plan-my-content/SKILL.md` — the dated calendar allocates the batch across rings
-  per 3/1/1, tagging each planned post with its ring.
+  per 3/1/1, and each planned post carries **both** its content-type tag and its ring tag
+  (they compose, e.g. "proof × centre").
 - `skills/plan-my-youtube/SKILL.md` — the ring ladder drives topic selection under the one
   held avatar; ties to the virality formula already referenced there.
 
@@ -79,8 +84,11 @@ clears it by a clear multiple." Sharpen from vague to a **named, reported number
   channel's recent uploads within the window you can see; prefer a trailing ~3-month window
   when dates are visible, else the last ~10-20 uploads).
 - Report it explicitly, e.g. "did **4.2x** this channel's baseline."
-- **Interpretation bands** (directional): `< 1x` under-performer, `~1-2x` solid,
-  `2-5x` real outlier, `5x+` breakout — study hardest.
+- **Interpretation bands** (directional): `< 1x` below the channel's own median, `~1-2x`
+  solid, `2-5x` real outlier, `5x+` breakout — study hardest. **These describe relative
+  position, not quality:** because the baseline is the channel's own median, roughly half a
+  healthy channel sits `< 1x` by construction — say "below this channel's typical", never
+  "under-performing", so the read doesn't scold half a good channel.
 - **Caveats:** a very young video is still compounding (note it, don't over-read); a tiny
   visible sample makes the baseline noisy (say so); never compute from a number you did
   not actually observe.
@@ -101,8 +109,10 @@ A bounded, keyless, one-channel teardown. Distinct from `research-my-channel`
 out, and what transfers?"
 
 **Deliverable:** `channel-breakdown-<handle>-<date>.md` (+ inline highlights):
-1. **Outlier-score timeline** — every video by publish date (x) vs outlier multiple (y),
-   the inflection and any spike cluster marked. The spine of the story.
+1. **Outlier-score timeline** — every video by **upload order** (x, oldest→newest) vs
+   outlier multiple (y), the inflection and any spike cluster marked. The spine of the
+   story. (Order, not calendar date — see the data-path note; exact dates are not in the
+   flat dump and are fetched per-video only for the handful around the inflection, if wanted.)
 2. **The breakout inflection** — the video where the channel's rolling performance
    step-changed upward (or "no durable step — a launch spike that reverted").
 3. **Spike vs durable step** — did it level up, or fire one hit and mean-revert?
@@ -114,28 +124,50 @@ out, and what transfers?"
 offer/non-offer monetization-pillar layers for v1. They are pro-creator and largely
 irrelevant to a service-business owner. Keep the packaging-transferable core.
 
-**Data path — extends the yt-dlp driver (see below).** A breakout timeline needs a whole
-channel's video history (publish dates + view counts), which the single-video deepener does
-not provide and Firecrawl cannot reliably pull deep. Uses a `yt-dlp` channel `--flat-playlist`
-dump. Keyless, local, no account. Firecrawl remains the default for the surface read; the
-channel dump is this skill's specific need.
+**Data path — extends the yt-dlp driver (see below). VERIFIED EMPIRICALLY 2026-07-12.**
+A breakout timeline needs a whole channel's video history, which the single-video deepener
+does not provide and Firecrawl cannot reliably pull deep. Uses a `yt-dlp` channel
+`--flat-playlist` dump — keyless, local, no account. **What the flat dump actually returns
+(tested):** `view_count` (a *rounded* display figure, e.g. `27000`) and `playlist_index`
+(reverse-chronological order). It does **NOT** return `upload_date` or `timestamp` — every
+date field is null in flat mode. So the design uses **upload order as the x-axis and time
+proxy**, never a calendar date, and a **rolling-by-count trailing baseline** (median of the
+previous N videos in order), never a date-window baseline. Exact dates, if ever needed for
+labelling around the inflection, cost one per-video network call each and are fetched only
+for that handful — never for the whole channel. Firecrawl remains the default surface read;
+the channel dump is this skill's specific need.
 
 **Engine — a reimplemented deterministic helper.** This is the one place in-reasoning math
 is unreliable over 100+ videos (which is exactly why Kallaway scripted it), so it earns a
 script here — distinct from Workstream B. The helper:
-- Computes each video's outlier multiple (views ÷ trailing baseline) from the channel dump.
-- Detects the breakout inflection via a step-change scan on `log1p(outlier)` (a difference-
-  of-means / t-style score across candidate splits, upward shifts only — so one paid/brand
-  spike cannot hijack the result), returning the trigger video + pre/post era medians.
+- Parses the flat dump into `[{index, title, view_count}]`, oldest→newest (reverse the
+  `playlist_index`). **Skips entries with `view_count: null`** (Shorts/live/members-only)
+  and treats view counts as rounded/directional, not exact.
+- Computes each video's outlier multiple = views ÷ a **rolling trailing-window baseline by
+  video count** (median of the previous N in order). A rolling baseline means steady channel
+  growth reads as ~1x throughout, so the scan finds packaging step-changes, not the growth
+  trend.
+- Detects the breakout inflection on `log1p(outlier)` with a **rank-based** two-sample
+  statistic (Mann-Whitney U), not a difference-of-means — a mean statistic is *not* robust to
+  a lone brand-deal spike, which would defeat the whole point; a rank test is. Requires a
+  **minimum segment length of k consecutive videos** on each side, so a one-video spike can
+  never register as a durable step (this is also what cleanly separates deliverable #3's
+  spike vs step). Returns the trigger video + pre/post era **medians** (robust, matching the
+  detection statistic).
 - Pure Python stdlib, deterministic, no network. **Reimplemented from the documented method,
   in our own code** — not Kallaway's `.py`.
 - Location: alongside the yt-dlp driver (e.g. `drivers/yt-dlp/` helpers) or a skill-local
   `scripts/` dir — final placement decided in the plan, consistent with how `studio/*` and
   existing skills structure code.
 
-**Skill manifest constraints (from the codebase):** description ≤ 400 chars
-(`check-surface-budget`), keyless-clean (not `needs_connection`), passes `lint-skill`,
-`check-doctrine-voice`, `registry-generator --check`, `export-capabilities --check`.
+**Skill manifest (decided, not left to the implementer):** `requires_driver: yt-dlp` — the
+channel dump is this skill's **mandatory** core data path, not an optional deepener as in
+`research-my-channel`, so `none` would understate it. Still keyless: `yt-dlp` is
+`kind: local` (not a connected kind), so it passes `check-connectors` and
+`check-onboarding-binding` without an activation path. Also set `requires_credential: none`,
+`function_slot: research`, `data_path: fetch_rest`. Description ≤ 400 chars
+(`check-surface-budget`); passes `lint-skill`, `check-doctrine-voice`,
+`registry-generator --check`, `export-capabilities --check`.
 
 ---
 
@@ -151,12 +183,20 @@ remains the default surface read). No new driver kind; no activation path.
 
 ## Inventory / doctrine updates (BOS standard)
 
-- `CLAUDE.md` (BOS root) — add `break-down-a-channel` to the youtube-studio inventory + routing.
-- `docs/CAPABILITIES.md` / capability tree — regenerate via `export-capabilities.py` so the
-  new skill and any regrouping land in the tree.
+- **Discovery surface** — add a `knowledge/starter-projects.md` row for `break-down-a-channel`
+  under the market group (keyless-tagged, outcome-led, skill-id in backticks), mirroring the
+  youtube-studio Phase-1 pattern. Without this row the skill exists but is undiscoverable in
+  onboarding — a gap the live dogfood would hit. (There is **no root `CLAUDE.md`** in the BOS
+  repo — verified; the real inventory/routing homes are `starter-projects.md`,
+  `kernel/registry.json`, and `docs/CAPABILITIES.md`.)
+- `kernel/registry.json` + `docs/CAPABILITIES.md` — regenerate via `registry-generator.py`
+  and `export-capabilities.py` so the new skill and any regrouping land in the registry + tree.
 - `distribution-method.md` and `youtube-packaging-method.md` consumer lists updated to name
   the new consumers/anchors.
-- Source-note credit to Kallaway added where the bullseye lands (matching distribution-method).
+- **Source-note credit to Kallaway** added where the bullseye lands in `distribution-method.md`
+  (that file already carries one) **and** newly to `youtube-packaging-method.md`, since
+  Workstream B ports Kallaway's specific "views ÷ trailing average" outlier-score definition
+  and that file currently carries no source note.
 
 ## Validation (the pass bar)
 
@@ -174,8 +214,11 @@ python tools/lint-skill.py skills/break-down-a-channel
 BOS_OFFLINE=1 python -m unittest discover -s tests -v
 ```
 Plus a scripted **Sonnet dogfood** of the enriched skills and the new skill (the standard
-BOS pass bar for reasoning-heavy skills), and an offline fixture test for the breakout
-helper (deterministic input → asserted inflection).
+BOS pass bar for reasoning-heavy skills), and offline fixture tests for the breakout helper:
+(a) a **parse test** whose fixture includes a `view_count: null` entry (Shorts/live) to prove
+the parser skips it and tolerates rounded counts, and (b) a **detection test** with a
+deterministic ordered series → asserted inflection index, plus a lone-spike series that must
+*not* register as a durable step (guards the rank-based + min-segment robustness).
 
 **LIVE dogfood (founder-required acceptance gate):** after build + CI + Sonnet dogfood, run
 the whole cycle **end-to-end on real, fresh YouTube data, framed for the AI BOS channel** —
@@ -203,3 +246,11 @@ correct, useful read on current data — not a fixture, not a replay.
 4. Funnel/monetization layer dropped from the teardown for v1. ✅
 5. No Kallaway source verbatim in the public repo; methods reimplemented + credited. ✅
 6. Live end-to-end dogfood on the AI BOS channel is the final acceptance gate. ✅
+7. **The teardown is order-based, not date-based** — `yt-dlp --flat-playlist` returns view
+   counts + reverse-chron order but no dates (verified 2026-07-12), so upload order is the
+   x-axis and the baseline rolls by video count. Detection is rank-based (Mann-Whitney) with
+   a minimum segment length, not a mean statistic. ✅ (Revised after spec review.)
+8. New skill declares `requires_driver: yt-dlp` (mandatory core, still keyless kind local),
+   not `none`. ✅ (Revised after spec review.)
+9. The ring axis is named **"audience spread"**, never a second "mix"; posts carry both a
+   content-type tag and a ring tag that compose. ✅ (Revised after spec review.)
