@@ -1,6 +1,6 @@
 ---
 name: Plan My Content
-description: Turn your content pillars and voice into a dated, ready-to-post content calendar for the next 1-2 weeks. Reads content-pillars.yaml and voice.md when they exist, or derives working pillars from a short brief so you're never blocked. Every slot names the date, channel, pillar, hook, and format. Bounded to a 1-2 week horizon, never a 90-day firehose.
+description: Turn your content pillars and voice into a dated, ready-to-post content calendar for the next 1-2 weeks. Reads content-pillars.yaml and voice.md when they exist, or derives working pillars from a short brief so you're never blocked. Every slot names the date, channel, pillar, ring, hook, and format. Bounded to a 1-2 week horizon, never a 90-day firehose.
 triggers:
   - plan my content
   - build a content calendar
@@ -115,12 +115,15 @@ wider, so the calendar builds conversion and reach at once. This is a *separate 
 the pillar/content-type: note the ring alongside each slot's pillar (for example
 "proof × centre" or "teach × Ring 2"), so the two compose rather than compete.
 
-For EVERY slot, fill all five fields:
+For EVERY slot, fill all six fields:
 
 - **Date** — the real calendar date (and weekday).
 - **Channel** — where it posts.
 - **Pillar** — which content pillar this slot serves (ties every post back to
   strategy, so the plan is never random).
+- **Ring** — which bullseye ring this slot targets (centre / Ring 1 / Ring 2),
+  so the batch holds the 3/1/1 audience spread. This composes with the pillar,
+  it does not replace it (e.g. "proof × centre").
 - **Hook / angle** — the specific opening line or idea for THIS
   post, written in the brand's voice. Not a vague topic ("talk about speed") —
   an actual angle the owner could open with.
@@ -149,8 +152,9 @@ Show the calendar, then:
 
 - **Horizon is clamped to 1-2 weeks. Never plan past 14 days.** Bounded and
   token-frugal beats a sprawling quarter no one follows.
-- **Every slot names all five fields** — date, channel, pillar, hook, format.
-  A slot missing its pillar is a random post, not a planned one.
+- **Every slot names all six fields** — date, channel, pillar, ring, hook, format.
+  A slot missing its pillar is a random post, not a planned one; a slot missing
+  its ring drops the audience spread the batch is built on.
 - **Built on the brand's real pillars and voice.** When `content-pillars.yaml`
   and `voice.md` exist, use them. When they don't, derive working pillars from
   a brief and say so — never invent a strategy and present it as the owner's.

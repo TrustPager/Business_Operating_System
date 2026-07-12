@@ -273,6 +273,8 @@ at it by outcome when they want the picture made.
 ## Output shape
 
 A short framing line, then the six-part strategy (platform focus + why, cadence
-per platform, 3-4 goal-mapped pillars, the content mix, the one metric to watch,
-the first move this week), followed by a one-line note on whose voice/brand it's
-built from and the offer to turn it into a dated calendar and written posts.
+per platform, 3-4 goal-mapped pillars, the content mix *and* the audience spread
+(the 3/1/1 across the bullseye rings, a separate axis from the mix), the one
+metric to watch, the first move this week), followed by a one-line note on whose
+voice/brand it's built from and the offer to turn it into a dated calendar and
+written posts.
