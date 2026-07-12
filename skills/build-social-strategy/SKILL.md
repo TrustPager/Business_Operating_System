@@ -186,6 +186,16 @@ working to build on, what to park), then the six parts, in order:
    value/proof and light on hard promo, but tailor it to the goal (a sales goal
    carries more promo; an authority goal carries more teaching). Make the
    balance explicit so the calendar later isn't all sell.
+
+   *A second, separate axis — the audience spread.* The content mix is what a post
+   is *about*; the **audience spread** is who it is *aimed at*, on the bullseye of
+   audiences around the owner's exact ideal viewer. The default is **3/1/1** across
+   a batch of five: three at the centre (the exact viewer), one a ring wider, one
+   two rings wider, then let the algorithm carry them outward. The two axes compose
+   (a post is, say, "proof × centre"), so name the spread here without collapsing it
+   into the content mix. The ring ladder, the 3/1/1 rule, and the sourcing rule live
+   in [`knowledge/distribution-method.md`](../../knowledge/distribution-method.md)
+   (the audience bullseye).
 5. **What success looks like — the one metric to watch.** Name the single
    metric that tells the owner this is working, tied to the goal — not vanity
    numbers for their own sake. For *bookings/leads*: enquiries or DMs that
