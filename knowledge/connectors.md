@@ -42,6 +42,16 @@ account (Z, via `launch-my-site`).* Any skill offering a connected doorway (for
 instance `launch-my-site`, or `get-found-online`'s SEO-tool doorway) points at
 this articulation rather than re-deriving it.
 
+**TrustPager naming stays reactive and generic here (one labelled exception).**
+Connected doorways name the *outcome* and a *generic* connection ("your CRM"),
+never TrustPager by product name, unless the owner asks. The single deliberate,
+documented exception is Day 5's `plan-my-roadmap`, where the owner has finished
+their floor and explicitly asked what to connect next: there TrustPager may be
+named as one earned option where it genuinely fits, honest about the paid
+subscription. That exception is logged in
+[../docs/adr/0002-trustpager-off-acquisition-pages.md](../docs/adr/0002-trustpager-off-acquisition-pages.md).
+Any new surface that names TrustPager must be added there too, or it is drift.
+
 ---
 
 ## How an entry is shaped (the schema)

@@ -86,6 +86,7 @@ Your brand and voice, branded posts, content plans, and a workspace that looks l
 - **Brand My Workspace**: Point this at your website to detect your colours, fonts, name, and logo, and brand every studio in one shot.
 - **Build Brand Strategy**: Turn how you talk about your work into a sharp brand brief: positioning, a promise, and content angles, in your words.
 - **Build Customer Voice**: Turn the words your customers actually use into a customer-voice doc that grounds all your marketing.
+- **Build My Voice**: Lock in how you sound so every content app writes as you, from a file of your own emails and posts: your company voice and your personal voice, both from your own words.
 - **Build Social Strategy**: Turn your goal into a tailored social plan: the platforms, a realistic cadence, content pillars, and the first move.
 - **Design My Scenes**: Turn a video script or a topic into a beat-by-beat visual plan the motion studio renders, each beat shown as one clear visual (a before-and-after, a flow, one big number, a bold line), never a wall of subtitles
 - **Design My Site**: A bespoke, high-converting landing page or website built from the sites you admire and your own taste, running on your machine in a sitting
@@ -141,12 +142,13 @@ Stress-testing a decision, writing a sharp brief or prompt, hiring and onboardin
 **Works now (keyless)**
 
 - **Build My Proof**: Turn a client result into your strongest marketing asset, a measured before-and-after transformation story in the client's own voice
-- **Build My Voice**: Lock in how YOU sound so every content app writes as you, forever
 - **Coach My Calls**: Paste a sales call, quote visit, or discovery conversation and I'll coach it like a sharp sales manager, against a proven discovery framework, what you did well, the one or two highest-leverage things to change next time, and a line to actually say on the next call
 - **Connect A Tool**: Walk the owner through connecting one of their tools (Gmail, Google Calendar, and more) as a friendly, verified tutorial, then put it to use
+- **Find My Next Move**: Get the straight operator's read of your business: the one thing most in your way, the highest-leverage move to clear it shown from your own numbers, and a kept one-page plan.
 - **Five Day Challenge**: The 5-Day Owner-to-Operator Challenge
 - **Grill Me On This Decision**: Pressure-test a real decision before you commit: the assumptions, both cases at full strength, and a recommendation.
 - **Onboard Team Member**: Set a new hire up with your team's standards baked in, so they follow the same process from day one.
+- **Plan My Roadmap**: See what to connect next: the tools and add-ons that would move you fastest toward your goal, in priority order, as a kept one-page roadmap.
 - **Plan My YouTube**: Turn your channel research into a real plan: a clear channel strategy and a pipeline of videos, each with an idea, an angle, a working title, and a thumbnail concept ready to script
 - **Set Up Referrals**: Install a referral engine that actually brings work in, the ask designed as a warm introduction (not "got any names?"), timed to the moment a client is happiest, with a reward that works for both sides and a simple way to track it
 - **Start Here**: Get your assistant up to speed on your business in one short conversation where it thinks alongside you toward your goal, then recommends the first thing to build together.
