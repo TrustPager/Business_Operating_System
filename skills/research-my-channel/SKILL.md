@@ -82,15 +82,18 @@ did well. For each, note from what the page shows you:
 - **Topics** — what subjects the channel covers, and which ones it returns to.
 - **Formats** — talking-head, tutorial, listicle, story, and the like.
 - **Cadence** — how often it posts, from visible upload dates.
-- **Outliers** — the videos that plainly outperformed that channel's own
-  baseline (far more views than its typical upload). These outliers are the
-  strongest packaging signal in the whole read; the method file explains how to
-  read them.
+- **Outliers** — the videos that outperformed that channel's own baseline. Compute
+  and report the **outlier multiple** (views over the median of the channel's recent
+  uploads you can see) as a plain number: "did ~4x this channel's baseline", not just
+  "did well". These outliers are the strongest packaging signal in the whole read;
+  `knowledge/youtube-packaging-method.md` owns how to compute and read the multiple
+  (including the interpretation bands and the young-video / small-sample caveats).
 
 Write this as the first section of `youtube-research.md`: a short, sharp scan of
 what the niche's winners cover, how they package it, and which specific videos
-broke out. Cite the real observed outliers by their actual titles and visible view
-counts. Never invent an outlier or a number you did not see.
+broke out. Cite the real observed outliers by their actual titles, visible view
+counts, and the computed multiple ("4.2x baseline"). Never invent an outlier, a
+view count, or a multiple you did not derive from numbers you actually saw.
 
 ## Step 2: Viewer demand signals (every idea carries real evidence)
 
