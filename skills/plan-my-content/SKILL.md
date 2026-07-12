@@ -108,6 +108,13 @@ account to, so vary the format freely but resist scattering across different aud
 Where a slot's job is engagement, the comment-driving levers (a clear stance, a genuine
 question, real emotion) live in that same file.
 
+**Spread the batch across the audience rings — 3/1/1** (the audience bullseye in that
+same file). Holding one avatar does not mean every post aims at the dead centre. Across a
+batch of five, aim three at the centre (the exact viewer), one a ring wider, one two rings
+wider, so the calendar builds conversion and reach at once. This is a *separate axis* from
+the pillar/content-type: note the ring alongside each slot's pillar (for example
+"proof × centre" or "teach × Ring 2"), so the two compose rather than compete.
+
 For EVERY slot, fill all five fields:
 
 - **Date** — the real calendar date (and weekday).
