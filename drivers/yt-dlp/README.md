@@ -71,3 +71,28 @@ exhaustive comment sweep, the assistant installs the `yt-dlp` binary and runs it
 locally. It is never a prerequisite and never blocks the first read. The owner
 gets a complete research artifact on the keyless default, and the deepener is
 there when the extra depth earns its keep.
+
+## The channel-history use (for `break-down-a-channel`)
+
+`break-down-a-channel` needs a whole channel's video list to build a breakout
+timeline, which Firecrawl's page read cannot reach in depth. `yt-dlp` provides it
+keylessly with a **flat-playlist dump**:
+
+```bash
+yt-dlp --flat-playlist --dump-json "https://www.youtube.com/@<handle>/videos"
+```
+
+**What the flat dump returns (verified):** one JSON object per line (JSONL), each
+carrying `view_count` (a *rounded* display figure, e.g. `27000`) and
+`playlist_index` (the channel's reverse-chronological order, index 1 = newest).
+
+**What it does NOT return:** dates. In flat mode `upload_date` and `timestamp` are
+null on every entry. So `break-down-a-channel` uses **upload order** as its
+timeline axis, never a calendar date, and its engine (`tools/channel_breakdown.py`)
+works entirely from order plus view counts. Exact dates, if ever wanted to label
+the handful of videos around an inflection, cost one non-flat per-video call each
+and are fetched only for that handful, never for the whole channel.
+
+This stays within the honest boundary above: still `kind: local`, keyless,
+read-only, no account. Firecrawl remains the default for `research-my-channel`'s
+surface read; the flat dump is `break-down-a-channel`'s specific data need.
