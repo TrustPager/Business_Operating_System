@@ -24,6 +24,11 @@ the script is written to deliver on the promise the packaging made.
 When in doubt, this file wins over instinct. Instinct says "describe the video".
 Packaging says "make the click the obvious choice, then keep the promise".
 
+> Source note (dev-facing): the outlier-multiple definition (a video's views over the
+> channel's own trailing baseline) synthesises Kallaway's outlier-score framework, rewritten
+> for a service-business audience. The virality and packaging craft around it is general
+> YouTube practice.
+
 ---
 
 ## Outlier analysis — read against the channel's own baseline, not the whole platform
@@ -45,10 +50,29 @@ outlier multiple measures what *worked*.
 | One title/thumbnail shape repeating across a creator's top videos | That shape is their proven pattern. It is copyable at the *structure* level. |
 | An old video still gaining views | It is "evergreen" — the topic has standing search/suggested demand. |
 
-Estimate the baseline from the channel's recent uploads (the median of the last
-10–20 videos you can see), then flag anything that clears it by a clear multiple.
-You are looking for the *why*: was it the topic, the angle, the title promise, or
-the thumbnail? Name the reason, because the reason is what transfers to the
+**Compute and report the multiple, don't just eyeball it.** The **outlier multiple**
+is a video's views divided by the channel's own baseline — the median of its recent
+uploads (the last 10-20 you can see, or a trailing ~3-month window when upload dates are
+visible). Report it as a plain number the owner can act on: "this one did **4.2x** this
+channel's baseline." A number ranks the winners honestly; "seems to have done well" does not.
+
+Read the multiple with these directional bands, and remember they measure **position
+against this channel's own median, not quality**:
+
+| Multiple | Read |
+|---|---|
+| below ~1x | below this channel's typical (by definition ~half the catalogue sits here — never call it "under-performing") |
+| ~1–2x | a solid, on-baseline video |
+| ~2–5x | a real outlier — study it |
+| ~5x and up | a breakout — study it hardest |
+
+Two honest caveats: a very **young** video is still compounding, so a high multiple on a
+recent upload can settle down (note it, don't over-read); and a **small** visible sample
+makes the baseline noisy, so say when the read rests on only a handful of videos. Never
+compute a multiple from a view count you did not actually observe.
+
+Whatever the number, the point is the *why*: was it the topic, the angle, the title
+promise, or the thumbnail? Name the reason, because the reason is what transfers to the
 owner's channel. A view count you can't explain teaches nothing.
 
 **Look across the niche, not just one channel.** The strongest signal is the same
