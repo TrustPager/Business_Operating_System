@@ -28,6 +28,8 @@ to stdout. Missing-lib: exits 2 with `BOS_MISSING_DEP: numpy-financial` to stder
 | Verify your install is healthy (after setup, or when something breaks) | `python tools/check-install.py` |
 | Browse all TrustPager API resources and their endpoints | `python tools/list-endpoints.py` |
 | See the full schema of one endpoint (params, scopes, doc URL) | `python tools/inspect-endpoint.py <resource>` |
+| Find the endpoint + ready-to-run command for a goal ("can it send an SMS?") | `python tools/find-capability.py "send an sms"` |
+| Call any endpoint directly (reads free; writes need `--confirm`) | `python tools/api.py GET opportunities --limit 20` |
 | Validate a Claude Code skill folder before committing | `python tools/lint-skill.py skills/<name>` |
 | Run a skill against a mock fixture (offline, no credits) | `python tools/test-skill.py <name>` |
 | Lint a nurture sequence against the house style (live queue or drafts) | `python tools/lint-sequence.py --queue <id>` |
