@@ -52,7 +52,9 @@ only for the pieces that are genuinely missing:
 - **Direct costs** that belong to the job itself:
   - **Materials** at the owner's cost (what they pay, not what they charge).
   - **Labour**: hours and the rate per hour. A crew works as total crew-hours,
-    or hours per head.
+    or hours per head. If you're on the job yourself, count your own hours in
+    here too at a fair rate, even if you don't pay yourself for them today, so
+    the real margin shows.
 - **Overheads**: the share of fixed running costs this job should carry. Don't
   assume one. Ask which method the owner wants (Step 2 names the choices) and
   take the figure or the rate they give.
@@ -225,6 +227,28 @@ Frame it forward: this is the number the owner can trust when they decide which
 jobs to chase more of. If this job type repeats for the same customer, offer to
 extend the read to lifetime gross profit (per `knowledge/business-method.md`
 §17): the per-job profit times how often and how long a customer keeps buying.
+
+## Step 5b: Write the per-job margin home
+
+Once the read has landed, record the figure so a later session (Day 4 of the
+5-day challenge reads the figures the floor already produced) finds it rather than
+starting from scratch. This is the same one-owning-field discipline
+`find-my-next-move` uses for the diagnosed constraint (its Step 8): one home, then
+other skills read it from there.
+
+Append (never overwrite) one dated, labelled line to the
+`## How the business is running` block in `./CLAUDE.md`, using the session's
+current date. Line format:
+
+> `<Figure name> (computed, <date>): <value in plain words>`
+
+For example:
+
+> `Per-job margin (computed, <date>): catering functions ~18% after real labour, well below the 35% target`
+
+Name the job type in the value so a later reader knows which job the margin belongs
+to. If you costed more than one job type across the run, append one line per job
+type. Leave every other line in the block untouched.
 
 ## Step 6: Offer the reusable .xlsx model (optional, never the win)
 

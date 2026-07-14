@@ -34,6 +34,19 @@ this is the maths underneath.
 
 ## Step 1 — Take in the job and the costs
 
+**Read the profile first, don't ask cold.** If `./CLAUDE.md` exists, read it
+before asking anything. Pull the labour rate, overheads, trade context, and
+close rate the system already holds (check the `## How the business is running`
+block and the trade/what-they-sell notes), and pre-fill them as labelled
+guesses to confirm rather than blank questions to re-ask:
+
+> From your profile I've got labour at $85/hr, travel and consumables as your
+> usual overheads, and you win about 90% of quotes. Still right for this job?
+
+Only ask cold for what the profile genuinely doesn't hold. If a
+`## How to talk to me` register is present, match the read-back to it (terse
+owners get the guesses in one tight line, no preamble).
+
 The owner describes one job (this skill prices one job per run — if they
 hand you a list, price the first and offer to do the rest one at a time).
 Gather what you need, and ask for only the pieces that are actually missing:
@@ -43,7 +56,9 @@ Gather what you need, and ask for only the pieces that are actually missing:
 - **Materials** — items and their cost to the owner (what they pay, not what
   they charge). Quantities where they matter.
 - **Labour** — hours, and the rate per hour. If a crew, hours per person or a
-  total crew-hours figure works.
+  total crew-hours figure works. If you're on the job yourself, count your own
+  hours in here too at a fair rate, even if you don't pay yourself for them
+  today, so the real margin shows.
 - **Overheads** — the costs that aren't materials or labour but belong to this
   job: travel, equipment hire, tip fees, a cut for consumables, a share of
   fixed running costs if they price that way. Take what they give you.
@@ -82,11 +97,12 @@ jobs pass straight through.
 2. **The capacity check.** If the owner has said they're booked out or
    turning work away, the capacity rule applies (price, not volume, per
    §8.3): price this job with a rise in mind, not at the old rate.
-3. **The close-rate signal (optional, one question, skip if unknown).** You
-   may ask once: "roughly what share of quotes like this do you win?" If the
-   share is very high, flag likely underpricing per the directional
-   close-rate signal (§8.2) and offer to price a raised version alongside
-   the one they asked for.
+3. **The close-rate signal (use the profile, ask only if it's blank).** If the
+   Step 1 profile already holds a close rate, use that figure and skip the
+   question. Only when the profile has no close rate may you ask once: "roughly
+   what share of quotes like this do you win?" Either way, if the share is very
+   high, flag likely underpricing per the directional close-rate signal (§8.2)
+   and offer to price a raised version alongside the one they asked for.
 4. **Never anchor on the competition.** Never price from "competitor average
    minus a bit" (§8.5). The price comes from the owner's costs and the value
    of the work.
@@ -152,6 +168,22 @@ explaining what's in the price and why it's fair.
 The stand-behind lines name what the customer ends up with (the Arrival, per
 `knowledge/business-method.md` §6), not the cost ledger.
 
+**Regulated shape-guard (check the profile before you write the stand-behind
+lines).** Read the profile's business shape: prefer an explicit
+`Business shape:` line in the `## How the business is running` block you already
+read in Step 1 (start-here records it, with any regulated override spelled out)
+and fall back to inferring it from the `## My business` context in the workspace
+`CLAUDE.md`. Treat the business as regulated if that line carries a `Regulated:`
+clause, or (when inferring) the business is a regulated one (clinic /
+appointment, or the finance / mortgage broking, insurance, or legal verticals).
+For a regulated business, the stand-behind lines name the Arrival as logistics
+and care — what is handled, how the work is done, what the customer can rely on
+— never a clinical or financial result or a timeline to one. The per-shape
+overrides live in `knowledge/industry-notes.md` (the Clinic / appointment and
+Service / professional shapes), summarised in `knowledge/business-method.md`
+§7.2 and §15 and pointed to from `knowledge/content-rules.md` §4. For all other
+shapes, name the Arrival in full.
+
 ## Step 4 — Offer the clean spreadsheet (optional, never the win)
 
 The breakdown above IS the win — it's complete and usable as text. If the owner
@@ -167,6 +199,27 @@ the time the typed breakdown is all they need.
 End with: *"That's your priced breakdown, margin and all, with the assumptions
 written down so you can stand behind it. Want it tidied into a spreadsheet, or
 should I price the next job?"*
+
+## Step 5 — Save the numbers back to the profile
+
+Once the priced breakdown has landed, write the figures home so the rest of the
+system finds them (Day 4 of the challenge reads them from here, not from thin
+air). This is the same one-owning-field discipline `find-my-next-move` uses for
+the diagnosed constraint.
+
+If `./CLAUDE.md` exists, **append** (never overwrite) dated, labelled line(s) to
+the `## How the business is running` block. Use the session's current date at
+runtime, never a hardcoded one. One line per figure this run produced, in the
+format `<Figure name> (<stated|computed>, <date>): <value in plain words>`:
+
+- `Close rate (stated, <date>): about 90% on quotes`
+- `Labour rate used in pricing (<date>): $85/hr`
+- `Priced job (<date>): kitchen reno, quoted $12,400, ~32% margin`
+
+Mark a figure the owner gave you as `stated` and one you worked out as
+`computed`. If a figure was read straight from the profile and unchanged, don't
+re-append it. If `./CLAUDE.md` doesn't exist, skip this step silently, the
+typed breakdown is still the win.
 
 ## Hard rules
 

@@ -109,6 +109,21 @@ they can correct it cheaply. Use these seven sections, in this order:
 1. **Cover / intro** — who it is for, who it is from, the job in one line, and
    a warm opening that names the outcome the prospect wants (the Arrival, per
    `knowledge/business-method.md` §6, in the prospect's own words).
+   **Regulated shape-guard (check the profile before you write the Arrival).**
+   Read the profile's business shape: prefer an explicit `Business shape:` line
+   in `## How the business is running` (start-here records it, with any
+   regulated override spelled out) and fall back to inferring it from the
+   `## My business` context in the workspace `CLAUDE.md`. Treat the business as
+   regulated if that line carries a `Regulated:` clause, or (when inferring) the
+   business is a regulated one (clinic / appointment, or the finance / mortgage
+   broking, insurance, or legal verticals). For a regulated business, frame the
+   Arrival as logistics and care — the experience, how the work is handled, what
+   the client can rely on — never a clinical or financial result or a timeline
+   to one. The per-shape overrides live in `knowledge/industry-notes.md` (the
+   Clinic / appointment and Service / professional shapes), summarised in
+   `knowledge/business-method.md` §7.2 and §15 and pointed to from
+   `knowledge/content-rules.md` §4. For all other shapes, name the Arrival in
+   full.
 2. **Understanding of the need** — reflect back what the prospect is trying to
    achieve, in the prospect's own terms, so they feel heard. This is where the
    proposal earns trust.

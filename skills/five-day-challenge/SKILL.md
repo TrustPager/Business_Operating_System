@@ -79,15 +79,30 @@ chore:
 ## Start: figure out where they are
 
 Read `./CLAUDE.md` and its top-line marker
-(`<!-- bos-onboarding: ... challenge=... -->`):
+(`<!-- bos-onboarding: ... challenge=... -->`). The marker's full field set and
+allowed values are defined once in `start-here` Step 9 (the schema's one home);
+this skill reads and writes those fields, it never invents new ones:
 
 - **`challenge=not-started` or no profile yet** → this is Day 1. Welcome them to
   the challenge (below) and begin.
 - **`challenge=day1` … `day4`** → they have done that many days. Open with a warm
   recap of what they built, then run the NEXT day. Do not repeat a finished day.
   From Day 3 onward, also read `challenge_floor_apps_done` (which floor clusters
-  are already complete) and `challenge_first_pick` (which cluster they chose on
-  Day 2) so you pick up exactly where they left off instead of re-deriving it.
+  are already complete), `challenge_cluster_in_progress` (which apps inside a
+  not-yet-finished cluster already landed their win), and `challenge_first_pick`
+  (which cluster they chose on Day 2) so you pick up exactly where they left off
+  instead of re-deriving it. On resume into a partly-done cluster, skip the apps
+  already listed in `challenge_cluster_in_progress` and recap their outcome in one
+  line rather than re-running them; open at the next unfinished app.
+  Also read `challenge_days_skipped`: a day in that list was jumped, not completed,
+  so `dayN` alone never means every earlier day is done. Before offering a skipped
+  day back, reconcile it: if that day's work is verifiably done by any later step,
+  drop it from `challenge_days_skipped` and do NOT re-offer it (re-offering finished
+  work reads as not-listening). Examples of "done by a later step": a skipped Day 3
+  cluster now shows in `challenge_floor_apps_done`; a skipped Day 2 now has `## My
+  goal` set; Day 4's floor-completeness gate finished the floor out of order. Otherwise offer it back warmly
+  before running the current one ("we skipped locking your goal on Day 2, want two
+  minutes on that first? it makes everything after sharper"), never force it.
   Note: `challenge=day1` is also what a standalone `start-here` run leaves behind
   (Day 1 IS `start-here`), so an owner who onboarded without ever naming "the
   challenge" still lands correctly at Day 2 here, never a repeated Day 1.
@@ -95,7 +110,15 @@ Read `./CLAUDE.md` and its top-line marker
   `whats-possible` or whatever they want to work on.
 
 Always let them jump: if they ask to skip to a specific day, let them, but note
-what a skipped day would have set up (later days build on earlier ones).
+what a skipped day would have set up (later days build on earlier ones), and add
+the jumped day(s) to `challenge_days_skipped` so a later session offers them back
+rather than reading them as done. **If the jump happens before Day 1 has run at
+all** (an owner who opens by asking straight for an add-on, e.g. "just do the Meta
+Ads thing"): still create the profile stub and marker first (`challenge=not-started`
+plus whatever the add-on taught you about their business), and record the add-on in
+`challenge_wins` / `doorways_open`, so session 2 resumes instead of re-onboarding
+from zero. Give them the keyless half of what they asked for (see the floor-jump
+hard rule), then let Day 1 pick up when they're ready.
 
 ## The welcome (Day 1 open only)
 
@@ -116,14 +139,22 @@ No jargon, ever. They never hear "kernel", "driver", "manifest", "MCP", or
 2. **Name today's mission** in one plain sentence.
 3. **Run the day's apps conversationally**, in order, doing the real work on
    their business. Do the headline win first.
-4. **Celebrate the kept win** and tell them exactly where it lives.
+4. **Celebrate the kept win, record it, and show it.** Mark what they made and
+   where it lives, append one plain line to `## My wins` in `./CLAUDE.md` (newest
+   first, using the session's date, e.g. `<date>: priced the Jones reno, $12,400
+   quote ready to send`), and offer to open the artifact on screen the moment it's
+   made, so a non-technical owner never has to hunt for a file path later. (This
+   `## My wins` ledger is the human-readable record; the compact `challenge_wins`
+   marker list in step 6 is for resume routing.)
 5. **Name the operator move** they just learned.
 6. **Update the marker** in `./CLAUDE.md`: set `challenge=day<N>`, append the win
    to `challenge_wins`, and record any doorway you showed but they did not take in
    `doorways_open` (for a gentle, relevant mention later, never a nag). On Day 2,
    also record `challenge_first_pick`, and write `## My goal` + drop `goal` from
-   `pending=[…]` once it's locked in (see Day 2). On Days 3-4, append each floor
-   cluster you finish to `challenge_floor_apps_done`.
+   `pending=[…]` once it's locked in (see Day 2). On Days 3-4, track floor
+   progress eagerly: record each app's win in `challenge_cluster_in_progress` as it
+   lands, and append each finished cluster to `challenge_floor_apps_done` (see
+   Day 3's marker step).
 7. **Close by pointing forward from their goal.** Once the goal is locked in
    (Day 2 on), don't just tease the next day generically: wrap what today gave
    them, then point at next session as a recommendation aimed at their goal,
@@ -167,7 +198,10 @@ itself:** a first routine, then the forward roadmap.
     owner feeling they are no longer working alone. Do NOT rush this toward a build.
   - **Read the room.** An engaged owner gets that full consultation; a terse owner
     who wants a thing now gets a fast tangible win instead, no grilling. The gauge
-    decides, never a fixed question count.
+    decides, never a fixed question count. Short is not the same as terse: an owner
+    who answers eagerly in few words (often a second-language owner) is engaged, so
+    offer one open invitation before concluding they're terse. `start-here` Step 6b
+    owns the full gauge.
   - **The build comes last, and together.** Only once the understanding has earned
     it, `start-here` recommends the first build (aimed at the goal and the real
     constraint, with a couple of alternatives, often a positioning brief via
@@ -199,10 +233,34 @@ itself:** a first routine, then the forward roadmap.
     not today's task, the big thing. Could be a revenue number, could be
     getting your evenings back, whatever it actually is for you. What are you
     aiming at?"*
-  - Either way, write it into `## My goal` in their words, drop `goal` from
-    `pending=[…]`, and say plainly: *"That's locked into your system now.
-    Everything I recommend from here aims at that, and when something gets in
-    the way, we treat it as a roadblock to clear, not a reason to stop."*
+  - **A feeling or a topic is not a goal (gate this before you lock).** Same test
+    as `start-here`'s hinge (`skills/start-here` Step 6b): *"grow the socials"* or
+    *"less stressed"* is an area of work or a feeling, not a destination. If the
+    answer is a brush-off (*"growth, obviously"*) or a mood, run ONE warm
+    decomposition pass before locking anything: what would have to be true in the
+    business for that to arrive (fewer hours, a week that runs without you, a rough
+    revenue number), offering one smart-default guess from their own figures to
+    react to rather than a blank demand. Never force a number. This applies to both
+    branches above, whether the goal came from Day 1 or you're asking fresh.
+  - Either way, once you have a real, directional goal (or, if they still won't
+    name a target, a labelled *working* goal), write it into `## My goal` in their
+    words and say plainly: *"That's locked into your system now. Everything I
+    recommend from here aims at that, and when something gets in the way, we treat
+    it as a roadblock to clear, not a reason to stop."* Drop `goal` from
+    `pending=[…]` when it's a real goal; if it's only a working goal, keep `goal`
+    in `pending=[…]` so Day 4 sharpens it. Never lock a bare topic or feeling.
+- **Terse / low-patience owner (mirror Day 1's brief variant).** If the owner
+  reads as terse on the same gauge Day 1 uses (`start-here` Step 6b), don't walk
+  the full six-branch tour. Lock the goal in one exchange (if it comes out as a
+  topic or feeling, make ONE quick decomposition attempt per the goal gate above;
+  if a low-patience owner doesn't bite, lock a labelled working goal and move on,
+  never grind them). Compress the tour to a
+  single line (*"here's the shape of your setup: a floor of core apps, and add-ons
+  you build on top once it's filled in"*), still show the capability tree once,
+  then go straight into their pick's headline win in the same sitting, as the
+  default, not as optional bonus. A terse owner should end Day 2 holding a real
+  win, not just a map. (When you run their pick in the same sitting, set
+  `challenge=day3`, same as the offer-to-keep-going branch below.)
 - **Then open the tour, in plain words:** *"Here's the shape of your system: the
   apps that make up your floor, and the add-ons you can build on top once it's
   filled in."* Walk the six branches below as "apps," always tied to something
@@ -286,15 +344,44 @@ lock-in, write their voice), then `build-social-strategy`, then `plan-my-content
 for a dated 1-2 week calendar, then `write-post-copy` to draft real captions in
 their voice. Headline win: voice locked in, plus one real post drafted in it.
 Full kept win: voice locked in + a social strategy + a fortnight plan + real
-posts drafted. Doorway (show, do not push): `brand-my-workspace` for the visual
+posts drafted.
+  - **Referral-only / no online presence? Aim this cluster at referrals, not social.**
+    If the owner has no website or social presence and grows by word-of-mouth (check
+    `## How my leads come in` and the profile, or just ask), don't march them through
+    a social strategy and content calendar with nowhere to post. Keep `build-my-voice`
+    (it still sharpens their proposals and emails), and swap the social leg for their
+    real lever: `set-up-referrals` and `build-my-proof` (plus `get-found-online` for a
+    basic findable presence). The headline win becomes voice locked in plus a referral
+    ask or a proof asset they'll actually use. Frame it as their strength ("your best
+    growth comes through the people who already rate you, let's make that easy to
+    repeat"), never as a gap. If they do want a presence, run the normal social flow.
+  - **Regulated shape? Compliance gate before any content.** For a clinic/finance
+    shape (or insurance/legal), `plan-my-content` and `write-post-copy` must run
+    every draft through the regulated compliance row before offering it: no outcome
+    testimonials or before/after result claims, no result guarantees, no urgency on
+    clinical or advice decisions, sell the logistics and the care, never the
+    outcome. The per-shape overrides live in `knowledge/industry-notes.md` and
+    `knowledge/business-method.md` §7.2/§15, the same flag Win the Work already puts
+    before `write-a-proposal`.
+Doorway (show, do not push): `brand-my-workspace` for the visual
 look (colours, logo, fonts) once they want their content to look the part, never
 a Day 1 or Day 2 default.
 
 **Win the Work** (🏆 Win work + 🧭 Plan & decide)
 Run, in order: `grill-me-on-this-decision` on a real decision they are sitting
 on, then `price-my-work` on a real job, then `write-a-proposal` to turn that into
-a branded proposal in their voice. Headline win: a real job priced and the
+a branded proposal, in their locked voice if Brand & Voice has already run,
+otherwise in their own register from the profile (and note the proposal sharpens
+automatically once their voice is locked in, which doubles as an honest tease
+toward that cluster). Headline win: a real job priced and the
 proposal ready to send.
+  - **`grill-me-on-this-decision` is part of the FULL kept win, not the headline.**
+    On a headline-win-first pass, skip it and start at `price-my-work`: the headline
+    win is the priced job plus the proposal, and the grill is bonus depth. Only run
+    the grill when a real decision the owner is genuinely sitting on has surfaced. If
+    none surfaces in one ask, don't fish for one, start pricing (the pricing pass
+    usually surfaces the real decision itself, often the price rise, and the grill
+    then runs on that). Never invent a decision just to satisfy the order.
   - **Price with the live signal.** Inside `price-my-work`, one extra question
     earns a lot: roughly how many quotes they win. Read it against the yes-rate
     bands in `knowledge/business-method.md` §8.2 (directional) and say the
@@ -315,26 +402,48 @@ becomes a live e-sign document that tracks itself.
 **Money & Paperwork** (💰 Get paid + 🗂️ Handle paperwork)
 Run (pick what fits their business): `extract-document` or
 `import-from-anywhere` on a real messy file, `build-spreadsheet` to structure
-it, and `cash-flow-forecast` for a week-by-week view of their money. Headline
+it, `cash-flow-forecast` for a week-by-week view of their money, and
+`profit-per-job` for per-job margin. Default `profit-per-job` for any business
+with variable or event-style jobs (catering, functions, wholesale, packages): if
+they sell more than one kind of thing and can't say which one makes money, run it
+on the biggest or most-suspect line, so Day 4's read has real margin to work with
+instead of a generic "cash is tight." Headline
 win: whichever bites harder for this owner, `cash-flow-forecast` if money worry
-came up, otherwise `extract-document` on their real messy file. Full kept win: a
-messy pile turned into clean structure, and a real cash-flow forecast they can
-act on.
+came up, `profit-per-job` if they can't say which work is profitable, otherwise
+`extract-document` on their real messy file. Full kept win: a
+messy pile turned into clean structure, a per-job margin read where it fits, and a
+real cash-flow forecast they can act on.
 
 ### Day 3: Fill in your floor
 - **Mission:** fill in the whole floor, all three clusters, headline win each,
   starting with the cluster they picked on Day 2.
 - **Run:** all three floor clusters (above), headline win first for each, in the
-  order set by `challenge_first_pick`. Land each cluster's headline win at
+  order set by `challenge_first_pick` (if it was never set because Day 2's picking
+  beat was jumped, default to win-the-work, then money-paperwork, then brand-voice,
+  per the marker schema in `start-here` Step 9). Land each cluster's headline win at
   minimum; go to a cluster's full kept win where there's time and appetite. Do not
   force all three to full depth in one sitting: headline wins across the whole
   floor beat one perfect cluster and an abandoned day.
+- **Terse / low-patience owner: check appetite up front, don't wait for fatigue.**
+  If the owner read as terse on Day 1 or 2, don't assume they want all three clusters
+  in one sitting. Land their picked cluster's headline win first, then ask plainly
+  whether to keep going ("that's your [cluster] sorted, want to keep rolling or pick
+  the rest up next time?"). Clusters left open roll to Day 4 by design, that's the
+  normal path here, not a failure. This is the proactive version of the global "cut to
+  the headline win if they're flagging" rule: for a terse owner, check before assuming
+  rather than waiting for them to show fatigue, the same up-front accommodation Days 1
+  and 2 give.
 - **Kept win:** a floor with real pieces in every branch, brand and voice, a
   priced job and a proposal, and a money or paperwork win, all real and theirs.
 - **Operator move:** *set it up once, use it forever.* (Each cluster also carries
   its own move: *set your brand and voice once, produce forever*; *pressure-test
   your thinking*; *throw it any mess, get structure back*.)
-- **Update the marker:** append each finished cluster to `challenge_floor_apps_done`.
+- **Update the marker (eagerly, per app, never batched to day's end).** The moment
+  an app inside a cluster lands its win, record it in `challenge_cluster_in_progress`
+  (e.g. `challenge_cluster_in_progress=win-the-work:[grill-me-on-this-decision]`).
+  When a whole cluster's headline win lands, append it to `challenge_floor_apps_done`
+  and clear that cluster from `challenge_cluster_in_progress`. Eager writes mean a
+  mid-cluster drop resumes at the next unfinished app, never re-running settled work.
 - **Tease:** "Tomorrow I come to your side of the table and give you the straight
   read: the one thing most in your way, and the move I'd make to clear it."
 - **If a cluster is still open at day's end:** name which, and that Day 4 finishes
@@ -384,9 +493,16 @@ act on.
   - **Keyless stays on the table.** If they would rather not connect anything
     today, set up a keyless routine instead: their one-page weekly scoreboard
     (`build-spreadsheet` builds it, five numbers, and the routine is the weekly ten
-    minutes that fills it, the shape is `knowledge/business-method.md` §12.6). They
-    still leave with something running. Owner-facing: "Five numbers, ten minutes a
-    week, and you'll always know what to fix next."
+    minutes that fills it, the shape is `knowledge/business-method.md` §12.6). **If
+    the owner doesn't use spreadsheets or works phone-first, don't force the `.xlsx`:**
+    keep the same five numbers as a plain dated log in the `## My weekly numbers`
+    section of their profile (the phone-first weekly check-in shape in
+    `set-up-a-routine`), read back to them each week. Same weekly rhythm, nothing to open a spreadsheet app for. Be
+    honest about what this is: a weekly check-in they run by hand, not something
+    running on its own yet. That honesty is the point, and it's a real win. Owner-facing:
+    "This is your weekly check-in that keeps your numbers real, five numbers, ten
+    minutes a week, and it's the fastest way to earn the fully-automatic version
+    once you connect a tool."
   - **Kept win:** one real task now running on its own.
 
 - **Beat 2, your roadmap for what's next.** The challenge ends open, on purpose.
@@ -399,7 +515,11 @@ act on.
     member can still ask for the full `whats-possible` menu any time).
   - **Kept win:** the "Your Roadmap" page, a clear, prioritized path forward.
 
-- **Operator move:** *it runs the work, you operate.*
+- **Operator move (match it to the path they took):** on the connected routine,
+  *it runs the work, you operate* is true, say it. On the keyless path, the honest
+  version is *your weekly ten minutes keeps the whole system pointed at the right
+  fix*: never tell a keyless owner something is running on its own when it's a habit
+  they run by hand.
 - **The marker is set by `plan-my-roadmap`** (`challenge=complete`, the roadmap
   recorded as the win). Congratulate them warmly.
 
@@ -424,7 +544,12 @@ act on.
 - **The floor is a strong recommendation, never a lock.** If an owner asks to
   jump straight to an add-on before their floor is filled in, let them, state the
   recommendation once plainly, then follow their lead. Never gate a skill behind
-  `challenge_floor_apps_done`.
+  `challenge_floor_apps_done`. **If what they ask for is a connected-tier
+  capability** (paid ads, automatic quote-chasing, missed-call text-back), never
+  stonewall and never silently swap it for something else: give the keyless
+  planning half now (e.g. `plan-my-ads`, a drafted chase set) and name the
+  connected half as "next, once you connect a tool," the compound now/later pattern
+  `find-my-next-move` and `start-here` already use (`knowledge/business-method.md` §16).
 - **No gaming language.** The capability tree is a business system map, not a
   game. Never say "skill tree," "level up," "spell," or similar. Say "floor,"
   "apps," and "add-ons," the same words the rest of the system already uses.

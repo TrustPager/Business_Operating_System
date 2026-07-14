@@ -105,6 +105,8 @@ their goal and what the floor revealed, in their words:
 Keep it warm and specific to them. This is the hook that earns a direct read: you
 have done the work, so the read is credible, not generic.
 
+**Sharpen a working goal here (the promise Day 2 made).** Read `## My goal` and the marker's `pending=[…]`. If `## My goal` holds only a labelled *working* goal and `goal` is still in `pending` (Day 1 or Day 2 couldn't pin a concrete target), this read is where it gets sharpened: use the floor's now-real numbers to propose a concrete version and confirm it with them (*"back on Day 2 the aim was roughly 'less stressed', now that I can see your numbers, that looks like getting your week under 45 hours without dropping income, does that land?"*), then write the sharpened goal to `## My goal` and drop `goal` from `pending`. Day 2 promised Day 4 would sharpen it; this is that moment.
+
 ## Step 3: Diagnose to ONE constraint (§2 → §4)
 
 Run the diagnosis against the profile, out loud, showing your working. The
@@ -120,10 +122,16 @@ reasoning IS the catharsis, so do it visibly, not behind the curtain.
      quotes, read it against the bands and say the verdict in their numbers:
      *"you're winning about nine in ten quotes, that's not a demand problem, that's
      a price with room in it."*
-   - **The capacity probe (§2 item 7; the capacity rule it feeds is §8.3).** *"How many more customers could you
-     take on right now?"* → *"what breaks first if you doubled?"* → and if nothing
-     breaks: *"then what's actually stopped you doubling?"* The answer usually
-     names the real constraint.
+   - **The capacity probe (§2 item 7; the capacity rule it feeds is §8.3).** Ask it
+     in substance, not word-for-word. Two steps: first, how much more could you
+     take on right now? Then, what breaks first at double the volume? → and if
+     nothing breaks: what's actually stopped you doubling? The answer usually names
+     the real constraint. Whenever the owner's register reads as ESL or
+     simple-sentence, restate it in plain language so the meaning lands, e.g.
+     *"if you had two more houses tomorrow, what would go wrong first: not enough
+     people, not enough hours, or something else?"* A literal reading of "what
+     breaks first" can land as "nothing breaks, I'm careful", which sidesteps the
+     probe, so plain wording keeps the real constraint in view.
 3. **Name the SINGLE binding constraint** from the §3 rubric (leads, sales /
    conversion, delivery / capacity, retention / churn, profit-per-unit, or owner).
    Follow the §3 examination order (retention → profit → sales → leads) when
@@ -216,16 +224,21 @@ field for a named constraint, so Day 5's `plan-my-roadmap` reads it from there, 
 from free text or the one-pager. Record the chosen move alongside it (in the same
 block), or the path they chose if they declined the recommendation.
 
-**Advance the challenge marker, but only inside the challenge.** If the marker's
+**Advance the challenge marker, but only inside the challenge.** (The marker's
+fields are defined once in `start-here` Step 9, the schema's one home; this step
+writes only named fields, it never invents any.) If the marker's
 `challenge` field is `day1` through `day4` (they are running the challenge), set
 `challenge=day4` and append the win to `challenge_wins`. If they invoked this
 standalone and the marker is `not-started`, `complete`, or absent, do NOT touch
 `challenge` (stamping it would mis-route their next challenge session): record the
 constraint and move as above and leave `challenge` as it was.
 
-Then close by pointing forward from the goal, held loosely, and tease Day 5:
-*"Tomorrow we turn that into what runs on its own, and I'll show you the road from
-here."*
+Then close by pointing forward from the goal, held loosely. If they are stopping
+for now, tease Day 5: *"Tomorrow we turn that into what runs on its own, and I'll
+show you the road from here."* If they are continuing straight on (a compressed
+sitting, or they say keep going), drop the "tomorrow" framing and hand directly
+into Day 5's `plan-my-roadmap` in the same breath: *"Let's turn that into what runs
+on its own right now, and map the road from here."*
 
 ## Hard rules recap
 - ❌ **No laundry list.** One constraint, one headline move. Runner-ups stay held.

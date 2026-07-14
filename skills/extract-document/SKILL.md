@@ -31,10 +31,19 @@ python ~/.claude/bos-run.py tool markitdown_convert "<path-to-file>"
 (The `~/.claude/bos-run.py` launcher resolves the install location for you. If it is missing, run `python tools/setup.py` once from the BOS directory to create it.)
 
 Handles PDF, Word, Excel, PowerPoint, images (OCR), HTML, CSV, JSON, ZIP. If the
-wrapper reports MarkItDown isn't installed, relay its one-line install hint
-(`pip install markitdown`) and stop until it's installed. If conversion fails or
-comes back empty (e.g. a scan with no readable text), say so plainly rather than
-inventing content.
+wrapper reports MarkItDown isn't installed (a line starting `BOS_MISSING_DEP:`),
+don't hand the owner a command. Offer the setup in plain language:
+
+> To read that file I need to add the document tool-kit, a quick free one-time
+> setup on your machine. Want me to sort it?
+
+On a yes, run `python ~/.claude/bos-run.py tool check-install --fix` (or
+`python -m pip install "markitdown[all]"` for the one piece, the `[all]` extras are what enable reading Office files) yourself, confirm it
+worked, then re-run the conversion. Never tell the owner to run anything. The
+full detect-offer-install-verify loop is the canonical one in
+[`knowledge/document-tools-method.md`](../../knowledge/document-tools-method.md).
+If conversion fails or comes back empty (e.g. a scan with no readable text), say
+so plainly rather than inventing content.
 
 ## Step 2 — Do the specific extraction the operator asked for
 

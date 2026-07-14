@@ -1,4 +1,4 @@
-<!-- bos-onboarding: spine=incomplete; intake_depth=spine; pending=[identity, customers, relief, voice, goal]; win_delivered=none; last_touched=none; challenge=not-started; challenge_wins=[]; doorways_open=[] -->
+<!-- bos-onboarding: spine=incomplete; intake_depth=spine; pending=[identity, customers, relief, voice, goal]; win_delivered=none; last_touched=none; challenge=not-started; challenge_first_pick=; challenge_floor_apps_done=[]; challenge_cluster_in_progress=; challenge_days_skipped=[]; challenge_wins=[]; doorways_open=[] -->
 # CLAUDE.md: Starter
 
 > **This is your business profile, my notes on how YOU work.** The fastest way to
@@ -55,8 +55,25 @@ days a week" — stated, not guessed, and left blank until I've actually said it
 - Customers find me: `<<< locally / anywhere / both (stated) >>>`
 - What I think is stopping me: `<<< my own words (stated — data, not the diagnosis) >>>`
 - Current pressure point: `<<< only when a diagnosis session has named one (diagnosed, with date) >>>`
+- Business shape: `<<< set once I've been matched to a shape, e.g. clinic/appointment, trades/on-the-tools, hospitality/walk-in, product-seller/ecommerce-retail (diagnosed); a regulated shape notes its content limits on this line >>>`
 
 If I've connected a CRM (e.g. TrustPager), treat it as the source of truth for everything related to opportunities, contacts, companies, communications, and tasks. Until then, work from this profile and what I share.
+
+## My wins
+
+> A plain-language log of what I've built with my system, one line each, newest
+> first. Any later session reads this to pick up the thread and show me my past
+> work, so I never lose track of what I made or where it lives.
+
+`<<< filled in as we build things together, e.g. "2026-07-14: priced the Jones kitchen reno, $12,400 quote ready to send (see priced-jobs/jones-reno.md)" >>>`
+
+## My weekly numbers
+
+> The keyless weekly scoreboard, kept as plain text for owners who don't use
+> spreadsheets. One dated line per week, newest first, read back each week with
+> the one thing to work on. This is the single home for that log.
+
+`<<< filled in if I set up a keyless weekly check-in, e.g. "2026-07-14: 12 leads, 5 quotes, 3 won, $8,400 collected" >>>`
 
 ## My products / services
 
