@@ -155,12 +155,44 @@ No jargon, ever. They never hear "kernel", "driver", "manifest", "MCP", or
    progress eagerly: record each app's win in `challenge_cluster_in_progress` as it
    lands, and append each finished cluster to `challenge_floor_apps_done` (see
    Day 3's marker step).
-7. **Close by pointing forward from their goal.** Once the goal is locked in
+7. **Offer the Wins post (gated, see the Wins-post beat below).** Only once this
+   day's kept win is delivered and the member has confirmed it, offer the
+   ready-to-paste "Post it in Wins" draft built from what actually happened this
+   session. If you have not delivered that win yet, you are not at this beat, never
+   build it off an intermediate step. Each day below names exactly what fires it and
+   what goes in it.
+8. **Close by pointing forward from their goal.** Once the goal is locked in
    (Day 2 on), don't just tease the next day generically: wrap what today gave
    them, then point at next session as a recommendation aimed at their goal,
    held loosely ("based on where you're headed, next I'd have us [X], but we'll
    take it as it comes"). Day 2's close is the fullest worked example. Then let
    them stop or continue.
+
+## The Wins-post beat (offer at each day's close, gated)
+
+At the close of every day, once that day's kept win is delivered and locked, hand
+the member a ready-to-paste "Post it in Wins" draft built from what actually
+happened in the session, so they share from inside the tool instead of from a blank
+page. Offered, never forced.
+
+- **The gate (never fire early).** Offer the Wins post ONLY once the day's kept win
+  is delivered and the member has confirmed it. If you have not delivered that win
+  yet, you are not at this beat. Never build a Wins post from an intermediate step (a
+  reflection, a goal stated on its own, a half-finished cluster). Each day's gate
+  below is exact, honor it.
+- **Voice / slop guard.** If the member has a written voice (a `voice.md` exists
+  because `build-my-voice` has run), draft the post in it. If not (the default on
+  Day 1 and for almost everyone early), draft plain: short, factual, first person, no
+  manufactured hype, no invented specifics. A weak or slop post pollutes the
+  community's own Wins page, so err plain over punchy every time, a true modest line
+  beats a hyped one.
+- **Format.** 40 to 90 words, first person, built on ONE concrete specific from THIS
+  session (a real thing produced, a real number, a real surprise), positive and
+  outcome-led, no em dashes. Present it inline in a copy-paste block, name the Wins
+  channel, and invite edits, one clean paste. NEVER auto-post it anywhere, the member
+  pastes it themselves.
+- **Framing.** *"Here's your Day N win, ready to paste in Wins. Tweak it to sound
+  like you, then drop it in."* A member who skips it moves on with zero friction.
 
 ---
 
@@ -216,6 +248,9 @@ itself:** a first routine, then the forward roadmap.
   profile they keep, plus a real first move underway.
 - **Operator move:** *context in, leverage out.* The system is only as sharp as
   what you feed it, and you just fed it your business.
+- **Wins post (gated):** offered by `start-here` at its close, once the Day 1 win
+  has landed and the profile is written. It fires inside the Day 1 flow that
+  `start-here` owns (see start-here's Close), nothing extra to run here.
 - **Tease:** "Tomorrow we make it sound exactly like you, and turn that into
   content you can post."
 
@@ -329,6 +364,10 @@ itself:** a first routine, then the forward roadmap.
      then, and that's fine."* A recommendation aimed at the goal, never a fixed
      timetable.
 - **Update the marker:** record `challenge_first_pick` with their chosen cluster.
+- **Wins post (gated):** fires ONLY once the full Day 2 kept win is delivered, the
+  goal locked AND the whole system mapped AND the first cluster picked. Do NOT offer
+  it after the goal-lock alone. Then offer the Wins post (see the Wins-post beat),
+  built on their goal and the cluster they chose to build first.
 - **Tease:** "Tomorrow we start filling it in for real."
 
 ## The floor clusters (Day 3 fills these; Day 4 finishes any remainder)
@@ -444,6 +483,10 @@ real cash-flow forecast they can act on.
   When a whole cluster's headline win lands, append it to `challenge_floor_apps_done`
   and clear that cluster from `challenge_cluster_in_progress`. Eager writes mean a
   mid-cluster drop resumes at the next unfinished app, never re-running settled work.
+- **Wins post (gated):** fires ONLY once at least one floor cluster's headline win
+  is delivered (a real built thing, never a half-finished cluster). Then offer the
+  Wins post (see the Wins-post beat), built on what they built today and how long
+  that used to take them by hand.
 - **Tease:** "Tomorrow I come to your side of the table and give you the straight
   read: the one thing most in your way, and the move I'd make to clear it."
 - **If a cluster is still open at day's end:** name which, and that Day 4 finishes
@@ -466,6 +509,10 @@ real cash-flow forecast they can act on.
 - **Operator move:** *work the one constraint, not the whole list.*
 - **The marker is set by `find-my-next-move`** (`challenge=day4`, and the chosen
   move recorded so Day 5's roadmap can rank against it). Nothing extra to set here.
+- **Wins post (gated):** fires ONLY once the "Your Next Move" one-pager is locked
+  (and any floor still open was finished first, per the branch above). Then offer the
+  Wins post (see the Wins-post beat), built on their highest-leverage move and
+  whether it surprised them.
 - **Tease:** "Tomorrow is the big one: we make the parts of that move that repeat
   start running on their own, and I'll show you the road from here."
 
@@ -522,6 +569,9 @@ real cash-flow forecast they can act on.
   they run by hand.
 - **The marker is set by `plan-my-roadmap`** (`challenge=complete`, the roadmap
   recorded as the win). Congratulate them warmly.
+- **Wins post (gated):** fires ONLY once the routine has run once AND the roadmap is
+  locked (`challenge=complete`). Then offer the final Wins post (see the Wins-post
+  beat), built on the routine they set running and the first thing on their roadmap.
 
 ---
 
