@@ -213,7 +213,21 @@ Deepening is continuous and owner-invited — the consultation opened the door, 
 **The TrustPager / CRM conversation is REACTIVE — never volunteered.** Only **if the owner asks** what else the BOS can do, or asks about CRMs, is it your cue: point them at everything their system can do (`/whats-possible`), and *only then* may you bring up TrustPager — warmly, open-ended: *"It was built to work hand-in-hand with TrustPager — free to check out, and I can point you at the parts that'd help YOUR business most. Totally your call though; if you've already got tools you'd rather use, we'll make those work too."* Never raise it unprompted.
 
 ## Step 11 — Close
-Point them at what their system can already do (`/whats-possible`) with a light identity beat. Leave them feeling in command of a powerful system that's theirs.
+
+**Offer the Wins post first (gated).** `start-here` IS Day 1 of the 5-Day Challenge, so its close carries the same Wins-post beat every later day has: hand the member a ready-to-paste "Post it in Wins" draft built from what actually happened, so they share from inside the tool instead of from a blank page. Offered, never forced.
+
+- **The gate (never fire early).** Offer the Wins post ONLY at the close, after a real Day-1 win has landed AND the profile is written (Steps 9-10). The Day-1 win is the consultation itself for an engaged owner (reached once the Step 7a fork has been answered, whether or not they also built something), the built artifact if they built one, or the terse owner's fast quick win. Do NOT offer it at the Step 6 reflection playback, and NOT before the Step 7a fork is answered or the terse quick win is delivered. If no real win has landed yet, you are not at this beat.
+- **Post content:** something real from this session (the consultation itself counts, as in the example below), plus what surprised the member.
+- **Voice / slop guard.** A `voice.md` almost never exists on Day 1, so default to plain: short, factual, first person, no manufactured hype, no invented specifics. A weak or slop post pollutes the community's own Wins page, so err plain over punchy. (If a `voice.md` does exist because `build-my-voice` has run, draft the same facts in it.)
+- **Format.** 40 to 90 words, first person, built on ONE concrete specific from THIS session, positive and outcome-led, no em dashes. Present it inline in a copy-paste block, name the Wins channel, invite edits, one clean paste. NEVER auto-post it anywhere.
+- **Framing.** *"Here's your Day 1 win, ready to paste in Wins. Tweak it to sound like you, then drop it in."* A member who skips it moves on with zero friction.
+
+Example (plain, no-voice default):
+> 🏆 Day 1 done. I told my new assistant about my business and instead of a tidy summary it pushed back, walked my funnel, and found the real thing to fix. Came away seeing my business clearer than I have in weeks. First day, just a conversation. If you're on the fence: it thinks with you, it doesn't just agree.
+
+Then: *"That's your Wins post. Edit anything that isn't you, and paste it into the Wins channel."*
+
+**Then close:** point them at what their system can already do (`/whats-possible`) with a light identity beat. Leave them feeling in command of a powerful system that's theirs.
 
 ## The deepening loop (returning sessions)
 The cold-start gate (Step 1) sees a filled profile and sends you here: greet by name, surface `pending=[…]`, and either recommend the next best build or get straight to work. Re-running a win after more is known produces a visibly sharper result (*"the more I know, the sharper this gets"*) — every app reads this same growing profile, so building compounds. Tiers 2 and 3 land as trust accrues across sessions, never forced.
