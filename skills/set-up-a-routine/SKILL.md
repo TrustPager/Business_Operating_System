@@ -99,6 +99,17 @@ Close by telling them, in plain words:
 - **Weekly review:** a set morning each week, a short digest of what happened and
   what needs attention (works over connected tools, or over the owner's own
   numbers keylessly).
+- **Weekly numbers check-in, kept as plain text (phone-first, no spreadsheet):**
+  for an owner who does not use spreadsheets or works mostly from their phone,
+  keep the same small set of weekly numbers (a five-number cut of the
+  `business-method.md` §12.6 scoreboard, e.g. leads, conversations, jobs won, cash
+  collected, plus the one metric that matters most this quarter) as a plain dated log
+  in the `## My weekly numbers` section of `./CLAUDE.md` (the single home for this
+  log, newest first). Each week they bring the numbers, you read
+  the last few weeks back with the one thing to work on, then append the new week
+  below the last. Same weekly rhythm as the scoreboard, held as text they never
+  open a spreadsheet to use. Be honest about the shape: it is a check-in you run
+  together each week, not something running on its own.
 - **Quiet-lead follow-up:** spots enquiries or threads that went quiet and drafts
   a warm nudge for each, for the owner to approve.
 

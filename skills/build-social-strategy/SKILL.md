@@ -53,7 +53,44 @@ drivers behind the metric — lives in
 [`knowledge/distribution-method.md`](../../knowledge/distribution-method.md). It is the
 mechanics under this strategy; read it before you pin the goal.
 
-## Gate 0 — Two pass/fail checks before any strategy
+## Gate 0 — Is social even your channel? (check this first)
+
+Some owners grow almost entirely by referral and word-of-mouth, have no
+website and no social presence, and don't want one. For them a social strategy
+is the wrong first move — the leverage is in the referral engine they already
+run, not a feed they'll set up and abandon. Never march a referral-run owner
+into a social plan that doesn't fit. Check before you pin any goal:
+
+1. **Read the profile, or ask one plain question.** Look at
+   `## How my leads come in` and `## My business` in the business profile
+   (written by `start-here`). If leads come in mostly by referral / word-of-mouth
+   / repeat customers AND there's no website or social presence, this gate is
+   live. If the profile isn't there or is silent, ask ONE question and wait:
+
+   > Before we build a social plan, how do most of your customers find you
+   > today: word-of-mouth and referrals, or online?
+
+2. **If they're referral-run and not asking to be on social, be honest and
+   point them somewhere better.** Name that social may not be their
+   highest-leverage channel and that their referral engine is the real strength
+   to build on. Don't sell them a feed. Offer the referral-engine plays by
+   outcome, then stop here:
+
+   > Your best growth comes from people who already trust you, and that's a
+   > strength worth doubling down on. That's usually where the effort pays off
+   > first. When you're ready I can help you:
+   > - make referrals happen on purpose instead of by chance (`set-up-referrals`),
+   > - turn happy customers into proof you can point new ones to
+   >   (`build-my-proof`), and
+   > - get a simple, findable presence up so anyone who hears your name can find
+   >   you (`get-found-online`).
+
+3. **If they want to build a presence anyway, run the normal flow.** A
+   referral-run owner who wants more reach or less reliance on word-of-mouth is
+   a fine reason to build social — say so and continue from Gate 1. The strategy
+   here works either way; nothing about the referral path closes the social door.
+
+## Gate 1 — Two pass/fail checks before any strategy
 
 Run these before pinning the goal; each one changes what the strategy is
 FOR. Neither is a lecture — phrase what they surface as "first move this

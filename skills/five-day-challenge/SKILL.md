@@ -95,9 +95,14 @@ this skill reads and writes those fields, it never invents new ones:
   already listed in `challenge_cluster_in_progress` and recap their outcome in one
   line rather than re-running them; open at the next unfinished app.
   Also read `challenge_days_skipped`: a day in that list was jumped, not completed,
-  so `dayN` alone never means every earlier day is done. Offer a skipped day back
-  warmly before running the current one ("we skipped locking your goal on Day 2,
-  want two minutes on that first? it makes everything after sharper"), never force it.
+  so `dayN` alone never means every earlier day is done. Before offering a skipped
+  day back, reconcile it: if that day's work is verifiably done by any later step,
+  drop it from `challenge_days_skipped` and do NOT re-offer it (re-offering finished
+  work reads as not-listening). Examples of "done by a later step": a skipped Day 3
+  cluster now shows in `challenge_floor_apps_done`; a skipped Day 2 now has `## My
+  goal` set; Day 4's floor-completeness gate finished the floor out of order. Otherwise offer it back warmly
+  before running the current one ("we skipped locking your goal on Day 2, want two
+  minutes on that first? it makes everything after sharper"), never force it.
   Note: `challenge=day1` is also what a standalone `start-here` run leaves behind
   (Day 1 IS `start-here`), so an owner who onboarded without ever naming "the
   challenge" still lands correctly at Day 2 here, never a repeated Day 1.
@@ -246,7 +251,10 @@ itself:** a first routine, then the forward roadmap.
     in `pending=[…]` so Day 4 sharpens it. Never lock a bare topic or feeling.
 - **Terse / low-patience owner (mirror Day 1's brief variant).** If the owner
   reads as terse on the same gauge Day 1 uses (`start-here` Step 6b), don't walk
-  the full six-branch tour. Lock the goal in one exchange, compress the tour to a
+  the full six-branch tour. Lock the goal in one exchange (if it comes out as a
+  topic or feeling, make ONE quick decomposition attempt per the goal gate above;
+  if a low-patience owner doesn't bite, lock a labelled working goal and move on,
+  never grind them). Compress the tour to a
   single line (*"here's the shape of your setup: a floor of core apps, and add-ons
   you build on top once it's filled in"*), still show the capability tree once,
   then go straight into their pick's headline win in the same sitting, as the
@@ -337,6 +345,16 @@ for a dated 1-2 week calendar, then `write-post-copy` to draft real captions in
 their voice. Headline win: voice locked in, plus one real post drafted in it.
 Full kept win: voice locked in + a social strategy + a fortnight plan + real
 posts drafted.
+  - **Referral-only / no online presence? Aim this cluster at referrals, not social.**
+    If the owner has no website or social presence and grows by word-of-mouth (check
+    `## How my leads come in` and the profile, or just ask), don't march them through
+    a social strategy and content calendar with nowhere to post. Keep `build-my-voice`
+    (it still sharpens their proposals and emails), and swap the social leg for their
+    real lever: `set-up-referrals` and `build-my-proof` (plus `get-found-online` for a
+    basic findable presence). The headline win becomes voice locked in plus a referral
+    ask or a proof asset they'll actually use. Frame it as their strength ("your best
+    growth comes through the people who already rate you, let's make that easy to
+    repeat"), never as a gap. If they do want a presence, run the normal social flow.
   - **Regulated shape? Compliance gate before any content.** For a clinic/finance
     shape (or insurance/legal), `plan-my-content` and `write-post-copy` must run
     every draft through the regulated compliance row before offering it: no outcome
@@ -400,10 +418,21 @@ real cash-flow forecast they can act on.
 - **Mission:** fill in the whole floor, all three clusters, headline win each,
   starting with the cluster they picked on Day 2.
 - **Run:** all three floor clusters (above), headline win first for each, in the
-  order set by `challenge_first_pick`. Land each cluster's headline win at
+  order set by `challenge_first_pick` (if it was never set because Day 2's picking
+  beat was jumped, default to win-the-work, then money-paperwork, then brand-voice,
+  per the marker schema in `start-here` Step 9). Land each cluster's headline win at
   minimum; go to a cluster's full kept win where there's time and appetite. Do not
   force all three to full depth in one sitting: headline wins across the whole
   floor beat one perfect cluster and an abandoned day.
+- **Terse / low-patience owner: check appetite up front, don't wait for fatigue.**
+  If the owner read as terse on Day 1 or 2, don't assume they want all three clusters
+  in one sitting. Land their picked cluster's headline win first, then ask plainly
+  whether to keep going ("that's your [cluster] sorted, want to keep rolling or pick
+  the rest up next time?"). Clusters left open roll to Day 4 by design, that's the
+  normal path here, not a failure. This is the proactive version of the global "cut to
+  the headline win if they're flagging" rule: for a terse owner, check before assuming
+  rather than waiting for them to show fatigue, the same up-front accommodation Days 1
+  and 2 give.
 - **Kept win:** a floor with real pieces in every branch, brand and voice, a
   priced job and a proposal, and a money or paperwork win, all real and theirs.
 - **Operator move:** *set it up once, use it forever.* (Each cluster also carries
@@ -464,7 +493,11 @@ real cash-flow forecast they can act on.
   - **Keyless stays on the table.** If they would rather not connect anything
     today, set up a keyless routine instead: their one-page weekly scoreboard
     (`build-spreadsheet` builds it, five numbers, and the routine is the weekly ten
-    minutes that fills it, the shape is `knowledge/business-method.md` §12.6). Be
+    minutes that fills it, the shape is `knowledge/business-method.md` §12.6). **If
+    the owner doesn't use spreadsheets or works phone-first, don't force the `.xlsx`:**
+    keep the same five numbers as a plain dated log in the `## My weekly numbers`
+    section of their profile (the phone-first weekly check-in shape in
+    `set-up-a-routine`), read back to them each week. Same weekly rhythm, nothing to open a spreadsheet app for. Be
     honest about what this is: a weekly check-in they run by hand, not something
     running on its own yet. That honesty is the point, and it's a real win. Owner-facing:
     "This is your weekly check-in that keeps your numbers real, five numbers, ten

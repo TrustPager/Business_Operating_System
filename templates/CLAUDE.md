@@ -67,6 +67,14 @@ If I've connected a CRM (e.g. TrustPager), treat it as the source of truth for e
 
 `<<< filled in as we build things together, e.g. "2026-07-14: priced the Jones kitchen reno, $12,400 quote ready to send (see priced-jobs/jones-reno.md)" >>>`
 
+## My weekly numbers
+
+> The keyless weekly scoreboard, kept as plain text for owners who don't use
+> spreadsheets. One dated line per week, newest first, read back each week with
+> the one thing to work on. This is the single home for that log.
+
+`<<< filled in if I set up a keyless weekly check-in, e.g. "2026-07-14: 12 leads, 5 quotes, 3 won, $8,400 collected" >>>`
+
 ## My products / services
 
 These are the products / services I sell (this becomes a live, priced catalogue once I connect a CRM):

@@ -166,6 +166,22 @@ explaining what's in the price and why it's fair.
 The stand-behind lines name what the customer ends up with (the Arrival, per
 `knowledge/business-method.md` §6), not the cost ledger.
 
+**Regulated shape-guard (check the profile before you write the stand-behind
+lines).** Read the profile's business shape: prefer an explicit
+`Business shape:` line in the `## How the business is running` block you already
+read in Step 1 (start-here records it, with any regulated override spelled out)
+and fall back to inferring it from the `## My business` context in the workspace
+`CLAUDE.md`. Treat the business as regulated if that line carries a `Regulated:`
+clause, or (when inferring) the business is a regulated one (clinic /
+appointment, or the finance / mortgage broking, insurance, or legal verticals).
+For a regulated business, the stand-behind lines name the Arrival as logistics
+and care — what is handled, how the work is done, what the customer can rely on
+— never a clinical or financial result or a timeline to one. The per-shape
+overrides live in `knowledge/industry-notes.md` (the Clinic / appointment and
+Service / professional shapes), summarised in `knowledge/business-method.md`
+§7.2 and §15 and pointed to from `knowledge/content-rules.md` §4. For all other
+shapes, name the Arrival in full.
+
 ## Step 4 — Offer the clean spreadsheet (optional, never the win)
 
 The breakdown above IS the win — it's complete and usable as text. If the owner

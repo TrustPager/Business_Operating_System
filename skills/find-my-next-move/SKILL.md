@@ -105,6 +105,8 @@ their goal and what the floor revealed, in their words:
 Keep it warm and specific to them. This is the hook that earns a direct read: you
 have done the work, so the read is credible, not generic.
 
+**Sharpen a working goal here (the promise Day 2 made).** Read `## My goal` and the marker's `pending=[…]`. If `## My goal` holds only a labelled *working* goal and `goal` is still in `pending` (Day 1 or Day 2 couldn't pin a concrete target), this read is where it gets sharpened: use the floor's now-real numbers to propose a concrete version and confirm it with them (*"back on Day 2 the aim was roughly 'less stressed', now that I can see your numbers, that looks like getting your week under 45 hours without dropping income, does that land?"*), then write the sharpened goal to `## My goal` and drop `goal` from `pending`. Day 2 promised Day 4 would sharpen it; this is that moment.
+
 ## Step 3: Diagnose to ONE constraint (§2 → §4)
 
 Run the diagnosis against the profile, out loud, showing your working. The
