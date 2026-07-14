@@ -79,7 +79,9 @@ chore:
 ## Start: figure out where they are
 
 Read `./CLAUDE.md` and its top-line marker
-(`<!-- bos-onboarding: ... challenge=... -->`):
+(`<!-- bos-onboarding: ... challenge=... -->`). The marker's full field set and
+allowed values are defined once in `start-here` Step 9 (the schema's one home);
+this skill reads and writes those fields, it never invents new ones:
 
 - **`challenge=not-started` or no profile yet** → this is Day 1. Welcome them to
   the challenge (below) and begin.
@@ -92,6 +94,10 @@ Read `./CLAUDE.md` and its top-line marker
   instead of re-deriving it. On resume into a partly-done cluster, skip the apps
   already listed in `challenge_cluster_in_progress` and recap their outcome in one
   line rather than re-running them; open at the next unfinished app.
+  Also read `challenge_days_skipped`: a day in that list was jumped, not completed,
+  so `dayN` alone never means every earlier day is done. Offer a skipped day back
+  warmly before running the current one ("we skipped locking your goal on Day 2,
+  want two minutes on that first? it makes everything after sharper"), never force it.
   Note: `challenge=day1` is also what a standalone `start-here` run leaves behind
   (Day 1 IS `start-here`), so an owner who onboarded without ever naming "the
   challenge" still lands correctly at Day 2 here, never a repeated Day 1.
@@ -99,7 +105,15 @@ Read `./CLAUDE.md` and its top-line marker
   `whats-possible` or whatever they want to work on.
 
 Always let them jump: if they ask to skip to a specific day, let them, but note
-what a skipped day would have set up (later days build on earlier ones).
+what a skipped day would have set up (later days build on earlier ones), and add
+the jumped day(s) to `challenge_days_skipped` so a later session offers them back
+rather than reading them as done. **If the jump happens before Day 1 has run at
+all** (an owner who opens by asking straight for an add-on, e.g. "just do the Meta
+Ads thing"): still create the profile stub and marker first (`challenge=not-started`
+plus whatever the add-on taught you about their business), and record the add-on in
+`challenge_wins` / `doorways_open`, so session 2 resumes instead of re-onboarding
+from zero. Give them the keyless half of what they asked for (see the floor-jump
+hard rule), then let Day 1 pick up when they're ready.
 
 ## The welcome (Day 1 open only)
 
@@ -120,7 +134,13 @@ No jargon, ever. They never hear "kernel", "driver", "manifest", "MCP", or
 2. **Name today's mission** in one plain sentence.
 3. **Run the day's apps conversationally**, in order, doing the real work on
    their business. Do the headline win first.
-4. **Celebrate the kept win** and tell them exactly where it lives.
+4. **Celebrate the kept win, record it, and show it.** Mark what they made and
+   where it lives, append one plain line to `## My wins` in `./CLAUDE.md` (newest
+   first, using the session's date, e.g. `<date>: priced the Jones reno, $12,400
+   quote ready to send`), and offer to open the artifact on screen the moment it's
+   made, so a non-technical owner never has to hunt for a file path later. (This
+   `## My wins` ledger is the human-readable record; the compact `challenge_wins`
+   marker list in step 6 is for resume routing.)
 5. **Name the operator move** they just learned.
 6. **Update the marker** in `./CLAUDE.md`: set `challenge=day<N>`, append the win
    to `challenge_wins`, and record any doorway you showed but they did not take in
@@ -332,7 +352,10 @@ a Day 1 or Day 2 default.
 **Win the Work** (🏆 Win work + 🧭 Plan & decide)
 Run, in order: `grill-me-on-this-decision` on a real decision they are sitting
 on, then `price-my-work` on a real job, then `write-a-proposal` to turn that into
-a branded proposal in their voice. Headline win: a real job priced and the
+a branded proposal, in their locked voice if Brand & Voice has already run,
+otherwise in their own register from the profile (and note the proposal sharpens
+automatically once their voice is locked in, which doubles as an honest tease
+toward that cluster). Headline win: a real job priced and the
 proposal ready to send.
   - **`grill-me-on-this-decision` is part of the FULL kept win, not the headline.**
     On a headline-win-first pass, skip it and start at `price-my-work`: the headline

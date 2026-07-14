@@ -162,8 +162,11 @@ for its platform. Stay bounded: one idea per run, not a month's calendar.
   the profile's business shape: prefer an explicit `Business shape:` line in
   `## How the business is running` (start-here records it, with any regulated
   override spelled out) and fall back to inferring it from the `## My business`
-  context in the workspace `CLAUDE.md`. For a clinic / appointment or finance shape (and insurance /
-  legal), run every draft through the regulated compliance row: sell the
+  context in the workspace `CLAUDE.md`. Treat the business as regulated if that
+  line carries a `Regulated:` clause, or (when inferring) the business is
+  regulated (clinic / appointment, or the finance / mortgage broking, insurance,
+  or legal verticals). For a regulated business, run every draft through the
+  regulated compliance row: sell the
   logistics and the care, never treatment or result outcomes; no outcome
   testimonials, no before/after result claims, no result guarantees (service-level
   only), and no urgency or price pressure on clinical or advice decisions. The

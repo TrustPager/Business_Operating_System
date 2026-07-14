@@ -101,9 +101,18 @@ python ~/.claude/bos-run.py tool write_xlsx --out "job-tracker.xlsx" --rows '[["
   balance cell, and say in plain words how the running balance works (each row
   is the one above plus money in, minus money out) so they can keep it going.
 
-If the wrapper reports the spreadsheet library isn't installed, relay its
-one-line install hint (`pip install openpyxl`) and stop until it's installed —
-don't try to hand-build the file another way.
+If the wrapper reports the spreadsheet library isn't installed (a line starting
+`BOS_MISSING_DEP:`), don't hand-build the file another way and don't hand the
+owner a command. Offer the setup in plain language:
+
+> To build that spreadsheet I need to add the document tool-kit, a quick free
+> one-time setup on your machine. Want me to sort it?
+
+On a yes, run `python ~/.claude/bos-run.py tool check-install --fix` (or
+`python -m pip install openpyxl` for the one piece) yourself, confirm it worked,
+then re-run the write command. Never tell the owner to run anything. The full
+detect-offer-install-verify loop is the canonical one in
+[`knowledge/document-tools-method.md`](../../knowledge/document-tools-method.md).
 
 ## Step 4 — Hand it over + offer the deeper version
 
@@ -132,8 +141,9 @@ above and leave it there; the keyless file is the real deliverable here.
   keyless `.xlsx` is the whole point, and it ships first.
 - ❌ Don't invent columns that don't fit how they run the work — design to the
   slice and confirm the header row before writing.
-- ❌ Don't hand-build the file some other way if the library's missing — relay
-  the one-line install hint and stop.
+- ❌ Don't hand-build the file some other way if the library's missing, and
+  never hand the owner a command — offer the one-time setup in plain language
+  and run the install yourself (see Step 3).
 - ❌ Don't promise the live, self-updating version as if it's part of this
   keyless build — it's the deeper version, offered in words, after.
 - ✅ Write a real `.xlsx` with `tools/write_xlsx.py`, header row bold, a couple

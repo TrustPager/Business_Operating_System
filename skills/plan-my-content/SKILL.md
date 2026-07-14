@@ -90,10 +90,12 @@ Lock four things before you draft a single slot:
 **Shape guard (check FIRST).** Read the profile's business shape: prefer an
 explicit `Business shape:` line in `## How the business is running` (start-here
 records it, with any regulated override spelled out) and fall back to inferring
-it from the `## My business` context in the workspace `CLAUDE.md`. If it is a regulated shape
-(clinic / appointment, or finance / mortgage broking, plus insurance and legal),
-do NOT plan before/after, outcome-testimonial, or urgency / countdown slots for
-owned channels. Route those slots to compliant angles instead: service-level
+it from the `## My business` context in the workspace `CLAUDE.md`. Treat the
+business as regulated if that line carries a `Regulated:` clause, or (when
+inferring) the business is a regulated one (clinic / appointment, or the
+finance / mortgage broking, insurance, or legal verticals). For a regulated
+business, do NOT plan before/after, outcome-testimonial, or urgency / countdown
+slots for owned channels. Route those slots to compliant angles instead: service-level
 proof (response time, we-handle-everything), the experience, the process, and
 education. The per-shape overrides live in `knowledge/industry-notes.md` (the
 Clinic / appointment and Service / professional shapes) and

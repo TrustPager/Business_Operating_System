@@ -222,16 +222,21 @@ field for a named constraint, so Day 5's `plan-my-roadmap` reads it from there, 
 from free text or the one-pager. Record the chosen move alongside it (in the same
 block), or the path they chose if they declined the recommendation.
 
-**Advance the challenge marker, but only inside the challenge.** If the marker's
+**Advance the challenge marker, but only inside the challenge.** (The marker's
+fields are defined once in `start-here` Step 9, the schema's one home; this step
+writes only named fields, it never invents any.) If the marker's
 `challenge` field is `day1` through `day4` (they are running the challenge), set
 `challenge=day4` and append the win to `challenge_wins`. If they invoked this
 standalone and the marker is `not-started`, `complete`, or absent, do NOT touch
 `challenge` (stamping it would mis-route their next challenge session): record the
 constraint and move as above and leave `challenge` as it was.
 
-Then close by pointing forward from the goal, held loosely, and tease Day 5:
-*"Tomorrow we turn that into what runs on its own, and I'll show you the road from
-here."*
+Then close by pointing forward from the goal, held loosely. If they are stopping
+for now, tease Day 5: *"Tomorrow we turn that into what runs on its own, and I'll
+show you the road from here."* If they are continuing straight on (a compressed
+sitting, or they say keep going), drop the "tomorrow" framing and hand directly
+into Day 5's `plan-my-roadmap` in the same breath: *"Let's turn that into what runs
+on its own right now, and map the road from here."*
 
 ## Hard rules recap
 - ❌ **No laundry list.** One constraint, one headline move. Runner-ups stay held.
