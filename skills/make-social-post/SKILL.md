@@ -60,6 +60,21 @@ Ask the operator:
    - `quote` — a testimonial (initials monogram by default; `quote.avatar` URL for a real photo)
    - none — a clean headline-only announcement
 
+   **Shape guard on the `quote` card (check FIRST).** Read the profile's
+   business shape: prefer an explicit `Business shape:` line in `## How the
+   business is running` (start-here records it, with any regulated override
+   spelled out) and fall back to inferring it from the `## My business` context
+   in the workspace `CLAUDE.md`. Treat the business as regulated if that line
+   carries a `Regulated:` clause, or (when inferring) the business is a
+   regulated one (clinic / appointment, or the finance / mortgage broking,
+   insurance, or legal verticals). For a regulated business, do NOT offer the
+   `quote` card for an outcome or result testimonial. Allow it only for a
+   service-level quote: the logistics, the experience, or the care, never a
+   clinical or financial result. The per-shape overrides live in
+   `content-rules.md` §4, which points to `industry-notes.md` and
+   `business-method.md` §7.2 / §15. For all other shapes, any of the four
+   visuals is fine.
+
 ## Step 2 — Add the design to samples.json
 
 Edit `studio/social/src/data/samples.json`. Minimum shape:

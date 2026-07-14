@@ -158,6 +158,24 @@ files required:
 
 ### The current-state read (do this before you prescribe)
 
+**Shape guard (check FIRST).** Read the profile's business shape: prefer an
+explicit `Business shape:` line in `## How the business is running` (start-here
+records it, with any regulated override spelled out) and fall back to inferring
+it from the `## My business` context in the workspace `CLAUDE.md`. Treat the
+business as regulated if that line carries a `Regulated:` clause, or (when
+inferring) the business is a regulated one (clinic / appointment, or the
+finance / mortgage broking, insurance, or legal verticals). For a regulated
+business, do NOT build the strategy on before/after or outcome-testimonial
+formats, even the ones already getting traction: exclude them from "what's
+working to build on" below and from every pillar, content mix, and first-move
+recommendation in Step 3. Route to compliant angles instead: service-level proof
+(response time, we-handle-everything), the experience, the process, and
+education. The per-shape overrides live in `knowledge/industry-notes.md` (the
+Clinic / appointment and Service / professional shapes) and
+`knowledge/business-method.md` §7.2 and §15, pointed to from
+`knowledge/content-rules.md` §4. For all other shapes, build on the full format
+mix.
+
 A strategy that ignores what the owner already does reads as generic. Before you
 write the plan, form an honest read of **where they are now** — from their words
 and any research — and let it shape the strategy:
@@ -166,7 +184,9 @@ and any research — and let it shape the strategy:
   long they've been at it.
 - **What's working:** the posts/formats that already get traction (the
   before-and-afters that get comments, the reel that travelled). Build the
-  strategy on these, don't discard them.
+  strategy on these, don't discard them. (Regulated shapes: the shape guard above
+  rules before/after and outcome-testimonials out; keep the traction lesson and
+  carry it in a compliant format.)
 - **What's quiet or missing:** the channel they set up and abandoned, the format
   they've never tried that fits their shape, the gap between effort and result.
 

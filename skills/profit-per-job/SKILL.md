@@ -52,7 +52,9 @@ only for the pieces that are genuinely missing:
 - **Direct costs** that belong to the job itself:
   - **Materials** at the owner's cost (what they pay, not what they charge).
   - **Labour**: hours and the rate per hour. A crew works as total crew-hours,
-    or hours per head.
+    or hours per head. If you're on the job yourself, count your own hours in
+    here too at a fair rate, even if you don't pay yourself for them today, so
+    the real margin shows.
 - **Overheads**: the share of fixed running costs this job should carry. Don't
   assume one. Ask which method the owner wants (Step 2 names the choices) and
   take the figure or the rate they give.

@@ -56,7 +56,9 @@ Gather what you need, and ask for only the pieces that are actually missing:
 - **Materials** — items and their cost to the owner (what they pay, not what
   they charge). Quantities where they matter.
 - **Labour** — hours, and the rate per hour. If a crew, hours per person or a
-  total crew-hours figure works.
+  total crew-hours figure works. If you're on the job yourself, count your own
+  hours in here too at a fair rate, even if you don't pay yourself for them
+  today, so the real margin shows.
 - **Overheads** — the costs that aren't materials or labour but belong to this
   job: travel, equipment hire, tip fees, a cut for consumables, a share of
   fixed running costs if they price that way. Take what they give you.
