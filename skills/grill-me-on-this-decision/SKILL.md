@@ -172,6 +172,27 @@ you get this wrong." When the verdict is hard, deliver it per the tone in
 `knowledge/business-method.md` §12.7: numbers before judgment, and the pattern
 framed as one every owner falls into, never a character flaw.
 
+## Step 7: Write the grilled decision home (the kept record)
+
+A sharp grilling should not evaporate when the chat closes. Persist it so the
+decision is on the record and Day 4 of the 5-day challenge can read it.
+
+1. **Append, never overwrite.** Add one dated, labelled line to the
+   `## How the business is running` block in `./CLAUDE.md` (create that heading
+   at the end of the file only if it is missing). Leave every existing line in
+   place.
+2. **Use the session's current date.** Read today's date at runtime; never
+   hardcode it.
+3. **Line format:**
+   `Decision under weigh (<date>): <decision>, leaning <yes/no>, <the hinge in a few words>, revisit <when>`
+   Example:
+   `Decision under weigh (2026-01-15): hire associate physio, leaning yes, hinge is whether utilisation holds above 70%, revisit in 30 days`
+4. **Offer a kept file too.** If the owner wants the full grilling to keep, offer
+   to save it as a markdown file in their workspace (e.g.
+   `decision-<short-name>.md`) with the six-part output shape. The one-line
+   record in `./CLAUDE.md` is written either way; the fuller file is theirs to
+   opt into.
+
 ## Hard rules
 - ❌ **No cheerleading.** This is a pressure-test. If the decision is shaky, say
   so plainly. A comfortable yes that ignores a real weak point is a failure,
@@ -200,3 +221,6 @@ A short, structured grilling the owner can read in one sitting:
 5. **The one thing that would change the answer**: the single hinge.
 6. **The recommendation to weigh**: a clear lean, the condition that flips it,
    a smaller test if one exists, and a reminder the call is theirs.
+7. **The kept record**: one dated line appended to `## How the business is
+   running` in `./CLAUDE.md`, plus the full grilling saved as a file if the owner
+   wants it.

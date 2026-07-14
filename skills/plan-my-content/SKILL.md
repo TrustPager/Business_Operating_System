@@ -87,11 +87,26 @@ Lock four things before you draft a single slot:
 
 ## Step 4 — Build the dated calendar
 
+**Shape guard (check FIRST).** Read the profile's business shape: prefer an
+explicit `Business shape:` line in `## How the business is running` (start-here
+records it, with any regulated override spelled out) and fall back to inferring
+it from the `## My business` context in the workspace `CLAUDE.md`. If it is a regulated shape
+(clinic / appointment, or finance / mortgage broking, plus insurance and legal),
+do NOT plan before/after, outcome-testimonial, or urgency / countdown slots for
+owned channels. Route those slots to compliant angles instead: service-level
+proof (response time, we-handle-everything), the experience, the process, and
+education. The per-shape overrides live in `knowledge/industry-notes.md` (the
+Clinic / appointment and Service / professional shapes) and
+`knowledge/business-method.md` §7.2 and §15, pointed to from
+`knowledge/content-rules.md` §4. For all other shapes, run the full format mix.
+
 Spread the pillars across the dates so the mix is balanced (no channel goes
 three posts deep on one pillar while another pillar never appears). When a
 pillar recurs, vary the FORMAT, not the theme: the same proof pillar can
 appear as a before/after, a customer story, and a one-tip carousel
-(business-method.md §4.4).
+(business-method.md §4.4). (The before/after and outcome-testimonial formats are
+disallowed for regulated shapes per the shape guard above — use service-level or
+process proof there instead.)
 
 **Search-intent lens (bias topic choice toward what people actually search).**
 Where a pillar can be aimed at a real search, prefer topics close to buying
@@ -162,6 +177,11 @@ Show the calendar, then:
   facts, quotes, or numbers, and names no third-party vendor. Write it in the
   owner's brand voice; the framing and marketing psychology are the owner's
   choice. The rules are in `knowledge/content-rules.md`.
+- **Regulated shapes have extra limits.** For a clinic / appointment or finance
+  shape (and insurance / legal), never plan before/after, outcome-testimonial,
+  or urgency / countdown slots for owned channels. Route them to service-level
+  proof, the experience, the process, and education (`content-rules.md` §4,
+  which points to `industry-notes.md` and `business-method.md` §7.2 / §15).
 - **One idea per slot.** Each post is a single hook. If a slot is carrying two
   angles, split it into two slots (or two weeks).
 - **Don't over-plan the cadence.** A sustainable rhythm the owner keeps beats a

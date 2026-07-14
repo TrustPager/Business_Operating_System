@@ -120,10 +120,16 @@ reasoning IS the catharsis, so do it visibly, not behind the curtain.
      quotes, read it against the bands and say the verdict in their numbers:
      *"you're winning about nine in ten quotes, that's not a demand problem, that's
      a price with room in it."*
-   - **The capacity probe (§2 item 7; the capacity rule it feeds is §8.3).** *"How many more customers could you
-     take on right now?"* → *"what breaks first if you doubled?"* → and if nothing
-     breaks: *"then what's actually stopped you doubling?"* The answer usually
-     names the real constraint.
+   - **The capacity probe (§2 item 7; the capacity rule it feeds is §8.3).** Ask it
+     in substance, not word-for-word. Two steps: first, how much more could you
+     take on right now? Then, what breaks first at double the volume? → and if
+     nothing breaks: what's actually stopped you doubling? The answer usually names
+     the real constraint. Whenever the owner's register reads as ESL or
+     simple-sentence, restate it in plain language so the meaning lands, e.g.
+     *"if you had two more houses tomorrow, what would go wrong first: not enough
+     people, not enough hours, or something else?"* A literal reading of "what
+     breaks first" can land as "nothing breaks, I'm careful", which sidesteps the
+     probe, so plain wording keeps the real constraint in view.
 3. **Name the SINGLE binding constraint** from the §3 rubric (leads, sales /
    conversion, delivery / capacity, retention / churn, profit-per-unit, or owner).
    Follow the §3 examination order (retention → profit → sales → leads) when

@@ -158,6 +158,17 @@ for its platform. Stay bounded: one idea per run, not a month's calendar.
   facts, quotes, or numbers, and names no third-party vendor. Write it in the
   owner's brand voice; the framing and the marketing psychology are the owner's
   choice. The rules are in `knowledge/content-rules.md`.
+- **Regulated shapes have extra limits (check the business shape first).** Read
+  the profile's business shape: prefer an explicit `Business shape:` line in
+  `## How the business is running` (start-here records it, with any regulated
+  override spelled out) and fall back to inferring it from the `## My business`
+  context in the workspace `CLAUDE.md`. For a clinic / appointment or finance shape (and insurance /
+  legal), run every draft through the regulated compliance row: sell the
+  logistics and the care, never treatment or result outcomes; no outcome
+  testimonials, no before/after result claims, no result guarantees (service-level
+  only), and no urgency or price pressure on clinical or advice decisions. The
+  per-shape overrides are in `content-rules.md` §4, which points to
+  `industry-notes.md` and `business-method.md` §7.2 / §15.
 - **Keyless and reasoning-only.** This needs no accounts and no files beyond
   what the owner gives you. The real, finished artifact is the publish-ready
   copy itself.

@@ -160,6 +160,26 @@ show the owner a short before/after of what you are changing before you write.
 The personal-voice file is framed the same way, in the first person: how the
 owner writes as themselves.
 
+**Leave a pointer in the profile so a later session finds the voice.** Once a
+voice is locked, add one dated line to the `## How the business is running` block
+in `./CLAUDE.md` so a returning session (Day 4 of the 5-day challenge reads this
+block) knows the voice exists and where it lives. This touches only the profile,
+never the voice files themselves, and follows the same never-clobber discipline:
+
+1. **Append, never overwrite.** Add the line to the `## How the business is
+   running` block (create that heading at the end of the file only if it is
+   missing). Leave every existing line in place. If a pointer line for this voice
+   already exists from a prior run, update it in place rather than adding a
+   duplicate.
+2. **Use the session's current date.** Read today's date at runtime; never
+   hardcode it.
+3. **Line format:**
+   `Voice locked (<date>): <short characterisation>, see <voice file path>`
+   Example:
+   `Voice locked (2026-01-15): direct, warm, short sentences, see marketing-strategy/<BrandName>/voice.md`
+4. **One line per voice.** If the personal voice is also locked, add its own
+   pointer line the same way, pointing at `personal-voice.md`.
+
 ---
 
 ## Step 4: Prove it, then hand it off
