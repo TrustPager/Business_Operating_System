@@ -53,6 +53,7 @@ TOOLS_DIR = BOS_HOME / "tools"
 _ALLOWED_TOOLS: frozenset[str] = frozenset({
     "audit-contacts",
     "audit-pipeline",
+    "channel_breakdown",
     "check-install",
     "dump-crm-bundle",
     "finance_calc",

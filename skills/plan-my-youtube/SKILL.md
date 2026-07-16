@@ -137,6 +137,14 @@ tempting. The channel strategy names, tailored to this owner and this goal:
   promo), tuned to the goal.
 - **The one metric to watch** first, tied to the goal, not vanity numbers.
 
+Under that one held avatar, use the **ring ladder** to choose topics
+(`knowledge/distribution-method.md`, the audience bullseye): the channel's centre is the
+exact viewer, and the rings out are progressively broader topic bands. Bias the pipeline
+to the centre and Ring 1 for topics (that is where conversion and algorithm confidence
+come from), and reach for Ring 2 topics only to widen. This composes with the virality
+formula already used below: a centre topic with a fresh lens, validated against a real
+outlier, is the strongest row you can plan.
+
 If `build-social-strategy` has already produced a `social-strategy.md` that
 covers YouTube, build on it rather than re-running the whole thing: lift the
 pillars and the metric, and only add what is YouTube-specific.

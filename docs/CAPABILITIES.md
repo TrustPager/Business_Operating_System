@@ -15,6 +15,7 @@ Quoting, proposals, positioning, sizing up a competitor, researching a prospect 
 
 **Works now (keyless)**
 
+- **Break Down A Channel**: Study one YouTube channel deeply and come back with how it grew: an upload-order performance timeline, the moment its views durably stepped up (or the one-off spike that faded), what changed at that point, and the one move you can borrow
 - **Describe A Product**: Turn a photo or a few notes into an on-brand product description ready for your store, a listing, or a catalogue.
 - **Get Found Online**: A bounded "are you findable, and what to fix first" audit for a local or service business, ending in a prioritized fix list you can action this week
 - **Price My Work**: Turn the cost of a job into a priced breakdown you can stand behind, with your margin shown and the assumptions written down.

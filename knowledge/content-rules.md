@@ -30,6 +30,17 @@ host) into the owner's customer-facing copy unprompted. The copy is the owner's 
 owner naming vendors THEY choose is their call; this rule is about not leaking our stack
 into their output.
 
+## 4. Regulated shapes have extra limits
+For regulated business shapes (clinic / appointment and finance / mortgage broking, plus
+insurance and legal), copy must clear tighter compliance limits than the rules above:
+no outcome testimonials or before/after result claims in owned channels, no result
+guarantees (service-level only), and no urgency or price pressure on clinical or advice
+decisions. Sell the logistics and the care, never the treatment outcome. One-rule-one-home:
+the canonical per-shape overrides live in [`knowledge/industry-notes.md`](industry-notes.md)
+(the Clinic / appointment and Service / professional shapes) with the diagnosis-level
+summary in `knowledge/business-method.md` §7.2 and §15. Any content skill working for a
+regulated shape reads those before drafting.
+
 ## Service-message voice
 For the owner's operational messages to their own customers (fix confirmations, updates),
 keep it plain, warm, and clear: see knowledge/communication-voice.md.
