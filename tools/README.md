@@ -50,6 +50,12 @@ to stdout. Missing-lib: exits 2 with `BOS_MISSING_DEP: numpy-financial` to stder
 | Dump workspace as JSON (pipelines, automations, queues, opps, companies, contacts) into a frozen snapshot for AI to read offline | `python tools/dump-crm-bundle.py` |
 | Dump ≥5min call + meeting transcripts as Markdown — verbatim customer voice for synthesis | `python tools/dump-transcripts.py` |
 
+### Client website repos (Astro sites built for TrustPager's website editor)
+
+| When you want to… | Run |
+|---|---|
+| Find .map()-rendered content the website editor can't select/edit | `python tools/check-editable-elements.py <site-repo>` (add `--all <parent-folder>` to scan every site under it) |
+
 ## How they work together
 
 ```
