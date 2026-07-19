@@ -81,7 +81,7 @@ before any intro, channel branding, or "hey everyone welcome back".
 | **The result first** | Show the outcome up front, then earn it | *"This is the quote that won a $12,000 job. Let me show you how it was built."* |
 | **The relatable moment** | Name the exact situation the viewer is in | *"You're standing in someone's kitchen and they ask what it'll cost. Here's what I say."* |
 
-**Payoff-first cold open (Hormozi): open on the win already won, then rewind.** The strongest
+**Payoff-first cold open: open on the win already won, then rewind.** The strongest
 cold open states the highest payoff already achieved, right away, then rewinds to show how it
 happened. Never open on an empty or blank starting state (an empty template, an empty inbox,
 "let's start from nothing") to build up to the payoff later. A swiped-brain viewer's thumb is
