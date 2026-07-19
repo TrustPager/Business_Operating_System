@@ -56,6 +56,7 @@ days a week" — stated, not guessed, and left blank until I've actually said it
 - What I think is stopping me: `<<< my own words (stated — data, not the diagnosis) >>>`
 - Current pressure point: `<<< only when a diagnosis session has named one (diagnosed, with date) >>>`
 - Business shape: `<<< set once I've been matched to a shape, e.g. clinic/appointment, trades/on-the-tools, hospitality/walk-in, product-seller/ecommerce-retail (diagnosed); a regulated shape notes its content limits on this line >>>`
+- Stage: `<<< pre-launch (no paying customers yet) or trading (stated) — pre-launch flips the whole system to offer-validation-first, see business-method §2's pre-launch rule; clear it to "trading" the moment the first customer pays >>>`
 
 If I've connected a CRM (e.g. TrustPager), treat it as the source of truth for everything related to opportunities, contacts, companies, communications, and tasks. Until then, work from this profile and what I share.
 

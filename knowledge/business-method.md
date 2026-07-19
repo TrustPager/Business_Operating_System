@@ -96,6 +96,25 @@ are internal.
 - Missing numbers are a finding, not a blocker: "we don't know your churn" makes
   *measure it* the first prescription (a scoreboard beats a guess, §12).
 
+**The pre-launch rule (zero paying customers).** At zero clients the ladder above
+has nothing to read — no close rate, no churn, no CAC — and all of §8's pricing
+doctrine is moot with it (price signals are read from real yes/no decisions,
+§8.2). Never reason toward pricing as the pre-launch constraint; it never is. The
+binding constraint is **offer validation**: run the §7.0 market gate (real pain,
+purchasing power, findability, not shrinking) and item 1's "I sell WHAT to WHO"
+sentence, then prescribe first conversations — warm outreach to named contacts
+(§10.1; §16's new-business row), sell before building (§5's first row). Missing
+numbers here are not a "measure it" finding; they are the stage. The one
+scoreboard worth building pre-launch tracks inputs, not outcomes: outreach sent,
+conversations booked, offers made (§12.7 item 1's input goals). Mine non-client
+proof for that outreach: things built for an employer, unpaid or personal
+projects all count as credibility — ask for it if the owner didn't volunteer it.
+**The check is the profile's `Stage:` line** under "How the business is running"
+(`pre-launch` = this rule applies; `trading` or a filled numbers block = it does
+not), or, on a first run with no profile yet, zero-paying-customer facts heard
+live. Skills key on that line rather than re-inferring the stage each session,
+and it flips to `trading` the moment the first customer pays.
+
 **How `/start-here` runs this intake (the first-run consultation).**
 [FOUNDER-RULED 2026-07-03, revises the 2026-07-02 "useful-now threshold → put it
 to work" framing: the Day-1 win is the consultation itself, not an artifact; see

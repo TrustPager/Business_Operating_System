@@ -147,6 +147,18 @@ reasoning IS the catharsis, so do it visibly, not behind the curtain.
 becomes *measure first*, a simple one-page scoreboard (§12.6) so the next read is
 real. Name the one leak you did spot as the alternative.
 
+**Pre-launch owner (`Stage: pre-launch` in the profile): the numbers are not
+missing, they are the stage.** Do not prescribe the outcome scoreboard above (no
+close rate or churn exists to measure yet). Per `business-method.md` §2's
+pre-launch rule, the read is offer validation plus first conversations: the move
+is the warm-outreach volume with an INPUT scoreboard (outreach sent,
+conversations booked, offers made), and the arithmetic is the goal against the
+calendar and runway: pick a rough yes-rate WITH the owner from how warm their
+list actually is, then work back ("3 clients in 90 days at the rate we just
+assumed means about N real conversations, so roughly N-per-week booked"), stated
+as a labelled working assumption, never fake precision and never a rate asserted
+for them.
+
 **One constraint only.** The instant one number is clearly out of line, that is
 the constraint; stop drilling and diagnose against it (§2 stop rules).
 

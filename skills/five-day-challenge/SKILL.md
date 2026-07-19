@@ -377,6 +377,26 @@ Three clusters make up the rest of the floor. Day 3 aims to land all three
 the end of Day 3 is the first thing Day 4 finishes before the read. Their Day 2
 pick only decides the order.
 
+**Pre-launch / zero-customer owner? Run the floor on the business they are ABOUT
+to run.** Check the profile's `Stage:` line under `## How the business is running`
+(start-here writes `Stage: pre-launch` for a zero-client owner); if it reads
+pre-launch, or the profile otherwise shows no customers or jobs yet, every
+cluster still runs, aimed at the launch instead of a going concern:
+- **Win the Work:** "a real job" means the standard job or package they are about
+  to offer. Price it with §8.6's launch-cheap-then-ratchet posture (a deliberate
+  proving price that steps up, per `knowledge/business-method.md`), and swap
+  `write-a-proposal`'s customer proposal for an **outreach one-pager** (the named
+  offer, the top three worries it answers, the price) they can send with their
+  warm-outreach messages from Day 1.
+- **Money & Paperwork:** "a real messy file / real cash" becomes projected cash:
+  `cash-flow-forecast` on their runway and expected first jobs, `profit-per-job`
+  planned on the intended offer. Skip `extract-document` when no file exists yet.
+- **Brand & Voice:** no change needed — `build-my-voice` already builds from how
+  the owner describes themselves when there is almost nothing to read.
+The headline wins become: the launch package priced, the outreach one-pager
+ready, and a runway forecast they can act on. Same clusters, same order rules,
+launch-shaped material.
+
 **Brand & Voice** (🎨 Look professional & market)
 Run, in order: `build-my-voice` (read their real writing, run the this-not-that
 lock-in, write their voice), then `build-social-strategy`, then `plan-my-content`
