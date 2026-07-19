@@ -111,6 +111,22 @@ The differentiation questions to run on every planned video:
 
 ---
 
+## Demo stakes: the demonstrated task has to be a genuine judgment call
+
+When a video's proof is a live demo (quoting a real job, handling a real call, building a real
+thing on screen), the task shown has to be one a viewer would genuinely be unsure how to handle.
+A cut-and-dry example, one where the answer is obvious before the demo starts, makes the win
+look easy instead of impressive, and an easy win teaches the viewer nothing about why the method
+matters.
+
+Pick the demo task the same way the differentiation levers above get picked: real evidence, not
+a convenient invention. Before locking a demo task, check it against one test: would a competent
+person in this trade or role have to stop and think about this one? If the answer is obviously
+yes going in, it's a judgment call and worth showing. If everyone already knows the answer, pick
+a harder real example instead, or the demo proves nothing.
+
+---
+
 ## Title rules for a real channel (not a tutorial index)
 
 Titles here are the *owner's* channel titles, in the owner's brand and voice. They
@@ -187,6 +203,14 @@ When planning a pipeline, prefer ideas that can become a franchise over one-off
 topics. One strong repeatable format is worth more than five unrelated videos. The
 `plan-my-youtube` pipeline should name the franchise a video belongs to (or mark
 it a standalone) so the channel builds toward a small set of proven lanes.
+
+**End each video by visually opening the next one's loop, using this video's own metaphor.** A
+franchise's library is built for binge discovery, so the last few seconds of an episode are the
+strongest place to hand the viewer to the next one. Close on a visual that is the same metaphor
+the video just used, left visibly incomplete: an empty labelled socket where the next build
+slots in, a row of jobs with one still blank, a checklist with the next line unchecked. The
+viewer sees exactly what's missing and exactly which video fills it, which is a stronger pull
+into the next episode than a title card or a spoken "check out my next video" ever is.
 
 ---
 

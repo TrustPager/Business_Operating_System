@@ -81,6 +81,14 @@ before any intro, channel branding, or "hey everyone welcome back".
 | **The result first** | Show the outcome up front, then earn it | *"This is the quote that won a $12,000 job. Let me show you how it was built."* |
 | **The relatable moment** | Name the exact situation the viewer is in | *"You're standing in someone's kitchen and they ask what it'll cost. Here's what I say."* |
 
+**Payoff-first cold open (Hormozi): open on the win already won, then rewind.** The strongest
+cold open states the highest payoff already achieved, right away, then rewinds to show how it
+happened. Never open on an empty or blank starting state (an empty template, an empty inbox,
+"let's start from nothing") to build up to the payoff later. A swiped-brain viewer's thumb is
+already moving, and a blank start gives it nothing to stop on. Lead with the win, using the
+"result first" pattern in the table above: state the $12,000 job already won, then rewind into
+how.
+
 **The deeper hook craft** — the three-step formula (context lean-in → scroll-stop
 interjection → contrarian snapback), the six hook power words, and why a visual hook
 beats an audio-only one — lives in [`storytelling-method.md`](storytelling-method.md).
@@ -121,6 +129,14 @@ The script's job is to keep giving them a reason. The structure:
 5. **Proof** where a claim needs it — a real example, a real number, a real
    customer's words (evidence-anchored, never invented).
 6. **CTA** — one clear next action.
+
+**Connect beats with "but," "however," "therefore," or "so." Never "and then."** A script where
+each beat just adds onto the last ("we quote the job, and then we send it, and then we follow
+up") reads as a flat list and the audience drifts. The full mechanic (the dance between context
+and conflict) is in [`storytelling-method.md`](storytelling-method.md), under "The dance."
+Applied at the beat level here: before moving to the next beat, check the connector implied
+between it and the one before. If it's "and then," find the "but" or "therefore" that's
+actually there, or the beat doesn't earn its place yet.
 
 **A retention reset is a deliberate re-hook mid-video.** It is a small pattern
 change that stops the video feeling like one long flat stretch. The attention engine
@@ -189,6 +205,37 @@ what tells the platform to keep suggesting the channel.
 
 Keep the CTA specific: name the action and the thing they get for
 taking it.
+
+---
+
+## The subscribe ask: one mid-roll ask, right after the biggest payoff
+
+The subscribe ask is a separate beat from the terminal CTA, and it never doubles as one.
+Exactly one ask, placed mid-roll immediately after the point in the video where the biggest
+payoff has just landed, not saved for the end alongside the final CTA. Stacking the subscribe
+ask onto the terminal CTA turns two clear asks into one muddy one, and the viewer acts on
+neither.
+
+**Give a concrete cadence promise, not a vague one.** "New build every Tuesday" tells the
+viewer exactly what they get and when. "More great content" promises nothing testable and
+earns nothing.
+
+- Yes: *"If that's the kind of build you want to see, there's a new one every Tuesday. Hit
+  subscribe and I'll see you then."*
+- No: *"Don't forget to like and subscribe for more great content!"* (vague cadence, stacked
+  with a like ask, no reason to act now)
+
+**No like-ask.** The ask is subscribe only. A like-ask adds a second ask to a beat that only has
+room for one, and it isn't the signal that grows a channel; the next-view and the subscribe are.
+
+**On an AI-heavy channel, splice in a short live-host cameo for the ask, and own the AI
+narration in it.** A few seconds of a real person on camera delivering the subscribe ask builds
+trust that a fully narrated, faceless AI voice can't on its own. On a channel where the rest of
+the video is AI-narrated, that cameo must say so plainly, something like *"I built this one with
+AI, and here's what's coming next Tuesday."* Skipping that acknowledgement is the version that
+backfires: a viewer who clocks the AI narration on their own, after a cameo that didn't mention
+it, reads the whole channel as trying to pass AI off as human, and the trust the cameo was meant
+to build works against the channel instead.
 
 ---
 
