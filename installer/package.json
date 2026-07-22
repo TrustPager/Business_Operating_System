@@ -1,0 +1,42 @@
+{
+  "name": "@trustpager/bos",
+  "version": "1.0.1",
+  "description": "One-command installer for the Business Operating System — the open-source AI operating system for running your business on Claude Code.",
+  "bin": {
+    "bos": "bin/bos.js"
+  },
+  "scripts": {
+    "postinstall": "node bin/postinstall.js"
+  },
+  "files": [
+    "bin/",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "license": "MIT",
+  "homepage": "https://businessoperatingsystem.ai",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TrustPager/Business_Operating_System.git",
+    "directory": "installer"
+  },
+  "keywords": [
+    "business-operating-system",
+    "bos",
+    "trustpager",
+    "claude-code",
+    "ai",
+    "cli",
+    "skills"
+  ],
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
