@@ -38,22 +38,13 @@ name.
 > angle, thumbnail concept) comes from `plan-my-youtube`'s pipeline row
 > for the video.
 
-**Which studio, and whose brand (resolve this before you render).** The
-bundled `studio/thumbnails/` reading the root `brand/brand.json` is the one
-home, and for a single-brand install that resolution is automatic. It stops
-being automatic when the owner's working directory holds more than one: a
-second thumbnail studio from another repo, or a brand kit for a different
-business or channel. In that case, do not guess and do not render into the
-first studio you find:
-
-- **Name the channel's brand out loud and confirm it** before rendering, so a
-  thumbnail is never built on another business's palette.
-- **Never render into a studio that is locked to a different brand.** A studio
-  whose own docs or lint require another company's name in every title is that
-  channel's studio, not this one's. Rendering there produces off-brand output
-  and can trip that studio's own checks.
-- **Say which studio and which brand you used** in the handoff, so the owner
-  can see the routing rather than infer it from the file path.
+**One studio, one brand.** The bundled `studio/thumbnails/` on the root
+`brand/brand.json` is the home, and that resolves itself for a single-brand
+install. If the working directory happens to hold a second thumbnail studio or
+a second brand kit (an owner running two businesses), confirm which brand this
+video belongs to before rendering and say which studio you used. Never render
+into a studio locked to a different brand: off-brand output, and its own lint
+will reject it.
 
 The design rules + title patterns + banned framings live in **three**
 canonical files inside the studio (read them BEFORE designing anything,

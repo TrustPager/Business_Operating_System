@@ -76,6 +76,13 @@ Two obligations, and a skill declares which apply to it in its own frontmatter:
    (a policy, a proposal, a letter, a job ad) get voice and clarity, not a curiosity
    hook. Operational service messages get the service register, not a hook either.
 
+**Ruled 2026-07-26: a reply to a customer is not marketing.** The skills that answer
+an enquiry, chase a missed call, or send a quote deliberately do NOT carry
+`engagement_copy`, even though "emails and replies" could be read as engagement
+content. A customer who asks what a job costs is best served by the price and the
+next available day, not by a curiosity gap. If a later change wants to add the hook
+craft to those skills, it is reversing this ruling, not filling a gap.
+
 `tools/lint-skill.py` checks both: the voice-source half as a warning, the
 storytelling half as a failure on any skill that declares `engagement_copy: true`.
 CI lints every skill under `set -e`, so a warning stops the build too. In practice

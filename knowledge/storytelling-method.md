@@ -178,6 +178,10 @@ do not assert the piece is "there" without pointing at the words. Then:
   the upgrade; add one if the line still has room inside its window.
 - **A weak piece counts as missing.** "This" as a subject, or an end state the viewer
   cannot picture, is a piece to sharpen, not a piece to pass.
+- **Contrast needs both states in words.** It is the piece that fails quietly,
+  because a line can imply a base state the viewer never actually hears. If you can
+  only quote the new state, and the old one has to be inferred, the contrast is not
+  in the line yet.
 
 Re-score after any structural rewrite. A hook drafted early and left alone while the
 beats around it changed is the common way a scored hook drifts back to a soft one.
