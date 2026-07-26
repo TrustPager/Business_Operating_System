@@ -17,6 +17,7 @@ requires_credential: none
 data_path: local
 status: active
 produces_customer_facing_copy: true
+engagement_copy: true
 ---
 
 # Make Social Post
@@ -149,6 +150,8 @@ skip-if-exists by default, `--replace` to overwrite.
   facts, quotes, or numbers, and names no third-party vendor. Write it in the
   owner's brand voice; the framing and the marketing psychology are the owner's
   choice. The rules are in `knowledge/content-rules.md`.
+  The owner's voice lives in `marketing-strategy/<BrandName>/voice.md` when it
+  exists; say so plainly if it does not.
 - **Don't invent design rules.** The two canonical files in the studio
   (CLAUDE.md + the SocialPost.jsx JSDoc) are the source of truth. Read them.
 - **The operator owns the copy.** Draft headlines if asked, but don't ship

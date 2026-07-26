@@ -77,9 +77,31 @@ differently:
   Optional: `uses_tools`, `unlocks`, `reads_for_profile`, `status`.
 - **Passthrough keys** — pre-existing non-manifest frontmatter that skills
   legitimately carry and that other tooling reads (Claude Code skill loading,
-  `tools/lint-skill.py`): `name`, `description`, `triggers`. These are
+  `tools/lint-skill.py`): `name`, `description`, `triggers`,
+  `produces_customer_facing_copy`, `engagement_copy`. These are
   **allowed** and are **not** treated as "unknown" — but they are not validated
   by `validate_manifest()` either; that's `lint-skill.py`'s job.
+
+### The content-skill contract (the two copy flags)
+
+Two passthrough flags declare what a skill's OUTPUT policy is, and
+`lint-skill.py` enforces each. The contract itself is homed in
+[`knowledge/content-rules.md`](../../knowledge/content-rules.md); this is the
+schema half.
+
+| Flag | Declare it when | What the lint requires |
+|---|---|---|
+| `produces_customer_facing_copy: true` | the skill writes words a customer or end-user will read or hear | the body references `knowledge/content-rules.md` (FAIL if absent), states no positive-only mandate and pastes no content-rule boilerplate (FAIL), and names a voice source inline (WARN): `marketing-strategy/<BrandName>/voice.md` for marketing copy, `knowledge/communication-voice.md` for service messages |
+| `engagement_copy: true` | the output has to earn and hold attention: a video script, a social post, ad copy, a nurture sequence, a content plan | the body references `knowledge/storytelling-method.md` (FAIL if absent) |
+
+A functional document (a policy, a proposal, a letter, a job ad) carries the
+first flag and not the second: it gets voice and clarity, not a curiosity hook.
+An operational service message is the same, in the service register. The voice
+half is a WARN rather than a FAIL because which of the two registers applies is
+the author's judgement, not something a string check can rule on. Note that this
+severity difference does not soften the gate: CI's "Lint every skill" step runs
+under `set -e`, and `lint-skill.py` exits 1 on warnings, so a missing voice source
+fails the build exactly like a FAIL does. The pack is currently clean of both.
 
 Any key that is neither a manifest key nor a passthrough key is **unknown** and
 is reported as an error, so typos and stray keys get caught.

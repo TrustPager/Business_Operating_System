@@ -48,6 +48,7 @@ To add a new studio that uses this brand kit, copy any existing studio's `src/br
 
 `brand.json` only controls the brand IDENTITY (colours, fonts, logo, name). It does NOT control:
 
+- **How you sound.** Your writing voice lives in `marketing-strategy/<YourBrand>/voice.md`, written by `build-my-voice` or `build-brand-strategy`, and that file is the one home every content skill reads for voice. `brand.json` carries no voice and no skill reads a `voice` key from it, so adding one here changes nothing: put the voice in `voice.md`. (Identity here, voice there. A skill that asks `brand.json` how you sound is pointed at the wrong file.)
 - Layout or composition of each design
 - Per-design content (headlines, captions, feature lists) — those live in each studio's `src/data/samples.json`
 - The editor UI in each studio — that's intentionally fixed so the dev tool stays predictable

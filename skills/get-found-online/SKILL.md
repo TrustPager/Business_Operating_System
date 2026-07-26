@@ -142,6 +142,8 @@ exact change to make and the result it unlocks, written so it's usable today.
   facts, quotes, or numbers, and names no third-party vendor. Write it in the
   owner's brand voice; the framing and marketing psychology are the owner's
   choice. The rules are in `knowledge/content-rules.md`.
+  The owner's voice lives in `marketing-strategy/<BrandName>/voice.md` when it
+  exists; say so plainly if it does not.
 - ❌ No `crawl` / `map` / `agent` / `extract`. Per-page `scrape` + `search` only,
   capped at ~5-8 pages. Those paid ops are not keyless and not on the floor.
 - ❌ Don't invent data. No made-up search volumes, no invented review counts, no

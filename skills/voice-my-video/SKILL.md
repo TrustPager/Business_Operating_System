@@ -62,7 +62,9 @@ that no key can do for you.
 
 - Assemble the spoken line for each beat from the script (or draft one from the
   scene's intent when there is no script line).
-- Run every line through the owner's **brand voice** (from `brand/brand.json`) and
+- Run every line through the owner's **brand voice** (from
+  `marketing-strategy/<BrandName>/voice.md` when it exists, with `brand/brand.json`
+  for identity) and
   **no em dashes**, and invent no facts, quotes, or numbers. The framing and the
   marketing angle are the owner's choice, in their own voice.
 - Keep each beat's line tight enough to fit its scene's window. A line that would run
@@ -163,7 +165,8 @@ usual. The voiceover is just another layer the studio mixed in.
   in a file, or commit it. `public/audio/` and `data/*.voice.json` are gitignored.
 - **Content guardrails on everything the viewer hears.** No em dashes, no invented
   facts, quotes, or numbers, no third-party vendor names in the narration. The
-  owner's brand voice, from `brand.json`; the framing is the owner's choice
+  owner's brand voice, from `marketing-strategy/<BrandName>/voice.md` (identity
+  from `brand.json`); the framing is the owner's choice
   ([`knowledge/content-rules.md`](../../knowledge/content-rules.md)).
 - **ElevenLabs primary, OpenAI secondary.** ElevenLabs' single-call timestamps sync
   the captions for free; OpenAI is audio-only and captioned via the local whisper

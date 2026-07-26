@@ -223,7 +223,9 @@ upload is the honest ending — the owner uploads it themselves.
   talking-head is the footage-first Mode B flow (ingest → optional captions →
   Overlay render). Product-demo is a founder/SaaS add-on — do not attempt it here.
 - ✅ **Content guardrails.** On-screen copy uses no em dashes, invents no facts or
-  numbers, and names no third-party vendor. Brand voice, from `brand.json`
+  numbers, and names no third-party vendor. Brand voice, from
+  `marketing-strategy/<BrandName>/voice.md` when it exists (identity from
+  `brand.json`, which carries no voice)
   ([`knowledge/content-rules.md`](../../knowledge/content-rules.md)).
 
 ## Output shape

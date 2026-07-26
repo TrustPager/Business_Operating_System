@@ -120,6 +120,8 @@ parts, in order:
 - ✅ **Content guardrails.** The teardown is customer-facing: no em dashes, invent no
   facts or numbers, name no third-party vendor. Positive framing (what to try, what
   worked), never a scolding read. The rules are in `knowledge/content-rules.md`.
+  The owner's voice lives in `marketing-strategy/<BrandName>/voice.md` when it
+  exists; say so plainly if it does not.
 - ✅ **One channel per run.** Bounded and finishable.
 - ✅ **Bands are relative, not quality.** A video below ~1x is "below this channel's
   typical", never "under-performing"; roughly half a healthy channel sits there.

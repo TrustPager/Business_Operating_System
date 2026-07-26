@@ -184,6 +184,16 @@ them the same way:
    can drop their town into later, never a place you made up.
 3. **Working title** — a strong candidate title in the owner's brand voice. This
    seeds `script-my-video`'s `working_title` and `packaging.title_options`.
+   **On a how-to or evergreen row, the title leads with the words viewers actually
+   type.** Read the search-demand clusters from `youtube-research.md` (written by
+   `research-my-channel`) and lead the title with the strongest on-topic cluster,
+   keeping the owner's own outcome framing for the hook and the description when
+   the outcome phrase has thin demand behind it. The method and the when-to-skip
+   rule are the findability check in `knowledge/youtube-packaging-method.md`. On a
+   browse or story row, intrigue out-pulls search-match: skip the demand lead and
+   say so. When no research file exists, write the title from the owner's words and
+   name the unverified findability in one line, rather than implying a demand read
+   you did not do.
 4. **Thumbnail concept** — the visual idea for the thumbnail, in one line. This
    seeds both `packaging.thumbnail_concept` in the script and the concept
    `make-thumbnail` renders.

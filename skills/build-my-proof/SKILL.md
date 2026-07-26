@@ -135,6 +135,8 @@ owner on *how* to run the play can name gaps plainly (internal voice).
   facts, quotes, or numbers, and names no third-party vendor. Write it in the
   owner's brand voice; the framing and the marketing psychology are the owner's
   choice. The rules are in `knowledge/content-rules.md`.
+  The owner's voice lives in `marketing-strategy/<BrandName>/voice.md` when it
+  exists; say so plainly if it does not.
 - ✅ Capture the baseline at kickoff — without a "before" there is no story.
 - ✅ Store the baseline so wrap can find it; handle a missing baseline gracefully.
 - ✅ Hand the win moment to `set-up-referrals`.

@@ -134,8 +134,10 @@ this is the guard that keeps the studio from drifting back into animated subtitl
    `before_after` needs `before` and `after`; a `big_stat` needs a numeric `value`.
 6. **No hex colours and no font names anywhere in the plan.** Colour and type come
    from `brand.json` at render time.
-7. **No em dashes, positive framing, no third-party vendor names** in any
-   `on_screen_label` (customer-facing copy — [`knowledge/content-rules.md`](../../knowledge/content-rules.md)).
+7. **No em dashes, no invented facts or numbers, no third-party vendor names** in
+   any `on_screen_label` (customer-facing copy — [`knowledge/content-rules.md`](../../knowledge/content-rules.md)).
+   Write the labels in the owner's voice from `marketing-strategy/<BrandName>/voice.md`
+   when it exists; the framing is the owner's choice, not a house style.
 
 ## Step 6: Emit the plan
 

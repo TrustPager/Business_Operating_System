@@ -108,6 +108,8 @@ and prices first — I read scope off the image but I can't measure it."*
   facts, quotes, or numbers, and names no third-party vendor. Write it in the
   owner's brand voice; the framing and the marketing psychology are the owner's
   choice. The rules are in `knowledge/content-rules.md`.
+  The register for these messages is `knowledge/communication-voice.md`: plain,
+  warm, short.
 - **Read the image; don't hallucinate scope.** State what you can see vs what
   you're assuming. A wrong assumption in a quote is a wrong quote.
 - **Never invent prices or product names** the operator doesn't use — pull from

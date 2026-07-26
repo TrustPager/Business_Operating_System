@@ -35,9 +35,11 @@ them differently:
 
 - **Passthrough keys** — pre-existing non-manifest frontmatter that skills
   legitimately carry and that other tooling (Claude Code skill loading,
-  lint-skill.py) reads: name, description, triggers. These are ALLOWED and are
-  NOT treated as "unknown" — but they are not validated here either; that's
-  lint-skill.py's job.
+  lint-skill.py) reads: name, description, triggers, plus the two output-policy
+  copy flags produces_customer_facing_copy and engagement_copy. These are ALLOWED
+  and are NOT treated as "unknown" — but they are not validated here either;
+  that's lint-skill.py's job. PASSTHROUGH_KEYS below is the authority; keep this
+  list in step with it.
 
 Any key that is neither a manifest key nor a passthrough key is "unknown" and
 is reported as an error, so typos and drift get caught.
@@ -76,6 +78,12 @@ OPTIONAL_SCALAR_KEYS: tuple[str, ...] = ("status", "requires_region")
 # are allowed and are NOT validated as manifest fields (lint-skill.py owns them).
 PASSTHROUGH_KEYS: tuple[str, ...] = (
     "name", "description", "triggers", "produces_customer_facing_copy",
+    # engagement_copy: the skill's output has to earn and hold attention (a video
+    # script, a social post, ad copy, a nurture sequence, a content plan), so it
+    # must route knowledge/storytelling-method.md. Functional documents and
+    # operational service messages do not carry it. lint-skill.py enforces it; the
+    # contract is in knowledge/content-rules.md.
+    "engagement_copy",
 )
 
 # Every key validate_manifest() recognises (manifest + passthrough).

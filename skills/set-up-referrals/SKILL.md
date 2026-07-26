@@ -99,6 +99,8 @@ it in the owner's voice.
   quotes, or numbers, and names no third-party vendor. Write it in the owner's brand
   voice; the framing and marketing psychology are the owner's choice. The rules are in
   knowledge/content-rules.md.
+  The owner's voice lives in `marketing-strategy/<BrandName>/voice.md` when it
+  exists; say so plainly if it does not.
 - ✅ Time the ask to a real high-emotion moment; hand off from `build-my-proof`'s
   captured win where there is one.
 - ✅ Make the reward mutual and fast-paid; keep the tracking sheet small.

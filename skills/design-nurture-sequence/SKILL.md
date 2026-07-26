@@ -14,6 +14,7 @@ requires_credential: mcp
 data_path: mcp_tools
 status: active
 produces_customer_facing_copy: true
+engagement_copy: true
 ---
 
 # Design Nurture Sequence
@@ -31,6 +32,13 @@ The source of truth for the method is
 [`knowledge/marketing-strategy-method.md`](../../knowledge/marketing-strategy-method.md)
 — read its "Layer 4 — Designing a nurture sequence" section before
 starting.
+
+A nurture email has to earn its open and hold the read, so it is engagement copy:
+read [`knowledge/storytelling-method.md`](../../knowledge/storytelling-method.md)
+before drafting for the subject-line hook, the curiosity gap that carries a reader
+from one email into the next, and the but/therefore connectors inside a single email.
+The sequence's own structure stays the method file's job; the attention craft is that
+one.
 
 ## Prerequisites
 
