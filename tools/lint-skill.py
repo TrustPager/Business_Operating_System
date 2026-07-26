@@ -14,6 +14,9 @@ What it checks:
 - The manifest contract (validate_manifest) passes — FAIL on any error. (P1 Task 3a)
 - No mcp__ tool referenced in the SKILL.md body that is undeclared — i.e. not in
   uses_tools and not owned by the skill's requires_driver. (P1 Task 3c — FAIL)
+- The content-skill contract (knowledge/content-rules.md): a skill flagged
+  produces_customer_facing_copy names a voice source inline (WARN), and a skill
+  flagged engagement_copy routes storytelling-method.md (FAIL).
 - If fetch.py exists:
   - Imports from trustpager_api (or has a comment explaining why not).
   - No hardcoded tp_live_* API keys.
@@ -72,6 +75,18 @@ _KEPT_RULE_PASTE_RE = re.compile(
     re.IGNORECASE,
 )
 _CONTENT_RULES_HOME = "knowledge/content-rules.md"
+
+# The content-skill contract (knowledge/content-rules.md). Two halves:
+#   voice     — a customer-facing skill names its voice source inline, so the model
+#               actually reads it mid-run instead of inheriting a pointer it may skip.
+#               Either home counts: the owner's marketing voice doc, or the service
+#               register. Which one is the author's judgement, so this is a WARN.
+#   attention — a skill that declares engagement_copy routes the attention craft.
+#               Opt-in by flag, so a FAIL only fires on a skill that declared it.
+# "voice.md" matches communication-voice.md as a substring on purpose: both are voice
+# homes, and the register choice is doctrine, not something a string check can rule on.
+_VOICE_SOURCE = "voice.md"
+_STORYTELLING_HOME = "storytelling-method.md"
 
 
 def _driver_owns_tool(tool: str, driver: str | None) -> bool:
@@ -176,6 +191,29 @@ def lint_skill(skill_dir: Path) -> list[tuple[str, str]]:
                         f"customer-facing skill pastes content-rule boilerplate that lives in "
                         f"{_CONTENT_RULES_HOME} — replace it with the anchor + pointer",
                     ))
+            # Contract, voice half — WARN. The skill must name where the voice lives,
+            # not just say "the owner's brand voice". Either copy flag triggers it:
+            # engagement copy is customer-facing by definition, so a skill that
+            # declares only engagement_copy still owes a voice source.
+            if fm.get("produces_customer_facing_copy") or fm.get("engagement_copy"):
+                if _VOICE_SOURCE not in body:
+                    issues.append((
+                        "WARN",
+                        "customer-facing skill names no voice source — reference "
+                        "marketing-strategy/<BrandName>/voice.md for marketing copy, or "
+                        "knowledge/communication-voice.md for service messages "
+                        f"(the contract is in {_CONTENT_RULES_HOME})",
+                    ))
+
+            # Contract, attention half — FAIL, and independent of the customer-facing
+            # flag so a mis-flagged skill still gets caught.
+            if fm.get("engagement_copy") and _STORYTELLING_HOME not in body:
+                issues.append((
+                    "FAIL",
+                    f"skill declares engagement_copy but does not reference "
+                    f"{_STORYTELLING_HOME} — engagement copy routes the attention craft "
+                    f"(hook, curiosity loop, but/therefore), per {_CONTENT_RULES_HOME}",
+                ))
 
     fetch_py = skill_dir / "fetch.py"
     if fetch_py.exists():

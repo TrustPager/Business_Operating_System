@@ -18,6 +18,7 @@ requires_credential: none
 data_path: reasoning_only
 status: active
 produces_customer_facing_copy: true
+engagement_copy: true
 ---
 
 # Write Post Copy

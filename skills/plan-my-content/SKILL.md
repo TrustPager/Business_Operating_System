@@ -17,6 +17,7 @@ requires_credential: none
 data_path: reasoning_only
 status: active
 produces_customer_facing_copy: true
+engagement_copy: true
 ---
 
 # Plan My Content
@@ -143,7 +144,10 @@ For EVERY slot, fill all six fields:
   it does not replace it (e.g. "proof × centre").
 - **Hook / angle** — the specific opening line or idea for THIS
   post, written in the brand's voice. Not a vague topic ("talk about speed") —
-  an actual angle the owner could open with.
+  an actual angle the owner could open with. Draft each one against the hook craft
+  in [`knowledge/storytelling-method.md`](../../knowledge/storytelling-method.md)
+  (the three-step formula, and the six power words as the scoring gate), so a slot
+  hands over a hook that can actually open a post rather than a topic label.
 - **Format** — what kind of post it is (e.g. carousel, single image, short
   video, customer story, tip, behind-the-scenes, plain-text post, weekly
   email).

@@ -13,6 +13,7 @@ requires_credential: none
 data_path: local
 status: active
 produces_customer_facing_copy: true
+engagement_copy: true
 ---
 
 # Script My Video
@@ -40,10 +41,16 @@ Only fall back to defaults where a gate says so.
 Before asking anything, read what is already on the machine so the script is in
 the owner's voice and grounded in their business:
 
-- **Source A, `brand/brand.json`:** the business name, the voice, the tagline.
-  Everything the script says in the owner-facing lines (titles, on-screen text,
-  the call to action) uses this voice.
-- **Source B, `./CLAUDE.md`:** the business shape, the offer, and the region
+- **Source A, `brand/brand.json`:** the business name and tagline. This file is
+  identity (name, tagline, colours, fonts), not voice.
+- **Source B, `marketing-strategy/<BrandName>/voice.md`:** the owner's writing
+  voice (built by `build-my-voice` or `build-brand-strategy`). If it exists, read
+  it and write to it: the tone adjectives and signature moves, the vocabulary
+  available, and the watch-out-for register. Everything the script says in the
+  owner-facing lines (the spoken VO, titles, on-screen text, the call to action)
+  uses this voice. If it does not exist, fall back to the brand name plus what the
+  owner tells you in Step 2, and say plainly that no voice doc was found.
+- **Source C, `./CLAUDE.md`:** the business shape, the offer, and the region
   **only if** a `Region:` line is explicitly set. Do not infer a region that
   isn't stated.
 - **If present, `youtube-research.md`** (from `research-my-channel`) and the
@@ -72,6 +79,29 @@ Ask the fewest questions that let you script it well. Naming the problem the
 video solves is fine in this conversation: it is the owner's own planning, not
 customer-facing copy.
 
+### Lock the title before you script (the owner's pick)
+
+The hook has to pay off the promise the title made, so the title is decided first,
+by the owner, not chosen for them after the script exists.
+
+- **Offer three to five title options**, not one. Build them from the plan row's
+  working title and the angle, each option pulling a different lever (the outcome,
+  the number or timeframe, the honest intrigue, the searchable phrasing). The title
+  craft is `knowledge/youtube-packaging-method.md`.
+- **On a how-to or evergreen video, at least one option leads with real search
+  demand.** When `youtube-research.md` carries search-demand clusters, lead an
+  option with the strongest on-topic cluster and say which cluster it came from.
+  When there is no research file, say plainly that findability is unverified and
+  point at `research-my-channel` for the demand read. Never present an invented
+  search volume as evidence for a title.
+- **Take the owner's pick and write it as `working_title`.** The options they did
+  not pick stay in `packaging.title_options` for `package-my-video` to carry into
+  the publish folder. If the owner has no preference, recommend one and say why in
+  a line, then proceed on that.
+
+This is a gate, not a formality: script the beats against the title the owner
+chose. If they later change the title, re-check that the hook still pays it off.
+
 ## Step 3: Structure the beats
 
 Build the beat list per `knowledge/youtube-script-method.md`. Every script needs,
@@ -82,7 +112,8 @@ at minimum, these roles, in this order:
   window by word count before its timing is written. This is the single most
   important beat. Build it with the three-step hook formula in
   `knowledge/storytelling-method.md` (context lean-in → scroll-stop → contrarian
-  snapback), and open a clear curiosity loop.
+  snapback), and open a clear curiosity loop. Step 4 scores it against the six
+  power words before it is locked; a hook that has not been scored is not finished.
 - **`promise`**: what the viewer walks away with if they stay.
 - **`point`**: one or more teaching or story beats that deliver the promise.
   Most videos have several. Use `reset` beats between points on longer videos to
@@ -94,7 +125,36 @@ at minimum, these roles, in this order:
 Each beat carries the fields in the schema below. The `role` is one of:
 `hook`, `promise`, `point`, `reset`, `proof`, `cta`.
 
-## Step 4: Fit the hook to its window before you write it
+## Step 4: Score the hook, then fit it to its window
+
+The hook passes two gates before it is locked, in this order: it carries the pieces
+that make a hook work, and it lands inside its window. Both are checks you run on
+the words, not judgements you make by ear.
+
+### Gate 1: score the hook against the six power words
+
+Score every drafted hook against the six hook power words in
+[`knowledge/storytelling-method.md`](../../knowledge/storytelling-method.md). This is
+required, not a fallback for when a hook feels weak: a hook that reads confidently
+can still be missing its subject or its end state, and by-ear judgement is exactly
+how that ships.
+
+1. **Quote the words** in your hook line that carry each of the four core pieces:
+   subject clarity, action, objective / end state, contrast. Write them out beside
+   the piece; naming a piece without pointing at the words is not a score.
+2. **A piece you cannot quote words for is missing.** Rewrite the hook so it carries
+   that piece, then score again. All four core pieces present is the floor for a
+   hook that ships.
+3. **Add an optional piece if there is room.** Proof and time are the upgrade; fit
+   them only if Gate 2 still passes afterwards.
+4. **Show the owner the score** in one short line when you present the script, so
+   they can see what the hook is carrying rather than taking "it lands" on trust.
+
+If you restructure the beats later (add a story, reorder the demo, change the
+promise), re-score the hook against this gate. A hook drafted early and left alone
+while everything around it moved is the common way a scored hook drifts soft again.
+
+### Gate 2: fit the hook to its window
 
 The hook is the one beat with a hard time limit: it has to land inside
 `meta.hook_window_s` (default 5 seconds). A hook that reads fine on the page can
@@ -184,7 +244,8 @@ and apply the same maths to every other beat. Fill each beat's optional
 `knowledge/youtube-script-method.md`). So a beat with 30 spoken words plans to
 about `30 / 150 * 60 = 12` seconds. State in the `<slug>.script.md` that you used
 150 wpm, so the owner knows what the planned times assume. If you revised the
-hook line after Step 4, run its window check once more.
+hook line, or restructured the beats around it, run both Step 4 gates once more:
+score it against the six power words, then re-check its window.
 
 This is the *planned* timing, the author half of the timing contract (spec §3).
 The video studio writes the *actual* per-beat times to `<slug>.timing.json` after
@@ -216,6 +277,9 @@ invented impressive one.
   choice. The rules are in `knowledge/content-rules.md`.
 - ✅ **The hook lands inside `meta.hook_window_s`.** The opening beat earns the
   next ten seconds within the window.
+- ✅ **The hook is scored, not felt.** Both Step 4 gates run before the hook is
+  locked: the four core power words are each quoted from the line, then the window
+  check passes. Re-score after any structural rewrite.
 - ✅ **One call to action.** One `cta` beat driving the single action from Step 2.
 - ✅ **Every beat carries `id`, `role`, `spoken`, `on_screen`, `b_roll`;** the
   minimum roles `hook`, `promise`, `point`, and `cta` are all present.

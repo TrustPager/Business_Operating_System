@@ -36,6 +36,15 @@ It collects and formats what already exists. It writes no new video, renders no
 new thumbnail, and makes no network call. Work the gates in order. Only fall back
 to defaults where a gate says so.
 
+**This is packaging as collation, not packaging as ideation.** Deciding the idea,
+the angle, the title, and the thumbnail concept happens at the START of the floor,
+in [`plan-my-youtube`](../plan-my-youtube/SKILL.md); the title options are offered
+for the owner's pick in [`script-my-video`](../script-my-video/SKILL.md). This skill
+carries those decisions into a folder and runs the publish gate on the result. If
+someone reaches for it to decide a title, point them back up the floor rather than
+inventing one here. The routing table is in
+[`knowledge/youtube-packaging-method.md`](../../knowledge/youtube-packaging-method.md).
+
 ## Step 1: Find the pieces
 
 Confirm what you are packaging. A complete video pack draws on these inputs,
@@ -208,7 +217,10 @@ automatic upload here.
 ```markdown
 # Video pack: <working title>
 
-**Status:** ready to upload
+**Status:** <from the Step 8 publish gate: "ready to upload", or "holding: <check>">
+
+## Publish gate
+<one line per check: passed, or what is holding it and what fixes it>
 
 ## What is in here
 - `<slug>.mp4`: the video to upload
@@ -229,6 +241,47 @@ before you publish.
 
 If a piece was left out, drop its line rather than naming a file that is not
 there, and add the one-line note about what is still to come.
+
+## Step 8: Run the publish gate before you hand it over
+
+A pack is "ready to upload" only after it passes the gate. Run every check, then
+report the result as a short pass/hold list in the readme under **Publish gate**.
+Nothing is called ready while a check is failing: say which check failed and what
+fixes it.
+
+The checks you can run yourself, from the pack on disk:
+
+1. **A title is chosen.** `working_title` holds the owner's picked title (not a
+   placeholder), and `metadata.md` carries the remaining options underneath it.
+2. **The thumbnail is in the pack.** `thumbnail.png` exists and is the 1280x720
+   render, not a placeholder. If it is missing, this check holds the pack.
+3. **The video is in the pack.** `<slug>.mp4` exists and is a non-zero file.
+4. **The description carries its chapters and exactly one call to action.** Chapters
+   are a valid list (Step 5's three rules) or deliberately absent with the reason
+   noted, and there is one CTA, matching the script's single `cta` beat.
+5. **Every link in the description is one the owner gave you.** No invented link, no
+   placeholder URL left in the text.
+6. **Tags are present** and honest to the content.
+7. **The copy passes the content guardrails.** Read the title, description, and tags
+   once more for em dashes, invented facts, quotes or numbers, and third-party
+   vendor names. This is the last surface before the words are public.
+
+The two checks the owner runs, which you ask for rather than assert:
+
+8. **The video ends on its rendered ending.** Ask the owner to watch the last few
+   seconds and confirm the video ends where it was meant to, on the closing frame
+   and the loop into the next video, not mid-beat or on a cut-off word. A truncated
+   render is invisible in the file listing and obvious in the last two seconds.
+9. **The audio is at a shipping level.** A raw render is usually well under the
+   loudness a viewer expects, and a video that plays quiet reads as amateur before a
+   word lands. If the render pipeline has a mastering pass, confirm it ran; the
+   target to aim for is roughly -14 LUFS integrated with true peak under -1 dB, and
+   a two-pass measure-then-normalise is the reliable way to hit it. If no mastering
+   pass exists, say plainly that the audio is unmastered so the owner can decide.
+
+Write the gate result into the readme's `**Status:**` line: `ready to upload` when
+every check passed, or `holding: <the failing check>` when one did not. An honest
+hold is the point of the gate; a pack that ships broken is the failure it prevents.
 
 Once your YouTube account is connected in a later step, this same folder can be
 uploaded for you, and the video's performance can feed back into your next round
@@ -253,6 +306,11 @@ ships with zero accounts connected.
   facts, quotes, or numbers, and names no third-party vendor. Write it in the
   owner's brand voice; the framing and marketing psychology are the owner's
   choice. The rules are in `knowledge/content-rules.md`.
+  The owner's voice lives in `marketing-strategy/<BrandName>/voice.md` when it
+  exists; say so plainly if it does not.
+- ✅ **The publish gate decides the status.** A pack reads `ready to upload` only
+  when every Step 8 check passed. A failing check is named plainly in the readme and
+  holds the pack; never call a pack ready because the files are present.
 - ✅ **Manual upload is the ending.** The pack is ready for the owner to upload by
   hand. Uploading is a separate, later step, not part of this skill.
 
@@ -260,6 +318,7 @@ ships with zero accounts connected.
 
 One clean, named, publish-ready folder holding the video, the thumbnail, and a
 `metadata.md` (title options, a full YouTube description with a valid chapter
-list, tags, and a manual-upload checklist), plus a short `README.md`. The chapters come from
+list, tags, and a manual-upload checklist), plus a short `README.md` whose status line and publish-gate list report the Step 8
+result, so the owner can see what passed and what is holding. The chapters come from
 `<slug>.timing.json` when present and from the script's planned `duration_s`
 otherwise, and any missing input is noted plainly rather than crashing the run.

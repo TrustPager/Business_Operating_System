@@ -118,8 +118,22 @@ written. An idea without a real-evidence line does not belong in this section.
 This is the one rule that keeps the read honest: you are surfacing what real
 people actually asked for, not guessing what they might want.
 
+**Then read the search-demand clusters** (the findability check in
+`knowledge/youtube-packaging-method.md`, which owns the method). Fetch YouTube's own
+public suggestion endpoint once per seed, keylessly, for 4 to 6 seed phrasings around
+the niche (the raw topic, the outcome, the audience, the tool or method), and cluster
+what comes back by search intent. These are the words viewers actually type, ordered
+by real search popularity, which is exactly what the owner's own phrasing for their
+work is not. Report the clusters as observed phrasings, never as invented volumes:
+you are reading which phrasings exist and how they rank, not a keyword volume figure.
+If the endpoint is blocked or empty, say so and leave the clusters out rather than
+guessing them.
+
 Write this as the second section of `youtube-research.md`: a list of video ideas,
-each with its real evidence quote underneath it.
+each with its real evidence quote underneath it, then the search-demand clusters as
+a short list (the cluster, its strongest observed phrasings). `plan-my-youtube` reads
+those clusters so every how-to and evergreen title it writes leads with words that
+have real search demand behind them.
 
 **For real viewer comments in their own words, offer the deepener.** Comments are
 the richest demand signal, and the keyless web read cannot reach them. When the
@@ -249,7 +263,9 @@ confirm against your live read.
 ## 2. Video ideas from viewer demand (illustrative)
 Two or three example video ideas the niche tends to reward. Each carries an
 "evidence to capture live:" line in place of a real quote, so you can see exactly
-what a finished idea looks like once the real search signal fills it in.
+what a finished idea looks like once the real search signal fills it in. The
+search-demand clusters are left empty here, because the phrasings viewers actually
+type can only come from the live read.
 
 ## 3. Novel-packaging gap-and-angle map (illustrative)
 One or two example angles and a standout title or thumbnail concept, marked
@@ -272,8 +288,8 @@ too, so hold it to the same content guardrails (see Hard rules) before you send 
 ## Output shape
 
 `youtube-research.md` is the deliverable, with all three sections: the competitor
-content scan, the demand-signal video ideas (each with its real evidence quote),
-and the novel-packaging gap-and-angle map. Show the highlights inline and save the
+content scan, the demand-signal video ideas (each with its real evidence quote) plus
+the observed search-demand clusters, and the novel-packaging gap-and-angle map. Show the highlights inline and save the
 full read to `youtube-research.md` so `plan-my-youtube` can pick it up.
 
 ## Hard rules
@@ -302,6 +318,8 @@ full read to `youtube-research.md` so `plan-my-youtube` can pick it up.
   facts, quotes, or numbers, and names no third-party vendor. Write it in the
   owner's brand voice; the framing and the marketing psychology are the owner's
   choice. The rules are in `knowledge/content-rules.md`.
+  The owner's voice lives in `marketing-strategy/<BrandName>/voice.md` when it
+  exists; say so plainly if it does not.
 - ✅ **`yt-dlp` is optional.** Offer the deeper read as a choice, never a
   prerequisite; the web read always produces a complete first result. It is the
   one path to real viewer comments in their own words, so offer it whenever the

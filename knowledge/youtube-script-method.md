@@ -92,8 +92,11 @@ how.
 **The deeper hook craft** — the three-step formula (context lean-in → scroll-stop
 interjection → contrarian snapback), the six hook power words, and why a visual hook
 beats an audio-only one — lives in [`storytelling-method.md`](storytelling-method.md).
-The patterns above are the YouTube-specific shapes; reach for the formula when a hook
-won't land.
+The patterns above are the YouTube-specific shapes for *drafting* a hook. The six
+power words are the *gate*: score every drafted hook against them (name the words
+carrying subject clarity, action, objective, and contrast) before the hook is locked,
+and score it again after any structural rewrite. A hook judged by ear alone is how a
+soft one ships.
 
 **Cut the runway.** The single most common hook mistake is starting with a slow
 intro before the hook. There is no "warming up" — the hook is beat one. Branding,

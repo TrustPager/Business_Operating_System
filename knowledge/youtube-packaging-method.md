@@ -158,7 +158,67 @@ the promise into those first few words.
 **Match the searcher's words for how-to and evergreen topics.** For a topic people
 actively search ("how to price a paint job"), the title should contain the words
 they type. For browse/suggested topics (stories, opinions, results), intrigue and
-specificity matter more than search-match.
+specificity matter more than search-match. The findability check below is how you
+learn which words those are instead of guessing them.
+
+---
+
+## The findability check — lead with the words viewers actually type
+
+An owner's own phrasing for what they do is almost never the phrasing viewers
+search for. "Quote on the spot, every time" is how the owner thinks about the
+outcome; "how to quote a painting job" is what someone types into the search bar.
+Both belong in the video, but only one of them belongs at the front of the title.
+
+**The check is keyless and YouTube-specific.** A general web or Google keyword
+tool measures a different audience with different intent, so it is a proxy, not the
+signal. YouTube's own public suggestion endpoint returns real phrasings ordered by
+search popularity, needs no account and no key, and is the signal to use:
+
+1. **Read the suggestions per seed.** Fetch the public suggestion endpoint the same
+   keyless way you read any page you name, one call per seed:
+   `https://suggestqueries-clients6.youtube.com/complete/search?client=youtube&ds=yt&q=<url-encoded seed>`
+   The returned phrasings come back ordered by real search popularity.
+2. **Seed 4 to 6 phrasings** around the video from different directions: the raw
+   topic, the outcome, the audience, and the method. For a video about quoting a
+   paint job that would be: "how to quote a painting job", "painting quote
+   template", "how much to charge to paint a house", "quoting for painters",
+   "painting business pricing". Different seeds surface different clusters, which
+   is the point; one seed reads as one guess.
+3. **Cluster the returned phrasings by search intent** and name the biggest on-topic
+   cluster. That cluster is the demand the title leads with.
+4. **Lead the title with the high-demand phrasing, and keep the owner's own
+   outcome framing in the hook and the description** when the outcome phrase itself
+   has thin search volume. The owner's persuasion language still ships; it just
+   ships where it persuades rather than where it has to be found. Derive the tags
+   from the clusters too.
+5. **Honour the title rules above.** A findable title still makes a specific promise
+   the video keeps, still reads on a phone, and still uses no fabricated number.
+
+**When to run it, and when not to.** Run it on how-to, evergreen, and
+search-intent videos, at the moment the title is being decided (planning), not
+after a video is built. Skip it for browse and suggested-driven videos (a story, an
+opinion, a personal result) where intrigue out-pulls search-match, and say plainly
+that you skipped it and why. If the endpoint is blocked or empty, do not invent
+demand: say the check could not run, fall back to a keyless search read of the real
+questions people ask, and mark the title's findability as unverified.
+
+---
+
+## Two meanings of "packaging" (route them, don't conflate them)
+
+"Package" names two different jobs at two different ends of the floor, and treating
+them as one is how a run reaches for the wrong step:
+
+| Job | Where it lives | What it decides |
+|---|---|---|
+| **Packaging as ideation** | [`plan-my-youtube`](../skills/plan-my-youtube/SKILL.md), from [`research-my-channel`](../skills/research-my-channel/SKILL.md) | The idea, the angle, the working title, the thumbnail concept. This file's craft. Decided BEFORE scripting. |
+| **Packaging as authoring** | [`script-my-video`](../skills/script-my-video/SKILL.md) | Consumes those four fields, offers the title options for the owner's pick, and writes them into the script's `packaging` block. |
+| **Packaging as collation** | [`package-my-video`](../skills/package-my-video/SKILL.md) | Gathers a FINISHED video, thumbnail, and metadata into one publish-ready folder, and runs the publish gate. Writes no title and no concept. |
+
+So the ideation home is `plan-my-youtube`, not `package-my-video`. An owner (or an
+assistant) who reaches for `package-my-video` to decide a title has reached for the
+last step of the floor instead of the first.
 
 ---
 

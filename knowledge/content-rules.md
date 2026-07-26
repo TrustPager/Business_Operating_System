@@ -5,9 +5,23 @@ that a customer or end-user will read or hear.** Emails, SMS, captions, ad copy,
 copy, headlines, scripts, proposals, letters. One home: every content skill points here
 instead of restating it.
 
-**Whose voice:** the copy is written in the OWNER's brand voice (see build-my-voice and
-build-brand-strategy). These rules are universal quality and integrity guardrails, not a
-house style. The framing and the marketing psychology are the owner's choice.
+**Whose voice, and where it lives:** the copy is written in the OWNER's brand voice.
+That voice is a file, not a vibe:
+
+- **`marketing-strategy/<BrandName>/voice.md`** is the one home for the owner's writing
+  voice (tone adjectives, signature moves, vocabulary, the watch-out-for register),
+  written by `build-my-voice` or `build-brand-strategy`. Every skill writing marketing
+  or engagement copy reads it. When it does not exist, say plainly that no voice doc was
+  found and write from the owner's own words, rather than inventing a voice for them.
+- **`knowledge/communication-voice.md`** is the register for the owner's operational
+  service messages (confirmations, updates, replies). Plain, warm, short. It is not the
+  marketing register: a service reply written with a marketing hook reads wrong, and a
+  video hook written in the service register lands flat.
+- **`brand/brand.json` is identity, not voice** (name, tagline, colours, fonts). A skill
+  that asks it how the owner sounds is pointed at the wrong file.
+
+These rules are universal quality and integrity guardrails, not a house style. The
+framing and the marketing psychology are the owner's choice.
 
 **Scope (labelled boundary):** these rules bind customer-facing OUTPUT only. Internal
 worksheets, operator coaching, discovery conversations, and dev notes are exempt.
@@ -44,6 +58,28 @@ regulated shape reads those before drafting.
 ## Service-message voice
 For the owner's operational messages to their own customers (fix confirmations, updates),
 keep it plain, warm, and clear: see knowledge/communication-voice.md.
+
+## The content-skill contract
+Two obligations, and a skill declares which apply to it in its own frontmatter:
+
+1. **Every skill that writes customer-facing copy names its voice source inline**
+   (`marketing-strategy/<BrandName>/voice.md` for marketing and engagement copy,
+   `knowledge/communication-voice.md` for service messages). A skill flagged
+   `produces_customer_facing_copy: true` that names neither is writing in a voice it
+   never read. Naming the file inline is deliberate: a rule that is only referenced in
+   another document gets skipped mid-generation, and the cost is a customer seeing it.
+2. **Every skill that writes engagement copy routes the attention craft.** Engagement
+   copy is anything whose job is to earn and hold attention: a video script, a social
+   post, ad copy, a nurture sequence, a content plan. Those skills carry
+   `engagement_copy: true` and read [`storytelling-method.md`](storytelling-method.md)
+   for the hook, the curiosity loop, and the but/therefore dance. Functional documents
+   (a policy, a proposal, a letter, a job ad) get voice and clarity, not a curiosity
+   hook. Operational service messages get the service register, not a hook either.
+
+`tools/lint-skill.py` checks both: the voice-source half as a warning, the
+storytelling half as a failure on any skill that declares `engagement_copy: true`.
+CI lints every skill under `set -e`, so a warning stops the build too. In practice
+both halves gate; the severity difference only changes how a local run reads.
 
 ## Marketing framing is the owner's choice
 How the owner frames their marketing (positive, pain-led, or any psychology they choose)

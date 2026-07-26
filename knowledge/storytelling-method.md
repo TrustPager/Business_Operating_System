@@ -148,9 +148,12 @@ power.
 > The thing that actually wins it is the one question you ask before you quote at all.
 > [snapback]"*
 
-### The six hook power words
+### The six hook power words (score every hook against these)
 
-A hook can be built from six stackable pieces. Four are core, two optional.
+A hook is built from six stackable pieces. Four are core, two optional. This is not
+a fallback to reach for when a hook feels weak: it is the scoring gate every hook
+passes before it ships. Judging a hook by ear is how a soft one survives, because a
+hook that reads confidently can still be missing its subject or its end state.
 
 | Piece | Role | In the example |
 |---|---|---|
@@ -164,6 +167,20 @@ A hook can be built from six stackable pieces. Four are core, two optional.
 > *"How I quoted a $12,000 job from a one-line text — in a single visit."* Subject
 > (I), action (quote), objective ($12k job), contrast (from a one-line text), time
 > (single visit).
+
+**How to score a drafted hook.** Name the exact words in the hook that carry each of
+the four core pieces (subject clarity, action, objective, contrast). Write them out;
+do not assert the piece is "there" without pointing at the words. Then:
+
+- **A core piece you cannot quote words for is missing**, no matter how good the line
+  sounds. Rewrite the hook to carry it and score again.
+- **All four core present** is the floor. The two optional pieces (proof, time) are
+  the upgrade; add one if the line still has room inside its window.
+- **A weak piece counts as missing.** "This" as a subject, or an end state the viewer
+  cannot picture, is a piece to sharpen, not a piece to pass.
+
+Re-score after any structural rewrite. A hook drafted early and left alone while the
+beats around it changed is the common way a scored hook drifts back to a soft one.
 
 **How to practise:** find top accounts in the niche, take their best-performing hooks
 from the transcript, identify the six buckets, then swap in your own subject / action

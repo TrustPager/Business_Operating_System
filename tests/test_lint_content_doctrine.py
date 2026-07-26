@@ -80,6 +80,77 @@ class TestFlaggedSkillIsPoliced(unittest.TestCase):
             self.assertNotIn("FAIL", _sev(lint_skill.lint_skill(d)), lint_skill.lint_skill(d))
 
 
+class TestContentSkillContract(unittest.TestCase):
+    """The two-half contract in knowledge/content-rules.md.
+
+    voice half: a customer-facing skill names its voice source inline (WARN, because
+    which register applies is the author's judgement). attention half: a skill that
+    declares engagement_copy routes storytelling-method.md (FAIL, opt-in by flag).
+    """
+
+    def _msgs(self, issues):
+        return " ".join(m for _, m in issues)
+
+    def test_flagged_without_voice_source_warns(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            d = _write(Path(tmp), _CF_FM, f"\n# S\n\n{_ANCHOR}\n")
+            issues = lint_skill.lint_skill(d)
+            self.assertTrue(any(s == "WARN" and "no voice source" in m for s, m in issues), issues)
+            self.assertNotIn("FAIL", _sev(issues), issues)
+
+    def test_marketing_voice_source_satisfies_it(self):
+        body = f"\n# S\n\n{_ANCHOR}\nVoice: `marketing-strategy/<BrandName>/voice.md`.\n"
+        with tempfile.TemporaryDirectory() as tmp:
+            d = _write(Path(tmp), _CF_FM, body)
+            self.assertNotIn("no voice source", self._msgs(lint_skill.lint_skill(d)))
+
+    def test_service_register_also_satisfies_it(self):
+        body = f"\n# S\n\n{_ANCHOR}\nRegister: knowledge/communication-voice.md.\n"
+        with tempfile.TemporaryDirectory() as tmp:
+            d = _write(Path(tmp), _CF_FM, body)
+            self.assertNotIn("no voice source", self._msgs(lint_skill.lint_skill(d)))
+
+    def test_unflagged_skill_needs_no_voice_source(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            d = _write(Path(tmp), _FLOOR_FM, "\n# S\n\nSummarise the week.\n")
+            self.assertNotIn("no voice source", self._msgs(lint_skill.lint_skill(d)))
+
+    def test_engagement_copy_without_storytelling_fails(self):
+        fm = _CF_FM + "engagement_copy: true\n"
+        body = f"\n# S\n\n{_ANCHOR}\nVoice: `marketing-strategy/<BrandName>/voice.md`.\n"
+        with tempfile.TemporaryDirectory() as tmp:
+            d = _write(Path(tmp), fm, body)
+            issues = lint_skill.lint_skill(d)
+            self.assertTrue(any(s == "FAIL" and "storytelling-method.md" in m
+                                for s, m in issues), issues)
+
+    def test_engagement_copy_with_storytelling_passes(self):
+        fm = _CF_FM + "engagement_copy: true\n"
+        body = (f"\n# S\n\n{_ANCHOR}\nVoice: `marketing-strategy/<BrandName>/voice.md`.\n"
+                "Hook craft: knowledge/storytelling-method.md.\n")
+        with tempfile.TemporaryDirectory() as tmp:
+            d = _write(Path(tmp), fm, body)
+            self.assertNotIn("FAIL", _sev(lint_skill.lint_skill(d)), lint_skill.lint_skill(d))
+
+    def test_engagement_copy_alone_still_owes_a_voice_source(self):
+        """Engagement copy is customer-facing by definition, flag or no flag."""
+        fm = _FLOOR_FM + "engagement_copy: true\n"  # no produces_customer_facing_copy
+        body = "\n# S\n\nHook craft: knowledge/storytelling-method.md.\n"
+        with tempfile.TemporaryDirectory() as tmp:
+            d = _write(Path(tmp), fm, body)
+            issues = lint_skill.lint_skill(d)
+            self.assertTrue(any(s == "WARN" and "no voice source" in m for s, m in issues), issues)
+
+    def test_engagement_copy_is_a_known_manifest_key(self):
+        """A new frontmatter key FAILs the closed manifest schema until it is declared."""
+        fm = _CF_FM + "engagement_copy: true\n"
+        body = (f"\n# S\n\n{_ANCHOR}\nVoice: `marketing-strategy/<BrandName>/voice.md`.\n"
+                "Hook craft: knowledge/storytelling-method.md.\n")
+        with tempfile.TemporaryDirectory() as tmp:
+            d = _write(Path(tmp), fm, body)
+            self.assertNotIn("unknown key", self._msgs(lint_skill.lint_skill(d)))
+
+
 class TestUnflaggedSkillIsExempt(unittest.TestCase):
     """The assistant's own voice / operator analysis keeps positive framing without failing."""
 

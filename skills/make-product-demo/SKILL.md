@@ -114,7 +114,9 @@ owner drops onto their own footage. Everyday demos stay on the default MP4 path.
 - **Verify by watching.** Read the MP4 (and a still) before declaring a render
   done — the Studio preview can differ from the headless output.
 - **Content guardrails.** On-screen copy invents no facts or numbers and names no
-  third-party vendor. Brand voice, from `brand.json`
+  third-party vendor. Brand voice, from
+  `marketing-strategy/<BrandName>/voice.md` when it exists (identity from
+  `brand.json`, which carries no voice)
   ([`knowledge/content-rules.md`](../../knowledge/content-rules.md)).
 
 ## Output shape

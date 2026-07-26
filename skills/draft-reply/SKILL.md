@@ -69,7 +69,7 @@ Same approval flow as /send-email:
 
 ## Important behaviours
 
-- **Content guardrails.** Customer-facing copy uses no em dashes, invents no facts, quotes, or numbers, and names no third-party vendor. Write it in the owner's brand voice; the framing and the marketing psychology are the owner's choice. The rules are in `knowledge/content-rules.md`.
+- **Content guardrails.** Customer-facing copy uses no em dashes, invents no facts, quotes, or numbers, and names no third-party vendor. Write it in the owner's brand voice; the framing and the marketing psychology are the owner's choice. The rules are in `knowledge/content-rules.md`. The register for these messages is `knowledge/communication-voice.md`: plain, warm, short.
 - **When you don't know, say so.** If they asked "what's the price?" and you don't know, the reply says "Let me confirm and come back to you today."
 - **Objections and 'no's have doctrine.** If the inbound is a price objection or a decline, read business-method.md §9.4 and §12.5 before drafting: never offer the same thing cheaper; a genuine alternative changes scope or payment shape. Restate their concern in the reply before answering it.
 - **Threading matters.** Email replies must use `reply_to_email` (preserves the thread), not `send_email` to the same address (breaks threading).

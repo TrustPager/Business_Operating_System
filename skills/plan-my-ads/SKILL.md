@@ -14,6 +14,7 @@ requires_credential: none
 data_path: reasoning_only
 status: active
 produces_customer_facing_copy: true
+engagement_copy: true
 reads_for_profile:
   - offer
   - audience
@@ -50,8 +51,15 @@ This sits at the top of the ads stack:
 So when you finish, hand off to `run-my-ads` by outcome (Step 9), never as a
 routed offer.
 
-The shared reference for how customer-facing output should sound is
-[`knowledge/communication-voice.md`](../../knowledge/communication-voice.md).
+Ad copy is engagement copy, so it reads two homes before a hook is drafted: the
+owner's writing voice at `marketing-strategy/<BrandName>/voice.md` (built by
+`build-my-voice` or `build-brand-strategy`, and the one home for how they sound), and
+the attention craft in
+[`knowledge/storytelling-method.md`](../../knowledge/storytelling-method.md) for the
+hook and the curiosity gap. When no voice doc exists, write from the owner's own
+words and say plainly that none was found.
+[`knowledge/communication-voice.md`](../../knowledge/communication-voice.md) is the
+register for their plain operational messages, not for an ad hook.
 Business-shape context (which ad shape tends to fit which kind of business) lives
 in [`knowledge/industry-notes.md`](../../knowledge/industry-notes.md), and the
 business fundamentals (capacity, local gravity, LTV) in

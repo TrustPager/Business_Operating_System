@@ -239,6 +239,8 @@ typed breakdown is still the win.
   facts, quotes, or numbers, and names no third-party vendor. Write it in the
   owner's brand voice; the framing and the marketing psychology are the owner's
   choice. The rules are in `knowledge/content-rules.md`.
+  The register for these messages is `knowledge/communication-voice.md`: plain,
+  warm, short.
 - **No accounts, no files needed.** This runs on typed inputs alone. The
   spreadsheet is an optional add-on, never a dependency for the win.
 
