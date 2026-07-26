@@ -50,9 +50,10 @@ the owner's voice and grounded in their business:
   owner-facing lines (the spoken VO, titles, on-screen text, the call to action)
   uses this voice. If it does not exist, fall back to the brand name plus what the
   owner tells you in Step 2, and say plainly that no voice doc was found.
-- **Source C, `./CLAUDE.md`:** the business shape, the offer, and the region
-  **only if** a `Region:` line is explicitly set. Do not infer a region that
-  isn't stated.
+- **Source C, `./CLAUDE.md`:** the business shape and the offer, so the script is
+  grounded in what this business actually does. Read it, do not just scan it for
+  one line. The **region** is the conditional part: take it only if a `Region:`
+  line is explicitly set, and never infer one that isn't stated.
 - **If present, `youtube-research.md`** (from `research-my-channel`) and the
   matching pipeline row from `plan-my-youtube`: these carry the idea, the angle,
   the working title, and the thumbnail concept. When they exist, the topic and
@@ -72,7 +73,12 @@ video-specific pieces:
 - **The one action:** the single thing the video drives the viewer to do (book a
   call, download the guide, subscribe). One call to action, not three.
 - **Target length:** how long the video should run. This sets
-  `meta.duration_target_s`.
+  `meta.duration_target_s`. If the owner has no view, do not invent a number
+  silently: propose one from the job the video does, and say which you assumed.
+  A single-idea video or a Short runs about 60 to 90 seconds; a how-to or a
+  walkthrough that has to teach something runs about 6 to 10 minutes. Pick the
+  target BEFORE you draft the beats, and do not quietly revise it afterwards to
+  match what you wrote, or Step 6's fit check is measuring you against yourself.
 - **Aspect:** 16:9 for standard YouTube, 9:16 for a Short. Sets `meta.aspect`.
 
 Ask the fewest questions that let you script it well. Naming the problem the
@@ -144,7 +150,11 @@ how that ships.
    the piece; naming a piece without pointing at the words is not a score.
 2. **A piece you cannot quote words for is missing.** Rewrite the hook so it carries
    that piece, then score again. All four core pieces present is the floor for a
-   hook that ships.
+   hook that ships. **Contrast is the one that fails quietly:** it needs words for
+   BOTH states, the base state and the new one. If the viewer has to supply the
+   other half themselves ("Claude wrote it" only reads as contrast if they infer
+   "instead of me writing it by hand"), the piece is inferred, not carried, and it
+   counts as missing. Quote both sides or rewrite the line.
 3. **Add an optional piece if there is room.** Proof and time are the upgrade; fit
    them only if Gate 2 still passes afterwards.
 4. **Show the owner the score** in one short line when you present the script, so
