@@ -72,7 +72,7 @@ locally. It is never a prerequisite and never blocks the first read. The owner
 gets a complete research artifact on the keyless default, and the deepener is
 there when the extra depth earns its keep.
 
-## The channel-history use (for `break-down-a-channel`)
+## The channel-history use (for `break-down-a-channel` and `what-worked`)
 
 `break-down-a-channel` needs a whole channel's video list to build a breakout
 timeline, which Firecrawl's page read cannot reach in depth. `yt-dlp` provides it
@@ -84,7 +84,9 @@ yt-dlp --flat-playlist --dump-json "https://www.youtube.com/@<handle>/videos"
 
 **What the flat dump returns (verified):** one JSON object per line (JSONL), each
 carrying `view_count` (a *rounded* display figure, e.g. `27000`) and
-`playlist_index` (the channel's reverse-chronological order, index 1 = newest).
+`playlist_index` (the channel's reverse-chronological order, index 1 = newest). The
+`/videos` tab lists neither Shorts nor live streams, so the dump is long-form uploads
+only and under-counts a channel that leans on either.
 
 **What it does NOT return:** dates. In flat mode `upload_date` and `timestamp` are
 null on every entry. So `break-down-a-channel` uses **upload order** as its
@@ -93,6 +95,19 @@ works entirely from order plus view counts. Exact dates, if ever wanted to label
 the handful of videos around an inflection, cost one non-flat per-video call each
 and are fetched only for that handful, never for the whole channel.
 
+`what-worked` has the identical data need pointed the other way: the same flat
+dump and the same engine, run on the owner's OWN channel after a publish, asking
+"what should I repeat" instead of "what can I borrow".
+
+`research-my-channel`'s optional cross-channel outlier board is the third consumer,
+and the only one that fans the same dump across several channels at once. It bounds
+each pull with `--playlist-end N`, which truncates the list to the channel's N most
+recent uploads so a multi-channel fan-out stays readable in one sitting. Truncating
+the list also truncates the engine's trailing baseline: the oldest entries inside
+that N have few or no prior entries to compare against, so their `outlier` comes back
+`null` or computed from a short window. Skip those rows rather than reading them as
+scored.
+
 This stays within the honest boundary above: still `kind: local`, keyless,
 read-only, no account. Firecrawl remains the default for `research-my-channel`'s
-surface read; the flat dump is `break-down-a-channel`'s specific data need.
+surface read; the flat dump is the specific data need of the three consumers above.

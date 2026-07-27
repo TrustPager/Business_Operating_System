@@ -65,7 +65,9 @@ Before you fetch anything, know:
   or competes with, if they can name any. If they cannot, `search` the niche and
   pick the channels that keep coming up. **Hard cap: study roughly 3 to 5
   channels and a handful of their top videos.** If the owner names more, study the
-  most relevant and say so plainly; never silently drop one.
+  most relevant and say so plainly; never silently drop one. That cap bounds the
+  page read only: note any extra channel names `search` surfaced, since the
+  optional outlier board (Step 4b) scores a handle without page-reading it.
 
 If a fetch is slow, blocked, or empty, say so and offer the fallback: "paste me
 what is on that page and I will read it the same way." Never guess at what is on a
@@ -94,6 +96,9 @@ what the niche's winners cover, how they package it, and which specific videos
 broke out. Cite the real observed outliers by their actual titles, visible view
 counts, and the computed multiple ("4.2x baseline"). Never invent an outlier, a
 view count, or a multiple you did not derive from numbers you actually saw.
+
+This scan reads outliers by eye, from the counts the pages you read happened to
+show. The tool-scored wide version is the optional deepener in Step 4b.
 
 ## Step 2: Viewer demand signals (every idea carries real evidence)
 
@@ -137,7 +142,7 @@ have real search demand behind them.
 
 **For real viewer comments in their own words, offer the deepener.** Comments are
 the richest demand signal, and the keyless web read cannot reach them. When the
-owner wants that depth, offer the free local `yt-dlp` tool (Step 4): "YouTube
+owner wants that depth, offer the free local `yt-dlp` tool (Step 4a): "YouTube
 hides comment threads from the keyless web read, so to mine real viewer comments
 in their own words I can use the free local yt-dlp tool, no account needed. Want
 me to?" Keep it offered, never forced: this section stands on its own from search
@@ -178,13 +183,16 @@ video's comment thread: YouTube loads comments through a separate client-side ca
 the keyless page-scrape never triggers, so real viewer comments are not in the
 first-pass read.
 
-That is exactly where the optional deepener earns its keep. When the owner wants
-real viewer comments in their own words, or a video's full transcript, offer the
-keyless local `yt-dlp` tool from
-[`drivers/yt-dlp/`](../../drivers/yt-dlp/README.md). It is a free local
-command-line tool, no account and no key, that pulls a video's complete comment
-thread and its full transcript, past what any page shows. Offer it as a plain
-choice, never a prerequisite:
+That is exactly where the optional deepener earns its keep. The free local `yt-dlp`
+tool ([`drivers/yt-dlp/`](../../drivers/yt-dlp/README.md)) has two uses here, 4a and
+4b below. It is a command-line tool with no account and no key. Ask about the
+install once per run and reuse the same session after that. Offer each use
+separately: 4a and 4b are different amounts of work.
+
+### 4a. Comments and transcripts (per video)
+
+When the owner wants real viewer comments in their own words, or a video's full
+transcript, offer it as a plain choice, never a prerequisite:
 
 > YouTube hides comment threads from the keyless web read, so to mine real viewer
 > comments in their own words I can use a free local tool called yt-dlp. No
@@ -196,6 +204,62 @@ keyless, no account) and fold the real comment and transcript findings back into
 the relevant section, always with verbatim evidence. Default to the web read for
 the first pass; `yt-dlp` is the "go deeper?" option that unlocks true comment
 mining, never the gate to a first result.
+
+### 4b. The cross-channel outlier board (per channel)
+
+Step 1 read outliers by eye. The board is the wide version, scored by tool. Offer
+it as its own choice:
+
+> I can also build you an outlier board. That same free local tool pulls the recent
+> uploads from up to ten channels in your niche, scores every video against what
+> that channel normally does, and ranks the breakouts into one list, so you see
+> which angles are winning across the niche and not just on one channel. Want me to?
+
+On a yes, gather the handles first: a handle is enough, so if fewer than ten are in
+hand from Step 0, run one more `search` to fill the list before pulling. Then, per
+channel:
+
+```bash
+# ten channels at most
+yt-dlp --flat-playlist --playlist-end 30 --dump-json "https://www.youtube.com/@<handle>/videos" > <slug>-dump.jsonl
+python ~/.claude/bos-run.py tool channel_breakdown <slug>-dump.jsonl --window 10 --min-segment 5 --out <slug>-board.json
+```
+
+Same engine `break-down-a-channel` and `what-worked` run, so a multiple means the
+same thing here as anywhere else on the floor. Read each result's `timeline` only
+(its `breakout` block answers the single-channel teardown's question, not this one;
+`break-down-a-channel` is the follow-on when one board row is worth a deep read),
+and pool them per that file's "look across the niche" rule. Selection happens once,
+at the cap below: do not also pre-filter by band here.
+
+**Each row carries the title, its multiple, its channel, and one line on what was
+different (topic, angle, title promise, or thumbnail).** Keep every scored row:
+which ideas earn a slot is `plan-my-youtube`'s call, at the point where its Step 4
+has set the real pillars. Where `content-pillars.yaml` already exists under
+`marketing-strategy/<BrandName>/`, label each row with the branch it pairs to;
+otherwise label from the working themes of Steps 0 and 1 and say the label is
+provisional. **Cap the board at its top ten to fifteen rows by pooled multiple.**
+The board goes into section 1 of `youtube-research.md`.
+
+**Hand it over with its limits stated, not buried.** The view counts are rounded and
+flat mode returns no dates (the driver README owns that boundary), so the board ranks
+into bands rather than an exact league table, two rows within about a tenth of each
+other are a tie, and the pull is each channel's most recent thirty *uploads* rather
+than a stretch of time: months on a weekly channel, years on a monthly one, so the
+board mixes time horizons and can never say "the last year". The oldest rows inside
+each thirty have no baseline yet (`outlier` is `null`) or a short one, so skip them
+rather than reading them as zero (`what-worked` Step 2 owns that gate). Check each
+result's `video_count` against the thirty you asked for and name the gap: a channel
+too thin to score, or videos the engine skipped for a missing count, gets said out
+loud, never dropped quietly. And the board measures channels that are already named;
+finding them is Step 0's job. Never invent a view count, a date, or a row.
+
+The honest cost is a first-time install and the owner's attention on the board, not
+a wait. If `yt-dlp` will not install (a locked-down machine, no package manager, no
+network), say so in one line and keep the Step 1 read: it is a complete result on
+its own, not a degraded one. If a pull comes back blocked or empty, say so and offer
+to read a channel list the owner pastes instead. A declined board is a normal
+ending, so do not re-offer the board later in the run.
 
 ## When both public sources are unreachable (an occasional, expected environment)
 
@@ -216,7 +280,7 @@ paste fallback. Both routes failing across a few reads each is this branch. When
 doubt, assume the web read is fine and keep going: this branch is the exception,
 not the reflex.
 
-**Primary recovery: reach for the local `yt-dlp` deepener (Step 4) first.** It runs
+**Primary recovery: reach for the local `yt-dlp` deepener (Step 4a) first.** It runs
 on the owner's machine and reaches YouTube by a different route than the page read
 (the video's own data feed, not the rendered page), so it can still pull real
 titles, full transcripts, and real comment threads even when the page read only saw
@@ -290,7 +354,9 @@ too, so hold it to the same content guardrails (see Hard rules) before you send 
 `youtube-research.md` is the deliverable, with all three sections: the competitor
 content scan, the demand-signal video ideas (each with its real evidence quote) plus
 the observed search-demand clusters, and the novel-packaging gap-and-angle map. Show the highlights inline and save the
-full read to `youtube-research.md` so `plan-my-youtube` can pick it up.
+full read to `youtube-research.md` so `plan-my-youtube` can pick it up. When the
+owner took the Step 4b deepener, section 1 also carries the ranked cross-channel
+outlier board.
 
 ## Hard rules
 
@@ -298,8 +364,7 @@ full read to `youtube-research.md` so `plan-my-youtube` can pick it up.
   delegating to the floor's keyless web-research capability, the same way the
   other research skills do. It names no connected tool in its steps.
 - ❌ **No `crawl` / `map` / `agent` / `extract`.** Per-page read plus search only,
-  capped at roughly 3 to 5 channels and their top videos. Those paid ops are not
-  keyless and not on the floor.
+  within Step 0's cap. Those paid ops are not keyless and not on the floor.
 - ❌ **Never fabricate, and your own knowledge is not evidence.** Every
   demand-signal idea carries a real evidence quote (the exact search query, thread
   title, or public phrasing you saw), exact as written. Every outlier and view
@@ -310,7 +375,7 @@ full read to `youtube-research.md` so `plan-my-youtube` can pick it up.
   finding.
 - ❌ **The keyless read does not reach YouTube comment threads.** Never present
   invented viewer comments. Real comment mining in a viewer's own words needs the
-  optional `yt-dlp` deepener (Step 4); until the owner opts in, source demand from
+  optional `yt-dlp` deepener (Step 4a); until the owner opts in, source demand from
   search and public discussion instead.
 - ❌ **The packaging map cites real observed outliers**, never invented ones. Its
   confidence comes from the evidence in Steps 1 and 2.
@@ -320,12 +385,13 @@ full read to `youtube-research.md` so `plan-my-youtube` can pick it up.
   choice. The rules are in `knowledge/content-rules.md`.
   The owner's voice lives in `marketing-strategy/<BrandName>/voice.md` when it
   exists; say so plainly if it does not.
-- ✅ **`yt-dlp` is optional.** Offer the deeper read as a choice, never a
-  prerequisite; the web read always produces a complete first result. It is the
-  one path to real viewer comments in their own words, so offer it whenever the
-  owner wants comment mining.
-- ✅ **Bound it.** Roughly 3 to 5 channels and their top videos, finishable in one
-  sitting.
+- ✅ **`yt-dlp` is optional, and it has two uses.** Offer each as a choice, never a
+  prerequisite; the web read always produces a complete first result. It is the one
+  path to real viewer comments in their own words (Step 4a) and the only way to
+  score the cross-channel outlier board (Step 4b). Ask about the install once per
+  run; offer each use separately, since they are different amounts of work.
+- ✅ **Bound it.** Step 0's cap on the page read; on the optional board, ten
+  channels in and its top ten to fifteen rows out. Finishable in one sitting.
 - ✅ If a fetch fails, say so and offer to read pasted content instead.
 - ✅ **Both public sources down is an expected environment, not a dead end.** When
   the channel reads and the search reads both come back empty, name it plainly,

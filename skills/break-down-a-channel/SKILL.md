@@ -102,9 +102,8 @@ parts, in order:
    number. Ground it in the real titles you can see; if a cause is a reasonable read
    rather than certain, say so.
 
-5. **The one move to borrow.** Close with a single, positive, do-it-this-week
-   takeaway for the owner's own channel, framed as what to try, drawn straight from
-   what worked here.
+5. **The one move to borrow.** Close with a single, do-it-this-week takeaway for
+   the owner's own channel, drawn straight from what worked here.
 
 ## Hard rules
 
@@ -117,9 +116,10 @@ parts, in order:
   present an invented calendar date as if observed.
 - ❌ **The funnel/monetization layer is out of scope (v1).** No comment-to-DM,
   ManyChat, or offer/non-offer pillar analysis. Keep to the packaging-transferable core.
-- ✅ **Content guardrails.** The teardown is customer-facing: no em dashes, invent no
-  facts or numbers, name no third-party vendor. Positive framing (what to try, what
-  worked), never a scolding read. The rules are in `knowledge/content-rules.md`.
+- ✅ **Content guardrails.** Customer-facing copy uses no em dashes, invents no
+  facts, quotes, or numbers, and names no third-party vendor. Write it in the
+  owner's brand voice; the framing and the marketing psychology are the owner's
+  choice. The rules are in `knowledge/content-rules.md`.
   The owner's voice lives in `marketing-strategy/<BrandName>/voice.md` when it
   exists; say so plainly if it does not.
 - ✅ **One channel per run.** Bounded and finishable.

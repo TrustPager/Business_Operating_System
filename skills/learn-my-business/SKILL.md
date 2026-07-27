@@ -147,6 +147,13 @@ you locally, or could they be anywhere?" (gates the local playbook, §10.5); and
 note the revenue band the workspace implies as a guess to confirm (§5). Two
 questions maximum — this is a sync, not an interview.
 
+**This two-question ceiling is this skill's declared cap, and a labelled override
+of the default discovery backstop** in
+[`knowledge/conversation-method.md`](../../knowledge/conversation-method.md) §1,
+because a connected sync reads the workspace instead of interviewing the operator.
+At the second answer take §1's graceful exit rather than asking a third question,
+and run the two questions themselves under §2-§3.
+
 End by telling them: "Claude will use this from your next session. Re-run
 `/learn-my-business` whenever your pipeline, products, or brand change."
 

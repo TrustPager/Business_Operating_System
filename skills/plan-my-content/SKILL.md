@@ -51,8 +51,9 @@ Look for the strategy artifacts the owner already has, in this order:
    `example_topics`.
 2. **`voice.md`** — same folder. Read it so every hook you draft sounds like
    the owner, not like generic agency copy. The founder's voice IS the brand.
-3. **`positioning.md` / `value-props.yaml`** — read if present, for the promise
-   and the outcomes to lean on in hooks. Optional, not required.
+3. **`positioning.md` / `value-props.yaml`** — read if present, for the promise,
+   the transformation, the point of view, and the outcomes to lean on in hooks.
+   Optional, not required.
 
 If those files exist, build straight from them — don't re-interview the owner
 for things the pillars already answer.

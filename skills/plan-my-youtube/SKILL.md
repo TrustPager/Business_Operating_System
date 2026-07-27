@@ -10,7 +10,7 @@ triggers:
 function_slot: strategy
 requires_driver: none
 requires_credential: none
-data_path: reasoning_only
+data_path: local
 status: active
 produces_customer_facing_copy: true
 ---
@@ -46,7 +46,9 @@ Read it before you package the pipeline so the method has one home and this body
 stays lean. Why a channel holds one avatar and one topic band (audience matching), and
 why you don't cross-post a video's link from a faster platform, live in
 [`knowledge/distribution-method.md`](../../knowledge/distribution-method.md) — the
-strategy step leans on it.
+strategy step leans on it. Which ideas earn a slot at all (the branch tree), what
+effort a video is worth, and how the first run is shaped live in
+[`knowledge/youtube-launch-method.md`](../../knowledge/youtube-launch-method.md).
 
 It runs on reasoning and the owner's own words alone. Work the gates in order.
 Only fall back to defaults where a gate says so.
@@ -56,11 +58,14 @@ Only fall back to defaults where a gate says so.
 Before asking anything, read what is already on the machine so the plan is in the
 owner's voice and grounded in their business and their research:
 
-- **`brand/brand.json`:** the business name, the voice, the tagline. Everything
-  owner-facing in the plan (titles, angles, the channel positioning) uses this
-  voice.
-- **`./CLAUDE.md`:** the business shape, the offer, and the region **only if** a
-  `Region:` line is explicitly set (that `Region:` line is the country-level
+- **`brand/brand.json`:** identity only, the business name and the tagline. The
+  voice everything owner-facing in the plan is written in (titles, angles, the
+  channel positioning) is `marketing-strategy/<BrandName>/voice.md`; when no voice
+  doc exists, say so plainly and write from the owner's own words rather than
+  inventing a voice for them (`knowledge/content-rules.md`).
+- **`./CLAUDE.md`:** the business shape, the offer, who they sell to (`## My
+  business` and `## My ideal customer`, which Step 3 uses), and the region **only
+  if** a `Region:` line is explicitly set (that `Region:` line is the country-level
   signal the rest of the factory keys on, and it is never inferred).
 - **A service town or suburb, if one is already known:** a location or
   service-area field in `brand/brand.json` when the brand carries one, or a place
@@ -72,12 +77,20 @@ owner's voice and grounded in their business and their research:
 - **If present, `youtube-research.md`** (from `research-my-channel`): this is the
   primary input when it exists. It carries the competitor content scan, the
   comment-mined ideas with their verbatim evidence, and the novel-packaging
-  gap-and-angle map. The video pipeline draws its ideas and angles straight from
-  here, so every video traces back to real observed demand.
+  gap-and-angle map, plus a ranked cross-channel outlier board when the owner took
+  that deepener (its branch labels are provisional working themes, so the pillars
+  Step 4 sets are what a row is actually filtered against in Step 5). The video
+  pipeline draws its ideas and angles straight from here, so every video traces
+  back to real observed demand.
 - **If present, existing brand strategy artifacts** under
   `marketing-strategy/<BrandName>/` (`content-pillars.yaml`, `voice.md`,
-  `social-strategy.md`): when they exist, the channel strategy should echo them,
-  not contradict them.
+  `social-strategy.md`, and the positioning file, `first-brand-brief.md` or
+  `positioning.md`): when they exist, the channel strategy should echo them, not
+  contradict them. The positioning file is where the transformation and the point
+  of view live, and reading it is what lets Step 3 skip the interview instead of
+  asking an owner something they have already answered. If both positioning files
+  exist, `positioning.md` wins (it is the evidence-anchored one) and the brief is
+  the older draft.
 
 If `youtube-research.md` is absent, you can still build the plan from what the
 owner tells you in Step 2, but say plainly that running `research-my-channel`
@@ -91,9 +104,10 @@ enquiries and bookings, being the obvious local authority, a bigger audience, or
 more product sales. One target per run.
 
 If the research artifact and the owner's words together are too thin to plan
-something genuinely theirs, ask ONE targeted question that unlocks it (who the
-channel is for and what one action a viewer should take), then build from the
-answer. A sharp plan from one good answer beats a generic one from nothing.
+something genuinely theirs, ask ONE targeted question that unlocks it (what one
+action a viewer should take; who the channel is for belongs to Step 3's
+transformation ask and is never asked twice), then build from the answer. A sharp
+plan from one good answer beats a generic one from nothing.
 
 **Ask for the service town up front when the local angle is the play (here, not
 after the plan is written).** For a local-service business the local-town angle is
@@ -110,13 +124,96 @@ engaged, instead of landing as a half-formed slot after the plan is written:
 
 The owner naming their town is not inferring a region, it is the sanctioned way to
 learn it, the same way `get-found-online` works from "[service] [suburb]." Keep it
-to one light question (fold it in with confirming the goal so the owner is not
-peppered), and never put a place in their mouth. If they would rather not say,
-carry on and leave the local angle as an open slot they can fill later (Step 5).
+to one light question (fold it in with confirming the goal), and never put a place
+in their mouth. If they would rather not say,
+carry on and leave the local angle as an open slot they can fill later (Step 6).
 Skip this ask entirely when the channel is not local (a national product, a
 software channel): there is no town to own.
 
-## Step 3: Set the channel strategy (delegate to `build-social-strategy`)
+Step 3's gate may also need an ask. Its transformation question **replaces** the
+who-is-this-for half above rather than joining it; fold whatever is left into the
+same message.
+
+## Step 3: The transformation and point-of-view gate
+
+A channel that argues nothing is a channel with no angle to package. **Two brand
+fields** have to be pinned before you set a strategy: **the transformation**, and
+**the point of view**, which is one field carrying two labelled lines
+(`**The belief:**` and `**What it argues against:**`). Step 4's pillars sit on
+them, and Step 6's angle field has no contrarian take to reach for without them
+(that take is exactly what the click-confirmation beat in
+`knowledge/youtube-packaging-method.md` asks the script to open on, and nothing
+else in the pack supplies it).
+
+**These are brand fields, not YouTube fields.** They live beside `voice.md` in the
+brand strategy home, `marketing-strategy/<BrandName>/`, inside the positioning
+file. `build-brand-strategy` owns them, and
+[`knowledge/marketing-strategy-method.md`](../../knowledge/marketing-strategy-method.md)
+(Layer 3, `positioning.md`) defines both fields, their exact shape and headings,
+and the pass/fail test each one has to meet. **Read it before you judge a field: a
+field that fails its test counts as missing here.** Resolve the brand folder the
+way the rest of the pack does: the directory under `marketing-strategy/`, or the
+name in `brand/brand.json`, and confirm the path before writing anything.
+
+The stance can be a disagreement or a surprising-but-positive claim. The mechanic
+is that it provokes a reaction, and how sharp it is, is the owner's call
+(`knowledge/distribution-method.md`, the framing flag).
+
+Run the asking itself by
+[`knowledge/conversation-method.md`](../../knowledge/conversation-method.md): the
+specific give before the ask, the field-by-field sharpen pass before anything is
+written, and its stuck exit when an owner cannot get there. Labelled divergence:
+this gate deliberately stacks its two questions into one message rather than
+spreading them over turns, so lead hard with what you already know about their
+business.
+
+**The profile counts as an answer too.** `## My ideal customer`, or the `## My
+business` line in `./CLAUDE.md`, already names who this is for on the common
+`start-here` path. Where it does, that satisfies the transformation's audience
+half: say it back and ask only for the from-state and the to-state. Never re-ask
+an owner who the channel is for when the profile answers it.
+
+Then take the branch that matches what is already answered.
+
+- **Answered → skip, ask nothing.** Say the fields back in one line as the frame
+  for the run ("so this channel argues X, for Y going from A to B") and build
+  straight from them. An owner is never re-interviewed on a field that passes its
+  test.
+- **Half answered → top up the missing field only.** One question, for that field
+  alone, then write back that field alone. Never clobber a hand-tuned file: append
+  and show the owner a short before/after, the same discipline `build-my-voice`
+  follows when it touches a file it did not write.
+- **Nothing is there → capture, then continue.** Ask inline, folded in with Step
+  2's ask:
+
+  > Two quick ones so the channel argues something: who exactly is this for, and
+  > what is different for them afterwards? And what does your industry get wrong
+  > that you would happily argue about?
+
+  The second answer usually carries the belief and what it argues against
+  together; when it carries only the belief, name the other half back in their
+  words and let them correct it rather than deciding it yourself. Then write both
+  fields, under Layer 3's headings, into `first-brand-brief.md` in the brand home
+  (the day-one default; create it if there is none, and if a positioning file is
+  already there, write into that one and preserve every field it already carries).
+  Tell the owner where they went, and leave one dated pointer line in the profile
+  so a later session finds them:
+  `Positioning captured (<date>): <the transformation in one line>, see <path>`,
+  appended under `## How the business is running` with the same append-and-update
+  discipline `build-my-voice` uses for a locked voice. This is a two-field capture,
+  not brand strategy: point at `build-brand-strategy` for the full brief and carry
+  on with the channel plan.
+- **They would rather not → carry on with the slots open.** Mark both clearly open
+  the way a declined town is, and plan without them. Never fill an open slot with a
+  belief you wrote.
+
+**Shape guard.** Run `build-social-strategy`'s regulated-shape check (its
+current-state read) before you accept a point of view. For a clinic, a broker, or
+another regulated shape, the belief cannot become an outcome or result argument;
+route it to the process, the care, and the logistics instead
+(`knowledge/content-rules.md` §4).
+
+## Step 4: Set the channel strategy (delegate to `build-social-strategy`)
 
 Run the `build-social-strategy` method for this one channel. Do not copy its
 prose or re-derive its framework here: apply it, aimed at YouTube. Keep the pillars
@@ -129,17 +226,21 @@ tempting. The channel strategy names, tailored to this owner and this goal:
   voice (the YouTube read of the platform-focus and current-state parts of the
   method).
 - **A realistic upload cadence** the owner can actually hold (the cadence part),
-  honest about the effort a video takes versus a social post.
+  honest about the effort a video takes versus a social post. What that effort
+  actually is, and how it differs between a filmed video and a rendered one, is the
+  effort pyramid in `knowledge/youtube-launch-method.md` §2.
 - **3-4 content pillars mapped to the goal** (the pillars part). These become the
   recurring threads the video pipeline is built around, so every video serves a
-  pillar rather than being a random idea.
+  pillar rather than being a random idea. Each pillar serves the Step 3
+  transformation, and at least one carries the point of view.
 - **The content mix** across those pillars (teach, proof, story, the occasional
   promo), tuned to the goal.
 - **The one metric to watch** first, tied to the goal, not vanity numbers.
 
 Under that one held avatar, use the **ring ladder** to choose topics
 (`knowledge/distribution-method.md`, the audience bullseye): the channel's centre is the
-exact viewer, and the rings out are progressively broader topic bands. Bias the pipeline
+exact viewer, which is the Step 3 transformation's audience rather than a fresh
+decision, and the rings out are progressively broader topic bands. Bias the pipeline
 to the centre and Ring 1 for topics (that is where conversion and algorithm confidence
 come from), and reach for Ring 2 topics only to widen. This composes with the virality
 formula already used below: a centre topic with a fresh lens, validated against a real
@@ -149,9 +250,9 @@ If `build-social-strategy` has already produced a `social-strategy.md` that
 covers YouTube, build on it rather than re-running the whole thing: lift the
 pillars and the metric, and only add what is YouTube-specific.
 
-## Step 4: Build the video pipeline (delegate to `plan-my-content`)
+## Step 5: Build the video pipeline (delegate to `plan-my-content`)
 
-Run the `plan-my-content` method to turn the pillars from Step 3 into a dated,
+Run the `plan-my-content` method to turn the pillars from Step 4 into a dated,
 ordered pipeline of videos. Again, apply the method, do not restate it: spread
 the pillars so the mix is balanced, vary the format within a pillar rather than
 repeating the theme, and carry a real calendar date on each row so the pipeline
@@ -159,11 +260,16 @@ is ordered, not a loose wish-list. Keep the horizon bounded the way
 `plan-my-content` does: a pipeline the owner can actually make beats a
 year-long firehose they never start.
 
+**Commit to the run, date only the fortnight.** The first run is about twenty
+videos; dated rows stay inside `plan-my-content`'s 1-2 week ceiling and get re-run
+(`knowledge/youtube-launch-method.md` §3, which also owns the branch filter every
+row has to pass).
+
 Draw the ideas straight from `youtube-research.md` where it exists: the
 comment-mined questions, the "nobody explains X" gaps, and the untaken angles are
 your best pipeline rows because they trace back to real audience demand.
 
-## Step 5: Package every video (the four fields)
+## Step 6: Package every video (the four fields)
 
 This is what makes it a YouTube plan and not a generic calendar. Every row in the
 pipeline carries the **four packaging fields**, packaged per
@@ -176,7 +282,9 @@ them the same way:
 2. **Angle** — the differentiated take. Not the topic everyone covers, but the
    specific angle that stands out, drawn from the untaken-angles map in the
    research. This is the packaging craft's core move: differentiate, do not
-   duplicate. For a local-service channel the local-town angle is often the
+   duplicate. Where a row's angle is the contrarian one, it is the Step 3 point of
+   view, in the owner's words, never an opinion you supplied. For a local-service
+   channel the local-town angle is often the
    strongest row here: when the owner gave you their town in Step 2, name it in
    the angle and the working title (the "[Trade] for [Town] Homeowners" shape from
    `youtube-packaging-method.md`). When they chose not to share it, leave that
@@ -203,7 +311,7 @@ angle, its working title, and its thumbnail concept, tied back to the pillar it
 serves. That table is the handoff: an owner picks any row and runs
 `script-my-video` on it.
 
-## Step 6: Hand it over + name the next step
+## Step 7: Hand it over + name the next step
 
 Show the strategy and the packaged pipeline, then make the next move obvious:
 
@@ -217,7 +325,13 @@ Keep it an offer, not homework.
 ## Hard rules
 
 - ❌ **Keyless. No accounts, no MCP tools.** This skill reads local files and the
-  owner's words only. It names no connected tool.
+  owner's words only, and names no connected tool. It writes exactly what Step 3
+  captures and nothing else: the two brand fields into the brand strategy home when
+  they are missing, and one dated pointer line into the profile.
+- ✅ **Never write the owner's belief for them.** The point of view is quoted from
+  what the owner said, in their words, and stays exactly as sharp or as soft as
+  they said it. An invented belief is worse than an invented town: they are the one
+  who has to defend it. On a decline, both fields stay clearly marked open slots.
 - ✅ **Compose, never fork.** The strategy craft is `build-social-strategy`'s and
   the pipeline craft is `plan-my-content`'s. Delegate to them by reference and
   apply their methods to YouTube. Do not copy, paste, or re-derive their bodies
@@ -247,7 +361,9 @@ Keep it an offer, not homework.
 
 ## Output shape
 
-A short framing line, then the channel strategy (platform-focus for YouTube,
+A short framing line naming what the channel argues and who it changes (Step 3),
+plus one line saying where those fields were read from or written to when Step 3
+captured or topped one up. Then the channel strategy (platform-focus for YouTube,
 cadence, 3-4 goal-mapped pillars, the content mix, the one metric), followed by a
 dated, ordered video pipeline table where every row carries an idea, an angle, a
 working title, and a thumbnail concept tied to its pillar, and a closing line

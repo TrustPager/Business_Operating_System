@@ -284,9 +284,11 @@ every check passed, or `holding: <the failing check>` when one did not. An hones
 hold is the point of the gate; a pack that ships broken is the failure it prevents.
 
 Once your YouTube account is connected in a later step, this same folder can be
-uploaded for you, and the video's performance can feed back into your next round
-of ideas. That is the upgrade. The publish-ready folder is the win today, and it
-ships with zero accounts connected.
+uploaded for you. That is the upgrade. The publish-ready folder is the win today,
+and it ships with zero accounts connected. Reading how the video actually did once
+it is live needs no connection either: that is
+[`what-worked`](../what-worked/SKILL.md), which scores it against your own baseline
+and names what to repeat (`knowledge/youtube-launch-method.md` §3).
 
 ## Hard rules
 

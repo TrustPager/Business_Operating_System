@@ -2,9 +2,11 @@
 
 The canonical workflow for building a brand voice, positioning, and nurture
 sequence that's grounded in what your customers actually say — not in copy
-you invented for them. This document is the source of truth for the four
-skills: `build-customer-voice`, `build-brand-strategy`, `design-nurture-sequence`,
-`wire-nurture-sequence`.
+you invented for them. This document is the source of truth for
+`build-customer-voice`, `build-brand-strategy`, `design-nurture-sequence`, and
+`wire-nurture-sequence`. The two brand-level fields in Layer 3's `positioning.md`
+(the transformation and the point of view) are also read, and topped up when
+missing, by `plan-my-youtube`.
 
 > **Founder's voice IS the brand.** Every guideline below is a guide, not
 > a rulebook. When the operator's actual approved copy contradicts a
@@ -103,13 +105,40 @@ the synthesis.
 
 - **Who we are** — identity statement.
 - **Who we serve** — one-liner naming the buyer in their own language.
+- **The transformation** — one line carrying a specific audience, the state
+  they start in, and the state they end in. "We help tradies grow" fails on
+  both halves (a category is not an audience, a direction is not an outcome);
+  "we help solo sparkies quote a job in ten minutes instead of an evening"
+  passes. *Boundary against `## The promise` below:* the promise is the end
+  state alone, in the customer's words; the transformation adds the audience
+  and the starting state. *Boundary against the word elsewhere in the pack:*
+  this is brand-level and archetypal. One named customer's measured
+  before→after is a case study and belongs to
+  [`proof-and-referrals-method.md`](proof-and-referrals-method.md).
 - **The pain we solve** — 3-5 named pain themes, each with a verbatim quote.
 - **The promise** — outcome we deliver, phrased the way customers
   articulate it back.
 - **The only-we claim** — why us, not the competitors customers named.
+- **The point of view** — two labelled lines. *The belief:* what this business
+  thinks its industry has wrong, in the owner's own stated words, earned by
+  work they have actually done. A platitude is not a point of view, and a
+  belief written for the owner is worse than a missing one: they are the one
+  who has to defend it. *What it argues against:* a belief, a tactic, or an
+  ideology. Never a feeling, never a demographic, never a person, and never a
+  named vendor ([`content-rules.md`](content-rules.md) §3). Recorded as the
+  owner states it. How sharp it is, is their choice, and the only-we claim
+  above and the proof below both answer to it: only-we says what the
+  alternatives can't jointly claim, the point of view says why they are wrong.
 - **Proof** — customer count, industries, founder credibility.
 - **Geographic + cultural register** — where you operate, what register
   matches.
+
+**Two of these fields are read back by other skills, so they carry literal
+headings.** Whichever positioning file the brand has (`first-brand-brief.md` on
+the keyless path, `positioning.md` on the evidence-anchored one) writes them as
+`## The transformation` and `## The point of view`, the point of view keeping its
+two labelled lines under that one heading. Same anchors in both files, so a
+consumer finds the field without knowing which file it is reading.
 
 ### `icp.yaml`
 
@@ -280,7 +309,7 @@ except for `subject` and `body`:
 action_type: send_gmail_email
 config:
   sender_mode: company
-  email_config_id: <your-finalpiece-mail-config-id>
+  email_config_id: <the workspace's mail config id>
   recipient_target: contact
   bcc: ["<operator's email>"]    # monitoring loop
   subject: <per step>

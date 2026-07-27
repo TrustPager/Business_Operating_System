@@ -115,26 +115,41 @@ interviews:
    search phrase to own.
 
 The A2 brief parts fall out of the rungs: the positioning paragraph is
-rungs 3-5, the only-we claim is rung 2, and the content angles are rung
-3's themes.
+rungs 3-5, the transformation is rungs 3-4 said as one line, the only-we
+claim is rung 2, and the content angles are rung 3's themes. The point of
+view is the one part no rung produces — it comes from what the owner
+already told you they think their industry has wrong.
 
 ## A2 — Produce the brief, in the owner's own words
 
 Write a single short brief (Markdown is fine; offer to save it to
-`marketing-strategy/<BrandName>/first-brand-brief.md`). Four parts:
+`marketing-strategy/<BrandName>/first-brand-brief.md`). Six parts. Parts 2 and 5
+carry the literal headings Layer 3 gives them (`## The transformation`,
+`## The point of view`) so channel skills find them by the same anchor here as in
+`positioning.md`:
 
 1. **Positioning statement (one paragraph).** Who they are, who they
    serve, and the outcome they deliver — phrased the way the owner and
    their market actually talk, not in agency-speak. Anchor it in an
    existing category the market already searches for; category creation
    is a trap at this scale (business-method.md §14).
-2. **The promise / tagline (one sentence).** A single forward-looking
+2. **The transformation (one line).** A specific audience, the state they
+   start in, and the state they end in. Same field, same tests as
+   `positioning.md`'s (marketing-strategy-method.md, Layer 3): a category
+   is not an audience and a direction is not an outcome.
+3. **The promise / tagline (one sentence).** A single forward-looking
    line that captures the result. Reach for the owner's own phrasing.
-3. **The only-we claim.** Two or three things simultaneously true of this
+4. **The only-we claim.** Two or three things simultaneously true of this
    business that competitors can't jointly claim — drawn from what the
    owner said makes them different and what the research showed the market
    values.
-4. **Three content angles.** Three topics/hooks this business could lead
+5. **The point of view (two labelled lines).** The belief the owner stated
+   about what their industry has wrong, and what that belief argues against.
+   Same field, same limits as `positioning.md`'s (marketing-strategy-method.md,
+   Layer 3): quoted from the owner, never written for them, aimed at a belief,
+   a tactic, or an ideology rather than a person. If they never said anything
+   that qualifies, leave it as an open slot and say so; do not supply one.
+6. **Three content angles.** Three topics/hooks this business could lead
    with, each tied to a real piece of evidence (something the owner said
    or something the market said).
 
@@ -230,6 +245,11 @@ Write them in this order — each one's evidence is reusable in the next.
 ## Who we serve (one-liner)
 <single sentence naming the buyer in their own language>
 
+## The transformation
+<one line: a specific audience, the state they start in, the state they
+end in — the promise below is the end state alone, this adds the audience
+and the from-state>
+
 ## The pain we solve
 | Theme | In their words |
 |---|---|
@@ -249,6 +269,12 @@ named competitor in the synthesis — each passes the only-we rubric
 (business-method.md §14): named against real alternatives including
 do-nothing, provable in one sentence, an identifiable segment cares
 disproportionately, stated in the customer's category language>
+
+## The point of view
+**The belief:** <what this business thinks its industry has wrong, in the
+owner's own stated words — never authored for them, never a platitude>
+**What it argues against:** <a belief, a tactic, or an ideology; never a
+feeling, a demographic, a person, or a named vendor>
 
 ## Proof
 <customer count, industries, founder credibility>
@@ -416,6 +442,15 @@ That's the `design-nurture-sequence` skill."*
 - **Never invent customer quotes or testimonials.** A fabricated quote is
   worse than no quote. When you lack a real one, anchor in the owner's own
   words instead.
+- **The transformation and the point of view are brand-level, not
+  channel-level.** They ship inside the brand brief here (`first-brand-brief.md`
+  in Mode A, `positioning.md` in Mode B), beside `voice.md`, under the headings
+  `marketing-strategy-method.md` Layer 3 defines, and channel skills read them from
+  here instead of re-deriving them per channel.
+- **Never clobber a positioning field that is already there.** Read the brand
+  home's positioning file before authoring either mode's brief. Where a field
+  already carries an answer (a channel skill may have captured one), carry it
+  forward and show the owner a before/after rather than overwriting it.
 - **Every only-we claim passes the only-we rubric (business-method.md
   §14):** named against real alternatives including do-nothing, provable
   in one sentence, an identifiable segment cares disproportionately,
