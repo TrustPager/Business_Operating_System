@@ -7,11 +7,10 @@
 > and `package-my-video` still recognises its output, so nothing breaks, but new work
 > goes to `studio/motion` and this one is not extended.
 >
-> It is not deleted yet, deliberately. Remotion is free for teams up to three and a
-> 4+ person for-profit company needs a paid Company Licence, and the first-run
-> acknowledgement that obligation calls for (specified in
-> `docs/architecture/2026-07-09-content-creation-studio-design.md`) is not built yet.
-> Until it is, this Puppeteer + ffmpeg studio is the unencumbered path, so it stays.
+> It is not deleted yet, but nothing structural is blocking that now. The Remotion
+> licence question is settled as a one-time courtesy note on first render, not a
+> gate (`studio/motion/CLAUDE.md` §1), so retiring this studio is a scoping
+> decision rather than a licensing one. It stays until someone makes that call.
 
 You're working in the BOS Video Studio, the fifth render studio. It turns a
 beat-structured video script into a branded, text-on-screen motion-graphic video

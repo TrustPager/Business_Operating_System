@@ -51,6 +51,24 @@ Report the result in one plain sentence. If preflight fails, fix the named cause
 rendering. Say plainly that a software render is minutes, not seconds, so a working
 render never looks like a hung one (`studio/motion/CLAUDE.md` §6).
 
+**Mention the render engine's licence once, then never again.** The engine is free
+for an individual or a small team, and a company of four or more people needs to
+buy its own licence. That is the owner's call and their responsibility, not this
+skill's, so it is a courtesy note, not a gate: nothing checks it, nothing blocks a
+render, and it is never raised again.
+
+Say it on the **first** render only, which is the run where
+`studio/motion/output/` holds nothing yet. Once a render exists, do not repeat it
+in this run or any later one. In plain language, alongside the preflight result:
+
+> By the way, one thing worth knowing: the video engine here is free for
+> individuals and small teams, and companies of four or more need to buy a licence
+> for it. Nothing here checks or enforces that, and it never affects your videos.
+> Just flagging it once so it is your call, not a surprise.
+
+Never ask them to confirm it, never record an answer, and never assert a licence
+status on their behalf.
+
 ## Step 2: Choose the mode
 
 Ask which kind of video, and default to the one most owners want:
