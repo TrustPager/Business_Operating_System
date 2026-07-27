@@ -95,7 +95,7 @@ motion generalisation of it, and it is why the connected rungs need no rework.
   "beats": [
     {
       "id": "hook",
-      "role": "hook",                 // hook | promise | point | reset | proof | cta
+      "role": "hook",                 // hook | promise | point | reset | proof | subscribe | cta
       "spoken": "…",                  // the owner's-voice line (drives VO on Phase 2)
       "on_screen": "…",               // the text/graphic callout (drives studio/video)
       "b_roll": "…",                  // visual note (drives owner's own footage / stock guidance)

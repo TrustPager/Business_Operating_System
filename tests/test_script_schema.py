@@ -20,8 +20,11 @@ SKILL_DIR = REPO / "skills" / "script-my-video"
 INPUT_FIXTURE = SKILL_DIR / "test-fixture.json"
 SAMPLE_SCRIPT = SKILL_DIR / "sample.script.json"
 
-# The beat roles the schema allows (spec §3).
-VALID_ROLES = {"hook", "promise", "point", "reset", "proof", "cta"}
+# The beat roles the schema allows (spec §3). `subscribe` was added 2026-07-26: the
+# subscribe ask is its own beat in youtube-script-method.md, and without a role of its
+# own it was being smuggled in as a `reset`, which mislabels it for anything reading
+# roles (chapter labels, the scenes plan, the timing file).
+VALID_ROLES = {"hook", "promise", "point", "reset", "proof", "subscribe", "cta"}
 # The minimum roles a conforming script must reach (Task 1.1 Step 4).
 REQUIRED_ROLES = {"hook", "promise", "point", "cta"}
 # Every beat must carry these keys.
@@ -167,6 +170,20 @@ class TestValidatorCatchesBadScripts(unittest.TestCase):
         doc = self._base()
         doc["beats"].append({"id": "cta-2", "role": "cta", "spoken": "s", "on_screen": "o", "b_roll": "b"})
         self.assertTrue(any("cta" in e for e in _validate_script(doc)))
+
+    def test_subscribe_is_a_valid_role_and_may_repeat(self):
+        """The subscribe ask is its own beat, and a channel may ask twice.
+
+        Before `subscribe` existed, this beat was authored as a `reset`, which
+        mislabelled it for anything reading roles. A channel that asks mid-roll and
+        again at the end has two of them, alongside exactly one terminal cta.
+        """
+        doc = self._base()
+        doc["beats"][3:3] = [
+            {"id": "subscribe-midroll", "role": "subscribe", "spoken": "s", "on_screen": "o", "b_roll": "b"},
+            {"id": "subscribe-close", "role": "subscribe", "spoken": "s", "on_screen": "o", "b_roll": "b"},
+        ]
+        self.assertEqual(_validate_script(doc), [])
 
     def test_em_dash_is_caught(self):
         doc = self._base()

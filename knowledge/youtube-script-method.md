@@ -211,13 +211,35 @@ taking it.
 
 ---
 
-## The subscribe ask: one mid-roll ask, right after the biggest payoff
+## The subscribe ask: its own beat, earned right after the biggest payoff
 
-The subscribe ask is a separate beat from the terminal CTA, and it never doubles as one.
-Exactly one ask, placed mid-roll immediately after the point in the video where the biggest
-payoff has just landed, not saved for the end alongside the final CTA. Stacking the subscribe
-ask onto the terminal CTA turns two clear asks into one muddy one, and the viewer acts on
-neither.
+The subscribe ask is its own beat (`role: subscribe`), never a line bolted onto the
+terminal CTA. Its strongest placement is mid-roll, immediately after the point where the
+biggest payoff has just landed, because that is where the ask is earned rather than
+requested. Make it personal and in the owner's own voice: this is the one beat where the
+owner speaks to the viewer directly.
+
+**Asking again at the end is the owner's call, and it is a real trade-off, not a free
+win** (founder ruling 2026-07-26, which overrides this file's earlier "exactly one ask,
+never at the end" edict; the earlier rule is kept below as the reasoning, because the
+reasoning is still true). The case for asking twice: the mid-roll ask converts the viewer
+who is already sold, and someone who stayed to the end is the most engaged person you
+will get, so letting them leave without an ask spends that engagement on nothing. The
+cost: every extra ask in the same breath dilutes the others, and a viewer given four
+things to do usually does none. Both things are true at once.
+
+So if a channel asks at the end as well, do it deliberately:
+
+- **Order the asks by cost to the viewer**, cheapest first: like, then subscribe, then a
+  comment prompt (which doubles as a topic-research signal), then the one real conversion
+  ask last, so the ask that matters most is the last thing they hear.
+- **Keep them separate beats, and keep them short.** A closing ask stack that runs long
+  reads as a plea. One breath each.
+- **Give the comment prompt something specific to answer** ("what should we cover next")
+  rather than "let us know your thoughts".
+- **Know what you are trading.** If the channel's one job this season is the conversion
+  ask, the cleanest ending is that ask alone, with subscribe left to the mid-roll beat
+  and the end-screen visual. Say that plainly to an owner who wants everything.
 
 **Give a concrete cadence promise, not a vague one.** "New build every Tuesday" tells the
 viewer exactly what they get and when. "More great content" promises nothing testable and
@@ -225,11 +247,15 @@ earns nothing.
 
 - Yes: *"If that's the kind of build you want to see, there's a new one every Tuesday. Hit
   subscribe and I'll see you then."*
-- No: *"Don't forget to like and subscribe for more great content!"* (vague cadence, stacked
-  with a like ask, no reason to act now)
+- No: *"Don't forget to like and subscribe for more great content!"* (no cadence, nothing
+  testable, no reason to act now)
 
-**No like-ask.** The ask is subscribe only. A like-ask adds a second ask to a beat that only has
-room for one, and it isn't the signal that grows a channel; the next-view and the subscribe are.
+**The mid-roll beat stays subscribe-only.** That beat has room for one ask, and it is the
+earned one. A like-ask belongs in a closing stack if the channel runs one, ordered
+cheapest-first as above, never crowded into the mid-roll moment. Worth knowing what each
+ask is worth: a like is the cheapest thing to give and the weakest growth signal, while the
+next view and the subscribe are what actually compound. That is the reason to spend the
+earned moment on subscribe and leave the like to the end, if it is asked for at all.
 
 **On an AI-heavy channel, splice in a short live-host cameo for the ask, and own the AI
 narration in it.** A few seconds of a real person on camera delivering the subscribe ask builds
