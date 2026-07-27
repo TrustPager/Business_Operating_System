@@ -48,14 +48,28 @@ function introProgress(framesIntoBeat, rampFrames) {
 }
 
 // Human-friendly label for the beat role, shown as a small eyebrow.
+// Only roles whose label is not simply their capitalised name need an entry here.
 const ROLE_LABEL = {
-  hook: 'Hook',
-  promise: 'Promise',
-  point: 'Point',
-  reset: 'Reset',
-  proof: 'Proof',
   cta: 'Call to action',
 };
+
+/**
+ * Label for any beat role, including one this studio has never heard of.
+ *
+ * The role set lives in the script schema (spec section 3 of
+ * docs/architecture/2026-07-05-youtube-studio-design.md) and grows there:
+ * `subscribe` was added on 2026-07-26, and a hardcoded map meant an unknown role
+ * rendered a blank eyebrow until someone remembered to update this file. Deriving
+ * the label removes that whole class of drift, so a role added tomorrow renders
+ * sensibly here with no change.
+ */
+function roleLabelFor(role) {
+  if (!role) return '';
+  if (ROLE_LABEL[role]) return ROLE_LABEL[role];
+  return String(role)
+    .replace(/[-_]+/g, ' ')
+    .replace(/^\s*(\w)/, (_, c) => c.toUpperCase());
+}
 
 /**
  * @param {object} props
@@ -78,7 +92,7 @@ export function VideoBeats({ script, frame = 0, fps = FPS }) {
 
   const isCta = active?.role === 'cta';
   const onScreen = active?.on_screen || '';
-  const roleLabel = ROLE_LABEL[active?.role] || '';
+  const roleLabel = roleLabelFor(active?.role);
 
   // Beat counter (e.g. 3 / 8) so the scrubber and render both read as a timeline.
   const total = timeline.length;
