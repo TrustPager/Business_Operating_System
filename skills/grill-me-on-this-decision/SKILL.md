@@ -55,9 +55,15 @@ Read `./CLAUDE.md` if present, then ask only the questions you genuinely need:
   the size of the bet.
 
 Naming the pain or worry behind the decision is fine here. This is the owner's
-own discovery conversation, not customer-facing copy. Ask the fewest questions
-that let you grill it properly. If they've already given you a tight,
-well-shaped decision, skip straight to Step 2.
+own discovery conversation, not customer-facing copy. If they've already given
+you a tight, well-shaped decision, skip straight to Step 2.
+
+**The declared cap: those four questions, and no more.** Once you have asked the
+fourth, go to Step 2 with what you have and grill a labelled best guess on
+anything still blank, rather than asking a fifth. Run the asking itself under
+[`knowledge/conversation-method.md`](../../knowledge/conversation-method.md):
+§2-§3 for how each ask lands, §5 for an owner who cannot answer one of them, §6
+if they paste back a prior grilling or their profile.
 
 ## Step 1b: Match the decision to a doctrine test
 

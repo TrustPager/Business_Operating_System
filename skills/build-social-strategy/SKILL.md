@@ -147,7 +147,7 @@ files required:
 2. **The brand brief / voice, if it exists** — look for
    `marketing-strategy/<BrandName>/first-brand-brief.md` or `voice.md` (built by
    `build-brand-strategy`). If present, the pillars and voice you set here should
-   echo the brand's positioning and tone, not contradict it. If absent, that's
+   echo the brand's positioning, point of view, and tone, not contradict it. If absent, that's
    fine — derive from the brain-dump and say so.
 3. **Keyless web research** — `firecrawl-scrape` the owner's site and
    `firecrawl-search` their name to see how they already show up and what their

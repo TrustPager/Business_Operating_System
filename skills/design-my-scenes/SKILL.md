@@ -40,12 +40,13 @@ where a gate says so.
 
 Before writing anything, read what is already on the machine:
 
-- **`brand/brand.json`** — the business name and voice. On-screen labels are in
-  this voice. (Colour and type come from here at render time; you do not put hex or
+- **`brand/brand.json`** — the business name and tagline (identity, not voice).
+  On-screen labels are written in the owner's voice from
+  `marketing-strategy/<BrandName>/voice.md` when it exists. (Colour and type come from here at render time; you do not put hex or
   fonts in the plan.)
 - **A `<slug>.script.json`** for this video, if one exists (from `script-my-video`).
   This is the ideal input: it already carries the beats, each with an `id`, a
-  `role` (`hook`/`promise`/`point`/`proof`/`reset`/`cta`), the `spoken` line, the
+  `role` (`hook`/`promise`/`point`/`proof`/`reset`/`subscribe`/`cta`), the `spoken` line, the
   `on_screen` text, and a planned `duration_s`. When it exists, you are translating
   beats to visuals, not inventing a video.
 - **`studio/motion/data/*.scenes.json`** — the committed samples, as worked
@@ -159,7 +160,9 @@ Do not render here — handing the plan to the studio is `make-my-video`'s job.
 - ✅ **Only registry vocabulary.** `visual_device` ∈ the four devices; `style` ∈
   the three styles. The lint (Step 5) is mandatory.
 - ✅ **Content guardrails.** On-screen labels use no em dashes, invent no facts or
-  numbers, and name no third-party vendor. Brand voice, from `brand.json`.
+  numbers, and name no third-party vendor. Brand voice, from
+  `marketing-strategy/<BrandName>/voice.md` when it exists (identity from
+  `brand.json`, which carries no voice).
 
 ## Output shape
 

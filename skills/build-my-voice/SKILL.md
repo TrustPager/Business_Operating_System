@@ -47,8 +47,10 @@ force both in one sitting.
 `voice.md` from a brain-dump. This skill is the deep, evidence-grounded version,
 built from the owner's real writing plus a conscious lock-in. It produces the
 **same `voice.md` file in the same shape**, so everything downstream keeps
-working. If a `voice.md` already exists, you are deepening it: read it first, and
-show what changed before you overwrite (see Step 3).
+working. If a `voice.md` already exists, or the owner pastes one back at you, you
+are deepening it, not starting over: Step 3 owns the never-clobber rule, and
+[`knowledge/conversation-method.md`](../../knowledge/conversation-method.md) §6
+owns recognising a returning owner and switching to refinement.
 
 The method reference for tone and register is
 [`knowledge/communication-voice.md`](../../knowledge/communication-voice.md),
@@ -98,15 +100,16 @@ they describe themselves. Say so plainly rather than inventing a voice.
 
 This is what makes the voice *theirs*: a short, targeted session that turns your
 observations into conscious choices. Draw each contrast from what you actually
-saw in Step 1, and present concrete either/or options rather than open questions.
+saw in Step 1.
 
-- **One or two contrasts at a time.** Never a wall of questions.
-- **Smart-default-then-confirm.** Lead with what the samples suggest: *"Your
-  emails open warm and personal, like 'Hope you're having a cracker of a week.'
-  Lock that in as your default open, or do you want something crisper for
-  business notes?"*
-- **Tag why you're asking** when it isn't obvious, and always leave an escape
-  (*"or skip and I'll use what I saw"*).
+Run the session under
+[`knowledge/conversation-method.md`](../../knowledge/conversation-method.md)
+§2-§3: either/or options led by the smart default the samples already support,
+never an open question. That shape, in this skill's terms: *"Your
+emails open warm and personal, like 'Hope you're having a cracker of a week.'
+Lock that in as your default open, or do you want something crisper for business
+notes?"*
+
 - **Make them choose the boundaries**, not just the preferences: which words or
   registers are off-limits (hype, jargon, corporate filler), and which normal
   words are absolutely fine so nothing gets over-restricted later.
@@ -122,9 +125,11 @@ Contrasts worth locking (pick the ones the samples make live):
 - Signature phrases they own **vs** phrases they never want put in their mouth
 - Jargon tolerance: what's welcome, what's banned
 
-Keep it tight: aim for the fewest contrasts that pin the voice down. Every sample
-you write during this session follows the content guardrails in the Hard rules
-below.
+Keep it tight: **at most five contrasts in one sitting.** That is this skill's
+declared cap, and the list above is longer than five on purpose, so you are
+picking the live ones, not walking it. At the fifth you write the file with
+anything unresolved noted, rather than asking on. Every sample you write during this session follows the
+content guardrails in the Hard rules below.
 
 ---
 
@@ -154,6 +159,10 @@ reads it cleanly:
 - **Canonical examples**, at least one real sample the owner approved, with a
   short "why this works" note.
 - **Change log**, dated entries whenever the owner corrects the voice later.
+
+Before you write, run the sharpen pass (`conversation-method.md` §4) field by
+field against the evidence rule in the Hard rules below: anything that fails gets
+cut or labelled, never smoothed over.
 
 **Never clobber a hand-tuned file.** If `voice.md` already exists, read it, and
 show the owner a short before/after of what you are changing before you write.

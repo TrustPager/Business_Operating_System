@@ -33,6 +33,11 @@ structure, and the words-per-minute default this skill uses.
 attention craft it rests on: the three-step hook formula, the four-step addiction
 loop, the dance (but/therefore), rhythm, and the last dab.
 
+**Every beat gets its spoken line written out, in both production modes.** The
+"outline the middle" scope cut in
+[`knowledge/youtube-launch-method.md`](../../knowledge/youtube-launch-method.md) §2
+is a filming-day choice the owner makes, never this skill's output.
+
 It runs on reasoning and the owner's own words alone. Work the gates in order.
 Only fall back to defaults where a gate says so.
 

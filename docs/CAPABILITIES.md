@@ -23,6 +23,7 @@ Quoting, proposals, positioning, sizing up a competitor, researching a prospect 
 - **Research A Competitor**: Read a rival's page and turn it into a sharp one-page read: how they position, what they charge, and your openings.
 - **Research Before Call**: Walk into any meeting prepared, with a one-page brief on the person or company plus three questions that open the room.
 - **Research My Channel**: Study your niche on YouTube and come back with video ideas that will actually land: what the top channels cover, what viewers keep asking for across search and public discussion, and the angles nobody is taking yet
+- **What Worked**: See what actually worked on your own channel after you publish
 - **Write A Proposal**: Turn a priced scope and your voice into the proposal that wins the job, written out as a document you can send.
 
 ## 💰 Get paid

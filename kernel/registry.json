@@ -547,7 +547,7 @@
     "status": "active"
   },
   "plan-my-youtube": {
-    "data_path": "reasoning_only",
+    "data_path": "local",
     "function_slot": "strategy",
     "requires_credential": "none",
     "requires_driver": "none",
@@ -860,6 +860,13 @@
       "mcp__trustpager__get_pipeline_summary",
       "mcp__trustpager__complete_task"
     ]
+  },
+  "what-worked": {
+    "data_path": "local",
+    "function_slot": "research",
+    "requires_credential": "none",
+    "requires_driver": "none",
+    "status": "active"
   },
   "whats-possible": {
     "data_path": "reasoning_only",

@@ -19,6 +19,9 @@ Consumers that reference this file:
 - [`plan-my-content`](../skills/plan-my-content/SKILL.md) — consistency to one
   avatar across the calendar, the comment-driving levers, and the 3/1/1 audience spread
   across a batch (each post carries both a content-type tag and a ring tag).
+- [`youtube-launch-method.md`](youtube-launch-method.md) — its branch filter leans
+  on Lever 1, Lever 2's relevance attribute, the sourcing rule, and the
+  social-credibility line.
 
 **Framing is the owner's choice.** Some tactics here (the comment-driving levers)
 lean on taking a hard or contrarian stance. They are documented at full fidelity

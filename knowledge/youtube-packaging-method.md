@@ -13,6 +13,12 @@ lean and reference this file:
 - [`youtube-thumbnail-method.md`](youtube-thumbnail-method.md) owns the thumbnail
   *craft* (layout, headline rules, hero families). This file owns the *concept*
   that thumbnail then executes. Don't restate one in the other.
+- [`youtube-launch-method.md`](youtube-launch-method.md) is the launch layer around
+  a single video (which ideas earn a slot, where the hours go, how long the first
+  run is), and it defers every outlier-multiple question here.
+- [`break-down-a-channel`](../skills/break-down-a-channel/SKILL.md) and
+  [`what-worked`](../skills/what-worked/SKILL.md) run the outlier multiple and its
+  bands, on a stranger's channel and on the owner's own uploads respectively.
 
 **Packaging is the title and the thumbnail, decided as a pair.** On YouTube the
 video is not the product until someone clicks. The title and thumbnail are the
@@ -78,6 +84,14 @@ owner's channel. A view count you can't explain teaches nothing.
 **Look across the niche, not just one channel.** The strongest signal is the same
 angle out-performing on *several* channels. That is a niche-wide demand you can
 serve, not one creator's fluke.
+
+To pool that honestly, score first and pool second: compute every video's multiple
+against *its own* channel's baseline, then rank on the pooled multiples. Never pool
+raw views; that only ranks the biggest channels to the top. And read the pooled list
+for repetition rather than for its single highest row: one 8x on one channel is one
+creator's result, while the same angle at 3x on four channels is the niche telling
+you what it wants. Keep every row attached to its channel, since a multiple means
+nothing away from the baseline it came from.
 
 ---
 
