@@ -53,22 +53,42 @@ each already produced by an earlier step:
 | Input | Where it comes from |
 |---|---|
 | `<slug>.script.json` | `script-my-video` (working title, `packaging.title_options`, `packaging.angle`, `beats`) |
-| The rendered `<slug>.mp4` | `studio/video` output (usually `studio/video/output/<slug>/<slug>.mp4`) |
-| `<slug>.timing.json` | `studio/video` output, beside the MP4 (the actual per-beat render times) |
+| The rendered `<slug>.mp4` | `studio/motion` output (`studio/motion/output/<slug>.mp4`), the studio `make-my-video` renders in. Also accept `studio/video/output/<slug>/<slug>.mp4`, the older text-on-screen studio, and say which one you found. |
+| `<slug>.timing.json` | beside the MP4 in whichever studio rendered it (the actual per-beat render times) |
 | The thumbnail PNG | `make-thumbnail`, driven by `packaging.thumbnail_concept` |
 
 Ask for the path to anything you cannot already see. If a piece is genuinely
 missing, name the step that makes it rather than inventing it here, and degrade
 gracefully so the pack still assembles from what is present:
 
-- No script yet? That is `script-my-video`.
-- No rendered video yet? That is `studio/video` (`npm run shoot <slug>`).
+- No script yet? That is `script-my-video` for a video still to be made. A
+  filmed video shot from notes has none by design: take the branch below.
+- No rendered video yet? That is `make-my-video`, which renders in `studio/motion`.
 - No thumbnail yet? That is `make-thumbnail`, from `packaging.thumbnail_concept`.
 
-Handle a missing input without crashing (Step 6 covers each case). The `.script.json`
-is the one input you truly need, because the title options, tags, and chapter
-labels all read from it. If even that is absent, say so plainly and stop, rather
-than guessing a title.
+Handle a missing input without crashing (Step 6 covers each case). The
+`.script.json` is what makes a pack rich: the title options, the tags, and the
+chapter labels all read from it.
+
+**A filmed video often has no script, and that is not a dead end.** A talking-head
+video shot from notes never goes through `script-my-video`, so there is no
+`.script.json` to read, and refusing to package it would strand the one production
+mode where the owner did the most work. When there is no script:
+
+1. **Ask the owner for the title** (and take the angle in a line if they have one).
+   Never invent one, and never guess it from the filename.
+2. **Read what the recording itself carries.** A captions transcript from
+   `make-my-video`'s Mode B (`data/<slug>.captions.json`) is the honest source for
+   the description's opening line and the tags. Draw them from what the owner
+   actually said; do not summarise beyond it.
+3. **Emit no chapter block**, and say why in the readme (a filmed clip has one
+   continuous timeline, so there are no beat boundaries to cut chapters at).
+4. **Assemble everything else as normal.** The video, the thumbnail, the
+   description, the tags, the checklist, and the publish gate all still apply.
+
+The one case that truly stops: no script AND no video file AND the owner has no
+title. There is nothing to package. Say so plainly rather than assembling an
+empty folder.
 
 ## Step 2: Name the folder
 
@@ -104,8 +124,10 @@ rather than referencing a file that is not there.
 
 ## Step 4: Build the metadata
 
-Write `metadata.md` with four sections, all from the script, all in the owner's
-brand voice:
+Write `metadata.md` with four sections, all in the owner's brand voice. The
+script is the source when there is one; for a filmed video with no script, the
+title comes from the owner and the description and tags from the captions
+transcript, per Step 1:
 
 1. **Title options** — the entries from `packaging.title_options`, as a list the
    owner picks one from. Do not invent new titles; if `title_options` is thin,
@@ -127,6 +149,14 @@ Read the timing source in this order:
 - **Prefer `<slug>.timing.json`** when present. It is keyed by beat `id`, with
   `start_s`/`end_s` as floats, an array in render order (the actual rendered
   times). Use each beat's `start_s`.
+- **One exception: a single-beat sidecar carries no chapter information.** A filmed
+  (talking-head) render writes one beat spanning the whole clip, `id: "recording"`,
+  because the timeline is the recording's own length and the studio has no beat
+  boundaries to report. Treat that as "no per-beat timing exists": fall back to the
+  script's planned `duration_s` when a script exists (the owner filmed from a
+  script, so the planned beats are real), and emit no chapters when it does not.
+  Reading that lone beat as the timing produces exactly one chapter, which is an
+  invalid list.
 - **Fall back to the script's planned per-beat `duration_s`** when no
   `timing.json` exists yet (no render has happened). Take a running cumulative
   sum of `duration_s` from beat to beat, so beat 1 starts at 0, beat 2 at the
@@ -200,12 +230,15 @@ plainly in the readme:
   (Step 5 fallback) and say so. If beats have no `duration_s` either, leave
   chapters out and note it.
 - **No rendered MP4:** assemble the metadata, thumbnail, and readme, and note
-  that the video file is still to be rendered (point at `studio/video`). The pack
+  that the video file is still to be rendered (point at `make-my-video`). The pack
   is a head start, not a blocker.
 - **No thumbnail:** assemble the rest and note that the thumbnail is still to be
   made (point at `make-thumbnail`).
 - **Too few beats for 3+ valid chapters:** write the description without a
   chapter block and note why.
+- **No script at all (a filmed video):** take Step 1's no-script branch. Title from
+  the owner, description and tags from the captions transcript where one exists, no
+  chapters, everything else as normal.
 
 ## Step 7: Write the readme and the upload checklist
 

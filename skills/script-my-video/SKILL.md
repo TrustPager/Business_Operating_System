@@ -243,7 +243,7 @@ owner of the schema is spec §3, `docs/architecture/2026-07-05-youtube-studio-de
       "id": "hook",                // unique, kebab-case, stable
       "role": "hook",             // hook | promise | point | reset | proof | subscribe | cta
       "spoken": "…",              // the owner's-voice line (drives voiceover later)
-      "on_screen": "…",           // the text/graphic callout (drives studio/video)
+      "on_screen": "…",           // the text/graphic callout (drives the video studio)
       "b_roll": "…",              // visual note: owner's own footage or stock guidance
       "evidence_ref": "…",        // optional: a customer-voice quote id the claim rests on
       "duration_s": 4              // optional: PLANNED duration (see Step 6)

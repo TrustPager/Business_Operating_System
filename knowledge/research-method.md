@@ -62,5 +62,7 @@ Firecrawl apps are **network** — they reach a live REST endpoint, unlike the r
 
 This keeps `BOS_OFFLINE=1 python -m unittest discover -s tests` green even though the live capability is network-bound.
 
-## Positive-only outputs
-Like every floor app, the customer-facing OUTPUT a research app produces (the competitor read, the brief) follows the positive-only rule and uses no em dashes. Naming a rival's gap is fine as a sharp-operator observation; framing the owner's own position by what they lack is not.
+## Voice of the read (operator-facing, a labelled exception)
+A research app's output is written FOR THE OWNER: a competitor read, a pre-meeting brief, a findability audit. That is the assistant's own voice talking to the owner, not the owner's published marketing, so it keeps positive, outcome-led framing and uses no em dashes. Naming a rival's gap is fine as a sharp-operator observation; framing the owner's own position by what they lack is not.
+
+**This is a labelled exception to the content doctrine, not a gap in it.** `knowledge/content-rules.md` deliberately does NOT impose positive framing on the owner's PUBLISHED copy, because their marketing psychology is their choice. That boundary is unchanged. This section governs the register of a read the owner reads, which is the half the doctrine exempts. Where a research app then drafts something the owner will publish, that copy follows `content-rules.md` and the framing is theirs.

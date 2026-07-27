@@ -26,17 +26,11 @@ connected). The thumbnail carries the owner's own brand, read from the
 root `brand/brand.json`, so every render is on their palette and their
 name.
 
-> **Framing note (supersedes the earlier TrustPager-tutorial framing).**
-> This skill and its studio were originally written for the TrustPager
-> tutorial channel: titles had to say "TrustPager", every hero was a
-> product-tutorial surface. That framing is now genericised to the
-> owner's brand and any kind of video, per the YouTube Studio design doc
-> Decision 9 ([docs/architecture/2026-07-05-youtube-studio-design.md](../../docs/architecture/2026-07-05-youtube-studio-design.md)).
-> The distilled craft stays exactly as-is; only the brand-specific
-> hard-rules and the tutorial-only assumption flip. When this skill runs
-> inside the YouTube factory, the packaging concept (title options,
-> angle, thumbnail concept) comes from `plan-my-youtube`'s pipeline row
-> for the video.
+> **Where the concept comes from.** Inside the YouTube factory, the packaging
+> concept (title options, angle, thumbnail concept) arrives from
+> `plan-my-youtube`'s pipeline row for the video, so you are executing a concept
+> rather than inventing one. The studio's craft is brand-agnostic: it renders on
+> whatever brand `brand/brand.json` carries, for any kind of video.
 
 **One studio, one brand.** The bundled `studio/thumbnails/` on the root
 `brand/brand.json` is the home, and that resolves itself for a single-brand
@@ -135,18 +129,20 @@ hero / template files — Vite hot-reloads.
 
 **Quality checks before declaring it shipped:**
 
-1. **Title check** — is the YouTube title 4-7 words, present-tense active
-   verb, lead with the viewer's outcome (not the AI's action)? Read
-   YOUTUBE_TITLES.md if unsure.
+1. **Title check** — does the title pass YOUTUBE_TITLES.md's own rules (it
+   owns the word band and the lint, so read it rather than a copy here), and
+   does it lead with the viewer's outcome?
 2. **Headline check** — does the on-thumbnail headline have one accent
    word that appears VERBATIM in the title? Read the JSDoc in
    YouTubeThumbnail.jsx.
 3. **Hero check** — does the hero look like real product UI (not a
    configurator)? Read the heroes/index.js header.
-4. **Banned framings** — no surveillance ("Track Every Promise"), no
-   passive vibes ("Nothing Falls Through the Cracks"), no negative
-   "Stop X" framing, no third-party vendor names visible in the
-   thumbnail.
+4. **Guardrails** — no third-party vendor names visible in the thumbnail, no
+   invented number or claim, and the headline names something concrete rather
+   than a vague mood (a vague headline is a craft failure: there is nothing for
+   the eye to catch). Whether the owner frames it as a win or as a problem they
+   solve is THEIR call, not this skill's
+   ([`knowledge/content-rules.md`](../../knowledge/content-rules.md)).
 
 ## Step 4 — Render to PNG
 
