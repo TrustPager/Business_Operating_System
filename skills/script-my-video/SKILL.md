@@ -126,10 +126,17 @@ at minimum, these roles, in this order:
   re-earn attention, and `proof` beats where a claim needs backing. A `reset` is a
   re-hook (`knowledge/storytelling-method.md`): close one loop and open the next in
   the same breath, don't leave a flat seam.
+- **`subscribe`**: the ask to subscribe, in the owner's own words, with a concrete
+  cadence promise ("a new one every Tuesday"), not a vague one. Its home placement
+  is mid-roll, right after the biggest payoff has landed, where the ask is earned.
+  A closing subscribe ask is the owner's call: `knowledge/youtube-script-method.md`
+  owns the placement doctrine and the trade-off of asking more than once.
 - **`cta`**: the one clear call to action from Step 2.
 
 Each beat carries the fields in the schema below. The `role` is one of:
-`hook`, `promise`, `point`, `reset`, `proof`, `cta`.
+`hook`, `promise`, `point`, `reset`, `proof`, `subscribe`, `cta`. A role may repeat
+(most videos have several `point` beats, and a channel that asks twice has two
+`subscribe` beats).
 
 ## Step 4: Score the hook, then fit it to its window
 
@@ -229,7 +236,7 @@ owner of the schema is spec §3, `docs/architecture/2026-07-05-youtube-studio-de
   "beats": [
     {
       "id": "hook",                // unique, kebab-case, stable
-      "role": "hook",             // hook | promise | point | reset | proof | cta
+      "role": "hook",             // hook | promise | point | reset | proof | subscribe | cta
       "spoken": "…",              // the owner's-voice line (drives voiceover later)
       "on_screen": "…",           // the text/graphic callout (drives studio/video)
       "b_roll": "…",              // visual note: owner's own footage or stock guidance
