@@ -15,6 +15,13 @@ skills lean on.
 
 ## 1. What this is
 
+> **Licence, stated once and not enforced (founder ruling 2026-07-27).** Remotion is
+> free for an individual or a small team; a company of four or more needs to buy its
+> own licence. BOS mentions that once, on an owner's first render (`make-my-video`
+> Step 1), as a courtesy. It is the owner's call and their responsibility: do NOT
+> build a gate, a check, a recorded acknowledgement, or a repeat reminder, and do NOT
+> pass a `licenseKey` that asserts a licence status on their behalf.
+
 One parametrised Remotion project, one render command, one MP4. A
 `<slug>.scenes.json` plan (written by `design-my-scenes`) names, per beat, a
 **style** and a **visual device**; the engine looks each up in the scene registry
