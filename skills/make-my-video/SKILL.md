@@ -69,6 +69,29 @@ in this run or any later one. In plain language, alongside the preflight result:
 Never ask them to confirm it, never record an answer, and never assert a licence
 status on their behalf.
 
+**If they would rather not use the licensed engine, there is a simpler path.**
+`studio/video` renders text-on-screen motion graphics straight from the script's
+beats, on the owner's brand, with no licence obligation of any kind (it is a
+headless browser plus ffmpeg). Offer it only if the owner raises the licence, and
+be straight about the trade, because it is a real one:
+
+- **It does:** branded text-on-screen video from a `<slug>.script.json`, an MP4
+  plus a preview GIF, and the timing sidecar `package-my-video` reads for chapters.
+- **It does not do:** voiceover, talking-head overlay, local captions, the
+  product-demo add-on, or the scene library. Those are `studio/motion` only, so
+  choosing this path means a plainer video.
+
+```bash
+cd studio/video
+npm install          # first run only
+npm run shoot <slug> # reads the script, writes the MP4 + GIF + timing sidecar
+```
+
+Then hand off to `package-my-video` as normal: it accepts either studio's output
+and names which one it found. Do not present this as the default or nudge an owner
+towards it. It is the answer to one question ("do I have to pay for that?"), not a
+mode in Step 2.
+
 ## Step 2: Choose the mode
 
 Ask which kind of video, and default to the one most owners want:

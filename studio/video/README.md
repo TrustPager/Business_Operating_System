@@ -1,16 +1,27 @@
 # Video Studio — human design guide
 
-> **Status: legacy, superseded by `studio/motion` (founder direction 2026-07-27).**
-> The video engine of record is `studio/motion`, the Remotion studio: it does faceless
-> motion graphics, talking-head overlay, and the product-demo add-on, with voiceover
-> and local captions, and every video-making skill drives it. This studio still works
-> and `package-my-video` still recognises its output, so nothing breaks, but new work
-> goes to `studio/motion` and this one is not extended.
+> **Status: not the engine of record, but a supported path with one job.**
+> `studio/motion` (Remotion) is the engine of record and where new video work goes:
+> faceless motion graphics, talking-head overlay, the product-demo add-on, voiceover,
+> local captions, the scene library. Every video-making skill drives it.
 >
-> It is not deleted yet, but nothing structural is blocking that now. The Remotion
-> licence question is settled as a one-time courtesy note on first render, not a
-> gate (`studio/motion/CLAUDE.md` §1), so retiring this studio is a scoping
-> decision rather than a licensing one. It stays until someone makes that call.
+> **This studio's one job is the owner who does not want a licence obligation.**
+> Remotion is free for an individual or a small team and a company of four or more
+> needs to buy its own licence (`studio/motion/CLAUDE.md` §1: BOS mentions that once
+> and never enforces it). This studio has no licence obligation at all, so it is the
+> honest answer when an owner asks whether they have to pay. `make-my-video` Step 1
+> offers it for exactly that reason, and `package-my-video` accepts its output.
+>
+> **Be straight about the trade.** It renders branded text-on-screen video from a
+> `<slug>.script.json`, plus a preview GIF and the timing sidecar. It does NOT do
+> voiceover, talking-head overlay, local captions, the product-demo add-on, or the
+> scene library. An owner choosing this path gets a plainer video, and should be told
+> so rather than discovering it.
+>
+> Kept deliberately narrow: it is maintained for that one job, not extended with new
+> features. Anything the script schema grows (a new beat role, say) must degrade
+> gracefully here rather than needing a matching change, which is why the beat-role
+> label is derived rather than hardcoded.
 
 The fifth studio in the BOS family. It turns a beat-structured video script
 (`<slug>.script.json`, written by `script-my-video`) into a branded,
