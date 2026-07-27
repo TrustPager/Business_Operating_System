@@ -122,6 +122,14 @@ plain request into a single edit to `data/<slug>.overlay.json` (move a headline,
 retime a caption, add a webcam bubble) and re-render. Then render once at
 `--scale=1` for the final and hand off to `package-my-video` (Step 8).
 
+**What the filmed path hands over.** A talking-head video shot from notes has no
+`<slug>.script.json`, and `package-my-video` no longer needs one: give it the
+rendered MP4, the thumbnail, the owner's title, and the captions transcript from
+B2 when there is one. It packages from those and says plainly that a filmed clip
+carries no chapters (one continuous timeline, no beat boundaries to cut at). If
+the owner DID script the video before filming it, pass the script too: the
+planned beats give the pack its chapters and its title options.
+
 ## Step 3: Get or write the script
 
 The video needs a `<slug>.script.json` (the words + beats):

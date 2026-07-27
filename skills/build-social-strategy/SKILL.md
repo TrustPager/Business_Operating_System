@@ -197,7 +197,11 @@ same channel) — a new channel comes last (business-method.md §4.4).
 This read is what makes the plan feel tailored: *"you're already winning with X,
 let's do more of it and add Y; the Z account isn't paying off, so park it."*
 Surface it at the top of the strategy (Step 3) as a short, honest, positive read
-— building on strengths, never scolding. If they genuinely do nothing on social
+— building on strengths, never scolding. That register applies to THIS read, the
+one you hand the owner about their own account: it is the assistant's voice, which
+`knowledge/research-method.md` covers. It is not a rule on the posts the owner
+later publishes; how they frame their own marketing is their call
+(`knowledge/content-rules.md`). If they genuinely do nothing on social
 yet, say that plainly and the strategy is a clean first start, not a fix.
 
 Also read the **business shape** (Step 5 of `start-here`, or

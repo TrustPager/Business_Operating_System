@@ -1,5 +1,18 @@
 # Video Studio — Instructions for AI Assistants
 
+> **Status: legacy, superseded by `studio/motion` (founder direction 2026-07-27).**
+> The video engine of record is `studio/motion`, the Remotion studio: it does faceless
+> motion graphics, talking-head overlay, and the product-demo add-on, with voiceover
+> and local captions, and every video-making skill drives it. This studio still works
+> and `package-my-video` still recognises its output, so nothing breaks, but new work
+> goes to `studio/motion` and this one is not extended.
+>
+> It is not deleted yet, deliberately. Remotion is free for teams up to three and a
+> 4+ person for-profit company needs a paid Company Licence, and the first-run
+> acknowledgement that obligation calls for (specified in
+> `docs/architecture/2026-07-09-content-creation-studio-design.md`) is not built yet.
+> Until it is, this Puppeteer + ffmpeg studio is the unencumbered path, so it stays.
+
 You're working in the BOS Video Studio, the fifth render studio. It turns a
 beat-structured video script into a branded, text-on-screen motion-graphic video
 on the owner's own brand, read from the root `brand/brand.json`. Before doing
