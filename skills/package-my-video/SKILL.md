@@ -53,8 +53,8 @@ each already produced by an earlier step:
 | Input | Where it comes from |
 |---|---|
 | `<slug>.script.json` | `script-my-video` (working title, `packaging.title_options`, `packaging.angle`, `beats`) |
-| The rendered `<slug>.mp4` | `studio/motion` output (`studio/motion/output/<slug>.mp4`), the studio `make-my-video` renders in. Also accept `studio/video/output/<slug>/<slug>.mp4`, the older text-on-screen studio, and say which one you found. |
-| `<slug>.timing.json` | beside the MP4 in whichever studio rendered it (the actual per-beat render times) |
+| The rendered `<slug>.mp4` | `studio/motion` output (`studio/motion/output/<slug>.mp4`), the studio `make-my-video` renders in |
+| `<slug>.timing.json` | beside the MP4 in `studio/motion/output/` (the actual per-beat render times) |
 | The thumbnail PNG | `make-thumbnail`, driven by `packaging.thumbnail_concept` |
 
 Ask for the path to anything you cannot already see. If a piece is genuinely

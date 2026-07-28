@@ -102,6 +102,52 @@ class TestAllowedLocations(unittest.TestCase):
                 self.assertFalse(_mod._is_allowed(rel))
 
 
+class TestProvenanceLinesMayNameASource(unittest.TestCase):
+    """Crediting a source on a labelled provenance line is the point of those lines."""
+
+    def test_labelled_provenance_line_is_exempt(self):
+        line = ("> Source note (dev-facing): the outlier multiple synthesises "
+                "Kallaway's outlier-score framework, rewritten for a service business.")
+        self.assertEqual(_mod.scan_text(line), [],
+                         "a labelled provenance line may name its source")
+
+    def test_the_same_name_in_ordinary_prose_is_caught(self):
+        line = "Use Kallaway's bullseye when planning the channel."
+        found = _mod.scan_text(line)
+        self.assertTrue(any("Kallaway" in what for _, what, _ in found),
+                        "an unlabelled mention must still be caught")
+
+
+class TestVendorSurfacesCarryTheOwnersBrand(unittest.TestCase):
+    """A surface an owner's own brand fills must not ship someone else's."""
+
+    def test_owner_brand_surfaces_are_scanned(self):
+        for rel in ["studio/thumbnails/src/templates/heroes/Hero.jsx",
+                    "studio/social/src/templates/index.js",
+                    "studio/og/src/theme.js"]:
+            with self.subTest(rel=rel):
+                self.assertTrue(_mod._is_vendor_surface(rel))
+
+    def test_connected_driver_and_its_tooling_are_not_scanned(self):
+        """Naming the connected platform where it IS the platform is legitimate."""
+        for rel in ["drivers/trustpager/README.md", "tools/trustpager_api.py",
+                    "skills/design-nurture-sequence/SKILL.md",
+                    "knowledge/connectors.md", "studio/og/scripts/publish.js"]:
+            with self.subTest(rel=rel):
+                self.assertFalse(_mod._is_vendor_surface(rel))
+
+    def test_a_vendor_brand_on_an_owner_surface_is_caught(self):
+        found = _mod.scan_text("// TrustPager Thumbnail Studio tokens.",
+                               vendor_surface=True)
+        self.assertTrue(any("TrustPager" in what for _, what, _ in found))
+
+    def test_the_same_line_off_that_surface_is_clean(self):
+        self.assertEqual(
+            _mod.scan_text("// TrustPager Thumbnail Studio tokens.",
+                           vendor_surface=False), [],
+            "off an owner-brand surface, naming the connected platform is fine")
+
+
 class TestLiveRepoIsClean(unittest.TestCase):
     def test_tracked_files_pass_the_gate(self):
         self.assertEqual(_mod.scan(scan_all=False), 0,

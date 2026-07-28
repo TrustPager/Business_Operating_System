@@ -39,7 +39,11 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 # gate's own teeth-test (which plants the banned terms on purpose).
 ALLOWED_PREFIXES = (
     "knowledge/business-method.md",
-    "docs/architecture/research/",
+    # Internal architecture records: design docs, plans, and dogfood write-ups are
+    # ABOUT the sources they synthesise, so naming one is the record doing its job.
+    # Nothing here is read to an owner; the shipped surfaces (knowledge/, skills/,
+    # studio/, templates/) are what this gate protects.
+    "docs/architecture/",
     "tests/test_doctrine_voice.py",
 )
 
@@ -102,6 +106,35 @@ COINED_TERMS: list[tuple[str, re.Pattern[str], str]] = [
      'use "the Wait" (business-method.md §6)'),
     ("Coined variable", re.compile(r"\bEffort & Sacrifice\b"),
      'use "the Work" (business-method.md §6)'),
+    ("Source author", re.compile(r"\bKallaway\b"),
+     "no source authors outside a labelled provenance line"),
+]
+
+# The brand-agnostic surfaces: what an owner's OWN brand fills in. A maintainer or
+# vendor brand name here ships someone else's identity to every owner, which is the
+# one thing the pack must never do (founder ruling 2026-07-27: BOS ships brand
+# agnostic so users can fill it in). Scoped deliberately: the connected TrustPager
+# driver, its tooling, the 40-plus skills that declare it, and the publish paths that
+# upload to an owner's connected workspace all name it legitimately, and are NOT
+# scanned here.
+VENDOR_SURFACE_PREFIXES = (
+    "studio/thumbnails/src/",
+    "studio/social/src/templates/",
+    "studio/og/src/theme.js",
+    "studio/cta/src/templates/",
+)
+
+# Known exceptions, labelled rather than silent. These are maintainer marketing
+# content that still ships in the product; whether they move out or get genericised
+# is an open founder decision (raised 2026-07-27).
+VENDOR_SURFACE_EXCEPTIONS = (
+    "studio/og/src/templates/",
+    "studio/social/src/templates/finalpiece/",
+)
+
+VENDOR_NAMES = [
+    ("Vendor brand", re.compile(r"\bTrustPager\b")),
+    ("Maintainer brand", re.compile(r"\bFinalPiece\b")),
 ]
 
 # Don't scan binaries or vendored/build dirs (mirrors check-no-secrets.py).
@@ -115,9 +148,24 @@ MAX_BYTES = 2_000_000
 SELF = Path(__file__).resolve()
 
 
+# A labelled provenance line is the one place a source may be named: the pack
+# credits what it synthesises instead of passing it off as its own. Keyed on the
+# explicit label, so it cannot be used to smuggle a name into ordinary prose.
+_PROVENANCE_LINE = re.compile(
+    r"source note|provenance|synthesi[sz]e|rewritten for|taught by", re.IGNORECASE)
+
+
 def _is_allowed(rel: str) -> bool:
     rel_posix = rel.replace("\\", "/")
     return any(rel_posix.startswith(prefix) for prefix in ALLOWED_PREFIXES)
+
+
+def _is_vendor_surface(rel: str) -> bool:
+    """True if this path is a brand-agnostic surface an owner's own brand fills."""
+    rel_posix = rel.replace("\\", "/")
+    if any(rel_posix.startswith(x) for x in VENDOR_SURFACE_EXCEPTIONS):
+        return False
+    return any(rel_posix.startswith(p) for p in VENDOR_SURFACE_PREFIXES)
 
 
 def _tracked_files() -> list[Path]:
@@ -140,14 +188,31 @@ def _all_files() -> list[Path]:
     return files
 
 
-def scan_text(text: str) -> list[tuple[int, str, str]]:
-    """Return (line_number, label+match, suggestion) findings for one text."""
+def scan_text(text: str, vendor_surface: bool = False) -> list[tuple[int, str, str]]:
+    """Return (line_number, label+match, suggestion) findings for one text.
+
+    A labelled provenance line is exempt from the coined-term scan (crediting a
+    source is the point of those lines). When ``vendor_surface`` is set, the
+    brand-name scan runs too: on a surface an owner's own brand fills, a vendor or
+    maintainer brand is the leak, and no provenance label excuses it.
+    """
     findings: list[tuple[int, str, str]] = []
     for i, line in enumerate(text.splitlines(), start=1):
-        for label, pat, suggestion in COINED_TERMS:
-            m = pat.search(line)
-            if m:
-                findings.append((i, f"{label} '{m.group(0)}'", suggestion))
+        if not _PROVENANCE_LINE.search(line):
+            for label, pat, suggestion in COINED_TERMS:
+                m = pat.search(line)
+                if m:
+                    findings.append((i, f"{label} '{m.group(0)}'", suggestion))
+        if vendor_surface:
+            for label, pat in VENDOR_NAMES:
+                m = pat.search(line)
+                if m:
+                    findings.append((
+                        i, f"{label} '{m.group(0)}'",
+                        "this surface ships to every owner and carries THEIR brand: "
+                        "use the owner's brand from brand/brand.json, or a neutral "
+                        "placeholder",
+                    ))
     return findings
 
 
@@ -171,7 +236,7 @@ def scan(scan_all: bool) -> int:
             text = f.read_text(encoding="utf-8", errors="ignore")
         except OSError:
             continue
-        for lineno, what, suggestion in scan_text(text):
+        for lineno, what, suggestion in scan_text(text, _is_vendor_surface(rel)):
             findings.append(f"{rel}:{lineno}: {what} -> {suggestion}")
 
     if findings:

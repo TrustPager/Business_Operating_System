@@ -1,8 +1,8 @@
-// Agent Hub hero — vertical roster of the real FinalPiece AI agents.
+// Agent Hub hero — vertical roster of an owner's AI agents.
 //
-// Agent portraits live at /agents/<Name>.png (copied from
-// D:/Dev/FinalPiece-NewDesign/public/product/ai_agents). Each card shows
-// the real agent with a status pulse, latest action, and capability tags.
+// Agent portraits live at /agents/<Name>.png in this studio's public folder.
+// Each card shows an agent with a status pulse, latest action, and capability
+// tags.
 //
 // Brand-colour rule: the portraits are full-colour images (intentional —
 // they're the agent identity). Surrounding chrome (status dots, pills,

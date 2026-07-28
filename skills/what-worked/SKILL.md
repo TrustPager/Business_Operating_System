@@ -14,7 +14,6 @@ requires_driver: none
 requires_credential: none
 data_path: local
 status: active
-produces_customer_facing_copy: true
 ---
 
 # What Worked
@@ -155,12 +154,12 @@ offer.
 - ✅ **Their channel, their baseline.** Never rank the owner's videos against
   another channel's raw view counts.
 - ✅ **One channel per run.** Bounded and finishable.
-- ✅ **Content guardrails.** Customer-facing copy uses no em dashes, invents no
-  facts, quotes, or numbers, and names no third-party vendor. Write it in the
-  owner's brand voice; the framing and the marketing psychology are the owner's
-  choice. The rules are in `knowledge/content-rules.md`. The owner's voice lives
-  in `marketing-strategy/<BrandName>/voice.md` when it exists; say so plainly if
-  it does not.
+- ✅ **This read is for the owner, not their customers.** It is the assistant's own
+  voice (the register is `knowledge/research-method.md`), so it carries no
+  customer-facing copy obligation. It still uses no em dashes and invents nothing:
+  the never-invent rule above is the load-bearing one here. Where a finding becomes
+  a title or an angle the owner actually publishes, the skill that writes that copy
+  (`plan-my-youtube`, `script-my-video`) owns the content rules for it.
 
 ## Output shape
 

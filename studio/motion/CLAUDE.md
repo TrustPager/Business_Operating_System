@@ -185,7 +185,7 @@ Overlay, `beats[]` → ProductDemo; all three write the same `<slug>.timing.json
 ## 3. The timing sidecar (`<slug>.timing.json`)
 
 After a render, `render.js` writes `<slug>.timing.json` beside the MP4 with
-per-beat times. Shape (spec §3, identical to studio/video):
+per-beat times. Shape (spec §3):
 
 ```json
 {

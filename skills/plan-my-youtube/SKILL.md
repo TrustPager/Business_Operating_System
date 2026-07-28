@@ -216,27 +216,22 @@ route it to the process, the care, and the logistics instead
 
 ## Step 4: Set the channel strategy (delegate to `build-social-strategy`)
 
-Run the `build-social-strategy` method for this one channel. Do not copy its
-prose or re-derive its framework here: apply it, aimed at YouTube. Keep the pillars
-tight to one avatar: a channel that holds one audience and one topic band is what lets
-the algorithm learn who to push to (audience matching, `knowledge/distribution-method.md`),
-so resist spreading the channel across audiences even when an off-avatar idea looks
-tempting. The channel strategy names, tailored to this owner and this goal:
+Run the `build-social-strategy` method for this one channel, aimed at YouTube. It
+owns the strategy's shape and every count in it; produce its outputs, do not
+restate its framework here. What is genuinely YouTube-specific, and therefore
+this skill's to add:
 
-- **What the channel is about** and why it fits this business, in the owner's
-  voice (the YouTube read of the platform-focus and current-state parts of the
-  method).
-- **A realistic upload cadence** the owner can actually hold (the cadence part),
-  honest about the effort a video takes versus a social post. What that effort
-  actually is, and how it differs between a filmed video and a rendered one, is the
-  effort pyramid in `knowledge/youtube-launch-method.md` §2.
-- **3-4 content pillars mapped to the goal** (the pillars part). These become the
-  recurring threads the video pipeline is built around, so every video serves a
-  pillar rather than being a random idea. Each pillar serves the Step 3
-  transformation, and at least one carries the point of view.
-- **The content mix** across those pillars (teach, proof, story, the occasional
-  promo), tuned to the goal.
-- **The one metric to watch** first, tied to the goal, not vanity numbers.
+- **One avatar, held.** A channel that holds one audience and one topic band is
+  what lets the algorithm learn who to push it to (audience matching,
+  `knowledge/distribution-method.md`), so resist spreading across audiences even
+  when an off-avatar idea looks tempting.
+- **Cadence is costed as video, not as posts.** What that effort actually is, and
+  how it differs between a filmed video and a rendered one, is the effort pyramid
+  in `knowledge/youtube-launch-method.md` §2.
+- **The pillars answer to Step 3.** Each one serves the transformation, and at
+  least one carries the point of view. They become the branches the pipeline hangs
+  off, so every video serves a pillar rather than being a random idea.
+- **The metric is a channel metric**, tied to the goal, never a vanity number.
 
 Under that one held avatar, use the **ring ladder** to choose topics
 (`knowledge/distribution-method.md`, the audience bullseye): the channel's centre is the
@@ -254,12 +249,9 @@ pillars and the metric, and only add what is YouTube-specific.
 ## Step 5: Build the video pipeline (delegate to `plan-my-content`)
 
 Run the `plan-my-content` method to turn the pillars from Step 4 into a dated,
-ordered pipeline of videos. Again, apply the method, do not restate it: spread
-the pillars so the mix is balanced, vary the format within a pillar rather than
-repeating the theme, and carry a real calendar date on each row so the pipeline
-is ordered, not a loose wish-list. Keep the horizon bounded the way
-`plan-my-content` does: a pipeline the owner can actually make beats a
-year-long firehose they never start.
+ordered pipeline of videos. It owns the calendar's rules and its bounded horizon;
+apply them rather than restating them. The one thing to hold onto here: a pipeline
+the owner can actually make beats a year-long firehose they never start.
 
 **Commit to the run, date only the fortnight.** The first run is about twenty
 videos; dated rows stay inside `plan-my-content`'s 1-2 week ceiling and get re-run

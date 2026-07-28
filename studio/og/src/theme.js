@@ -1,6 +1,7 @@
-// TrustPager Thumbnail Studio — local design tokens.
+// OG Studio — local design tokens.
 // Self-contained so the studio runs without depending on cross-folder aliases.
-// Mirrors the tokens in ../src/TrustPager-src/theme.ts — keep in sync when brand changes.
+// The owner's real brand values live in the root brand/brand.json; keep these
+// tokens in step with it when the brand changes.
 
 export const colors = {
   primary: '#29c6c6',          // teal

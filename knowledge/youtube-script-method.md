@@ -16,7 +16,7 @@ that uses it stays lean and references this file:
   read it alongside this file.
 
 **The script is the spec.** One beat-structured script drives everything
-downstream: `studio/video` renders each beat's on-screen text as motion graphics,
+downstream: `studio/motion` renders each beat's on-screen text as motion graphics,
 `make-thumbnail` reads the packaging concept, `package-my-video` reads the timing
 for chapters, and (later, connected) the same script comes back fully voiced with
 no rework. So the script is written to be *rendered*, not just read: every beat
@@ -36,7 +36,7 @@ renderable. A beat is the atomic unit of the script. Each beat carries exactly:
 | Field | What it is | What it drives |
 |---|---|---|
 | `spoken` | The one line the owner says, in the owner's own voice | The voiceover (owner reads it on the floor; TTS voices it on the connected rung) |
-| `on_screen` | The single text/graphic callout for this beat | `studio/video` renders it as branded text-on-screen |
+| `on_screen` | The single text/graphic callout for this beat | `studio/motion` renders it as branded text-on-screen |
 | `b_roll` | One visual note (own footage or stock guidance) | The owner's shot list / footage plan |
 
 **One idea per beat.** If a beat needs two on-screen callouts to make sense, it is
@@ -179,7 +179,7 @@ explainer, neither rushed nor sleepy. `script-my-video` states the wpm it used i
 its output, so the estimate is transparent and the owner can adjust it to their
 own pace. The maths is simple: `duration_s ≈ (words in the spoken line ÷ wpm) × 60`.
 
-This is *planned* timing. The real per-beat timing is written by `studio/video`
+This is *planned* timing. The real per-beat timing is written by `studio/motion`
 after it renders (the `<slug>.timing.json` sidecar), and `package-my-video`
 prefers that actual timing for chapter timestamps, falling back to the planned
 `duration_s` when no render has happened yet. Planned timing is the estimate;

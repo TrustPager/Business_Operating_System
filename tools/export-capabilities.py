@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate docs/CAPABILITIES.md — the GTM-facing capability doc (registry-derived).
 
-The GTM project (AI-BOS) needs to cite what the plugin *actually* does today
+The go-to-market project needs to cite what the plugin *actually* does today
 without hand-listing features that drift. This tool turns the live capability
 registry into one plain-language, owner-facing capability doc so GTM references
 a single true artifact that stays honest as the system grows.
@@ -19,7 +19,7 @@ Design rules this module upholds (mirroring tools/registry-generator.py):
 - **Pure deterministic function of the registry + manifests.** No git commit,
   no timestamp, no machine state is embedded. Two runs over the same inputs
   produce byte-identical output, so ``--check`` is a stable drift guard.
-  (Cross-repo provenance is stamped later by the AI-BOS sync step, not here.)
+  (Cross-repo provenance is stamped later by the downstream sync step, not here.)
 
 - **One broken skill can't dark the doc.** A capability listed in the registry
   whose SKILL.md is missing or unreadable falls back to a name derived from its
