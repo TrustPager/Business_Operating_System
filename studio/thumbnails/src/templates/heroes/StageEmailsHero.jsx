@@ -13,7 +13,7 @@ const EVENTS = [
     to: 'Proposal Sent',
     toColor: ACCENT,
     template: 'Quote Ready — Next Steps',
-    recipient: 'Sarah Hartley',
+    recipient: 'Priya Raman',
     when: '2 min ago',
     status: 'opened',
   },

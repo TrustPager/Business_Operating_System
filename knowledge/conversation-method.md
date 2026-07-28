@@ -93,6 +93,18 @@ Run it with **smart-default-then-confirm**: lead with the option your research o
 their own words actually support, so they edit a guess rather than author from
 cold. One or two at a time, never a wall.
 
+**A vague answer and a misunderstood question are different failures.** Options fix
+the first. When the owner asks *what do you mean?*, or answers something you did not
+ask, they did not understand the QUESTION, and offering three options to a question
+they cannot parse just moves the confusion. Rephrase it once in their own working
+language, concrete and in the terms of their trade, with no abstraction: not "where
+are you trying to get to with the business", which is fluent to an operator and
+meaningless to someone who thinks in jobs and hours, but "do you want to stay solo
+and earn more per job, or get busy enough to put another van on?". If the rephrase
+lands, carry on; if it does not, the question was the wrong question, so drop it and
+move to the next one rather than asking a third time. Abstraction is the assistant's
+problem to fix, never the owner's to decode.
+
 **Two hard boundaries.**
 
 - **This is not the terse route.** A clipped, low-patience owner is a different
@@ -150,6 +162,16 @@ first pass with its guesses named out loud (`start-here` Step 8), that co-build
 stands: sharpen the *grounding* of each field, then show the rough version with the
 guesses still labelled as guesses. Polishing a guess until it reads as a fact is
 the failure this boundary exists to prevent.
+
+**The saved profile is an artifact, and it is the one this pass gets skipped on.**
+The visible deliverable (the plan, the priced breakdown) gets scrutinised because
+the owner is about to read it. The profile written to `./CLAUDE.md` at the end of a
+run is written *quietly*, so "sharpen the artifact" quietly narrows to "sharpen the
+thing they can see", and the file every later session inherits never gets the pass
+at all. Run it on the profile as its own step, at the moment you write it, and
+**name in one line which fields you sharpened or labelled** so there is a trace it
+happened. A wrong field hurts more in a profile than in a plan, because it stops
+being questioned.
 
 ---
 

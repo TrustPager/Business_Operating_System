@@ -85,6 +85,27 @@ are offered as a plain "want me to go deeper?" choice, and only a missing `yt-dl
 install is ever recommended rather than assumed. Nothing here blocks or gates the
 first result.
 
+## The comment-mining use (for `research-my-channel` Step 2)
+
+Comments are the richest demand signal on the floor and the page read cannot reach
+them at all, so this is the invocation that makes Step 2's standard branch runnable
+rather than aspirational:
+
+```bash
+yt-dlp --skip-download --write-comments \
+  --extractor-args "youtube:max_comments=100" \
+  -o "%(id)s" "https://www.youtube.com/watch?v=<id>"
+```
+
+It writes `<id>.info.json` beside itself; the comment text is the `comments` array
+inside that file (each entry carries `text`, `author`, `like_count`, `parent`). Read
+the JSON, quote the real comments verbatim, and never paraphrase one into evidence.
+
+Two practical bounds: cap `max_comments` (a popular video has thousands, and the
+top hundred by relevance carry the signal), and pick the videos worth reading rather
+than sweeping a channel, because each one is its own fetch. `--skip-download` is not
+optional: without it `yt-dlp` pulls the whole video file.
+
 ## The channel-history use (for `break-down-a-channel` and `what-worked`)
 
 `break-down-a-channel` needs a whole channel's video list to build a breakout

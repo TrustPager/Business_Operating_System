@@ -13,7 +13,6 @@
     "voice": "node scripts/voice.js",
     "preflight": "node scripts/preflight.js"
   },
-  "author": "FinalPiece AI",
   "license": "ISC",
   "dependencies": {
     "@remotion/cli": "4.0.443",

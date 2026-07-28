@@ -284,8 +284,19 @@ these planned `duration_s` when no render has happened yet. You write the plan;
 you do not write `<slug>.timing.json`.
 
 Sanity-check the sum of the planned `duration_s` against
-`meta.duration_target_s`. If they are far apart, tighten or expand the beats so
-the script fits the target, and note the fit in one line.
+`meta.duration_target_s`, and **report a gap rather than closing it with filler.**
+The target was a planning anchor (Step 2), not a quota: a script that delivers the
+promise in 60 seconds against a 90-second target is a 60-second video, and
+stretching it to hit the number makes a worse one.
+
+- **Tighten** when the script runs long. Length past the promise is where viewers
+  leave.
+- **Expand only when a beat is genuinely thin** and the video is weaker for it,
+  never to make the arithmetic match.
+- **Otherwise say the gap out loud in one line** ("this came in at 60s against the
+  90s we aimed for, because the topic is one check rather than a walkthrough") and
+  leave the target as it was. `knowledge/youtube-script-method.md` owns the
+  principle: match the length to the promise, not to a number.
 
 ## Step 7: Anchor claims in real evidence
 

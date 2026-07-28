@@ -10,14 +10,14 @@ import { Avatar } from '../../profiles.jsx';
 import { ACCENT, PRIMARY, SLATE, SUCCESS, TEXT, TEXT_MUTED } from '../../brand.js';
 
 const EVENTS = [
-  { day: 'Today',     time: '9:00',  duration: '30m', title: 'Discovery — Coastal Health',     attendees: ['Sarah Hartley','Simon [name]'],                       source: 'gcal',    sourceColor: PRIMARY },
-  { day: 'Today',     time: '11:00', duration: '45m', title: 'Workflow Audit — Otis Chen',     attendees: ['Otis Chen','Simon [name]'],                           source: 'crm',      sourceColor: SUCCESS },
-  { day: 'Today',     time: '14:00', duration: '60m', title: 'Internal — Sprint Review',       attendees: ['Simon [name]','Jordan Park','Mira Suarez'],           source: 'outlook', sourceColor: ACCENT },
-  { day: 'Tomorrow',  time: '8:30',  duration: '30m', title: 'Renewal call — Hugo Daniels',    attendees: ['Hugo Daniels','Simon [name]'],                        source: 'gcal',    sourceColor: PRIMARY },
-  { day: 'Tomorrow',  time: '10:00', duration: '15m', title: 'Quick chat — Asher Patterson',   attendees: ['Asher Patterson','Simon [name]'],                     source: 'crm',      sourceColor: SUCCESS },
-  { day: 'Tomorrow',  time: '13:00', duration: '60m', title: 'Strategy — Camille Anders',      attendees: ['Camille Anders','Simon [name]'],                      source: 'gcal',    sourceColor: PRIMARY },
-  { day: 'Fri 11',    time: '9:00',  duration: '45m', title: 'Anya Faulkner — Audit',          attendees: ['Anya Faulkner','Simon [name]','Jordan Park'],         source: 'crm',      sourceColor: SUCCESS },
-  { day: 'Fri 11',    time: '11:30', duration: '30m', title: 'Doctor appt',                    attendees: ['Simon [name]'],                                       source: 'gcal',    sourceColor: PRIMARY, personal: true },
+  { day: 'Today',     time: '9:00',  duration: '30m', title: 'Discovery — Coastal Health',     attendees: ['Priya Raman','Dylan Reyes'],                       source: 'gcal',    sourceColor: PRIMARY },
+  { day: 'Today',     time: '11:00', duration: '45m', title: 'Workflow Audit — Otis Chen',     attendees: ['Otis Chen','Dylan Reyes'],                           source: 'crm',      sourceColor: SUCCESS },
+  { day: 'Today',     time: '14:00', duration: '60m', title: 'Internal — Sprint Review',       attendees: ['Dylan Reyes','Jordan Park','Mira Suarez'],           source: 'outlook', sourceColor: ACCENT },
+  { day: 'Tomorrow',  time: '8:30',  duration: '30m', title: 'Renewal call — Hugo Daniels',    attendees: ['Hugo Daniels','Dylan Reyes'],                        source: 'gcal',    sourceColor: PRIMARY },
+  { day: 'Tomorrow',  time: '10:00', duration: '15m', title: 'Quick chat — Asher Patterson',   attendees: ['Asher Patterson','Dylan Reyes'],                     source: 'crm',      sourceColor: SUCCESS },
+  { day: 'Tomorrow',  time: '13:00', duration: '60m', title: 'Strategy — Camille Anders',      attendees: ['Camille Anders','Dylan Reyes'],                      source: 'gcal',    sourceColor: PRIMARY },
+  { day: 'Fri 11',    time: '9:00',  duration: '45m', title: 'Anya Faulkner — Audit',          attendees: ['Anya Faulkner','Dylan Reyes','Jordan Park'],         source: 'crm',      sourceColor: SUCCESS },
+  { day: 'Fri 11',    time: '11:30', duration: '30m', title: 'Doctor appt',                    attendees: ['Dylan Reyes'],                                       source: 'gcal',    sourceColor: PRIMARY, personal: true },
 ];
 
 const SOURCE_LABELS = {

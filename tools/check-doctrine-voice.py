@@ -132,7 +132,19 @@ VENDOR_SURFACE_PREFIXES = (
 VENDOR_NAMES = [
     ("Vendor brand", re.compile(r"\bTrustPager\b")),
     ("Maintainer brand", re.compile(r"\bFinalPiece\b")),
+    # A live product name that reached shipped mockup data once already, hidden behind
+    # a broken asset path (the portrait on disk was the neutral 'Aria'), so it only
+    # ever rendered as a missing image and nobody noticed. Named here because the cost
+    # of it recurring is a stranger's thumbnail carrying our product.
+    ("Vendor product", re.compile(r"\bEvie\b")),
 ]
+
+# Sample and mockup data in the studios must use FICTIONAL people. A dogfood audit
+# found a real colleague's name across nine hero templates, rendering in every
+# install. Names cannot be pattern-matched the way brands can, so this one is a
+# convention with a review note rather than a check: when you touch mockup data,
+# the names in it are invented, and a name that matches anyone real is a defect.
+# (VENDOR_SURFACE_PREFIXES below is what the brand half of this is enforced on.)
 
 # Don't scan binaries or vendored/build dirs (mirrors check-no-secrets.py).
 SKIP_EXTS = {".png", ".jpg", ".jpeg", ".ico", ".webp", ".gif", ".pdf", ".pyc",

@@ -197,13 +197,16 @@ Then take the branch that matches what is already answered.
   fields, under Layer 3's headings, into `first-brand-brief.md` in the brand home
   (the day-one default; create it if there is none, and if a positioning file is
   already there, write into that one and preserve every field it already carries).
-  Tell the owner where they went, and leave one dated pointer line in the profile
-  so a later session finds them:
+  Tell the owner where they went, and **if a profile exists**, leave one dated
+  pointer line in it so a later session finds them:
   `Positioning captured (<date>): <the transformation in one line>, see <path>`,
   appended under `## How the business is running` with the same append-and-update
-  discipline `build-my-voice` uses for a locked voice. This is a two-field capture,
-  not brand strategy: point at `build-brand-strategy` for the full brief and carry
-  on with the channel plan.
+  discipline `build-my-voice` uses for a locked voice. On a cold workspace there is
+  no `./CLAUDE.md` to append to (this skill can run before `start-here` ever has):
+  skip the pointer, say in one line that the fields live in the brand home and a
+  profile will pick them up later, and never create a profile just to hold a
+  pointer. This is a two-field capture, not brand strategy: point at
+  `build-brand-strategy` for the full brief and carry on with the channel plan.
 - **They would rather not → carry on with the slots open.** Mark both clearly open
   the way a declined town is, and plan without them. Never fill an open slot with a
   belief you wrote.
@@ -363,3 +366,9 @@ dated, ordered video pipeline table where every row carries an idea, an angle, a
 working title, and a thumbnail concept tied to its pillar, and a closing line
 naming whose voice and research the plan is built from plus the offer to script
 any row.
+
+**Save it as `youtube-plan.md`** in the owner's working directory, beside the
+`youtube-research.md` it was built from. The filename is fixed on purpose:
+`script-my-video` Step 1 goes looking for "the matching pipeline row from
+`plan-my-youtube`", and it can only find one if every run writes the same name. Show
+the highlights inline as well, so the owner reads the plan rather than a file path.

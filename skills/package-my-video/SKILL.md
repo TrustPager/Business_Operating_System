@@ -77,13 +77,22 @@ mode where the owner did the most work. When there is no script:
 
 1. **Ask the owner for the title** (and take the angle in a line if they have one).
    Never invent one, and never guess it from the filename.
-2. **Read what the recording itself carries.** A captions transcript from
-   `make-my-video`'s Mode B (`data/<slug>.captions.json`) is the honest source for
-   the description's opening line and the tags. Draw them from what the owner
-   actually said; do not summarise beyond it.
-3. **Emit no chapter block**, and say why in the readme (a filmed clip has one
+2. **Ask the owner for the one action too.** With no beats there is no `cta` beat to
+   read, so the call to action comes from them in a line, the same way the title
+   does. Do not infer it from the angle.
+3. **Read what the recording itself carries, if anything does.** A captions
+   transcript from `make-my-video`'s Mode B (`data/<slug>.captions.json`) is the
+   honest source for the description's opening line and the tags: draw them from
+   what the owner actually said and do not summarise beyond it. **A filmed video
+   often has no transcript either** (they shot it and never ran captions). In that
+   case ask them for two or three lines on what the video covers, write the
+   description and tags from that, and label it in the readme as the owner's own
+   summary rather than a transcript. Never treat a one-line angle as if it were a
+   transcript of what was said: an angle is what the video is *for*, a transcript is
+   what is *in* it, and quietly swapping one for the other puts words in their mouth.
+4. **Emit no chapter block**, and say why in the readme (a filmed clip has one
    continuous timeline, so there are no beat boundaries to cut chapters at).
-4. **Assemble everything else as normal.** The video, the thumbnail, the
+5. **Assemble everything else as normal.** The video, the thumbnail, the
    description, the tags, the checklist, and the publish gate all still apply.
 
 The one case that truly stops: no script AND no video file AND the owner has no
@@ -135,7 +144,13 @@ transcript, per Step 1:
 2. **Description** — a short opening line in the owner's voice (from the video's
    angle and promise), then a blank line, then the **CHAPTERS** block (Step 5),
    then the one call to action from the `cta` beat, then any relevant links the
-   owner gives you. Never fabricate a link or a claim.
+   owner gives you. Never fabricate a link or a claim. **When the call to action
+   needs a link the owner has not given you, write a visible placeholder** on its
+   own line, in square brackets, saying exactly what belongs there
+   (`[your booking link here]`). A plausible-looking invented URL is the dangerous
+   failure, because it survives every other check in this skill and only fails in
+   public; a visible placeholder is impossible to publish by accident, and the
+   publish gate looks for it (Step 8, check 5).
 3. **Tags** — a handful of plain, relevant tags drawn from the topic, the angle,
    and the points. Keep them honest to the content.
 4. **Upload checklist** — a short manual-upload checklist (Step 7).
@@ -184,6 +199,16 @@ span reaches 10 seconds, then start the next chapter at the next beat:
 1. Start the first chapter at the first beat. Its label is that beat's
    `on_screen` text (fall back to a human phrasing of its `role`, for example
    "Introduction" for `hook`).
+
+   **A label has to describe what that stretch of video covers.** The rules below
+   are about spacing, and spacing alone will happily hand you a valid list with a
+   useless label: a `subscribe` beat that opens a chapter turns "new one every
+   second Tuesday" into a chapter heading, which tells a viewer nothing about the
+   content there. When the opening beat's `on_screen` text is an ask rather than a
+   subject (a `subscribe` beat, a bare cadence promise), label the chapter from the
+   next beat inside it that names a subject, or write a plain phrase for the
+   section. Read the finished list once as a viewer scanning a description, and fix
+   any line that would not help them jump.
 2. For each following beat, measure the gap from the current chapter's start to
    that beat's start. If the gap is under 10 seconds, absorb the beat into the
    current chapter. If it is 10 seconds or more, close the current chapter and
@@ -292,8 +317,10 @@ The checks you can run yourself, from the pack on disk:
 4. **The description carries its chapters and exactly one call to action.** Chapters
    are a valid list (Step 5's three rules) or deliberately absent with the reason
    noted, and there is one CTA, matching the script's single `cta` beat.
-5. **Every link in the description is one the owner gave you.** No invented link, no
-   placeholder URL left in the text.
+5. **Every link in the description is one the owner gave you.** No invented link.
+   A visible `[your booking link here]` placeholder is fine and expected when they
+   have not given you one: name it in the gate result so the owner knows to fill it
+   before publishing. What must never be there is a plausible URL nobody supplied.
 6. **Tags are present** and honest to the content.
 7. **The copy passes the content guardrails.** Read the title, description, and tags
    once more for em dashes, invented facts, quotes or numbers, and third-party

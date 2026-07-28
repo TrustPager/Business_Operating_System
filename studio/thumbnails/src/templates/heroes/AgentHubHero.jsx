@@ -16,10 +16,10 @@ import { ACCENT, LIGHT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS, TEXT, TEXT_MUTED 
 
 const AGENTS = [
   {
-    name: 'Evie',
+    name: 'Aria',
     role: 'VOICE',
     title: 'AI receptionist',
-    avatar: '/agents/Evie.png',
+    avatar: '/agents/Aria.png',
     status: 'active',
     lastRun: 'Just now',
     lastAction: 'Booked Hugo Daniels for a Workflow Audit at 4pm',

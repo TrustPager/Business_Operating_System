@@ -9,7 +9,7 @@ import { ACCENT, LIGHT, PRIMARY, PRIMARY_DEEP, SLATE, SUCCESS, TEXT, TEXT_MUTED 
 
 const CONTACTS = [
   {
-    name: 'Sarah Hartley',
+    name: 'Priya Raman',
     role: 'CFO',
     company: 'Coastal Consulting',
     companyColor: PRIMARY,

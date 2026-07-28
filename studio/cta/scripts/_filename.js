@@ -5,7 +5,7 @@
 //                "welcome-trial"), the filename gets a prefix so all CTAs
 //                for a given nurture sequence sort together in the output
 //                folder + the TrustPager Files folder. Missing → "cta".
-// - `key`       the design's key from samples.json (the slug Simon types
+// - `key`       the design's key from samples.json (the slug you type
 //                into `npm run shoot <key>`). Always present.
 // - Strips characters Windows actually rejects (< > : " / \ | ? *).
 

@@ -72,6 +72,12 @@ Before you fetch anything, know:
   most relevant and say so plainly; never silently drop one. That cap bounds the
   page read only: note any extra channel names `search` surfaced, since the
   optional outlier board (Step 4b) scores a handle without page-reading it.
+  **Check that a channel search surfaced is actually IN the niche, not merely
+  ranking for it.** A generalist channel with one video on the topic will rank for
+  the topic and teach you nothing about the niche; glance at its other recent
+  uploads before you study it, and drop it if the niche is a one-off for them. A
+  channel presented to the owner as a "top channel in your niche" when it is not is
+  a wrong finding, not a rounding error.
 
 If a fetch is slow, blocked, or empty, say so and offer the fallback: "paste me
 what is on that page and I will read it the same way." Never guess at what is on a
@@ -101,8 +107,18 @@ broke out. Cite the real observed outliers by their actual titles, visible view
 counts, and the computed multiple ("4.2x baseline"). Never invent an outlier, a
 view count, or a multiple you did not derive from numbers you actually saw.
 
-This scan reads outliers by eye, from the counts the pages you read happened to
-show. The tool-scored wide version is the optional deepener in Step 4b.
+**When the channel page gives you no per-video counts, say so and use the dump.**
+A channel's `/videos` grid is client-side rendered, so a page read often returns a
+shell with the subscriber and video totals and no per-video views at all: there is
+then nothing to compute a multiple *from*, and inventing one is the worst available
+move. When `yt-dlp` is on the machine (Step 2 already checked), take the flat dump
+for this channel and compute the multiples from real numbers, exactly as
+`break-down-a-channel` does. When it is not, report the outliers you could actually
+see and say plainly that the counts were not on the page, rather than reporting a
+multiple you did not derive.
+
+This scan reads outliers from whatever counts you genuinely obtained. The wide
+version, scored across several channels at once and pooled, is Step 4b.
 
 ## Step 2: Viewer demand signals (every idea carries real evidence)
 
@@ -112,10 +128,12 @@ the web read cannot. **Check once, silently** (`yt-dlp --version`), and branch:
 
 - **Installed: mine comments as the standard read, no asking.** Pull the comment
   thread for the videos most worth reading (Step 1's outliers, or the channel's
-  most-discussed uploads) via `yt-dlp`, and fold real comment quotes into the
-  evidence below alongside search and public discussion. This is now part of the
-  normal pass, not a deepener: an owner should not have to ask twice for the
-  strongest signal available.
+  most-discussed uploads) and fold real comment quotes into the evidence below
+  alongside search and public discussion. This is part of the normal pass, not a
+  deepener: an owner should not have to ask twice for the strongest signal
+  available. The runnable invocation, what it writes, and its bounds live in
+  [`drivers/yt-dlp/README.md`](../../drivers/yt-dlp/README.md) under the
+  comment-mining use; read it rather than working the flags out from scratch.
 - **Not installed: read from search and public discussion, then recommend the
   install.** Gather the demand signal from what is reachable without it: the
   `search` results for the niche's real questions, the "how do I..." and "why

@@ -20,8 +20,8 @@ const EMAILS = [
     dealColor: ACCENT,
   },
   {
-    sender: 'Sarah Hartley',
-    name: 'Sarah Hartley',
+    sender: 'Priya Raman',
+    name: 'Priya Raman',
     avatar: 'SH', avatarColor: PRIMARY,
     subject: 'Re: Compliance review proposal',
     preview: 'Looks great. CFO is on board pending board sign-off. Can we run through Q4 timeline?',
