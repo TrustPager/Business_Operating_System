@@ -124,7 +124,7 @@ class TestVendorSurfacesCarryTheOwnersBrand(unittest.TestCase):
     def test_owner_brand_surfaces_are_scanned(self):
         for rel in ["studio/thumbnails/src/templates/heroes/Hero.jsx",
                     "studio/social/src/templates/index.js",
-                    "studio/og/src/theme.js"]:
+                    "studio/social/src/data/samples.json"]:
             with self.subTest(rel=rel):
                 self.assertTrue(_mod._is_vendor_surface(rel))
 
@@ -132,9 +132,14 @@ class TestVendorSurfacesCarryTheOwnersBrand(unittest.TestCase):
         """Naming the connected platform where it IS the platform is legitimate."""
         for rel in ["drivers/trustpager/README.md", "tools/trustpager_api.py",
                     "skills/design-nurture-sequence/SKILL.md",
-                    "knowledge/connectors.md", "studio/og/scripts/publish.js"]:
+                    "knowledge/connectors.md", "studio/social/scripts/publish.js"]:
             with self.subTest(rel=rel):
                 self.assertFalse(_mod._is_vendor_surface(rel))
+
+    def test_the_gate_carries_no_exceptions(self):
+        """The two it briefly carved out were moved out of the pack instead."""
+        self.assertFalse(hasattr(_mod, "VENDOR_SURFACE_EXCEPTIONS"),
+                         "an exception list is how a brand-agnosticism rule rots")
 
     def test_a_vendor_brand_on_an_owner_surface_is_caught(self):
         found = _mod.scan_text("// TrustPager Thumbnail Studio tokens.",

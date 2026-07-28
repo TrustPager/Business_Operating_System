@@ -120,17 +120,14 @@ COINED_TERMS: list[tuple[str, re.Pattern[str], str]] = [
 VENDOR_SURFACE_PREFIXES = (
     "studio/thumbnails/src/",
     "studio/social/src/templates/",
-    "studio/og/src/theme.js",
+    "studio/social/src/data/",
     "studio/cta/src/templates/",
 )
 
-# Known exceptions, labelled rather than silent. These are maintainer marketing
-# content that still ships in the product; whether they move out or get genericised
-# is an open founder decision (raised 2026-07-27).
-VENDOR_SURFACE_EXCEPTIONS = (
-    "studio/og/src/templates/",
-    "studio/social/src/templates/finalpiece/",
-)
+# There are no exceptions, and that is the point. The two this gate briefly carved
+# out (an OG studio whose every hero depicted a vendor product feature, and a set of
+# maintainer post designs inside the social studio) were moved out of the pack on
+# 2026-07-28 rather than exempted, so the rule holds everywhere it applies.
 
 VENDOR_NAMES = [
     ("Vendor brand", re.compile(r"\bTrustPager\b")),
@@ -163,8 +160,6 @@ def _is_allowed(rel: str) -> bool:
 def _is_vendor_surface(rel: str) -> bool:
     """True if this path is a brand-agnostic surface an owner's own brand fills."""
     rel_posix = rel.replace("\\", "/")
-    if any(rel_posix.startswith(x) for x in VENDOR_SURFACE_EXCEPTIONS):
-        return False
     return any(rel_posix.startswith(p) for p in VENDOR_SURFACE_PREFIXES)
 
 

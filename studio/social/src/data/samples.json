@@ -1,20 +1,4 @@
 {
-  "platform": {
-    "template": "fp-platform",
-    "data": {}
-  },
-  "website": {
-    "template": "fp-website",
-    "data": {}
-  },
-  "crm": {
-    "template": "fp-crm",
-    "data": {}
-  },
-  "agents": {
-    "template": "fp-agents",
-    "data": {}
-  },
   "your-post-here": {
     "template": "social-square",
     "data": {

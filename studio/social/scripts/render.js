@@ -46,10 +46,6 @@ const TEMPLATE_SIZES = {
   'social-linkedin': { width: 1200, height: 627 },  // LinkedIn link/feed image
   'social-x':        { width: 1600, height: 900 },  // X (Twitter) 16:9
   // FinalPiece rich posts (all Instagram portrait)
-  'fp-platform': { width: 1080, height: 1350 },
-  'fp-website':  { width: 1080, height: 1350 },
-  'fp-crm':      { width: 1080, height: 1350 },
-  'fp-agents':   { width: 1080, height: 1350 },
 };
 
 async function renderDesign(browser, key, sample) {
