@@ -43,7 +43,17 @@ flow and stays lean.
 
 ## Step 1: Read the beats and confirm the video
 
-Voiceover attaches to a video that already exists. Read what is on hand:
+Voiceover attaches to a video that already exists. **`script-my-video` wrote
+`<slug>.script.json` into the owner's own workspace, not into `studio/motion`.**
+If `design-my-scenes` already ran for this video, it copied the script in as part
+of its own intake and it is already at `studio/motion/data/<slug>.script.json`.
+If it did not, copy it in yourself before reading:
+
+```bash
+cp "<path-to-slug.script.json>" studio/motion/data/<slug>.script.json
+```
+
+Then read what is on hand:
 
 - **`data/<slug>.script.json`** — the ground-truth spoken lines (`beats[].spoken`).
   This is the preferred source of the narration.
@@ -169,8 +179,11 @@ usual. The voiceover is just another layer the studio mixed in.
   from `brand.json`); the framing is the owner's choice
   ([`knowledge/content-rules.md`](../../knowledge/content-rules.md)).
 - **ElevenLabs primary, OpenAI secondary.** ElevenLabs' single-call timestamps sync
-  the captions for free; OpenAI is audio-only and captioned via the local whisper
-  path. State that tradeoff when the owner is on OpenAI.
+  the captions for free; OpenAI is audio-only, so the captions stay on the
+  script's on-screen labels instead of the voice. (The local whisper path is for
+  talking-head footage only — it transcribes the owner's ingested recording, and a
+  faceless render has no recording for it to transcribe.) State the tradeoff when
+  the owner is on OpenAI.
 
 ## Output shape
 

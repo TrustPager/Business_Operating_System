@@ -136,7 +136,15 @@ at minimum, these roles, in this order:
   is mid-roll, right after the biggest payoff has landed, where the ask is earned.
   A closing subscribe ask is the owner's call: `knowledge/youtube-script-method.md`
   owns the placement doctrine and the trade-off of asking more than once.
-- **`cta`**: the one clear call to action from Step 2.
+- **`cta`**: the one clear call to action from Step 2. **On a franchise video**
+  (this one belongs to a repeatable series), consider closing on the loop-out
+  device instead of a plain sign-off: end on this video's own metaphor left
+  visibly incomplete (an empty labelled socket, a checklist with the next line
+  unchecked), which pulls the viewer into the next episode harder than a spoken
+  "check out my next video"
+  (`knowledge/youtube-packaging-method.md`, franchise thinking). This is craft
+  advice, not a requirement: a standalone video has no next episode to loop into,
+  and the owner's own preference for how a video ends always wins.
 
 Each beat carries the fields in the schema below. The `role` is one of:
 `hook`, `promise`, `point`, `reset`, `proof`, `subscribe`, `cta`. A role may repeat

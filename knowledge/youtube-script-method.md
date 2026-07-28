@@ -44,9 +44,11 @@ two beats. This keeps each moment legible at a glance and keeps the render clean
 the on-screen text is a *callout*, not a transcript of the spoken line.
 
 **`on_screen` is not the same words as `spoken`.** The spoken line is
-conversational; the on-screen callout is the 2–5 word crystallisation the eye
-reads while the ear listens. Putting the full sentence on screen makes the viewer
-read instead of listen, and it renders as a wall of text.
+conversational; the on-screen callout is a short crystallisation the eye reads
+while the ear listens (the render contract, `design-my-scenes`' mandatory lint,
+fails anything over 4 words, so write tight from the start rather than trimming
+later). Putting the full sentence on screen makes the viewer read instead of
+listen, and it renders as a wall of text.
 
 - ✅ spoken: *"The first thing I do is ask what the job's actually for."* → on_screen: *"Ask what it's for"*
 - ❌ on_screen: *"The first thing I do is ask what the job is actually for"* (that's the spoken line again, unreadable at a glance)
@@ -271,8 +273,8 @@ to build works against the channel instead.
 ## Banned framings (script edition)
 
 - **A slow intro before the hook** — no runway. The hook is beat one, inside the window.
-- **On-screen text that copies the spoken line** — the callout is the 2–5 word
-  crystallisation, not a transcript.
+- **On-screen text that copies the spoken line** — the callout is a short
+  crystallisation (4 words max, `design-my-scenes`' lint), not a transcript.
 - **Fabricated evidence** — never invent a number, a quote, or a testimonial to
   fill a beat. Anchor real claims in the customer-voice synthesis, or soften to
   what's honestly true.
@@ -288,7 +290,7 @@ to build works against the channel instead.
 |---|---|
 | Hook lands after a 20-second intro | Move the hook to beat one, inside `hook_window_s` |
 | A beat carries two ideas | Split it — one spoken line, one on-screen callout per beat |
-| On-screen text is the full spoken sentence | Crystallise to 2–5 words; let the ear listen and the eye glance |
+| On-screen text is the full spoken sentence | Crystallise to 4 words or fewer; let the ear listen and the eye glance |
 | The video sags in the middle | Add a `reset` beat at the seam — open a loop, change the visual, signpost progress |
 | Every good part saved for the end | Front-load a real win in the first third |
 | Length wildly off the promise | Re-estimate from the wpm default; script to the promised length, then stop |

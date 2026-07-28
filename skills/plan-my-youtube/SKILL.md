@@ -76,7 +76,8 @@ owner's voice and grounded in their business and their research:
   owner has not given you.
 - **If present, `youtube-research.md`** (from `research-my-channel`): this is the
   primary input when it exists. It carries the competitor content scan, the
-  comment-mined ideas with their verbatim evidence, and the novel-packaging
+  demand-signal ideas with their verbatim evidence (comment-mined when `yt-dlp`
+  was on the machine, search-and-discussion-mined otherwise), and the novel-packaging
   gap-and-angle map, plus a ranked cross-channel outlier board when the owner took
   that deepener (its branch labels are provisional working themes, so the pillars
   Step 4 sets are what a row is actually filtered against in Step 5). The video
@@ -266,7 +267,8 @@ videos; dated rows stay inside `plan-my-content`'s 1-2 week ceiling and get re-r
 row has to pass).
 
 Draw the ideas straight from `youtube-research.md` where it exists: the
-comment-mined questions, the "nobody explains X" gaps, and the untaken angles are
+demand-signal questions (comments where `yt-dlp` reached them, search and public
+discussion otherwise), the "nobody explains X" gaps, and the untaken angles are
 your best pipeline rows because they trace back to real audience demand.
 
 ## Step 6: Package every video (the four fields)

@@ -61,7 +61,7 @@ This is the load-bearing seam that makes the studio data-driven.
   plan), writes the resolved plan to a temp file, and hands that to
   `remotion render --props=<file>` so the plan arrives inline. Every other flag
   (`--gl`, `--scale`, `--concurrency`) is forwarded untouched.
-- **The four `Faceless*` comps are fixed style samples** (static plan imports),
+- **The three `Faceless*` comps are fixed style samples** (static plan imports),
   kept so the owner can compare styles from pre-rendered cuts. They do not take
   props. Do not route owner renders through them; route through `Video`.
 - After a successful render, `render.js` writes `<slug>.timing.json` beside the
@@ -125,8 +125,11 @@ guided rung is the `voice-my-video` skill. The load-bearing rules:
   `public/audio/<slug>/beat<N>.mp3`, and writes `data/<slug>.voice.json` (per-beat
   file + start + duration + word/char timings). Primary provider: **ElevenLabs**
   (`ELEVENLABS_API_KEY`, `/with-timestamps` — char-level alignment, captions
-  self-sync). Secondary: **OpenAI** (`OPENAI_API_KEY`, audio only; caption timing
-  via the local whisper path in `caption.js`).
+  self-sync). Secondary: **OpenAI** (`OPENAI_API_KEY`, audio only, no timing
+  metadata — captions stay on the script's on-screen labels). `caption.js`'s local
+  whisper path is a separate thing entirely: it transcribes an owner's INGESTED
+  RECORDING for talking-head mode, and never runs on generated per-beat audio, so
+  it is not a captioning fallback for the faceless/OpenAI path.
 - **No key => graceful degrade, exit 0.** With no provider key set, voice.js prints
   a plain note that the video stays silent + captions and exits cleanly. A missing
   key is never a failure. Keys are read from the environment, never handled in files
