@@ -48,7 +48,10 @@ Before writing anything, read what is already on the machine:
   This is the ideal input: it already carries the beats, each with an `id`, a
   `role` (`hook`/`promise`/`point`/`proof`/`reset`/`subscribe`/`cta`), the `spoken` line, the
   `on_screen` text, and a planned `duration_s`. When it exists, you are translating
-  beats to visuals, not inventing a video.
+  beats to visuals, not inventing a video. **It was written into the owner's own
+  workspace, not into this studio.** Copy it into `studio/motion/data/<slug>.script.json`
+  before reading it (`voice-my-video`, run later on the same video, expects it
+  there too, so this copy serves both).
 - **`studio/motion/data/*.scenes.json`** — the committed samples, as worked
   examples of the shape and the device props.
 
@@ -94,6 +97,13 @@ Map by the beat's job, not its wording: a `hook` beat is usually a
 a `point` that lists how-it-works is a `process_flow`; a `proof` or `cta` that
 lands a number is a `big_stat`. Aim for variety across the video — do not make
 every beat a typographic statement.
+
+**A franchise `cta` written as a loop-out** (the video's own metaphor left
+visibly incomplete, per `script-my-video`'s cta guidance) has no dedicated device
+yet. The closest honest fit today is `process_flow`, with the final step named as
+the next episode's subject and left visually unchecked or greyed, which is an
+approximation, not a purpose-built loop-out visual. Say so if you use it this
+way, so it is not mistaken for a shipped device.
 
 **Translate the meaning into the device's props, never a subtitle.** The `spoken`
 line drives the later voiceover; it does NOT go on screen. The on-screen label is

@@ -302,9 +302,17 @@ The checks you can run yourself, from the pack on disk:
 The two checks the owner runs, which you ask for rather than assert:
 
 8. **The video ends on its rendered ending.** Ask the owner to watch the last few
-   seconds and confirm the video ends where it was meant to, on the closing frame
-   and the loop into the next video, not mid-beat or on a cut-off word. A truncated
-   render is invisible in the file listing and obvious in the last two seconds.
+   seconds and confirm the video ends where it was meant to, on the closing frame,
+   not mid-beat or on a cut-off word. A truncated render is invisible in the file
+   listing and obvious in the last two seconds. This one holds the pack: a
+   truncated video is broken, not a style choice.
+
+   **Advisory only, never a hold:** if the video belongs to a franchise, mention
+   the loop-out option in passing (`knowledge/youtube-packaging-method.md`,
+   franchise thinking) — closing on the video's own metaphor left visibly
+   incomplete pulls harder into the next episode than a plain sign-off. Note it
+   and move on; how the owner wants to end their video is their call, and a
+   preference against it is not something to push back on.
 9. **The audio is at a shipping level.** A raw render is usually well under the
    loudness a viewer expects, and a video that plays quiet reads as amateur before a
    word lands. If the render pipeline has a mastering pass, confirm it ran; the

@@ -81,11 +81,26 @@ be straight about the trade, because it is a real one:
   product-demo add-on, or the scene library. Those are `studio/motion` only, so
   choosing this path means a plainer video.
 
+**`script-my-video` wrote `<slug>.script.json` into the owner's own workspace, not
+into this studio.** `studio/video` reads its scripts from its own `data/` folder,
+so bridge the two before rendering, either way works:
+
 ```bash
 cd studio/video
-npm install          # first run only
-npm run shoot <slug> # reads the script, writes the MP4 + GIF + timing sidecar
+npm install                                       # first run only
+cp "<path-to-slug.script.json>" data/<slug>.script.json
+npm run shoot <slug>                              # writes the MP4 + GIF + timing sidecar
 ```
+
+Or skip the copy and point the render straight at the file:
+
+```bash
+cd studio/video
+npm run render -- --script "<path-to-slug.script.json>"
+```
+
+The second form still writes the MP4, GIF, and timing sidecar; it only skips
+`shoot`'s auto-open of the result.
 
 Then hand off to `package-my-video` as normal: it accepts either studio's output
 and names which one it found. Do not present this as the default or nudge an owner

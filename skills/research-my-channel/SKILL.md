@@ -22,9 +22,13 @@ straight at videos worth making: what the top channels in the space cover, what
 viewers keep asking for across search and public discussion, and the angles nobody
 is taking yet. Every idea is backed by a real demand signal you actually saw, not
 a guess. It reads like a sharp operator studied the niche for an afternoon, not
-like a scrape dump. Nothing here needs an account. (Want real viewer comments in
-their own words? The keyless web read cannot reach YouTube comment threads, so the
-skill offers the free local `yt-dlp` deepener for that, no account either.)
+like a scrape dump. Nothing here needs an account. (Real viewer comments, in their
+own words, come from `yt-dlp`, a free local tool, not the web read: the web read
+cannot reach a comment thread at all, it loads through a separate client-side call
+the scrape never triggers. `yt-dlp` is keyless too, so when it is already on the
+machine, comment-mining runs as part of Step 2 with no extra asking; when it is
+not, this skill still delivers a complete read and recommends the one-time install
+as the next best move.)
 
 This is the first step of the YouTube factory floor. Its output,
 `youtube-research.md`, feeds `plan-my-youtube` (which turns it into a channel
@@ -102,12 +106,27 @@ show. The tool-scored wide version is the optional deepener in Step 4b.
 
 ## Step 2: Viewer demand signals (every idea carries real evidence)
 
-Mine for what the audience keeps asking for. The keyless web read does not reach
-YouTube comment threads (they load through a separate client-side call the scrape
-never triggers), so gather the demand signal from the public sources it **does**
-reach: the `search` results for the niche's real questions, the "how do I..." and
-"why won't my..." phrasings people type, forum and Q&A threads, and the adjacent
-public discussion where viewers ask the same thing again and again. Look for:
+Mine for what the audience keeps asking for. Real comments, in viewers' own words,
+are the richest version of this signal, and `yt-dlp` reaches them keylessly where
+the web read cannot. **Check once, silently** (`yt-dlp --version`), and branch:
+
+- **Installed: mine comments as the standard read, no asking.** Pull the comment
+  thread for the videos most worth reading (Step 1's outliers, or the channel's
+  most-discussed uploads) via `yt-dlp`, and fold real comment quotes into the
+  evidence below alongside search and public discussion. This is now part of the
+  normal pass, not a deepener: an owner should not have to ask twice for the
+  strongest signal available.
+- **Not installed: read from search and public discussion, then recommend the
+  install.** Gather the demand signal from what is reachable without it: the
+  `search` results for the niche's real questions, the "how do I..." and "why
+  won't my..." phrasings people type, forum and Q&A threads, and the adjacent
+  public discussion where viewers ask the same thing again and again. Deliver a
+  complete read from these first, then recommend the free one-time install as the
+  next best move, framed as adding a tool rather than working around a limitation:
+  *"Real comments would sharpen this further. Want me to install `yt-dlp` (free,
+  keyless, no account) so the next read can quote what viewers actually said?"*
+
+Either way, look for:
 
 - **Questions they keep asking** — the same question surfacing across search
   results and threads is a video waiting to be made.
@@ -140,14 +159,6 @@ a short list (the cluster, its strongest observed phrasings). `plan-my-youtube` 
 those clusters so every how-to and evergreen title it writes leads with words that
 have real search demand behind them.
 
-**For real viewer comments in their own words, offer the deepener.** Comments are
-the richest demand signal, and the keyless web read cannot reach them. When the
-owner wants that depth, offer the free local `yt-dlp` tool (Step 4a): "YouTube
-hides comment threads from the keyless web read, so to mine real viewer comments
-in their own words I can use the free local yt-dlp tool, no account needed. Want
-me to?" Keep it offered, never forced: this section stands on its own from search
-and public discussion.
-
 ## Step 3: Novel-packaging gap-and-angle map
 
 Now step back and read the niche for packaging, per
@@ -172,38 +183,40 @@ title/thumbnail/franchise concept. **Ground every observation in a real outlier 
 a real pattern you saw in Steps 1 and 2**, never an invented one. The map earns
 its confidence from the evidence above it.
 
-## Step 4: Offer the deeper read (optional, never required)
+## Step 4: The remaining deepeners (optional, never required)
 
-The three sections above are built on the surface facts the keyless web read
-actually reaches on YouTube: channel and video titles, descriptions, tags, view
-counts, and posting cadence, plus the demand signals you can gather from search
-results and adjacent public discussion. That is a real packaging signal and a
-complete first pass on its own. What the keyless read does **not** reach is a
-video's comment thread: YouTube loads comments through a separate client-side call
-the keyless page-scrape never triggers, so real viewer comments are not in the
-first-pass read.
+The three sections above are a complete first pass on their own: the surface
+facts the web read reaches (titles, descriptions, tags, view counts, cadence),
+the demand signals from search and public discussion, and comments too when
+`yt-dlp` was already on the machine at Step 2. What is left is genuinely optional
+depth, not a gap in the first pass: a video's full transcript, a retroactive
+comment-mine if `yt-dlp` was not installed earlier, and the cross-channel outlier
+board.
 
-That is exactly where the optional deepener earns its keep. The free local `yt-dlp`
-tool ([`drivers/yt-dlp/`](../../drivers/yt-dlp/README.md)) has two uses here, 4a and
-4b below. It is a command-line tool with no account and no key. Ask about the
-install once per run and reuse the same session after that. Offer each use
-separately: 4a and 4b are different amounts of work.
+The free local `yt-dlp` tool ([`drivers/yt-dlp/`](../../drivers/yt-dlp/README.md))
+covers all three, 4a and 4b below. It is a command-line tool with no account and
+no key. Ask about the install once per run and reuse the same session after that.
+Offer each use separately: 4a and 4b are different amounts of work.
 
-### 4a. Comments and transcripts (per video)
+### 4a. Full transcripts, and comments if you skipped them at Step 2
 
-When the owner wants real viewer comments in their own words, or a video's full
-transcript, offer it as a plain choice, never a prerequisite:
+A video's full transcript is worth pulling for a close read of how a topic is
+taught beat by beat, and is never part of the standard pass regardless of
+`yt-dlp`'s presence (it is a heavier fetch than Step 2 needs). If `yt-dlp` was not
+installed when Step 2 ran, this is also the retroactive way to add real comment
+quotes to the read already delivered. Offer either as a plain choice, never a
+prerequisite:
 
-> YouTube hides comment threads from the keyless web read, so to mine real viewer
-> comments in their own words I can use a free local tool called yt-dlp. No
-> account needed, it just runs on your machine. It also pulls a video's full
-> transcript for a close look at how a topic is taught. Want me to?
+> I can pull a video's full transcript with a free local tool called `yt-dlp`, no
+> account needed, for a close look at how a topic is taught. [If comments were not
+> already mined: It also reaches YouTube comment threads, which the page read
+> cannot, so I can go back and add real viewer quotes to what I already gave you.]
+> Want me to?
 
 If the owner says yes, install and run the `yt-dlp` binary locally via Bash (it is
-keyless, no account) and fold the real comment and transcript findings back into
-the relevant section, always with verbatim evidence. Default to the web read for
-the first pass; `yt-dlp` is the "go deeper?" option that unlocks true comment
-mining, never the gate to a first result.
+keyless, no account) and fold the transcript and any comment findings back into
+the relevant section, always with verbatim evidence. This never blocks or redoes
+the first result; it only adds to it.
 
 ### 4b. The cross-channel outlier board (per channel)
 
@@ -373,10 +386,11 @@ outlier board.
   result this run, it does not go in the file. No invented quotes, no invented
   numbers, no made-up outliers. "No clear demand signal found for this" is a real
   finding.
-- ❌ **The keyless read does not reach YouTube comment threads.** Never present
-  invented viewer comments. Real comment mining in a viewer's own words needs the
-  optional `yt-dlp` deepener (Step 4a); until the owner opts in, source demand from
-  search and public discussion instead.
+- ❌ **The web-scrape read does not reach YouTube comment threads; `yt-dlp` does,
+  and it is keyless too.** Never present invented viewer comments. Mine real
+  comments via `yt-dlp` when it is already on the machine (Step 2, standard, no
+  asking); when it is not, source demand from search and public discussion and
+  recommend the install rather than treating comments as unreachable.
 - ❌ **The packaging map cites real observed outliers**, never invented ones. Its
   confidence comes from the evidence in Steps 1 and 2.
 - ✅ **Content guardrails.** Customer-facing copy uses no em dashes, invents no
@@ -385,11 +399,13 @@ outlier board.
   choice. The rules are in `knowledge/content-rules.md`.
   The owner's voice lives in `marketing-strategy/<BrandName>/voice.md` when it
   exists; say so plainly if it does not.
-- ✅ **`yt-dlp` is optional, and it has two uses.** Offer each as a choice, never a
-  prerequisite; the web read always produces a complete first result. It is the one
-  path to real viewer comments in their own words (Step 4a) and the only way to
-  score the cross-channel outlier board (Step 4b). Ask about the install once per
-  run; offer each use separately, since they are different amounts of work.
+- ✅ **`yt-dlp` mines comments as standard when present, and stays optional for the
+  rest.** Check for it once at Step 2 and mine comments straight into the read with
+  no asking when it is there; when it is not, the web read still produces a
+  complete first result and the install is recommended, never forced. Full
+  transcripts (4a) and the cross-channel outlier board (4b) stay offered choices
+  either way. Ask about a fresh install once per run; offer 4a and 4b separately,
+  since they are different amounts of work.
 - ✅ **Bound it.** Step 0's cap on the page read; on the optional board, ten
   channels in and its top ten to fifteen rows out. Finishable in one sitting.
 - ✅ If a fetch fails, say so and offer to read pasted content instead.

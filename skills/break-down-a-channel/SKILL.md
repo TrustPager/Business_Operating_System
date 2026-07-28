@@ -42,8 +42,8 @@ Work the gates in order.
 
 ## Step 0: Get the one channel
 
-You study **one** channel per run. Get a handle or URL (`@kallawaymarketing`,
-`https://www.youtube.com/@kallawaymarketing`). If the owner names several, do the
+You study **one** channel per run. Get a handle or URL (`@<handle>`,
+`https://www.youtube.com/@<handle>/videos`). If the owner names several, do the
 most relevant one and say the others are separate runs. Confirm which channel back
 to them before pulling anything.
 

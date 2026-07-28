@@ -8,7 +8,13 @@ wants one, and so `tools/check-connectors.py` can validate the kind from day one
 `yt-dlp` is a keyless local command-line tool. There is no account, no API key,
 no OAuth, and no hosted server. The owner (or the assistant, via Bash) invokes the
 `yt-dlp` binary directly on their own machine to pull a video's full transcript
-or its comment thread, which the keyless web read does not reach.
+or its comment thread. **Both are keyless; only the mechanism differs from the
+web read.** `yt-dlp` reaches YouTube's own data feed, where the web-scrape read
+sees only the rendered page, and the page never carries a comment thread at all.
+So "the keyless read cannot reach comments" is imprecise: the *web-scrape* read
+cannot, and `yt-dlp` is the keyless tool that can. `research-my-channel` treats it
+that way, mining comments as a standard part of the read whenever `yt-dlp` is
+already on the machine, not as a capability the owner has to unlock.
 
 ## Why it is `kind: local` (and what that means for its files)
 
@@ -36,8 +42,9 @@ skill body names**, not a hard dependency, which keeps the skill keyless-clean.
 ## The honest boundary — where Firecrawl already suffices (Decision 5)
 
 `research-my-channel` is **Firecrawl-powered by default**, and for most of what
-channel research needs, Firecrawl alone is enough. Default to Firecrawl; reach for
-`yt-dlp` only when the owner asks to go deeper.
+channel research needs, Firecrawl alone is enough. Default to Firecrawl for the
+surface read; `yt-dlp` covers what Firecrawl cannot reach at all, and how it is
+offered differs by what it is covering (see below).
 
 **Firecrawl (the default) covers the surface facts that carry the packaging
 signal:**
@@ -49,28 +56,34 @@ signal:**
 Those surface facts are what the packaging read is built on: what the top channels
 cover, how they title and thumbnail it, and how often they post, plus the demand
 signals `research-my-channel` gathers from search results and public discussion.
-That is the whole first pass. The keyless web read does not reach a video's comment
-threads (they load through a separate client-side call), so real viewer comments
-are the deepener's job below, never invented from the page.
+That is a complete first pass on its own, even before comments are mined.
 
-**`yt-dlp` (the optional deepener) is worth its local install only for the deep
-read Firecrawl's page-scrape cannot reach:**
+**`yt-dlp` reaches three things Firecrawl's page-scrape cannot, and they are not
+all treated the same way:**
 
+- A video's **comment thread**. The web-scrape read cannot reach it at all (it
+  loads through a separate client-side call the page-scrape never triggers), but
+  `yt-dlp` is a keyless local tool, so this is not a capability gap, only a
+  mechanism choice. `research-my-channel` checks once whether `yt-dlp` is already
+  installed and, if it is, mines comments as a standard part of the read, no
+  asking. Only when it is not installed does it fall back to search and public
+  discussion and recommend the install.
 - A video's **full transcript**, for close analysis of how a topic is actually
-  taught beat by beat.
-- A video's **comment thread**, for real viewer-comment mining. The keyless web
-  read reaches no comments at all, so this is the only keyless way to quote what
-  viewers actually said, in their own words.
+  taught beat by beat. This stays an offered deepener regardless of whether
+  `yt-dlp` is installed: it is a heavier fetch than the standard read needs, not
+  something the first pass is missing.
+- The **cross-channel outlier board**, the tool-scored wide version of Step 1's
+  by-eye outlier read across several channels. Also an offered deepener.
 
 ## How the skill offers it
 
-`research-my-channel` runs its full three-part read on Firecrawl first and hands
-the owner real results with zero setup. Only then does it offer `yt-dlp` as a
-plain "want me to go deeper?" choice: if the owner wants full transcripts or an
-exhaustive comment sweep, the assistant installs the `yt-dlp` binary and runs it
-locally. It is never a prerequisite and never blocks the first read. The owner
-gets a complete research artifact on the keyless default, and the deepener is
-there when the extra depth earns its keep.
+`research-my-channel` runs its full three-part read on Firecrawl first, and the
+comment half of that read on `yt-dlp` too whenever it is already present, with no
+extra asking either way: the owner gets a complete, real-evidence artifact with
+zero setup required. Only the full transcript and the cross-channel outlier board
+are offered as a plain "want me to go deeper?" choice, and only a missing `yt-dlp`
+install is ever recommended rather than assumed. Nothing here blocks or gates the
+first result.
 
 ## The channel-history use (for `break-down-a-channel` and `what-worked`)
 

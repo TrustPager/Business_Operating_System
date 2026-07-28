@@ -251,10 +251,13 @@ This is the handoff from packaging to script. The craft of that opening lives in
 beat). Packaging's part is to make a promise specific enough that the intro *can*
 confirm it. A title that promises something vague gives the intro nothing to pay off.
 
-**CTR reality.** YouTube is largely a packaging game: even best-in-class click-through
-rates sit around 10-12%, so most people who see a title and thumbnail don't click.
-That's why packaging is decided first and iterated on. A modest CTR isn't failure;
-it's the surface where small, compounding lifts come from.
+**CTR reality.** YouTube is largely a packaging game: even a genuinely strong
+title and thumbnail get passed over far more often than clicked, because they are
+competing against a wall of other choices in a fraction of a second. That's why
+packaging is decided first and iterated on. A modest click-through rate isn't
+failure; it's the surface where small, compounding lifts come from. If the owner
+wants a real number to benchmark against, read it from their own connected
+YouTube analytics rather than quoting an industry figure here.
 
 ## Franchise thinking — a repeatable format beats a lucky hit
 
