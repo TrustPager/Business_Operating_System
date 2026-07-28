@@ -20,11 +20,11 @@ When in doubt, the inline rules win. This file is the executive summary.
 
 ## Title vs headline — don't confuse them
 
-The **title** appears on the YouTube channel: *"How to Build & Send Forms
-in TrustPager"*. Job = search.
+The **title** appears on the YouTube channel: *"How to Quote a Paint Job
+in Under a Minute"*. Job = search.
 
 The **headline** is the big left-side text ON the thumbnail itself:
-*"Forms That Auto-Fill Your CRM"*. Job = punch.
+*"Quote It In Sixty Seconds"*. Job = punch.
 
 They serve different jobs and have different rules.
 
@@ -36,8 +36,8 @@ All titles are 4-7 words, present-tense active verb, lead with the
 outcome the viewer gets — NOT what the AI does.
 
 **Pattern A — "How to <verb> <noun>"**
-- ✅ How to Build & Send Forms in TrustPager
-- ✅ How to Manage Tasks in TrustPager
+- ✅ How to Quote a Paint Job on the Spot
+- ✅ How to Chase an Unpaid Invoice
 
 **Pattern B — "<verb> <noun> with AI"**
 - ✅ Auto-Fill Opportunity Fields with AI
@@ -45,15 +45,17 @@ outcome the viewer gets — NOT what the AI does.
 
 **Pattern C — "<outcome statement>"**
 - ✅ See Exactly Where to Improve Your Business
-- ✅ Use AI to Build Your TrustPager Automations
+- ✅ Never Lose a Saturday to Paperwork Again
 
-**Pattern D — "<verb> Your <noun>"** (for foundational features)
-- ✅ Run Your Whole Business in TrustPager
-- ✅ Sync Google Calendar with TrustPager CRM
+**Pattern D — "<verb> Your <noun>"** (for foundational topics)
+- ✅ Price Your Work Without Guessing
+- ✅ Run Your Whole Week From One List
 
-All four MUST include "TrustPager" verbatim (it's both the brand and a
-search keyword) — except short titles where the channel name already
-carries it.
+Where the owner's own brand or product name is itself a search term people
+type, work it into the title verbatim; where it is not (most service
+businesses), lead with the words a viewer would actually search instead. The
+findability check in `youtube-packaging-method.md` is how you tell the
+difference rather than guessing.
 
 ---
 
@@ -102,9 +104,10 @@ These all came from real corrections. Don't re-walk them.
 - **Vague accusations** — "Know What Your AI Did Today" sounds like
   you're auditing it. Use "Watch Your AI Team Work Live" or "Your AI
   Asks Before It Acts".
-- **Third-party vendor names** — "ChatGPT", "Anthropic", "Recall",
-  "Twilio". TrustPager-branded language only on customer-facing
-  surfaces; vendor names allowed in internal code only.
+- **Third-party vendor names** — the tools behind the work ("ChatGPT",
+  "Anthropic", a CRM, a phone provider) do not belong on the owner's
+  thumbnail. The owner's own brand is the only brand on a customer-facing
+  surface; vendor names stay in internal code and notes.
 - **"AI replaces your sales team"** — the audience recoils. Use "AI
   does the secretary work, you keep the relationship."
 
@@ -155,7 +158,7 @@ sub-10% CTR as failure; read it as the surface to keep improving.
 | Accent word doesn't appear in the title | Mirror it verbatim. "Auto-Fill" headline + "Auto-Fill" in the title |
 | Title is 8+ words | Cut. 4-7 is the band |
 | Hero is centred (not bleeding off edge) | Push it down + right until it kisses the bottom edge |
-| No "TrustPager" in the title | Add it (or shorter form "TrustPager CRM"). Search depends on it |
+| A searched-for term is missing from the title | Lead with the words viewers actually type (the findability check in `youtube-packaging-method.md`) |
 | AI mentioned as the subject ("AI does X") | Reframe — viewer is subject, AI is the engine |
 | Verb-noun where the noun already does the verb ("Build Forms That ...") | Drop the verb — "Forms That ..." |
 | Surveillance / paranoia framing | Reframe as empowerment / observation |

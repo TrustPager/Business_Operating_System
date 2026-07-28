@@ -15,7 +15,7 @@
 // `--concurrency`, ...) is forwarded untouched.
 //
 // After a successful render it writes `<slug>.timing.json` beside the MP4 (the
-// same shape studio/video emits, spec §3), so `package-my-video` gets chapters.
+// the shape spec §3 defines), so `package-my-video` gets chapters.
 //
 // Keyless, local, no network. Windows-safe: spawns node on the CLI's own JS entry
 // (no shell, no npx, no PATH assumptions), args passed as an array so paths with
@@ -264,7 +264,7 @@ if (plan) {
 }
 
 // --- <slug>.timing.json (written on success) ---------------------------------
-// Same shape as studio/video (spec §3): { slug, fps, beats:[{id,start_s,end_s}] }.
+// The spec §3 shape: { slug, fps, beats:[{id,start_s,end_s}] }.
 // Keyed by each scene's script beat (beat_ref, falling back to the scene id) so
 // package-my-video maps chapters to the script. Times are on the SAME compressed
 // timeline the render uses: TransitionSeries overlaps each cut by transitionFrames,
@@ -275,8 +275,8 @@ function writeTiming() {
   const fps = typeof plan.fps === "number" ? plan.fps : 30;
 
   // Overlay (talking-head): the timeline is the recording's real length. Emit a
-  // single beat spanning the clip (the same {slug, fps, beats[]} shape as faceless
-  // + studio/video), so package-my-video still gets a valid sidecar.
+  // single beat spanning the clip (the same {slug, fps, beats[]} shape as faceless),
+  // so package-my-video still gets a valid sidecar.
   if (isOverlay) {
     const durationInFrames =
       typeof plan.durationInFrames === "number" && plan.durationInFrames > 0

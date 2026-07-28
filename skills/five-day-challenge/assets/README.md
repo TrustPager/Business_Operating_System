@@ -10,18 +10,14 @@ tracker, then was simplified to one static picture per founder direction).
 
 ## Source of truth (the premium render)
 
-The shipped `capability-tree.png` is the **premium teal render**, matching AI
-BOS's real visual bar and identical to the image the Day 2 lesson embeds. The
-**source of truth is `AI-BOS/skool-assets/AI-BOS-capability-tree.png`**, built by
-the skool-studio pipeline (`THUMBNAIL-RECIPE.md` + `DESIGN-LOG.md` in that
-project, which leans on real photography and image generation for its hero
-elements). The copy here is kept byte-identical to that source so an owner
+The shipped `capability-tree.png` is the **finished premium render**, identical
+to the image the Day 2 lesson embeds. It is produced upstream by the
+maintainer's own image studio (which leans on real photography and image
+generation for its hero elements) and copied in byte-identical, so an owner
 running Day 2 sees the premium picture, not a wireframe.
 
-**To update:** when the source render changes, re-copy it here
-(`cp AI-BOS/skool-assets/AI-BOS-capability-tree.png skills/five-day-challenge/assets/capability-tree.png`).
-Do not hand-edit or regenerate this copy in-repo; the skool-studio pipeline owns
-the art.
+**To update:** re-copy the finished render over this file when it changes. Do
+not hand-edit or regenerate this copy in-repo; the upstream studio owns the art.
 
 ## `build_tree.py` is SUPERSEDED — do not run it
 

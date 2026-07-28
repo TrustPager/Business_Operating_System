@@ -1,7 +1,7 @@
 // ffmpeg.js — the shared ffmpeg resolver + probe for the motion studio.
 //
 // This is the SAME three-arm resolution the video studio uses
-// (studio/video/scripts/render.js): the bundled `ffmpeg-static` binary is
+// (the retired studio/video render script): the bundled `ffmpeg-static` binary is
 // preferred (keyless, self-contained), a system `ffmpeg` on PATH is the
 // fallback, and if NEITHER is available the caller gets `{bin:null}` and prints a
 // positive install pointer — never a hard-fail. Both ingest.js (normalise a

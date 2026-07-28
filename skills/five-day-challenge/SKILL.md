@@ -316,8 +316,8 @@ itself:** a first routine, then the forward roadmap.
   social & video studio, automations, and so on), and where it's all headed.
   This is the same static image every time, not something that changes per
   member or per day, show it exactly as designed, never describe or regenerate
-  it. See `assets/README.md` if the image ever needs to change (it is the premium
-  render, source of truth in `AI-BOS/skool-assets`, not hand-edited here).
+  it. See `assets/README.md` if the image ever needs to change (it is a finished
+  render maintained upstream, not hand-edited here).
 - **Recommend from the goal, then hand them the choice.** Don't jump straight
   from the recommendation to a cold "where do you want to start." Reason it out
   loud from what you now know: *"Given you're aiming at [their goal], I'd

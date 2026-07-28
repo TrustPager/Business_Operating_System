@@ -10,8 +10,9 @@ import {
   SocialLinkedIn,
   SocialX,
 } from './SocialPost.jsx';
-// FinalPiece rich posts — bespoke illustrated 1080×1350 designs with their own
-// visual language (see finalpiece/shell.jsx). NOT brand.json-driven.
+// Rich posts — bespoke illustrated 1080×1350 designs with their own visual
+// language (see the shell in that folder). NOT brand.json-driven, so they are
+// reference designs rather than templates an owner's brand flows through.
 import { PlatformPost } from './finalpiece/PlatformPost.jsx';
 import { WebsitePost } from './finalpiece/WebsitePost.jsx';
 import { CrmPost } from './finalpiece/CrmPost.jsx';

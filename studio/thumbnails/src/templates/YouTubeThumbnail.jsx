@@ -3,13 +3,11 @@
 // Canonical template. Edit ../data/samples.json to add new thumbnails;
 // edit SYS below to tune the design system.
 //
-// FRAMING NOTE (supersedes the earlier TrustPager-tutorial framing): this
-// template was originally written for the TrustPager tutorial channel. It is
-// now genericised to the owner's brand and any kind of video, per the YouTube
-// Studio design doc Decision 9. Brand colours and the wordmark flow through
-// ../brand.js (which reads the root brand/brand.json), so every render is on
-// the owner's palette. The distilled craft below (headline rules, squint test,
-// hero master rule) is kept wholesale; only brand-specific framing flips.
+// BRAND NOTE: this template renders on the OWNER's brand, for any kind of
+// video. Brand colours and the wordmark flow through ../brand.js (which reads
+// the root brand/brand.json), so every render is on the owner's palette. The
+// distilled craft below (headline rules, squint test, hero master rule) is
+// brand-independent and applies whatever the owner's brand is.
 // ============================================================================
 //
 // LAYOUT GRID (canvas is 1280 x 720, all measurements in CSS pixels)
