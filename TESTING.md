@@ -64,7 +64,7 @@ positive. **Run it before every push**; CI runs it first.
 Where the secret scanner catches credentials, the sweep catches *people and
 places*: real customer business names, real personal names, internal persona
 and team names, internal UUIDs and hostnames, personal contact details, and
-local dev paths (`C:\Users\<name>\`, `[local-path]/`). This repo is
+local dev paths (`C:\Users\<name>\` and client-folder paths). This repo is
 public, so a client's name left in a docstring or a sample record is a
 disclosure, not a typo.
 

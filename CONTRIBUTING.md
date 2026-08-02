@@ -183,7 +183,7 @@ The BOS business doctrine (`knowledge/business-method.md`) carries a hard rule: 
 python _scripts/sweep.py --fail-only
 ```
 
-This repo is public. The sweep scans every tracked file for identities and paths that must never ship: real customer business names and personal names, internal persona and team names, internal UUIDs and infrastructure hostnames, personal contact details, and local dev paths (`C:\Users\<name>\`, `[local-path]/`). It is the gate that catches a real client's name left in a docstring, a README example, or sample data.
+This repo is public. The sweep scans every tracked file for identities and paths that must never ship: real customer business names and personal names, internal persona and team names, internal UUIDs and infrastructure hostnames, personal contact details, and local dev paths (`C:\Users\<name>\` and client-folder paths). It is the gate that catches a real client's name left in a docstring, a README example, or sample data.
 
 `--fail-only` is what CI runs and what you must pass. The plain `python _scripts/sweep.py` also prints the WARN tier, which flags every internal first name in the architecture docs. WARN is a review aid, not a gate, on purpose: gating on it would make the whole check noise people learn to skip. Read it by hand before a release.
 
