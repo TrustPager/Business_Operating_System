@@ -8,7 +8,7 @@
 
 **Tech Stack:** Remotion + `@remotion/media` + `@remotion/transitions/shapes/paths/noise/motion-blur`, `lucide-react` (icons), Vite/Remotion Studio, TypeScript. `--gl=swangle` default. Node on Windows.
 
-**Source paths:** RVS = `C:/Users/USER/Desktop/Final Piece Docs/Remotion-VideoStudio`. BOS = `C:/Users/USER/Desktop/Final Piece Docs/Business_Operating_System`.
+**Source paths:** RVS = `../Remotion-VideoStudio` (sibling repo). BOS = this repo root.
 
 **Spec:** [2026-07-09-content-creation-studio-design.md](2026-07-09-content-creation-studio-design.md) (§3 architecture, §4 manifest, §8 operating manual). Ruling: founder-decisions.md **D14**.
 

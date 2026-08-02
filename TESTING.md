@@ -58,20 +58,53 @@ tokens (TrustPager / Anthropic / AWS / private-key blocks) and a stray
 `tp_live_` prefix that legitimately appears in docs — so prose is never a false
 positive. **Run it before every push**; CI runs it first.
 
-Wire it as a pre-commit hook:
+## The private-data sweep
+
+`python _scripts/sweep.py --fail-only` is the identity half of the same job.
+Where the secret scanner catches credentials, the sweep catches *people and
+places*: real customer business names, real personal names, internal persona
+and team names, internal UUIDs and hostnames, personal contact details, and
+local dev paths (`C:\Users\<name>\`, `[local-path]/`). This repo is
+public, so a client's name left in a docstring or a sample record is a
+disclosure, not a typo.
+
+Default scope is `git ls-files` — only what would actually be published can
+block publishing. Pass a path to scan one file, or `--all` to walk the whole
+working tree including untracked scratch files.
+
+The check has two tiers and **CI gates on FAIL only**:
+
+| Tier | Contains | Gates? |
+|---|---|---|
+| FAIL | Real customer/personal identities, secrets, internal UUIDs, dev paths | Yes — exit 2 |
+| WARN | Internal first names, internal subdomains, UUID-shaped strings | No — exit 1, review aid |
+
+Gating on WARN would fail every PR that touches an architecture doc, and a
+check that always fails is a check everyone learns to skip. Run the plain
+`python _scripts/sweep.py` by hand before a release to read the WARN tier.
+
+When the sweep blocks you, fix the content, not the deny list. Removing a
+pattern to get green defeats the point; the only legitimate edit to the pattern
+list is adding a newly-discovered identity. And because real names cannot be
+pattern-matched into safety, the standing convention is that every example
+name, mockup name, and sample-data identity is invented — one that matches a
+real person or client is a defect.
+
+Wire both scanners as a pre-commit hook:
 
 ```
 # .git/hooks/pre-commit
 #!/bin/sh
 python tools/check-no-secrets.py || exit 1
+python _scripts/sweep.py --fail-only || exit 1
 ```
 
 ## CI
 
 [`.github/workflows/test.yml`](.github/workflows/test.yml) runs all of the
 above on every push/PR with `BOS_OFFLINE: "1"` and **no secrets referenced
-anywhere** in the workflow. Order: secret scan → lint every skill → offline
-fixture tests → unit tests → linter self-check.
+anywhere** in the workflow. Order: secret scan → private-data sweep → lint
+every skill → offline fixture tests → unit tests → linter self-check.
 
 `python tools/check-surface-budget.py` runs in that CI list too: it caps the
 session-start surface (every skill + command description is injected into

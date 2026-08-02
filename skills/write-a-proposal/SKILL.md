@@ -56,7 +56,7 @@ writing, and confirm it if it isn't obvious:
 
 **Mode A is the default.** Choose Mode B only when the owner is answering a
 tender / RFP, or explicitly wants a methodology, technical-approach, or
-capability section rather than a price-first proposal ([name]'s case: a
+capability section rather than a price-first proposal (the tender case: a
 technical-services firm whose tender sections are graded on approach and
 capability, with price submitted separately). When in doubt, ask one plain
 question: *"Is this a priced proposal to send a client, or a technical /
@@ -258,7 +258,7 @@ This is the path for a technical-services firm answering a tender or RFP, where
 the deliverable is a **methodology / technical-approach / capability section**
 that is graded on how the firm will do the work and why it is the right firm,
 not a price-first pitch. Price, where it exists at all, usually sits in a
-separate schedule the tender asks for elsewhere. [name]'s case: an
+separate schedule the tender asks for elsewhere. The tender case: an
 environmental / engineering firm whose tender sections are scored on approach
 and capability, with the commercials submitted separately. Run this mode when
 the owner is answering a tender, or explicitly wants a technical / methodology /

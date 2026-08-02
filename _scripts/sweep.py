@@ -6,9 +6,11 @@ infrastructure paths, named customer references, and FinalPiece-internal
 persona names.
 
 Usage:
-    python _scripts/sweep.py                    # scan whole repo, exit non-zero on any match
+    python _scripts/sweep.py                    # scan tracked files, exit non-zero on any match
+    python _scripts/sweep.py --fail-only        # report/gate on FAIL only (what CI runs)
     python _scripts/sweep.py path/to/file       # scan a single file or directory
-    python _scripts/sweep.py --staging          # scan only _staging/ (work-in-progress)
+    python _scripts/sweep.py --all              # walk the working tree, not just tracked files
+    python _scripts/sweep.py --staging          # include _staging/ (work-in-progress)
     python _scripts/sweep.py --quiet            # report only summary, not per-line matches
 
 Exit codes:
@@ -16,13 +18,22 @@ Exit codes:
     1 = WARN-level findings present (review needed)
     2 = FAIL-level findings present (must fix before publish)
 
-Add to pre-push hook to make this a hard gate on the public repo.
+What CI gates on: `--fail-only`, which suppresses the WARN tier and exits 0
+unless a FAIL pattern matched. The WARN tier is deliberately noisy (every
+internal first name in the architecture docs trips it) and is a review aid,
+not a gate — gating on it would train everyone to ignore the whole check.
+Run the plain sweep by hand before a release to read the WARN tier.
+
+Default scope is `git ls-files`, matching tools/check-no-secrets.py: only
+what would actually be published can block publishing. An explicit path
+argument or --all overrides that.
 """
 
 from __future__ import annotations
 
 import argparse
 import re
+import subprocess
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -194,11 +205,32 @@ def _should_scan(path: Path, include_staging: bool) -> bool:
     return True
 
 
-def _iter_files(root: Path, include_staging: bool):
+def _tracked_files() -> list[Path]:
+    """Everything git would publish. Same helper shape as
+    tools/check-no-secrets.py — an empty list means 'no git here', and the
+    caller falls back to walking the tree."""
+    try:
+        out = subprocess.run(["git", "ls-files"], cwd=REPO_ROOT,
+                             capture_output=True, text=True, check=True)
+        return [REPO_ROOT / p for p in out.stdout.splitlines() if p.strip()]
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return []
+
+
+def _iter_files(root: Path, include_staging: bool, tracked_only: bool = False):
     if root.is_file():
         if _should_scan(root, include_staging=True):
             yield root
         return
+    if tracked_only:
+        tracked = _tracked_files()
+        if tracked:
+            for path in tracked:
+                if path.exists() and _should_scan(path, include_staging):
+                    yield path
+            return
+        # No git (tarball install, exported copy) — walking the tree is the
+        # safer failure mode than silently scanning nothing.
     for path in root.rglob("*"):
         if _should_scan(path, include_staging):
             yield path
@@ -242,9 +274,9 @@ def _scan_file(path: Path) -> list[Finding]:
     return findings
 
 
-def _scan_repo(root: Path, include_staging: bool) -> list[Finding]:
+def _scan_repo(root: Path, include_staging: bool, tracked_only: bool = False) -> list[Finding]:
     all_findings: list[Finding] = []
-    for path in _iter_files(root, include_staging):
+    for path in _iter_files(root, include_staging, tracked_only):
         all_findings.extend(_scan_file(path))
     return all_findings
 
@@ -258,9 +290,13 @@ SEVERITY_RANK = {"FAIL": 2, "WARN": 1, "INFO": 0}
 SEVERITY_BADGE = {"FAIL": "[FAIL]", "WARN": "[WARN]", "INFO": "[INFO]"}
 
 
-def _print_report(findings: list[Finding], quiet: bool) -> int:
+def _print_report(findings: list[Finding], quiet: bool, fail_only: bool = False) -> int:
+    if fail_only:
+        findings = [f for f in findings if f.severity == "FAIL"]
+
     if not findings:
-        print("Sweep clean — no matches found.")
+        scope = "no FAIL matches found" if fail_only else "no matches found"
+        print(f"Sweep clean — {scope}.")
         return 0
 
     by_severity: dict[str, list[Finding]] = {"FAIL": [], "WARN": [], "INFO": []}
@@ -300,23 +336,46 @@ def _print_report(findings: list[Finding], quiet: bool) -> int:
 # =============================================================================
 
 
+def _force_utf8_stdout() -> None:
+    """The report prints the replacement hints and matched source lines
+    verbatim, and both contain non-ASCII (arrows, em dashes). On a Windows
+    console defaulting to cp1252 that raises UnicodeEncodeError partway
+    through, so the run dies with a traceback instead of a verdict. Encode
+    with replacement rather than crashing: a mangled glyph in one hint is
+    worth less than a gate that never reports."""
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            stream.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, ValueError):
+            pass
+
+
 def main() -> int:
+    _force_utf8_stdout()
+
     parser = argparse.ArgumentParser(description="Sweep the repo for private data.")
-    parser.add_argument("path", nargs="?", default=str(REPO_ROOT),
-                        help="File or directory to scan (default: repo root)")
+    parser.add_argument("path", nargs="?", default=None,
+                        help="File or directory to scan (default: all tracked files)")
+    parser.add_argument("--all", action="store_true",
+                        help="Walk the whole working tree, not just tracked files")
+    parser.add_argument("--fail-only", action="store_true",
+                        help="Report and exit on FAIL findings only (what CI gates on)")
     parser.add_argument("--staging", action="store_true",
                         help="Include the _staging/ directory (work-in-progress)")
     parser.add_argument("--quiet", action="store_true",
                         help="Print only the summary, not per-line matches")
     args = parser.parse_args()
 
-    root = Path(args.path).resolve()
+    # An explicit path means "scan exactly this"; only the default scope is
+    # narrowed to tracked files.
+    tracked_only = args.path is None and not args.all
+    root = Path(args.path).resolve() if args.path else REPO_ROOT
     if not root.exists():
         print(f"Error: path does not exist: {root}", file=sys.stderr)
         return 2
 
-    findings = _scan_repo(root, include_staging=args.staging)
-    return _print_report(findings, quiet=args.quiet)
+    findings = _scan_repo(root, include_staging=args.staging, tracked_only=tracked_only)
+    return _print_report(findings, quiet=args.quiet, fail_only=args.fail_only)
 
 
 if __name__ == "__main__":

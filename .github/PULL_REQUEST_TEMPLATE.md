@@ -12,6 +12,7 @@ Run all of these locally before submitting. CI will run the same sequence.
 
 - [ ] Offline unit tests pass: `BOS_OFFLINE=1 python -m unittest discover -s tests`
 - [ ] Secret scan clean: `python tools/check-no-secrets.py`
+- [ ] Private-data sweep clean (no real customer/personal identity, no local dev path): `python _scripts/sweep.py --fail-only`
 - [ ] Skill linted (if a skill changed): `python tools/lint-skill.py skills/<name>`
 - [ ] Onboarding binding valid: `python tools/check-onboarding-binding.py`
 - [ ] Doctrine voice clean: `python tools/check-doctrine-voice.py`

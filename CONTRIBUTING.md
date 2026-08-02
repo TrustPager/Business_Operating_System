@@ -177,6 +177,21 @@ python tools/check-doctrine-voice.py
 
 The BOS business doctrine (`knowledge/business-method.md`) carries a hard rule: the owner never hears a source's coined framework name or a guru's name — every concept surfaces under the BOS's own vocabulary. This gate scans for the source coinages and fails with the BOS-native replacement to use. Source names are allowed only in the doctrine's provenance spots and `docs/architecture/research/`.
 
+### 8. Private-data sweep
+
+```bash
+python _scripts/sweep.py --fail-only
+```
+
+This repo is public. The sweep scans every tracked file for identities and paths that must never ship: real customer business names and personal names, internal persona and team names, internal UUIDs and infrastructure hostnames, personal contact details, and local dev paths (`C:\Users\<name>\`, `[local-path]/`). It is the gate that catches a real client's name left in a docstring, a README example, or sample data.
+
+`--fail-only` is what CI runs and what you must pass. The plain `python _scripts/sweep.py` also prints the WARN tier, which flags every internal first name in the architecture docs. WARN is a review aid, not a gate, on purpose: gating on it would make the whole check noise people learn to skip. Read it by hand before a release.
+
+Two rules when the sweep blocks you:
+
+- **Fix the content, not the pattern.** Deleting a deny-list entry to get green defeats the check. The only legitimate reason to touch `_scripts/sweep.py`'s pattern list is adding a new identity to it.
+- **When you need an example identity, invent one.** Real names cannot be pattern-matched into safety, so the convention is that every example name, mockup name, and sample-data name is fictional. One that matches a real person or client is a defect.
+
 ---
 
 ## Content rules (applies to customer- and owner-facing surfaces)

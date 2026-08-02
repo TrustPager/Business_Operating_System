@@ -188,7 +188,7 @@ Verified against TrustPager's own help center (read live via the connector):
   product-seller/ecommerce-retail, hospitality/walk-in, clinic/appointment) that any industry maps onto,
   backed by the proven generic fallback. This is inclusive AND scalable, versus chasing infinite per-industry
   niches. `industry-notes.md` re-frames around shapes; `starter-projects.md` follows.
-- **Marketing may still LEAD with service businesses** (where the [name] / [name] proof lives)
+- **Marketing may still LEAD with service businesses** (where the Darren Locke / Martin Keane proof lives)
   without the product excluding anyone. Positioning ≠ product scope.
 
 ## D13 — The zero-state floor stays lean; heavy/optional power lives in an off-the-shelf library (2026-06-28)

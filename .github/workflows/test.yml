@@ -26,6 +26,13 @@ jobs:
       - name: Secret scan (no key may enter the repo)
         run: python tools/check-no-secrets.py
 
+      # FAIL tier only. The WARN tier flags every internal first name in the
+      # architecture docs, so gating on it would make this check noise people
+      # learn to skip. Read the WARN tier by hand before a release:
+      #   python _scripts/sweep.py
+      - name: Private-data sweep (no real customer or personal identity ships)
+        run: python _scripts/sweep.py --fail-only
+
       - name: Kernel-clean (kernel must name no vendor)
         run: python tools/check-kernel-clean.py
 

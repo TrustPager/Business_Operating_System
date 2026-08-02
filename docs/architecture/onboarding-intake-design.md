@@ -255,7 +255,7 @@ The cold-start gate reads this; `pending=[…]` drives the "scope one more area"
 
 ---
 
-**Files this design builds against (all under `C:\Users\USER\Desktop\Final Piece Docs\Business_Operating_System\`):** `templates/CLAUDE.md` (profile shape + field anchors), `docs/architecture/founder-decisions.md` (D3 plain-language, D6 floor/Firecrawl, D7 region pack, D8 MCP-first/keyless), `docs/architecture/floor-completion-plan.md` (the keyless floor apps the win draws from; confirms `build-brand-strategy` TrustPager coupling is the named gap), `knowledge/industry-notes.md` (the inference fuel + the patterns-to-confirm hard rule), `skills/learn-my-business/SKILL.md` (rebuilt as the connected-tier deepener; its Step-3 no-clobber rule and hard rules carry into P3).
+**Files this design builds against (all paths relative to the repo root):** `templates/CLAUDE.md` (profile shape + field anchors), `docs/architecture/founder-decisions.md` (D3 plain-language, D6 floor/Firecrawl, D7 region pack, D8 MCP-first/keyless), `docs/architecture/floor-completion-plan.md` (the keyless floor apps the win draws from; confirms `build-brand-strategy` TrustPager coupling is the named gap), `knowledge/industry-notes.md` (the inference fuel + the patterns-to-confirm hard rule), `skills/learn-my-business/SKILL.md` (rebuilt as the connected-tier deepener; its Step-3 no-clobber rule and hard rules carry into P3).
 
 **The one build prerequisite P3 cannot ship without:** a keyless brain-dump + Firecrawl evidence mode for `build-brand-strategy` (the "first-brand-brief" path). Until it exists, the locked "works with NO documents" instant-win is not literally true.
 

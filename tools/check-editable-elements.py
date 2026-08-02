@@ -24,9 +24,9 @@ What it does:
     to tag), same as was done for BOS-Design.
 
 Usage:
-  python tools/check-editable-elements.py "[local-path]/Websites/[client]-Design"
-  python tools/check-editable-elements.py "[local-path]/Websites/[client]-Design" --json
-  python tools/check-editable-elements.py --all "[local-path]/Websites"
+  python tools/check-editable-elements.py "C:/path/to/your-site"
+  python tools/check-editable-elements.py "C:/path/to/your-site" --json
+  python tools/check-editable-elements.py --all "C:/path/to/sites"
 """
 import argparse
 import json
