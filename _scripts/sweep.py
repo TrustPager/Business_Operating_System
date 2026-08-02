@@ -12,6 +12,11 @@ Usage:
     python _scripts/sweep.py --all              # walk the working tree, not just tracked files
     python _scripts/sweep.py --staging          # include _staging/ (work-in-progress)
     python _scripts/sweep.py --quiet            # report only summary, not per-line matches
+    python _scripts/sweep.py --hash "New Name"  # print the deny-list entry for a new identity
+
+This file is tracked in a PUBLIC repo, so the deny list itself must not be a
+client list: literal identities live only as SHA-256 hashes (HASHED_IDENTITIES
+below). Structural patterns (key shapes, path shapes) stay readable regexes.
 
 Exit codes:
     0 = clean (or only INFO-level findings)
@@ -32,6 +37,7 @@ argument or --all overrides that.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import re
 import subprocess
 import sys
@@ -73,36 +79,22 @@ PATTERNS: list[Pattern] = [
     _p("JWT-shaped token", "WARN", r"eyJ[A-Za-z0-9_\-]{20,}\.[A-Za-z0-9_\-]{8,}\.[A-Za-z0-9_\-]{8,}", "(redacted — verify if JWT)"),
 
     # -------------------------------------------------------------------------
-    # KNOWN INTERNAL UUIDs — auto-fail.
-    # -------------------------------------------------------------------------
-    # Pattern split via concatenation so this script file doesn't itself
-    # contain the literal company_id as a single contiguous string. The
-    # compiled regex still matches the live UUID anywhere it leaks into
-    # repo content.
-    _p("FinalPiece company_id", "FAIL", r"[uuid]" + "-0000-0000-0000-" + "000000000001", "{{your_company_id}}"),
-    _p("Demo Company company_id", "FAIL", r"[uuid]", "(omit — internal test workspace)"),
-    _p("Operator user_id (internal)", "FAIL", r"[uuid]", "{{your_user_id}}"),
-    _p("Internal persona user_id", "FAIL", r"[uuid]", "(omit)"),
-
-    # -------------------------------------------------------------------------
-    # PERSONAL CONTACT INFO — auto-fail.
+    # PERSONAL CONTACT INFO — auto-fail. Only patterns that reveal nothing on
+    # their own live here; every literal identity (names, UUIDs, phone numbers,
+    # hostnames) is in HASHED_IDENTITIES below so this public file never
+    # carries the plaintext it exists to keep out.
     # -------------------------------------------------------------------------
     _p("Personal Gmail", "FAIL", r"s\.k[a-z]+@gmail\.com", "you@yourdomain.com", re.IGNORECASE),
     _p("FinalPiece work email", "FAIL", r"\b[a-z][a-z\.]+@finalpiece\.ai\b", "you@yourdomain.com", re.IGNORECASE),
     _p("Test pool emails", "FAIL", r"test\d+@finalpiece\.ai", "(omit)", re.IGNORECASE),
-    _p("Operator surname", "FAIL", r"\b[name]\b", "(omit)", re.IGNORECASE),
-    _p("AU phone E.164", "FAIL", r"\0400 000 000", "+61 4XX XXX XXX"),
-    _p("AU phone local", "FAIL", r"\b0431\s?377\s?068\b", "0400 000 000"),
 
     # -------------------------------------------------------------------------
     # INTERNAL INFRASTRUCTURE — warn (some may be intentional).
     # -------------------------------------------------------------------------
     _p("Windows dev path", "WARN", r"[Dd]:[\\/]Dev[\\/]", "~/your-project/"),
     _p("Windows user path", "FAIL", r"C:[\\/]Users[\\/][A-Za-z0-9_\-]+[\\/]", "~/"),
-    _p("EVE hostname", "FAIL", r"eve\.[internal-host]\.net", "(omit — internal infra)"),
-    _p("Supabase project ref", "FAIL", r"[project-ref]", "<your-supabase-project>"),
     _p("Keys manifest filename", "FAIL", r"\.trustpager-keys\.json", "(omit)"),
-    _p("Internal .net subdomains", "WARN", r"\b([internal]|fulfillment|fulfilment|operations)\.trustpager\.net", "(omit — internal infra)"),
+    _p("Internal .net subdomains", "WARN", r"\b(fulfillment|fulfilment|operations)\.trustpager\.net", "(omit — internal infra)"),
     _p("Cloudflare tunnel id", "WARN", r"\b[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}\b", "(verify — looks like UUID)"),
 
     # -------------------------------------------------------------------------
@@ -111,9 +103,6 @@ PATTERNS: list[Pattern] = [
     # FinalPiece engineering assistant is not).
     # -------------------------------------------------------------------------
     _p("Operator first name", "WARN", r"(?<![A-Za-z])Simon(?![A-Za-z])", "you / the operator"),
-    _p("Internal name ([name])", "FAIL", r"[name]", "(omit)"),
-    _p("Internal codename [internal]", "FAIL", r"\b[internal]\b", "(omit)"),
-    _p("Internal codename [internal]", "FAIL", r"\b[internal]\b", "(omit)"),
     _p("Internal sales-agent name", "WARN", r"(?<![A-Za-z])Evan(?![A-Za-z])", "(verify — internal persona name)"),
     _p("Internal support-agent name", "WARN", r"(?<![A-Za-z])Evie(?![A-Za-z])", "(verify — internal persona name)"),
     _p("Team member (Vic)", "WARN", r"(?<![A-Za-z])Vic(?![A-Za-z])", "(omit — internal team member)"),
@@ -121,47 +110,98 @@ PATTERNS: list[Pattern] = [
     _p("Team member (Cesar)", "WARN", r"(?<![A-Za-z])Cesar(?![A-Za-z])", "(omit — internal team member)"),
     _p("Team member (Micael)", "WARN", r"(?<![A-Za-z])Micael(?![A-Za-z])", "(omit — internal team member)"),
 
-    # -------------------------------------------------------------------------
-    # NAMED CUSTOMER REFERENCES from the marketing synthesis — auto-fail.
-    # These are real prospects who did not consent to public attribution.
-    # -------------------------------------------------------------------------
-    _p("Customer reference", "FAIL", r"\b[client]\b", "(generic)"),
-    _p("Customer reference", "FAIL", r"\b[client]\b", "(generic)"),
-    _p("Customer reference", "FAIL", r"\b[client]\b", "(generic)"),
-    _p("Customer reference", "FAIL", r"\b[client]\b", "(generic)"),
-    _p("Customer reference", "FAIL", r"\b[client]\b", "(generic)"),
-    _p("Customer reference", "FAIL", r"\b[client]\b", "(generic)"),
-    _p("Customer reference", "FAIL", r"\bM&M [Pp]rinting\b", "(generic)"),
-    _p("Customer reference", "FAIL", r"\b[client]\b", "(generic)"),
-    _p("Customer reference", "FAIL", r"\b[client]\b", "(generic)"),
-    _p("Customer reference", "FAIL", r"\b[client]\b", "(generic)"),
-    _p("Customer reference", "FAIL", r"\b[client]\b", "(generic)"),
-    _p("Customer reference", "FAIL", r"\b[client]\b", "(generic)"),
-    _p("Customer reference", "FAIL", r"\b[client]\b", "(generic)"),
-    _p("Customer reference", "FAIL", r"\b[client]\b", "(generic)"),
-    _p("Customer reference", "FAIL", r"\b[client]\b", "(generic)"),
-    _p("Customer reference", "FAIL", r"\b(Blu Ray|Bluray) Concreting\b", "(generic)"),
-    _p("Customer reference", "FAIL", r"\b[client]\b", "(generic)"),
-    _p("Customer reference", "FAIL", r"\b[client]\b", "(generic)"),
-    _p("Customer reference", "FAIL", r"\b[client]\b", "(generic)"),
-
-    _p("Customer personal name", "FAIL", r"\b[name]\b", "(generic)"),
-    _p("Customer personal name", "FAIL", r"\b[name]\b", "(generic)"),
-    _p("Customer personal name", "FAIL", r"\b[name]\b", "(generic)"),
-    _p("Customer personal name", "FAIL", r"\b[name]\b", "(generic)"),
-    _p("Customer personal name", "FAIL", r"\b[name]\b", "(generic)"),
-    _p("Customer personal name", "FAIL", r"\b[name]\b", "(generic)"),
-    _p("Customer personal name", "FAIL", r"\b[name]\b", "(generic)"),
-    _p("Customer personal name", "FAIL", r"\b[name]\b", "(generic)"),
-    _p("Customer personal name", "FAIL", r"\b[name]\b", "(generic)"),
-    _p("Customer personal name", "FAIL", r"\b[name]\b", "(generic)"),
-    _p("Customer personal name", "FAIL", r"\b[name]\b", "(generic)"),
-    _p("Customer personal name", "FAIL", r"\b[name]\b", "(generic)"),
-    _p("Customer personal name", "FAIL", r"\b[name]\b", "(generic)"),
-    _p("Customer personal name", "FAIL", r"\b[name]\b", "(generic)"),
-    _p("Customer personal name", "FAIL", r"\b[name]\b", "(generic)"),
-    _p("Customer personal name", "FAIL", r"\b[name]\b", "(omit)"),
 ]
+
+
+# =============================================================================
+# HASHED IDENTITIES — auto-fail, all of them.
+#
+# Real customer business names, real people's names, internal UUIDs, internal
+# hostnames, and personal phone numbers. This file is tracked in a PUBLIC
+# repo, so the deny list itself must not be a client list: only SHA-256 hashes
+# of the normalized identity live here. The scanner hashes candidate strings
+# from every line and compares — same detection, nothing to read.
+#
+# To add one:   python _scripts/sweep.py --hash "The Name Or Identifier"
+# and paste the printed entry below. NEVER paste the plaintext into this file,
+# a comment, a commit message, or a test.
+#
+# To remove one: don't. Removing an entry to get a green build defeats the
+# check; fix the content instead. Entries only leave this list when the person
+# or business has consented to public attribution.
+#
+# Labels are deliberately anonymous (#N): a label that identifies the person
+# would defeat the hashing.
+#
+# Three normalization channels, matched in _hash_scan_line():
+#   words:   lowercase, tokens of [a-z0-9&]+, joined by single spaces —
+#            catches names in any casing, hyphenation, or punctuation
+#   compact: the identifier lowercased verbatim — UUIDs, hostnames, refs
+#   digits:  all non-digits stripped — phone numbers in any formatting
+# =============================================================================
+
+
+def _h(label: str, digest: str) -> tuple[str, str]:
+    return (label, digest)
+
+
+_HASHED_ENTRIES: list[tuple[str, str]] = [
+    # words channel — customer business names
+    _h("Customer reference #1", "00c7cc2aa6c2103de02a316a4305229563c2ad64cd4c4271b371ce8568c741df"),
+    _h("Customer reference #2", "bb0b4632971e175a9167dbf5d64f6ba710985f15e30de2a755822720bafeed27"),
+    _h("Customer reference #3", "fcde0e2623a33b5c70a434ec756440f4630bee3765c290fb31a96a96c9542078"),
+    _h("Customer reference #4", "d773801194a9266d4d772d3ce8349a1d08be69ece6512e1d5893c5074625e6af"),
+    _h("Customer reference #5", "ee33048ee7db443351d86e03d47d3fbaa8e04cac8789122afbeb339d28b7c818"),
+    _h("Customer reference #6", "ce83be8cd17b1e67d3fcf038083ddfbbc829b98388926f1ddc36041957f7c9ba"),
+    _h("Customer reference #7", "afb13080693d210ecd7364b045c8b14201b08ea58feec24ca812fe69aeb04afa"),
+    _h("Customer reference #8", "d1c583322437ccb58f31c2194520789f01459b771d84fb2819ad0181ae2ca9fb"),
+    _h("Customer reference #9", "91380effd216347681c8f89b05d7f7cbeca1f7495f87df92643ca5973fd1a7d9"),
+    _h("Customer reference #10", "a468bcc740fb3589b5ff6bc72caa1e936958992c1700a303d1ab0ec43d90c328"),
+    _h("Customer reference #11", "a30cc63df519865fede674f1deff85589c67e20cdb40aa3892f93f59544f2f17"),
+    _h("Customer reference #12", "c25b5c313ca13eb1bc686ed78b45ab2807b1fc63d8751b10b32582359b210bda"),
+    _h("Customer reference #13", "1cad17c842d8cd0b47f676fb5dec43254d923ab82f1367f2570711b51086abb6"),
+    _h("Customer reference #14", "39579ad85c95afc87feffaecd324b32d6831bb64b437588d3b31d9c98ee3f6fc"),
+    _h("Customer reference #15", "311a7f93580767872f1743f45b7d22a2e158622678e0a61eb6371a8d5f0bb00b"),
+    _h("Customer reference #16", "3b0bcceeb1f87b394c3c34e00f5b38fad27de44ba74884f1c4e78d283d11989f"),
+    _h("Customer reference #17", "47cbb00f8fe54e02d4f6bc39161907e437c1ae5ee9d52a41770cdf00bd2a3dd1"),
+    _h("Customer reference #18", "8f182bdbed919d45538c5c795ef5dbc23956a55190bfd65da8803c1749767edc"),
+    _h("Customer reference #19", "9b7733ae188f1a3d70d1ad1e8230b5924b467e482af677c08ccbc63e3eaec77f"),
+    _h("Customer reference #20", "900e813fb16e231b16e99d71a7a0894ac09a0aae50f4ef1783528ada0f4b2e1b"),
+    # words channel — customer personal names
+    _h("Customer personal name #1", "e469cd90ac11585e70574077124334304daf3b7961b790583b10b9bc2be38849"),
+    _h("Customer personal name #2", "1508ac400232710add1be60b2471697676c9bbf698ae0e4d7a22f70a54c15349"),
+    _h("Customer personal name #3", "af8a3160e0aed393d69cbf5366fa578c003a56bbaffa792fb2b76cdb5ee9c8de"),
+    _h("Customer personal name #4", "b0c00590e538488de368da885cc24df5236091b25be6f0dd02a755259ea0391c"),
+    _h("Customer personal name #5", "c76fd65d7dceb61efe0279d9125e4f47a6ca8396046806dfdf00c9c0c1ce03ef"),
+    _h("Customer personal name #6", "78e1cabc7b3470d1af421f40436bc3f96fdd000ab320b559e59d1a3e576e9f31"),
+    _h("Customer personal name #7", "7b12115d48dcd306633990510ec05fdb2cc5d7fc7101b67c67175a2f0f336d57"),
+    _h("Customer personal name #8", "de529f9ace7a2683ef913d407ae790c093c712f9ceb4914367aa5af4d6f582a4"),
+    _h("Customer personal name #9", "1f0315a81d7773fa43830e00a64cc07f1bc1e57137f70a86e883863a5f0d8d53"),
+    _h("Customer personal name #10", "d3ac3314b459ab66c47e77e20658264581fae955219eaa35a5b6e8318515570a"),
+    _h("Customer personal name #11", "cc7a9c17bf7a4d391a0f81d66d094560447aebb7423c574cd981499549ca4be4"),
+    _h("Customer personal name #12", "16d04d4fe67c1cf84b7a84ce1dde96d045cabf6c368bea840de73744b7d862fe"),
+    _h("Customer personal name #13", "8eb0cd1e677d5a754e96ed31fe7d24a809972170a3ca25a20eddb25140e8f9e3"),
+    _h("Customer personal name #14", "fe9b060ce5de4daad983ebf7f2326c9302250d46bcf602b75781ec19430a76e4"),
+    _h("Customer personal name #15", "7cda228fe9a5bad468181e80a9902a0560cc2879b2302cb2e275ce9645ab60c0"),
+    # words channel — internal names and codenames
+    _h("Internal name #1", "db40ee2afe9fb04b79d05effb7d62aabbe75b46289e6f34b7edb17f25806412f"),
+    _h("Internal name #2", "5e570eb37e5ebc937d04020ba525cf7f75f7f59152c977d3db821fe238c2f745"),
+    _h("Internal name #3", "800a6afa1c50000b4593541f0321958bdd077dcf360f7923a9d8e4aa04a285d3"),
+    _h("Internal name #4", "96a4bc2602655473120fcc571ee3d8cfe5f8801f8038ccc06323d305e323331c"),
+    # compact channel — UUIDs, hostnames, project refs
+    _h("Supabase project ref", "7f16e56be7db4d84cf824df0cf9425b7989a6a294e9c950f99dd869b9a910ea1"),
+    _h("Internal hostname", "8be8d63be8eb1112c455952a07b4f5b4bf1d08e717641bd5c83c892a54b8a4c0"),
+    _h("Internal company id #1", "840471e1a954e40dabe634443271236e04d5e4d5f24600369e903b6e119d4136"),
+    _h("Internal company id #2", "9c7355e056fea55afe03baa1243d95c565233e6745219097ed1e0363155f109e"),
+    _h("Internal user id #1", "9a51e7ae18c1cc08abb0ff2c955abf1df65355fb4b18de89450178ea13d5368b"),
+    _h("Internal user id #2", "b70076508f01f686d443d5a7fc3a7296d92c5819a826f53fd65fd111150c7f55"),
+    # digits channel — personal phone numbers
+    _h("Personal phone #1", "10797cfd3579becb13a6ad38caffb25f99f46d5ecc7cc95aa37a24c7f44c9414"),
+    _h("Personal phone #2", "57e58ee1feeec0e17b147ed1bacf0a66c882fd6d2d6ff3244402618a8f654f56"),
+]
+
+# digest -> label, for O(1) lookup during the scan
+HASHED_IDENTITIES: dict[str, str] = {digest: label for label, digest in _HASHED_ENTRIES}
 
 
 # =============================================================================
@@ -252,6 +292,45 @@ class Finding:
     context: str
 
 
+_WORD_RE = re.compile(r"[a-z0-9&]+")
+_COMPACT_RE = re.compile(r"[a-z0-9][a-z0-9.@+_\-]{4,}")
+_DIGITS_RE = re.compile(r"\d(?:[\d\s\-().]{5,})\d")
+_MAX_NGRAM = 4  # longest hashed name is four words
+
+
+def _sha(s: str) -> str:
+    return hashlib.sha256(s.encode("utf-8")).hexdigest()
+
+
+def _hash_scan_line(line: str) -> list[tuple[str, str]]:
+    """Return (label, matched-candidate) for every hashed identity on the
+    line. Three channels, mirroring how identities were normalized when
+    hashed: word n-grams for names, compact tokens for identifiers, stripped
+    digit runs for phone numbers."""
+    hits: list[tuple[str, str]] = []
+    lower = line.lower()
+
+    words = _WORD_RE.findall(lower)
+    for n in range(1, _MAX_NGRAM + 1):
+        for start in range(len(words) - n + 1):
+            candidate = " ".join(words[start:start + n])
+            label = HASHED_IDENTITIES.get(_sha(candidate))
+            if label:
+                hits.append((label, candidate))
+
+    for token in _COMPACT_RE.findall(lower):
+        label = HASHED_IDENTITIES.get(_sha(token))
+        if label:
+            hits.append((label, token))
+
+    for run in _DIGITS_RE.findall(lower):
+        label = HASHED_IDENTITIES.get(_sha(re.sub(r"\D", "", run)))
+        if label:
+            hits.append((label, run))
+
+    return hits
+
+
 def _scan_file(path: Path) -> list[Finding]:
     findings: list[Finding] = []
     try:
@@ -271,6 +350,16 @@ def _scan_file(path: Path) -> list[Finding]:
                     replacement=pat.replacement_hint,
                     context=line.strip()[:140],
                 ))
+        for label, candidate in _hash_scan_line(line):
+            findings.append(Finding(
+                file=path,
+                line=i,
+                severity="FAIL",
+                pattern=label,
+                match=candidate,
+                replacement="(remove — real identity; invent a fictional one)",
+                context=line.strip()[:140],
+            ))
     return findings
 
 
@@ -364,7 +453,24 @@ def main() -> int:
                         help="Include the _staging/ directory (work-in-progress)")
     parser.add_argument("--quiet", action="store_true",
                         help="Print only the summary, not per-line matches")
+    parser.add_argument("--hash", metavar="IDENTITY",
+                        help="Print the deny-list entry for a new identity "
+                             "(name, UUID, hostname, or phone) and exit. "
+                             "Paste ONLY the printed hash into this file — "
+                             "never the plaintext.")
     args = parser.parse_args()
+
+    if args.hash:
+        raw = args.hash.strip()
+        print("Add ONE of these to _HASHED_ENTRIES (pick the channel that fits),")
+        print("with an anonymous #N label. Never paste the plaintext anywhere.")
+        word_form = " ".join(_WORD_RE.findall(raw.lower()))
+        print(f'  words   (names):        _h("<label #N>", "{_sha(word_form)}"),')
+        print(f'  compact (uuid/host):    _h("<label #N>", "{_sha(raw.lower())}"),')
+        digits = re.sub(r"\D", "", raw)
+        if digits:
+            print(f'  digits  (phone):        _h("<label #N>", "{_sha(digits)}"),')
+        return 0
 
     # An explicit path means "scan exactly this"; only the default scope is
     # narrowed to tracked files.

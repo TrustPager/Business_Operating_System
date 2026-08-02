@@ -1,0 +1,32 @@
+#!/bin/sh
+# BOS pre-push gate — blocks any push carrying client data or secrets.
+#
+# Installed once per clone with:
+#   git config core.hooksPath .githooks
+# core.hooksPath lives in the shared .git/config, so this one setting covers
+# EVERY worktree of the clone — no per-worktree setup.
+#
+# This is the primary gate on purpose: CI runs after the push, and for a
+# public repo "CI failed" means the data is already out. A push that never
+# happens is the only clean failure mode.
+#
+# Bypassing with --no-verify ships client data. Don't.
+
+cd "$(git rev-parse --show-toplevel)" || exit 1
+
+echo "[pre-push] private-data sweep..."
+python _scripts/sweep.py --fail-only --quiet || {
+    echo "[pre-push] BLOCKED: real identity or private data in tracked files."
+    echo "[pre-push] Run: python _scripts/sweep.py --fail-only   (for the detail)"
+    exit 1
+}
+
+echo "[pre-push] secret scan..."
+python tools/check-no-secrets.py > /dev/null || {
+    echo "[pre-push] BLOCKED: secret detected in tracked files."
+    echo "[pre-push] Run: python tools/check-no-secrets.py   (for the detail)"
+    exit 1
+}
+
+echo "[pre-push] clean."
+exit 0

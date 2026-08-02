@@ -187,9 +187,17 @@ This repo is public. The sweep scans every tracked file for identities and paths
 
 `--fail-only` is what CI runs and what you must pass. The plain `python _scripts/sweep.py` also prints the WARN tier, which flags every internal first name in the architecture docs. WARN is a review aid, not a gate, on purpose: gating on it would make the whole check noise people learn to skip. Read it by hand before a release.
 
+The deny list carries no plaintext identities — this repo is public, so names live only as SHA-256 hashes. To add one: `python _scripts/sweep.py --hash "The Name"`, then paste only the printed hash entry.
+
+Enable the pre-push gate once per clone (covers every worktree):
+
+```bash
+git config core.hooksPath .githooks
+```
+
 Two rules when the sweep blocks you:
 
-- **Fix the content, not the pattern.** Deleting a deny-list entry to get green defeats the check. The only legitimate reason to touch `_scripts/sweep.py`'s pattern list is adding a new identity to it.
+- **Fix the content, not the deny list.** Deleting an entry to get green defeats the check. The only legitimate edit to `_scripts/sweep.py`'s list is adding a new identity hash.
 - **When you need an example identity, invent one.** Real names cannot be pattern-matched into safety, so the convention is that every example name, mockup name, and sample-data name is fictional. One that matches a real person or client is a defect.
 
 ---

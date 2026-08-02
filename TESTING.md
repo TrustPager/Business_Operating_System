@@ -83,21 +83,38 @@ Gating on WARN would fail every PR that touches an architecture doc, and a
 check that always fails is a check everyone learns to skip. Run the plain
 `python _scripts/sweep.py` by hand before a release to read the WARN tier.
 
-When the sweep blocks you, fix the content, not the deny list. Removing a
-pattern to get green defeats the point; the only legitimate edit to the pattern
-list is adding a newly-discovered identity. And because real names cannot be
-pattern-matched into safety, the standing convention is that every example
-name, mockup name, and sample-data identity is invented — one that matches a
-real person or client is a defect.
+Because this file is itself public, the deny list carries **no plaintext
+identities**: every name, UUID, hostname, and phone number lives as a SHA-256
+hash, and the scanner hashes candidate strings from each line to compare. To
+add a new identity, run `python _scripts/sweep.py --hash "The Name"` and paste
+only the printed hash entry — never the plaintext, not even in a comment or
+commit message.
 
-Wire both scanners as a pre-commit hook:
+When the sweep blocks you, fix the content, not the deny list. Removing an
+entry to get green defeats the point; the only legitimate edit is adding a
+newly-discovered identity. And because real names cannot be pattern-matched
+into safety, the standing convention is that every example name, mockup name,
+and sample-data identity is invented — one that matches a real person or
+client is a defect.
+
+## The push gate (every worktree, one command)
+
+CI runs *after* a push, and for a public repo that is too late: a failed CI
+run means the data is already out. The primary gate is the tracked pre-push
+hook at [`.githooks/pre-push`](.githooks/pre-push), which runs the sweep and
+the secret scanner and refuses the push on any FAIL. Enable it once per clone:
 
 ```
-# .git/hooks/pre-commit
-#!/bin/sh
-python tools/check-no-secrets.py || exit 1
-python _scripts/sweep.py --fail-only || exit 1
+git config core.hooksPath .githooks
 ```
+
+`core.hooksPath` lives in the clone's shared config, so this single command
+covers **every worktree** — no per-worktree setup, and every future worktree
+inherits it. One honest limit: the hook file runs from each worktree's own
+checkout, so a worktree on an old branch that predates `.githooks/` pushes
+ungated until it takes a current `main`. And `--no-verify` skips any hook, so
+the backstops still matter: CI runs the same sweep on every push, and branch
+protection on `main` (requiring the CI checks) closes the local-merge path.
 
 ## CI
 
