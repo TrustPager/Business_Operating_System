@@ -69,6 +69,12 @@ DEFAULT_TIMEOUT_SECONDS = 30
 # path. (Removed a duplicate constant here per the Task 3 code-quality finding.)
 
 
+# Run every call next to TrustPager's database (Sydney). The API otherwise runs
+# in the region nearest the caller, and from the Philippines that was Singapore:
+# about 3.3 seconds a call against about 1.2 in Sydney, because every database
+# read crossed the sea (measured 2026-09-28).
+HOME_REGION_HEADERS = {"x-region": "ap-southeast-2"}
+
 # =============================================================================
 # The single TrustPager DriverConfig. Constructing it registers the tp_ secret
 # pattern with the redaction registry (DriverConfig.__post_init__).
@@ -79,6 +85,7 @@ TP_CFG = DriverConfig(
     secret_pattern=TP_SECRET_PATTERN,
     error_map=TP_ERROR_MAP,
     approval_url=APPROVAL_URL,
+    extra_headers=HOME_REGION_HEADERS,
 )
 
 
