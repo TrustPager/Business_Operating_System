@@ -97,5 +97,14 @@ class TestSecretRegistration(unittest.TestCase):
         self.assertEqual(redact(text), text)
 
 
+class TestHomeRegion(unittest.TestCase):
+    def test_every_call_asks_for_the_database_region(self):
+        # Without this header the API runs near the caller (Singapore from the
+        # Philippines) and each call takes about 3 seconds instead of 1.
+        from drivers.trustpager import TP_CFG
+
+        self.assertEqual((TP_CFG.extra_headers or {}).get("x-region"), "ap-southeast-2")
+
+
 if __name__ == "__main__":
     unittest.main()
