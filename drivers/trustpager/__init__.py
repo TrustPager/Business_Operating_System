@@ -75,6 +75,21 @@ DEFAULT_TIMEOUT_SECONDS = 30
 # read crossed the sea (measured 2026-09-28).
 HOME_REGION_HEADERS = {"x-region": "ap-southeast-2"}
 
+
+def _refused_before_running(code: int, headers: dict[str, str], body: bytes) -> bool:
+    """TrustPager's edge briefly refuses a request when it is too busy to run it.
+
+    That refusal is a 503 carrying SERVICE_DEGRADED in its sb-error-code header
+    (or its body). The request never ran, so the kernel may repeat it even for
+    a write. Any other server error may have landed first and is not repeated.
+    Most of them arrive in the first seconds after a quarter hour (measured
+    2026-10-07).
+    """
+    if code != 503:
+        return False
+    return "SERVICE_DEGRADED" in headers.get("sb-error-code", "") or b"SERVICE_DEGRADED" in body
+
+
 # =============================================================================
 # The single TrustPager DriverConfig. Constructing it registers the tp_ secret
 # pattern with the redaction registry (DriverConfig.__post_init__).
@@ -86,6 +101,7 @@ TP_CFG = DriverConfig(
     error_map=TP_ERROR_MAP,
     approval_url=APPROVAL_URL,
     extra_headers=HOME_REGION_HEADERS,
+    refused_before_running=_refused_before_running,
 )
 
 
