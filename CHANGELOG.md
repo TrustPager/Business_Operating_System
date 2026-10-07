@@ -54,6 +54,10 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Version
 - **`make-thumbnail` resolves its studio and brand explicitly** when a working directory holds more than one thumbnail studio or brand kit, instead of rendering into the first one it finds.
 - **Onboarding (`/start-here`) redirected to consultation-first (founder-ruled 2026-07-03).** The Day-1 win is now the collaborative consultative conversation (reflect understanding, draw out the goal and the owner's own theory of the blocker, then think alongside them with the reasoning shown), decided by an engagement gauge, rather than a built artifact handed over on the spot. Any build is deferred to a recommendation-with-alternatives at the end; a terse owner still gets a fast tangible win. The assistant now mirrors the owner's register. See `docs/architecture/2026-07-03-collaborative-consultation-design.md`.
 
+### Fixed
+
+- **A write is no longer repeated after a server error that may have landed.** The API layer retried every server error, writes included, so a create or a send that went through and then errored could happen twice (a second opportunity, a second email). Reads still retry; a write retries only when the driver says the server refused it before running it, which for TrustPager is its edge's momentary "too busy" 503. Rate-limit retries are unchanged. A write that is not retried now says it may already have gone through, so an agent checks before trying again instead of reading "try again" literally. The new optional `DriverConfig.refused_before_running` carries that judgement, so the kernel stays vendor neutral.
+
 ---
 
 ## [1.0.0] - 2026-06-29

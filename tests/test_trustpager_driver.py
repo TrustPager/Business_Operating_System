@@ -106,5 +106,32 @@ class TestHomeRegion(unittest.TestCase):
         self.assertEqual((TP_CFG.extra_headers or {}).get("x-region"), "ap-southeast-2")
 
 
+class TestRefusedBeforeRunning(unittest.TestCase):
+    """Only the edge's busy refusal lets the kernel repeat a write."""
+
+    CODE = "SUPABASE_EDGE_RUNTIME_SERVICE_DEGRADED"
+
+    def setUp(self):
+        from drivers.trustpager import TP_CFG, _refused_before_running
+        self.cfg = TP_CFG
+        self.check = _refused_before_running
+
+    def test_wired_into_the_driver_config(self):
+        self.assertIs(self.cfg.refused_before_running, self.check)
+
+    def test_busy_refusal_in_the_header(self):
+        self.assertTrue(self.check(503, {"sb-error-code": self.CODE}, b""))
+
+    def test_busy_refusal_named_only_in_the_body(self):
+        self.assertTrue(self.check(503, {}, ('{"code":"%s"}' % self.CODE).encode()))
+
+    def test_any_other_503_may_have_run(self):
+        self.assertFalse(self.check(503, {}, b'{"error":{"message":"store not connected"}}'))
+
+    def test_other_server_errors_may_have_run(self):
+        for code in (500, 502, 504):
+            self.assertFalse(self.check(code, {"sb-error-code": self.CODE}, b""), code)
+
+
 if __name__ == "__main__":
     unittest.main()

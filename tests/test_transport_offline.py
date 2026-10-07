@@ -307,5 +307,116 @@ class TestTransportOffline(unittest.TestCase):
         self.assertIn("Slow down: too many", str(ctx.exception))
 
 
+class TestRetryPolicy(unittest.TestCase):
+    """Which server errors are repeated.
+
+    A read is always safe to repeat. A write is repeated only when the driver
+    says the server refused it before running it; any other server error may
+    have landed already, and repeating it would create a second record or send
+    twice. Driven by a synthetic cfg whose refusal marker is a made-up header.
+    """
+
+    def setUp(self):
+        self._saved_patterns = redaction._snapshot_patterns()
+        self._prev_offline = os.environ.get("BOS_OFFLINE")
+        os.environ.pop("BOS_OFFLINE", None)
+        self._saved_http = transport._http
+        self._saved_sleep = transport._sleep
+        transport._sleep = lambda seconds: None
+        self.calls = []
+
+    def tearDown(self):
+        redaction._restore_patterns(self._saved_patterns)
+        transport._http = self._saved_http
+        transport._sleep = self._saved_sleep
+        if self._prev_offline is None:
+            os.environ.pop("BOS_OFFLINE", None)
+        else:
+            os.environ["BOS_OFFLINE"] = self._prev_offline
+
+    def _cfg(self, predicate=None):
+        return transport.DriverConfig(
+            base_url="https://example.invalid/api",
+            key_resolver=lambda: "fake_key_value",
+            secret_pattern=r"fakesecret_[A-Za-z0-9]{6,}",
+            error_map={},
+            approval_url="https://example.invalid/approvals",
+            refused_before_running=predicate,
+        )
+
+    @staticmethod
+    def _refusal_marker(code, headers, body):
+        return code == 503 and headers.get("x-fake-refusal") == "never-ran"
+
+    def _script(self, *outcomes):
+        """Fake _http that plays outcomes in order: (code, headers) or 'ok'."""
+        def fake_http(req, timeout):
+            self.calls.append(req.get_method())
+            outcome = outcomes[min(len(self.calls) - 1, len(outcomes) - 1)]
+            if outcome == "ok":
+                return _FakeResp(200, b'{"data": {"id": "x1"}}')
+            code, hdrs = outcome
+            raise urllib.error.HTTPError(
+                url="https://example.invalid/api/things", code=code,
+                msg="Synthetic", hdrs=hdrs, fp=io.BytesIO(b'{}'),
+            )
+        transport._http = fake_http
+
+    def test_read_is_repeated_on_a_server_error(self):
+        self._script((500, None), "ok")
+        out = transport.request(self._cfg(), "GET", "things")
+        self.assertEqual(out, {"data": {"id": "x1"}})
+        self.assertEqual(self.calls, ["GET", "GET"])
+
+    def test_write_is_not_repeated_on_a_server_error(self):
+        for method in ("POST", "PATCH", "PUT", "DELETE"):
+            self.calls = []
+            self._script((500, None), "ok")
+            with self.assertRaises(BOSError) as ctx:
+                transport.request(self._cfg(self._refusal_marker), method, "things", body={"k": "v"})
+            self.assertEqual(len(self.calls), 1, f"{method} must not be repeated")
+            self.assertIn("may have gone through", str(ctx.exception))
+
+    def test_write_is_repeated_when_the_server_refused_before_running(self):
+        self._script((503, {"X-Fake-Refusal": "never-ran"}), "ok")
+        out = transport.request(self._cfg(self._refusal_marker), "POST", "things", body={"k": "v"})
+        self.assertEqual(out, {"data": {"id": "x1"}})
+        self.assertEqual(self.calls, ["POST", "POST"])
+
+    def test_refused_every_time_gives_up_without_the_maybe_landed_warning(self):
+        self._script((503, {"X-Fake-Refusal": "never-ran"}))
+        with self.assertRaises(BOSError) as ctx:
+            transport.request(self._cfg(self._refusal_marker), "POST", "things", body={"k": "v"})
+        self.assertEqual(len(self.calls), 1 + transport.DEFAULT_RETRIES_ON_5XX)
+        self.assertNotIn("may have gone through", str(ctx.exception))
+
+    def test_plain_503_on_a_write_is_not_repeated(self):
+        self._script((503, None), "ok")
+        with self.assertRaises(BOSError):
+            transport.request(self._cfg(self._refusal_marker), "POST", "things", body={"k": "v"})
+        self.assertEqual(len(self.calls), 1)
+
+    def test_no_predicate_means_writes_are_never_repeated(self):
+        self._script((503, {"X-Fake-Refusal": "never-ran"}), "ok")
+        with self.assertRaises(BOSError):
+            transport.request(self._cfg(None), "POST", "things", body={"k": "v"})
+        self.assertEqual(len(self.calls), 1)
+
+    def test_a_predicate_that_raises_is_treated_as_may_have_run(self):
+        def broken(code, headers, body):
+            raise RuntimeError("driver bug")
+        self._script((503, {"X-Fake-Refusal": "never-ran"}), "ok")
+        with self.assertRaises(BOSError):
+            transport.request(self._cfg(broken), "POST", "things", body={"k": "v"})
+        self.assertEqual(len(self.calls), 1)
+
+    def test_429_still_repeats_a_write(self):
+        # Rate limiting refuses before running, so it stays safe for writes.
+        self._script((429, {}), "ok")
+        out = transport.request(self._cfg(), "POST", "things", body={"k": "v"})
+        self.assertEqual(out, {"data": {"id": "x1"}})
+        self.assertEqual(self.calls, ["POST", "POST"])
+
+
 if __name__ == "__main__":
     unittest.main()

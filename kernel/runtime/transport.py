@@ -13,8 +13,12 @@ Design notes:
   - The offline guard (is_offline()) runs BEFORE cfg.key_resolver() so a real
     key is never read in tests/CI. tests/test_safety.py depends on this order.
   - The actual network call goes through the module-level `_http` indirection
-    so tests can monkeypatch kernel.runtime.transport._http without a socket.
-  - Retry/backoff for 429 (honouring Retry-After) and 5xx is preserved here.
+    so tests can monkeypatch kernel.runtime.transport._http without a socket
+    (and backoff waits through `_sleep`, for the same reason).
+  - Retry/backoff lives here: 429 (honouring Retry-After) for any method; a
+    5xx only for a read, or for a write the driver says never ran
+    (DriverConfig.refused_before_running). Any other server error may have
+    landed after the write did, so repeating it could do it twice.
   - Per-code messages come from cfg.error_map; absent codes fall back to a
     GENERIC kernel message. No vendor literal appears in this file.
 """
@@ -36,6 +40,8 @@ from kernel.runtime.redaction import register_secret_pattern
 DEFAULT_TIMEOUT_SECONDS = 30
 DEFAULT_RETRIES_ON_429 = 3
 DEFAULT_RETRIES_ON_5XX = 2
+# Methods that change nothing, so a server error is always safe to repeat.
+SAFE_TO_REPEAT_METHODS = frozenset({"GET", "HEAD", "OPTIONS"})
 
 
 @dataclass
@@ -59,6 +65,13 @@ class DriverConfig:
                         (missing keys are tolerated).
         approval_url:   where the operator approves a queued (202) write.
         extra_headers:  optional headers merged into every request.
+        refused_before_running:
+                        optional predicate (http_code, headers, body) -> bool,
+                        headers as a lowercase-keyed dict and body as raw
+                        bytes. True means the server refused the request
+                        BEFORE running it (e.g. a momentarily overloaded edge),
+                        so it is safe to repeat even a write. Without it, a
+                        5xx on a write is never retried.
     """
 
     base_url: str
@@ -69,6 +82,7 @@ class DriverConfig:
     error_map: dict[int | str, str]
     approval_url: str
     extra_headers: dict[str, str] | None = None
+    refused_before_running: Callable[[int, dict[str, str], bytes], bool] | None = None
 
     def __post_init__(self) -> None:
         # Register this driver's key shape so any key that ever surfaces in a
@@ -130,6 +144,26 @@ def _http(req: urllib.request.Request, timeout: int):
     return urllib.request.urlopen(req, timeout=timeout)
 
 
+def _sleep(seconds: float) -> None:
+    """Backoff wait. Indirection so tests can skip real waiting."""
+    time.sleep(seconds)
+
+
+def _never_ran(cfg: DriverConfig, code: int, headers: Any, body: bytes) -> bool:
+    """Ask the driver whether the server refused this request before running it.
+
+    A predicate that raises is treated as "it may have run", so a bug in a
+    driver can only ever make the kernel retry less, never more.
+    """
+    if cfg.refused_before_running is None:
+        return False
+    try:
+        hdrs = {str(k).lower(): str(v) for k, v in (headers.items() if headers else [])}
+        return bool(cfg.refused_before_running(code, hdrs, body or b""))
+    except Exception:
+        return False
+
+
 def request(cfg: DriverConfig, method: str, path: str,
             params: dict[str, Any] | None = None,
             body: dict[str, Any] | None = None,
@@ -145,8 +179,12 @@ def request(cfg: DriverConfig, method: str, path: str,
 
     Retry behaviour:
         - 429: retries up to DEFAULT_RETRIES_ON_429 times, honouring Retry-After
-        - 5xx: retries up to DEFAULT_RETRIES_ON_5XX times with exponential backoff
-        - Network errors: no retry — bubbles up immediately
+        - 5xx: retries up to DEFAULT_RETRIES_ON_5XX times with exponential
+          backoff, but only for a read (SAFE_TO_REPEAT_METHODS) or when
+          cfg.refused_before_running says the request never ran. A write that
+          got any other server error is NOT repeated: it may already have
+          landed, and a retry would create a second record or send twice.
+        - Network errors: no retry, bubbles up immediately
 
     The offline guard fires BEFORE cfg.key_resolver() so a real key is never
     read in tests/CI.
@@ -203,20 +241,31 @@ def request(cfg: DriverConfig, method: str, path: str,
         if e.code == 429 and _attempt < DEFAULT_RETRIES_ON_429:
             retry_after = e.headers.get("Retry-After") if hasattr(e, "headers") else None
             wait = int(retry_after) if retry_after and retry_after.isdigit() else 2 ** _attempt
-            time.sleep(min(wait, 30))
+            _sleep(min(wait, 30))
             return request(cfg, method, path, params=params, body=body,
                            timeout=timeout, extra_headers=extra_headers,
                            _attempt=_attempt + 1)
 
-        # 5xx — server error. Retry a couple of times then give up.
-        if 500 <= e.code < 600 and _attempt < DEFAULT_RETRIES_ON_5XX:
-            time.sleep(2 ** _attempt)
+        # 5xx: retry a read, or a write the server refused before running.
+        # Any other server error on a write may have landed already.
+        is_5xx = 500 <= e.code < 600
+        is_read = method.upper() in SAFE_TO_REPEAT_METHODS
+        never_ran = is_5xx and not is_read and _never_ran(
+            cfg, e.code, getattr(e, "headers", None), detail_raw)
+        if is_5xx and _attempt < DEFAULT_RETRIES_ON_5XX and (is_read or never_ran):
+            _sleep(2 ** _attempt)
             return request(cfg, method, path, params=params, body=body,
                            timeout=timeout, extra_headers=extra_headers,
                            _attempt=_attempt + 1)
 
-        raise BOSError(_format_http_error(cfg, e.code, path, url, detail_str,
-                                          detail_parsed)) from None
+        message = _format_http_error(cfg, e.code, path, url, detail_str, detail_parsed)
+        if is_5xx and not is_read and not never_ran:
+            # The caller is often an agent that reads "try again" literally.
+            message += (
+                "\nThis was a write and it may have gone through before the error. "
+                "Check whether it did before trying again, or it could happen twice."
+            )
+        raise BOSError(message) from None
     except urllib.error.URLError as e:
         raise BOSError(
             f"Could not reach the API.\n"
